@@ -11,7 +11,7 @@ fig:	fig/*.svg
 
 clean:
 	rm -f go.lol go.aux *.log map.log go.pdf go.bbl go.blg go.toc go.ind go.lot go.lof
-	rm -f go.ilg go.idx go.lgpl missfont.log doc_data.txt
+	rm -f go.ilg go.idx go.lgpl missfont.log doc_data.txt go.ex
 
 distclean: clean
 	( cd fig; make clean )

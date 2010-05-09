@@ -96,7 +96,7 @@
          \raisebox{0.2ex}{\parbox{\headwidth}{ 
          \raggedleft
          \normalfont\rightmark %
-         \hspace{1em}
+         \hspace{1.2em}
          \ifthenelse{\value{page} > 9}%
                 {\hspace{1em}}{}
          \ifthenelse{\value{page} > 99}%
