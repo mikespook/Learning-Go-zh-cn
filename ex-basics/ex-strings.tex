@@ -1,0 +1,43 @@
+\begin{Exercise}[title={Strings},difficulty=1]
+\label{ex:strings}
+\Question \label{ex:strings q1} Create a Go program that prints
+the following (up to 100 characters):
+\begin{alltt}
+A
+AA
+AAA
+AAAA
+AAAAA
+AAAAAA
+AAAAAAA
+\ldots
+\end{alltt}
+
+
+\Question \label{ex:strings q2} Create a program that counts
+the numbers of characters/runes in this string:
+\begin{alltt}
+asSASA ddd dsjkdsjs dk
+\end{alltt}
+Make it also output the number of bytes in that string.
+
+\Question \label{ex:string q3} Extend the program from
+the previous question to replace the three runes at
+position 4 with 'abc'.
+
+\end{Exercise}
+
+\begin{Answer}
+
+\Question The following program is an answer to the first question.
+\lstinputlisting[label=string1,caption=Strings]{ex-basics/src/string1.go}
+
+\Question To answer this question we need some help of
+the \package{string}-package. First we check the documentation
+with \prog{godoc strings | less}. When we read the documentation
+we notice two functions: \lstinline{func Bytes(s string) []byte} and
+\lstinline{func Runes(s string) []int}. Both return values are
+almost what we need, namely (\type{slices}) So we return the length of 
+them. Putting this together leads to the following program.
+\lstinputlisting[label=string2,caption=Runes in strings]{ex-basics/src/string2.go}
+\end{Answer}

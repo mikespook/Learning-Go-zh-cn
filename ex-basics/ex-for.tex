@@ -1,0 +1,36 @@
+\begin{Exercise}[title={For-loop},difficulty=1]
+\label{ex:for-loop}
+\Question \label{ex:for-loop q1} Create a simple loop with the \key{for} contruct. Make it loop
+10 times and print out the loop counter with the \package{fmt} package.
+
+\Question \label{ex:for-loop q2} Put the body of the loop in a seperate function.
+
+\Question \label{ex:for-loop q3} Rewrite the loop from 1. to use \key{goto}. The
+keyword \key{for} may not be used.
+\end{Exercise}
+
+\begin{Answer}
+
+\Question There is a multitude of possible programs, 
+one the solutions could be:
+\lstinputlisting[label=for,caption=Simple for-loop]{ex-basics/src/for.go}
+Lets compile this on an Intel 386 Linux machine and look at the
+output.
+\begin{alltt}
+% 8g for.go && 8l -o for for.8
+% ./for
+0
+1
+.
+.
+.
+9
+\end{alltt}
+
+\Question Next we put the body of the 
+loop - the \key{fmt.Printf} - in a separate function.
+\lstinputlisting[label=for-func,caption=Loop calls function]{ex-basics/src/for-func.go}
+The presented program should be self explanatory, note however the
+"\lstinline{j int}" instead of the more "normal" "\lstinline{int j}".
+
+\end{Answer}

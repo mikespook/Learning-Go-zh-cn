@@ -1,0 +1,22 @@
+\begin{Exercise}[title={Map function},difficulty=4]
+A \func{map()}-function is a function that takes
+a function and a list. The function is applied to 
+each member in the list and a new list containing
+these calculated values is returned.
+Thus: 
+$$ map(f(), (a_1,a_2,\ldots,a_{n-1},a_n)) =  (f(a_1), f(a_2),\ldots,f(a_{n-1}), f(a_n)) $$
+\Question Write a simple \func{map()}-function in Go. It is sufficient
+for this function only to work for \type{int}s.
+\Question Expand your code to also work on a list of \type{strings}.
+\Question Now make it generic using interfaces.
+
+\end{Exercise}
+
+\begin{Answer}
+First answer
+Second answer
+
+\lstinputlisting[label=src:map,caption=A map function in Go]{src/map.go}
+\end{Answer}
+
+

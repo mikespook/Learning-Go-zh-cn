@@ -1,0 +1,100 @@
+\defaultfontfeatures{Scale=MatchLowercase}
+%%\setmainfont[SmallCapsFont={* Caps}]{Droid Serif}
+\setmainfont{Droid Serif}
+\setsansfont{Droid Sans}
+\setmonofont[SmallCapsFont={DejaVu Sans Mono},Scale=0.70]{DejaVu Sans Mono}
+\def\inputGnumericTable{}
+
+%% werkt niet?
+%% or \renewcommand*{\bibmark}{\markboth{\bibname}{}}
+\renewcommand*{\bibmark}{\markboth{\bibname}{\bibname}}
+\nobibintoc
+\renewcommand*{\indexmark}{\markboth{\indexname}{\indexname}}
+\noindexintoc
+\makeindex
+
+%%\DeclareCaptionFont{white}{\color{white}}
+%%\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35,
+%%0.35,0.01}{\parbox{0.5\textwidth}{\hspace{0.5em}#1#2#3}}} % 0.98 same as listings
+%%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white,singlelinecheck=false,margin=0em,font={bf,footnotesize}}
+
+%% Listings
+\lstdefinelanguage{Go}
+  {morekeywords={break,cap,case,chan,const,continue,default,defer,else,fallthrough,%
+  for,func,go,goto,if,import,interface,len,make,map,package,range,return,select,%
+  struct,switch,type,var,%  % types
+  uint8,uint16,uint32,uint64,int8,int16,int32,int64,float32,float64,byte,%
+  complex,complex32,complex64,%
+  int,uint,float,bool,uintptr,string,%
+  iota,%
+  },%
+  otherkeywords={<-,!,;,\{,\}},%  %% nog beter maken
+    sensitive=true,%
+    morecomment=[l]{//},%
+    morecomment=[s]{/*}{*/},%
+    morecomment=[n]{(*}{*)},%
+    morestring=[b]",%
+    morestring=[b]',%
+  }[]%
+\lstset{language=Go,inputencoding=utf8,extendedchars=false,texcl,escapechar=\|,basicstyle=\ttfamily,keywordstyle=\bfseries,numbers=right,numberblanklines=false,showstringspaces=false,breaklines=true,numberstyle=\tiny\ttfamily,xleftmargin=\parindent,xrightmargin=1em,linewidth=0.98\linewidth}
+
+\renewcommand{\lstlistlistingname}{List of Go Code}
+
+%% Exercises
+\renewcommand{\ExerciseHeaderTitle}{\ExerciseTitle}
+\renewcommand{\ExerciseHeaderLabel}{}
+\renewcommand{\ExerciseName}{}	%% was 'Exercise'
+\renewcommand{\ExerciseHeaderNB}{\theExercise}
+%% This one is actually used
+\renewcommand{\ExerciseHeader}{\noindent\textbf{Q\theExercise}. (\number\ExerciseDifficulty) \ExerciseTitle\quad}
+\renewcommand{\AnswerHeader}{\noindent\textbf{A\theExercise}.  (\number\ExerciseDifficulty) \ExerciseTitle\quad}
+
+%% Style commands
+\newcommand{\func}[1]{{\relscale{1.0}\texttt{#1}}}
+\newcommand{\key}[1]{{\relscale{1.0}\texttt{\textbf{#1}}}}
+\newcommand{\type}[1]{{\relscale{1.0}\texttt{\textbf{#1}}}}
+\newcommand{\prog}[1]{{\relscale{1.0}\texttt{#1}}}
+\newcommand{\dir}[1]{{\relscale{1.0}\texttt{#1}}}
+\newcommand{\var}[1]{{\relscale{1.0}\texttt{#1}}}
+\newcommand{\rem}[1]{{\relscale{1.0}\texttt{\textit{#1}}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+\newcommand{\softnewline}{\Pisymbol{psy}{191}}
+\newcommand{\hardnewline}{\ \\}
+\newcommand{\first}[1]{#1\index{#1}}
+\newcommand{\second}[1]{#1\index{#1}}
+\newcommand{\epi}[2]{\epigraph{#1}{#2}}
+\newcommand{\hg}[1]{\newline{\texttt{\tiny{Go release.#1}}}}
+
+% Colors
+\definecolor{gray20}{gray}{0.20}
+\newcommand{\lgray}[1]{{\color{gray20}#1}}
+\newcommand{\pr}{\lgray{\%}}
+
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\small\begin{alltt}}%
+{\end{alltt}\endMakeFramed}
+
+\newenvironment{lbar}{%
+\def\FrameCommand{\hskip\parindent\vrule width 3pt \hspace{10pt}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+
+%% Margin notes
+\setmarginnotes{20pt}{80pt}{\onelineskip}
+\newcommand{\gomarginpar}[1]{%
+\marginpar{\sffamily#1}}
+\newcommand{\draft}[1]{%
+\marginpar{\sffamily{todo}\\#1}}
+%% typeset text in margin and index arg 2
+\newcommand{\gomarginindex}[2]{%
+\gomarginpar{#1}\index{#2}}
+
+\newenvironment{cjk}{%
+\begin{CJK*}{UTF8}{song}
+\setCJKfamilyfont{Japanese}{Sazanami Gothic}
+\CJKfamily{Japanese}
+}%
+{%
+\end{CJK*}%
+}

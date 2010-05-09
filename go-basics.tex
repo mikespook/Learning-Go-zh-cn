@@ -1,0 +1,643 @@
+\epi{"There and back again."}
+{Bilbo Baggins}\noindent
+There are a few things that make Go different than most other language
+out there.
+\begin{description}
+\item[Clean and Simple]
+Go strives to keep things small and beautifull, you should
+be able to do impressive things in a few lines of code;
+\item[Concurrent]
+Go makes it easy to ''fire off'' functions to be
+run as \emph{very} lightweight threads. These threads are called
+\first{go-routines} in Go;
+
+\item[Channels] 
+Communication with these go-routines is done
+via \first{channels} \cite{csp}.
+
+\item[Fast]
+Compilation is fast and execution as fast. The aim is
+to be as fast as C. Compilation time is measured in seconds;
+
+\item[Safe]
+Go has garbage collection, no more \func{malloc()} in Go,
+the language takes care of this;
+
+\item[Standard format]
+A Go program can be formatted in (almost) any way the programmmers want,
+\emph{but} an official format exist. The rule is very simple:
+The output of the filter \prog{gofmt} \emph{is} the official endorsed
+format.
+
+\item[Postfix types]
+Types are given \emph{after} the variable name, thus \prog{var a int},
+instead of \prog{int a;} as in C;
+
+\item[UTF-8]
+UTF-8 is all over the place, in strings
+\emph{and} in the program code. Finally you can use \prog{$\Phi$ =
+$\Phi$ + 1} in your source code;
+
+\item[Open Source]
+The Go license is completely open source, see the file LICENSE in the Go
+source code distribution;
+
+\item[Fun]
+Programming with Go should be fun again!
+
+\end{description}
+It must be said the Erlang\cite{erlang} and Scala\cite{scala} also share some
+\draft{}%
+of the features of Go. Notible differences between Erlang
+and Go is that Erlang borders on being a functional language,
+where Go is an imperative one. And Erlang is running a virtual
+machine, while Go is compiled. Erlang exists since the 1980s, whereas
+Go is brand new. As someone who likes Unix I find Go more Unix like
+than Erlang.
+
+Scala runs on the JVM (Java Virtual Machine) and is thus compiled 
+bytecode. Is shares features with both Go and Erlang, but still\ldots
+JVM.  Well, on with Go.
+
+%\begin{figure}[h!b]
+%\includegraphics{fig/drawing.pdf}
+%\caption{een verhaaltje}
+%\end{figure}
+
+\section{Hello World}
+\label{sec:hello world}
+In the Go tutorial, Go is presented to the world in the typical
+manner: letting it print "Hello World" (Heck! Ken Thompson and
+Dennis Ritchie started this when they presented the C language in 
+the nineteen seventies).
+So here it is, ''Hello World'' in Go.
+
+\lstinputlisting[label=src:hello,caption=Hello world]{src/helloworld.go}
+As you can see, Go is 100\% UTF-8 capable, you can put any unicode
+glyph in your source - assuming you can type it on your keyboard.
+Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
+
+To explain our "Hello
+world"-program, we go through it line by line. In line 1, we state
+that this program is part of the \lstinline{package main}. Line 3
+tells Go to import the "\package{fmt}" package and make it available
+in the Go program under the name \lstinline{fmt}. Packages (see chapter
+\ref{chap:packages}) play a large role in Go.
+If we had used
+\lstinline{import foo "fmt"} we could say \lstinline{foo.Printf}. On
+line 5 we define our main function and use the \lstinline{fmt.Printf} to
+print our text.
+
+In the next sections we will look at the types, keywords, control structures
+and other features of our new language. 
+
+\section{Variables, types and keyword}
+Go is different than other languages in that the type of a variable
+is specified \emph{after} the variabele name. So no: 
+\lstinline{int a}, but \lstinline{a int}.
+
+\subsection{Boolean types}
+A boolean type represents the set of Boolean truth values denoted by the
+predeclared constants \emph{true} and \emph{false}. The predeclared boolean type is \type{bool}.
+
+\subsection{Numerical types}
+
+Go has the well known types such as \lstinline{int} and
+\lstinline{float}. These types have the appropriate length for your
+machine. If you want to be explicit about the length you can have
+that too with \lstinline{int32}, or \lstinline{uint32}. Note however
+that these types are distinct and assigning variables which mix
+these types is a compiler error. Like in the following code:
+
+\lstinputlisting[label=src:types,caption=Familiar types are distinct]{src/types.go}
+Gives the error on the assigment on line 7:
+
+\noindent\lstinline{types.go:7: cannot use a + a (type int) as type int32 in assignment}
+
+\subsection{Strings}
+
+An important other builtin type is \lstinline{string}. Strings in go are
+immutable, meaning that, once defined, they can not be changed. For
+people coming from C, the following is not legal in Go:
+\lstinline{var s string = "hello"; s[0] = 'c'} 
+\draft{more about strings}
+
+%% values
+\subsection{Constants}
+% iota
+
+\subsection{Complex numbers}
+\gomarginpar{Complex numbers were added on 18 February 2010. 
+\hg{2010-02-18}}
+In Go we have native support for complex numbers. If you 
+want use them you need a variable of the type \lstinline{complex}. If
+you need a precise number of bits you have \lstinline{complex32} and
+\lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
+
+\lstinline{var c complex = 5i-5}
+
+\subsection{Go keywords}
+As in C we only have a few keywords, and here they are:
+var, const, type, interface, go, func, for, if, break, cap,
+case, chan, const, continue, default, defer, fallthrough, goto,
+import, interface, map, make, package, range, return, select, struct and switch
+
+In the following paragraphs and chapters we explain them all.
+
+\section{Built-in functions}
+A number of functions in Go are predefined, meaning they already
+\gomarginpar{This is list changing (slowly).\hg{2010-02-04}}
+exists and you \emph{don't} have to include any package to get
+access to them. In the following paragraphs we list the current 
+built-in functions. This is copied from \cite{go_spec}.
+
+The current list is, \func{close} and \func{closed}, these are used in 
+channel closing (see chapter \ref{chap:channels}); 
+\func{len} and \func{cap}, these return a lenght or capacity (see \ref{capacity});
+\func{new}, .... ; \func{make}, ....; \func{copy}, ...; and a few
+"loose" ones, \func{print}, \func{println}, \func{panic} and
+\func{panicln}, .... .
+
+
+\section{Control structures}
+The control structures of Go are related to those of C but different in
+\gomarginpar{This section is from \cite{effective_go}.}
+important ways. There is no do or while loop, only a slightly
+generalized for; \key{switch} is more flexible; \key{if} and
+\key{switch} accept an
+optional initialization statement like that of for; and there are new
+control structures including a type switch and a multiway communications
+multiplexer, select. The syntax is also slightly different: parentheses
+are not required and the bodies must always be brace-delimited.
+
+\subsection{If}
+In Go a simple if looks like this:
+\begin{lstlisting}
+if x > 0 {
+    return y
+}
+\end{lstlisting}
+Mandatory braces encourage writing simple \key{if} statements on multiple
+lines. It's good style to do so anyway, especially when the body
+contains a control statement such as a return or break.
+
+Since \key{if} and \key{switch} accept an initialization statement, it's common to
+see one used to set up a local variable.
+
+\begin{lstlisting}
+if err := file.Chmod(0664); err != nil {
+    log.Stderr(err)
+    return err
+}
+\end{lstlisting}
+In the Go libraries, you'll find that when an \key{if} statement doesn't flow
+into the next statement-that is, the body ends in \key{break},
+\key{continue}, \key{goto},
+or \key{return}, the unnecessary else is omitted.
+
+\begin{lstlisting}
+f, err := os.Open(name, os.O_RDONLY, 0)
+if err != nil {
+    return err
+}
+codeUsing(f)
+\end{lstlisting}
+This is a example of a common situation where code must analyze a
+sequence of error possibilities. The code reads well if the successful
+flow of control runs down the page, eliminating error cases as they
+arise. Since error cases tend to end in \key{return} statements, the resulting
+code needs no \key{else} statements.
+\begin{lstlisting}
+f, err := os.Open(name, os.O_RDONLY, 0)
+if err != nil {
+    return err
+}
+d, err := f.Stat()
+if err != nil {
+    return err
+}
+codeUsing(f, d)
+\end{lstlisting}
+
+\subsection{For}
+The Go \key{for} loop is similar to-but not the same as-C's. It unifies for
+and while and there is no do-while. There are three forms, only one of
+which has semicolons.
+\begin{lstlisting}
+// Like a C for
+for init; condition; post { }
+
+// Like a C while
+for condition { }
+
+// Like a C for(;;)
+for { }
+\end{lstlisting}
+Short declarations make it easy to declare the index variable right in the loop.
+\begin{lstlisting}
+sum := 0
+for i := 0; i < 10; i++ {
+    sum += i
+}
+\end{lstlisting}
+If you're looping over an array, slice, string, or map, or reading from
+a channel, a \key{range} clause can manage the loop for you.
+\begin{lstlisting}
+var m map[string]int
+sum := 0
+for _, value := range m {  // key is unused
+    sum += value
+}
+\end{lstlisting}
+For strings, the \key{range} does more work for you, breaking out individual
+Unicode characters by parsing the UTF-8 (erroneous encodings consume one
+byte and produce the replacement rune U+FFFD). The loop
+
+\begin{lstlisting}
+for pos, char := range "a|$\Phi{}$|x" {
+    fmt.Printf("character \%c starts at byte position \%d\n", char, pos)
+}
+\end{lstlisting}
+prints
+\begin{alltt}
+character a starts at byte position 0
+character \begin{math}\Phi\end{math} starts at byte position 1
+character x starts at byte position 3
+\end{alltt}
+Finally, since Go has no comma operator and ++ and -- are statements not
+expressions, if you want to run multiple variables in a for you should
+use parallel assignment.
+\begin{lstlisting}
+// Reverse a
+for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+    a[i], a[j] = a[j], a[i]
+}
+\end{lstlisting}
+
+\subsection{Switch}
+Go's \key{switch} is more general than C's. The expressions need not be
+constants or even integers, the cases are evaluated top to bottom until
+a match is found, and if the switch has no expression it switches on
+true. It's therefore possible--and idiomatic--to write an if-else-if-else
+chain as a \key{switch}.
+\begin{lstlisting}
+func unhex(c byte) byte {
+    switch {
+    case '0' <= c && c <= '9':
+        return c - '0'
+    case 'a' <= c && c <= 'f':
+        return c - 'a' + 10
+    case 'A' <= c && c <= 'F':
+        return c - 'A' + 10
+    }
+    return 0
+}
+\end{lstlisting}
+There is no automatic fall through, but cases can be presented in comma-separated lists.
+
+\begin{lstlisting}
+func shouldEscape(c byte) bool {
+    switch c {
+    case ' ', '?', '&', '=', '#', '+', '%':
+        return true
+    }
+    return false
+}
+\end{lstlisting}
+Here's a comparison routine for byte arrays that uses two switch statements:
+
+\begin{lstlisting}
+// Compare returns an integer comparing the two byte arrays
+// lexicographically.
+// The result will be 0 if a == b, -1 if a < b, and +1 if a > b
+func Compare(a, b []byte) int {
+    for i := 0; i < len(a) && i < len(b); i++ {
+        switch {
+        case a[i] > b[i]:
+            return 1
+        case a[i] < b[i]:
+            return -1
+        }
+    }
+    switch {
+    case len(a) < len(b):
+        return -1
+    case len(a) > len(b):
+        return 1
+    }
+    return 0
+}
+\end{lstlisting}
+A switch can also be used to discover the dynamic type of an interface
+variable. Such a type switch\gomarginindex{\emph{type switch}}{type switch} uses 
+the syntax of a type assertion with the keyword type inside the
+parentheses. If the switch declares a variable in the expression, the
+variable will have the corresponding type in each clause.
+
+\begin{lstlisting}
+switch t := interfaceValue.(type) {
+default:
+    fmt.Printf("unexpected type %T", t)  // %T prints type
+case bool:
+    fmt.Printf("boolean %t\n", t)
+case int:
+    fmt.Printf("integer %d\n", t)
+case *bool:
+    fmt.Printf("pointer to boolean %t\n", *t)
+case *int:
+    fmt.Printf("pointer to integer %d\n", *t)
+}
+\end{lstlisting}
+
+\section{Functions}
+\label{sec:functions}
+Multiple return values
+One of Go's unusual features is that functions and methods can return multiple
+values. This can be used to improve on a couple of clumsy idioms in C programs:
+in-band error returns (such as -1 for EOF) and modifying an argument.
+
+In C, a write error is signaled by a negative count with the error code
+secreted away in a volatile location. In Go, \lstinline{Write} can return a count and an
+error: "Yes, you wrote some bytes but not all of them because you filled the
+device". The signature of \lstinline{*File.Write} in package
+\package{os} is:
+\begin{lstlisting}
+func (file *File) Write(b []byte) (n int, err Error)
+\end{lstlisting}
+and as the documentation says, it returns the number of bytes written and a
+non-nil Error when \lstinline{n != len(b)}. This is a common style
+
+A similar approach obviates the need to pass a pointer to a return value to
+simulate a reference parameter. Here's a simple-minded function to grab a
+number from a position in a byte array, returning the number and the next
+position.
+\begin{lstlisting}
+func nextInt(b []byte, i int) (int, int) {
+    for ; i < len(b) && !isDigit(b[i]); i++ {
+    }
+    x := 0
+    for ; i < len(b) && isDigit(b[i]); i++ {
+        x = x*10 + int(b[i])-'0'
+    }
+    return x, i
+}
+\end{lstlisting}
+You could use it to scan the numbers in an input array a like this:
+\begin{lstlisting}
+    for i := 0; i < len(a); {
+        x, i = nextInt(a, i)
+        fmt.Println(x)
+    }
+\end{lstlisting}
+\subsection{Named result parameters}
+The return or result "parameters" of a Go function can be given names and used
+as regular variables, just like the incoming parameters. When named, they are
+initialized to the zero values for their types when the function begins; if the
+function executes a return statement with no arguments, the current values of
+the result parameters are used as the returned values.
+
+The names are not mandatory but they can make code shorter and clearer: they're
+documentation. If we name the results of nextInt it becomes obvious which
+returned int is which.
+
+\begin{lstlisting}
+func nextInt(b []byte, pos int) (value, nextPos int) {
+\end{lstlisting}
+Because named results are initialized and tied to an unadorned
+\key{return},
+they can simplify as well as clarify. Here's a version of
+\lstinline{io.ReadFull} that uses them well:
+
+\begin{lstlisting}
+func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
+    for len(buf) > 0 && err == nil {
+        var nr int
+        nr, err = r.Read(buf)
+        n += nr
+        buf = buf[nr:len(buf)]
+    }
+    return
+}
+\end{lstlisting}
+
+\section{Arrays, slices and  maps}
+From \cite{go_intro} ... really Good \draft{}
+%
+arrays, even if it doesn't have any other parametric types? And we really want
+these cool things called slices - but they really need to be strongly typed. So
+we'll let them be parametric. And maps - we really need a map type, which maps
+keys to values, and it really needs to be type-safe. So we'll add a parametric
+map type to the language, by making it a special case built-in.
+
+So: you can't write parametric types - but they can. And that creates a very
+weird asymmetry to the language. Everything in Go is passed by value - except
+for the built-in slice and map types, which are passed by reference. Everything
+is allocated by "new" - except for the built-in slice and map types, which are
+allocated by "make". It's by far the biggest blemish in Go, and it's absolutely
+infuriating.
+
+\subsection{Arrays}
+Array types like \lstinline{[10]int} have a fixed size. 
+It can't grow, because then it would have a different type. Also array
+are values: Assigning one array to another copies all the elements.
+
+In particular, if you pass an array to a function, it will receive a
+copy of the array, not a pointer to it. This is a major difference with
+C.
+
+To declare an array you can use the following: \lstinline{var a [3]int},
+to initialize it to something else than zero, use a composite literal.
+\gomarginindex{composite literals}{composite literals}\lstinline|a := [3]int{1, 2, 3}| and
+this can be shortend to \lstinline|a := []int{1, 2, 3}|.
+
+Note that all fields must be specified.  So if you are using multidimentional
+arrays you have to do some typing:
+\begin{lstlisting}
+a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
+\end{lstlisting}
+Which is \emph{not} the same as:
+\begin{lstlisting}
+a := [2][2]int{ []int{1,2}, []int{3,4} }
+\end{lstlisting}
+As this gives a compile error.\draft{why?}\newline
+\lstinline{cannot use slice literal (type []int) as type [2]int in array index}
+
+But this is then OK again:
+\begin{lstlisting}
+a := [][]int{ []int{1,2}, []int{3,4} }
+\end{lstlisting}
+
+\subsection{Slices}
+
+\begin{figure}[!bh]
+\caption{Array versus slice}
+\label{fig:array-vs-slice}
+\begin{center}
+\includegraphics[scale=0.65]{fig/array-vs-slice.pdf}
+\end{center}
+\end{figure}
+Figure \ref{fig:array-vs-slice} depicts the following Go code.
+First we create an array of $m$ elements of the type \lstinline{int}:
+\lstinline{var array[m + 1]int}\newline
+Next, we create a slice from this array: 
+\lstinline{slice := array[0:n +1]}\newline
+And now is: \lstinline{len(slice) = n, cap(slice) = m} and
+\lstinline{len(array) = cap(array) = m}.\newline
+Also see listing \ref{src:arrays} below.
+
+Slices are reference types, which means that if you assign one slice to
+another, both refer to the same underlying array. For instance, if a
+function takes a slice argument, changes it makes to the elements of the
+slice will be visible to the caller, analogous to passing a pointer to
+the underlying array. A Read function can therefore accept a slice
+argument rather than a pointer and a count; the length within the slice
+sets an upper limit of how much data to read. Here is the signature of
+the Read method of the File type in package os:
+
+The following code 
+\lstinputlisting[label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
+
+See \ref{fig:array-vs_slice} for the details of \func{len()} and
+\func{cap()} for arrays and slices.
+
+show 
+array cap 100 len 100, slice cap 100 len 100
+On line 6 we declare an array of length 100, the elements are of
+type \type{int} and the are indexed from 0 to 99. The capacity
+and length are both 100. Then, on the following line, we create
+a slice that points to the array, we \emph{slice} the array to
+99 elements (indexed from 0 to 98). The capacity of the slice
+is 99 and so is its length. 
+\draft{Set length afterwards?}
+
+On line 10 we dare to do to impossible and try to allocate something
+behind the capacity (maximum length of the under laying array) and
+we are greeted with a \emph{runtime} error 'throw: index out of range'.
+
+\subsection{Maps}
+\label{sec:maps}
+
+\section{Packages}
+\label{sec:packages}
+Packages are a collection of functions and data, they are sort alike the
+Perl packages\cite{perl-packages}. You declare a package with the
+\lstinline{package} keyword. Note that the filename should
+match the package name. Lets define our package \package{even} in the file
+\prog{even.go}
+
+\lstinputlisting[label=src:even,caption=A small package]{src/even.go}
+And then we can use this as follows in our own program \prog{myeven.go}:
+
+\lstinputlisting[label=src:myeven,caption=Use the \package{even} package]{src/myeven.go}
+Now we just need to compile and link, first the package, then \prog{myeven.go} and
+then link it:
+\begin{alltt}
+\pr 8g even.go			# package
+\pr 8g myeven.go		# our program
+\pr 8l -o myeven myeven.8
+\end{alltt}
+And now we can test it:
+\begin{alltt}
+\pr ./myeven
+Is 5 even? false
+\end{alltt}
+
+In Go, a function from a package is exported (visible
+outside the package, i.e. public) when the first letter of the function name is a capital, hence
+the function name \emph{E}ven. If we change our \prog{myeven.go} on line
+7 to using to unexported funtion \func{even.uneven}:
+
+\noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.uneven(i))}
+
+\noindent We get an error when compiling, because we are trying to use a
+\emph{private} function:
+\begin{alltt}
+myeven.go:7: cannot refer to unexported name even.uneven
+myeven.go:7: undefined: even.uneven
+\end{alltt}
+To summarise:
+\begin{itemize}
+\item Public functions have a name \emph{starting} with a CAPITAL
+letter;
+\item Private function have a name starting with a lowercase letter.
+\end{itemize}
+
+\section{Names}
+Names are as important in Go as in any other language. In some cases
+they even have semantic effect: for instance, the visibility of a name
+outside a package is determined by whether its first character is upper
+case. It's therefore worth spending a little time talking about naming
+conventions in Go programs.
+
+\section{Package names}
+When a package is imported, the package name becomes an accessor for the
+contents. After
+\begin{lstlisting}
+import "bytes"
+\end{lstlisting}
+the importing package can talk about \func{bytes.Buffer}. It's helpful if
+everyone using the package can use the same name to refer to its
+contents, which implies that the package name should be good: short,
+concise, evocative. By convention, packages are given lower case,
+single-word names; there should be no need for underscores or mixedCaps.
+Err on the side of brevity, since everyone using your package will be
+typing that name. And don't worry about collisions a priori. The package
+name is only the default name for imports; it need not be unique across
+all source code, and in the rare case of a collision the importing
+package can choose a different name to use locally. In any case,
+confusion is rare because the file name in the import determines just
+which package is being used.
+
+Another convention is that the package name is the base name of its
+source directory; the package in \package{src/pkg/container/vector} is imported as
+"container/vector" but has name vector, not container\_vector and not
+containerVector.
+
+The importer of a package will use the name to refer to its contents
+(the import . notation is intended mostly for tests and other unusual
+situations), so exported names in the package can use that fact to avoid
+stutter. For instance, the buffered reader type in the \package{bufio} package is
+called \func{Reader}, not \func{BufReader}, because users see it as
+\func{bufio.Reader},
+which is a clear, concise name. Moreover, because imported entities are
+always addressed with their package name, \func{bufio.Reader} does not conflict
+with \func{io.Reader}. Similarly, the function to make new instances of
+\func{ring.Ring}—which is the definition of a constructor in Go—would normally
+be called NewRing, but since Ring is the only type exported by the
+package, and since the package is called \package{ring}, it's called
+just \func{New}.
+Clients of the package see that as \func{ring.New}. Use the package structure
+to help you choose good names.
+
+Another short example is \func{once.Do}; \func{once.Do(setup)} reads well and would
+not be improved by writing once.DoOrWaitUntilDone(setup). Long names
+don't automatically make things more readable. If the name represents
+something intricate or subtle, it's usually better to write a helpful
+doc comment than to attempt to put all the information into the name.
+
+\subsection{Interface names}
+By convention, one-method interfaces are named by the method name plus
+the \emph{-er} suffix: Read\emph{er}, Writ\emph{er}, Formatt\emph{er} etc. See chapter
+\ref{chap:interfaces} for a complete picture of what interfaces are.
+
+There are a number of such names and it's productive to honor them and
+the function names they capture. Read, Write, Close, Flush, String and
+so on have canonical signatures and meanings. To avoid confusion, don't
+give your method one of those names unless it has the same signature and
+meaning. Conversely, if your type implements a method with the same
+meaning as a method on a well-known type, give it the same name and
+signature; call your string-converter method String not ToString.
+from \cite{effective_go}.
+
+\subsection{MixedCaps}
+Finally, the convention in Go is to use MixedCaps or mixedCaps rather
+than underscores to write multiword names.
+
+\section{Exercises}
+\input{ex-basics/ex-for.tex}
+
+\input{ex-basics/ex-strings.tex}
+
+\cleardoublepage
+\section{Answers}
+\shipoutAnswer

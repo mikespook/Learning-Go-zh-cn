@@ -1,0 +1,156 @@
+\epi{"I am interested in this and hope to do something."}
+{Ken Thompson on adding complex numbers to Go}\noindent
+This is an introduction into the Go language from Google. Its aim
+is to provide a guide to this new and innovative language. As with
+learning new things, the best way to do this is to discover it for
+yourself. Thus each chapter includes a number of exercises (and answers)
+to make yourself acquainted with the language.
+Its intended audience is people who are familiar with programming
+and know different languages, be it C\cite{c}, C$^{++}$\cite{c++}, 
+Java \cite{java}, Erlang\cite{erlang}, Scala\cite{scala} or
+Haskell\cite{haskell}. This is \emph{not} a book which teaches you how to 
+program, this is a book that teaches you how to use Go.
+
+\begin{lbar}
+\noindent The Go language is a young language and
+features are still added or even \emph{removed}. Whenever
+possible there will be a warning in the margin saying that
+something is a new feature. This will be accompanied with
+the Go version where this was included first, as in
+\texttt{\tiny{}Go release.2010-02-04}.
+\end{lbar}
+
+%%\gomarginpar{This a new feature in Go.}
+Each chapter concludes with a number of exercises. An exercise
+is numbered as \textbf{Q$n$}, where $n$ is a number. After the
+exercise number another number in parentheses displays the difficulty
+of this particular assignment. This difficulty ranges from 0 to 9, where
+0 is easy and 9 is extremely difficult (or at least it should be).
+Then a short name is given, for easier reference.
+An example is:
+\begin{verse}
+\textbf{Q1}. (4) A map function \ldots
+\end{verse}
+    
+\noindent gives a question numbered \textbf{Q1} of a level 4 difficulty, concerning a
+\func{map()}-function. The answers are included after the exercises on a
+new page.
+
+The numbering and setup of the answer is identical to the
+exercises, except that an anwer starts with \textbf{A$n$}, where the
+number $n$ corresponds with the number of the exercise.
+
+All the included source code (either Go or shell) is tested
+and should compile and run. The following convention is used throughout
+this book:
+\begin{itemize}
+\item Code is displayed in \prog{DejaVu mono};
+\item Keywords are displayed in \key{DejaVu mono bold};
+\item Comments are displayed in \rem{DejaVu mono italic};
+\item Lines are numbered. Long lines are continued on the 
+next line and don't have a new number;
+\item Shell examples use a \pr{} as prompt. Shell snippets don't 
+have line numbers.
+\end{itemize}
+
+\section{Official documentation}
+The reader is assumed to have read (and somewhat understand), the
+Go Tutorial \cite{go_tutorial}, and the Effective Go
+document \cite{effective_go}. The
+website \url{http://golang.org/doc/} is also a very good starting point
+for reading up on Go.\footnote{\url{http://golang.org/doc/} itself is served by 
+a Go program called \prog{godoc}.}
+
+\begin{lbar}
+\noindent Didn't read those documents? Go read them now and stop wasting your time
+with this one.
+\end{lbar}
+
+\section{Getting Go}
+%% Set all Go variables
+% $GOOS=linux|darwin|freebsd
+% $GOARCH=386|amd64
+% $GOROOT
+% $GOBIN
+The are currently (February 2010) no packages for Go in any Linux
+distributions. The route to install Go is thus slightly longer than
+it should be. When Go stablizes this situation will change. For now
+you need to retrieve the code from the mercurial archive and compile
+Go yourself.
+\begin{itemize}
+\item Install Mercurial (to get the \prog{hg} command), in
+Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
+
+\item For building Go you also need the packages: \prog{bison},
+\prog{gcc}, \prog{libc6-dev}, \prog{ed}, \prog{gawk} and \prog{make};
+
+\item Then retrieve the Go source code:
+\begin{alltt}
+\pr export GOROOT=~/go
+\pr hg clone -r release https://go.googlecode.com/hg/ $GOROOT
+\end{alltt}
+This will install Go in a directory named \dir{go} in your
+home directory;
+
+\item Compile Go
+\begin{alltt}
+\pr cd $GOROOT/src
+\pr ./all.bash
+\end{alltt}
+
+\end{itemize}
+
+%% TODO make debian package
+%% Casts in GO
+
+\section{Compiling and running code}
+This is a very concise instruction on how to get your code
+compiled and get it running.
+The shortest program you can write in Go looks like
+this:
+\lstinputlisting[label=short,caption=Shortest Go program]{src/short.go}
+In which we define the \key{package} \package{main} and supply it with one
+function also called \func{main()}. The fully qualified function
+name is \func{main.main()}. This is the function that is called
+first.  To compile we do the following
+\begin{alltt}
+\pr 8g short.go \rem{# compiles to short.8 (for 32 bit Intel)}
+\pr 8l -o short short.8
+\end{alltt}
+For 64 bit Intel you should use \prog{6g} and \prog{6l}, this will
+generate \prog{short.6}.
+You can then execute the program \prog{short}, which of course
+does absolute nothing
+\begin{alltt}
+\pr ./short
+\end{alltt}
+
+\section{Online documentation}
+Go comes with itsown  documentation in the form of a Go program called
+\prog{godoc}. This program \emph{also} powers
+\url{http://golang.org/doc}, but you can use it yourself to look
+in the online (i.e. installed on your system) documentation. For
+instance, suppose, we want to know more about the package \package{hash} 
+(more on packages see section \ref{sec:packages} on page
+\pageref{sec:packages}). We could then give the command
+\prog{godoc hash}, which will display
+\begin{alltt}
+PACKAGE
+
+package hash
+import "hash"
+
+TYPES
+
+type Hash interface \{
+    // Write adds more data to the running ha \ldots
+\end{alltt}
+How to read this and how you can create your own package documentation
+is told in chapter \ref{chap:packages}.
+
+\section{Exercises}
+TODO, compile code, lookup documentation
+
+\cleardoublepage
+\section{Answers}
+\shipoutAnswer

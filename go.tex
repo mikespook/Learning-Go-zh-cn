@@ -1,0 +1,117 @@
+\documentclass[a4paper,twoside]{blocksbook}
+\usepackage[cm-default]{fontspec}% provides font selecting commands
+\usepackage{xunicode}% provides unicode character macros
+\usepackage{xltxtra} % provides some fixes/extras
+\usepackage[answerdelayed,lastexercise]{exercise}
+\usepackage[labelsep=period]{caption}
+\usepackage{pifont}  % provides access to weird PS font chars
+\usepackage{alltt}
+\usepackage{url}
+\usepackage{listings} 
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{relsize}
+\usepackage{xCJK}
+\usepackage{scalefnt}
+% Tables from Gnumeric
+\usepackage{array} 
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{hhline} 
+\usepackage{ifthen} 
+
+\input{go-setup.tex}
+\input{go-cc-license.tex}
+
+\begin{document}
+\thispagestyle{empty}
+
+%% Begin title page
+
+\begin{figure}[t!]
+\begin{center}
+    \includegraphics[scale=0.65]{fig/bumper-inverse.png}
+    {\scalefont{1.80}{\sffamily{\mbox{\vspace{1.0cm}An introduction into the Go language}}}}
+\end{center}
+\end{figure}
+\vspace*{5.0cm}
+%% moet nog ansders
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\hspace*{2,0cm}\emph{Author:}\\
+\hspace*{2.0cm}Miek Gieben
+\vfill
+\end{flushleft}
+\end{minipage}
+%
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Thanks to:} \\
+Go authors\\
+Google\\
+Go Nuts mailing list
+\vfill
+\end{flushright}
+\end{minipage}
+
+\vfill
+\begin{center}
+    \hspace*{1cm}\CcGroupByNcSa{0.83}{0.95ex}\\[2.5ex]
+    \hspace*{1cm}{\tiny\CcNote{\CcLongnameByNcSa}}
+\end{center}
+
+%% End title page %%
+
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+%%\lstlistoflistings  %% indentation is wrong
+\listoffigures
+\listoftables
+
+\chapter{Introduction}
+\pagenumbering{arabic}
+\label{chap:intro}
+\input{go-intro.tex}
+
+\chapter{Go basics}
+\label{chap:basics}
+\input{go-basics.tex}
+
+\chapter{Allocation}
+\label{chap:allocation}
+\input{go-allocation.tex}
+
+\chapter{Functions}
+\label{chap:functions}
+\input{go-functions.tex}
+
+\chapter{Interfaces}
+\label{chap:interfaces}
+\input{go-interfaces.tex}
+
+\chapter{Channels and concurrency}
+\label{chap:channels}
+\input{go-channels.tex}
+
+\chapter{Testing}
+\label{chap:testing}
+
+\chapter{Packages}
+\label{chap:packages}
+\input{go-packages.tex}
+
+\appendix
+\chapter{Appendix}
+\input{go-appendix.tex}
+
+\chapter{Colophon}
+\input{go-colophon}
+
+\chapter{Index}
+%%\newpage %% headstyle for index
+\printindex
+\bibliographystyle{plain}
+\bibliography{go}
+\end{document}

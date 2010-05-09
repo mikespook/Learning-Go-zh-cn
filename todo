@@ -1,0 +1,14 @@
+interface opgaven
+pointer opgaven
+array opgaven
+string opgaven
+utf-8 opgaven
+%% networking 
+%% other stuff
+%% arrays, interfaces
+%% types strings
+%% tests included in the language
+%% simple unix commands
+%% pointers
+%% defer
+%% channels go functions

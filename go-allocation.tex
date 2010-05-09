@@ -1,0 +1,167 @@
+\epi{\lstinline{fmt.Printf("\%p", i)}}{Printing the address of a pointer in Go.}
+\noindent
+You may have wished otherwise, but Go has pointers.
+There is however now pointer arithmetic and they are still useful.
+Remember Go when you call a function in Go the variables you pass are
+pass-by-value. So, for efficiency and the possibility to modify a
+passed value \emph{in} the function we have pointers.
+
+%% Do we need a whole chapter on Pointers in Go
+Just like in C you declare a pointer by prefixing the type with an `*`,
+so:
+
+are declared after variable names, and all type modifiers precede the
+\draft{}%
+types. So *X is a pointer to an X; [3]X is an array of three X's. The
+types are therefore really easy to read just read out the names of the
+type modifiers: [] declares something called an array slice; "*"
+declares a pointer; [size] declares an array. So []*[3]*int is an array
+slice of pointers to arrays of three pointers to ints
+
+\noindent\lstinline{var pint *int   // declare pint to be pointer to int}
+
+\section{Allocation}
+Go has garbage collection, meaning that you don't have to worry about
+memory allocation and deallocation. Of course almost every language
+since 1980 has this, but it is nice to see garbage collection in a
+C-like language. The following sections show how to handle allocation
+in Go. There is somewhat an artifical distinction between
+\first{\func{new()}} and \first{\func{make()}}. Details follow.
+
+\section{Allocation with \func{new()}}
+Go has two allocation primitives, \func{new()} and \func{make()}. They do different
+things and apply to different types, which can be confusing, but the
+rules are simple. Let's talk about \func{new()} first. It's a built-in function
+essentially the same as its namesakes in other languages: \func{new(T)}
+allocates zeroed storage for a new item of type \type{T} and returns its
+address, a value of type \type{*T}. In Go terminology, it returns a pointer to
+a newly allocated zero value of type \type{T}.
+
+Since the memory returned by \func{new()} is zeroed, it's helpful to arrange
+that the zeroed object can be used without further initialization. This
+means a user of the data structure can create one with \func{new()} and get
+right to work. For example, the documentation for \type{bytes.Buffer} states
+that "the zero value for Buffer is an empty buffer ready to use."
+Similarly, \func{sync.Mutex} does not have an explicit constructor or Init
+method. Instead, the zero value for a \func{sync.Mutex} is defined to be an
+unlocked mutex.
+
+The zero-value-is-useful property works transitively. Consider this type
+declaration.
+
+\begin{lstlisting}
+type SyncedBuffer struct {
+    lock    sync.Mutex
+    buffer  bytes.Buffer
+}
+\end{lstlisting}
+Values of type \type{SyncedBuffer} are also ready to use immediately upon
+allocation or just declaration. In this snippet, both \var{p} and
+\var{v} will work
+correctly without further arrangement.
+\begin{lstlisting}
+p := new(SyncedBuffer)  // type *SyncedBuffer
+var v SyncedBuffer      // type  SyncedBuffer
+\end{lstlisting}
+
+\section{Constructors and composite literals}
+Sometimes the zero value isn't good enough and an initializing
+constructor is necessary, as in this example derived from package
+\package{os}.
+\begin{lstlisting}
+func NewFile(fd int, name string) *File {
+    if fd < 0 {
+        return nil
+    }
+    f := new(File)
+    f.fd = fd
+    f.name = name
+    f.dirinfo = nil
+    f.nepipe = 0
+    return f
+}
+\end{lstlisting}
+There's a lot of boiler plate in there. We can simplify it using a
+composite literal, which is an expression that creates a new instance
+each time it is evaluated.
+
+\begin{lstlisting}
+func NewFile(fd int, name string) *File {
+    if fd < 0 {
+        return nil
+    }
+    f := File{fd, name, nil, 0}
+    return &f
+}
+\end{lstlisting}
+Note that it's perfectly OK to return the address of a local variable;
+the storage associated with the variable survives after the function
+returns. In fact, taking the address of a composite literal allocates a
+fresh instance each time it is evaluated, so we can combine these last
+two lines.
+
+\begin{lstlisting}
+return &File{fd, name, nil, 0}
+\end{lstlisting}
+The fields of a composite literal are laid out in order and must all be
+present. However, by labeling the elements explicitly as field:value
+pbairs, the initializers can appear in any order, with the missing ones
+left as their respective zero values. Thus we could say
+
+\begin{lstlisting}
+return &File{fd: fd, name: name}
+\end{lstlisting}
+As a limiting case, if a composite literal contains no fields at all, it
+creates a zero value for the type. The expressions
+\lstinline{new(File)} and 
+\lstinline|&File{]| are equivalent.
+
+Composite literals can also be created for arrays, slices, and maps,
+with the field labels being indices or map keys as appropriate. In these
+examples, the initializations work regardless of the values of Enone,
+Eio, and Einval, as long as they are distinct.
+\begin{lstlisting}
+a := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+s := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+m := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+\end{lstlisting}
+
+\section{Allocation with \func{make()}}
+Back to allocation. The built-in function \func{make(T, args)} serves a purpose
+different from \func{new(T)}. It creates slices, maps, and channels only, and
+it returns an initialized (not zero) value of type T, not *T. The reason
+for the distinction is that these three types are, under the covers,
+references to data structures that must be initialized before use. A
+slice, for example, is a three-item descriptor containing a pointer to
+the data (inside an array), the length, and the capacity; until those
+items are initialized, the slice is nil. For slices, maps, and channels,
+make initializes the internal data structure and prepares the value for
+use. For instance,
+\lstinline{make([]int, 10, 100)}
+allocates an array of 100 ints and then creates a slice structure with
+length 10 and a capacity of 100 pointing at the first 10 elements of the
+array. (When making a slice, the capacity can be omitted; see the
+section on slices for more information.) In contrast, new([]int) returns
+a pointer to a newly allocated, zeroed slice structure, that is, a
+pointer to a nil slice value.
+
+These examples illustrate the difference between new() and make().
+\begin{lstlisting}
+var p *[]int = new([]int)       // allocates slice structure; *p == nil; rarely useful
+var v  []int = make([]int, 100) // v now refers to a new array of 100 ints
+
+// Unnecessarily complex:
+var p *[]int = new([]int)
+*p = make([]int, 100, 100)
+
+// Idiomatic:
+v := make([]int, 100)
+\end{lstlisting}
+Remember that make() applies only to maps, slices and channels and does
+not return a pointer. To obtain an explicit pointer allocate with new().
+
+\section{Exercises}
+
+\cleardoublepage
+\section{Answers}
+\shipoutAnswer
