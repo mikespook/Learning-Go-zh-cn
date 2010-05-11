@@ -569,6 +569,12 @@ outside a package is determined by whether its first character is upper
 case. It's therefore worth spending a little time talking about naming
 conventions in Go programs.
 
+The convention we adopted was to leave well-known legacy
+not-quite-words alone rather than try to figure out where
+the capital letters go.  Atoi, Getwd, Chmod.
+Camelcasing works best when you have whole words
+to work with.  ReadFile, NewWriter, MakeSlice.
+
 \section{Package names}
 When a package is imported, the package name becomes an accessor for the
 contents. After
