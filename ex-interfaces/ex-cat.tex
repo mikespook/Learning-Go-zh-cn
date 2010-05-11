@@ -1,0 +1,20 @@
+\begin{Exercise}[title={Cat},difficulty=6]
+\label{ex:cat}
+\Question \label{ex:cat q1} Write a program which mimics Unix program
+\prog{cat}. For those who don't know this program, the following 
+invocation displays the contents of the file \dir{blah}:
+\begin{alltt}
+\pr cat blah
+\end{alltt}
+
+\Question Make it support the \-n flag, where each line is
+numbered.
+
+\end{Exercise}
+
+\begin{Answer}
+
+\Question A solution might be:
+\lstinputlisting[label=src:cat,caption=A cat program]{ex-interfaces/src/cat.go}
+
+\end{Answer}

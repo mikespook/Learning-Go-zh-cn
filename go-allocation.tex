@@ -20,6 +20,11 @@ slice of pointers to arrays of three pointers to ints
 
 \noindent\lstinline{var pint *int   // declare pint to be pointer to int}
 
+Note that it's perfectly OK to return the address of a local variable; the
+storage associated with the variable survives after the function returns. In
+fact, taking the address of a composite literal allocates a fresh instance each
+time it is evaluated, so we can combine these last two lines. \cite{effective_go}
+
 \section{Allocation}
 Go has garbage collection, meaning that you don't have to worry about
 memory allocation and deallocation. Of course almost every language
