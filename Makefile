@@ -1,7 +1,10 @@
 # simple makefile
-.PHONY: fig fig/*.svg
+.PHONY: fig fig/*.svg once
 
 all:	fig go.pdf
+
+once:
+	xelatex go.tex
 
 go.pdf:	go.tex go-*.tex ex-*/*.tex src/*.go blocksbook.cls go.bib
 	xelatex go.tex && bibtex go && makeindex go && xelatex go.tex && xelatex go.tex
