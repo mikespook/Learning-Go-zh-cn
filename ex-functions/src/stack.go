@@ -37,11 +37,9 @@ func (s *stack) String() string {
 	return str
 }
 
-
 func main() {
 	s := new(stack) // returns pointer
 	s.push(25)
 	s.push(14)
 	fmt.Printf("stack %v\n", s)
-
 }
