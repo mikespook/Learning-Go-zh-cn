@@ -56,7 +56,30 @@ The function works on the \var{s} which is of the type \type{stack}. To
 use this we just call \lstinline{s.push(50)}, to push the integer 50 on
 the stack. But the push function gets a copy of \var{s}, so it is
 working on that on \emph{not} the real thing. Nothing gets pushed to our
-stack this way:
+stack this way, for example the following code:
+
+\begin{lstlisting}
+var s stack
+s.push(25)
+fmt.Printf("stack %v\n", s);
+s.push(14)
+fmt.Printf("stack %v\n", s);
+\end{lstlisting}
+prints:
+\begin{alltt}
+stack [0:0]
+stack [0:0]
+\end{alltt}
+
+To solve this we need to give the function \func{push} a pointer
+to the stack. This means we need to change \func{push} from
+
+\noindent\lstinline{func (s stack) push(k int) (ok bool)} 
+
+to 
+
+\noindent\lstinline{func (s *stack) push(k int) (ok bool)}
+
 
 
 \Question While this was a bonus question, having the ability to print
