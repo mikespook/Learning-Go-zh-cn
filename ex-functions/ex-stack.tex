@@ -16,9 +16,8 @@ converts the stack to a string representation.  This way you can print the stack
 \lstinline{fmt.Printf("My stack %v\n", stack)}
 
 \noindent{}The stack in the figure could be represented as:
-\begin{alltt}
-[0:m] [1:l] [2:k]
-\end{alltt}
+\texttt{[0:m] [1:l] [2:k]}
+
 \end{Exercise}
 
 \begin{Answer}
@@ -59,7 +58,7 @@ working on that on \emph{not} the real thing. Nothing gets pushed to our
 stack this way, for example the following code:
 
 \begin{lstlisting}
-var s stack
+var s stack |\coderemark{make \var{s} a simple \type{stack} variable}|
 s.push(25)
 fmt.Printf("stack %v\n", s);
 s.push(14)
@@ -74,13 +73,18 @@ stack [0:0]
 To solve this we need to give the function \func{push} a pointer
 to the stack. This means we need to change \func{push} from
 
-\noindent\lstinline{func (s stack) push(k int) (ok bool)} 
+\lstinline{func (s stack) push(k int) (ok bool)} 
+$\rightarrow$
+\lstinline{func (s *stack) push(k int) (ok bool)}
 
-to 
+We should now use \func{new()} to create a \emph{pointer} to a newly
+allocated \type{stack}, so line 1 from the example above needs to be
+\lstinline{s := new(stack)}
 
-\noindent\lstinline{func (s *stack) push(k int) (ok bool)}
-
-
+\noindent{}And our two functions become:
+\lstinputlisting[firstline=13,lastline=29,caption=The push and pop functions]{ex-functions/src/stack.go}
+Which we then use as follows
+\lstinputlisting[firstline=40,lastline=45,caption=Stack usage]{ex-functions/src/stack.go}
 
 \Question While this was a bonus question, having the ability to print
 the stack was very valuable when writing the code for this exercise.
