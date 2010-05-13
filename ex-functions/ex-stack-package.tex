@@ -4,13 +4,21 @@
 stack implementation, \func{push}, \func{pop} and the \type{stack} type need to be
 exported.
 
+\Question\label{ex:stack-package q2} Which official Go package could
+also be used for a (FIFO) stack?
+
 \end{Exercise}
 
 \begin{Answer}
-There are a few details that should be changed to make a proper package
+\Question There are a few details that should be changed to make a proper package
 for our stack. First, the exported function should begin with a capital 
 letter and so should \type{Stack}. So the full package (including the
 \func{String()} function becomes
 \lstinputlisting[caption=Stack in a
 package]{ex-functions/src/stack-as-package.go}
+
+\Question The \package{vector} package would be a could candidate. It
+could be used like this.
+
+
 \end{Answer}
