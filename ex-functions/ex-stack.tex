@@ -30,7 +30,7 @@ array (to hold the keys) and an index, which points to the last element.
 Our small stack only holds 10 elements.
 
 \begin{lstlisting}
-type stack struct { |\coderemark{this type is not exported}|
+type stack struct { |\coderemark{\emph{stack} is not exported}|
     i    int 
     data [10]int
 }
