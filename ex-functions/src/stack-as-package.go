@@ -9,22 +9,21 @@ type Stack struct {
 	data [10]int
 }
 
-func (s *Stack) push(k int) (ok bool) {
+func (s *Stack) push(k int) {
 	if s.i+1 > 9 {
-		return false
+		return
 	}
 	s.data[s.i] = k
 	s.i++
-	return true
 }
 
-func (s *Stack) pop() (ret int, ok bool) {
+func (s *Stack) pop() (ret int) {
 	if s.i-1 < 0 {
-		return 0, false
+		return 0
 	}
 	ret = s.data[s.i]
 	s.i--
-	return ret, true
+	return ret
 }
 
 func (s *Stack) String() string {

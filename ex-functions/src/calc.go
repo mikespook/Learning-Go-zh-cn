@@ -15,23 +15,22 @@ type Stack struct {
 	data [10]int
 }
 
-func (s *Stack) push(k int) (ok bool) {
+func (s *Stack) push(k int) {
 	if s.i+1 > 9 {
-		return false
+		return
 	}
 	s.data[s.i] = k
 	s.i++
-	return true
 }
 
-func (s *Stack) pop() (ret int, ok bool) {
+func (s *Stack) pop() (ret int) {
 	s.i--
 	if s.i < 0 {
 		s.i = 0
-		return 0, false
+		return 0
 	}
 	ret = s.data[s.i]
-	return ret, true
+	return ret
 }
 
 func (s *Stack) String() string {
@@ -55,21 +54,17 @@ func main() {
 			case c >= '0' && c <= '9':
 				token = token + string(c)
 			case c == ' ':
-				x, _ := (strconv.Atoi(token))
-				st.push(x)
+				r, _ := strconv.Atoi(token)
+				st.push(r)
 				token = ""
 			case c == '+':
-				var p, _ = st.pop()
-				var q, _ = st.pop()
-				fmt.Printf("%d\n", p + q)
+				fmt.Printf("%d\n", st.pop()+st.pop())
 			case c == '*':
-				var p, _ = st.pop()
-				var q, _ = st.pop()
-				fmt.Printf("%d\n", p * q)
+				fmt.Printf("%d\n", st.pop()*st.pop())
 			case c == '-':
-				var p, _ = st.pop()
-				var q, _ = st.pop()
-				fmt.Printf("%d\n", q - p)
+				p := st.pop()
+				q := st.pop()
+				fmt.Printf("%d\n", q-p)
 			case c == 'q':
 				return
 			default:

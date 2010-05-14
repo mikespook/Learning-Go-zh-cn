@@ -10,22 +10,21 @@ type stack struct {
 	data [10]int
 }
 
-func (s stack) push(k int) (ok bool) {
+func (s stack) push(k int) {
 	if s.i+1 > 9 {
-		return false
+		return
 	}
 	s.data[s.i] = k
 	s.i++
-	return true
 }
 
-func (s stack) pop() (ret int, ok bool) {
+func (s stack) pop() (ret int) {
 	if s.i-1 < 0 {
-		return 0, false
+		return 0
 	}
 	ret = s.data[s.i]
 	s.i--
-	return ret, true
+	return ret
 }
 
 func (s stack) String() string {
