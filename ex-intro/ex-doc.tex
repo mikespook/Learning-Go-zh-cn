@@ -1,0 +1,29 @@
+\begin{Exercise}[title={Documentation},difficulty=1]
+\label{ex:doc}
+\Question
+Go's documentation can be read with the \prog{godoc}, \prog{godoc hash}
+gives information about the \package{hash} package. Reading the
+documentation on \package{container} gives the following result:
+\begin{alltt}
+SUBDIRECTORIES
+
+heap
+list
+ring
+vector
+\end{alltt}
+
+With which \prog{godoc} command can you read the documentation of \package{vector} contained in
+\package{container}?
+
+\end{Exercise}
+
+\begin{Answer}
+\Question
+The package \package{vector} is in a \emph{subdirectory} of
+\package{container}, so you'll only need \texttt{godoc
+container/vector}.
+
+\end{Answer}
+
+
