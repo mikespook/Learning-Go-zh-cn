@@ -30,29 +30,29 @@ When writing test you will need to tell \prog{gotest} that a test has failed or 
 successful test function just \func{return}s. When test fails you can signal this with the following
 functions\cite{go_doc}. These are the most important ones:
 
-\begin{lstlisting}
+\begin{lstlisting}[numbers=none]
 func (t *T) Fail()
 \end{lstlisting}
 Fail marks the Test function as having failed but continues execution.
 
-\begin{lstlisting}
+\begin{lstlisting}[numbers=none]
 func (t *T) FailNow()
 \end{lstlisting}
 FailNow marks the Test function as having failed and stops its execution.
 Execution will continue at the next Test.
 
-\begin{lstlisting}
+\begin{lstlisting}[numbers=none]
 func (t *T) Errorf(format string, args ...interface\{\})
 \end{lstlisting}
 Errorf is equivalent to Logf() followed by Fail().
 
-\begin{lstlisting}
+\begin{lstlisting}[numbers=none]
 func (t *T) Logf(format string, args ...interface\{\})
 \end{lstlisting}
 Log formats its arguments according to the format, analogous to Printf(),
 and records the text in the error log.
 
-\begin{lstlisting}
+\begin{lstlisting}[numbers=none]
 func (t *T) Fatal(args ...interface\{\})
 \end{lstlisting}
 Fatal is equivalent to Log() followed by FailNow().
@@ -60,7 +60,7 @@ Fatal is equivalent to Log() followed by FailNow().
 
 
 
-\begin{lstlisting}
+\begin{lstlisting}[numbers=none]
 func (t *T) Failed() bool
 \end{lstlisting}
 Failed returns whether the Test function has failed.
