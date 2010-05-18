@@ -6,7 +6,7 @@ all:	fig tab go.pdf
 once:
 	xelatex go.tex
 
-go.pdf:	go.tex go-*.tex ex-*/*.tex src/*.go blocksbook.cls go.bib
+go.pdf:	go.tex go-*.tex ex-*/*.tex src/*.go blocksbook.cls go.bib tab/*.tex
 	xelatex go.tex && bibtex go && makeindex go && xelatex go.tex && xelatex go.tex
 
 fig:	fig/*.svg
