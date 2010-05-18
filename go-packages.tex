@@ -19,6 +19,53 @@ tests involves the \package{testing}.
 Read the package doc!
 \end{lbar}
 
+The testing itself is carried out with \prog{gotest}.
+The \prog{gotest} program run all the test functions, each
+test function has the same signature:
+\begin{lstlisting}
+func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
+\end{lstlisting}
+
+When writing test you will need to tell \prog{gotest} that a test has failed or was successful. A
+successful test function just \func{return}s. When test fails you can signal this with the following
+functions\cite{go_doc}. These are the most important ones:
+
+\begin{lstlisting}
+func (t *T) Fail()
+\end{lstlisting}
+Fail marks the Test function as having failed but continues execution.
+
+\begin{lstlisting}
+func (t *T) FailNow()
+\end{lstlisting}
+FailNow marks the Test function as having failed and stops its execution.
+Execution will continue at the next Test.
+
+\begin{lstlisting}
+func (t *T) Errorf(format string, args ...interface\{\})
+\end{lstlisting}
+Errorf is equivalent to Logf() followed by Fail().
+
+\begin{lstlisting}
+func (t *T) Logf(format string, args ...interface\{\})
+\end{lstlisting}
+Log formats its arguments according to the format, analogous to Printf(),
+and records the text in the error log.
+
+\begin{lstlisting}
+func (t *T) Fatal(args ...interface\{\})
+\end{lstlisting}
+Fatal is equivalent to Log() followed by FailNow().
+
+
+
+
+\begin{lstlisting}
+func (t *T) Failed() bool
+\end{lstlisting}
+Failed returns whether the Test function has failed.
+
+
 
 
 \section{Useful packages}
