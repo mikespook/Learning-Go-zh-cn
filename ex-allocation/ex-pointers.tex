@@ -1,0 +1,31 @@
+\begin{Exercise}[title={Pointers},difficulty=6]
+\label{ex:pointers}
+\Question
+What is the difference between the following two allocations?
+\begin{lstinline}
+func Set(t *T) {
+    x = t
+}
+\end{lstinline}
+and
+\begin{lstinline}
+func Set(t T) {
+    x= &t
+}
+\end{lstinline}
+
+\end{Exercise}
+
+\begin{Answer}
+\Question
+In the second function, \var{x} points to a new
+(heap-allocated) variable \var{t} which contains
+a copy of whatever the actual argument value is.
+
+In the first function, \var{x} points to the same thing
+that \var{t} does, which is the same thing that the actual
+argument points to.
+
+So in the second function, we have an "extra" variable
+containing a copy of the interesting value.
+\end{Answer}
