@@ -7,6 +7,38 @@ of these.
 
 
 \section{Documenting packages}
+From \cite{effective_go}
+Every package should have a \emph{package comment}, a block comment preceding the
+ \key{package} clause. For multi-file packages, the package comment only needs to be
+present in one file, and any one will do. The package comment should introduce
+the package and provide information relevant to the package as a whole. It will
+appear first on the \prog{godoc} page and should set up the detailed documentation
+that follows.
+
+An example is:
+\begin{alltt}
+/*
+    The regexp package implements a simple library for
+    regular expressions.
+
+    The syntax of the regular expressions accepted is:
+
+    regexp:
+        concatenation { '|' concatenation }
+    concatenation:
+        { closure }
+    closure:
+        term [ '*' | '+' | '?' ]
+    term:
+        '^'
+        '\$'
+        '.'
+        character
+        '[' [ '^' ] character-ranges ']'
+        '(' regexp ')'
+*/
+package regexp
+\end{alltt}
 
 
 
