@@ -20,7 +20,7 @@
 \newcommand{\mytitlepage}{}
 \newcounter{bottomline}
 
-\newcommand{\printblockchaptername}{}
+\newcommand{\typename}{}
 
 \DeclareOption{draft}{
         \renewcommand{\myheadplaceholder}
@@ -63,7 +63,7 @@
 
 \makepsmarks{blocks}{
   \let\@mkboth\markboth
-  \def\chaptermark##1{\markboth{\myfamily \printblockchaptername{} \thechapter: ##1}{\myfamily##1}}  %% left & right marks
+  \def\chaptermark##1{\markboth{\myfamily \typename{} \thechapter: ##1}{\myfamily##1}}  %% left & right marks
   \def\sectionmark##1{\markright{                             %% right mark
     \ifnum \c@secnumdepth>\z@
       \normalfont\myfamily\myheadseries\thesection{ }
@@ -128,9 +128,7 @@
 \makechapterstyle{blocks}{%
   \renewcommand{\chapterheadstart}{\vspace{2cm}}
   \renewcommand{\printchaptername}{}
-  \ifanappendix \renewcommand{\printblockchaptername}{Chapter} %
-  \else \renewcommand{\printblockchaptername}{Appendix} %
-  \fi
+  \renewcommand{\typename}{\chaptername}
   \renewcommand{\chapternamenum}{}
   \renewcommand{\printchapternum}{%
         \addtolength{\fboxsep}{2ex} %% \numtoName
@@ -144,6 +142,9 @@
   \renewcommand{\afterchaptertitle}{%
     \vskip\onelineskip \vskip\onelineskip}
 }
+
+% appendix style
+\addtodef{\appendix}{}{\renewcommand{\typename}{\appendixname}}
 
 %% part style
 \makepagestyle{part}
