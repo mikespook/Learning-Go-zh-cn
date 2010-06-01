@@ -1,19 +1,22 @@
 %% Code Remarks -- Miek Gieben
+% define 2 command
+% \longrem[1] where you can say something about the code
+% \showlongrem - displays all remarks in a list after the code
 \newcounter{coderemarks}
 \setcounter{coderemarks}{1}
 \newcounter{codevar}
 \setcounter{codevar}{1}
 
-\newcommand{\coderemarks}[1]{%
+\newcommand{\longrem}[1]{%
 \expandafter\newsavebox \csname codebox\the\value{coderemarks} \endcsname
-\tikz\node[text=white,font=\bf\sffamily,inner sep=0.2mm,draw,circle,fill=black]{\arabic{coderemarks}};%
+\tikz\node[text=white,font=\sffamily,inner sep=0.2mm,draw,circle,fill=black]{\arabic{coderemarks}};%
 \expandafter\sbox \csname codebox\the\value{coderemarks} \endcsname{%
-\tikz\node[text=white,font=\bf\sffamily,inner sep=0.2mm,draw,circle,fill=black]% 
+\tikz\node[text=white,font=\sffamily,inner sep=0.2mm,draw,circle,fill=black]% 
 {\arabic{coderemarks}}; #1}%
 \stepcounter{coderemarks}%
 }
 
-\newcommand{\displayremarks}{%
+\newcommand{\showlongrem}{%
 \begin{list}{}{}
 \whiledo{\value{codevar} < \value{coderemarks}}{
 \item \expandafter\usebox \csname codebox\the\value{codevar} \endcsname
