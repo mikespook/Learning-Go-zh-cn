@@ -29,15 +29,13 @@ array (to hold the keys) and an index, which points to the last element.
 Our small stack only holds 10 elements.
 
 \begin{lstlisting}
-type stack struct { |\longrem{\emph{stack} is not exported}|
+type stack struct { |\longremark{\emph{stack} is not exported}|
     i    int 
     data [10]int
 }
 \end{lstlisting}
 
-\longrem{hallo}
-
-\showlongrem
+\showremarks
 
 Next we need the \func{push} and \func{pop} functions to actually
 use the damn thing. \emph{First we show the \textbf{WRONG} solution!}

@@ -1,29 +1,28 @@
 %% Code Remarks -- Miek Gieben
 % define 2 command
-% \longrem[1] where you can say something about the code
-% \showlongrem - displays all remarks in a list after the code
+% \longremark[1] where you can say something about the code
+% \showremarks - displays all remarks in a list after the code
 \newcounter{coderemarks}
 \setcounter{coderemarks}{1}
 \newcounter{codevar}
 \setcounter{codevar}{1}
 
-\newcommand{\longrem}[1]{%
-\expandafter\newsavebox \csname codebox\the\value{coderemarks} \endcsname
+\newcommand{\longremark}[1]{%
 \tikz\node[text=white,font=\sffamily,inner sep=0.2mm,draw,circle,fill=black]{\arabic{coderemarks}};%
-\expandafter\sbox \csname codebox\the\value{coderemarks} \endcsname{%
-\tikz\node[text=white,font=\sffamily,inner sep=0.2mm,draw,circle,fill=black]% 
-{\arabic{coderemarks}}; #1}%
+\global \expandafter\def \csname codebox\the\value{coderemarks}\endcsname{%
+\parbox{\linewidth}{#1}}%
 \stepcounter{coderemarks}%
 }
 
-\newcommand{\showlongrem}{%
-\begin{list}{}{}
+\newcommand{\showremarks}{%
+\begin{list}{%
+\tikz\node[text=white,font=\sffamily,inner sep=0.2mm,draw,circle,fill=black]% 
+{\arabic{codevar}};}{}
 \whiledo{\value{codevar} < \value{coderemarks}}{
-\item \expandafter\usebox \csname codebox\the\value{codevar} \endcsname
+\item \expandafter\csname codebox\the\value{codevar}\endcsname
 \stepcounter{codevar}%
 }
 \end{list}
-
 \setcounter{coderemarks}{1}%
 \setcounter{codevar}{1}%
 }
