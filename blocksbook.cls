@@ -217,7 +217,7 @@
 
 %% description
 \renewcommand*{\descriptionlabel}[1]{\hspace\labelsep
-       \normalfont\myfamily\textbf{#1}\quad}
+       \normalfont\rmfamily\textit{#1}\hskip\textwidth}
 
 %% tableofcontents
 \renewcommand{\cftpartfont}{\myfamily\myseries}
