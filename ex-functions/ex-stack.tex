@@ -31,7 +31,11 @@ Our small stack only holds 10 elements.
 \begin{lstlisting}
 type stack struct { |\longremark{\emph{stack} is not exported}|
     i    int 
-    data [10]int  |\longremark{Meer gezeur wat in dit geval ook
+    data [10]int  |\longremark{Meer gezeur wat in dit geval ook %
+			djskdjkd sjd skjfk fjdkf jdkf jfk dfj d TODO %
+			djskdjkd sjd skjfk fjdkf jdkf jfk dfj d TODO %
+			\newline %
+			djskdjkd sjd skjfk fjdkf jdkf jfk dfj d TODO %
 over meerdere regels heen gaat, oh waar moet dat heen zo allen}|
 }
 \end{lstlisting}
@@ -39,7 +43,7 @@ over meerdere regels heen gaat, oh waar moet dat heen zo allen}|
 \showremarks
 
 Next we need the \func{push} and \func{pop} functions to actually
-use the damn thing. \emph{First we show the \textbf{WRONG} solution!}
+use the damn thing. \emph{First we show the \emph{wrong}{} solution!}
 In Go data passed to functions is \emph{passed-by-value} meaning a copy
 is created and given to the function. The first stab for the function
 \func{push} could be:
