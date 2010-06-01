@@ -19,7 +19,8 @@
 \newcommand{\myheadseries}{}
 \newcommand{\mytitlepage}{}
 \newcounter{bottomline}
-\setcounter{bottomline}{0}
+
+\newcommand{\printblockchaptername}{}
 
 \DeclareOption{draft}{
         \renewcommand{\myheadplaceholder}
@@ -51,8 +52,8 @@
 \ProcessOptions
 \LoadClass{memoir}
 
-\setcounter{secnumdepth}{2}     
-%%
+\setsecnumdepth{chapter} %% nice :-)
+
 \makepagestyle{blocks}
 \aliaspagestyle{chapter}{empty}
 \aliaspagestyle{part}{empty}
@@ -62,7 +63,7 @@
 
 \makepsmarks{blocks}{
   \let\@mkboth\markboth
-  \def\chaptermark##1{\markboth{\myheadseries##1}{\myfamily##1}}  %% left & right marks
+  \def\chaptermark##1{\markboth{\myfamily \printblockchaptername{} \thechapter: ##1}{\myfamily##1}}  %% left & right marks
   \def\sectionmark##1{\markright{                             %% right mark
     \ifnum \c@secnumdepth>\z@
       \normalfont\myfamily\myheadseries\thesection{ }
@@ -127,6 +128,9 @@
 \makechapterstyle{blocks}{%
   \renewcommand{\chapterheadstart}{\vspace{2cm}}
   \renewcommand{\printchaptername}{}
+  \ifanappendix \renewcommand{\printblockchaptername}{Chapter} %
+  \else \renewcommand{\printblockchaptername}{Appendix} %
+  \fi
   \renewcommand{\chapternamenum}{}
   \renewcommand{\printchapternum}{%
         \addtolength{\fboxsep}{2ex} %% \numtoName
@@ -197,7 +201,7 @@
 \makeoddfoot{tblocks}{}{\mytitlepage}{}
 
 %% section style
-\setsecheadstyle{\raggedright\myfamily\Large}
+\setsecheadstyle{\raggedright\myfamily\LARGE}
   \setbeforesecskip{-\onelineskip}
   \setaftersecskip{\onelineskip}
 

@@ -8,7 +8,7 @@
 \setcounter{codevar}{1}
 
 \newcommand{\longremark}[1]{%
-\tikz\node[text=white,font=\sffamily,inner sep=0.2mm,draw,circle,fill=black]{\arabic{coderemarks}};%
+\tikz\node[text=white,font=\sffamily\bfseries,inner sep=0.2mm,draw,circle,fill=black]{\arabic{coderemarks}};%
 \global \expandafter\def \csname codebox\the\value{coderemarks}\endcsname{%
 \parbox{\linewidth}{#1}}%
 \stepcounter{coderemarks}%
@@ -16,7 +16,7 @@
 
 \newcommand{\showremarks}{%
 \begin{list}{%
-\tikz\node[text=white,font=\sffamily,inner sep=0.2mm,draw,circle,fill=black]% 
+\tikz\node[text=white,font=\sffamily\bfseries,inner sep=0.2mm,draw,circle,fill=black]% 
 {\arabic{codevar}};}{}
 \whiledo{\value{codevar} < \value{coderemarks}}{
 \item \expandafter\csname codebox\the\value{codevar}\endcsname
