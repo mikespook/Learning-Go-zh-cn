@@ -262,11 +262,11 @@ for pos, char := range "a|$\Phi{}$|x" {
 }
 \end{lstlisting}
 prints
-\begin{alltt}
+\begin{display}
 character a starts at byte position 0
 character \begin{math}\Phi\end{math} starts at byte position 1
 character x starts at byte position 3
-\end{alltt}
+\end{display}
 Finally, since Go has no comma operator and ++ and -- are statements not
 expressions, if you want to run multiple variables in a for you should
 use parallel assignment.
@@ -534,16 +534,16 @@ And then we can use this as follows in our own program \prog{myeven.go}:
 \lstinputlisting[label=src:myeven,caption=Use the \package{even} package]{src/myeven.go}
 Now we just need to compile and link, first the package, then \prog{myeven.go} and
 then link it:
-\begin{alltt}
+\begin{display}
 \pr 8g even.go			# package
 \pr 8g myeven.go		# our program
 \pr 8l -o myeven myeven.8
-\end{alltt}
+\end{display}
 And now we can test it:
-\begin{alltt}
+\begin{display}
 \pr ./myeven
 Is 5 even? false
-\end{alltt}
+\end{display}
 
 In Go, a function from a package is exported (visible
 outside the package, i.e. public) when the first letter of the function name is a capital, hence
@@ -554,10 +554,10 @@ the function name \emph{E}ven. If we change our \prog{myeven.go} on line
 
 \noindent We get an error when compiling, because we are trying to use a
 \emph{private} function:
-\begin{alltt}
+\begin{display}
 myeven.go:7: cannot refer to unexported name even.uneven
 myeven.go:7: undefined: even.uneven
-\end{alltt}
+\end{display}
 To summarise:
 \begin{itemize}
 \item Public functions have a name \emph{starting} with a CAPITAL

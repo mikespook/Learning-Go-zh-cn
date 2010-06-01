@@ -69,9 +69,9 @@ func h() {
 \end{lstlisting}
 The first call to \func{g} will work fine and will print 0. The second call will fail
 at runtime; when using \prog{gccgo}, the program will print
-\begin{alltt}
+\begin{display}
 panic: interface conversion failed: no 'Get' method
-\end{alltt}
+\end{display}
 This is because, as discussed above, a value of type \type{S} rather than \type{*S} 
 does not have any methods.
 

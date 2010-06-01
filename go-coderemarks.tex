@@ -17,7 +17,7 @@
 \newcommand{\showremarks}{%
 \begin{list}{%
 \tikz\node[text=white,font=\sffamily\bfseries,inner sep=0.2mm,draw,circle,fill=black]% 
-{\arabic{codevar}};}{}
+{\arabic{codevar}};}{\setlength{\labelsep}{2.0\labelsep}}
 \whiledo{\value{codevar} < \value{coderemarks}}{
 \item \expandafter\csname codebox\the\value{codevar}\endcsname
 \stepcounter{codevar}%
