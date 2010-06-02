@@ -14,6 +14,7 @@
 \usepackage{xCJK}
 \usepackage{scalefnt}
 \usepackage{wrapfig}
+\usepackage{everypage}
 % Tables from Gnumeric
 \usepackage{array} 
 \usepackage{longtable}
@@ -27,6 +28,9 @@
 \input{go-setup.tex}
 \input{go-cc-license.tex}
 \input{go-coderemarks.tex}
+\input{draft.tex}
+
+\AddEverypageHook{\pagedraft}
 
 \begin{document}
 \thispagestyle{empty}
