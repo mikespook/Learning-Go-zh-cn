@@ -22,7 +22,7 @@
 \usepackage{multirow}
 \usepackage{hhline} 
 \usepackage{ifthen} 
-% 
+
 \usepackage{tikz}
 
 \input{go-setup.tex}
@@ -35,8 +35,7 @@
 \begin{document}
 \thispagestyle{empty}
 
-%% Begin title page
-
+%% Title page
 \begin{figure}[t!]
 \begin{center}
     \includegraphics[scale=0.65]{fig/bumper-inverse.png}
@@ -44,7 +43,6 @@
 \end{center}
 \end{figure}
 \vspace*{5.0cm}
-%% moet nog ansders
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \hspace*{2,0cm}\emph{Author:}\\
@@ -68,13 +66,12 @@ Go Nuts mailing list
     \hspace*{1cm}\CcGroupByNcSa{0.83}{0.95ex}\\[2.5ex]
     \hspace*{1cm}{\tiny\CcNote{\CcLongnameByNcSa}}
 \end{center}
-
 %% End title page %%
 
 \newpage
 \pagenumbering{roman}
 \tableofcontents
-\lstlistoflistings  %% indentation is wrong
+\lstlistoflistings
 \listoffigures
 \listoftables
 \listofex
@@ -127,8 +124,6 @@ Go Nuts mailing list
 \input{go-colophon}
 
 \chapter{Index}
-%% is stuk XXX TDO
-%%\newpage %% headstyle for index
 \printindex
 \bibliographystyle{plain}
 \bibliography{go}
