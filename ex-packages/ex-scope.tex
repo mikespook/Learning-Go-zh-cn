@@ -1,0 +1,40 @@
+\begin{Exercise}[title={Calculator},difficulty=7]
+\label{ex:calc}
+\Question\label{ex:calc q1} Create a reverse polish calculator. Use your
+stack package.
+
+\Question\label{ex:calc q2} Bonus. Rewrite your calculator to use the
+the package you found for question \ref{ex:stack-package q2}.
+\end{Exercise}
+
+\begin{Answer}
+\Question
+
+\Question
+See \ref{sec:packages} how to include your package in your calculator
+program.
+
+\Question The \package{container/vector} package would be a could candidate. It
+even comes with \func{Push} and \func{Pop} functions \emph{predefined}.
+The changes needed to our program are \emph{minimal} to say the least,
+the following unified diff shows the differences:
+\begin{alltt}
+--- calc.go     2010-05-16 10:19:13.886855818 +0200
++++ calcvec.go  2010-05-16 10:13:35.000000000 +0200
+@@ -5,11 +5,11 @@
+        "os"
+        "strconv"
+        "fmt"
+-       "./stack"
++       "container/vector"
+ )
+
+ var reader *bufio.Reader = bufio.NewReader(os.Stdin)
+-var st = new(Stack)
++var st = new(vector.IntVector)
+
+ func main() \{
+        for \{
+\end{alltt}
+\noindent{}Only two lines need to be changed. \emph{Nice}.
+\end{Answer}
