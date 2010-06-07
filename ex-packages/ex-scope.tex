@@ -1,14 +1,18 @@
 \begin{Exercise}[title={Scope},difficulty=4]
 \label{ex:calc}
 \Question\label{ex:scope q1} Why doesn't the following program do
-wat you expect?
+what you expect?
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=Scoping rules]
 package main
 
+import "fmt"
+                                                                                                   
 func main() {
-
-
+        for i := 0; i < 10; i++ {
+                fmt.Printf("%v\n", i)
+        }
+	fmt.Printf("%v\n", i)
 }
 \end{lstlisting}
 
@@ -16,6 +20,7 @@ func main() {
 
 \begin{Answer}
 \Question
+When compiling
 
 
 \end{Answer}
