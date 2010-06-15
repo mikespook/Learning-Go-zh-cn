@@ -21,6 +21,7 @@
 \newcounter{bottomline}
 
 \newcommand{\typename}{}
+\newlength{\gnat}
 
 \DeclareOption{draft}{
         \renewcommand{\myheadplaceholder}
@@ -80,13 +81,9 @@
         \hrule
 }{
          \raisebox{0.2ex}{\parbox{\headwidth}{ 
+	 \settowidth{\gnat}{\thepage}
+	 \hspace{\gnat}
          \hspace{1em}
-         \ifthenelse{\value{page} > 9}%
-                {\hspace{1em}}{}
-         \ifthenelse{\value{page} > 99}%
-                {\hspace{1em}}{}
-         \ifthenelse{\value{page} > 999}%
-                {\hspace{1em}}{}
          { }\normalfont\leftmark %
          \vspace{1.1mm}
          }}
@@ -98,13 +95,8 @@
          \raggedleft
          \normalfont\rightmark %
          \hspace{1.2em}
-	 %%\settowidth{\gnat}{text}
-         \ifthenelse{\value{page} > 9}%
-                {\hspace{1em}}{}
-         \ifthenelse{\value{page} > 99}%
-                {\hspace{1em}}{}
-         \ifthenelse{\value{page} > 999}%
-                {\hspace{1em}}{}
+	 \settowidth{\gnat}{\thepage}
+	 \hspace{\gnat}
          \vspace{1.1mm}
          } }
 }
