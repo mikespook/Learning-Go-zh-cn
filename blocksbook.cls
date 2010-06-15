@@ -98,6 +98,7 @@
          \raggedleft
          \normalfont\rightmark %
          \hspace{1.2em}
+	 %%\settowidth{\gnat}{text}
          \ifthenelse{\value{page} > 9}%
                 {\hspace{1em}}{}
          \ifthenelse{\value{page} > 99}%
