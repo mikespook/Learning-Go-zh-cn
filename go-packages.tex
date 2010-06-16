@@ -1,6 +1,133 @@
 \epi{\lstinline{^}}{Ken Thompson's answer to whether there is a bitwise negation
 operator.}\noindent
 
+In simple terms Go packages group functions and data.
+
+Packages are a collection of functions and data, they are sort alike the
+Perl packages\cite{perl-packages}. You declare a package with the
+\lstinline{package} keyword. Note that the filename should
+match the package name. Lets define our package \package{even} in the file
+\prog{even.go}
+
+\lstinputlisting[label=src:even,caption=A small package]{src/even.go}
+And then we can use this as follows in our own program \prog{myeven.go}:
+
+\lstinputlisting[label=src:myeven,caption=Use the \package{even} package]{src/myeven.go}
+Now we just need to compile and link, first the package, then \prog{myeven.go} and
+then link it:
+\begin{display}
+\pr 8g even.go			# package
+\pr 8g myeven.go		# our program
+\pr 8l -o myeven myeven.8
+\end{display}
+And now we can test it:
+\begin{display}
+\pr ./myeven
+Is 5 even? false
+\end{display}
+
+In Go, a function from a package is exported (visible
+outside the package, i.e. public) when the first letter of the function name is a capital, hence
+the function name \emph{E}ven. If we change our \prog{myeven.go} on line
+7 to using to unexported funtion \func{even.uneven}:
+
+\noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.uneven(i))}
+
+\noindent We get an error when compiling, because we are trying to use a
+\emph{private} function:
+\begin{display}
+myeven.go:7: cannot refer to unexported name even.uneven
+myeven.go:7: undefined: even.uneven
+\end{display}
+To summarise:
+\begin{itemize}
+\item Public functions have a name \emph{starting} with a CAPITAL
+letter;
+\item Private function have a name starting with a lowercase letter.
+\end{itemize}
+
+\section{Names}
+Names are as important in Go as in any other language. In some cases
+they even have semantic effect: for instance, the visibility of a name
+outside a package is determined by whether its first character is upper
+case. It's therefore worth spending a little time talking about naming
+conventions in Go programs.
+
+The convention we adopted was to leave well-known legacy
+not-quite-words alone rather than try to figure out where
+the capital letters go.  Atoi, Getwd, Chmod.
+Camelcasing works best when you have whole words
+to work with.  ReadFile, NewWriter, MakeSlice.
+
+\section{Package names}
+When a package is imported, the package name becomes an accessor for the
+contents. After
+\begin{lstlisting}
+import "bytes"
+\end{lstlisting}
+the importing package can talk about \func{bytes.Buffer}. It's helpful if
+everyone using the package can use the same name to refer to its
+contents, which implies that the package name should be good: short,
+concise, evocative. By convention, packages are given lower case,
+single-word names; there should be no need for underscores or mixedCaps.
+Err on the side of brevity, since everyone using your package will be
+typing that name. And don't worry about collisions a priori. The package
+name is only the default name for imports; it need not be unique across
+all source code, and in the rare case of a collision the importing
+package can choose a different name to use locally. In any case,
+confusion is rare because the file name in the import determines just
+which package is being used.
+
+Another convention is that the package name is the base name of its
+source directory; the package in \package{src/pkg/container/vector} is imported as
+"container/vector" but has name vector, not container\_vector and not
+containerVector.
+
+The importer of a package will use the name to refer to its contents
+(the import . notation is intended mostly for tests and other unusual
+situations), so exported names in the package can use that fact to avoid
+stutter. For instance, the buffered reader type in the \package{bufio} package is
+called \func{Reader}, not \func{BufReader}, because users see it as
+\func{bufio.Reader},
+which is a clear, concise name. Moreover, because imported entities are
+always addressed with their package name, \func{bufio.Reader} does not conflict
+with \func{io.Reader}. Similarly, the function to make new instances of
+\func{ring.Ring}—which is the definition of a constructor in Go—would normally
+be called NewRing, but since Ring is the only type exported by the
+package, and since the package is called \package{ring}, it's called
+just \func{New}.
+Clients of the package see that as \func{ring.New}. Use the package structure
+to help you choose good names.
+
+Another short example is \func{once.Do}; \func{once.Do(setup)} reads well and would
+not be improved by writing once.DoOrWaitUntilDone(setup). Long names
+don't automatically make things more readable. If the name represents
+something intricate or subtle, it's usually better to write a helpful
+doc comment than to attempt to put all the information into the name.
+
+\paragraph{Interface names}
+By convention, one-method interfaces are named by the method name plus
+the \emph{-er} suffix: Read\emph{er}, Writ\emph{er}, Formatt\emph{er} etc. See chapter
+\ref{chap:interfaces} for a complete picture of what interfaces are.
+
+There are a number of such names and it's productive to honor them and
+the function names they capture. Read, Write, Close, Flush, String and
+so on have canonical signatures and meanings. To avoid confusion, don't
+give your method one of those names unless it has the same signature and
+meaning. Conversely, if your type implements a method with the same
+meaning as a method on a well-known type, give it the same name and
+signature; call your string-converter method String not ToString.
+from \cite{effective_go}.
+
+\paragraph{MixedCaps}
+Finally, the convention in Go is to use MixedCaps or mixedCaps rather
+than underscores to write multiword names.
+
+comma, ok, some explain idoms
+
+
+
+
 When Go was released as open source software in December 2009 it came
 with a boatload of packages. In this chapter we show how to use some
 of these.
