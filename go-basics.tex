@@ -165,12 +165,12 @@ you need a precise number of bits you have \lstinline{complex32} and
 \lstinline{var c complex = 5i-5}
 
 \subsection{Go keywords}
-Table \ref{tab:keywords} lists all the keywords in Go.
 \begin{table}
 \label{tab:keywords}
 \caption{Keywords in Go}
 \input{tab/keywords.tex}
 \end{table}
+Table \ref{tab:keywords} lists all the keywords in Go.
 In the following paragraphs and chapters we will explain them all.
 
 \section{Built-in functions}
@@ -650,7 +650,8 @@ don't automatically make things more readable. If the name represents
 something intricate or subtle, it's usually better to write a helpful
 doc comment than to attempt to put all the information into the name.
 
-\subsection{Interface names}
+%%\subsection{Interface names}
+\paragraph{Interface names}
 By convention, one-method interfaces are named by the method name plus
 the \emph{-er} suffix: Read\emph{er}, Writ\emph{er}, Formatt\emph{er} etc. See chapter
 \ref{chap:interfaces} for a complete picture of what interfaces are.
@@ -664,7 +665,7 @@ meaning as a method on a well-known type, give it the same name and
 signature; call your string-converter method String not ToString.
 from \cite{effective_go}.
 
-\subsection{MixedCaps}
+\paragraph{MixedCaps}
 Finally, the convention in Go is to use MixedCaps or mixedCaps rather
 than underscores to write multiword names.
 
