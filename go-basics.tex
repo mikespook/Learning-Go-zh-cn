@@ -95,8 +95,8 @@ function also called \func{main()}. The fully qualified function
 name is \func{main.main()}. This is the function that is called
 first.  To compile we do the following
 \begin{display}
-\pr 8g helloworld.go \rem{# compiles to short.8 (for 32 bit Intel)}
-\pr 8l -o helloworld helloworld.8 \rem{# linking stage}
+\pr 8g helloworld.go \qquad\qquad\qquad\rem{# compiles to short.8 (for 32 bit Intel)}
+\pr 8l -o helloworld helloworld.8 \qquad\rem{# linking stage}
 \end{display}
 For 64 bit Intel you should use \prog{6g} and \prog{6l}, this will
 generate \prog{short.6}.
@@ -122,7 +122,7 @@ Go is different than other languages in that the type of a variable
 is specified \emph{after} the variable name. So no: 
 \lstinline{int a}, but \lstinline{a int}.
 
-\subsection{Nill value}
+\subsection{Nil value}
 Go use nil;
 newly created variables are assigned the nil value for that type. So
 integer get the value zero, strings are set to the empty string, etc.
