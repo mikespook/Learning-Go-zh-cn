@@ -1,3 +1,76 @@
+\section{Functions}
+Multiple return values
+One of Go's unusual features is that functions and methods can return multiple
+values. This can be used to improve on a couple of clumsy idioms in C programs:
+in-band error returns (such as -1 for EOF) and modifying an argument.
+
+In C, a write error is signaled by a negative count with the error code
+secreted away in a volatile location. In Go, \lstinline{Write} can return a count and an
+error: "Yes, you wrote some bytes but not all of them because you filled the
+device". The signature of \lstinline{*File.Write} in package
+\package{os} is:
+\begin{lstlisting}
+func (file *File) Write(b []byte) (n int, err Error)
+\end{lstlisting}
+and as the documentation says, it returns the number of bytes written and a
+non-nil Error when \lstinline{n != len(b)}. This is a common style
+
+A similar approach obviates the need to pass a pointer to a return value to
+simulate a reference parameter. Here's a simple-minded function to grab a
+number from a position in a byte array, returning the number and the next
+position.
+\begin{lstlisting}
+func nextInt(b []byte, i int) (int, int) {
+    for ; i < len(b) && !isDigit(b[i]); i++ {
+    }
+    x := 0
+    for ; i < len(b) && isDigit(b[i]); i++ {
+        x = x*10 + int(b[i])-'0'
+    }
+    return x, i
+}
+\end{lstlisting}
+You could use it to scan the numbers in an input array a like this:
+\begin{lstlisting}
+    for i := 0; i < len(a); {
+        x, i = nextInt(a, i)
+        fmt.Println(x)
+    }
+\end{lstlisting}
+\subsection{Named result parameters}
+The return or result "parameters" of a Go function can be given names and used
+as regular variables, just like the incoming parameters. When named, they are
+initialized to the zero values for their types when the function begins; if the
+function executes a return statement with no arguments, the current values of
+the result parameters are used as the returned values.
+
+The names are not mandatory but they can make code shorter and clearer: they're
+documentation. If we name the results of nextInt it becomes obvious which
+returned int is which.
+
+\begin{lstlisting}
+func nextInt(b []byte, pos int) (value, nextPos int) {
+\end{lstlisting}
+Because named results are initialized and tied to an unadorned
+\key{return},
+they can simplify as well as clarify. Here's a version of
+\lstinline{io.ReadFull} that uses them well:
+
+\begin{lstlisting}
+func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
+    for len(buf) > 0 && err == nil {
+        var nr int
+        nr, err = r.Read(buf)
+        n += nr
+        buf = buf[nr:len(buf)]
+    }
+    return
+}
+\end{lstlisting}
+
+
+
+
 scope
 named parameters
 methods on types
@@ -55,6 +128,10 @@ func fib(n) (val int, pos int) {
 (The above contained boneheaded mistake 1: I just wrote that out, and didn't bother to compile it. Naturally, I screwed it up in a silly way. It's since been fixed.)
 
 defer, multiple return values etc etc
+
+scope
+
+
 
 \section{Exercises}
 \input{ex-functions/ex-stack.tex}
