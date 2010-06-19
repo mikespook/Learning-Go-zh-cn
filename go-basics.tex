@@ -137,7 +137,6 @@ A boolean type represents the set of Boolean truth values denoted by the
 predeclared constants \emph{true} and \emph{false}. The predeclared boolean type is \type{bool}.
 
 \subsection{Numerical types}
-
 Go has the well known types such as \lstinline{int} and
 \lstinline{float}. These types have the appropriate length for your
 machine. If you want to be explicit about the length you can have
@@ -151,29 +150,28 @@ Gives the error on the assignment on line 7:
 \noindent\lstinline{types.go:7: cannot use a + a (type int) as type int32 in assignment}
 
 \subsection{Strings}
-
-An important other built in type is \lstinline{string}. Strings in go are
+An important other built in type is \lstinline{string}. Strings in Go are
 immutable, meaning that, once defined, they can not be changed. For
 people coming from C, the following is not legal in Go:
 \lstinline{var s string = "hello"; s[0] = 'c'} 
 In Go you will need the following:
 \begin{lstlisting}
 s := "hello"
-c := []int(s)	    |\coderemark{Convert s to an array.}|
-
-c[0] = 'c'	    |\coderemark{Change the first element of this %
-array.}|
-s2 := string(c[0]) + string(c[1:]) |\coderemark{Create a \emph{new} %
-string s2 with the alteration.}|
-fmt.Printf("%v\n", s2);
+c := []int(s)	    |\longremark{Convert \texttt{s} to an array;}|
+c[0] = 'c'	    |\longremark{Change the first element of this %
+array;}|
+s2 := string(c[0]) + string(c[1:]) |\longremark{Create a \emph{new} %
+string \texttt{s2} with the alteration.}|
+fmt.Printf("%v\n", s2)
 \end{lstlisting}
+
+\showremarks
 
 \subsection{Constants}
 iota, and more about constants
 
 \subsection{Complex numbers}
-\gomarginpar{Complex numbers were added on 18 February 2010. 
-\hg{2010-02-18}}
+\gomarginpar{Complex numbers were added on 18 February 2010. \hg{2010-02-18}}
 In Go we have native support for complex numbers. If you 
 want use them you need a variable of the type \lstinline{complex}. If
 you need a precise number of bits you have \lstinline{complex32} and
@@ -181,8 +179,6 @@ you need a precise number of bits you have \lstinline{complex32} and
 
 \lstinline{var c complex = 5i-5i; fmt.Printf("Value is: %v", c")}
 
-\subsection{Type conversion/Casting}
-How to do type conversions, what is allowed and why \draft{TODO}
 
 \subsection{Go keywords}
 \begin{table}[H]
@@ -224,6 +220,9 @@ CODE EXAMPLES
 
 \paragraph{\func{print} and \func{println}} are lowlevel printing
 functions that can be used without reverting to the \package{fmt} package.
+
+\paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
+complex numbers.
 
 \section{Control structures}
 The control structures of Go are related to those of C but different in
@@ -512,6 +511,22 @@ we are greeted with a \emph{runtime} error 'throw: index out of range'.
 
 \subsection{Maps}
 \label{sec:maps}
+
+\subsection{Conversions}
+Sometimes you want to convert a type to another type. In C this is known
+as casting a value to another type. This is also possible in Go, but
+there are some rules.\draft{there are more rules, but we're trying to
+keep it simple...}
+You can convert:
+\begin{itemize}
+\item{from a \lstinline{string} to}
+\end{itemize}
+\draft{Maybe put this to the end of this chapter}
+%%x is an integer or has type []byte or []int and T is a string type.
+%%and back
+%% integer/float truncation
+
+
 
 \section{Exercises}
 \input{ex-basics/ex-for.tex}
