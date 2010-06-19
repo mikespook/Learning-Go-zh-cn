@@ -115,12 +115,22 @@ and other features of our new language.
 \section{Variables, types and keyword}
 Go is different than other languages in that the type of a variable
 is specified \emph{after} the variable name. So no: 
-\lstinline{int a}, but \lstinline{a int}.
+\lstinline{int a}, but \lstinline{a int}. When declaring a variable it
+is assigned the "natural" zero value for the type. This means that after
+\lstinline{var a int}, \lstinline{a} has the value $0$. With
+\lstinline{var s string}, \lstinline{s} is assigned the zero string,
+which is \lstinline{""}.
 
 \subsection{Nil value}
-Go use nil;
-newly created variables are assigned the nil value for that type. So
-integer get the value zero, strings are set to the empty string, etc.
+A reference to nothing is represented in Go as \lstinline{nil}. This is
+different than a zero value. \draft{nil only for references?}
+
+\begin{lstlisting}
+var *a int
+a = nil
+fmt.Printf("%v\n", a);
+\end{lstlisting}
+Prints \lstinline{nil}.
 
 \subsection{Boolean types}
 A boolean type represents the set of Boolean truth values denoted by the
@@ -148,7 +158,14 @@ people coming from C, the following is not legal in Go:
 \lstinline{var s string = "hello"; s[0] = 'c'} 
 In Go you will need the following:
 \begin{lstlisting}
-Give code example that does this. TODO
+s := "hello"
+c := []int(s)	    |\coderemark{Convert s to an array.}|
+
+c[0] = 'c'	    |\coderemark{Change the first element of this %
+array.}|
+s2 := string(c[0]) + string(c[1:]) |\coderemark{Create a \emph{new} %
+string s2 with the alteration.}|
+fmt.Printf("%v\n", s2);
 \end{lstlisting}
 
 \subsection{Constants}
@@ -163,6 +180,9 @@ you need a precise number of bits you have \lstinline{complex32} and
 \lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
 
 \lstinline{var c complex = 5i-5i; fmt.Printf("Value is: %v", c")}
+
+\subsection{Type conversion/Casting}
+How to do type conversions, what is allowed and why \draft{TODO}
 
 \subsection{Go keywords}
 \begin{table}[H]
@@ -397,7 +417,7 @@ case *int:
 \end{lstlisting}
 
 \section{Arrays, slices and  maps}
-From \cite{go_intro} ... really Good \draft{}
+From \cite{go_intro} ... really Good
 %
 arrays, even if it doesn't have any other parametric types? And we really want
 these cool things called slices - but they really need to be strongly typed. So
