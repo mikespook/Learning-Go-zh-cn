@@ -19,6 +19,20 @@ Java \cite{java}, Erlang\cite{erlang}, Scala\cite{scala} or
 Haskell\cite{haskell}. This is \emph{not} a book which teaches you how to 
 program, this is a book that teaches you how to use Go.
 
+\section{Origins}
+Go has it origins in Plan 9 \cite{plan9} and Plan 9 is (or was 
+supposed to be) the successor of Unix. As you know one of the
+core ideas of Unix is "everything is a file", so the \func{read()} and
+\func{write()} call work as well on normal files as they do on I/O
+devices. However for some devices this has never happened, notably
+network and video devices. In Plan 9 this "everything is a file idea"
+is taken to the next level and truly everything is presented to the 
+user as a file. This has nothing to do with Go, but Plan 9 included
+a language called Limbo \cite{limbo}. Cross compiling, etc.
+
+Also talk about Newsqueak \cite{newsqueak} and its influence. XXX TODO.
+channels
+
 \begin{lbar}
 \noindent The Go language is a young language and
 features are still added or even \emph{removed}. Whenever
@@ -43,7 +57,7 @@ An example is:
 \func{map()}-function. The answers are included after the exercises on a
 new page.
 The numbering and setup of the answer is identical to the
-exercises, except that an anwer starts with \textbf{A$n$}, where the
+exercises, except that an answer starts with \textbf{A$n$}, where the
 number $n$ corresponds with the number of the exercise.
 
 All the included source code (either Go or shell) is tested
