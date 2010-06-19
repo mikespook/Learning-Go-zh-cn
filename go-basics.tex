@@ -19,7 +19,7 @@ Compilation is fast and execution as fast. The aim is
 to be as fast as C. Compilation time is measured in seconds;
 
 \item[Safe]
-Go has garbage collection, no more \func{malloc()} in Go,
+Go has garbage collection, no more \func{free()} in Go,
 the language takes care of this;
 
 \item[Standard format]
@@ -55,11 +55,6 @@ Scala runs on the JVM (Java Virtual Machine) and is thus compiled
 bytecode. Is shares features with both Go and Erlang, but still\ldots
 JVM.  Well, on with Go.
 
-%\begin{figure}[h!b]
-%\includegraphics{fig/drawing.pdf}
-%\caption{een verhaaltje}
-%\end{figure}
-
 \section{Hello World}
 \label{sec:hello world}
 In the Go tutorial, Go is presented to the world in the typical
@@ -73,16 +68,14 @@ As you can see, Go is 100\% UTF-8 capable, you can put any Unicode
 glyph in your source - assuming you can type it on your keyboard.
 Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
 
-To explain our "Hello
-world"-program, we go through it line by line. In line 1, we state
-that this program is part of the \lstinline{package main}. Line 3
-tells Go to import the "\package{fmt}" package and make it available
-in the Go program under the name \lstinline{fmt}. Packages (see chapter
-\ref{chap:packages}) play a large role in Go.
-If we had used
-\lstinline{import foo "fmt"} we could say \lstinline{foo.Printf}. On
-line 5 we define our main function and use the \lstinline{fmt.Printf} to
-print our text.
+Line 1 is just required.  All Go files start with \lstinline{package <something>}.
+\lstinline{package main} is required for a standalone executable.  Line 3 says
+we need \package{"fmt"} in addition to \package{main}.  A package other than
+main is commonly called a library, a familiar concept of many programming
+languages (See chapter \ref{chap:packages}. 
+Just as \lstinline{package main} was required to be first, 
+\lstinline{import} must come next. Always in Go, package is first, then import, 
+then everything else.
 
 \section{Compiling and running code}
 This is a very concise instruction on how to get your code
@@ -92,8 +85,10 @@ this:
 %%\lstinputlisting[numbers=right,label=src:short,caption=Shortest Go program]{src/short.go}
 In which we define the \key{package} \package{main} and supply it with one
 function also called \func{main()}. The fully qualified function
-name is \func{main.main()}. This is the function that is called
-first.  To compile we do the following
+name is \func{main.main()}. Go always calls \func{main.main()} automatically.
+
+To compile we do the following
+
 \begin{display}
 \pr 8g helloworld.go \qquad\qquad\qquad\rem{# compiles to short.8 (for 32 bit Intel)}
 \pr 8l -o helloworld helloworld.8 \qquad\rem{# linking stage}
