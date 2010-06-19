@@ -63,7 +63,7 @@ Dennis Ritchie started this when they presented the C language in
 the nineteen seventies).
 So here it is, ''Hello World'' in Go.
 
-\lstinputlisting[label=src:hello,caption=Hello world]{src/helloworld.go}
+\lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
 As you can see, Go is 100\% UTF-8 capable, you can put any Unicode
 glyph in your source - assuming you can type it on your keyboard.
 Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
@@ -135,7 +135,7 @@ that too with \lstinline{int32}, or \lstinline{uint32}. Note however
 that these types are distinct and assigning variables which mix
 these types is a compiler error. Like in the following code:
 
-\lstinputlisting[numbers=right,label=src:types,caption=Familiar types are distinct]{src/types.go}
+\lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]{src/types.go}
 Gives the error on the assignment on line 7:
 
 \noindent\lstinline{types.go:7: cannot use a + a (type int) as type int32 in assignment}
@@ -146,7 +146,10 @@ An important other built in type is \lstinline{string}. Strings in go are
 immutable, meaning that, once defined, they can not be changed. For
 people coming from C, the following is not legal in Go:
 \lstinline{var s string = "hello"; s[0] = 'c'} 
-In Go you will need the following
+In Go you will need the following:
+\begin{lstlisting}
+Give code example that does this. TODO
+\end{lstlisting}
 
 \subsection{Constants}
 iota, and more about constants
@@ -159,13 +162,15 @@ want use them you need a variable of the type \lstinline{complex}. If
 you need a precise number of bits you have \lstinline{complex32} and
 \lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
 
-\lstinline{var c complex = 5i-5}
+\lstinline{var c complex = 5i-5i; fmt.Printf("Value is: %v", c")}
 
 \subsection{Go keywords}
-\begin{table}
+\begin{table}[H]
+\begin{center}
 \caption{Keywords in Go}
 \label{tab:keywords}
 \input{tab/keywords.tex}
+\end{center}
 \end{table}
 Table \ref{tab:keywords} lists all the keywords in Go.
 In the following paragraphs and chapters we will explain some of
@@ -186,16 +191,19 @@ channel closing (see chapter \ref{chap:channels}).
 of a \type{slice} or an \type{array} respectively. Also see
 \ref{capacity}.
 
-\paragraph{\func{new}} is used for creating new ... See allocation.
+\paragraph{\func{new}} is used for creating new ... See allocation. CODE
+EXMAPLES
 
-\paragraph{\func{make}} is used for creating new built-in types.
+\paragraph{\func{make}} is used for allocating a built-in type. EXAMPLE
+TODO
 
 \paragraph{\func{copy}} copy stuff. TODO
 
 \paragraph{\func{panic} and \func{panicln}} used for an elegant \emph{exception} mechanism.
+CODE EXAMPLES
 
 \paragraph{\func{print} and \func{println}} are lowlevel printing
-functions that can be used with reverting to the \package{fmt} package.
+functions that can be used without reverting to the \package{fmt} package.
 
 \section{Control structures}
 The control structures of Go are related to those of C but different in
@@ -293,7 +301,7 @@ byte and produce the replacement rune U+FFFD). The loop
 
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
-    fmt.Printf("character \%c starts at byte position \%d\n", char, pos)
+    fmt.Printf("character \'%c\' starts at byte position %d\n", char, pos)
 }
 \end{lstlisting}
 prints
@@ -315,8 +323,9 @@ for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
 \subsection{Switch}
 Go's \key{switch} is more general than C's. The expressions need not be
 constants or even integers, the cases are evaluated top to bottom until
-a match is found, and if the switch has no expression it switches on
-true. It's therefore possible--and idiomatic--to write an if-else-if-else
+a match is found, and if the \key{switch} has no expression it switches on
+\type{true}. It's therefore possible - and idiomatic - to write an
+\key{if-else-if-else}
 chain as a \key{switch}.
 \begin{lstlisting}
 func unhex(c byte) byte {

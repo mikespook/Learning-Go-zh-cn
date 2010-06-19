@@ -1,5 +1,5 @@
 \section{Functions}
-Multiple return values
+\paragraph{Multiple return values}
 One of Go's unusual features is that functions and methods can return multiple
 values. This can be used to improve on a couple of clumsy idioms in C programs:
 in-band error returns (such as -1 for EOF) and modifying an argument.
@@ -34,19 +34,20 @@ You could use it to scan the numbers in an input array a like this:
 \begin{lstlisting}
     for i := 0; i < len(a); {
         x, i = nextInt(a, i)
-        fmt.Println(x)
+        fmt.Printf("%d", x)
     }
 \end{lstlisting}
 \subsection{Named result parameters}
 The return or result "parameters" of a Go function can be given names and used
 as regular variables, just like the incoming parameters. When named, they are
 initialized to the zero values for their types when the function begins; if the
-function executes a return statement with no arguments, the current values of
+function executes a \key{return} statement with no arguments, the current values of
 the result parameters are used as the returned values.
 
-The names are not mandatory but they can make code shorter and clearer: they're
-documentation. If we name the results of nextInt it becomes obvious which
-returned int is which.
+The names are not mandatory but they can make code shorter and clearer:
+\emph{they are documentation}. 
+If we name the results of \lstinline{nextInt} it becomes obvious which
+returned \type{int} is which.
 
 \begin{lstlisting}
 func nextInt(b []byte, pos int) (value, nextPos int) {
