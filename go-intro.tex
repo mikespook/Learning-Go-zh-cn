@@ -19,20 +19,6 @@ Java \cite{java}, Erlang\cite{erlang}, Scala\cite{scala} or
 Haskell\cite{haskell}. This is \emph{not} a book which teaches you how to 
 program, this is a book that teaches you how to use Go.
 
-\section{Origins}
-Go has it origins in Plan 9 \cite{plan9} and Plan 9 is (or was 
-supposed to be) the successor of Unix. As you know one of the
-core ideas of Unix is "everything is a file", so the \func{read()} and
-\func{write()} call work as well on normal files as they do on I/O
-devices. However for some devices this has never happened, notably
-network and video devices. In Plan 9 this "everything is a file idea"
-is taken to the next level and truly everything is presented to the 
-user as a file. This has nothing to do with Go, but Plan 9 included
-a language called Limbo \cite{limbo}. Cross compiling, etc.
-
-Also talk about Newsqueak \cite{newsqueak} and its influence. XXX TODO.
-channels
-
 \begin{lbar}
 \noindent The Go language is a young language and
 features are still added or even \emph{removed}. Whenever
@@ -145,7 +131,19 @@ type Hash interface \{
 How to read this and how you can create your own package documentation
 is explained in chapter \ref{chap:packages}.
 
-TODO: more about history, Plan9, Limbo, NEwsquak and other stuff
+\section{Origins}
+Go has it origins in Plan 9 \cite{plan9} and Plan 9 is (or was 
+supposed to be) the successor of Unix. As you know one of the
+core ideas of Unix is "everything is a file", so the \func{read()} and
+\func{write()} calls work as well on normal files as they do on I/O
+devices. However for some devices this has never happened, notably
+network and video devices. In Plan 9 this "everything is a file idea"
+is taken to the next level and truly everything is presented to the 
+user as a file. This has nothing to do with Go, but Plan 9 included
+a language called Limbo \cite{limbo}. Cross compiling, etc.
+
+Also talk about Newsqueak \cite{newsqueak} and its influence. XXX TODO.
+channels
 
 \section{Exercises}
 \input{ex-intro/ex-doc.tex}
