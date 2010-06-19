@@ -37,7 +37,9 @@ the \package{string}-package. First we check the documentation
 with \prog{godoc strings | less}. When we read the documentation
 we notice two functions: \lstinline{func Bytes(s string) []byte} and
 \lstinline{func Runes(s string) []int}. Both return values are
-almost what we need, namely (\type{slices}) So we return the length of 
+almost what we need, namely \type{slices}. 
+
+So we return the length of 
 them. Putting this together leads to the following program.
 \lstinputlisting[label=string2,caption=Runes in strings]{ex-basics/src/string2.go}
 \end{Answer}

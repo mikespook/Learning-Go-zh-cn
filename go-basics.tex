@@ -12,7 +12,7 @@ run as \emph{very} lightweight threads. These threads are called
 
 \item[Channels] 
 Communication with these go-routines is done
-via \first{channels} \cite{csp}.
+via \first{channels} \cite{csp}\cite{ohoare};
 
 \item[Fast]
 Compilation is fast and execution as fast. The aim is
@@ -90,16 +90,11 @@ name is \func{main.main()}. Go always calls \func{main.main()} automatically.
 To compile we do the following
 
 \begin{display}
-\pr 8g helloworld.go \qquad\qquad\qquad\rem{# compiles to short.8 (for 32 bit Intel)}
+\pr 8g helloworld.go \qquad\qquad\qquad\rem{# compiles to helloworld.8 (for 32 bit Intel)}
 \pr 8l -o helloworld helloworld.8 \qquad\rem{# linking stage}
 \end{display}
 For 64 bit Intel you should use \prog{6g} and \prog{6l}, this will
-generate \prog{short.6}.
-You can then execute the program \prog{short}, which of course
-does absolute nothing
-\begin{display}
-\pr ./short
-\end{display}
+generate \prog{helloworld.6}.
 
 After getting this compiled we can run it:
 \begin{display}
@@ -112,7 +107,7 @@ After getting this compiled we can run it:
 In the next sections we will look at the types, keywords, control structures
 and other features of our new language. 
 
-\section{Variables, types and keyword}
+\section{Variables, types and keywords}
 Go is different than other languages in that the type of a variable
 is specified \emph{after} the variable name. So no: 
 \lstinline{int a}, but \lstinline{a int}. When declaring a variable it
@@ -168,7 +163,7 @@ fmt.Printf("%v\n", s2)
 \showremarks
 
 \subsection{Constants}
-iota, and more about constants
+iota, and more about constants\draft{TODO}
 
 \subsection{Complex numbers}
 \gomarginpar{Complex numbers were added on 18 February 2010. \hg{2010-02-18}}
@@ -177,8 +172,8 @@ want use them you need a variable of the type \lstinline{complex}. If
 you need a precise number of bits you have \lstinline{complex32} and
 \lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
 
-\lstinline{var c complex = 5i-5i; fmt.Printf("Value is: %v", c")}
-
+\lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c")}, will
+print \lstinline{(5+5i)}.
 
 \subsection{Go keywords}
 \begin{table}[H]
@@ -190,8 +185,8 @@ you need a precise number of bits you have \lstinline{complex32} and
 \end{table}
 Table \ref{tab:keywords} lists all the keywords in Go.
 In the following paragraphs and chapters we will explain some of
-them. TODO make references from here to chapters where they are
-explained.
+them. \draft{TODO make references from here to chapters where they are
+explained.}
 
 \section{Built-in functions}
 A number of functions in Go are predefined, meaning they already
@@ -228,12 +223,12 @@ complex numbers.
 The control structures of Go are related to those of C but different in
 \gomarginpar{This section is from \cite{effective_go}.}
 important ways. There is no do or while loop, only a slightly
-generalized for; \key{switch} is more flexible; \key{if} and
+generalized \key{for}; \key{switch} is more flexible; \key{if} and
 \key{switch} accept an
-optional initialization statement like that of for; and there are new
+optional initialization statement like that of \key{for}; and there are new
 control structures including a type switch and a multiway communications
-multiplexer, select. The syntax is also slightly different: parentheses
-are not required and the bodies must always be brace-delimited.
+multiplexer, \key{select}. The syntax is also slightly different: parentheses
+are not required and the bodies must \emph{always} be brace-delimited.
 
 \subsection{If}
 In Go a simple if looks like this:
@@ -244,10 +239,10 @@ if x > 0 {
 \end{lstlisting}
 Mandatory braces encourage writing simple \key{if} statements on multiple
 lines. It's good style to do so anyway, especially when the body
-contains a control statement such as a return or break.
+contains a control statement such as a \key{return} or \key{break}.
 
 Since \key{if} and \key{switch} accept an initialization statement, it's common to
-see one used to set up a local variable.
+see one used to set up a (local) variable.
 
 \begin{lstlisting}
 if err := file.Chmod(0664); err != nil {
@@ -258,7 +253,7 @@ if err := file.Chmod(0664); err != nil {
 In the Go libraries, you'll find that when an \key{if} statement doesn't flow
 into the next statement-that is, the body ends in \key{break},
 \key{continue}, \key{goto},
-or \key{return}, the unnecessary else is omitted.
+or \key{return}, the unnecessary \key{else} is omitted.
 
 \begin{lstlisting}
 f, err := os.Open(name, os.O_RDONLY, 0)
@@ -329,8 +324,8 @@ character a starts at byte position 0
 character \begin{math}\Phi\end{math} starts at byte position 1
 character x starts at byte position 3
 \end{display}
-Finally, since Go has no comma operator and ++ and -- are statements not
-expressions, if you want to run multiple variables in a for you should
+Finally, since Go has no comma operator and ++ and \-\- are statements not
+expressions, if you want to run multiple variables in a \key{for} you should
 use parallel assignment.
 \begin{lstlisting}
 // Reverse a
@@ -370,7 +365,7 @@ func shouldEscape(c byte) bool {
     return false
 }
 \end{lstlisting}
-Here's a comparison routine for byte arrays that uses two switch statements:
+Here's a comparison routine for byte arrays that uses two \key{switch} statements:
 
 \begin{lstlisting}
 // Compare returns an integer comparing the two byte arrays
@@ -401,7 +396,7 @@ parentheses. If the switch declares a variable in the expression, the
 variable will have the corresponding type in each clause.
 
 \begin{lstlisting}
-switch t := interfaceValue.(type) {
+switch t := interfaceValue.(type) { |\coderemark{Yes, you need to type \texttt{(type)}}|
 default:
     fmt.Printf("unexpected type %T", t)  // %T prints type
 case bool:
@@ -415,7 +410,7 @@ case *int:
 }
 \end{lstlisting}
 
-\section{Arrays, slices and  maps}
+\section{Arrays, slices and maps}
 From \cite{go_intro} ... really Good
 %
 arrays, even if it doesn't have any other parametric types? And we really want
@@ -433,20 +428,20 @@ infuriating.
 
 \subsection{Arrays}
 Array types like \lstinline{[10]int} have a fixed size. 
-It can't grow, because then it would have a different type. Also array
-are values: Assigning one array to another copies all the elements.
+It can't grow, because then it would have a different type. Also arrays
+are values: Assigning one array to another \emph{copies} all the elements.
 
 In particular, if you pass an array to a function, it will receive a
-copy of the array, not a pointer to it. This is a major difference with
-C.
+copy of the array, not a pointer to it. This is a major difference with C.
 
 To declare an array you can use the following: \lstinline{var a [3]int},
 to initialize it to something else than zero, use a composite literal.
 \gomarginindex{composite literals}{composite literals}\lstinline|a := [3]int{1, 2, 3}| and
-this can be shortend to \lstinline|a := []int{1, 2, 3}|.
+this can be shortend to \lstinline|a := []int{1, 2, 3}|, where Go counts
+the elements automatically.
 
 Note that all fields must be specified.  So if you are using multidimentional
-arrays you have to do some typing:
+arrays you have to do quite some typing:
 \begin{lstlisting}
 a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
 \end{lstlisting}
@@ -460,9 +455,17 @@ As this gives a compile error.\draft{why?}\newline
 But this is then OK again:
 \begin{lstlisting}
 a := [][]int{ []int{1,2}, []int{3,4} }
-\end{lstlisting}
+\end{lstlisting}  
+So either specify the length of the array or let Go do the counting, but
+don't mix the two.
 
 \subsection{Slices}
+Slices are reference types, which means that if you assign one slice to
+another, both refer to the same underlying array. For instance, if a
+function takes a slice argument, changes it makes to the elements of the
+slice will be visible to the caller, analogous to passing a pointer to
+the underlying array. A slice is always coupled to an array that has
+a fixed size. For slices we define a capacity and a length.
 
 \begin{figure}[!bh]
 \caption{Array versus slice}
@@ -476,38 +479,18 @@ First we create an array of $m$ elements of the type \lstinline{int}:
 \lstinline{var array[m + 1]int}\newline
 Next, we create a slice from this array: 
 \lstinline{slice := array[0:n +1]}\newline
-And now is: \lstinline{len(slice) = n, cap(slice) = m} and
-\lstinline{len(array) = cap(array) = m}.\newline
-Also see listing \ref{src:arrays} below.
-
-Slices are reference types, which means that if you assign one slice to
-another, both refer to the same underlying array. For instance, if a
-function takes a slice argument, changes it makes to the elements of the
-slice will be visible to the caller, analogous to passing a pointer to
-the underlying array. A Read function can therefore accept a slice
-argument rather than a pointer and a count; the length within the slice
-sets an upper limit of how much data to read. Here is the signature of
-the Read method of the File type in package os:
-
-The following code 
-\lstinputlisting[label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
-
-See \ref{fig:array-vs-slice} for the details of \func{len()} and
-\func{cap()} for arrays and slices.
-
-show 
-array cap 100 len 100, slice cap 100 len 100
-On line 6 we declare an array of length 100, the elements are of
-type \type{int} and the are indexed from 0 to 99. The capacity
-and length are both 100. Then, on the following line, we create
-a slice that points to the array, we \emph{slice} the array to
-99 elements (indexed from 0 to 98). The capacity of the slice
-is 99 and so is its length. 
-\draft{Set length afterwards?}
-
-On line 10 we dare to do to impossible and try to allocate something
+And now we have:
+\begin{itemize}
+\item{\lstinline{len(slice) = n, cap(slice) = m};}
+\item{\lstinline{len(array) = cap(array) = m}.}
+\end{itemize}
+Also see the following code:
+\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
+On line 8 we dare to do to impossible and try to allocate something
 behind the capacity (maximum length of the under laying array) and
-we are greeted with a \emph{runtime} error 'throw: index out of range'.
+we are greeted with a \emph{runtime} error 
+
+\noindent\lstinline{throw: index out of range}.
 
 \subsection{Maps}
 \label{sec:maps}
