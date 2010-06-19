@@ -1,22 +1,29 @@
-\begin{Exercise}[title={Fibonaci},difficulty=5]
-\label{ex:fibonaci}
-\Question\label{ex:fibonaci q1}
+\begin{Exercise}[title={Fibonaci II},difficulty=7]
+\label{ex:fibonaci II}
+\Question\label{ex:fibonaci II q1}
+This is the same exercise as the one given page \pageref{ex:fibonaci} 
+in exercise \ref{ex:fibonaci}. For completeness the complete question:
+
+\begin{quote}
 The Fibonaci sequence starts as follows: $1, 1, 2, 3, 5, 8, 13, \ldots$
 Or in mathematical terms: $ x_1 = 1; x_2 = 1; x_n = x_{n-1} +
 x_{n-2}\quad\forall n > 2 $.
 
 Write a function that takes an \type{int} value and gives to
 Fibonaci sequence up to that value.
+\end{quote}
 
-Ref to the first exercise, and may be put this in the functions
-chapter
+\begin{lbar}
+\emph{But} now the twist: You must use channels.
+\end{lbar}
+
 
 \end{Exercise}
 
 \begin{Answer}
 \Question
-The following program calculates the Fibonaci numbers.
-\lstinputlisting[label=src:fib,caption=A Fibonaci function in Go]{ex-intro/src/fib.go}
+The following program calculates the Fibonaci numbers using channels.
+\lstinputlisting[label=src:fib II,caption=A Fibonaci function in Go]{ex-channels/src/fib.go}
 \end{Answer}
 
 
