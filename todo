@@ -5,11 +5,10 @@ functions
 packages
 
 
-write a calculator
-interface opgaven
-pointer opgaven
-array opgaven
-string opgaven
+red-black tree
+linked list
+that kind of stuff
+
 utf-8 opgaven
 %% networking 
 %% other stuff
@@ -20,6 +19,3 @@ utf-8 opgaven
 %% pointers
 %% defer
 %% channels go functions
-
-reverse polish calculator
-stack maken met array - aparte oefening
