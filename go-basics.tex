@@ -503,7 +503,19 @@ there are some rules.\draft{there are more rules, but we're trying to
 keep it simple...}
 You can convert:
 \begin{itemize}
-\item{from a \lstinline{string} to}
+\item{
+From a \lstinline{string} to a slice of \lstinline{byte}s.
+\begin{lstlisting}
+mystring = "hello this is string"
+byteslice =  []byte(mystring)
+\end{lstlisting}
+}
+\item{
+From a slice of \lstinline{byte}s to a \lstinline{string}.
+\begin{lstlisting}
+The other way around
+\end{lstlisting}
+}
 \end{itemize}
 \draft{Maybe put this to the end of this chapter}
 %%x is an integer or has type []byte or []int and T is a string type.

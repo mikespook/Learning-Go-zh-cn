@@ -39,7 +39,8 @@ we notice \lstinline{func RuneCount(p []byte) int}. Secondly
 we can convert \emph{string} to a \type{byte} slice with
 \begin{lstlisting}
 str := "hallo"
-b   := []byte(str)  |\coderemark{A conversion, see section \ref{sec:conversions}}|
+b   := []byte(str)  |\coderemark{A conversion, see section %
+\ref{sec:conversions} on page \pageref{sec:conversions}}|
 \end{lstlisting}
 
 Putting this together leads to the following program.
