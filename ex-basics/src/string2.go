@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"utf8"
 )
 
 func main() {
 	str := "dsjkdshdjsdh|\ldots|js"
-	fmt.Printf("String %s\nLenght: %v, Runes: %d\n", str,
-		len(strings.Bytes(str)), len(strings.Runes(str)))
+	fmt.Printf("String %s\nLenght: %d, Runes: %d\n", str,
+		len([]byte(str)), utf8.RuneCount([]byte(str)))
 }
