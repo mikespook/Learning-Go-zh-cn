@@ -152,17 +152,26 @@ simple abstract data types. It is designed for safe execution even on
 small machines without hardware memory protection.
 \end{quote}
 From the looks of it, Go is an re-implementation of Limbo with adhering
-to the good ideas and improving on the poorer ones.
+to the good ideas and improving on the poorer ones. One of the niceties
+of Limbo was the fact the cross-compiling was (is?) very easy. This is 
+also the case in Go.
 
+Channels (see chapter \ref{chap:channels} are also available in Limbo,
+in fact the documentation states:
+\begin{quote}
+[a channel] is a communication mechanism capable of sending and receiving objects of
+the specified type to another agent in the system. Channels may be used
+to communicate between local processes; using library procedures, they
+may be connected to named destinations. In either case send and receive
+operations may be directed to them.
+\end{quote}
 
-
-
-Cross compiling, etc.
-
-Also talk about Newsqueak \cite{newsqueak} and its influence. XXX TODO.
+An intermediate language between Limbo and Go might be Newsqueak
+\cite{newsqueak}, bla bla 
 Hoare \cite{hoare} and it channel communication
 
 Communicating Sequential Processes (CSP)
+\draft{I have no clue if stuff even happened like this}
 
 \section{Exercises}
 \input{ex-intro/ex-doc.tex}
