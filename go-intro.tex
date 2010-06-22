@@ -140,7 +140,24 @@ devices. However for some devices this has never happened, notably
 network and video devices. In Plan 9 this "everything is a file idea"
 is taken to the next level and truly everything is presented to the 
 user as a file. This has nothing to do with Go, but Plan 9 included
-a language called Limbo \cite{limbo}. Cross compiling, etc.
+a language called Limbo \cite{limbo}. 
+
+From the Limbo \cite{limbo} paper:
+\begin{quote}
+Limbo is a programming language intended for applications running
+distributed systems on small computers. It supports modular programming,
+strong type checking at compile- and run-time, interprocess
+communication over typed channels, automatic garbage collection, and
+simple abstract data types. It is designed for safe execution even on
+small machines without hardware memory protection.
+\end{quote}
+From the looks of it, Go is an re-implementation of Limbo with adhering
+to the good ideas and improving on the poorer ones.
+
+
+
+
+Cross compiling, etc.
 
 Also talk about Newsqueak \cite{newsqueak} and its influence. XXX TODO.
 Hoare \cite{hoare} and it channel communication
