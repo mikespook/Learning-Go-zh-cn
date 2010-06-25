@@ -61,7 +61,7 @@ So here it is, ''Hello World'' in Go.
 
 \lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
 As you can see, Go is 100\% UTF-8 capable, you can put any Unicode
-\emph{glyph} in your source - assuming you can type it on your keyboard.
+\emph{glyph} in your source --- assuming you can type it on your keyboard.
 Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
 
 Line 1 is just required.  All Go files start with \lstinline{package <something>}.
@@ -72,26 +72,21 @@ languages (See chapter \ref{chap:packages}).
 Just as \lstinline{package main} was required to be first, 
 \lstinline{import} must come next. Always in Go, \lstinline{package} is first, then
 \lstinline{import}, then everything else.
+When your Go program is executed the first function called will be
+\lstinline{main.main()}, which mimics the behavoir from C.
 
 \section{Compiling and running code}
-This is a very concise instruction on how to get your code
-compiled and get it running.
-The shortest program you can write in Go looks like
-this:
-%%\lstinputlisting[numbers=right,label=src:short,caption=Shortest Go program]{src/short.go}
-In which we define the \key{package} \package{main} and supply it with one
-function also called \func{main()}. The fully qualified function
-name is \func{main.main()}. Go always calls \func{main.main()} automatically.
-
-To compile we do the following
-
+This is a concise instruction on how to get your code compiled and get
+it to run.
 \begin{display}
-\pr 8g helloworld.go \qquad\qquad\qquad\rem{# compiles to helloworld.8 (for 32 bit Intel)}
-\pr 8l -o helloworld helloworld.8 \qquad\rem{# linking stage}
+\pr 6g helloworld.go \qquad\qquad\qquad\rem{# compiles to helloworld.6 (for 32 bit Intel)}
+\pr 6l -o helloworld helloworld.6 \qquad\rem{# linking stage}
 \end{display}
-For 64 bit Intel you should use \prog{6g} and \prog{6l}, this will
-generate \prog{helloworld.6}.
 
+\noindent{}For 32 bit you should use \prog{8g} and \prog{8l}, this will then
+generate \prog{helloworld.8} \footnote{This is the only thing you will
+need to change when you are cross compiling. Just use a different
+compiler and you are done.}.
 After getting this compiled we can run it:
 \begin{display}
 \pr ./helloworld
@@ -101,27 +96,28 @@ After getting this compiled we can run it:
 \ \newline
 \ \newline
 In the next sections we will look at the types, keywords, control structures
-and other features of our new language. 
+and other (basic) features of our new language. 
 
 \section{Variables, types and keywords}
 Go is different than other languages in that the type of a variable
 is specified \emph{after} the variable name. So no: 
 \lstinline{int a}, but \lstinline{a int}. When declaring a variable it
 is assigned the "natural" zero value for the type. This means that after
-\lstinline{var a int}, \lstinline{a} has the value $0$. With
+\lstinline{var a int}, \lstinline{a} has a value of $0$. With
 \lstinline{var s string}, \lstinline{s} is assigned the zero string,
-which is \lstinline{""}.
+which is \lstinline{""}. 
 
-\subsection{Nil value}
-A reference to nothing is represented in Go as \lstinline{nil}. This is
-different than a zero value. \draft{nil only for references?}
-
-\begin{lstlisting}
-var *a int
-a = nil
-fmt.Printf("%v\n", a);
-\end{lstlisting}
-Prints \lstinline{nil}.
+%% Must be told somewhere, but not here
+%%\subsection{Nil value}
+%%A reference to nothing is represented in Go as \lstinline{nil}. This is
+%%different than a zero value. \todo{nil only for references?}
+%%
+%%\begin{lstlisting}
+%%var *a int
+%%a = nil
+%%fmt.Printf("%v\n", a);
+%%\end{lstlisting}
+%%Prints \lstinline{nil}.
 
 \subsection{Boolean types}
 A boolean type represents the set of Boolean truth values denoted by the
@@ -130,7 +126,10 @@ predeclared constants \emph{true} and \emph{false}. The predeclared boolean type
 \subsection{Numerical types}
 Go has the well known types such as \lstinline{int} and
 \lstinline{float}. These types have the appropriate length for your
-machine. If you want to be explicit about the length you can have
+machine, meaning that on a 32 bits machine they are 32 bits, and on
+a 64 bits machine they are 64 bits.
+
+If you want to be explicit about the length you can have
 that too with \lstinline{int32}, or \lstinline{uint32}. Note however
 that these types are distinct and assigning variables which mix
 these types is a compiler error. Like in the following code:
@@ -138,17 +137,19 @@ these types is a compiler error. Like in the following code:
 \lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]{src/types.go}
 Gives the error on the assignment on line 7:
 
-\noindent\lstinline{types.go:7: cannot use a + a (type int) as type int32 in assignment}
+\noindent\texttt{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
 
 \subsection{Strings}
 An important other built in type is \lstinline{string}. Strings in Go are
 immutable, meaning that, once defined, they can not be changed. For
 people coming from C, the following is not legal in Go:
 \lstinline{var s string = "hello"; s[0] = 'c'} 
-In Go you will need the following:
+
+\noindent{}To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
-c := []int(s)	    |\longremark{Convert \texttt{s} to an array;}|
+c := []int(s)	    |\longremark{Convert \texttt{s} to an array, see %
+chapter X;}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
 s2 := string(c[0]) + string(c[1:]) |\longremark{Create a \emph{new} %
@@ -159,37 +160,30 @@ fmt.Printf("%v\n", s2)
 \showremarks
 
 \subsection{Constants}
-iota, and more about constants\draft{TODO}
+iota, and more about constants\todo{xxx}
 
 \subsection{Complex numbers}
-\gomarginpar{Complex numbers were added on 18 February 2010. \hg{2010-02-18}}
-In Go we have native support for complex numbers. If you 
+In Go there is native support for complex numbers. If you 
 want use them you need a variable of the type \lstinline{complex}. If
 you need a precise number of bits you have \lstinline{complex32} and
 \lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
 
-\lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c")}, will
-print \lstinline{(5+5i)}.
-
-\subsection{Go keywords}
-\begin{table}[H]
-\begin{center}
-\caption{Keywords in Go}
-\label{tab:keywords}
-\input{tab/keywords.tex}
-\end{center}
-\end{table}
-Table \ref{tab:keywords} lists all the keywords in Go.
-In the following paragraphs and chapters we will explain some of
-them. \draft{TODO make references from here to chapters where they are
-explained.}
+\lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c")}\newline
+will print\newline
+\indent\lstinline{(5+5i)}
 
 \section{Built-in functions}
 A number of functions in Go are predefined, meaning they already
-\gomarginpar{This is list changing (slowly).\hg{2010-02-04}}
 exists and you \emph{don't} have to include any package to get
-access to them. In the following paragraphs we list the current 
-built-in functions. This is copied from \cite{go_spec}.
+access to them. Table \ref{tab:predef-functions} lists them all.
+
+\begin{table}[H]
+\begin{center}
+\caption{Pre--defined functions in Go}
+\label{tab:predef-functions}
+\input{tab/functions.tex}
+\end{center}
+\end{table}
 
 \paragraph{\func{close} and \func{closes}} are used in
 channel closing (see chapter \ref{chap:channels}).
@@ -214,6 +208,21 @@ functions that can be used without reverting to the \package{fmt} package.
 
 \paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
 complex numbers.
+
+\section{Go keywords}
+\begin{table}[H]
+\begin{center}
+\caption{Keywords in Go}
+\label{tab:keywords}
+\input{tab/keywords.tex}
+\end{center}
+\end{table}
+Table \ref{tab:keywords} lists all the keywords in Go.
+In the following paragraphs and chapters we will explain some of
+them. \todo{make references from here to chapters where they are
+explained.}
+\todo{explain the keywords as best as possible...}
+
 
 \section{Control structures}
 The control structures of Go are related to those of C but different in
@@ -445,7 +454,7 @@ Which is \emph{not} the same as:
 \begin{lstlisting}
 a := [2][2]int{ []int{1,2}, []int{3,4} }
 \end{lstlisting}
-As this gives a compile error.\draft{why?}\newline
+As this gives a compile error.\todo{why?}\newline
 \lstinline{cannot use slice literal (type []int) as type [2]int in array index}
 
 But this is then OK again:
@@ -495,7 +504,7 @@ we are greeted with a \emph{runtime} error
 \label{sec:conversions}
 Sometimes you want to convert a type to another type. In C this is known
 as casting a value to another type. This is also possible in Go, but
-there are some rules.\draft{there are more rules, but we're trying to
+there are some rules.\todo{there are more rules, but we're trying to
 keep it simple...}
 You can convert:
 \begin{itemize}
@@ -513,7 +522,7 @@ The other way around
 \end{lstlisting}
 }
 \end{itemize}
-\draft{Maybe put this to the end of this chapter}
+\todo{Maybe put this to the end of this chapter}
 %%x is an integer or has type []byte or []int and T is a string type.
 %%and back
 %% integer/float truncation
