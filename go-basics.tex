@@ -12,7 +12,7 @@ run as \emph{very} lightweight threads. These threads are called
 
 \item[Channels] 
 Communication with these go-routines is done
-via \first{channels} \cite{csp}\cite{ohoare};
+via \first{channels} \cite{csp}\cite{hoare};
 
 \item[Fast]
 Compilation is fast and execution as fast. The aim is
@@ -45,15 +45,11 @@ source code distribution;
 Programming with Go should be fun again!
 
 \end{description}
-It must be said the Erlang \cite{erlang} and Scala \cite{scala} also share some
+It must be said the Erlang \cite{erlang} also shares some
 of the features of Go. Notible differences between Erlang
 and Go is that Erlang borders on being a functional language,
-where Go is an imperative one. And Erlang is running a virtual
+where Go is an imperative one. And Erlang runs in a virtual
 machine, while Go is compiled. 
-
-Scala runs on the JVM (Java Virtual Machine) and is thus compiled 
-bytecode. Is shares features with both Go and Erlang, but still\ldots
-JVM.  Well, on with Go.
 
 \section{Hello World}
 \label{sec:hello world}
@@ -65,17 +61,17 @@ So here it is, ''Hello World'' in Go.
 
 \lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
 As you can see, Go is 100\% UTF-8 capable, you can put any Unicode
-glyph in your source - assuming you can type it on your keyboard.
+\emph{glyph} in your source - assuming you can type it on your keyboard.
 Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
 
 Line 1 is just required.  All Go files start with \lstinline{package <something>}.
 \lstinline{package main} is required for a standalone executable.  Line 3 says
 we need \package{"fmt"} in addition to \package{main}.  A package other than
-main is commonly called a library, a familiar concept of many programming
-languages (See chapter \ref{chap:packages}. 
+\package{main} is commonly called a library, a familiar concept of many programming
+languages (See chapter \ref{chap:packages}). 
 Just as \lstinline{package main} was required to be first, 
-\lstinline{import} must come next. Always in Go, package is first, then import, 
-then everything else.
+\lstinline{import} must come next. Always in Go, \lstinline{package} is first, then
+\lstinline{import}, then everything else.
 
 \section{Compiling and running code}
 This is a very concise instruction on how to get your code
