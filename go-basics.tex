@@ -76,8 +76,9 @@ When your Go program is executed the first function called will be
 \lstinline{main.main()}, which mimics the behavoir from C.
 
 \section{Compiling and running code}
-This is a concise instruction on how to get your code compiled and get
-it to run.
+Now we want to execute this code, as Go is a compiled language we first
+need to compile our program. Compiling in Go is \emph{fast}, often
+measured in seconds, even for large pieces of code.
 \begin{display}
 \pr 6g helloworld.go \qquad\qquad\qquad\rem{# compiles to helloworld.6 (for 32 bit Intel)}
 \pr 6l -o helloworld helloworld.6 \qquad\rem{# linking stage}
@@ -87,7 +88,7 @@ it to run.
 generate \prog{helloworld.8} \footnote{This is the only thing you will
 need to change when you are cross compiling. Just use a different
 compiler and you are done.}.
-After getting this compiled we can run it:
+After compilation we can run it:
 \begin{display}
 \pr ./helloworld
 \end{display}\texttt{Hello, world; or }%
@@ -107,6 +108,32 @@ is assigned the "natural" zero value for the type. This means that after
 \lstinline{var s string}, \lstinline{s} is assigned the zero string,
 which is \lstinline{""}. 
 
+Declaring and assigning in Go is a two step process, but they may
+be combined. Compare the following pieces of code.
+
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}
+var a int
+var b bool
+a = 15
+b = false
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}
+a := 15
+b := false
+\end{lstlisting}
+\end{minipage}
+
+The code on the left is identical to the code on the right. On the left
+we use the
+\key{var} keyword to declare a variable and then assign a value to
+it. The code on the right uses \key{:=}{ }. In that case the variable
+type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
+a value of "false" tells Go that the type should be \type{bool}. 
+
+
 %% Must be told somewhere, but not here
 %%\subsection{Nil value}
 %%A reference to nothing is represented in Go as \lstinline{nil}. This is
@@ -120,8 +147,8 @@ which is \lstinline{""}.
 %%Prints \lstinline{nil}.
 
 \subsection{Boolean types}
-A boolean type represents the set of Boolean truth values denoted by the
-predeclared constants \emph{true} and \emph{false}. The predeclared boolean type is \type{bool}.
+A boolean type represents the set of boolean truth values denoted by the
+predeclared constants \emph{true} and \emph{false}. The boolean type is \type{bool}.
 
 \subsection{Numerical types}
 Go has the well known types such as \lstinline{int} and
@@ -132,12 +159,17 @@ a 64 bits machine they are 64 bits.
 If you want to be explicit about the length you can have
 that too with \lstinline{int32}, or \lstinline{uint32}. Note however
 that these types are distinct and assigning variables which mix
-these types is a compiler error. Like in the following code:
+these types is a compiler error, like in the following code:
 
 \lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]{src/types.go}
 Gives the error on the assignment on line 7:
 
-\noindent\texttt{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
+\noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
+
+\subsection{Constants}
+Although integers come in lots of sizes in Go, integer constants do not. There are no constants like 0LL or 0x0UL. Instead, integer constants are evaluated as large-precision values that can overflow only when they are assigned to an integer variable with too little precision to represent the value.
+iota, and more about constants\todo{xxx}
+
 
 \subsection{Strings}
 An important other built in type is \lstinline{string}. Strings in Go are
@@ -158,9 +190,6 @@ fmt.Printf("%v\n", s2)
 \end{lstlisting}
 
 \showremarks
-
-\subsection{Constants}
-iota, and more about constants\todo{xxx}
 
 \subsection{Complex numbers}
 In Go there is native support for complex numbers. If you 
