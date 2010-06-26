@@ -30,7 +30,7 @@ format.
 
 \item[Postfix types]
 Types are given \emph{after} the variable name, thus \prog{var a int},
-instead of \prog{int a;} as in C;
+instead of \prog{int a;} as one would in C;
 
 \item[UTF-8]
 UTF-8 is all over the place, in strings
@@ -132,8 +132,9 @@ b := false
 
 The code on the left is identical to the code on the right. On the left
 we use the
-\key{var} keyword to declare a variable and then assign a value to
-it. The code on the right uses \mbox{\key{:=}{ }.} In that case the variable
+\key{var} keyword to declare a variable and \emph{then} assign a value to
+it. The code on the right uses \mbox{\key{:=}{ }} to do this in one step. 
+In that case the variable
 type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
 a value of "false" tells Go that the type should be \type{bool}. 
 Multiple \key{var} declarations may also be grouped like this.
