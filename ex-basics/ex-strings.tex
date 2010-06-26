@@ -28,6 +28,9 @@ Make it also output the number of bytes in that string.
 the previous question to replace the three runes at
 position 4 with 'abc'.
 
+\Question \label{ex:string q4} Write a Go program
+that reverses a string, so "foobar" is printed as "raboof".
+
 \end{Exercise}
 
 \begin{Answer}
@@ -48,4 +51,7 @@ b   := []byte(str)  |\coderemark{A conversion, see section %
 
 Putting this together leads to the following program.
 \lstinputlisting[label=string2,caption=Runes in strings]{ex-basics/src/string2.go}
+
+\Question Reversing a string can be done as follows:
+
 \end{Answer}
