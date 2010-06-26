@@ -112,28 +112,37 @@ Declaring and assigning in Go is a two step process, but they may
 be combined. Compare the following pieces of code.
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption="Using \texttt{=}]
+\begin{lstlisting}[linewidth=.5\textwidth,caption=Using \texttt{=}]
 var a int
 var b bool
 a = 15
 b = false
 \end{lstlisting}
+\hfill
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption="Using \texttt{:=}]
+\begin{lstlisting}[linewidth=.5\textwidth,caption=Using \texttt{:=}]
 a := 15
 b := false
-
-
 \end{lstlisting}
+\ \\
+\ \\
+\hfill
 \end{minipage}
 
 The code on the left is identical to the code on the right. On the left
 we use the
 \key{var} keyword to declare a variable and then assign a value to
-it. The code on the right uses \key{:=}{ }. In that case the variable
+it. The code on the right uses \mbox{\key{:=}{ }.} In that case the variable
 type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
 a value of "false" tells Go that the type should be \type{bool}. 
+Multiple \key{var} declarations may also be grouped like this.
+\begin{lstlisting}
+var {
+    x int
+    b bool
+}
+\end{lstlisting}
 
 
 %% Must be told somewhere, but not here
@@ -169,8 +178,28 @@ Gives the error on the assignment on line 7:
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
 
 \subsection{Constants}
-Although integers come in lots of sizes in Go, integer constants do not. There are no constants like 0LL or 0x0UL. Instead, integer constants are evaluated as large-precision values that can overflow only when they are assigned to an integer variable with too little precision to represent the value.
-iota, and more about constants\todo{xxx}
+Constants in Go are just that --- constant. They are created at compile
+time, and can only be numbers, strings or booleans;
+\lstinline{const x = 42} makes \var{x} a constant. You can use
+\first{\key{iota}}\footnote{The word [iota] is used in a common English phrase,
+'not one iota', meaning 'not the slightest difference', in reference to
+a phrase in the New Testament: "\emph{until heaven and earth pass away, not an
+iota, not a dot, will pass from the Law}."\cite{iota}}
+to enumerate values.
+\begin{lstlisting}
+const (
+	a = iota
+	b = iota
+)
+\end{lstlisting}
+The first use of \key{iota} will yield $0$, so \var{a} is equal to $0$, whenever
+\key{iota} is used again its value is incremented with $1$, so \var{b}
+has a value of $1$.
+
+
+
+
+%% http://golang.org/doc/effective_go.html#initialization
 
 
 \subsection{Strings}
