@@ -1,19 +1,21 @@
 intro
 basic
-    - order of evaluation!!
-functions
-
-allocation
+beyond
     describe nil here
+    and more stuff arrays, slices, map etc.
+    Making your own types, struct (with tags)
+
+Interfaces
 
 Communication
     - options and arguments
     - reading files
     - writing files
 
+Concurrency!!
+
 Regular expressions
 
-Concurrency!!
 
 
 GUI?
