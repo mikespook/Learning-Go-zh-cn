@@ -25,7 +25,7 @@ the language takes care of this;
 \item[Standard format]
 A Go program can be formatted in (almost) any way the programmmers want,
 \emph{but} an official format exist. The rule is very simple:
-The output of the filter \prog{gofmt} \emph{is} the official endorsed
+The output of the filter \prog{gofmt} \emph{is the official} endorsed
 format.
 
 \item[Postfix types]
@@ -63,7 +63,7 @@ So here it is, ''Hello World'' in Go.
 As you can see, Go is 100\% UTF-8 capable, you can put any Unicode
 \emph{glyph} in your source --- assuming you can type it on your keyboard.
 Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
-
+Lets look at the program line by line.
 Line 1 is just required.  All Go files start with \lstinline{package <something>}.
 \lstinline{package main} is required for a standalone executable.  Line 3 says
 we need \package{"fmt"} in addition to \package{main}.  A package other than
@@ -136,8 +136,8 @@ On the left we use the
 it. The code on the right uses \mbox{\key{:=}{ }} to do this in one step. 
 In that case the variable
 type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
-a value of "false" tells Go that the type should be \type{bool}. 
-Multiple \key{var} declarations may also be grouped like this.
+a value of \texttt{false} tells Go that the type should be \type{bool}. 
+Multiple \key{var} declarations may also be grouped.
 \begin{lstlisting}
 var {
     x int
@@ -146,7 +146,8 @@ var {
 \end{lstlisting}
 
 A special name for a variable is \texttt{\_} (underscore). Any value
-assigned to it, is discarded. In this example we only assign a value
+assigned to it, is discarded. In this example we only assign the integer
+value of 35 to and discard 34.
 to \var{b}.
 \begin{lstlisting}
 _, b := 34, 35;
@@ -204,11 +205,11 @@ people coming from C, the following is not legal in Go:
 \begin{lstlisting}
 s := "hello"
 c := []int(s)	    |\longremark{Convert \texttt{s} to an array, see %
-chapter X;}|
+chapter \ref{chap:beyond} section \ref{sec:conversions};}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
 s2 := string(c[0]) + string(c[1:]) |\longremark{Create a \emph{new} %
-string \texttt{s2} with the alteration. Note that we can use \texttt{+} %
+string \texttt{s2} with the alteration. Note that we use \texttt{+} %
 to concatenate these two strings.}|
 fmt.Printf("%v\n", s2)
 \end{lstlisting}
@@ -218,7 +219,7 @@ Strings in Go are a sequence of UTF-8 characters enclosed in double
 quotes (").
 
 \subsection{Complex numbers}
-There is native support for complex numbers. If you 
+Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex}. If
 you need a precise number of bits you have \lstinline{complex32} and
 \lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
@@ -228,6 +229,11 @@ will print\newline
 \indent\lstinline{(5+5i)}
 
 \section{Operators and built-in functions}
+Go supports the normal set of numerical operations, some of which are
+overloaded to be used on multiple types. Table \ref{tab:op-precedence}
+lists the current ones and their relative precedence. They
+all associate from left to right.
+
 \begin{table}[H]
 \begin{center}
 \caption{Operator precedence}
@@ -235,14 +241,15 @@ will print\newline
 \input{tab/precedence.tex}
 \end{center}
 \end{table}
-
-\verb|+ - * /| and \verb|%| all do what you would expect, \verb!& | ^!
+\verb|+ - * /| and \verb|%| all do what you would expect. 
+\verb!& | ^!
 and \verb!&^! are bit operators for bitwise and, or, xor and bit clear 
 respectively.
+
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
 operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
-floats, complex numbers and strings.
+floats, complex numbers and strings.\hfill
 
 A small number of functions in Go are predefined, meaning they already
 exists and you \emph{don't} have to include any package to get
@@ -263,7 +270,8 @@ complex numbers.
 channel communication and the closing of those channels, see chapter \ref{chap:channels}
 for more on this.
 
-\paragraph{\func{len} and \func{cap}} is used on a number of different types. It is
+\paragraph{\func{len} and \func{cap}} are used on a number of different
+types, \func{len} is
 used for returning the length of strings and the length of slices and
 arrays. See chapter \ref{chap:beyond} for the details of slices and
 arrays and the function \func{cap}.
@@ -279,7 +287,8 @@ types (maps, slices and channels).
 \paragraph{\func{panic} and \func{panicln}} used for an elegant \emph{exception} mechanism.
 
 \paragraph{\func{print} and \func{println}} are lowlevel printing
-functions that can be used without reverting to the \package{fmt} package.
+functions that can be used without reverting to the \package{fmt}
+package. These are mainly used for debugging.
 
 \section{Go keywords}
 \begin{table}[H]
@@ -375,8 +384,8 @@ for i := 0; i < 10; i++ {
 }
 \end{lstlisting}
 If you're looping over an array, slice, string, or map, or reading from
-a channel, a \key{range} clause can manage the loop for you. The
-\key{range} function(?) returns two values, the index or key and the 
+a channel, a \key{range} clause can manage the loop for you. A
+\key{range} returns two values, the index or key and the 
 corresponding value.
 \begin{lstlisting}
 var m map[string]int
@@ -473,7 +482,7 @@ variable will have the corresponding type in each clause.
 \begin{lstlisting}
 switch t := interfaceValue.(type) { |\coderemark{Yes, you need to type \texttt{(type)}}|
 default:
-    fmt.Printf("unexpected type %T", t)  // %T prints type
+    fmt.Printf("unexpected type %T", t)  // \%T prints type
 case bool:
     fmt.Printf("boolean %t\n", t)
 case int:
