@@ -227,8 +227,8 @@ fmt.Printf("%v\n", s2)
 Strings can hold UTF-8 characters.
 
 \subsection{Complex numbers}
-In Go there is native support for complex numbers. If you 
-want use them you need a variable of the type \lstinline{complex}. If
+There is native support for complex numbers. If you 
+use them you need a variable of the type \lstinline{complex}. If
 you need a precise number of bits you have \lstinline{complex32} and
 \lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
 
@@ -236,7 +236,19 @@ you need a precise number of bits you have \lstinline{complex32} and
 will print\newline
 \indent\lstinline{(5+5i)}
 
-\section{Built-in functions}
+\section{Operators and built-in functions}
+
+\begin{table}[H]
+\begin{center}
+\caption{Operator precedence}
+\label{tab:op-precedence}
+\input{tab/precedence.tex}
+\end{center}
+\end{table}
+
+\verb|+ - * / %| all do what you would expect, \verb!& | ^ &^! are
+bit operators for bitwise and, or, xor and bit clear respectively
+
 A number of functions in Go are predefined, meaning they already
 exists and you \emph{don't} have to include any package to get
 access to them. Table \ref{tab:predef-functions} lists them all.
@@ -252,9 +264,13 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 \paragraph{\func{close} and \func{closes}} are used in
 channel closing (see chapter \ref{chap:channels}).
 
-\paragraph{\func{len} and \func{cap}} are the length and the capacity
-of a \type{slice} or an \type{array} respectively. Also see
-\ref{capacity}.
+\paragraph{\func{len}} is used on a number of different types. It is
+used for returning the length of strings and the length of slices and
+arrays. See \todo{Ref to slices and arrays}.
+
+\paragraph{\func{cap}} are the length and the capacity
+of a \type{slice} or an \type{array} respectively. \todo{make this
+better}.
 
 \paragraph{\func{new}} is used for creating new ... See allocation. CODE
 EXMAPLES
