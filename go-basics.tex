@@ -109,7 +109,8 @@ is assigned the "natural" zero value for the type. This means that after
 which is \lstinline{""}. 
 
 Declaring and assigning in Go is a two step process, but they may
-be combined. Compare the following pieces of code.
+be combined. Compare the following pieces of code which have
+the same effect.
 
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[linewidth=.5\textwidth,caption=Using \texttt{=}]
@@ -130,8 +131,8 @@ b := false
 \hfill
 \end{minipage}
 
-The code on the left is identical to the code on the right. On the left
-we use the
+
+On the left we use the
 \key{var} keyword to declare a variable and \emph{then} assign a value to
 it. The code on the right uses \mbox{\key{:=}{ }} to do this in one step. 
 In that case the variable
@@ -145,18 +146,6 @@ var {
 }
 \end{lstlisting}
 
-
-%% Must be told somewhere, but not here
-%%\subsection{Nil value}
-%%A reference to nothing is represented in Go as \lstinline{nil}. This is
-%%different than a zero value. \todo{nil only for references?}
-%%
-%%\begin{lstlisting}
-%%var *a int
-%%a = nil
-%%fmt.Printf("%v\n", a);
-%%\end{lstlisting}
-%%Prints \lstinline{nil}.
 
 \subsection{Boolean types}
 A boolean type represents the set of boolean truth values denoted by the
@@ -197,9 +186,7 @@ const (
 The first use of \key{iota} will yield $0$, so \var{a} is equal to $0$, whenever
 \key{iota} is used again its value is incremented with $1$, so \var{b}
 has a value of $1$.
-
 %% http://golang.org/doc/effective_go.html#initialization
-
 
 \subsection{Strings}
 An important other built in type is \lstinline{string}. Strings in Go are
