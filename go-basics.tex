@@ -76,9 +76,9 @@ When your Go program is executed the first function called will be
 \lstinline{main.main()}, which mimics the behavoir from C.
 
 \section{Compiling and running code}
-Now we want to execute this code, as Go is a compiled language we first
+Now we want to execute this code. As Go is a compiled language we first
 need to compile our program. Compiling in Go is \emph{fast}, often
-measured in seconds, even for large pieces of code.
+measured in mere seconds, even for large pieces of code.
 \begin{display}
 \pr 6g helloworld.go \qquad\qquad\qquad\rem{# compiles to helloworld.6 (for 32 bit Intel)}
 \pr 6l -o helloworld helloworld.6 \qquad\rem{# linking stage}
@@ -198,9 +198,6 @@ The first use of \key{iota} will yield $0$, so \var{a} is equal to $0$, whenever
 \key{iota} is used again its value is incremented with $1$, so \var{b}
 has a value of $1$.
 
-
-
-
 %% http://golang.org/doc/effective_go.html#initialization
 
 
@@ -218,13 +215,14 @@ chapter X;}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
 s2 := string(c[0]) + string(c[1:]) |\longremark{Create a \emph{new} %
-string \texttt{s2} with the alteration.}|
+string \texttt{s2} with the alteration. Note that we can use \texttt{+} %
+to concatenate these two strings.}|
 fmt.Printf("%v\n", s2)
 \end{lstlisting}
 
 \showremarks
-
-Strings can hold UTF-8 characters.
+Strings in Go are a sequence of UTF-8 characters enclosed in double
+quotes (").
 
 \subsection{Complex numbers}
 There is native support for complex numbers. If you 
@@ -237,7 +235,6 @@ will print\newline
 \indent\lstinline{(5+5i)}
 
 \section{Operators and built-in functions}
-
 \begin{table}[H]
 \begin{center}
 \caption{Operator precedence}
@@ -246,10 +243,15 @@ will print\newline
 \end{center}
 \end{table}
 
-\verb|+ - * / %| all do what you would expect, \verb!& | ^ &^! are
-bit operators for bitwise and, or, xor and bit clear respectively
+\verb|+ - * /| and \verb|%| all do what you would expect, \verb!& | ^!
+and \verb!&^! are bit operators for bitwise and, or, xor and bit clear 
+respectively.
+Although Go does not support operator overloading (or method
+overloading for that matter), some of the built-in
+operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
+floats, complex numbers and strings.
 
-A number of functions in Go are predefined, meaning they already
+A small number of functions in Go are predefined, meaning they already
 exists and you \emph{don't} have to include any package to get
 access to them. Table \ref{tab:predef-functions} lists them all.
 
@@ -261,33 +263,30 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 \end{center}
 \end{table}
 
+\paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
+complex numbers.
+
 \paragraph{\func{close} and \func{closes}} are used in
-channel closing (see chapter \ref{chap:channels}).
+channel communication and the closing of those channels, see chapter \ref{chap:channels}
+for more on this.
 
-\paragraph{\func{len}} is used on a number of different types. It is
+\paragraph{\func{len} and \func{cap}} is used on a number of different types. It is
 used for returning the length of strings and the length of slices and
-arrays. See \todo{Ref to slices and arrays}.
+arrays. See chapter \ref{chap:beyond} for the details of slices and
+arrays and the function \func{cap}.
 
-\paragraph{\func{cap}} are the length and the capacity
-of a \type{slice} or an \type{array} respectively. \todo{make this
-better}.
+\paragraph{\func{new}} is used for allocating memory for user defined
+data types.
 
-\paragraph{\func{new}} is used for creating new ... See allocation. CODE
-EXMAPLES
+\paragraph{\func{make}} is used for allocating memory for built-in
+types (maps, slices and channels).
 
-\paragraph{\func{make}} is used for allocating a built-in type. EXAMPLE
-TODO
-
-\paragraph{\func{copy}} copy stuff. TODO
+\paragraph{\func{copy}} is used for copying slices. 
 
 \paragraph{\func{panic} and \func{panicln}} used for an elegant \emph{exception} mechanism.
-CODE EXAMPLES
 
 \paragraph{\func{print} and \func{println}} are lowlevel printing
 functions that can be used without reverting to the \package{fmt} package.
-
-\paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
-complex numbers.
 
 \section{Go keywords}
 \begin{table}[H]
@@ -298,11 +297,7 @@ complex numbers.
 \end{center}
 \end{table}
 Table \ref{tab:keywords} lists all the keywords in Go.
-In the following paragraphs and chapters we will explain some of
-them. \todo{make references from here to chapters where they are
-explained.}
-\todo{explain the keywords as best as possible...}
-
+In the following paragraphs and chapters we will explain them. 
 
 \section{Control structures}
 The control structures of Go are related to those of C but different in
@@ -494,120 +489,6 @@ case *int:
     fmt.Printf("pointer to integer %d\n", *t)
 }
 \end{lstlisting}
-
-\section{Arrays, slices and maps}
-From \cite{go_intro} ... really Good
-%
-arrays, even if it doesn't have any other parametric types? And we really want
-these cool things called slices - but they really need to be strongly typed. So
-we'll let them be parametric. And maps - we really need a map type, which maps
-keys to values, and it really needs to be type-safe. So we'll add a parametric
-map type to the language, by making it a special case built-in.
-
-So: you can't write parametric types - but they can. And that creates a very
-weird asymmetry to the language. Everything in Go is passed by value - except
-for the built-in slice and map types, which are passed by reference. Everything
-is allocated by "new" - except for the built-in slice and map types, which are
-allocated by "make". It's by far the biggest blemish in Go, and it's absolutely
-infuriating.
-
-\subsection{Arrays}
-Array types like \lstinline{[10]int} have a fixed size. 
-It can't grow, because then it would have a different type. Also arrays
-are values: Assigning one array to another \emph{copies} all the elements.
-
-In particular, if you pass an array to a function, it will receive a
-copy of the array, not a pointer to it. This is a major difference with C.
-
-To declare an array you can use the following: \lstinline{var a [3]int},
-to initialize it to something else than zero, use a composite literal.
-\gomarginindex{composite literals}{composite literals}\lstinline|a := [3]int{1, 2, 3}| and
-this can be shortend to \lstinline|a := []int{1, 2, 3}|, where Go counts
-the elements automatically.
-
-Note that all fields must be specified.  So if you are using multidimentional
-arrays you have to do quite some typing:
-\begin{lstlisting}
-a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
-\end{lstlisting}
-Which is \emph{not} the same as:
-\begin{lstlisting}
-a := [2][2]int{ []int{1,2}, []int{3,4} }
-\end{lstlisting}
-As this gives a compile error.\todo{why?}\newline
-\lstinline{cannot use slice literal (type []int) as type [2]int in array index}
-
-But this is then OK again:
-\begin{lstlisting}
-a := [][]int{ []int{1,2}, []int{3,4} }
-\end{lstlisting}  
-So either specify the length of the array or let Go do the counting, but
-don't mix the two.
-
-\subsection{Slices}
-Slices are reference types, which means that if you assign one slice to
-another, both refer to the same underlying array. For instance, if a
-function takes a slice argument, changes it makes to the elements of the
-slice will be visible to the caller, analogous to passing a pointer to
-the underlying array. A slice is always coupled to an array that has
-a fixed size. For slices we define a capacity and a length.
-
-\begin{figure}[!bh]
-\caption{Array versus slice}
-\label{fig:array-vs-slice}
-\begin{center}
-\includegraphics[scale=0.65]{fig/array-vs-slice.pdf}
-\end{center}
-\end{figure}
-Figure \ref{fig:array-vs-slice} depicts the following Go code.
-First we create an array of $m$ elements of the type \lstinline{int}:
-\lstinline{var array[m + 1]int}\newline
-Next, we create a slice from this array: 
-\lstinline{slice := array[0:n +1]}\newline
-And now we have:
-\begin{itemize}
-\item{\lstinline{len(slice) = n, cap(slice) = m};}
-\item{\lstinline{len(array) = cap(array) = m}.}
-\end{itemize}
-Also see the following code:
-\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
-On line 8 we dare to do to impossible and try to allocate something
-behind the capacity (maximum length of the under laying array) and
-we are greeted with a \emph{runtime} error 
-
-\noindent\lstinline{throw: index out of range}.
-
-\subsection{Maps}
-\label{sec:maps}
-
-\section{Conversions}
-\label{sec:conversions}
-Sometimes you want to convert a type to another type. In C this is known
-as casting a value to another type. This is also possible in Go, but
-there are some rules.\todo{there are more rules, but we're trying to
-keep it simple...}
-You can convert:
-\begin{itemize}
-\item{
-From a \lstinline{string} to a slice of \lstinline{byte}s.
-\begin{lstlisting}
-mystring = "hello this is string"
-byteslice =  []byte(mystring)
-\end{lstlisting}
-}
-\item{
-From a slice of \lstinline{byte}s to a \lstinline{string}.
-\begin{lstlisting}
-The other way around
-\end{lstlisting}
-}
-\end{itemize}
-\todo{Maybe put this to the end of this chapter}
-%%x is an integer or has type []byte or []int and T is a string type.
-%%and back
-%% integer/float truncation
-
-
 
 \section{Exercises}
 \input{ex-basics/ex-for.tex}
