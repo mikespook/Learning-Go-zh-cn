@@ -173,7 +173,8 @@ that too with \lstinline{int32}, or \lstinline{uint32}. Note however
 that these types are distinct and assigning variables which mix
 these types is a compiler error, like in the following code:
 
-\lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]{src/types.go}
+\lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]
+{src/types.go}
 Gives the error on the assignment on line 7:
 
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
@@ -222,6 +223,8 @@ fmt.Printf("%v\n", s2)
 \end{lstlisting}
 
 \showremarks
+
+Strings can hold UTF-8 characters.
 
 \subsection{Complex numbers}
 In Go there is native support for complex numbers. If you 
