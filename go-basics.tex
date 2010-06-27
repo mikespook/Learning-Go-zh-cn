@@ -131,7 +131,6 @@ b := false
 \hfill
 \end{minipage}
 
-
 On the left we use the
 \key{var} keyword to declare a variable and \emph{then} assign a value to
 it. The code on the right uses \mbox{\key{:=}{ }} to do this in one step. 
@@ -144,6 +143,13 @@ var {
     x int
     b bool
 }
+\end{lstlisting}
+
+A special name for a variable is \texttt{\_} (underscore). Any value
+assigned to it, is discarded. In this example we only assign a value
+to \var{b}.
+\begin{lstlisting}
+_, b := 34, 35;
 \end{lstlisting}
 
 
@@ -310,9 +316,9 @@ contains a control statement such as a \key{return} or \key{break}.
 
 Since \key{if} and \key{switch} accept an initialization statement, it's common to
 see one used to set up a (local) variable.
-
 \begin{lstlisting}
-if err := file.Chmod(0664); err != nil {
+if err := file.Chmod(0664); err != nil {  |\coderemark{\texttt{nil} is %
+like C's NULL}|
     log.Stderr(err)
     return err
 }
@@ -347,7 +353,8 @@ codeUsing(f, d)
 \end{lstlisting}
 
 \subsection{For}
-The Go \key{for} loop is similar to-but not the same as-C's. It unifies for
+The Go \key{for} loop is similar to -- but not the same as -- C's. It
+unifies \key{for}
 and while and there is no do-while. There are three forms, only one of
 which has semicolons.
 \begin{lstlisting}
@@ -368,7 +375,9 @@ for i := 0; i < 10; i++ {
 }
 \end{lstlisting}
 If you're looping over an array, slice, string, or map, or reading from
-a channel, a \key{range} clause can manage the loop for you.
+a channel, a \key{range} clause can manage the loop for you. The
+\key{range} function(?) returns two values, the index or key and the 
+corresponding value.
 \begin{lstlisting}
 var m map[string]int
 sum := 0
@@ -405,9 +414,8 @@ for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
 Go's \key{switch} is more general than C's. The expressions need not be
 constants or even integers, the cases are evaluated top to bottom until
 a match is found, and if the \key{switch} has no expression it switches on
-\type{true}. It's therefore possible - and idiomatic - to write an
-\key{if-else-if-else}
-chain as a \key{switch}.
+\type{true}. It's therefore possible -- and idiomatic -- to write an
+\key{if-else-if-else} chain as a \key{switch}.
 \begin{lstlisting}
 func unhex(c byte) byte {
     switch {
