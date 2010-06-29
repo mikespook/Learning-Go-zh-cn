@@ -232,7 +232,12 @@ Apropos, the output of \lstinline{fmt.Printf("\%v\n", a)} is
 \begin{display}
 {Pete, 42}
 \end{display}
-How nice is that, Go knows how to print your structure!
+How nice is that, Go knows how to print your structure! If you
+only want to print a one, or a few, field of the structure you'll
+need to use \verb|<field name>|. To only print the name:
+\begin{lstlisting}
+fmt.Printf("%v", a.name)
+\end{lstlisting}
 
 Defining a new type:
 
