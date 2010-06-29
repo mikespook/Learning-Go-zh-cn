@@ -12,93 +12,6 @@ fmt.Printf("%v\n", a);
 \end{lstlisting}
 Prints \lstinline{nil}.
 
-
-\section{Arrays, slices and maps}
-From \cite{go_intro} ... really Good
-%
-arrays, even if it doesn't have any other parametric types? And we really want
-these cool things called slices - but they really need to be strongly typed. So
-we'll let them be parametric. And maps - we really need a map type, which maps
-keys to values, and it really needs to be type-safe. So we'll add a parametric
-map type to the language, by making it a special case built-in.
-
-So: you can't write parametric types - but they can. And that creates a very
-weird asymmetry to the language. Everything in Go is passed by value - except
-for the built-in slice and map types, which are passed by reference. Everything
-is allocated by "new" - except for the built-in slice and map types, which are
-allocated by "make". It's by far the biggest blemish in Go, and it's absolutely
-infuriating.
-
-\subsection{Arrays}
-Array types like \lstinline{[10]int} have a fixed size.
-It can't grow, because then it would have a different type. Also arrays
-are values: Assigning one array to another \emph{copies} all the elements.
-
-In particular, if you pass an array to a function, it will receive a
-copy of the array, not a pointer to it. This is a major difference with C.
-
-To declare an array you can use the following: \lstinline{var a [3]int},
-to initialize it to something else than zero, use a composite literal.
-\gomarginindex{composite literals}{composite literals}\lstinline|a := [3]int{1, 2, 3}| and
-this can be shortend to \lstinline|a := []int{1, 2, 3}|, where Go counts
-the elements automatically.
-
-Note that all fields must be specified.  So if you are using multidimentional
-arrays you have to do quite some typing:
-\begin{lstlisting}
-a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
-\end{lstlisting}
-Which is \emph{not} the same as:
-\begin{lstlisting}
-a := [2][2]int{ []int{1,2}, []int{3,4} }
-\end{lstlisting}
-As this gives a compile error.\todo{why?}\newline
-\lstinline{cannot use slice literal (type []int) as type [2]int in array index}
-
-But this is then OK again:
-\begin{lstlisting}
-a := [][]int{ []int{1,2}, []int{3,4} }
-\end{lstlisting}
-So either specify the length of the array or let Go do the counting, but
-don't mix the two.
-\subsection{Slices}
-Slices are reference types, which means that if you assign one slice to
-another, both refer to the same underlying array. For instance, if a
-function takes a slice argument, changes it makes to the elements of the
-slice will be visible to the caller, analogous to passing a pointer to
-the underlying array. A slice is always coupled to an array that has
-a fixed size. For slices we define a capacity and a length.
-
-\begin{figure}[!bh]
-\caption{Array versus slice}
-\label{fig:array-vs-slice}
-\begin{center}
-\includegraphics[scale=0.65]{fig/array-vs-slice.pdf}
-\end{center}
-\end{figure}
-Figure \ref{fig:array-vs-slice} depicts the following Go code.
-First we create an array of $m$ elements of the type \lstinline{int}:
-\lstinline{var array[m + 1]int}\newline
-Next, we create a slice from this array:
-\lstinline{slice := array[0:n +1]}\newline
-And now we have:
-\begin{itemize}
-\item{\lstinline{len(slice) = n, cap(slice) = m};}
-\item{\lstinline{len(array) = cap(array) = m}.}
-\end{itemize}
-Also see the following code:
-\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
-On line 8 we dare to do to impossible and try to allocate something
-behind the capacity (maximum length of the under laying array) and
-we are greeted with a \emph{runtime} error
-
-\noindent\lstinline{throw: index out of range}.
-
-\subsection{Maps}
-\label{sec:maps}
-
-Defining your own types
-
 \section{Conversions}
 \label{sec:conversions}
 Sometimes you want to convert a type to another type. In C this is known
@@ -303,6 +216,33 @@ v := make([]int, 100)
 \end{lstlisting}
 Remember that make() applies only to maps, slices and channels and does
 not return a pointer. To obtain an explicit pointer allocate with new().
+
+
+\section{Defining your own}
+Ofcourse Go allows you to define new types, it does this in (almost) the
+same way as in C, with the \key{struct} keyword.
+
+An empty struct is created with \lstinline|var empty struct {}|{}.
+A more real-life example would be when we want record seomebody's name
+and age in a single ... TODO. We could do
+
+\lstinputlisting[label=src:struct,caption=A structure]{src/struct.go}
+
+Apropos, the output of \lstinline{fmt.Printf("%v\n", a)} is 
+\begin{display}
+{Pete, 42}
+\begin{display}
+How nice is that, Go knows how to print your structure!
+
+Defining a new type:
+
+\begin{lstlisting}
+type T struct {
+    name string // name of the object
+    value int // its value
+}
+\end{lstlisting}
+
 
 \section{Exercises}
 \input{ex-beyond/ex-pointers.tex}
