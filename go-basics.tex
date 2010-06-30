@@ -306,7 +306,7 @@ package. These are mainly used for debugging.
 \end{center}
 \end{table}
 Table \ref{tab:keywords} lists all the keywords in Go. 
-In the following paragraphs and chapters we will explain them. \todo{}
+In the following paragraphs and chapters we will explain them.
 
 \section{Control structures}
 The control structures
@@ -472,22 +472,14 @@ func Compare(a, b []byte) int {
 \end{lstlisting}
 
 \section{Arrays, slices and maps}
-From \cite{go_intro} ... really Good
-%
-arrays, even if it doesn't have any other parametric types? And we really want
-these cool things called slices - but they really need to be strongly typed. So
-we'll let them be parametric. And maps - we really need a map type, which maps
-keys to values, and it really needs to be type-safe. So we'll add a parametric
-map type to the language, by making it a special case built-in.
-
-So: you can't write parametric types - but they can. And that creates a very
-weird asymmetry to the language. Everything in Go is passed by value - except
-for the built-in slice and map types, which are passed by reference. Everything
-is allocated by "new" - except for the built-in slice and map types, which are
-allocated by "make". It's by far the biggest blemish in Go, and it's absolutely
-infuriating.
+Storing multiple values in a list can be done by utilizing arrays, or
+their more flexible cousin: slices. A dictionary or hash type is also
+available, it is called a map in Go.
 
 \subsection{Arrays}
+How to create one, how to index, how to fill
+
+
 Array types like \lstinline{[10]int} have a fixed size.
 It can't grow, because then it would have a different type. Also arrays
 are values: Assigning one array to another \emph{copies} all the elements.
@@ -498,10 +490,10 @@ copy of the array, not a pointer to it. This is a major difference with C.
 To declare an array you can use the following: \lstinline{var a [3]int},
 to initialize it to something else than zero, use a composite literal.
 \gomarginindex{composite literals}{composite literals}\lstinline|a := [3]int{1, 2, 3}| and
-this can be shortend to \lstinline|a := []int{1, 2, 3}|, where Go counts
+this can be shortened to \lstinline|a := []int{1, 2, 3}|, where Go counts
 the elements automatically.
 
-Note that all fields must be specified.  So if you are using multidimentional
+Note that all fields must be specified.  So if you are using multidimensional
 arrays you have to do quite some typing:
 \begin{lstlisting}
 a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
@@ -527,7 +519,7 @@ slice will be visible to the caller, analogous to passing a pointer to
 the underlying array. A slice is always coupled to an array that has
 a fixed size. For slices we define a capacity and a length.
 
-\begin{figure}[!bh]
+\begin{figure}[H]
 \caption{Array versus slice}
 \label{fig:array-vs-slice}
 \begin{center}
@@ -554,20 +546,49 @@ we are greeted with a \emph{runtime} error
 
 \subsection{Maps}
 \label{sec:maps}
-With days of month
+A lot of other languages have a simular type built-in, Perl has hashes
+and Python has got its dictionaries for instance. In Go was have the
+\type{map} type. A \type{map} can be thought of as an array indexed by
+strings.
+In the following listing we define a \type{map} which converts from a
+string (month abbreviation) to an int -- the number of days in that month. 
+The generic way to define a map is with: \verb|map[<from type>]<to type>|
+
+\begin{lstlisting}
+        monthdays := map[string]int{
+                "Jan": 31, 
+                "Feb": 28, 
+                "Mar": 31, 
+                "Apr": 30, 
+                "May": 31, 
+                "Jun": 30, 
+                "Jul": 31, 
+                "Aug": 31, 
+                "Sep": 30, 
+                "Oct": 31, 
+                "Nov": 30, 
+                "Dec": 31, |\coderemark{the comma here is ok}|
+        }		    
+\end{lstlisting}
+Indexing a map goes like this, suppose we want to print the
+number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}
 
 If you're looping over an array, slice, string, or map, or reading from
-a channel, a \key{range} clause can manage the loop for you. A
-\key{range} returns two values, the index or key and the 
-corresponding value.
+a channel, a \key{range} clause help you again.
 \begin{lstlisting}
-var m map[string]int
-sum := 0
-for _, value := range m {  // key is unused
-    sum += value
+year := 0
+for _, days := range monthdays  // key is unused
+    year += days
 }
+fmt.Printf("Numbers of days in a year: %d\n", year);
 \end{lstlisting}
 
+\section{Allocation}
+In all the example in the above paragraph we typed in the entire array,
+slice or map. But what if you want to fill these dynamically? Then you
+need to use \func{make}. 
+
+Allocating with make. What sshould this mbne
 
 
 \section{Exercises}
