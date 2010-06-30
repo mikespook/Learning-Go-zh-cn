@@ -111,6 +111,29 @@ where \first{interfaces} come in.
 \section{Reflection}
 TODO? Appropiate section??
 
+
+A \key{switch} can also be used to discover the dynamic type of an interface
+variable. Such a type switch\gomarginindex{\emph{type switch}}{type switch} uses
+the syntax of a type assertion with the keyword type inside the
+parentheses. If the switch declares a variable in the expression, the
+variable will have the corresponding type in each clause.
+
+\begin{lstlisting}
+switch t := interfaceValue.(type) { |\coderemark{Yes, you need to type \texttt{(type)}}|
+default:
+    fmt.Printf("unexpected type %T", t)  // \%T prints type
+case bool:
+    fmt.Printf("boolean %t\n", t)
+case int:
+    fmt.Printf("integer %d\n", t)
+case *bool:
+    fmt.Printf("pointer to boolean %t\n", *t)
+case *int:
+    fmt.Printf("pointer to integer %d\n", *t)
+}
+\end{lstlisting}
+
+
 \section{Exercises}
 \input{ex-interfaces/ex-cat.tex}
 
