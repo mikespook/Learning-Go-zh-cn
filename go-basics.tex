@@ -45,22 +45,23 @@ source code distribution;
 Programming with Go should be fun again!
 
 \end{description}
-It must be said the Erlang \cite{erlang} also shares some
+Erlang \cite{erlang} also shares some
 of the features of Go. Notible differences between Erlang
 and Go is that Erlang borders on being a functional language,
 where Go is an imperative one. And Erlang runs in a virtual
-machine, while Go is compiled. 
+machine, while Go is compiled. Go has a much more Unix-like
+feeling to it.
 
 \section{Hello World}
 \label{sec:hello world}
 In the Go tutorial, Go is presented to the world in the typical
 manner: letting it print "Hello World" (Heck! Ken Thompson and
 Dennis Ritchie started this when they presented the C language in 
-the nineteen seventies).
-So here it is, ''Hello World'' in Go.
+the nineteen seventies). We don't think we can do better, so 
+here it is, ''Hello World'' in Go.
 
 \lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
-As you can see, Go is 100\% UTF-8 capable, you can put any Unicode
+Go is 100\% UTF-8 capable, you can put any Unicode
 \emph{glyph} in your source --- assuming you can type it on your keyboard.
 Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
 Lets look at the program line by line.
@@ -76,7 +77,7 @@ When your Go program is executed the first function called will be
 \lstinline{main.main()}, which mimics the behavoir from C.
 
 \section{Compiling and running code}
-Now we want to execute this code. As Go is a compiled language we first
+As Go is a compiled language we first
 need to compile our program. Compiling in Go is \emph{fast}, often
 measured in mere seconds, even for large pieces of code.
 \begin{display}
@@ -96,8 +97,8 @@ After compilation we can run it:
 \'o\begin{math} \sigma\mu\epsilon\end{math}; or \begin{cjk}こんにちは 世界\end{cjk}
 \ \newline
 \ \newline
-In the next sections we will look at the types, keywords, control structures
-and other (basic) features of our new language. 
+In the next sections we will look at the variables, basic types,
+keywords and  control structures of our new language. 
 
 %% init stuff - i.e. above func main()
 
@@ -139,7 +140,8 @@ it. The code on the right uses \mbox{\key{:=}{ }} to do this in one step.
 In that case the variable
 type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
 a value of \texttt{false} tells Go that the type should be \type{bool}. 
-Multiple \key{var} declarations may also be grouped.
+Multiple \key{var} declarations may also be grouped, \key{const},
+\key{import} also allow this.
 \begin{lstlisting}
 var {
     x int
@@ -149,12 +151,10 @@ var {
 
 A special name for a variable is \texttt{\_} (underscore). Any value
 assigned to it, is discarded. In this example we only assign the integer
-value of 35 to and discard 34.
-to \var{b}.
+value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
 _, b := 34, 35;
 \end{lstlisting}
-
 
 \subsection{Boolean types}
 A boolean type represents the set of boolean truth values denoted by the
@@ -198,8 +198,16 @@ has a value of $1$.
 %% http://golang.org/doc/effective_go.html#initialization
 
 \subsection{Strings}
-An important other built in type is \lstinline{string}. Strings in Go are
-immutable, meaning that, once defined, they can not be changed. For
+An important other built in type is \lstinline{string}. Assigning a
+string is as simple as:
+\begin{lstlisting}
+    s := "Hello World!"
+\end{lstlisting}
+Strings in Go are a sequence of UTF-8 characters enclosed in double
+quotes (").
+
+Once assigned to a variable the string can not be changed anymore: strings in Go are
+immutable. For
 people coming from C, the following is not legal in Go:
 \lstinline{var s string = "hello"; s[0] = 'c'} 
 
@@ -217,9 +225,6 @@ fmt.Printf("%v\n", s2)
 \end{lstlisting}
 
 \showremarks
-Strings in Go are a sequence of UTF-8 characters enclosed in double
-quotes (").
-
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex}. If
@@ -231,8 +236,8 @@ will print\newline
 \indent\lstinline{(5+5i)}
 
 \section{Operators and built-in functions}
-Go supports the normal set of numerical operations, some of which are
-overloaded to be used on multiple types. Table \ref{tab:op-precedence}
+Go supports the normal set of numerical operations,
+table \ref{tab:op-precedence}
 lists the current ones and their relative precedence. They
 all associate from left to right.
 
@@ -300,12 +305,13 @@ package. These are mainly used for debugging.
 \input{tab/keywords.tex}
 \end{center}
 \end{table}
-Table \ref{tab:keywords} lists all the keywords in Go.
-In the following paragraphs and chapters we will explain them. 
+Table \ref{tab:keywords} lists all the keywords in Go. 
+In the following paragraphs and chapters we will explain them. \todo{}
 
 \section{Control structures}
-The control structures of Go are related to those of C but different in
-\gomarginpar{This section is from \cite{effective_go}.}
+The control structures
+\footnote{This section is copied from \cite{effective_go}.} 
+of Go are related to those of C but different in
 important ways. There is no do or while loop, only a slightly
 generalized \key{for}; \key{switch} is more flexible; \key{if} and
 \key{switch} accept an
@@ -385,19 +391,8 @@ for i := 0; i < 10; i++ {
     sum += i
 }
 \end{lstlisting}
-If you're looping over an array, slice, string, or map, or reading from
-a channel, a \key{range} clause can manage the loop for you. A
-\key{range} returns two values, the index or key and the 
-corresponding value.
-\begin{lstlisting}
-var m map[string]int
-sum := 0
-for _, value := range m {  // key is unused
-    sum += value
-}
-\end{lstlisting}
-For strings, the \key{range} does more work for you, breaking out individual
-Unicode characters by parsing the UTF-8 (erroneous encodings consume one
+For strings, you can use the \key{range} clause to manage the loop for
+you. It breaks out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
 byte and produce the replacement rune U+FFFD). The loop
 
 \begin{lstlisting}
@@ -445,7 +440,7 @@ There is no automatic fall through, but cases can be presented in comma-separate
 \begin{lstlisting}
 func shouldEscape(c byte) bool {
     switch c {
-    case ' ', '?', '&', '=', '#', '+', '%':
+    case ' ', '?', '&', '=', '#', '+', '%': |\coderemark{, should be though of as "or"}|
         return true
     }
     return false
@@ -473,26 +468,6 @@ func Compare(a, b []byte) int {
         return 1
     }
     return 0
-}
-\end{lstlisting}
-A switch can also be used to discover the dynamic type of an interface
-variable. Such a type switch\gomarginindex{\emph{type switch}}{type switch} uses 
-the syntax of a type assertion with the keyword type inside the
-parentheses. If the switch declares a variable in the expression, the
-variable will have the corresponding type in each clause.
-
-\begin{lstlisting}
-switch t := interfaceValue.(type) { |\coderemark{Yes, you need to type \texttt{(type)}}|
-default:
-    fmt.Printf("unexpected type %T", t)  // \%T prints type
-case bool:
-    fmt.Printf("boolean %t\n", t)
-case int:
-    fmt.Printf("integer %d\n", t)
-case *bool:
-    fmt.Printf("pointer to boolean %t\n", *t)
-case *int:
-    fmt.Printf("pointer to integer %d\n", *t)
 }
 \end{lstlisting}
 
@@ -579,6 +554,19 @@ we are greeted with a \emph{runtime} error
 
 \subsection{Maps}
 \label{sec:maps}
+With days of month
+
+If you're looping over an array, slice, string, or map, or reading from
+a channel, a \key{range} clause can manage the loop for you. A
+\key{range} returns two values, the index or key and the 
+corresponding value.
+\begin{lstlisting}
+var m map[string]int
+sum := 0
+for _, value := range m {  // key is unused
+    sum += value
+}
+\end{lstlisting}
 
 
 
