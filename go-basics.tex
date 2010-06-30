@@ -573,14 +573,13 @@ The generic way to define a map is with: \verb|map[<from type>]<to type>|
 Indexing a map goes like this, suppose we want to print the
 number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}
 
-If you're looping over an array, slice, string, or map, or reading from
-a channel, a \key{range} clause help you again.
+If you're looping over an array, slice, string, or map a \key{range} clause help you again.
 \begin{lstlisting}
 year := 0
 for _, days := range monthdays  // key is unused
     year += days
 }
-fmt.Printf("Numbers of days in a year: %d\n", year);
+fmt.Printf("Numbers of days in a year: %d\n", year)
 \end{lstlisting}
 
 \section{Allocation}
