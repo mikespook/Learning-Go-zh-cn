@@ -252,7 +252,6 @@ all associate from left to right.
 \verb!& | ^!
 and \verb!&^! are bit operators for bitwise and, or, xor and bit clear 
 respectively.
-
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
 operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
@@ -496,10 +495,11 @@ In particular, if you pass an array to a function, it will receive a
 copy of the array, not a pointer to it. This is a major difference with C.
 
 To declare an array you can use the following: \lstinline{var a [3]int},
-to initialize it to something else than zero, use a composite literal.
-\gomarginindex{composite literals}{composite literals}\lstinline|a := [3]int{1, 2, 3}| and
+to initialize it to something else than zero, use a \first{composite
+literal}: \lstinline|a := [3]int{1, 2, 3}| and
 this can be shortened to \lstinline|a := []int{1, 2, 3}|, where Go counts
-the elements automatically.
+the elements automatically. \gomarginpar{A composite literal allows you
+to assign a value directory to an array, slice or map.}
 Note that all fields must be specified.  So if you are using multidimensional
 arrays you have to do quite some typing:
 \begin{lstlisting}
@@ -509,8 +509,9 @@ Which is \emph{not} the same as:
 \begin{lstlisting}
 a := [2][2]int{ []int{1,2}, []int{3,4} }
 \end{lstlisting}
-As this gives a compile error.\todo{why?}\newline
-\lstinline{cannot use slice literal (type []int) as type [2]int in array index}
+As this gives a compile error:\newline
+\error{cannot use slice literal (type []int) as type [2]int in array
+index}\newline
 But this is then OK again:
 \begin{lstlisting}
 a := [][]int{ []int{1,2}, []int{3,4} }
@@ -518,12 +519,15 @@ a := [][]int{ []int{1,2}, []int{3,4} }
 So either specify the length of the array or let Go do the counting, but
 don't mix the two.
 \subsection{Slices}
-Slices are reference types, which means that if you assign one slice to
+A slice refers to an underlaying array. What makes slices different than
+arrays is that a slice is a pointer \emph{to} an array;
+slices are reference types, which means that if you assign one slice to
 another, both refer to the same underlying array. For instance, if a
 function takes a slice argument, changes it makes to the elements of the
 slice will be visible to the caller, analogous to passing a pointer to
 the underlying array. A slice is always coupled to an array that has
-a fixed size. For slices we define a capacity and a length.
+a fixed size. For slices we define a \first{capacity} and a
+\first{length}.
 
 \begin{figure}[H]
 \caption{Array versus slice}
@@ -559,16 +563,15 @@ In the following listing we define a \type{map} which converts from a
 The generic way to define a map is with: \verb|map[<from type>]<to type>|
 
 \begin{lstlisting}
-        monthdays := map[string]int{
-                "Jan": 31, "Feb": 28, "Mar": 31, 
-                "Apr": 30, "May": 31, "Jun": 30, 
-                "Jul": 31, "Aug": 31, "Sep": 30, 
-                "Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{the comma here is ok}|
-        }		    
+monthdays := map[string]int{
+	"Jan": 31, "Feb": 28, "Mar": 31, 
+	"Apr": 30, "May": 31, "Jun": 30, 
+	"Jul": 31, "Aug": 31, "Sep": 30, 
+	"Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{the comma here is ok}|
+}		    
 \end{lstlisting}
 Indexing a map goes like this, suppose we want to print the
-number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}
-
+number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
 If you're looping over an array, slice, string, or map a \key{range} clause help you again.
 \begin{lstlisting}
 year := 0

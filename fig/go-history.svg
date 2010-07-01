@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="inkscape-">
+   sodipodi:docname="go-history.svg">
   <defs
      id="defs4">
     <marker
@@ -306,8 +306,8 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1048"
+     inkscape:window-width="1680"
+     inkscape:window-height="1018"
      inkscape:window-x="0"
      inkscape:window-y="29"
      inkscape:window-maximized="1">
@@ -323,7 +323,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -535,19 +535,19 @@
        id="path3693" />
     <path
        style="fill:none;stroke:#ffffff;stroke-width:2.72554064px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 95,17.362183 0,20"
+       d="m 60,17.362183 0,20"
        id="path3693-1" />
     <path
        style="fill:none;stroke:#ffffff;stroke-width:2.72554064px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 100,17.362183 0,20"
+       d="m 65,17.362183 0,20"
        id="path3693-11" />
     <path
        style="fill:none;stroke:#ffffff;stroke-width:2.72554064px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 105,17.362183 0,20"
+       d="m 70,17.362183 0,20"
        id="path3693-7" />
     <path
        style="fill:none;stroke:#ffffff;stroke-width:2.72554064px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 110,17.362183 0,20"
+       d="m 75,17.362183 0,20"
        id="path3693-6" />
     <path
        style="fill:none;stroke:#ffffff;stroke-width:2.72554064px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -555,7 +555,7 @@
        id="path3693-9" />
     <path
        style="fill:none;stroke:#ffffff;stroke-width:2.72554064px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 115,17.362183 0,20"
+       d="m 80,17.362183 0,20"
        id="path3693-8" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
