@@ -49,7 +49,7 @@ Erlang \cite{erlang} also shares some
 of the features of Go. Notible differences between Erlang
 and Go is that Erlang borders on being a functional language,
 where Go is an imperative one. And Erlang runs in a virtual
-machine, while Go is compiled. Go has a much more Unix-like
+machine, while Go is compiled. Go also has a much more Unix-like
 feeling to it.
 
 \section{Hello World}
@@ -81,20 +81,20 @@ As Go is a compiled language we first
 need to compile our program. Compiling in Go is \emph{fast}, often
 measured in mere seconds, even for large pieces of code.
 \begin{display}
-\pr 6g helloworld.go \qquad\qquad\qquad\rem{# compiles to helloworld.6 (for 32 bit Intel)}
+\pr 6g helloworld.go \qquad\qquad\qquad\rem{# compiles to helloworld.6 (for 64 bit)}
 \pr 6l -o helloworld helloworld.6 \qquad\rem{# linking stage}
 \end{display}
 
 \noindent{}For 32 bit you should use \prog{8g} and \prog{8l}, this will then
-generate \prog{helloworld.8} \footnote{This is the only thing you will
+generate \prog{helloworld.8}.\footnote{This is the only thing you will
 need to change when you are cross compiling. Just use a different
-compiler and you are done.}.
+compiler and you are done.}
 After compilation we can run it:
 \begin{display}
 \pr ./helloworld
 \end{display}\texttt{Hello, world; or }%
 \begin{math}\kappa\alpha\lambda\eta\mu\acute{\epsilon}\rho\alpha\hspace{1em}\kappa\end{math}%
-\'o\begin{math} \sigma\mu\epsilon\end{math}; or \begin{cjk}こんにちは 世界\end{cjk}
+\'o\begin{math} \sigma\mu\epsilon\end{math}\texttt{; or }\begin{cjk}こんにちは 世界\end{cjk}
 \ \newline
 \ \newline
 In the next sections we will look at the variables, basic types,
@@ -116,7 +116,7 @@ be combined. Compare the following pieces of code which have
 the same effect.
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption=Using \texttt{=}]
+\begin{lstlisting}[linewidth=.5\textwidth,caption=Declaration with \texttt{=}]
 var a int
 var b bool
 a = 15
@@ -125,7 +125,7 @@ b = false
 \hfill
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption=Using \texttt{:=}]
+\begin{lstlisting}[linewidth=.5\textwidth,caption=Short declaration with \texttt{:=}]
 a := 15
 b := false
 \end{lstlisting}
@@ -153,7 +153,7 @@ A special name for a variable is \texttt{\_} (underscore). Any value
 assigned to it, is discarded. In this example we only assign the integer
 value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
-_, b := 34, 35;
+_, b := 34, 35
 \end{lstlisting}
 
 \subsection{Boolean types}
@@ -193,7 +193,7 @@ const (
 )
 \end{lstlisting}
 The first use of \key{iota} will yield $0$, so \var{a} is equal to $0$, whenever
-\key{iota} is used again its value is incremented with $1$, so \var{b}
+\key{iota} is used again on a new line its value is incremented with $1$, so \var{b}
 has a value of $1$.
 %% http://golang.org/doc/effective_go.html#initialization
 
@@ -205,12 +205,12 @@ string is as simple as:
 \end{lstlisting}
 Strings in Go are a sequence of UTF-8 characters enclosed in double
 quotes (").
-
 Once assigned to a variable the string can not be changed anymore: strings in Go are
 immutable. For
 people coming from C, the following is not legal in Go:
-\lstinline{var s string = "hello"; s[0] = 'c'} 
-
+\begin{lstlisting}
+var s string = "hello"; s[0] = 'c'
+\end{lstlisting}
 \noindent{}To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
@@ -248,7 +248,7 @@ all associate from left to right.
 \input{tab/precedence.tex}
 \end{center}
 \end{table}
-\verb|+ - * /| and \verb|%| all do what you would expect. 
+\verb|+ - * /| and \verb|%| all do what you would expect,
 \verb!& | ^!
 and \verb!&^! are bit operators for bitwise and, or, xor and bit clear 
 respectively.
@@ -280,7 +280,7 @@ for more on this.
 \paragraph{\func{len} and \func{cap}} are used on a number of different
 types, \func{len} is
 used for returning the length of strings and the length of slices and
-arrays. See chapter \ref{chap:beyond} for the details of slices and
+arrays. See section \ref{sec:arrays} for the details of slices and
 arrays and the function \func{cap}.
 
 \paragraph{\func{new}} is used for allocating memory for user defined
@@ -408,7 +408,7 @@ character x starts at byte position 3
 \end{display}
 Finally, since Go has no comma operator and ++ and \-\- are statements not
 expressions, if you want to run multiple variables in a \key{for} you should
-use parallel assignment.
+use \first{parallel assignment}.
 \begin{lstlisting}
 // Reverse a
 for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
@@ -472,15 +472,23 @@ func Compare(a, b []byte) int {
 \end{lstlisting}
 
 \section{Arrays, slices and maps}
+\label{sec:arrays}
 Storing multiple values in a list can be done by utilizing arrays, or
 their more flexible cousin: slices. A dictionary or hash type is also
 available, it is called a map in Go.
 
 \subsection{Arrays}
-How to create one, how to index, how to fill
-
-
-Array types like \lstinline{[10]int} have a fixed size.
+An array is defined by: \verb|[n]<type>|, where $n$ is the length
+of the array.
+Assigning, or indexing an element in the array is done with square
+brackets:
+\begin{lstlisting}
+var arr = [10]int
+arr[0] = 42
+arr[1] = 13
+fmt.Printf("The first element is %d\n", arr[0])
+\end{lstlisting}
+Array types like \lstinline{var arr = [10]int} have a fixed size.
 It can't grow, because then it would have a different type. Also arrays
 are values: Assigning one array to another \emph{copies} all the elements.
 
@@ -492,7 +500,6 @@ to initialize it to something else than zero, use a composite literal.
 \gomarginindex{composite literals}{composite literals}\lstinline|a := [3]int{1, 2, 3}| and
 this can be shortened to \lstinline|a := []int{1, 2, 3}|, where Go counts
 the elements automatically.
-
 Note that all fields must be specified.  So if you are using multidimensional
 arrays you have to do quite some typing:
 \begin{lstlisting}
@@ -504,7 +511,6 @@ a := [2][2]int{ []int{1,2}, []int{3,4} }
 \end{lstlisting}
 As this gives a compile error.\todo{why?}\newline
 \lstinline{cannot use slice literal (type []int) as type [2]int in array index}
-
 But this is then OK again:
 \begin{lstlisting}
 a := [][]int{ []int{1,2}, []int{3,4} }
@@ -528,15 +534,15 @@ a fixed size. For slices we define a capacity and a length.
 \end{figure}
 Figure \ref{fig:array-vs-slice} depicts the following Go code.
 First we create an array of $m$ elements of the type \lstinline{int}:
-\lstinline{var array[m + 1]int}\newline
+\lstinline{var array[m+1]int}\newline
 Next, we create a slice from this array:
-\lstinline{slice := array[0:n +1]}\newline
+\lstinline{slice := array[0:n+1]}\newline
 And now we have:
 \begin{itemize}
 \item{\lstinline{len(slice) = n, cap(slice) = m}{} ;}
 \item{\lstinline{len(array) = cap(array) = m}{} .}
 \end{itemize}
-Also see the following code:
+The following code defines an array and slice:
 \lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
 On line 8 we dare to do to impossible and try to allocate something
 beyond the capacity (maximum length of the under laying array) and
@@ -549,7 +555,7 @@ and Python has got its dictionaries for instance. In Go was have the
 \type{map} type. A \type{map} can be thought of as an array indexed by
 strings.
 In the following listing we define a \type{map} which converts from a
-string (month abbreviation) to an int -- the number of days in that month. 
+\lstinline{string} (month abbreviation) to an \lstinline{int} -- the number of days in that month. 
 The generic way to define a map is with: \verb|map[<from type>]<to type>|
 
 \begin{lstlisting}

@@ -48,8 +48,8 @@ read it. It is also
 possible that some answers to exercises are
 too old. We will do our best to keep this document up to 
 date with respect to the latest Go release.
-\end{lbar}
 An effort has been made to create "future proof" code examples.
+\end{lbar}
 The following convention is used throughout this book:
 \begin{itemize}
 \item Code is displayed in \prog{DejaVu mono};
@@ -85,7 +85,7 @@ it should be. When Go stablizes this situation will change. For now
 you need to retrieve the code from the mercurial archive and compile
 Go yourself.
 \begin{itemize}
-\item Install Mercurial (to get the \prog{hg} command), in
+\item First install Mercurial (to get the \prog{hg} command), in
 Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 
 \item For building Go you also need the packages: \prog{bison},
@@ -93,8 +93,8 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 
 \item Then retrieve the Go source code:
 \begin{display}
-\pr export GOROOT=~/go
-\pr hg clone -r release https://go.googlecode.com/hg/ $GOROOT
+\pr export GOROOT=~/go	\rem{\# set the GOROOT environment variable}
+\pr hg clone -r release https://go.googlecode.com/hg/ $GOROOT 
 \end{display}
 
 \item Set some more environment variables, namely:
@@ -145,7 +145,7 @@ How to read this and how you can create your own package documentation
 is explained in chapter \ref{chap:packages}.
 
 \section{Origins}
-Go has it origins in Plan 9 \cite{plan9} and Plan 9 is (or was 
+Go has it origins in Plan 9 \cite{plan9}. Plan 9 is (or was 
 supposed to be) the successor of Unix. As you know one of the
 core ideas of Unix is "everything is a file", so the \func{read()} and
 \func{write()} calls work as well on normal files as they do on I/O
@@ -158,8 +158,8 @@ to do with Go per se, but Plan 9 included a language called Limbo
 \begin{quote}
 Limbo is a programming language intended for applications running
 distributed systems on small computers. It supports modular programming,
-strong type checking at compile- and run-time, interprocess
-communication over typed channels, automatic garbage collection, and
+strong type checking at compile- and run-time, \emph{interprocess
+communication over typed channels}, automatic \emph{garbage collection}, and
 simple abstract data types. It is designed for safe execution even on
 small machines without hardware memory protection.
 \end{quote}
@@ -197,7 +197,8 @@ by C. A. R. Hoare \cite{hoare}. Which incidentally is the same man who
 invented QuickSort \cite{Quicksort}.
 
 \begin{lbar}
-\noindent{}Go is the first C--like language that is widely available, runs on may
+\noindent{}Go is the first C--like language that is widely available,
+runs on many
 different platforms and makes concurrency easy (or easier).
 \end{lbar}
 

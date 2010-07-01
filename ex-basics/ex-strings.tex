@@ -51,5 +51,19 @@ Putting this together leads to the following program.
 \lstinputlisting[label=string2,caption=Runes in strings]{ex-basics/src/string2.go}
 
 \Question Reversing a string can be done as follows:
+\begin{lstlisting}
+package main
+
+import "fmt"
+
+func main() {
+    a := "my string"
+    b := ""
+    for _,k := range a {
+	b = k + b
+    }
+    fmt.Printf("%s\n", b)
+}
+\end{lstlisting}
 
 \end{Answer}
