@@ -6,19 +6,23 @@ blabla
 % inside a package, outside packages??
 \begin{minipage}{.5\textwidth}
 \input{fig/scope1.tex}
-In the function \func{q()} we introduce a local variable
-which is also called \var{a}. This local \var{a} in only
-visible in \func{q()}, so the above code will print: 
-\texttt{656}
 \hfill
+\vfill
 \end{minipage}
 \begin{minipage}{.5\textwidth}
 \input{fig/scope2.tex}
-No new variables are introduced, there is only a global \var{a}.
+\hfill
+\vfill
+\end{minipage}
+
+In listing \ref{src:scope1} we introduce a local variable \var{a}
+in the function \func{q()}
+This local \var{a} is only visible in \func{q()}. That is
+why the code will print: \texttt{656}.
+In listing \ref{src:scope2} no new variables are introduced, there
+is only a global \var{a}.
 Assigning a new value to it is globally visible. This code will
 print: \texttt{655}
-\hfill
-\end{minipage}
 
 \paragraph{Multiple return values}
 One of Go's unusual features is that functions and methods can return multiple
