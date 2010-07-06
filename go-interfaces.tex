@@ -118,6 +118,12 @@ the syntax of a type assertion with the keyword type inside the
 parentheses. If the switch declares a variable in the expression, the
 variable will have the corresponding type in each clause.
 
+
+Dynamically found out the type we are dealing wtih
+\input{src/reflect.go}
+
+
+%% uitproberen
 \begin{lstlisting}
 switch t := interfaceValue.(type) { |\coderemark{Yes, you need to type \texttt{(type)}}|
 default:
