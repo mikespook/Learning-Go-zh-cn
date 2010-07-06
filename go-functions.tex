@@ -3,14 +3,20 @@ blabla
 
 \section{Scope}
 
+% inside a package, outside packages??
 \begin{minipage}{.5\textwidth}
 \input{fig/scope1.tex}
-Will print: 656
+In the function \func{q()} we introduce a local variable
+which is also called \var{a}. This local \var{a} in only
+visible in \func{q()}, so the above code will print: 
+\texttt{656}
 \hfill
 \end{minipage}
 \begin{minipage}{.5\textwidth}
 \input{fig/scope2.tex}
-Will print: 655
+No new variables are introduced, there is only a global \var{a}.
+Assigning a new value to it is globally visible. This code will
+print: \texttt{655}
 \hfill
 \end{minipage}
 
