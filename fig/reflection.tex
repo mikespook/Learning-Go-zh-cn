@@ -43,7 +43,7 @@ ShowTag(p1)	    |\coderemark{\func{ShowTag()} is now called with this pointer}|
 
 func ShowTag(i interface{}) {
     switch t := reflect.NewValue(i).(type) { |\coderemark{Type assertion}|
-    case *reflect.PtrValue: |\coderemark{\var{p1} is a pointer}|
+    case *reflect.PtrValue:		     |\coderemark{\var{p1} is a pointer}|
 	tag := t.Elem().Type().(*reflect.StructType).Field(0).Tag
 	.
 	.
