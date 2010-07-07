@@ -1,10 +1,18 @@
 \begin{lstlisting}[caption=Introspection using reflection,label=src:introspection]
 |\begin{tikzpicture}[overlay]
 \draw [->,thick] (2.8,-6.00) node [left] %
-{\longremark{main text can we do this in the code we have}} %
+{\longremark{We are dealing with a \type{PtrValue} and according %
+to the documentation\footnote{\texttt{godoc reflect}}:%
+\begin{quote} %
+\texttt{func (v *PtrValue) Elem() Value}\\%
+Elem returns the value that v points to.\\%
+If v is a nil pointer, Elem returns a nil Value.\\%
+\end{quote} %
+we can use \func{Elem()} to get the type the pointer points to;}} %
 to (2.8,-5.20);
 \draw [->,thick] (3.8,-6.00) node [left] %
-{\longremark{main text can we do this in the code we have}} %
+{\longremark{\func{Elem()} returns the value. In this case \var{reflect.Type} 
+main text can we do this in the code we have}} %
 to (3.8,-5.20);
 \draw [->,thick] (5.4,-6.00) node [left] %
 {\longremark{main text can we do this in the code we have}} %
@@ -28,8 +36,8 @@ p1 := new(Person)
 ShowTag(p1)
 
 func ShowTag(i interface{}) {
-    switch t := reflect.NewValue(i).(type) { |\coderemark{test}|
-    case *reflect.PtrValue: |\coderemark{test2}|
+    switch t := reflect.NewValue(i).(type) { |\coderemark{Type assertion}|
+    case *reflect.PtrValue: |\coderemark{\var{p1} is a pointer}|
 	tag := t.Elem().Type().(*reflect.StructType).Field(0).Tag
 	.
 	.
