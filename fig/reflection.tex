@@ -22,10 +22,15 @@ to (5.4,-5.20);
 {\longremark{main text can we do this in the code we have}} %
 to (6.8,-5.20);
 \draw [->,thick] (8.4,-6.00) node [left] %
-{\longremark{main text can we do this in the code we have}} %
+{\longremark{We finally have the type we are after. Now we can use the %
+methods defined for \type{*StructType}, like \func{Field(n)}, which %
+returns the n$^{th}$ field of our struct as a \type{StructField};}} %
 to (8.4,-5.20);
 \draw [->,thick] (9.4,-6.00) node [left] %
-{\longremark{main text can we do this in the code we have}} %
+{\longremark{The struct \type{StructField} has a \var{Tag} member which %
+returns the tag-name as a string. So on the $0^{th}$ field we can %
+unleash \func{.Tag} to access this name: \texttt{Field(0).Tag}. This %
+\emph{finally} gives us \texttt{namestr}.}}%
 to (9.4,-5.20);
 \end{tikzpicture}|
 type Person {
@@ -33,8 +38,8 @@ type Person {
     age  int
 }
 
-p1 := new(Person)
-ShowTag(p1)
+p1 := new(Person)   |\coderemark{\func{new} returns a pointer to Person}|
+ShowTag(p1)	    |\coderemark{\func{ShowTag()} is now called with this pointer}|
 
 func ShowTag(i interface{}) {
     switch t := reflect.NewValue(i).(type) { |\coderemark{Type assertion}|
