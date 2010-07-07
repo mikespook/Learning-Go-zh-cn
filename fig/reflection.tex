@@ -1,0 +1,36 @@
+\begin{lstlisting}[caption=Introspection using reflection,label=src:introspection]
+|\begin{tikzpicture}[overlay]
+\draw [->,thick] (2.8,-6.00) node [left] %
+{\longremark{main text can we do this in the code we have}} %
+to (2.8,-5.20);
+\draw [->,thick] (3.8,-6.00) node [left] %
+{\longremark{main text can we do this in the code we have}} %
+to (3.8,-5.20);
+\draw [->,thick] (5.4,-6.00) node [left] %
+{\longremark{main text can we do this in the code we have}} %
+to (5.4,-5.20);
+\draw [->,thick] (6.8,-6.00) node [left] %
+{\longremark{main text can we do this in the code we have}} %
+to (6.8,-5.20);
+\draw [->,thick] (8.4,-6.00) node [left] %
+{\longremark{main text can we do this in the code we have}} %
+to (8.4,-5.20);
+\draw [->,thick] (9.4,-6.00) node [left] %
+{\longremark{main text can we do this in the code we have}} %
+to (9.4,-5.20);
+\end{tikzpicture}|
+type Person {
+    name string "namestr"
+    age  int
+}
+
+p1 := new(Person)
+ShowTag(p1)
+
+func ShowTag(i interface{}) {
+    switch t := reflect.NewValue(i).(type) { |\coderemark{test}|
+    case *reflect.PtrValue: |\coderemark{test2}|
+	tag := t.Elem().Type().(*reflect.StructType).Field(0).Tag
+	.
+	.
+\end{lstlisting}

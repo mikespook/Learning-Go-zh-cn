@@ -151,12 +151,11 @@ pointer;}|
 		println("Shoe person")
 	}
 }
-
-
-
 \end{lstlisting}
 
 \showremarks
+
+
 
 %% uitproberen
 \begin{lstlisting}
@@ -174,6 +173,40 @@ case *int:
 }
 \end{lstlisting}
 
+
+\begin{lstlisting}[caption=Using reflect]
+
+type PersonShoe struct {
+    name     string "blah"
+    shoesize int 
+}
+
+func Relax(i interface{}) {
+        switch t := reflect.NewValue(i).(type) {
+        case *reflect.PtrValue:
+        // Elem to resolve the pointer
+        // Type() to return the type
+        // (*reflect.StructType) to get the structypeType member
+        // Field(0) first member in that struct
+        // Tag to get the tag
+                x := t.Elem().Type().(*reflect.StructType).Field(0).Tag
+                println(x)
+//              i := x.Type().(*reflect.StructType)
+//              fmt.Printf("%T\n", i)
+//              fmt.Printf("Fields %d\n", i.NumField())
+//              fmt.Printf("Tag %s\n", i.Field(0).Tag)
+        default:
+                println("ook")
+
+        }
+}
+
+
+\end{lstlisting}
+
+\input{fig/reflection.tex}
+
+\showremarks
 
 \section{Exercises}
 \input{ex-interfaces/ex-cat.tex}
