@@ -187,7 +187,7 @@ func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
 \end{lstlisting}
 
 When writing test you will need to tell \prog{gotest} that a test has failed or was successful. A
-successful test function just \func{return}s. When test fails you can signal this with the following
+successful test function just returns. When test fails you can signal this with the following
 functions\cite{go_doc}. These are the most important ones:
 
 \begin{lstlisting}[numbers=none]
@@ -202,22 +202,20 @@ FailNow marks the Test function as having failed and stops its execution.
 Execution will continue at the next Test.
 
 \begin{lstlisting}[numbers=none]
-func (t *T) Errorf(format string, args ...interface\{\})
+func (t *T) Errorf(format string, args ...interface{})
 \end{lstlisting}
 Errorf is equivalent to Logf() followed by Fail().
 
 \begin{lstlisting}[numbers=none]
-func (t *T) Logf(format string, args ...interface\{\})
+func (t *T) Logf(format string, args ...interface{})
 \end{lstlisting}
 Log formats its arguments according to the format, analogous to Printf(),
 and records the text in the error log.
 
 \begin{lstlisting}[numbers=none]
-func (t *T) Fatal(args ...interface\{\})
+func (t *T) Fatal(args ...interface{})
 \end{lstlisting}
 Fatal is equivalent to Log() followed by FailNow().
-
-
 
 
 \begin{lstlisting}[numbers=none]
