@@ -8,14 +8,15 @@ to the documentation\footnote{\texttt{godoc reflect}}:%
 Elem returns the value that v points to.\\%
 If v is a nil pointer, Elem returns a nil Value.\\%
 \end{quote} %
-we can use \func{Elem()} to get the type the pointer points to;}} %
+we can use \func{Elem()} to get the type the pointer points to. %
+In this case \type{*reflect.StructValue}; %
+}} %
 to (2.8,-5.20);
 \draw [->,thick] (3.8,-6.00) node [left] %
-{\longremark{\func{Elem()} returns the value. In this case \var{reflect.Type} 
-main text can we do this in the code we have}} %
+{\longremark{\func{Type()} returns \type{reflect.Type};}} %
 to (3.8,-5.20);
 \draw [->,thick] (5.4,-6.00) node [left] %
-{\longremark{main text can we do this in the code we have}} %
+{\longremark{Internally  }} %
 to (5.4,-5.20);
 \draw [->,thick] (6.8,-6.00) node [left] %
 {\longremark{main text can we do this in the code we have}} %
