@@ -1,0 +1,38 @@
+\begin{lstlisting}[caption=A function definition,label=src:function definition]
+|\begin{tikzpicture}[overlay]
+%
+\draw [->,thick] (0.5,-2.20) node [left] %
+{\longremark{The keyword \key{func} is used to declare a function;}} %
+to (0.5,-1.50); %
+%
+\draw [->,thick] (1.5,-2.20) node [left] %
+{\longremark{A function can be defined to work on a specific type, a %
+more common name for such a function is \index{method}{method}. This is optional;}} %
+to (1.5,-1.50); %
+%
+\draw [->,thick] (2.9,-2.20) node [left] %
+{\longremark{\emph{funcname} is the name of your function;}} %
+to (2.9,-1.50); %
+%
+\draw [->,thick] (4.0,-2.20) node [left] %
+{\longremark{The variable \var{q} of type \type{int} is the parameter %
+for this function;}} %
+to (4.0,-1.50); %
+%
+\draw [->,thick] (5.4,-2.20) node [left] %
+{\longremark{The variables \var{r} and \var{s} are the %
+\index{named return parameters}{named return parameters} for this function. %
+Note that functions in Go can have multiple return values. See section %
+\ref{sec:multiple return} for more information;}} %
+to (5.4,-1.50); %
+%
+\draw [->,thick] (6.8,-2.20) node [left] %
+{\longremark{This is the function's body.}}%
+to (6.8,-1.50); %
+\end{tikzpicture}|
+type mytype int	    |\coderemark{Define a new type, see section %
+\ref{sec:defining your own} in chapter \ref{chap:beyond}}|
+
+func (p mytype) funcname(q int) (r,s int) { return 0,0 }
+||
+\end{lstlisting}

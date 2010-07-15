@@ -143,11 +143,12 @@ a value of \texttt{false} tells Go that the type should be \type{bool}.
 Multiple \key{var} declarations may also be grouped, \key{const},
 \key{import} also allow this.
 \begin{lstlisting}
-var {
+var (
     x int
     b bool
-}
+)
 \end{lstlisting}
+Note the use of parentheses.
 
 A special name for a variable is \texttt{\_} (underscore). Any value
 assigned to it, is discarded. In this example we only assign the integer
@@ -557,7 +558,7 @@ we are greeted with a \emph{runtime} error.
 A lot of other languages have a simular type built-in, Perl has hashes
 and Python has got its dictionaries for instance. In Go was have the
 \type{map} type. A \type{map} can be thought of as an array indexed by
-strings.
+strings (in its most simple form).
 In the following listing we define a \type{map} which converts from a
 \lstinline{string} (month abbreviation) to an \lstinline{int} -- the number of days in that month. 
 The generic way to define a map is with: \verb|map[<from type>]<to type>|
@@ -567,12 +568,14 @@ monthdays := map[string]int{
 	"Jan": 31, "Feb": 28, "Mar": 31, 
 	"Apr": 30, "May": 31, "Jun": 30, 
 	"Jul": 31, "Aug": 31, "Sep": 30, 
-	"Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{the comma here is ok}|
+	"Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{the comma here is OK}|
 }		    
 \end{lstlisting}
 Indexing a map goes like this, suppose we want to print the
 number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
-If you're looping over an array, slice, string, or map a \key{range} clause help you again.
+If you're looping over an array, slice, string, or map a \key{range}
+clause help you again, which returns the key and corresponding value
+with each invocation.
 \begin{lstlisting}
 year := 0
 for _, days := range monthdays  // key is unused

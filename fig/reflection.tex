@@ -4,31 +4,31 @@
 {\longremark{We are dealing with a \type{PtrValue} and according %
 to the documentation\footnote{\texttt{godoc reflect}}:%
 \begin{quote} %
-\texttt{func (v *PtrValue) Elem() Value}\\%
+\texttt{\func{func} (v *PtrValue) Elem() Value}\\%
 Elem returns the value that v points to. %
-If v is a nil pointer, Elem returns a nil Value. 
-\end{quote} 
+If v is a nil pointer, Elem returns a nil Value. %
+\end{quote} %
 we can use \func{Elem()} to get the type the pointer points to. %
-In this case \type{*reflect.StructValue}; %
-}} %
+In this case \type{*reflect.StructValue};}} %
 to (2.8,-5.20);
+%
 \draw [->,thick] (3.8,-6.00) node [left] %
 {\longremark{\func{Type()} returns \type{reflect.Type};}} %
 to (3.8,-5.20);
 \draw [->,thick] (5.4,-6.00) node [left] %
 {\longremark{%
 Again according to the documentation, we have:\\%
-\begin{quote}
+\begin{quote} %
 \ldots which returns an object with interface %
 type \type{Type}.  That contains a pointer to a struct of type %
 \type{*StructType}, %
 \type{*IntType}, etc. representing the details of the underlying type. %
-A type switch or type assertion can reveal which.
-\end{quote}
+A type switch or type assertion can reveal which. %
+\end{quote} %
 So we can access your specific type as a member of this struct. Which %
-we do with \type{(*reflect.StructType)};
-}} %
+we do with \type{(*reflect.StructType)};}} %
 to (5.4,-5.20);
+%
 \draw [->,thick] (6.8,-6.00) node [left] %
 {\longremark{%
 A \type{StructType} has a number of methods, one of which is %
@@ -36,11 +36,13 @@ A \type{StructType} has a number of methods, one of which is %
 The type of this return is a \type{StructField}; %
 }} %
 to (6.8,-5.20);
+%
 \draw [->,thick] (8.4,-6.00) node [left] %
 {\longremark{We finally have the type we are after. Now we can use the %
 methods defined for \type{*StructType}, like \func{Field(n)}, which %
 returns the n$^{th}$ field of our struct as a \type{StructField};}} %
 to (8.4,-5.20);
+%
 \draw [->,thick] (9.4,-6.00) node [left] %
 {\longremark{The struct \type{StructField} has a \var{Tag} member which %
 returns the tag-name as a string. So on the $0^{th}$ field we can %
@@ -60,6 +62,5 @@ func ShowTag(i interface{}) {
     switch t := reflect.NewValue(i).(type) { |\coderemark{Type assertion}|
     case *reflect.PtrValue:		     |\coderemark{\var{p1} is a pointer}|
 	tag := t.Elem().Type().(||*reflect.StructType).Field(0).Tag
-	.
-	.
+||
 \end{lstlisting}
