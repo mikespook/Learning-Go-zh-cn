@@ -1,4 +1,4 @@
-\begin{lstlisting}[caption=A function definition,label=src:function definition]
+\begin{lstlisting}[caption=A function declaration,label=src:function definition]
 |\begin{tikzpicture}[overlay]
 %
 \draw [->,thick] (0.5,-2.20) node [left] %
@@ -23,7 +23,10 @@ to (4.0,-1.50); %
 {\longremark{The variables \var{r} and \var{s} are the %
 \index{named return parameters}{named return parameters} for this function. %
 Note that functions in Go can have multiple return values. See section %
-\ref{sec:multiple return} for more information;}} %
+\ref{sec:multiple return} for more information. If you want the return %
+parameters not to be named you only give the types: %
+\lstinline{(int,int)}. If you have only one value to return you may omit %
+the parentheses;}} %
 to (5.4,-1.50); %
 %
 \draw [->,thick] (6.8,-2.20) node [left] %

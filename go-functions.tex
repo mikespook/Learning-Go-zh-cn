@@ -1,42 +1,13 @@
-
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-Normale text Normale text Normale text Normale text
-
+Functions are the basic building blocks in Go programs; all interesting
+stuff happens in them. A function is declared as follows:
 \input{fig/function.tex}
 \showremarks
 
-\section{Functions}
-
-
+You cannot declare functions in functions. In others words nested
+functions in Go are not allowed.
 
 \section{Scope}
 
-% inside a package, outside packages??
 \begin{minipage}{.5\textwidth}
 \input{fig/scope1.tex}
 \hfill
@@ -76,7 +47,7 @@ device". The signature of \lstinline{*File.Write} in package
 func (file *File) Write(b []byte) (n int, err Error)
 \end{lstlisting}
 and as the documentation says, it returns the number of bytes written and a
-non-nil Error when \lstinline{n != len(b)}. This is a common style
+non-\lstinline{nil} Error when \lstinline{n != len(b)}. This is a common style
 
 A similar approach obviates the need to pass a pointer to a return value to
 simulate a reference parameter. Here's a simple-minded function to grab a
@@ -132,19 +103,12 @@ func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
 }
 \end{lstlisting}
 
-
-
-
-scope
-named parameters
-methods on types
-
 In the following example we declare a simple function which calculates
 \gomarginpar{Some text in this chapter comes from \cite{go_intro}.}  % layout
 the factorial value of a value \var{x}.
 
 \begin{lstlisting}
-func Factorial(x int) int {
+func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is also OK}|
    if x == 0 {
       return 1;	
    } else {
@@ -191,12 +155,8 @@ func fib(n) (val int, pos int) {
 \end{lstlisting}
 (The above contained boneheaded mistake 1: I just wrote that out, and didn't bother to compile it. Naturally, I screwed it up in a silly way. It's since been fixed.)
 
-defer, multiple return values etc etc
-
-scope
-
-\ldots in functions, multiple arguments
-
+\todo{defer, variadac args}
+\todo{functions in functions}
 
 \section{Exercises}
 \input{ex-functions/ex-stack.tex}
