@@ -11,10 +11,37 @@ stuff happens in them. A function is declared as follows:
 \input{fig/function.tex}
 \showremarks
 
-You cannot declare functions in functions. In others words nested
-functions in Go are not allowed.
+A function without a return value:
+\begin{lstlisting}
+func subroutine(in int) {
+    return
+}
+\end{lstlisting}
+
+The following is a rather simple function that returns it's input:
+\begin{lstlisting}
+func identity(in int) int {
+    return in
+}
+\end{lstlisting}
+You cannot declare functions in functions. 
+\begin{lstlisting}
+func a() {
+    println("Hello from a()")
+    func b() {			    |\coderemark{Illegal nesting}|
+	println("Hello from b()")    
+    }
+}
+\end{lstlisting}
+In others words nested functions are not allowed in Go. Annoymous
+functions... TODO(miekg) XXX.
 
 \section{Scope}
+Variables declared outside any functions are global in Go, those
+defined in functions are local to those functions. If names overlap --- a
+local variable is declared with the same name as a global one --- the
+local variables masks the global one for the duration (XXX is this true) 
+of the function.
 
 \begin{minipage}{.5\textwidth}
 \input{fig/scope1.tex}
@@ -41,7 +68,6 @@ any arguments are not needed.
 
 \section{Multiple return values}
 \label{sec:multiple return}
-
 One of Go's unusual features is that functions and methods can return multiple
 values. This can be used to improve on a couple of clumsy idioms in C programs:
 in-band error returns (such as -1 for EOF) and modifying an argument.
@@ -79,7 +105,8 @@ You could use it to scan the numbers in an input array a like this:
         fmt.Printf("%d", x)
     }
 \end{lstlisting}
-\subsection{Named result parameters}
+
+\section{Named result parameters}
 The return or result "parameters" of a Go function can be given names and used
 as regular variables, just like the incoming parameters. When named, they are
 initialized to the zero values for their types when the function begins; if the
@@ -163,8 +190,55 @@ func fib(n) (val int, pos int) {
 \end{lstlisting}
 (The above contained boneheaded mistake 1: I just wrote that out, and didn't bother to compile it. Naturally, I screwed it up in a silly way. It's since been fixed.)
 
-\todo{defer, variadac args}
-\todo{functions in functions}
+\section{Deferred code}
+Suppose you have a function in which you open a file and perform various
+writes and reads on it. In such a function there are often spots where
+you want to return early. If you do you need to close the file
+descriptor you are working on. This often leads to the following code:
+\begin{lstlisting}[caption=Without \func{defer}]
+function ReadWrite() bool {
+    file.Close("lll")
+    // Do you thing
+    if failureX {
+	file.Close("lll")
+	return false
+    }
+
+    if failureY {
+	file.Close("lll")
+	return false
+    }
+    file.Close("lll")
+    return true
+}
+\end{lstlisting}
+Where a lot of code is repeated with a good reason. To overcome this ---
+and do more in less code --- Go has the \func{defer} statement. After
+\func{defer} you specify a function which is called just \emph{before} a
+return from the function is executed.
+
+The above code could be rewritten with it as follows, making the whole
+function more readable \emph{and} shorter.
+\begin{lstlisting}[caption=With \func{defer}]
+function ReadWrite() bool {
+    defer func() {	    |\coderemark{Anonymous function}|
+	file.Close("lll")
+    }()			    |\coderemark{() is necessary}|
+    // Do you thing
+    if failureX {
+	return false
+    }
+
+    if failureY {
+	return false
+    }
+    return true
+}
+\end{lstlisting}
+
+\section{Variadic parameters}
+Functions that take variadic parameters are functions that have a
+variable number of parameters or in other words, optionals parameters.
 
 \section{Exercises}
 \input{ex-functions/ex-stack.tex}

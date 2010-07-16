@@ -36,8 +36,8 @@ var s S; f(&s)
 \end{lstlisting}
 The reason we need to take the address of \type{S}, rather than a value of type
 \type{S}, is because we defined the methods on \type{S} to operate on pointers. This
-is not a requirement - we could have defined the methods to take
-values — but then the \func{Put} method would not work as expected.
+is not a requirement --- we could have defined the methods to take
+values --- but then the \func{Put} method would not work as expected.
 
 The fact that you do not need to declare whether a type implements an
 interface means that Go implements a form of \first{duck typing}. This is not
@@ -45,13 +45,13 @@ pure duck typing, because when possible the Go compiler will statically
 check whether the type implements the interface. However, Go does have a
 purely dynamic aspect, in that you can convert from one interface type
 to another. In the general case, that conversion is checked at runtime.
-If the conversion is invalid — if the type of the value stored in the
+If the conversion is invalid --- if the type of the value stored in the
 existing interface value does not satisfy the interface to which it is
-being converted — the program will fail with a runtime error.
+being converted --- the program will fail with a runtime error.
 
 Interfaces in Go are similar to ideas in several other programming languages:
 pure abstract virtual base classes in C++; typeclasses in Haskell; duck typing
-in Python; etc. That said, I’m not aware of any other language which combines
+in Python; etc. However there is no other language which combines
 interface values, static type checking, dynamic runtime conversion, and no
 requirement for explicitly declaring that a type satisfies an interface. The
 result in Go is powerful, flexible, efficient, and easy to write.
@@ -204,7 +204,7 @@ func Relax(i interface{}) {
 }
 
 \end{lstlisting}
-\newpage
+%%\newpage %% TODO
 
 \input{fig/reflection.tex}
 

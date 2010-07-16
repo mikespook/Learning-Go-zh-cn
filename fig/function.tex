@@ -16,12 +16,16 @@ Note that functions in Go can have multiple return values. See section %
 \ref{sec:multiple return} for more information. If you want the return %
 parameters not to be named you only give the types: %
 \lstinline{(int,int)}. If you have only one value to return you may omit %
-the parentheses;}
+the parentheses. If your function is a subroutine and does not have %
+anything to return you may omit this entirely;}
 %
-\ubrace{8.2,-1.5}{6.3,-1.5}{This is the function's body.}
+\ubrace{8.2,-1.5}{6.3,-1.5}{This is the function's body, note that %
+\func{return} is a statement so the braces around the parameters are %
+optional.}
 \end{tikzpicture}|
 type mytype int	    |\coderemark{Define a new type, see section %
 \ref{sec:defining your own} in chapter \ref{chap:beyond}}|
 
 func (p mytype) funcname(q int) (r,s int) { return 0,0 }
+||
 \end{lstlisting}

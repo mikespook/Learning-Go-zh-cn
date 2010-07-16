@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47pre4 r22446"
+   inkscape:version="0.47 r22583"
    sodipodi:docname="array-vs-slice.svg">
   <defs
      id="defs4">
@@ -173,8 +173,8 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="736"
+     inkscape:window-width="1920"
+     inkscape:window-height="1048"
      inkscape:window-x="0"
      inkscape:window-y="29"
      inkscape:window-maximized="1">
@@ -233,16 +233,16 @@
        id="rect2826"
        width="38.57143"
        height="31.428574"
-       x="68.571426"
-       y="42.362183"
+       x="72.142853"
+       y="43.0765"
        ry="11.428572" />
     <rect
        style="fill:none;stroke:#000000;stroke-opacity:1"
        id="rect3604"
        width="40"
        height="35.714287"
-       x="51.42857"
-       y="30.933611"
+       x="54.999996"
+       y="31.647928"
        ry="0" />
     <rect
        style="fill:none"
@@ -257,8 +257,8 @@
        id="rect3604-5"
        width="40"
        height="35.714287"
-       x="91.5"
-       y="31.035675"
+       x="95.071426"
+       y="31.749992"
        ry="0" />
     <rect
        style="fill:none"
@@ -273,8 +273,8 @@
        id="rect3604-6"
        width="40"
        height="35.714287"
-       x="171.42857"
-       y="30.933578"
+       x="175"
+       y="31.647896"
        ry="0" />
     <rect
        style="fill:none"
@@ -289,8 +289,8 @@
        id="rect3604-61"
        width="40"
        height="35.714287"
-       x="131.88777"
-       y="31.005047"
+       x="135.4592"
+       y="31.719364"
        ry="0" />
     <text
        xml:space="preserve"
@@ -519,14 +519,14 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
-       x="65"
-       y="52.362183"
+       x="68.571426"
+       y="53.0765"
        id="text5373"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5375"
-         x="65"
-         y="52.362183">0</tspan></text>
+         x="68.571426"
+         y="53.0765">0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
@@ -541,14 +541,14 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
-       x="185"
-       y="52.362183"
+       x="188.57143"
+       y="53.0765"
        id="text5381"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5383"
-         x="185"
-         y="52.362183">n</tspan></text>
+         x="188.57143"
+         y="53.0765">n</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
