@@ -106,3 +106,9 @@
 {%
 \end{CJK*}%
 }
+% start, end, text
+\newcommand{\ubrace}[3]{%
+\draw [thick,decorate,decoration={brace,amplitude=4pt},xshift=0pt,yshift=0pt] %
+(#1) -- (#2) node [black,midway,below=4pt,xshift=0pt] %
+{\longremark{#3}}; %
+}

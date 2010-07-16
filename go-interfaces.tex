@@ -114,20 +114,6 @@ type Emitter interface {
 }
 \end{lstlisting}
 
-%%%%%%%%% old
-There are no generics in Go. A lot of people consider this a "good
-%% ------------
-\gomarginpar{There is discussion on this. Maybe
-something will change in the future. For now we have \key{interfaces}.}
-%% ------------
-thing"$^\mathtt{TM}$, but it does mean you need to be a little bit 
-clever on how pass arbitrary types to functions. This is 
-where \first{interfaces} come in.
-
-\section{Reflection}
-TODO? Appropiate section??
-
-
 A \key{switch} can also be used to discover the dynamic type of an interface
 variable. Such a type switch\gomarginindex{\emph{type switch}}{type switch} uses
 the syntax of a type assertion with the keyword type inside the
@@ -217,8 +203,8 @@ func Relax(i interface{}) {
         }
 }
 
-
 \end{lstlisting}
+\newpage
 
 \input{fig/reflection.tex}
 

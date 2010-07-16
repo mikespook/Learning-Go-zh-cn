@@ -1,7 +1,7 @@
 \begin{lstlisting}[caption=Introspection using reflection,label=src:introspection]
 |\begin{tikzpicture}[overlay]
-\draw [->,thick] (2.8,-6.00) node [left] %
-{\longremark{We are dealing with a \type{PtrValue} and according %
+\ubrace{3.2,-5.2}{2.2,-5.2}{%
+We are dealing with a \type{PtrValue} and according %
 to the documentation\footnote{\texttt{godoc reflect}}:%
 \begin{quote} %
 \texttt{\func{func} (v *PtrValue) Elem() Value}\\%
@@ -9,14 +9,11 @@ Elem returns the value that v points to. %
 If v is a nil pointer, Elem returns a nil Value. %
 \end{quote} %
 we can use \func{Elem()} to get the type the pointer points to. %
-In this case \type{*reflect.StructValue};}} %
-to (2.8,-5.20);
+In this case \type{*reflect.StructValue};}
 %
-\draw [->,thick] (3.8,-6.00) node [left] %
-{\longremark{\func{Type()} returns \type{reflect.Type};}} %
-to (3.8,-5.20);
-\draw [->,thick] (5.4,-6.00) node [left] %
-{\longremark{%
+\ubrace{4.3,-5.2}{3.6,-5.2}{\func{Type()} returns \type{reflect.Type};}%
+%
+\ubrace{7.7,-5.2}{4.8,-5.2}{%
 Again according to the documentation, we have:\\%
 \begin{quote} %
 \ldots which returns an object with interface %
@@ -26,29 +23,18 @@ type \type{Type}.  That contains a pointer to a struct of type %
 A type switch or type assertion can reveal which. %
 \end{quote} %
 So we can access your specific type as a member of this struct. Which %
-we do with \type{(*reflect.StructType)};}} %
-to (5.4,-5.20);
+we do with \type{(*reflect.StructType)};}
 %
-\draw [->,thick] (6.8,-6.00) node [left] %
-{\longremark{%
+\ubrace{8.9,-5.2}{7.9,-5.2}{%
 A \type{StructType} has a number of methods, one of which is %
 \func{Field($n$)} which returns the $n^{th}$ field of a structure. %
-The type of this return is a \type{StructField}; %
-}} %
-to (6.8,-5.20);
+The type of this return is a \type{StructField};}
 %
-\draw [->,thick] (8.4,-6.00) node [left] %
-{\longremark{We finally have the type we are after. Now we can use the %
-methods defined for \type{*StructType}, like \func{Field(n)}, which %
-returns the n$^{th}$ field of our struct as a \type{StructField};}} %
-to (8.4,-5.20);
-%
-\draw [->,thick] (9.4,-6.00) node [left] %
-{\longremark{The struct \type{StructField} has a \var{Tag} member which %
+\ubrace{9.6,-5.2}{9.1,-5.2}{%
+The struct \type{StructField} has a \var{Tag} member which %
 returns the tag-name as a string. So on the $0^{th}$ field we can %
 unleash \func{.Tag} to access this name: \texttt{Field(0).Tag}. This %
-\emph{finally} gives us \texttt{namestr}.}}%
-to (9.4,-5.20);
+\emph{finally} gives us \texttt{namestr}.}
 \end{tikzpicture}|
 type Person {
     name string "namestr"

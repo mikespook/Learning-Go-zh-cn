@@ -1,41 +1,27 @@
 \begin{lstlisting}[caption=A function declaration,label=src:function definition]
 |\begin{tikzpicture}[overlay]
+\ubrace{0.6,-1.5}{0.0,-1.5}{The keyword \key{func} is used to declare a function;}
 %
-\draw [->,thick] (0.5,-2.20) node [left] %
-{\longremark{The keyword \key{func} is used to declare a function;}} %
-to (0.5,-1.50); %
+\ubrace{2.2,-1.5}{0.8,-1.5}{A function can be defined to work on a specific type, a %
+more common name for such a function is \index{method}{method}. This is optional;}
 %
-\draw [->,thick] (1.5,-2.20) node [left] %
-{\longremark{A function can be defined to work on a specific type, a %
-more common name for such a function is \index{method}{method}. This is optional;}} %
-to (1.5,-1.50); %
+\ubrace{3.4,-1.5}{2.4,-1.5}{\emph{funcname} is the name of your function;}
 %
-\draw [->,thick] (2.9,-2.20) node [left] %
-{\longremark{\emph{funcname} is the name of your function;}} %
-to (2.9,-1.50); %
+\ubrace{4.5,-1.5}{3.6,-1.5}{The variable \var{q} of type \type{int} is the parameter;}
 %
-\draw [->,thick] (4.0,-2.20) node [left] %
-{\longremark{The variable \var{q} of type \type{int} is the parameter %
-for this function;}} %
-to (4.0,-1.50); %
-%
-\draw [->,thick] (5.4,-2.20) node [left] %
-{\longremark{The variables \var{r} and \var{s} are the %
+\ubrace{6.0,-1.5}{4.9,-1.5}{%
+The variables \var{r} and \var{s} are the %
 \index{named return parameters}{named return parameters} for this function. %
 Note that functions in Go can have multiple return values. See section %
 \ref{sec:multiple return} for more information. If you want the return %
 parameters not to be named you only give the types: %
 \lstinline{(int,int)}. If you have only one value to return you may omit %
-the parentheses;}} %
-to (5.4,-1.50); %
+the parentheses;}
 %
-\draw [->,thick] (6.8,-2.20) node [left] %
-{\longremark{This is the function's body.}}%
-to (6.8,-1.50); %
+\ubrace{8.2,-1.5}{6.3,-1.5}{This is the function's body.}
 \end{tikzpicture}|
 type mytype int	    |\coderemark{Define a new type, see section %
 \ref{sec:defining your own} in chapter \ref{chap:beyond}}|
 
 func (p mytype) funcname(q int) (r,s int) { return 0,0 }
-||
 \end{lstlisting}
