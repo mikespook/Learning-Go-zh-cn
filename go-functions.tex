@@ -33,8 +33,9 @@ func a() {
     }
 }
 \end{lstlisting}
-In others words nested functions are not allowed in Go. Annoymous
-functions... TODO(miekg) XXX.
+In others words nested functions are not allowed in Go. However you can 
+work around this by using anonymous functions (see section
+\ref{sec:functions as values} in this chapter).
 
 \section{Scope}
 Variables declared outside any functions are global in Go, those
@@ -239,6 +240,13 @@ function ReadWrite() bool {
 \section{Variadic parameters}
 Functions that take variadic parameters are functions that have a
 variable number of parameters or in other words, optionals parameters.
+
+\section{Functions as values}
+\label{sec:functions as values}
+As with almost everything in Go, functions are also \emph{just} values,
+so they can be assigned to variables. Like so:
+\lstinputlisting[label=src:anonfunc,caption=Anonymous function]{src/anon-func.go}
+
 
 \section{Exercises}
 \input{ex-functions/ex-stack.tex}
