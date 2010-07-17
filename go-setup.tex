@@ -69,7 +69,7 @@
 \newcommand{\hardnewline}{\ \\}
 \newcommand{\first}[1]{\emph{#1}\index{#1}}
 \newcommand{\second}[1]{#1\index{#1}}
-\newcommand{\epi}[2]{\epigraph{#1}{#2}}
+\newcommand{\epi}[2]{\epigraph{#1}{\textit{#2}}}
 \newcommand{\hg}[1]{\newline{\texttt{\tiny{Go release.#1}}}}
 \newcommand{\error}[1]{\texttt{#1}}
 
@@ -87,6 +87,9 @@
 \def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
 \MakeFramed{\rightskip=\parindent\advance\hsize-\width \FrameRestore}}%
 {\endMakeFramed}
+
+%% Epigraph
+\setlength{\epigraphwidth}{1.2\epigraphwidth}
 
 %% Margin notes
 \setmarginnotes{20pt}{80pt}{\onelineskip}
