@@ -1,7 +1,7 @@
 package main
 
 func main() {
-	a := func() {     // define nameless function and assing to a
+	a := func() {     // define a nameless function and assign to a
 	  println("Hello")
 	}
 	a()               // call the function

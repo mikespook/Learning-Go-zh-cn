@@ -1,19 +1,20 @@
-# simple makefile
-.PHONY: fig fig/*.svg tab tab/*.tex once
+.PHONY: once
 
-all:	fig tab go.pdf
+all:	go.pdf
 
 once:	
 	xelatex go.tex
 
-go.pdf:	go*.tex ex-*/*.tex src/*.go blocksbook.cls go.bib tab/*.tex
+go.pdf:	go-*.tex ex-*/*.tex src/*.go tab/*.tex fig/*.tex blocksbook.cls go.bib .fig .tab
 	xelatex go.tex && bibtex go && makeindex go && xelatex go.tex && xelatex go.tex
 
-fig:	fig/*.svg
+.fig:	
 	( cd fig; make all )
+	touch .fig
 
-tab:	tab/*.tex
+.tab:	
 	( cd tab; make all )
+	touch .tab
 
 clean:
 	rm -f go.lol go.aux *.log map.log go.pdf go.bbl go.blg go.toc go.ind go.lot go.lof go.loe
