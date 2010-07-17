@@ -247,7 +247,8 @@ variable number of parameters or in other words, optionals parameters.
 As with almost everything in Go, functions are also \emph{just} values,
 so they can be assigned to variables. Like so:
 \lstinputlisting[label=src:anonfunc,caption=Anonymous function]{src/anon-func.go}
-
+If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of \var{a} it prints
+\func{func()}.
 
 \section{Exercises}
 \input{ex-functions/ex-stack.tex}
