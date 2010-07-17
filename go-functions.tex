@@ -240,7 +240,11 @@ function ReadWrite() bool {
 
 \section{Variadic parameters}
 Functions that take variadic parameters are functions that have a
-variable number of parameters or in other words, optionals parameters.
+variable number of parameters. In Go this is done as follows.
+Firstly you need to declare your function to take variadic arguments:
+
+Secondly you must receive and unwind the arguments. A variadic
+djsdjk TODO(miekg)
 
 \section{Functions as values}
 \label{sec:functions as values}
