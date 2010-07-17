@@ -254,6 +254,19 @@ so they can be assigned to variables. Like so:
 If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of \var{a} it prints
 \func{func()}.
 
+Functions--as--values may also be used in other places, like in maps.
+This code is from the package \package{net} (in the file
+\package{net/dnsmsg.go}), where a map is used to convert
+from integers to functions.
+\begin{lstlisting}[caption=Function as values in maps]
+var rr_mk = map[int]func() dnsRR{
+    dnsTypeCNAME: func() dnsRR { return new(dnsRR_CNAME) },
+    dnsTypeHINFO: func() dnsRR { return new(dnsRR_HINFO) },
+    dnsTypeMB:    func() dnsRR { return new(dnsRR_MB) },
+    ...
+\end{lstlisting}
+
+
 \section{Exercises}
 \input{ex-functions/ex-stack.tex}
 
