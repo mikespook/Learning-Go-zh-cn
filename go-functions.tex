@@ -237,6 +237,11 @@ function ReadWrite() bool {
     return true
 }
 \end{lstlisting}
+Multiple defer, get stacked and execetuted in order - you can not
+remove ?? From the defer list.
+
+Defere and named parameters.
+
 
 \section{Variadic parameters}
 Functions that take variadic parameters are functions that have a
