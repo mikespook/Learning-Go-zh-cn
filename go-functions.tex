@@ -199,7 +199,7 @@ you want to return early. If you do you need to close the file
 descriptor you are working on. This often leads to the following code:
 \begin{lstlisting}[caption=Without \func{defer}]
 function ReadWrite() bool {
-    file.Close("lll")
+    file.Open("lll")
     // Do you thing
     if failureX {
 	file.Close("lll")
@@ -223,6 +223,7 @@ The above code could be rewritten with it as follows, making the whole
 function more readable \emph{and} shorter.
 \begin{lstlisting}[caption=With \func{defer}]
 function ReadWrite() bool {
+    file.Open("lll")
     defer func() {	    |\coderemark{Anonymous function}|
 	file.Close("lll")
     }()			    |\coderemark{() is necessary}|
@@ -237,11 +238,17 @@ function ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-Multiple defer, get stacked and execetuted in order - you can not
-remove ?? From the defer list.
 
-Defere and named parameters.
-
+You can put multiple function on the "deferred list", like this
+example from \cite{effective_go} 
+\begin{lstlisting}
+for i := 0; i < 5; i++ { 
+    defer fmt.Printf("%d ", i) 
+} 
+\end{lstlisting}
+Deferred functions are executed in LIFO order, so the above code
+prints: \lstinline{4 3 2 1 0}. The \func{defer} statement is 
+also used in panic/recover situation, see TODO(miekg).
 
 \section{Variadic parameters}
 Functions that take variadic parameters are functions that have a
