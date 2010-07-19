@@ -11,7 +11,7 @@ stuff happens in them. A function is declared as follows:
 \input{fig/function.tex}
 \showremarks
 Here are a two examples, the first is a function without a return value,
-the second is a simple function that returns it's input:
+the second is a simple function that returns it's input.
 \begin{lstlisting}
 func subroutine(in int) {
     return
@@ -22,7 +22,7 @@ func identity(in int) int {
     return in
 }
 \end{lstlisting}
-On thing that is now allowed in Go is functions in functions. 
+One thing that is now allowed in Go is functions in functions. 
 \begin{lstlisting}
 func a() {
     println("Hello from a()")
@@ -40,9 +40,8 @@ in this chapter).
 Variables declared outside any functions are global in Go, those
 defined in functions are local to those functions. If names overlap --- a
 local variable is declared with the same name as a global one --- the
-local variables masks the global one for the duration (XXX is this true) 
-of the function.
-
+local variable masks the global one when the current function is
+executed.
 \begin{minipage}{.5\textwidth}
 \input{fig/scope1.tex}
 \hfill
@@ -63,11 +62,22 @@ is only a global \var{a}.
 Assigning a new value to it is globally visible. This code will
 print: \texttt{655}
 
+In the following example we call \func{g()} from \func{f()}:
+\lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
+And this will print: \texttt{565}. So a \emph{local} variable is only
+valid when we are executing the function in which it is defined. One
+remaining case has not been dealt with and that is a "function
+literal" in which you essentially define a function inside another
+function. The following figure should clarify why it
+prints:\texttt{5454554XXXtodo(miekg)}.
+
+\input{fig/scope3.tex}
+
 \section{Multiple return values}
 \label{sec:multiple return}
 One of Go's unusual features is that functions and methods can return multiple
 values. This can be used to improve on a couple of clumsy idioms in C programs:
-in-band error returns (such as -1 for EOF) and modifying an argument.
+in-band error returns (such as -1 for \texttt{EOF}) and modifying an argument.
 
 In C, a write error is signaled by a negative count with the error code
 secreted away in a volatile location. In Go, \lstinline{Write} can return a count and an
@@ -78,7 +88,8 @@ device". The signature of \lstinline{*File.Write} in package
 func (file *File) Write(b []byte) (n int, err Error)
 \end{lstlisting}
 and as the documentation says, it returns the number of bytes written and a
-non-\lstinline{nil} Error when \lstinline{n != len(b)}. This is a common style
+non-\lstinline{nil} Error when \lstinline{n != len(b)}. This is a common
+style in Go.
 
 A similar approach obviates the need to pass a pointer to a return value to
 simulate a reference parameter. Here's a simple-minded function to grab a
@@ -102,6 +113,9 @@ You could use it to scan the numbers in an input array a like this:
         fmt.Printf("%d", x)
     }
 \end{lstlisting}
+With having tuples as a native type, multiple return values is the next
+best thing to have. You can return precisely what you want without
+overloading the domain space with special values to signal errors.
 
 \section{Named result parameters}
 \label{sec:named result parameters}
@@ -109,7 +123,9 @@ The return or result "parameters" of a Go function can be given names and used
 as regular variables, just like the incoming parameters. When named, they are
 initialized to the zero values for their types when the function begins; if the
 function executes a \key{return} statement with no arguments, the current values of
-the result parameters are used as the returned values.
+the result parameters are used as the returned values. Using this
+features enables you (again) to do more with less code\footnote{This is
+sort of a motto of Go; "Do more, with less code".}.
 
 The names are not mandatory but they can make code shorter and clearer:
 \emph{they are documentation}. 
@@ -150,13 +166,9 @@ func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is
 }
 \end{lstlisting}
 
-Go extends that by adding support for named return values. You can 
-\gomarginindex{named return values}{named return values}
-declare the return value as a variable in the function header; then you
-can assign values to that variable. When the function returns, the last
-value assigned to the return variable is the return value. So you could
-also write factorial as:
-
+When we use named result values, the code become indeed shorter and
+more easy to understand.
+So you could also write factorial as:
 \begin{lstlisting}
 func Factorial(x int) (result int) {
   if x == 0 {
@@ -167,7 +179,7 @@ func Factorial(x int) (result int) {
   return;
 }
 \end{lstlisting}
-You can also write a function with multiple return values:
+You can also write the function with multiple return values:
 
 \begin{lstlisting}
 func fib(n) (val int, pos int) {
@@ -186,31 +198,30 @@ func fib(n) (val int, pos int) {
    return;
 }
 \end{lstlisting}
-(The above contained boneheaded mistake 1: I just wrote that out, and didn't bother to compile it. Naturally, I screwed it up in a silly way. It's since been fixed.)
 
 \section{Deferred code}
 Suppose you have a function in which you open a file and perform various
 writes and reads on it. In such a function there are often spots where
-you want to return early. If you do you need to close the file
+you want to return early. If you do that, you will need to close the file
 descriptor you are working on. This often leads to the following code:
 \begin{lstlisting}[caption=Without \func{defer}]
 function ReadWrite() bool {
-    file.Open("lll")
+    file.Open("file")
     // Do you thing
     if failureX {
-	file.Close("lll")
+	file.Close("file")
 	return false
     }
 
     if failureY {
-	file.Close("lll")
+	file.Close("file")
 	return false
     }
-    file.Close("lll")
+    file.Close("file")
     return true
 }
 \end{lstlisting}
-Where a lot of code is repeated with a good reason. To overcome this ---
+Where a lot of code is repeated, but with a good reason. To overcome this ---
 and do more in less code --- Go has the \func{defer} statement. After
 \func{defer} you specify a function which is called just \emph{before} a
 return from the function is executed.
@@ -220,22 +231,20 @@ function more readable, shorter and puts the \func{Close} right next
 to the \func{Open}.
 \begin{lstlisting}[caption=With \func{defer}]
 function ReadWrite() bool {
-    file.Open("lll")
-    defer file.Close("lll")
+    file.Open("file")
+    defer file.Close("file") |\coderemark{\func{file.Close} \emph{is} the function}|
     // Do you thing
     if failureX {
-	return false
+	return false	     |\coderemark{\func{Close} is now done automatically}|
     }
-
     if failureY {
-	return false
+	return false	     |\coderemark{And here to}|
     }
     return true
 }
 \end{lstlisting}
-
-You can put multiple function on the "deferred list", like this
-example from \cite{effective_go} 
+You can put multiple functions on the "deferred list", like this
+example from \cite{effective_go}:
 \begin{lstlisting}
 for i := 0; i < 5; i++ { 
     defer fmt.Printf("%d ", i) 

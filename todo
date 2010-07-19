@@ -1,15 +1,7 @@
-maak eerste 4 hoofdstukken "af"
-intro
-basic
-functions
-packages
-
-
 red-black tree
 linked list
 that kind of stuff
 
-utf-8 opgaven
 %% networking 
 %% other stuff
 %% arrays, interfaces
@@ -19,3 +11,5 @@ utf-8 opgaven
 %% pointers
 %% defer
 %% channels go functions
+
+per chapter: minimum of 10 exercises
