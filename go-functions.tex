@@ -254,18 +254,19 @@ Deferred functions are executed in LIFO order, so the above code
 prints: \lstinline{4 3 2 1 0}. 
 
 With \func{defer} you can even change return values, provided that
-you are using named result parameters and use a function literal, i.e:
+you are using named result parameters and a function literal, i.e:
 \begin{lstlisting}p[caption=Function literal]
 defer func() {
-	|\ldots|
-}()
+	...
+}()		 |\coderemark{() is needed here}|
 \end{lstlisting}
-In that (unnamed) function you can then access any named return
+In that (unnamed) function you can access any named return
 parameter like so:
 \begin{lstlisting}[caption=Access return values within \func{defer}]
-func f() (ret int){
+func f() (ret int){     |\coderemark{\var{ret} is initialized with %
+zero}|
 	defer func() {
-		ret++	|\coderemark{Up \var{ret} with $1$}|
+		ret++	|\coderemark{Increment \var{ret} with $1$}|
 	}()
 	return 0	|\coderemark{$1$ \emph{not} $0$ will be returned}|
 }
