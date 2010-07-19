@@ -109,6 +109,7 @@ You could use it to scan the numbers in an input array a like this:
 \end{lstlisting}
 
 \section{Named result parameters}
+\label{sec:named result parameters}
 The return or result "parameters" of a Go function can be given names and used
 as regular variables, just like the incoming parameters. When named, they are
 initialized to the zero values for their types when the function begins; if the
@@ -220,13 +221,12 @@ and do more in less code --- Go has the \func{defer} statement. After
 return from the function is executed.
 
 The above code could be rewritten with it as follows, making the whole
-function more readable \emph{and} shorter.
+function more readable, shorter and puts the \func{Close} right next 
+to the \func{Open}.
 \begin{lstlisting}[caption=With \func{defer}]
 function ReadWrite() bool {
     file.Open("lll")
-    defer func() {	    |\coderemark{Anonymous function}|
-	file.Close("lll")
-    }()			    |\coderemark{() is necessary}|
+    defer file.Close("lll")
     // Do you thing
     if failureX {
 	return false
@@ -247,8 +247,27 @@ for i := 0; i < 5; i++ {
 } 
 \end{lstlisting}
 Deferred functions are executed in LIFO order, so the above code
-prints: \lstinline{4 3 2 1 0}. The \func{defer} statement is 
-also used in panic/recover situation, see TODO(miekg).
+prints: \lstinline{4 3 2 1 0}. 
+
+With \func{defer} you can even change return values, provided that
+you are using "\nameref{sec:named result paramaters}" and use a
+function literal, i.e:
+\begin{lstlisting}p[caption=Function literal]
+defer func() {
+	|\ldots|
+}()
+\end{lstlisting}
+In that (unnamed) function you can then access any named return
+parameter like so:
+\begin{lstlisting}
+func f() (ret int){
+	defer func() {
+		ret++	|\coderemark{Up \var{ret} with $1$}|
+	}()
+	return 0	|\coderemark{$1$ \emph{not} $0$ will be returned}|
+}
+\end{lstlisting}
+
 
 \section{Variadic parameters}
 Functions that take variadic parameters are functions that have a
