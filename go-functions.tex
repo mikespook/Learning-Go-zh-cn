@@ -10,21 +10,19 @@ such noise?}{\textsc{Dick Gabriel}}
 stuff happens in them. A function is declared as follows:
 \input{fig/function.tex}
 \showremarks
-
-A function without a return value:
+Here are a two examples, the first is a function without a return value,
+the second is a simple function that returns it's input:
 \begin{lstlisting}
 func subroutine(in int) {
     return
 }
 \end{lstlisting}
-
-The following is a rather simple function that returns it's input:
 \begin{lstlisting}
 func identity(in int) int {
     return in
 }
 \end{lstlisting}
-You cannot declare functions in functions. 
+On thing that is now allowed in Go is functions in functions. 
 \begin{lstlisting}
 func a() {
     println("Hello from a()")
@@ -33,7 +31,7 @@ func a() {
     }
 }
 \end{lstlisting}
-In others words nested functions are not allowed in Go. However you can 
+You can however
 work around this by using anonymous functions (see section
 "\titleref{sec:functions as values}" on page \pageref{sec:functions as values} 
 in this chapter).
@@ -64,9 +62,6 @@ In listing \ref{src:scope2} no new variables are introduced, there
 is only a global \var{a}.
 Assigning a new value to it is globally visible. This code will
 print: \texttt{655}
-
-\key{return} is a statement, not a function, so the parentheses around
-any arguments are not needed.
 
 \section{Multiple return values}
 \label{sec:multiple return}
