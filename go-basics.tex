@@ -585,8 +585,8 @@ fmt.Printf("Numbers of days in a year: %d\n", year)
 \end{lstlisting}
 Adding elements to the \type{map} would be done as:
 \begin{lstlisting}
-monthday["Undecim"] = 30		// Add a month
-monthday["Feb"]     = 29		// For leap years
+monthday["Undecim"] = 30	// Add a month
+monthday["Feb"]     = 29	// Overwrite entry - for leap years
 \end{lstlisting}
 To test for existence, you would use the
 following\cite{go_course_day2}\footnote{Adapted to the latest Go
@@ -596,13 +596,12 @@ var value int;
 var present bool;
 
 value, present = monthday["Jan"];	// Does it exist?
-
 // Or better and more Go like
 v, ok := monthday["Jan"]		// Hence, the "comma ok" form
 \end{lstlisting}
 And finally you can remove elements from the \type{map}:
 \begin{lstlisting}
-monthday["Mar"] = 0, false    // Deletes entry for "Mar", always rains anyway
+monthday["Mar"] = 0, false    // Deletes "Mar", always rains anyway
 \end{lstlisting}
 
 \section{Exercises}
