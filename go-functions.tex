@@ -277,9 +277,21 @@ zero}|
 Functions that take variadic parameters are functions that have a
 variable number of parameters. In Go this is done as follows.
 Firstly you need to declare your function to take variadic arguments:
+\begin{lstlisting}[caption=Variadac parameters]
+func myfunc(arg ... int) {}
+\end{lstlisting}
+The \lstinline{arg ... int} instructs Go to see this as a function that
+takes a variable number of arguments. Note that all these arguments
+have the type \type{int}. Inside your function's body the variable
+\var{arg} is a slice of \type{int}s:
+\begin{lstlisting}
+for _, n := range arg {
+    fmt.Printf("And the number is: %d\n", n)
+}
+\end{lstlisting}
 
-Secondly you must receive and unwind the arguments. A variadic
-djsdjk TODO(miekg)
+If you don't specify the type of the variadac argument it defaults to the
+empty interface \var{interface\{\}}.
 
 \section{Functions as values}
 \label{sec:functions as values}

@@ -32,13 +32,13 @@ the function name \func{\emph{E}ven}. If we change our \prog{myeven.go} on line
 
 \noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.uneven(i))}
 
-\noindent We get an error when compiling, because we are trying to use a
+We get an error when compiling, because we are trying to use a
 \emph{private} function:
 \begin{display}
 myeven.go:7: cannot refer to unexported name even.uneven
 myeven.go:7: undefined: even.uneven
 \end{display}
-\noindent{}To summarise:
+To summarise:
 \begin{itemize}
 \item Public functions have a name \emph{starting} with a Capital
 Letter;

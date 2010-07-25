@@ -85,7 +85,7 @@ measured in mere seconds, even for large pieces of code.
 \pr 6l -o helloworld helloworld.6 \qquad\rem{# linking stage}
 \end{display}
 
-\noindent{}For 32 bit you should use \prog{8g} and \prog{8l}, this will then
+For 32 bit you should use \prog{8g} and \prog{8l}, this will then
 generate \prog{helloworld.8}.\footnote{This is the only thing you will
 need to change when you are cross compiling. Just use a different
 compiler and you are done.}
@@ -212,7 +212,7 @@ people coming from C, the following is not legal in Go:
 \begin{lstlisting}
 var s string = "hello"; s[0] = 'c'
 \end{lstlisting}
-\noindent{}To do this in Go you will need the following:
+To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
 c := []int(s)	    |\longremark{Convert \texttt{s} to an array, see %
