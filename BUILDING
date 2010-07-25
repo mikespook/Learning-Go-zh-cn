@@ -1,0 +1,17 @@
+When building this from scratch you will need the
+following packages:
+
+    inkscape
+    ttf-droid
+    ttf-dejavu 
+    ttf-sazanami-gothic
+    texlive-fonts-recommended
+    texlive-extra-utils
+    texlive-xetex
+    texlive-latex-extra
+    texlive-latex-recommended
+    latex-cjk-xcjktex-cjk-xcjk
+    git-core
+    make
+
+After that, you will hopefully only to give 'make'
