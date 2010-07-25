@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	var array [100]int     // create array, index from 0 to 99
-	slice := array[0:100]   // create slice, index from 0 to 99
+	var array [100]int      // Create array, index from 0 to 99
+	slice := array[0:100]   // Create slice, index from 0 to 99
 
 	fmt.Printf("%d %d  - %d %d\n",
 		cap(array), len(array), cap(slice), len(slice));

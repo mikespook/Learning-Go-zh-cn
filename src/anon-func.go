@@ -1,8 +1,8 @@
 package main
 
 func main() {
-	a := func() {     // define a nameless function and assign to a
+	a := func() {     // Define a nameless function and assign to a
 	  println("Hello")
-	}
-	a()               // call the function
+	}		  // No () here
+	a()               // Call the function
 }
