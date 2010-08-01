@@ -46,24 +46,40 @@ Letter;
 \end{itemize}
 
 \section{Building}
-\begin{lstlisting}[language=make]
+The create a package other people can use (by just using
+\lstinline{import "even"}) we first need to create a directory
+where we put our package files in. 
+\begin{display}
+\pr mkdir even
+\pr cp even.go even
+\end{display}
+Next we 
+can use the following Makefile, which 
+is adapted for our \package{even} package.
+\begin{lstlisting}[language=make,caption=A Makefile for packages]
 # Copyright 2009 The Go Authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
 include $(GOROOT)/src/Make.$(GOARCH)
 
-TARG=io
+TARG=even		# the name of our package
 GOFILES=\
-	io.go\
-	pipe.go\
+	even.go\	# the file(s) in the even package
 
 include $(GOROOT)/src/Make.pkg
 
 \end{lstlisting}
+If we now issue \prog{make} we create this directory structure:
+\begin{display}
+\pr ls -l even
 
-make
-make install
+\end{display}
+With \prog{make install} the package is installed in the \emph{official}
+package directory:
+\begin{display}
+\pr ls -l \$GOROOT/pkg/dkdlskdls bla
+\end{display}
 
 \section{Names}
 Names are as important in Go as in any other language. In some cases
