@@ -56,29 +56,33 @@ where we put our package files in.
 Next we 
 can use the following Makefile, which 
 is adapted for our \package{even} package.
-\begin{lstlisting}[language=make,caption=A Makefile for packages]
-# Copyright 2009 The Go Authors. All rights reserved.
-# Use of this source code is governed by a BSD-style
-# license that can be found in the LICENSE file.
-
-include $(GOROOT)/src/Make.$(GOARCH)
-
-TARG=even		# the name of our package
-GOFILES=\
-	even.go\	# the file(s) in the even package
-
-include $(GOROOT)/src/Make.pkg
-
-\end{lstlisting}
+\lstinputlisting[language=make,caption=A Makefile for package]{src/Makefile}
 If we now issue \prog{make} we create this directory structure:
 \begin{display}
-\pr ls -l even
-
+even/
+    even.go
+    \_go\_.6
+    Makefile
+    \_obj/
+	even.a
 \end{display}
 With \prog{make install} the package is installed in the \emph{official}
 package directory:
 \begin{display}
-\pr ls -l \$GOROOT/pkg/dkdlskdls bla
+\pr cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
+\end{display}
+After installing we can change our import line from
+\lstinline{"./even"} to \lstinline{"even"}.
+
+But what if you do not want to install packages in the official Go
+directory, or maybe you do not have the permission to do so? When using
+\prog{6/8g} you can use the \flag{\-I}-flag to specify an alternate
+package directory. With this flag you can leave your import statement
+as-is (\lstinline{import "even"}) and continue development in your
+own directory. So the following command line should build our
+\prog{myeven} program with our package.
+\begin{display}
+\pr 6g -I even/\_obj myeven.go
 \end{display}
 
 \section{Names}
