@@ -79,10 +79,11 @@ directory, or maybe you do not have the permission to do so? When using
 \prog{6/8g} you can use the \flag{\-I}-flag to specify an alternate
 package directory. With this flag you can leave your import statement
 as-is (\lstinline{import "even"}) and continue development in your
-own directory. So the following command line should build our
+own directory. So the following commands should build (and link) our
 \prog{myeven} program with our package.
 \begin{display}
-\pr 6g -I even/\_obj myeven.go
+\pr 6g -I even/\_obj myeven.go		# building
+\pr 6l -L even/\_obj myeven.6		# linking
 \end{display}
 
 \section{Names}
