@@ -464,6 +464,9 @@ func Relax(i interface{}) {
 %% Get the value VIA relfect mt.Printf("RdLength %v\n",
 %%val.FieldByName("Protocol").(*reflect.UintValue).Get())
 
+%%val.FieldByName("Hdr").(*reflect.StructValue).FieldByName("Rdlength").(*reflect.UintValue).Get())
+
+
 %%\newpage %% TODO
 
 \input{fig/reflection.tex}
