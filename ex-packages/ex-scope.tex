@@ -1,9 +1,8 @@
 \begin{Exercise}[title={Scope},difficulty=4]
 \label{ex:scope}
-\Question\label{ex:scope q1} Why doesn't the following program do
-what you expect?
+\Question\label{ex:scope q1} What is wrong with the following program?
 
-\begin{lstlisting}[caption=Scoping rules]
+\begin{lstlisting}[numbers=right]
 package main
 
 import "fmt"
@@ -20,7 +19,18 @@ func main() {
 
 \begin{Answer}
 \Question
-When compiling
-
-
+The program does not even compile, because \var{i} on line 9 is
+not defined: \var{i} is only defined within the \key{for}-loop. To fix
+this the function \func{main()} should become:
+\begin{lstlisting}[numbers=none]
+func main() {
+        var i int
+        for i = 0; i < 10; i++ {
+                fmt.Printf("%v\n", i)
+        }
+	fmt.Printf("%v\n", i)
+}
+\end{lstlisting}
+Now \var{i} is defined outside the \key{for}-loop and still visible
+afterwards. This code will print the numbers 0 through 10.
 \end{Answer}
