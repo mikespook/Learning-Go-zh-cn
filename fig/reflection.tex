@@ -9,7 +9,9 @@ Elem returns the value that v points to. %
 If v is a nil pointer, Elem returns a nil Value. %
 \end{quote} %
 we can use \func{Elem()} to get the type the pointer points to. %
-In this case \type{*reflect.StructValue};}
+In this case \type{*reflect.StructValue}. We have also %
+used \type{reflect.NewValue(i)} for the type assertion, so that %
+we get back types in the \type{*reflect} namespace;}
 %
 \ubrace{4.3,-5.2}{3.6,-5.2}{\func{Type()} returns \type{reflect.Type};}%
 %
