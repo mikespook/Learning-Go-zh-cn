@@ -371,17 +371,14 @@ type Emitter interface {
 }
 \end{lstlisting}
 
+\section{Introspection}
 A \key{switch} can also be used to discover the dynamic type of an interface
 variable. Such a type switch\gomarginindex{\emph{type switch}}{type switch} uses
 the syntax of a type assertion with the keyword type inside the
 parentheses. If the switch declares a variable in the expression, the
 variable will have the corresponding type in each clause.
-
-
-Dynamically found out the type we are dealing wtih
-\begin{lstlisting}
+\begin{lstlisting}[caption=Dynamically find out the type]
 package main
-
 type PersonAge struct { |\longremark{First we define two structures as a new type, %
 \texttt{PersonAge};}|
 	name string
@@ -401,24 +398,23 @@ func main() {
 }
 
 func WhichOne(x interface{}) { |\longremark{This function must accept \emph{both} %
-types as valid input, so we use the empty interface, which every type implements;}|
-	switch t := x.(type) { |\longremark{The type switch;}|
+types as valid input, so we use the empty Interface, which every type implements;}|
+	switch t := x.(type) { |\longremark{The type switch: \texttt{(type)};}|
 	case *PersonAge:	|\longremark{When allocated with \func{new} its a %
-pointer;}|
+pointer. So we check for \type{*PersonAge}. If \func{WhichOne()} was %
+called with a non pointer value, we should check for \type{PersonAge}.}|
 		println("Age person")
 	case *PersonShoe:
 		println("Shoe person")
 	}
 }
 \end{lstlisting}
-
 \showremarks
 
-
-
-%% uitproberen
-\begin{lstlisting}
-switch t := interfaceValue.(type) { |\coderemark{Yes, you need to type \texttt{(type)}}|
+The following is another example of performing a type switch, but this
+time checking for more (built-in) types:
+\begin{lstlisting}[caption=A more generic type switch]
+switch t := interfaceValue.(type) { |\coderemark{The type switch}|
 default:
     fmt.Printf("unexpected type %T", t)  // \%T prints type
 case bool:
@@ -432,46 +428,92 @@ case *int:
 }
 \end{lstlisting}
 
-
-\begin{lstlisting}[caption=Using reflect]
-
-type PersonShoe struct {
-    name     string "blah"
-    shoesize int 
-}
-
-func Relax(i interface{}) {
-        switch t := reflect.NewValue(i).(type) {
-        case *reflect.PtrValue:
-        // Elem to resolve the pointer
-        // Type() to return the type
-        // (*reflect.StructType) to get the structypeType member
-        // Field(0) first member in that struct
-        // Tag to get the tag
-                x := t.Elem().Type().(*reflect.StructType).Field(0).Tag
-                println(x)
-//              i := x.Type().(*reflect.StructType)
-//              fmt.Printf("%T\n", i)
-//              fmt.Printf("Fields %d\n", i.NumField())
-//              fmt.Printf("Tag %s\n", i.Field(0).Tag)
-        default:
-                println("ook")
-
-        }
-}
-
-\end{lstlisting}
-%% Get the value VIA relfect mt.Printf("RdLength %v\n",
-%%val.FieldByName("Protocol").(*reflect.UintValue).Get())
-
-%%val.FieldByName("Hdr").(*reflect.StructValue).FieldByName("Rdlength").(*reflect.UintValue).Get())
-
-
-%%\newpage %% TODO
+\subsection{Introspection and reflection}
+In the following example we want to look at the "tag" (here named
+"namestr") defined in the
+type definition of \type{Person}. We are using the
+\package{reflect} package (there is no other way in Go). Keep in mind
+that looking at a tag means going back the \emph{type} definition. So
+use the \package{reflect} we need figure out the type of the variable
+and then access the tag.
 
 \input{fig/reflection.tex}
 
 \showremarks
+
+To make the difference between looking a types and values more clear,
+that a look at the following code:
+\begin{lstlisting}[caption=Reflection and the type and value]
+func show(i interface{}) {
+    switch t := i.(type) {
+      case *Person:
+        r := reflect.NewValue(i) |\coderemark{Enter the world of reflection}|
+	tag := |\longremark{Here we want to get the "tag", which means %
+going for the type. Thus we need\newline\lstinline{Elem().Type().(*reflect.StructType)} to get to it;}|
+	  r.(*reflect.PtrValue).Elem().Type().(*reflect.StructType).Field(0).tag
+	nam := |\longremark{Now we want to get access to the %
+\emph{value} of one of the members and we %
+employ\newline\lstinline{Elem().(*reflect.StructValue)} to get to it. %
+Now we have arrived at the structure. Then we go the the first field %
+\lstinline{Field(0)}, tell \package{reflect} is a %
+\var{*reflect.StringValue} and invoke the \lstinline{Get()} method on %
+it. }|
+	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0)\newline.(*reflect.StringValue).Get()
+\end{lstlisting}
+\showremarks
+Setting a value works similarly as getting a value, but only works on
+\emph{exported} members. Again some code:
+
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[caption=Reflect with private member]
+type Person struct {
+ name string "namestr"
+ age  int
+}
+
+func Set(i interface{}) {
+ switch t := i.(type) {
+ case *Person:
+  r := reflect.NewValue(i)
+  r.(*reflect.PtrValue).Elem().
+    (*reflect.StructValue).
+    FieldByName("name").
+    (*reflect.StringValue).
+    Set("Albert Einstein")
+  }
+}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[caption=Reflect with public member]
+type Person struct {
+ Name string "namestr" |\coderemark{}|
+ age  int
+}
+
+func Set(i interface{}) {
+ switch t := i.(type) {
+ case *Person:
+  r := reflect.NewValue(i)
+  r.(*reflect.PtrValue).Elem().
+   (*reflect.StructValue).
+   FieldByName("Name"). |\coderemark{}|
+   (*reflect.StringValue).
+   Set("Albert Einstein")
+  }
+}
+\end{lstlisting}
+\end{minipage}
+The code on the left compiles and runs, but when you run it, you are greeted with a
+stack trace and a \emph{runtime} error:
+
+\noindent\error{panic: cannot set value obtained via unexported struct
+field}
+
+\noindent{}The code on the right works OK and sets the member \var{Name}
+to "Albert Einstein". Of course this only works when you call \func{Set}
+with a pointer argument.
+
 
 \section{Exercises}
 \input{ex-beyond/ex-pointers.tex}

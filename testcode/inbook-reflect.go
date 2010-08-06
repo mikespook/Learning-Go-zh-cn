@@ -19,7 +19,7 @@ func main() {
 }
 
 func ShowTag(i interface{}) {
-	// NEed this because we check for *reflect value
+	// Need this because we check for *reflect value
 	switch t := reflect.NewValue(i).(type) {
 	case *reflect.PtrValue:
 		tag := t.Elem().Type().(*reflect.StructType).Field(0).Tag
