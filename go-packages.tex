@@ -69,7 +69,8 @@ even/
 With \prog{make install} the package is installed in the \emph{official}
 package directory:
 \begin{display}
-\pr cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
+\pr make install
+cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
 \end{display}
 After installing we can change our import line from
 \lstinline{"./even"} to \lstinline{"even"}.
@@ -82,8 +83,8 @@ as-is (\lstinline{import "even"}) and continue development in your
 own directory. So the following commands should build (and link) our
 \prog{myeven} program with our package.
 \begin{display}
-\pr 6g -I even/\_obj myeven.go		# building
-\pr 6l -L even/\_obj myeven.6		# linking
+\pr 6g -I even/\_obj myeven.go	# building
+\pr 6l -L even/\_obj myeven.6	# linking
 \end{display}
 
 \section{Names}
