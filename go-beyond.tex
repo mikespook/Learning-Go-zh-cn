@@ -429,6 +429,7 @@ case *int:
 \end{lstlisting}
 
 \subsection{Introspection and reflection}
+\label{subsec:introspection and reflection}
 In the following example we want to look at the "tag" (here named
 "namestr") defined in the
 type definition of \type{Person}. We are using the
@@ -466,7 +467,7 @@ on a \type{Value} in the reflection world: We can explain the code
 at \gocircle{2} in a figure as follows:
 \begin{figure}[H]
 \caption[Pealing away the layers using reflection]{Pealing away the layers using reflection. Going
-from the \type{Person} via \type{*reflect.Value} using the methods described in \prog{godoc reflect} to get the actual \type{string} contained deep within.}
+from a \type{Person} via \mbox{\type{*reflect.Value}} using the methods described in \prog{godoc reflect} to get the actual \type{string} contained deep within.}
 \label{fig:reflection}
 \begin{center}
 \includegraphics[scale=0.85]{fig/reflection.pdf}
@@ -526,12 +527,14 @@ stack trace and a \emph{runtime} error:
 field}
 
 \noindent{}The code on the right works OK and sets the member \var{Name}
-to "Albert Einstein". Of course this only works when you call \func{Set}
+to "Albert Einstein". Of course this only works when you call \func{Set()}
 with a pointer argument.
 
 
 \section{Exercises}
 \input{ex-beyond/ex-pointers.tex}
+
+\input{ex-beyond/ex-pointers-and-reflect.tex}
 
 \input{ex-beyond/ex-double-linked-list.tex}
 
