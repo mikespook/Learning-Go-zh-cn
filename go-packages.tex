@@ -6,12 +6,12 @@ Perl packages\cite{perl-packages}. You declare a package with the
 match the package name. Lets define our package \package{even} in the file
 \prog{even.go}
 
-\lstinputlisting[label=src:even,caption=A small package.]{src/even.go}
+\lstinputlisting[label=src:even,caption=A small package]{src/even.go}
 Names that start with a capital letterare exported and may be used
 outside your package, more on that later. We can now use
 the package as follows in our own program \prog{myeven.go}:
 
-\lstinputlisting[label=src:myeven,caption=Use of the \package{even} package.]{src/myeven.go}
+\lstinputlisting[label=src:myeven,caption=Use of the \package{even} package]{src/myeven.go}
 Now we just need to compile and link, first the package, then \prog{myeven.go} and
 then link it:
 \begin{display}
@@ -56,7 +56,7 @@ where we put our package files in.
 Next we 
 can use the following Makefile, which 
 is adapted for our \package{even} package.
-\lstinputlisting[language=make,caption=A Makefile for package.]{src/Makefile}
+\lstinputlisting[language=make,caption=A Makefile for package]{src/Makefile}
 If we now issue \prog{make} we create this directory structure:
 \begin{display}
 even/

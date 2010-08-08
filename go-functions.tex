@@ -63,7 +63,7 @@ Assigning a new value to it is globally visible. This code will
 print: \texttt{655}
 
 In the following example we call \func{g()} from \func{f()}:
-\lstinputlisting[caption=Scope when calling functions from functions.]{src/scope3.go}
+\lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
 And this will print: \texttt{565}. So a \emph{local} variable is only
 valid when we are executing the function in which it is defined. One
 remaining case has not been dealt with and that is a "function
@@ -204,7 +204,7 @@ Suppose you have a function in which you open a file and perform various
 writes and reads on it. In such a function there are often spots where
 you want to return early. If you do that, you will need to close the file
 descriptor you are working on. This often leads to the following code:
-\begin{lstlisting}[caption=Without \func{defer}.]
+\begin{lstlisting}[caption=Without \func{defer}]
 function ReadWrite() bool {
     file.Open("file")
     // Do you thing
@@ -229,7 +229,7 @@ return from the function is executed.
 The above code could be rewritten with it as follows, making the whole
 function more readable, shorter and puts the \func{Close} right next 
 to the \func{Open}.
-\begin{lstlisting}[caption=With \func{defer}.]
+\begin{lstlisting}[caption=With \func{defer}]
 function ReadWrite() bool {
     file.Open("file")
     defer file.Close("file") |\coderemark{\func{file.Close} \emph{is} the function}|
@@ -255,14 +255,14 @@ prints: \lstinline{4 3 2 1 0}.
 
 With \func{defer} you can even change return values, provided that
 you are using named result parameters and a function literal, i.e:
-\begin{lstlisting}[caption=Function literal.]
+\begin{lstlisting}[caption=Function literal]
 defer func() {
 	...
 }()		 |\coderemark{() is needed here}|
 \end{lstlisting}
 In that (unnamed) function you can access any named return
 parameter like so:
-\begin{lstlisting}[caption=Access return values within \func{defer}.]
+\begin{lstlisting}[caption=Access return values within \func{defer}]
 func f() (ret int){     |\coderemark{\var{ret} is initialized with %
 zero}|
 	defer func() {
@@ -277,7 +277,7 @@ zero}|
 Functions that take variadic parameters are functions that have a
 variable number of parameters. In Go this is done as follows.
 Firstly you need to declare your function to take variadic arguments:
-\begin{lstlisting}[caption=Variadac parameters.]
+\begin{lstlisting}[caption=Variadac parameters]
 func myfunc(arg ... int) {}
 \end{lstlisting}
 The \lstinline{arg ... int} instructs Go to see this as a function that
@@ -297,7 +297,7 @@ empty interface \var{interface\{\}}.
 \label{sec:functions as values}
 As with almost everything in Go, functions are also \emph{just} values,
 so they can be assigned to variables. Like so:
-\lstinputlisting[label=src:anonfunc,caption=Anonymous function.]{src/anon-func.go}
+\lstinputlisting[label=src:anonfunc,caption=Anonymous function]{src/anon-func.go}
 If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of \var{a} it prints
 \func{func()}.
 
@@ -305,7 +305,7 @@ Functions--as--values may also be used in other places, like in maps.
 This code is from the package \package{net} (in the file
 \package{net/dnsmsg.go}), where a map is used to convert
 from integers to functions.
-\begin{lstlisting}[caption=Function as values in maps.]
+\begin{lstlisting}[caption=Function as values in maps]
 var rr_mk = map[int]func() dnsRR{
     dnsTypeCNAME: func() dnsRR { return new(dnsRR_CNAME) },
     dnsTypeHINFO: func() dnsRR { return new(dnsRR_HINFO) },

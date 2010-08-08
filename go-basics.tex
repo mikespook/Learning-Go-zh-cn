@@ -60,7 +60,7 @@ Dennis Ritchie started this when they presented the C language in
 the nineteen seventies). We don't think we can do better, so 
 here it is, ''Hello World'' in Go.
 
-\lstinputlisting[numbers=right,label=src:hello,caption=Hello world.]{src/helloworld.go}
+\lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
 Go is 100\% UTF-8 capable, you can put any Unicode
 \emph{glyph} in your source --- assuming you can type it on your keyboard.
 Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
@@ -116,7 +116,7 @@ be combined. Compare the following pieces of code which have
 the same effect.
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption=Declaration with \texttt{=}.]
+\begin{lstlisting}[linewidth=.5\textwidth,caption=Declaration with \texttt{=}]
 var a int
 var b bool
 a = 15
@@ -125,7 +125,7 @@ b = false
 \hfill
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption=Short declaration with \texttt{:=}.]
+\begin{lstlisting}[linewidth=.5\textwidth,caption=Short declaration with \texttt{:=}]
 a := 15
 b := false
 \end{lstlisting}
@@ -172,7 +172,7 @@ that too with \lstinline{int32}, or \lstinline{uint32}. Note however
 that these types are distinct and assigning variables which mix
 these types is a compiler error, like in the following code:
 
-\lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct.]
+\lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]
 {src/types.go}
 Gives the error on the assignment on line 7:
 
@@ -250,7 +250,7 @@ all associate from left to right.
 
 \begin{table}[H]
 \begin{center}
-\caption{Operator precedence.}
+\caption{Operator precedence}
 \label{tab:op-precedence}
 \input{tab/precedence.tex}
 \end{center}
@@ -270,7 +270,7 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 
 \begin{table}[H]
 \begin{center}
-\caption{Pre--defined functions in Go.}
+\caption{Pre--defined functions in Go}
 \label{tab:predef-functions}
 \input{tab/functions.tex}
 \end{center}
@@ -306,7 +306,7 @@ package. These are mainly used for debugging.
 \section{Go keywords}
 \begin{table}[H]
 \begin{center}
-\caption{Keywords in Go.}
+\caption{Keywords in Go}
 \label{tab:keywords}
 \input{tab/keywords.tex}
 \end{center}
@@ -537,7 +537,7 @@ a fixed size. For slices we define a \first{capacity} and a
 \first{length}.
 
 \begin{figure}[H]
-\caption{Array versus slice.}
+\caption{Array versus slice}
 \label{fig:array-vs-slice}
 \begin{center}
 \includegraphics[scale=0.65]{fig/array-vs-slice.pdf}
@@ -554,7 +554,7 @@ And now we have:
 \item{\lstinline{len(array) = cap(array) = m}{} .}
 \end{itemize}
 The following code defines an array and slice:
-\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices.]{src/array-and-slices.go}
+\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
 On line 8 we dare to do to impossible and try to allocate something
 beyond the capacity (maximum length of the under laying array) and
 we are greeted with a \emph{runtime} error.
