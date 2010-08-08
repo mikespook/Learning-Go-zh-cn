@@ -226,7 +226,7 @@ An empty struct is created with \lstinline|var empty struct {}|{}.
 A more real-life example would be when we want record seomebody's name
 and age in a single ... TODO. We could do
 
-\lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
+\lstinputlisting[label=src:struct,caption=Structures.]{src/struct.go}
 
 Apropos, the output of \lstinline{fmt.Printf("\%v\n", a)} is 
 \begin{display}
@@ -377,7 +377,7 @@ variable. Such a type switch\gomarginindex{\emph{type switch}}{type switch} uses
 the syntax of a type assertion with the keyword type inside the
 parentheses. If the switch declares a variable in the expression, the
 variable will have the corresponding type in each clause.
-\begin{lstlisting}[caption=Dynamically find out the type]
+\begin{lstlisting}[caption=Dynamically find out the type.]
 package main
 type PersonAge struct { |\longremark{First we define two structures as a new type, %
 \texttt{PersonAge};}|
@@ -413,7 +413,7 @@ called with a non pointer value, we should check for \type{PersonAge}.}|
 
 The following is another example of performing a type switch, but this
 time checking for more (built-in) types:
-\begin{lstlisting}[caption=A more generic type switch]
+\begin{lstlisting}[caption=A more generic type switch.]
 switch t := interfaceValue.(type) { |\coderemark{The type switch}|
 default:
     fmt.Printf("unexpected type %T", t)  // \%T prints type
@@ -444,7 +444,7 @@ and then access the tag.
 \newpage
 To make the difference between looking a types and values more clear,
 that a look at the following code:
-\begin{lstlisting}[caption=Reflection and the type and value]
+\begin{lstlisting}[caption=Reflection and the type and value.]
 func show(i interface{}) {
     switch t := i.(type) {
       case *Person:
@@ -483,7 +483,7 @@ Setting a value works similarly as getting a value, but only works on
 \emph{exported} members. Again some code:
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption=Reflect with private member]
+\begin{lstlisting}[caption=Reflect with private member.]
 type Person struct {
  name string "namestr"
  age  int
@@ -503,7 +503,7 @@ func Set(i interface{}) {
 \end{lstlisting}
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption=Reflect with public member]
+\begin{lstlisting}[caption=Reflect with public member.]
 type Person struct {
  Name string "namestr" |\coderemark{}|
  age  int
