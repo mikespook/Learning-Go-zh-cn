@@ -439,9 +439,9 @@ use the \package{reflect} we need figure out the type of the variable
 and then access the tag.
 
 \input{fig/reflection.tex}
-
 \showremarks
 
+\newpage
 To make the difference between looking a types and values more clear,
 that a look at the following code:
 \begin{lstlisting}[caption=Reflection and the type and value]
@@ -458,21 +458,23 @@ employ\newline\lstinline{Elem().(*reflect.StructValue)} to get to it. %
 Now we have arrived at the structure. Then we go the the first field %
 \lstinline{Field(0)}, tell \package{reflect} is a %
 \var{*reflect.StringValue} and invoke the \lstinline{Get()} method on %
-it. }|
+it. %
+\begin{figure}[H] %
+\hskip3\baselineskip\parbox{0.7\textwidth}{\caption[Pealing away the layers using reflection]{Pealing away the %
+layers using reflection. %
+Going from a \type{Person} via \mbox{\type{*reflect.Value}} using the %
+methods described in \prog{godoc reflect} to get the %
+actual \type{string} contained deep within.}} %
+\label{fig:reflection} %
+\begin{center} %
+\includegraphics[scale=0.85]{fig/reflection.pdf} %
+\end{center}\end{figure} %
+Reflection works by pealing off layers once you have got your hands %
+on a \type{Value} in the reflection world.
+}|
 	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0)\newline.(*reflect.StringValue).Get()
 \end{lstlisting}
 \showremarks
-Reflection works by pealing off layers once you have got your hands 
-on a \type{Value} in the reflection world: We can explain the code
-at \gocircle{2} in a figure as follows:
-\begin{figure}[H]
-\caption[Pealing away the layers using reflection]{Pealing away the layers using reflection. Going
-from a \type{Person} via \mbox{\type{*reflect.Value}} using the methods described in \prog{godoc reflect} to get the actual \type{string} contained deep within.}
-\label{fig:reflection}
-\begin{center}
-\includegraphics[scale=0.85]{fig/reflection.pdf}
-\end{center}
-\end{figure}
 
 
 
