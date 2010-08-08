@@ -461,6 +461,21 @@ it. }|
 	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0)\newline.(*reflect.StringValue).Get()
 \end{lstlisting}
 \showremarks
+Reflection works by pealing off layers once you have got your hands 
+on a \type{Value} in the reflection world: We can explain the code
+at \gocircle{2} in a figure as follows:
+\begin{figure}[H]
+\caption[Pealing away the layers using reflection]{Pealing away the layers using reflection. Going
+from the \type{Person} via \type{*reflect.Value} using the methods described in \prog{godoc reflect} to get the actual \type{string} contained deep within.}
+\label{fig:reflection}
+\begin{center}
+\includegraphics[scale=0.85]{fig/reflection.pdf}
+\end{center}
+\end{figure}
+
+
+
+
 Setting a value works similarly as getting a value, but only works on
 \emph{exported} members. Again some code:
 

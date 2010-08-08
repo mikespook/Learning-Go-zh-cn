@@ -482,6 +482,13 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2932"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -490,9 +497,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="301.34149"
-     inkscape:cy="906.6961"
+     inkscape:zoom="3.959798"
+     inkscape:cx="143.88419"
+     inkscape:cy="886.68623"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -767,7 +774,7 @@
          sodipodi:role="line"
          id="tspan5077-28-5-7-1-7"
          x="205"
-         y="162.36218">Get()</tspan></text>
+         y="162.36218">.Get()</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
@@ -779,5 +786,16 @@
          id="tspan5077-28-5-7-1-7-6"
          x="265"
          y="152.36218">&quot;Albert Einstein&quot;</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
+       x="35"
+       y="147.36218"
+       id="text5075-9-9-2-7-6-3-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5077-28-5-7-1-7-6-4"
+         x="35"
+         y="147.36218">&quot;Albert Einstein&quot;</tspan></text>
   </g>
 </svg>
