@@ -1,0 +1,20 @@
+\begin{Exercise}[title={Pointers and reflection},difficulty=5]
+\label{ex:pointers and reflection}
+\Question
+One of the last paragraphs in section "\titleref{subsec:introspection and reflection}" 
+on page \pageref{subsec:introspection and reflection}, has
+the following words:
+\begin{quote}
+The code on the right works OK and sets the member \var{Name}
+to "Albert Einstein". Of course this only works when you call \func{Set()}
+with a pointer argument.
+\end{quote}
+Why is this the case?
+\end{Exercise}
+
+\begin{Answer}
+\Question
+When called with a non-pointer argument the variable is a copy (call-by-value). So you
+are doing the reflection voodoo on a copy. And thus you are \emph{not}
+changing the original value, but only this copy.
+\end{Answer}
