@@ -54,26 +54,25 @@ where we put our package files in.
 \pr mkdir even
 \pr cp even.go even
 \end{display}
-Next we 
+\noindent{}Next we 
 can use the following Makefile, which 
 is adapted for our \package{even} package.
-\lstinputlisting[language=make,caption=A Makefile for package]{src/Makefile}
-If we now issue \prog{make} we create this directory structure:
-\begin{display}
-even/
-    even.go
-    \_go\_.6
-    Makefile
-    \_obj/
-	even.a
-\end{display}
-With \prog{make install} the package is installed in the \emph{official}
+\lstinputlisting[language=make,caption=\file{Makefile} for a
+package,numbers=right]{src/Makefile}
+Note that on line 5 we define our \package{even} package and on the
+lines 8 and 9 we enter the files which make up the package.
+
+If we now issue \prog{make}, a file named \file{\_go\_.6}, a directory
+named \dir{\_obj/} and a file inside \dir{\_obj/} called \file{even.a} 
+is created. The file \file{even.a} is a static library which holds
+the compiled Go code.
+With \prog{make install} the package (well, only the \file{even.a}) is installed in the \emph{official}
 package directory:
 \begin{display}
 \pr make install
 cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
 \end{display}
-After installing we can change our import line from
+\noindent{}After installing we can change our \key{import} from
 \lstinline{"./even"} to \lstinline{"even"}.
 
 But what if you do not want to install packages in the official Go
@@ -203,72 +202,117 @@ package regexp
 
 \section{Testing packages}
 In Go it is customary to write (unit) tests for your package. Writing
-tests involves the \package{testing} and the program \prog{gotest}. Both
+tests involves the \package{testing} package and the program \prog{gotest}. Both
 have excellent documentation. When you include tests with your package
 keep in mind that has to be build using the standard \prog{Makefile}
 (see section "\titleref{sec:building a package}").
 
 The testing itself is carried out with \prog{gotest}.
-The \prog{gotest} program run all the test functions, each
-test function has the same signature:
+The \prog{gotest} program run all the test functions. Without any
+defined tests for our \package{even} package a \prog{make test}, yields:
+\begin{display}
+\pr make test
+no test files found (*_test.go)
+make: *** [test] Error 2
+\end{display}
+Let us fix this by defining a test in a test file. Test files reside
+in the package directory and are named \file{*\_test.go}. Those test
+files are just like other Go program, but \prog{gotest} will only
+execute the test functions.
+Each test function has the same signature and its name should start
+with \lstinline{Test}:
 \begin{lstlisting}
 func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
 \end{lstlisting}
 
-Todo: writing a test and including it in the Makefile and call gotest
-
-When writing test you will need to tell \prog{gotest} that a test has failed or was successful. A
-successful test function just returns. When test fails you can signal this with the following
-functions\cite{go_doc}. These are the most important ones:
+When writing test you will need to tell \prog{gotest} that a test has
+failed or was successful. A successful test function just returns. When
+test fails you can signal this with the following
+functions \cite{go_doc}. These are the most important ones (see \prog{godoc testing}
+for more):
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Fail()
 \end{lstlisting}
-Fail marks the Test function as having failed but continues execution.
+\func{Fail} marks the Test function as having failed but continues execution.
 
 \begin{lstlisting}[numbers=none]
 func (t *T) FailNow()
 \end{lstlisting}
-FailNow marks the Test function as having failed and stops its execution.
-Execution will continue at the next Test.
+\func{FailNow} marks the Test function as having failed and stops its execution.
+Execution will continue at the next Test. So any other test in
+\emph{this} file are skipped too.
 
 \begin{lstlisting}[numbers=none]
-func (t *T) Errorf(format string, args ...interface{})
+func (t *T) Log(args ...interface{})
 \end{lstlisting}
-Errorf is equivalent to Logf() followed by Fail().
-
-\begin{lstlisting}[numbers=none]
-func (t *T) Logf(format string, args ...interface{})
-\end{lstlisting}
-Log formats its arguments according to the format, analogous to Printf(),
-and records the text in the error log.
+\func{Log} formats its arguments using default formatting, analogous to
+\func{Print()}, and records the text in the error log.
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Fatal(args ...interface{})
 \end{lstlisting}
-Fatal is equivalent to Log() followed by FailNow().
+\func{Fatal} is equivalent to Log() followed by FailNow().
 
+Putting all this together we can write our very own test file. First
+we pick a name: \file{even\_test.go}. Then we add the following contents:
+\lstinputlisting[label=src:eventest,caption=Test file for \package{even}
+package,numbers=right]{src/even_test.go}
+Note that we use \lstinline{package even} on line 1, the test fall in the same
+namespace as the package we are testing. This not only convenient, but
+also allows tests of unexported function and structures. We then import
+the \package{testing} package and on line 5 we define the only test
+function in this file. The displayed Go code should not hold any
+surprises: we check if the \func{Even} function works OK. 
 
-\begin{lstlisting}[numbers=none]
-func (t *T) Failed() bool
+Now, the moment we've all been waiting for, executing the test:
+\begin{display}
+\pr make test
+6g -o \_gotest\_.6 even.go  even\_test.go
+rm -f \_test/even.a
+gopack grc \_test/even.a \_gotest\_.6 
+PASS
+\end{display}
+\noindent{}Our test ran and reported \texttt{PASS}. To show how a failed
+test look we redefine our test function:
+\begin{lstlisting}
+// Entering the twilight zone
+func TestEven(t *testing.T) {
+        if false != Even(2) {
+                t.Log("2 should be uneven!")
+                t.Fail()
+        }   
+}
 \end{lstlisting}
-Failed returns whether the Test function has failed.
+We now get:
+\begin{display}
+--- FAIL: even.TestEven
+\qquad\qquad2 should be uneven!
+FAIL
+make: *** [test] Error 1
+\end{display}
+\noindent{}And you can act accordingly (by fixing the test for instance).
 
-
-
+\begin{lbar}
+Writing new packages should go hand in hand with writing (some)
+documentation and test functions. It will make your code better and it
+shows that your really put in the effort.
+\end{lbar}
 
 \section{Useful packages}
+The standard Go repository includes a huge number of packages and it is
+even possible to install more along side your current Go installation. 
+We cannot comment on each and everyone of the package, but the following
+a worth a mention:
 
-
-
-\subsection{fmt}
-
-\subsection{flag}
-argument parsing
-
-\subsection{unsafe}
-
-\subsection{reflect}
+\begin{description}
+\item[\package{fmt}]{...}
+\item[\package{flag}]{...}
+\item[\package{json}]{...}
+\item[\package{http}]{...}
+\item[\package{unsafe}]{...}
+\item[\package{reflect}]{...}
+\end{description}
 
 \section{Exercises}
 \input{ex-packages/ex-scope.tex}
