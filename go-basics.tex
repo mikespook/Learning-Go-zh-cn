@@ -63,7 +63,10 @@ here it is, ''Hello World'' in Go.
 \lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
 Go is 100\% UTF-8 capable, you can put any Unicode
 \emph{glyph} in your source --- assuming you can type it on your keyboard.
-Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of comments. 
+Go supports both the \texttt{\rem{/* */}} and \texttt{\rem{//}} types of
+comments. There is no need to put a semicolon at the end of each line
+(as you would in C).
+
 Lets look at the program line by line.
 Line 1 is just required.  All Go files start with \lstinline{package <something>}.
 \lstinline{package main} is required for a standalone executable.  Line 3 says
@@ -137,7 +140,7 @@ b = false
 \hfill
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption=Short declaration with \texttt{:=}]
+\begin{lstlisting}[linewidth=.5\textwidth,caption=Declaration with \texttt{:=}]
 a := 15
 b := false
 \end{lstlisting}
@@ -299,7 +302,7 @@ for more on this.
 \paragraph{\func{len} and \func{cap}} are used on a number of different
 types, \func{len} is
 used for returning the length of strings and the length of slices and
-arrays. See section \ref{sec:arrays} for the details of slices and
+arrays. See section "\titleref{sec:arrays}" for the details of slices and
 arrays and the function \func{cap}.
 
 \paragraph{\func{new}} is used for allocating memory for user defined
@@ -308,9 +311,13 @@ data types.
 \paragraph{\func{make}} is used for allocating memory for built-in
 types (maps, slices and channels).
 
-\paragraph{\func{copy}} is used for copying slices. 
+\paragraph{\func{copy}} is used for copying slices, \func{new},
+\func{make} and \func{copy} make their appearance in chapter
+\ref{chap:beyond}.
 
-\paragraph{\func{panic} and \func{panicln}} used for an elegant \emph{exception} mechanism.
+\paragraph{\func{panic} and \func{panicln}} used for an elegant
+\emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
+page \pageref{sec:panic} for more.
 
 \paragraph{\func{print} and \func{println}} are lowlevel printing
 functions that can be used without reverting to the \package{fmt}
@@ -426,7 +433,7 @@ character \begin{math}\Phi\end{math} starts at byte position 1
 character x starts at byte position 3
 \end{display}
 Finally, since Go has no comma operator and ++ and \-\- are statements not
-expressions, if you want to run multiple variables in a \key{for} you should
+expressions (see appendix \ref{chap:expression}), if you want to run multiple variables in a \key{for} you should
 use \first{parallel assignment}.
 \begin{lstlisting}
 // Reverse a

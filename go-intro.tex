@@ -100,11 +100,11 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 \item Set some more environment variables, namely:
 \begin{description}
 \item[\texttt{GOOS}] Must be set to your operation system, valid values
-are \texttt{linux}, \texttt{darwin} (for Mac OS X) and \texttt{FreeBSD}.
+are \texttt{linux}, \texttt{darwin} (for Mac OS X) and \texttt{freebsd}.
 \item[\texttt{GOARCH}] Must be set the either \texttt{386} for 32 bit
 systems or to \texttt{amd64} for 64 bit.
 \item[\texttt{GOBIN}] Can be optionally set to point to a directory where
-the Go binary should be placed.
+the Go binaries should be placed.
 \end{description}
 In this book we use the following settings:
 \begin{display}
@@ -127,8 +127,8 @@ Go comes with its own documentation in the form of a Go program called
 You can use it yourself to look
 in the online (installed on your system) documentation. For
 instance, suppose we want to know more about the package \package{hash} 
-(more on packages see section "\titleref{sec:packages}" on page
-\pageref{sec:packages}). We could then give the command
+(more on packages see Chapter \ref{chap:packages} on page
+\pageref{chap:packages}). We could then give the command
 \prog{godoc hash}, which will display
 \begin{display}
 PACKAGE
