@@ -253,17 +253,16 @@ Methods on types, and methods on build in type -- can not do that,
 just create a new type.
 
 \section{Interfaces}
-\epi{I have this phobia about having my body penetrated surgically. You
-know what I  mean?}{\textit{eXistenZ}\\\textsc{Ted Pikul}}
-
-\noindent{}One of the interesting aspects of the Go language is \first{interface} objects.
+%%\epi{I have this phobia about having my body penetrated surgically. You
+%%know what I  mean?}{\textit{eXistenZ}\\\textsc{Ted Pikul}}
+One of the interesting aspects of the Go language is \first{interface objects}.
 \gomarginpar{The following text is copied (and slightly shortend) from \cite{go_interfaces} which is
 written by Ian Lance Taylor - one of the original authors of Go.}
 In Go, the word interface is overloaded to mean several different
-things. Every type has an interface, which is the set of methods defined for
+things. Every type has an \first{interface}, which is the set of methods defined for
 that type. This bit of code defines a struct type \type{S} with one field, and
 defines two methods for \type{S}.
-\begin{lstlisting}
+\begin{lstlisting}[caption=Defining a struct and methods,label=src:interface object]
 type S struct { i int }
 func (p *S) Get() int { return p.i }
 func (p *S) Put(v int) { p.i = v }
@@ -293,7 +292,9 @@ implements \type{I}, we can call \func{f} passing in a pointer to a value of typ
 var s S; f(&s)
 \end{lstlisting}
 The reason we need to take the address of \type{S}, rather than a value of type
-\type{S}, is because we defined the methods on \type{S} to operate on pointers. This
+\type{S}, is because we defined the methods on \type{S} to operate on
+pointers, see the code above in listing \ref{src:interface objects}.
+This
 is not a requirement --- we could have defined the methods to take
 values --- but then the \func{Put} method would not work as expected.
 
@@ -308,57 +309,51 @@ existing interface value does not satisfy the interface to which it is
 being converted --- the program will fail with a runtime error.
 
 Interfaces in Go are similar to ideas in several other programming languages:
-pure abstract virtual base classes in C++; typeclasses in Haskell; duck typing
-in Python; etc. However there is no other language which combines
+pure abstract virtual base classes in C++, typeclasses in Haskell or duck typing
+in Python. However there is no other language which combines
 interface values, static type checking, dynamic runtime conversion, and no
 requirement for explicitly declaring that a type satisfies an interface. The
 result in Go is powerful, flexible, efficient, and easy to write.
 
-\section{Interface names}
-By convention, one-method interfaces are named by the method name plus
-the \emph{-er} suffix: Read\emph{er}, Writ\emph{er}, Formatt\emph{er} etc. See chapter
-\ref{chap:interfaces} for a complete picture of what interfaces are.
-
-There are a number of such names and it's productive to honor them and
-the function names they capture. Read, Write, Close, Flush, String and
-so on have canonical signatures and meanings. To avoid confusion, don't
-give your method one of those names unless it has the same signature and
-meaning. Conversely, if your type implements a method with the same
-meaning as a method on a well-known type, give it the same name and
-signature; call your string-converter method String not ToString.
-from \cite{effective_go}.
-
-
-\section{Empty interface}
-For example, since every type satisfies the empty interface
-\type{interface \{\}}:
-\begin{lstlisting}
-func g(i interface{}) int { return i.(I).Get() }
-func h() {
-  var s S;
-  fmt.Println(g(&s));
-  fmt.Println(g(s)); // will fail at runtime
-}
+\subsection{Empty interface}
+For example, since every type satisfies the empty interface:
+\type{interface \{\}}. We can create a generic function which 
+has an empty interface as its argument:
+\begin{lstlisting}[caption=A function with a empty interface
+argument,label=src:interface empty]
+func g(any interface{}) int { return any.(I).Get() }
 \end{lstlisting}
-The first call to \func{g} will work fine and will print 0. The second call will fail
-at runtime; when using \prog{gccgo}, the program will print
-\begin{display}
-panic: interface conversion failed: no 'Get' method
-\end{display}
-This is because, as discussed above, a value of type \type{S} rather than \type{*S} 
-does not have any methods.
+The \lstinline{return any.(I).Get()} is the tricky bit in this function.
+The value \var{any} has type \type{interface{}}, meaning no guarantee
+of any methods at all: it could contain any type. The \lstinline{.(I)}
+is a \first{type switch} which converts \var{any} to an interface of
+type \type{I}. If we have that type we can invoke the \func{Get()}
+function.
+So if we create a new variable of the type \type{*S}, we can just
+call \func{g()}, because \type{*S} also implements the empty interface.
+\begin{lstlisting}
+s = new(S)
+fmt.Println(g(s));
+\end{lstlisting}
+The call to \func{g} will work fine and will print 0. If we however
+invoke \func{g()} with a value that does not implement \type{I} we have
+a problem:
+\begin{lstlisting}[caption=Failing to implement an interface,label=src:interface fail]
+i := 5		// make i a "lousy" int
+fmt.Println(g(i))
+\end{lstlisting}
+This compiles OK, but when we run this we get slammed with:
 
-%% hier anders
-So, how does this work? I will describe the current \prog{gccgo} implementation. The
-implementation used in the \prog{6g/8g} compiler is generally similar but is different
-in important respects.
+\noindent\error{panic: interface conversion: int is not main.I: missing
+method Get}
 
-\section{Methods on ... interfaces?}
+\noindent{}Which is completely true, the built-in type \type{int} does not
+have a \func{Get()} function.
 
-To make that even better, methods aren't limited to objects. In fact, Go
-doesn't really have objects. Any value, any type at all, can have methods. So
-you can make an integer type with its own methods. For example:
-
+\subsection{Methods}
+You can also define functions (or better called methods from now on) on
+interfaces. In fact, any value, and type can have methods. 
+You can make an integer type with its own methods. For example:
 \begin{lstlisting}
 type Foo int;
 
@@ -370,6 +365,20 @@ type Emitter interface {
   Emit();
 }
 \end{lstlisting}
+
+\section{Interface names}
+By convention, one-method interfaces are named by the method name plus
+the \emph{-er} suffix: Read\emph{er}, Writ\emph{er}, Formatt\emph{er} etc.
+
+There are a number of such names and it's productive to honor them and
+the function names they capture. Read, Write, Close, Flush, String and
+so on have canonical signatures and meanings. To avoid confusion, don't
+give your method one of those names unless it has the same signature and
+meaning. Conversely, if your type implements a method with the same
+meaning as a method on a well-known type, give it the same name and
+signature; call your string-converter method String not ToString.
+from \cite{effective_go}.
+
 
 \section{Introspection}
 A \key{switch} can also be used to discover the dynamic type of an interface
@@ -534,6 +543,8 @@ with a pointer argument.
 
 
 \section{Exercises}
+\input{ex-beyond/ex-interfaces.tex}
+
 \input{ex-beyond/ex-pointers.tex}
 
 \input{ex-beyond/ex-pointers-and-reflect.tex}

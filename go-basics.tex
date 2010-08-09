@@ -76,6 +76,16 @@ Just as \lstinline{package main} was required to be first,
 When your Go program is executed the first function called will be
 \lstinline{main.main()}, which mimics the behavoir from C.
 
+%% Something about syntax here
+%%func g()
+%%{                  // INVALID
+%%}
+%%A semicolon will be inserted after g(), causing it to be a function declaration rather than a function definition. Similarly, you may not write
+%%if x {
+%%}
+%%else {             // INVALID
+%%}
+
 \section{Compiling and running code}
 As Go is a compiled language we first
 need to compile our program. Compiling in Go is \emph{fast}, often
