@@ -42,40 +42,6 @@ C-like language. The following sections show how to handle allocation
 in Go. There is somewhat an artifical distinction between
 \first{\func{new()}} and \first{\func{make()}}. Details follow.
 
-\subsection{Nil value}
-A reference to nothing is represented in Go as \lstinline{nil}. This is
-different than a zero value. \todo{nil only for references?}
-
-\begin{lstlisting}
-var *a int
-a = nil
-fmt.Printf("%v\n", a);
-\end{lstlisting}
-Prints \lstinline{nil}.
-
-\subsection{Conversions}
-\label{sec:conversions}
-Sometimes you want to convert a type to another type. In C this is known
-as casting a value to another type. This is also possible in Go, but
-there are some rules.\todo{there are more rules, but we're trying to
-keep it simple...}
-You can convert:
-\begin{itemize}
-\item{
-From a \lstinline{string} to a slice of \lstinline{byte}s.
-\begin{lstlisting}
-mystring = "hello this is string"
-byteslice =  []byte(mystring)
-\end{lstlisting}
-}
-\item{
-From a slice of \lstinline{byte}s to a \lstinline{string}.
-\begin{lstlisting}
-The other way around
-\end{lstlisting}
-}
-\end{itemize}
-
 \subsection{Allocation with \func{new()}}
 Go has two allocation primitives, \func{new()} and \func{make()}. They do different
 things and apply to different types, which can be confusing, but the
@@ -207,6 +173,30 @@ a := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 s := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 m := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 \end{lstlisting}
+
+\subsection{Conversions}
+\label{sec:conversions}
+Sometimes you want to convert a type to another type. In C this is known
+as casting a value to another type. This is also possible in Go, but
+there are some rules. For starters, converting from one value to another
+is done by functions. 
+\begin{itemize}
+\item{
+From a \lstinline{string} to a slice of \lstinline{byte}s.
+\begin{lstlisting}
+mystring = "hello this is string"
+byteslice =  []byte(mystring)
+\end{lstlisting}
+}
+\item{
+From a slice of \lstinline{byte}s to a \lstinline{string}.
+\begin{lstlisting}
+The other way around
+\end{lstlisting}
+}
+\end{itemize}
+
+\todo{more stuff}
 
 
 \section{Defining your own}

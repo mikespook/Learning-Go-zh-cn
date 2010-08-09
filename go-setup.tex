@@ -17,7 +17,12 @@
 \noindexintoc
 \makeindex
 
-\expandafter\def\expandafter\quote\expandafter{\quote\em}
+%% make quote print italics and other fancy stuff
+\expandafter\def\expandafter\quote\expandafter{\quote%
+\begin{tikzpicture}[overlay]
+\node [scale=4] (box){``\ \ \ };
+\end{tikzpicture}
+\em}
 
 %%\DeclareCaptionFont{white}{\color{white}}
 %%\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35,
