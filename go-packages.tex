@@ -46,6 +46,7 @@ Letter;
 \end{itemize}
 
 \section{Building a package}
+\label{sec:building a package}
 The create a package other people can use (by just using
 \lstinline{import "even"}) we first need to create a directory
 where we put our package files in. 
@@ -202,10 +203,10 @@ package regexp
 
 \section{Testing packages}
 In Go it is customary to write (unit) tests for your package. Writing
-tests involves the \package{testing}.
-\begin{lbar}
-Read the package doc!
-\end{lbar}
+tests involves the \package{testing} and the program \prog{gotest}. Both
+have excellent documentation. When you include tests with your package
+keep in mind that has to be build using the standard \prog{Makefile}
+(see section "\titleref{sec:building a package}").
 
 The testing itself is carried out with \prog{gotest}.
 The \prog{gotest} program run all the test functions, each
@@ -213,6 +214,8 @@ test function has the same signature:
 \begin{lstlisting}
 func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
 \end{lstlisting}
+
+Todo: writing a test and including it in the Makefile and call gotest
 
 When writing test you will need to tell \prog{gotest} that a test has failed or was successful. A
 successful test function just returns. When test fails you can signal this with the following
