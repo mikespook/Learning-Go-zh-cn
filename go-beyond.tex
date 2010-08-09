@@ -1,5 +1,47 @@
 \epi{\lstinline{fmt.Printf("\%p", i)}}{Printing the address of a pointer in Go.}
 \noindent{}
+You may have wished otherwise, but Go has pointers.
+There is however no pointer arithmetic, so they act more like
+references than pointers that you may know from C. Pointers as
+they are still called in Go are useful.
+Remember when you call a function in Go the variables you pass are
+pass-by-value. So, for efficiency and the possibility to modify a
+passed value \emph{in} the function we have pointers.
+
+Just like in C you declare a pointer by prefixing the type with an `*`:
+\lstinline{var p *int}. Now \var{p} is a pointer to an integer value.
+All newly declared variables are assigned their zero value and pointer
+are no difference. A newly declared, or just a pointer that points to
+nothing has a \first{nil}-value. In other languages this is often called
+a NULL pointer in Go it is just \var{nil}. To make 
+a pointer point to something you can use the address-of operator
+(\func{\&}), which we do on line 5:
+\begin{lstlisting}[caption=Make use of a pointer,numbers=right,label=src:pointers]
+var p *int	    
+fmt.Printf("%v", p) |\coderemark{Prints \var{nil}}|
+
+var i int	    |\coderemark{Declare integer variable \var{i}}|
+p = &i		    |\coderemark{Make \var{p} point to \var{i}}|
+
+fmt.Printf("%v", p) |\coderemark{Prints something like \var{0x7ff96b81c000a}}|
+\end{lstlisting}
+
+More general: \var{*X} is a pointer to an \type{X}; \var{[3]X} is an
+array of three \type{X}'s. The
+types are therefore really easy to read just read out the names of the
+type modifiers: \type{[]} declares something called an array slice; "*"
+declares a pointer; \type{[size]} declares an array. So
+\type{[]*[3]*int} is an array slice of pointers to arrays of three
+pointers to \type{int}s
+
+\section{Allocation}
+Go has garbage collection, meaning that you don't have to worry about
+memory allocation and deallocation. Of course almost every language
+since 1980 has this, but it is nice to see garbage collection in a
+C-like language. The following sections show how to handle allocation
+in Go. There is somewhat an artifical distinction between
+\first{\func{new()}} and \first{\func{make()}}. Details follow.
+
 \subsection{Nil value}
 A reference to nothing is represented in Go as \lstinline{nil}. This is
 different than a zero value. \todo{nil only for references?}
@@ -11,7 +53,7 @@ fmt.Printf("%v\n", a);
 \end{lstlisting}
 Prints \lstinline{nil}.
 
-\section{Conversions}
+\subsection{Conversions}
 \label{sec:conversions}
 Sometimes you want to convert a type to another type. In C this is known
 as casting a value to another type. This is also possible in Go, but
@@ -33,58 +75,8 @@ The other way around
 \end{lstlisting}
 }
 \end{itemize}
-\todo{Maybe put this to the end of this chapter}
-%%x is an integer or has type []byte or []int and T is a string type.
-%%and back
-%% integer/float truncation
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-You may have wished otherwise, but Go has pointers.
-There is however now pointer arithmetic and they are still useful.
-Remember Go when you call a function in Go the variables you pass are
-pass-by-value. So, for efficiency and the possibility to modify a
-passed value \emph{in} the function we have pointers.
-
-%% Do we need a whole chapter on Pointers in Go
-Just like in C you declare a pointer by prefixing the type with an `*`,
-so:
-
-are declared after variable names, and all type modifiers precede the
-\todo{}%
-types. So *X is a pointer to an X; [3]X is an array of three X's. The
-types are therefore really easy to read just read out the names of the
-type modifiers: [] declares something called an array slice; "*"
-declares a pointer; [size] declares an array. So []*[3]*int is an array
-slice of pointers to arrays of three pointers to ints
-
-\noindent\lstinline{var pint *int   // declare pint to be pointer to int}
-
-Note that it's perfectly OK to return the address of a local variable; the
-storage associated with the variable survives after the function returns. In
-fact, taking the address of a composite literal allocates a fresh instance each
-time it is evaluated, so we can combine these last two lines. \cite{effective_go}
-
-\section{Allocation}
-Go has garbage collection, meaning that you don't have to worry about
-memory allocation and deallocation. Of course almost every language
-since 1980 has this, but it is nice to see garbage collection in a
-C-like language. The following sections show how to handle allocation
-in Go. There is somewhat an artifical distinction between
-\first{\func{new()}} and \first{\func{make()}}. Details follow.
-
-\section{Allocation with \func{new()}}
+\subsection{Allocation with \func{new()}}
 Go has two allocation primitives, \func{new()} and \func{make()}. They do different
 things and apply to different types, which can be confusing, but the
 rules are simple. Let's talk about \func{new()} first. It's a built-in function
@@ -120,7 +112,41 @@ p := new(SyncedBuffer)  // type *SyncedBuffer
 var v SyncedBuffer      // type  SyncedBuffer
 \end{lstlisting}
 
-\section{Constructors and composite literals}
+\subsection{Allocation with \func{make()}}
+Back to allocation. The built-in function \func{make(T, args)} serves a purpose
+different from \func{new(T)}. It creates slices, maps, and channels only, and
+it returns an initialized (not zero) value of type T, not *T. The reason
+for the distinction is that these three types are, under the covers,
+references to data structures that must be initialized before use. A
+slice, for example, is a three-item descriptor containing a pointer to
+the data (inside an array), the length, and the capacity; until those
+items are initialized, the slice is nil. For slices, maps, and channels,
+make initializes the internal data structure and prepares the value for
+use. For instance,
+\lstinline{make([]int, 10, 100)}
+allocates an array of 100 ints and then creates a slice structure with
+length 10 and a capacity of 100 pointing at the first 10 elements of the
+array. (When making a slice, the capacity can be omitted; see the
+section on slices for more information.) In contrast, new([]int) returns
+a pointer to a newly allocated, zeroed slice structure, that is, a
+pointer to a nil slice value.
+
+These examples illustrate the difference between new() and make().
+\begin{lstlisting}
+var p *[]int = new([]int)       // allocates slice structure; *p == nil; rarely useful
+var v  []int = make([]int, 100) // v now refers to a new array of 100 ints
+
+// Unnecessarily complex:
+var p *[]int = new([]int)
+*p = make([]int, 100, 100)
+
+// Idiomatic:
+v := make([]int, 100)
+\end{lstlisting}
+Remember that make() applies only to maps, slices and channels and does
+not return a pointer. To obtain an explicit pointer allocate with new().
+
+\subsection{Constructors and composite literals}
 Sometimes the zero value isn't good enough and an initializing
 constructor is necessary, as in this example derived from package
 \package{os}.
@@ -181,40 +207,6 @@ a := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 s := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 m := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 \end{lstlisting}
-
-\section{Allocation with \func{make()}}
-Back to allocation. The built-in function \func{make(T, args)} serves a purpose
-different from \func{new(T)}. It creates slices, maps, and channels only, and
-it returns an initialized (not zero) value of type T, not *T. The reason
-for the distinction is that these three types are, under the covers,
-references to data structures that must be initialized before use. A
-slice, for example, is a three-item descriptor containing a pointer to
-the data (inside an array), the length, and the capacity; until those
-items are initialized, the slice is nil. For slices, maps, and channels,
-make initializes the internal data structure and prepares the value for
-use. For instance,
-\lstinline{make([]int, 10, 100)}
-allocates an array of 100 ints and then creates a slice structure with
-length 10 and a capacity of 100 pointing at the first 10 elements of the
-array. (When making a slice, the capacity can be omitted; see the
-section on slices for more information.) In contrast, new([]int) returns
-a pointer to a newly allocated, zeroed slice structure, that is, a
-pointer to a nil slice value.
-
-These examples illustrate the difference between new() and make().
-\begin{lstlisting}
-var p *[]int = new([]int)       // allocates slice structure; *p == nil; rarely useful
-var v  []int = make([]int, 100) // v now refers to a new array of 100 ints
-
-// Unnecessarily complex:
-var p *[]int = new([]int)
-*p = make([]int, 100, 100)
-
-// Idiomatic:
-v := make([]int, 100)
-\end{lstlisting}
-Remember that make() applies only to maps, slices and channels and does
-not return a pointer. To obtain an explicit pointer allocate with new().
 
 
 \section{Defining your own}
