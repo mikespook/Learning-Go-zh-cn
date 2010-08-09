@@ -20,7 +20,7 @@
 %% make quote print italics and other fancy stuff
 \expandafter\def\expandafter\quote\expandafter{\quote%
 \begin{tikzpicture}[overlay]
-\node [scale=4] (box){``\ \ \ };
+\node [scale=3,color=gray] (box){``\ \ };
 \end{tikzpicture}
 \em}
 
@@ -81,9 +81,9 @@
 \newcommand{\error}[1]{\texttt{#1}}
 
 % Colors
-\definecolor{gray20}{gray}{0.20}
-\newcommand{\lgray}[1]{{\color{gray20}#1}}
-\newcommand{\pr}{\lgray{\%}}
+%%\definecolor{gray20}{gray}{0.20}
+%%\newcommand{\lgray}[1]{{\color{gray20}#1}}
+\newcommand{\pr}{\%}
 
 \newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
 \MakeFramed{\advance\hsize-\width\FrameRestore}%%
