@@ -236,7 +236,7 @@ How nice is that, Go knows how to print your structure! If you
 only want to print a one, or a few, field of the structure you'll
 need to use \verb|<field name>|. To only print the name:
 \begin{lstlisting}
-fmt.Printf("%v", a.name)
+fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 \end{lstlisting}
 
 Defining a new type:
@@ -249,7 +249,7 @@ type T struct {
 \end{lstlisting}
 
 Or alias a build in one.
-Methods on types, and methods on build in type - can not do that,
+Methods on types, and methods on build in type -- can not do that,
 just create a new type.
 
 \section{Interfaces}
