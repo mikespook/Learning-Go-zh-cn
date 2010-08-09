@@ -76,7 +76,8 @@ Just as \lstinline{package main} was required to be first,
 When your Go program is executed the first function called will be
 \lstinline{main.main()}, which mimics the behavoir from C.
 
-\todo{syntax}
+%%\subsection{Some words about syntax}
+%%\todo{syntax} ??
 %% Something about syntax here
 %%func g()
 %%{                  // INVALID
@@ -147,7 +148,8 @@ b := false
 
 On the left we use the
 \key{var} keyword to declare a variable and \emph{then} assign a value to
-it. The code on the right uses \mbox{\key{:=}{ }} to do this in one step. 
+it. The code on the right uses \mbox{\key{:=}{ }} to do this in one
+step (this form may only be used \emph{inside} functions).
 In that case the variable
 type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
 a value of \texttt{false} tells Go that the type should be \type{bool}. 

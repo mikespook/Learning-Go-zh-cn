@@ -195,18 +195,16 @@ The other way around
 \end{lstlisting}
 }
 \end{itemize}
-
-\todo{more stuff}
-
+\todo{a more conversion stuff}
 
 \section{Defining your own}
 \label{sec:defining your own}
-Ofcourse Go allows you to define new types, it does this in (almost) the
+Of course Go allows you to define new types, it does this in (almost) the
 same way as in C, with the \key{struct} keyword.
 
-An empty struct is created with \lstinline|var empty struct {}|{}.
+An empty struct is created with \lstinline|var empty struct {}|.
 A more real-life example would be when we want record seomebody's name
-and age in a single ... TODO. We could do
+and age in a single structure:
 
 \lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
 
@@ -215,8 +213,8 @@ Apropos, the output of \lstinline{fmt.Printf("\%v\n", a)} is
 {Pete, 42}
 \end{display}
 How nice is that, Go knows how to print your structure! If you
-only want to print a one, or a few, field of the structure you'll
-need to use \verb|<field name>|. To only print the name:
+only want to print one, or a few, fields of the structure you'll
+need to use \verb|.<field name>|. To only print the name:
 \begin{lstlisting}
 fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 \end{lstlisting}
