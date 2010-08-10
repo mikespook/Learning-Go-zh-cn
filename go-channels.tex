@@ -5,25 +5,31 @@
 \end{itemize}%
 }{\textit{Google IO 2010}\\\textsc{Robe Pike}}
 \noindent{}In this chapter we will show off Go's ability for
-concurrent programming using channels and goroutines.
-
-what is a goroutine, from \cite{effective_go}:
+concurrent programming using channels and goroutines. Goroutines
+are the central entity in Go's ability for concurrency. But what
+\emph{is} a goroutines? From \cite{effective_go}:
 \begin{quote}
 They're called goroutines because the existing terms --- threads, coroutines,
 processes, and so on --- convey inaccurate connotations. A goroutine has a simple
-model: it is a function executing in parallel with other goroutines in the same
-address space. It is lightweight, costing little more than the allocation of
+model: \emph{it is a function executing in parallel with other goroutines in the same
+address space}. It is lightweight, costing little more than the allocation of
 stack space. And the stacks start small, so they are cheap, and grow by
 allocating (and freeing) heap storage as required.
 \end{quote}
 
-The following idea for a program was taken from \cite{curso_go}.
+The following idea for a program was taken from \cite{curso_go}. 
 \lstinputlisting[numbers=right,label=src:sleeping,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
+We run a function as two goroutines, the goroutines wait for an amount of
+time and them print something to the screen. The \func{main} function
+waits long enough so that both goroutines have printed their text. Right
+now we wait for 5 seconds (\func{time.Sleep()} counts in ns) on line 18, but in fact we have no idea how
+long we should wait until all goroutines have exited.
 
-Problem: don't know how long to wait on line 18.
-
-You need to communicate with the go-routines, this is where channels
-come in.
+What we need here is some kind of mechanism which allows us to
+communicate with the goroutines we start. This mechanism is available
+to use in the form of \first{channels}. A \first{channel} can be
+compared as a two-way pipe in Unix. You can send and receive
+values to and from it.
 
 \begin{lstlisting}[caption=Go routines and a channel,label=src:sleeping with channels]
 var c chan int |\longremark{Declare \var{c} to be a variable that is a %
@@ -45,6 +51,8 @@ func main() {i
 }
 \end{lstlisting}
 \showremarks
+
+\todo{select}
 
 \section{Exercises}
 \input{ex-channels/ex-for-channels.tex}
