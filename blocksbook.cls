@@ -159,7 +159,9 @@
     \phantomsection
     \addcontentsline{toc}{chapter}{\bibname}
   \fi
-\prebibhook}
+\prebibhook
+\markboth{\myfamily \typename{} \thechapter: \bibname}{\myfamily\bibname}
+}
 
 %% index style
 \makeatletter

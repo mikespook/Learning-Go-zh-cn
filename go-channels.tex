@@ -7,10 +7,44 @@
 \noindent{}In this chapter we will show off Go's ability for
 concurrent programming using channels and goroutines.
 
+what is a goroutine, from \cite{effective_go}:
+\begin{quote}
+They're called goroutines because the existing terms --- threads, coroutines,
+processes, and so on --- convey inaccurate connotations. A goroutine has a simple
+model: it is a function executing in parallel with other goroutines in the same
+address space. It is lightweight, costing little more than the allocation of
+stack space. And the stacks start small, so they are cheap, and grow by
+allocating (and freeing) heap storage as required.
+\end{quote}
+
 The following idea for a program was taken from \cite{curso_go}.
-\lstinputlisting[label=src:sleeping,caption=Go routines in action,linerange={8,17}]{src/sleep.go}
+\lstinputlisting[numbers=right,label=src:sleeping,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
 
+Problem: don't know how long to wait on line 18.
 
+You need to communicate with the go-routines, this is where channels
+come in.
+
+\begin{lstlisting}[caption=Go routines and a channel,label=src:sleeping with channels]
+var c chan int |\longremark{Declare \var{c} to be a variable that is a %
+channel of \type{int}s. That is: this channel can move integers;}|
+
+func ready(w string, sec int) {
+	time.Sleep(int64(sec) * 1e9)
+	fmt.Println(w, "is ready!")
+	c <- 1	|\longremark{Send the integer 1 on the channel \var{c};}|
+}
+
+func main() {i
+	c = make(chan int) |\longremark{Initialize \var{c}, note that we must use \func{make} here;}|
+	go ready("Tee", 2) |\longremark{Start the goroutines as usual;}|
+	go ready("Coffee", 1)
+	fmt.Println("I'm waiting, but not too long")
+	<-c |\longremark{Wait until we receive a value from the channel. Note that the value we receive is discarded;}|
+	<-c |\longremark{Two goroutines, two values to receive.}|
+}
+\end{lstlisting}
+\showremarks
 
 \section{Exercises}
 \input{ex-channels/ex-for-channels.tex}
