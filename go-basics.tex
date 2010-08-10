@@ -195,7 +195,13 @@ machine, meaning that on a 32 bits machine they are 32 bits, and on
 a 64 bits machine they are 64 bits.
 
 If you want to be explicit about the length you can have
-that too with \lstinline{int32}, or \lstinline{uint32}. Note however
+that too with \lstinline{int32}, or \lstinline{uint32}. The full
+(explicit) list for (signed and unsigned) integers is \lstinline{int8}, \lstinline{int16},
+\lstinline{int32} and \lstinline{int64}. With \lstinline{byte} being an
+alias for \lstinline{uint8}. For floating point values there only is
+\lstinline{float32} and \lstinline{float64}.
+
+Note however
 that these types are distinct and assigning variables which mix
 these types is a compiler error, like in the following code:
 
@@ -204,6 +210,9 @@ these types is a compiler error, like in the following code:
 Gives the error on the assignment on line 7:
 
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
+
+Octal, hexadecimal and the scientific notation may be used: 077, 
+0xFF, 1e3 or 6.022e23 are all valid.
 
 \subsection{Constants}
 Constants in Go are just that --- constant. They are created at compile
@@ -238,7 +247,9 @@ string is as simple as:
     s := "Hello World!"
 \end{lstlisting}
 Strings in Go are a sequence of UTF-8 characters enclosed in double
-quotes (").
+quotes ("). If you use the single quote (') you mean one character
+(encoded in UTF-8). 
+
 Once assigned to a variable the string can not be changed anymore: strings in Go are
 immutable. For
 people coming from C, the following is not legal in Go:
@@ -427,6 +438,8 @@ for i := 0; i < 10; i++ {
     sum += i
 }
 \end{lstlisting}
+\todo{Breaking out of loops}
+
 For strings, you can use the \key{range} clause to manage the loop for
 you. It breaks out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
 byte and produce the replacement rune U+FFFD). The loop

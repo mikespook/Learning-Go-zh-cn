@@ -32,7 +32,20 @@ types are therefore really easy to read just read out the names of the
 type modifiers: \type{[]} declares something called an array slice; "*"
 declares a pointer; \type{[size]} declares an array. So
 \type{[]*[3]*int} is an array slice of pointers to arrays of three
-pointers to \type{int}s
+pointers to \type{int}s.
+
+Dereferencing a pointer is done by prefixing the pointer variable with
+"*":
+\begin{lstlisting}[caption=Dereferencing a pointer,label=src:deref]
+p = &i
+*p = 8			|\coderemark{Change the value of \var{i}}|
+fmt.Printf("%v\n", *p)  |\coderemark{Prints 8}|
+fmt.Printf("%v\n", i)	|\coderemark{Idem}|
+\end{lstlisting}
+
+As said, there is no pointer arithemetic, so if you write:
+\lstinline{*p++} is Go, it is interpreted as \lstinline{(*p)++}: first
+dereference and increment then increment the value.
 
 \section{Allocation}
 Go has garbage collection, meaning that you don't have to worry about
@@ -179,23 +192,32 @@ m := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 Sometimes you want to convert a type to another type. In C this is known
 as casting a value to another type. This is also possible in Go, but
 there are some rules. For starters, converting from one value to another
-is done by functions. 
+is done by functions and not all conversion are allowed.
 \begin{itemize}
 \item{
 From a \lstinline{string} to a slice of \lstinline{byte}s.
 \begin{lstlisting}
-mystring = "hello this is string"
-byteslice =  []byte(mystring)
+mystring := "hello this is string"
+byteslice := []byte(mystring)
 \end{lstlisting}
 }
 \item{
 From a slice of \lstinline{byte}s to a \lstinline{string}.
 \begin{lstlisting}
-The other way around
+b := []byte{'h','e','l','l','o'} |\coderemark{Composite literal}|
+s := string(b)
 \end{lstlisting}
 }
 \end{itemize}
-\todo{More conversion stuff}
+For numeric values the following conversion are defined:
+\begin{itemize}
+\item{Convert to a integer with a specific (bit) length: 
+\lstinline{uint8(int)};}
+\item{From floating point to an integer value: 
+\lstinline{int(float)}. This discards the fraction part
+from the floating point value;}
+\item{The other way around: \lstinline{float(int)};}
+\end{itemize}
 
 \section{Defining your own}
 \label{sec:defining your own}
