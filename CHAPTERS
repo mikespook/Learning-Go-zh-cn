@@ -22,7 +22,6 @@ Higher order functions, lambda, functions that take functions
 
 GUI?
 
-
 make: interesting stuff
 Go has a builtin function new which takes a type and allocates space on the
 heap. The allocated space will be zero-initialized for the type. For example,
@@ -47,4 +46,3 @@ second, optional, argument is the capacity of the slice. For example,
 make([]int, 10, 20). This is identical to new([20]int)[0:10]. Since Go uses
 garbage collection, the newly allocated array will be discarded sometime after
 there are no references to the returned slice.
-

@@ -1,0 +1,8 @@
+Version:	    Features:
+=============================
+0.1		    Chapters 1-5 have acceptable text
+0.2		    Chapters 1-5 have good text and all have 
+		    at least 10 exercises
+0.3		    Regular expressions, networking, http daemon
+0.4		    Stabilize
+0.5		    Chapter 6 (concurrency)
