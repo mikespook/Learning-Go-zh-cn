@@ -18,20 +18,32 @@ allocating (and freeing) heap storage as required.
 \end{quote}
 
 The following idea for a program was taken from \cite{curso_go}. 
-\lstinputlisting[numbers=right,label=src:sleeping,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
 We run a function as two goroutines, the goroutines wait for an amount of
 time and them print something to the screen. The \func{main} function
 waits long enough so that both goroutines have printed their text. Right
 now we wait for 5 seconds (\func{time.Sleep()} counts in ns) on line 18, but in fact we have no idea how
 long we should wait until all goroutines have exited.
+\lstinputlisting[numbers=right,label=src:sleeping,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
 
 What we need here is some kind of mechanism which allows us to
 communicate with the goroutines we start. This mechanism is available
 to use in the form of \first{channels}. A \first{channel} can be
-compared as a two-way pipe in Unix. You can send and receive
-values to and from it.
+compared to a two-way pipe in Unix shells. You can send and receive
+values to and from it. Those values can only be of a specific type: the
+type of the channel. If we define a channel, we must also define the
+type of the values we can send on the channel:
+\begin{lstlisting}
+ci := make(chan int)
+cs := make(chan string)
+cf := make(chan interface{})
+\end{lstlisting}
+Makes \var{ci} a channel on which we can send and receive integers,
+makes \var{cs} a channel for strings and \var{cf} a channel for types
+that satisfy the empty interface. 
+\todo{send and receive}
 
-\begin{lstlisting}[caption=Go routines and a channel,label=src:sleeping with channels]
+Lets put this to use.
+\begin{lstlisting}[numbers=right,caption=Go routines and a channel,label=src:sleeping with channels]
 var c chan int |\longremark{Declare \var{c} to be a variable that is a %
 channel of \type{int}s. That is: this channel can move integers;}|
 
@@ -52,6 +64,8 @@ func main() {i
 \end{lstlisting}
 \showremarks
 
+The uglyness is now contained in the last few lines (lines 14 and 15),
+surely we can do better.
 \todo{select}
 
 \section{Exercises}
