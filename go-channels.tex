@@ -20,16 +20,17 @@ allocating (and freeing) heap storage as required.
 The following idea for a program was taken from \cite{curso_go}. 
 We run a function as two goroutines, the goroutines wait for an amount of
 time and them print something to the screen. The \func{main} function
-waits long enough so that both goroutines have printed their text. Right
+waits long enough, so that both goroutines will have printed their text. Right
 now we wait for 5 seconds (\func{time.Sleep()} counts in ns) on line 18, but in fact we have no idea how
 long we should wait until all goroutines have exited.
+If we did not wait for the goroutines (i.e. remove line 18) the program
+would be terminated immediately and any running goroutines would die with it. 
 \lstinputlisting[numbers=right,label=src:sleeping,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
-
 What we need here is some kind of mechanism which allows us to
-communicate with the goroutines we start. This mechanism is available
-to use in the form of \first{channels}. A \first{channel} can be
-compared to a two-way pipe in Unix shells. You can send and receive
-values to and from it. Those values can only be of a specific type: the
+communicate with the goroutines. This mechanism is available
+to us in the form of \first{channels}. A \first{channel} can be
+compared to a two-way pipe in Unix shells. You can send to and receive
+values from it. Those values can only be of a specific type: the
 type of the channel. If we define a channel, we must also define the
 type of the values we can send on the channel:
 \begin{lstlisting}
@@ -40,12 +41,18 @@ cf := make(chan interface{})
 Makes \var{ci} a channel on which we can send and receive integers,
 makes \var{cs} a channel for strings and \var{cf} a channel for types
 that satisfy the empty interface. 
-\todo{send and receive}
-
+Sending on a channel and receiving from it, is done with the same operator:
+\lstinline{<-}. Depending on the operands it figures out what to do:
+\begin{lstlisting}
+ci <- 1	    |\coderemark{\emph{Send} the integer 1 to the channel \var{ci}}|
+<-ci	    |\coderemark{\emph{Receive} an integer from the channel \var{ci}}|
+i := <-ci   |\coderemark{\emph{Receive} from the channel \var{ci} and storing it in \var{i}}|
+\end{lstlisting}
 Lets put this to use.
 \begin{lstlisting}[numbers=right,caption=Go routines and a channel,label=src:sleeping with channels]
 var c chan int |\longremark{Declare \var{c} to be a variable that is a %
-channel of \type{int}s. That is: this channel can move integers;}|
+channel of \type{int}s. That is: this channel can move integers. Note %
+that this variable is global so that the goroutines have access to it;}|
 
 func ready(w string, sec int) {
 	time.Sleep(int64(sec) * 1e9)
@@ -63,10 +70,38 @@ func main() {i
 }
 \end{lstlisting}
 \showremarks
+There is still some remaining uglyness; we have to read twice from
+the channel (lines 14 and 15). This is OK in this case, but what if
+we don't know how many goroutines we started? This is where another
+Go built-in comes in: \first{\key{select}}. With \key{select} you 
+can BLA BLA TODO(miekg).
 
-The uglyness is now contained in the last few lines (lines 14 and 15),
-surely we can do better.
-\todo{select}
+Using \key{select} in our program does not really make it shorter,
+because we run too few goroutines. We remove the lines 14 and 15 and
+replace them with the following:
+\begin{lstlisting}[caption=Using \key{select},numbers=right,firstnumber=14]
+L: for {
+	select {
+	case <-c:
+		i++ 
+		if i > 1 { 
+			break L
+		}   
+	}   
+}   
+\end{lstlisting}
+
+
+
+
+\todo{block 'n stuff, close 'n closed}
+
+\subsection{Make it run in parallel}
+While our goroutines were running concurrent, they were not running in
+parallel. When you do not tell Go anything there can only be one
+goroutine running at a time.
+
+
 
 \section{Exercises}
 \input{ex-channels/ex-for-channels.tex}

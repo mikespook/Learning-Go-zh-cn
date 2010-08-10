@@ -166,6 +166,9 @@ var (
     b bool
 )
 \end{lstlisting}
+Multiple variables of the same type can also be declared on a
+single line: \lstinline{var x, y int}, makes \var{x} and \var{y} both
+\type{int} variables.
 
 A special name for a variable is \texttt{\_} (underscore). Any value
 assigned to it, is discarded. In this example we only assign the integer
@@ -174,7 +177,7 @@ value of 35 to \var{b} and discard the value 34.
 _, b := 34, 35
 \end{lstlisting}
 Declared, but otherwise unused variables are a compiler error in Go, the
-following code generates:\footnote{Sometims this can be annoying.}
+following code generates:\footnote{Sometimes this can be annoying.}
 
 \noindent\error{var.go:3: i declared and not used}
 \begin{lstlisting}
@@ -438,8 +441,14 @@ for i := 0; i < 10; i++ {
     sum += i
 }
 \end{lstlisting}
-\todo{Breaking out of loops}
 
+\subsection{Goto}
+
+\subsection{Break}
+
+\todo{Breaking out of loops, with labels etc.}
+
+\subsection{Range}
 For strings, you can use the \key{range} clause to manage the loop for
 you. It breaks out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
 byte and produce the replacement rune U+FFFD). The loop
