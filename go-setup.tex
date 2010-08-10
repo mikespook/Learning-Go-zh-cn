@@ -20,9 +20,9 @@
 %% make quote print italics and other fancy stuff
 \expandafter\def\expandafter\quote\expandafter{\quote%
 \begin{tikzpicture}[overlay]
-\node [scale=3,color=gray] (box){``\ \ };
+\node [scale=4,color=black] (box){``};
 \end{tikzpicture}
-\em}
+\hskip\baselineskip\em}
 
 %%\DeclareCaptionFont{white}{\color{white}}
 %%\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35,

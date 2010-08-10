@@ -2,12 +2,13 @@
 operator.}\\\textsc{Ken Thompson}}
 \noindent{}Packages are a collection of functions and data, they are sort alike the
 Perl packages\cite{perl-packages}. You declare a package with the
-\lstinline{package} keyword. Note that the filename should
-match the package name. Lets define our package \package{even} in the file
-\prog{even.go}
+\lstinline{package} keyword. Note that (at least one of) the filename(s) should
+match the package name. Go packages may consist out of multiple files,
+but they share the \lstinline{package <name>} line.
+Lets define our package \package{even} in the file \prog{even.go}.
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
-Names that start with a capital letterare exported and may be used
+Names that start with a capital letter are exported and may be used
 outside your package, more on that later. We can now use
 the package as follows in our own program \prog{myeven.go}:
 
@@ -146,32 +147,24 @@ don't automatically make things more readable. If the name represents
 something intricate or subtle, it's usually better to write a helpful
 doc comment than to attempt to put all the information into the name.
 
-\paragraph{MixedCaps}
-Finally, the convention in Go is to use MixedCaps or mixedCaps rather
+Finally, the convention in Go is to use \first{MixedCaps} or mixedCaps rather
 than underscores to write multiword names.
-
-When Go was released as open source software in December 2009 it came
-with a boatload of packages. In this chapter we show how to use some
-of these.
 
 \section{Initialization}
 Every source file in a package can define an \func{init()} function. This function is
 called after the variables in the package have gotten their value. The
 \func{init()} function can be used to setup state before the execution
 begins.
-
-Var section TODO(miekg)
+\todo{Variable section}
 
 \section{Documenting packages}
 From \cite{effective_go}
 Every package should have a \emph{package comment}, a block comment preceding the
- \key{package} clause. For multi-file packages, the package comment only needs to be
+\key{package} clause. For multi-file packages, the package comment only needs to be
 present in one file, and any one will do. The package comment should introduce
 the package and provide information relevant to the package as a whole. It will
 appear first on the \prog{godoc} page and should set up the detailed documentation
-that follows.
-
-An example is:
+that follows. An example is:
 \begin{display}
 /*
     The regexp package implements a simple library for

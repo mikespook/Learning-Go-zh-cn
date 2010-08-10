@@ -32,7 +32,7 @@ In the function \func{shower} we wait (as this blocks) until we receive a number
 started on line 14.
 
 \Question The answer is
-\lstinputlisting[label=go-quit-chan,caption=Adding extra quit channel]{ex-channels/src/for-quit-chan.go}
+\lstinputlisting[label=go-quit-chan,caption=Adding an extra quit channel]{ex-channels/src/for-quit-chan.go}
 On line 20 we read from the quit channel and we discard the value we
 read. We could have used \lstinline{q := <-quit}, but then we would have used
 the variabele only once - which is illegal in Go. Another trick you

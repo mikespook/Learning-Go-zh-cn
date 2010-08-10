@@ -26,21 +26,21 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows,decorations.pathreplacing}
 \usepackage{float}
-%%\usepackage{refcheck}
 
 \input{go-setup.tex}
 \input{go-cc-license.tex}
 \input{go-coderemarks.tex}
 %%\input{draft.tex}
 %%\AddEverypageHook{\pagedraft}
+%%\usepackage{refcheck}
 
 \begin{document}
 \thispagestyle{empty}
-
+\newcommand{\version}{0.1}
 %% Title page
 \begin{figure}[t!]
 \begin{center}
-    {\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}Learning Go}}}}
+    \hspace{1.0cm}{\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}Learning Go}}}}
     \includegraphics[scale=0.65]{fig/bumper-inverse.png}
 \end{center}
 \end{figure}
@@ -71,7 +71,7 @@ Go Nuts mailing list
 \hspace*{2.5cm}THIS IS A WORK IN PROGRESS\newline\newline
     \hspace*{1cm}\CcGroupByNcSa{0.83}{0.95ex}\\[2.5ex]
     \hspace*{1cm}{\tiny\CcNote{\CcLongnameByNcSa}}
-\newline\hspace*{1cm}{\tiny Build: \today}
+\newline\hspace*{1cm}{\tiny Version: \version (\today)}
 \end{center}
 %% End title page %%
 
@@ -135,4 +135,6 @@ Go is \emph{fun}!
 \printindex
 \bibliographystyle{plain}
 \bibliography{go}
+\newpage
+\emph{This page is intentionally left blank.}
 \end{document}

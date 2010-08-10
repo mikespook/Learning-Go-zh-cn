@@ -195,7 +195,7 @@ The other way around
 \end{lstlisting}
 }
 \end{itemize}
-\todo{a more conversion stuff}
+\todo{More conversion stuff}
 
 \section{Defining your own}
 \label{sec:defining your own}
@@ -236,13 +236,13 @@ just create a new type.
 %%\epi{I have this phobia about having my body penetrated surgically. You
 %%know what I  mean?}{\textit{eXistenZ}\\\textsc{Ted Pikul}}
 One of the interesting aspects of the Go language is \first{interface objects}.
-\gomarginpar{The following text is copied (and slightly shortend) from \cite{go_interfaces} which is
-written by Ian Lance Taylor - one of the original authors of Go.}
+\gomarginpar{The following text is from \cite{go_interfaces}. Written by Ian 
+Lance Taylor --- one of the authors of Go.}
 In Go, the word interface is overloaded to mean several different
 things. Every type has an \first{interface}, which is the set of methods defined for
 that type. This bit of code defines a struct type \type{S} with one field, and
 defines two methods for \type{S}.
-\begin{lstlisting}[caption=Defining a struct and methods,label=src:interface object]
+\begin{lstlisting}[caption=Defining a struct and methods on it,label=src:interface object]
 type S struct { i int }
 func (p *S) Get() int { return p.i }
 func (p *S) Put(v int) { p.i = v }
@@ -273,7 +273,7 @@ var s S; f(&s)
 \end{lstlisting}
 The reason we need to take the address of \type{S}, rather than a value of type
 \type{S}, is because we defined the methods on \type{S} to operate on
-pointers, see the code above in listing \ref{src:interface objects}.
+pointers, see the code above in listing \ref{src:interface object}.
 This
 is not a requirement --- we could have defined the methods to take
 values --- but then the \func{Put} method would not work as expected.
