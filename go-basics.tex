@@ -419,8 +419,23 @@ if err != nil {
 codeUsing(f, d)
 \end{lstlisting}
 
+\subsection{Goto}
+Go has a \first{\key{goto}} statement --- use it wisely. With \key{goto}
+you jump to a label which must be defined within the current function.
+The labels are case sensitive. 
+For instance a loop in disguise:
+\begin{lstlisting}
+func main() {
+        i := 0                                                                                      
+HERE:	   |\coderemark{First word on a line ending with a colon is a label}|
+        println(i)
+        i++ 
+        goto HERE |\coderemark{Jump}|
+}
+\end{lstlisting}
+
 \subsection{For}
-The Go \key{for} loop is similar to -- but not the same as -- C's. It
+The Go \first{\key{for}} loop is similar to -- but not the same as -- C's. It
 unifies \key{for}
 and while and there is no do-while. There are three forms, only one of
 which has semicolons.
@@ -442,11 +457,40 @@ for i := 0; i < 10; i++ {
 }
 \end{lstlisting}
 
-\subsection{Goto}
+Finally, since Go has no comma operator and ++ and \-\- are statements not
+expressions (see appendix \ref{chap:expression}), if you want to run multiple variables in a \key{for} you should
+use \first{parallel assignment}.
+\begin{lstlisting}
+// Reverse a
+for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+    a[i], a[j] = a[j], a[i] |\coderemark{Parallel assignment}|
+}
+\end{lstlisting}
+
 
 \subsection{Break}
-
-\todo{Breaking out of loops, with labels etc.}
+With \first{\key{break}} you can quit loops early, \key{break} breaks
+the current loop.
+\begin{lstlisting}
+for i := 0; i < 10; i++ {
+    println(i)
+    if i > 5 {
+	break |\coderemark{Breaks this loop, making it print 0 to 6}|
+    }
+}
+\end{lstlisting}
+With loops within loops you can specify a label after \key{break}.
+Making the label identify \emph{which} loop to stop:
+\begin{lstlisting}
+J:  for j := 0; j < 5; j++ {
+	for i := 0; i < 10; i++ {
+	    println(i)
+	    if i > 5 { 
+		break J	|\coderemark{Now it breaks the \var{j}-loop, not the \var{i} one}|
+	    }
+	}
+    } 
+\end{lstlisting}
 
 \subsection{Range}
 For strings, you can use the \key{range} clause to manage the loop for
@@ -464,15 +508,6 @@ character a starts at byte position 0
 character \begin{math}\Phi\end{math} starts at byte position 1
 character x starts at byte position 3
 \end{display}
-Finally, since Go has no comma operator and ++ and \-\- are statements not
-expressions (see appendix \ref{chap:expression}), if you want to run multiple variables in a \key{for} you should
-use \first{parallel assignment}.
-\begin{lstlisting}
-// Reverse a
-for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
-    a[i], a[j] = a[j], a[i] |\coderemark{Parallel assignment}|
-}
-\end{lstlisting}
 
 \subsection{Switch}
 Go's \first{\key{switch}} is more general than C's. The expressions need
