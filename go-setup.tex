@@ -9,11 +9,11 @@
 \newlistof{listofex}{ex}{List of Exercises}
 \newlistentry{exercise}{ex}{0}
 
-%% does not work?
-%% or \renewcommand*{\bibmark}{\markboth{\bibname}{}}
-\renewcommand*{\bibmark}{\markboth{\bibname}{\bibname}}
 \nobibintoc
-\renewcommand*{\indexmark}{\markboth{\indexname}{\indexname}}
+\renewcommand*{\indexmark}{%
+\markboth{\myfamily \typename{} \thechapter: \indexname}{\myfamily\indexname}%
+}
+
 \noindexintoc
 \makeindex
 
