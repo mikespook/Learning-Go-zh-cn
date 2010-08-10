@@ -40,20 +40,20 @@ memory allocation and deallocation. Of course almost every language
 since 1980 has this, but it is nice to see garbage collection in a
 C-like language. The following sections show how to handle allocation
 in Go. There is somewhat an artifical distinction between
-\first{\func{new()}} and \first{\func{make()}}. Details follow.
+\first{\key{new}} and \first{\key{make}}. Details follow.
 
-\subsection{Allocation with \func{new()}}
-Go has two allocation primitives, \func{new()} and \func{make()}. They do different
+\subsection{Allocation with \key{new}}
+Go has two allocation primitives, \key{new} and \key{make}. They do different
 things and apply to different types, which can be confusing, but the
-rules are simple. Let's talk about \func{new()} first. It's a built-in function
+rules are simple. Let's talk about \key{new} first. It's a built-in function
 essentially the same as its namesakes in other languages: \func{new(T)}
 allocates zeroed storage for a new item of type \type{T} and returns its
 address, a value of type \type{*T}. In Go terminology, it returns a pointer to
 a newly allocated zero value of type \type{T}.
 
-Since the memory returned by \func{new()} is zeroed, it's helpful to arrange
+Since the memory returned by \key{new} is zeroed, it's helpful to arrange
 that the zeroed object can be used without further initialization. This
-means a user of the data structure can create one with \func{new()} and get
+means a user of the data structure can create one with \key{new} and get
 right to work. For example, the documentation for \type{bytes.Buffer} states
 that "the zero value for Buffer is an empty buffer ready to use."
 Similarly, \func{sync.Mutex} does not have an explicit constructor or Init
@@ -78,7 +78,7 @@ p := new(SyncedBuffer)  // type *SyncedBuffer
 var v SyncedBuffer      // type  SyncedBuffer
 \end{lstlisting}
 
-\subsection{Allocation with \func{make()}}
+\subsection{Allocation with \key{make}}
 Back to allocation. The built-in function \func{make(T, args)} serves a purpose
 different from \func{new(T)}. It creates slices, maps, and channels only, and
 it returns an initialized (not zero) value of type T, not *T. The reason

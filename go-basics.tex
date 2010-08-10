@@ -357,7 +357,7 @@ multiplexer, \key{select}. The syntax is also slightly different: parentheses
 are not required and the bodies must \emph{always} be brace-delimited.
 
 \subsection{If}
-In Go a simple if looks like this:
+In Go a simple \first{\key{if}} looks like this:
 \begin{lstlisting}
 if x > 0 {
     return y
@@ -453,7 +453,8 @@ for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
 \end{lstlisting}
 
 \subsection{Switch}
-Go's \key{switch} is more general than C's. The expressions need not be
+Go's \first{\key{switch}} is more general than C's. The expressions need
+not be
 constants or even integers, the cases are evaluated top to bottom until
 a match is found, and if the \key{switch} has no expression it switches on
 \type{true}. It's therefore possible -- and idiomatic -- to write an
