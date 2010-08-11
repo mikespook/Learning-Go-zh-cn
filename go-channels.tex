@@ -74,7 +74,7 @@ There is still some remaining uglyness; we have to read twice from
 the channel (lines 14 and 15). This is OK in this case, but what if
 we don't know how many goroutines we started? This is where another
 Go built-in comes in: \first{\key{select}}. With \key{select} you 
-can BLA BLA TODO(miekg).
+can (among other things) listing for incoming data on a channel.
 
 Using \key{select} in our program does not really make it shorter,
 because we run too few goroutines. We remove the lines 14 and 15 and
@@ -91,25 +91,22 @@ L: for {
 }   
 \end{lstlisting}
 
-
-
-
 \todo{block 'n stuff, close 'n closed}
 
 \subsection{Make it run in parallel}
 While our goroutines were running concurrent, they were not running in
 parallel. When you do not tell Go anything there can only be one
-goroutine running at a time.
-
+goroutine running at a time. With \func{runtime.GOMAXPROCS(n)} you
+can set the number of goroutines that can run in parallel. From
+the documentation:
+\begin{quote}
 GOMAXPROCS sets the maximum number of CPUs that can be executing
 simultaneously and returns the previous setting. If n < 1, it does not
-change the current setting. This call will go away when the scheduler
-improves.
-
+change the current setting. \emph{This call will go away when the scheduler
+improves.}
+\end{quote}
 If you do not want to change any source code you can also set an
 environment variable \verb|GOMAXPROCS| to the desired value.
-
-
 
 \section{Exercises}
 \input{ex-channels/ex-for-channels.tex}

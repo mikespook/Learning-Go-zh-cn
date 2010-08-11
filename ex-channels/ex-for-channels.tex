@@ -20,7 +20,7 @@ will need the \func{select} statement.}
 
 \begin{Answer}
 \Question A possible program is: 
-\lstinputlisting[label=go-chan,caption=Channels in Go]{ex-channels/src/for-chan.go}
+\lstinputlisting[label=go-chan,caption=Channels in Go,numbers=right]{ex-channels/src/for-chan.go}
 We start of in the usual way, then at line 6 we create a new channel of
 \key{int}s. In the next line we fire off the function \func{shower} with
 the \prog{ch} variable as it argument, so that we may communicate with
@@ -32,10 +32,10 @@ In the function \func{shower} we wait (as this blocks) until we receive a number
 started on line 14.
 
 \Question The answer is
-\lstinputlisting[label=go-quit-chan,caption=Adding an extra quit channel]{ex-channels/src/for-quit-chan.go}
+\lstinputlisting[label=go-quit-chan,caption=Adding an extra quit channel,numbers=right]{ex-channels/src/for-quit-chan.go}
 On line 20 we read from the quit channel and we discard the value we
 read. We could have used \lstinline{q := <-quit}, but then we would have used
 the variabele only once - which is illegal in Go. Another trick you
-might have pulled out of your hat may be: \lstinline{\_ = <-quit}. This is
+might have pulled out of your hat may be: \lstinline{_ = <-quit}. This is
 valid in Go, but the Go idiom favors the one given on line 20.
 \end{Answer}
