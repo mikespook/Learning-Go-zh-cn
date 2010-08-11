@@ -4,11 +4,13 @@ languages out there.
 \begin{description}
 \item[Clean and Simple]
 Go strives to keep things small and beautiful, you should
-be able to do impressive things in a few lines of code;
+be able to do a lot in only a few lines of code;
 \item[Concurrent]
 Go makes it easy to ''fire off'' functions to be
 run as \emph{very} lightweight threads. These threads are called
-\first{goroutines} in Go;
+\first{goroutines}\footnote{Yes, that sounds a lot like
+\emph{co}routines, but goroutines are slightly different as we will
+see in chapter \ref{chap:channels}.} in Go;
 
 \item[Channels] 
 Communication with these goroutines is done
@@ -55,7 +57,7 @@ feeling to it.
 \section{Hello World}
 \label{sec:hello world}
 In the Go tutorial, Go is presented to the world in the typical
-manner: letting it print "Hello World" (Heck! Ken Thompson and
+manner: letting it print "Hello World" (Ken Thompson and
 Dennis Ritchie started this when they presented the C language in 
 the nineteen seventies). We don't think we can do better, so 
 here it is, ''Hello World'' in Go.
@@ -74,9 +76,9 @@ we need \package{"fmt"} in addition to \package{main}.  A package other than
 \package{main} is commonly called a library, a familiar concept of many programming
 languages (see chapter \ref{chap:packages}). 
 Just as \lstinline{package main} was required to be first, 
-\lstinline{import} may come next. Always in Go, \lstinline{package} is first, then
+\lstinline{import} may come next. In Go, \lstinline{package} is always first, then
 \lstinline{import}, then everything else.
-When your Go program is executed the first function called will be
+When your Go program is executed, the first function called will be
 \lstinline{main.main()}, which mimics the behavior from C.
 
 %%\subsection{Some words about syntax}
@@ -94,10 +96,10 @@ When your Go program is executed the first function called will be
 \section{Compiling and running code}
 As Go is a compiled language we first
 need to compile our program. Compiling in Go is \emph{fast}, often
-measured in mere seconds, even for large pieces of code.
+measured in mere seconds, even for large programs.
 \begin{display}
-\pr 6g helloworld.go \qquad\qquad\qquad\rem{# compiles to helloworld.6 (for 64 bit)}
-\pr 6l -o helloworld helloworld.6 \qquad\rem{# linking stage}
+\pr 6g helloworld.go		  \qquad\qquad\qquad\coderemark{compiles to helloworld.6 (for 64 bit)}
+\pr 6l -o helloworld helloworld.6 \coderemark{linking stage}
 \end{display}
 
 For 32 bit you should use \prog{8g} and \prog{8l}, this will then
@@ -120,11 +122,11 @@ keywords and  control structures of our new language.
 %% init stuff - i.e. above func main()
 
 \section{Variables, types and keywords}
-Go is different than other languages in that the type of a variable
-is specified \emph{after} the variable name. So no: 
+Go is different from other languages in that the type of a variable
+is specified \emph{after} the variable name. So not: 
 \lstinline{int a}, but \lstinline{a int}. When declaring a variable it
-is assigned the "natural" zero value for the type. This means that after
-\lstinline{var a int}, \lstinline{a} has a value of $0$. With
+is assigned the "natural" null value for the type. This means that after
+\lstinline{var a int}, \lstinline{a} has a value of 0. With
 \lstinline{var s string}, \lstinline{s} is assigned the zero string,
 which is \lstinline{""}. 
 
@@ -168,9 +170,14 @@ var (
 \end{lstlisting}
 Multiple variables of the same type can also be declared on a
 single line: \lstinline{var x, y int}, makes \var{x} and \var{y} both
-\type{int} variables.
+\type{int} variables. You can even make use of parallel assignment:
+\begin{lstlisting}
+a, b := 20, 16
+\end{lstlisting}
+Which makes \var{a} and \var{b} both integer variables and assigns
+20 to \var{a} and 16 to \var{b}.
 
-A special name for a variable is \texttt{\_} (underscore). Any value
+A special name for a variable is \var{\_} (underscore). Any value
 assigned to it, is discarded. In this example we only assign the integer
 value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
@@ -213,7 +220,6 @@ these types is a compiler error, like in the following code:
 Gives the error on the assignment on line 7:
 
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
-
 When assigning values octal, hexadecimal and the scientific notation may be used: 
 \lstinline{077}, \lstinline{0xFF}, \lstinline{1e3} or
 \lstinline{6.022e23} are all valid.
@@ -233,16 +239,15 @@ const (
 	b = iota 
 )
 \end{lstlisting}
-Or even
+You can even do the following. The first use of \key{iota} will yield 0, so \var{a} is equal to 0, whenever
+\key{iota} is used again on a new line its value is incremented with 1, so \var{b}
+has a value of 1
 \begin{lstlisting}
 const (
 	a = iota
 	b	    // implicitly 'b = iota'
 )
 \end{lstlisting}
-The first use of \key{iota} will yield 0, so \var{a} is equal to 0, whenever
-\key{iota} is used again on a new line its value is incremented with 1, so \var{b}
-has a value of 1
 
 \subsection{Strings}
 An important other built in type is \lstinline{string}. Assigning a
@@ -259,12 +264,12 @@ immutable. For
 people coming from C, the following is not legal in Go:
 \begin{lstlisting}
 var s string = "hello"
-s[0] = 'c'  |\coderemark{Change the first character to 'c'}|
+s[0] = 'c'  |\coderemark{Change the first character to 'c', this is an error}|
 \end{lstlisting}
 To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
-c := []byte(s)	    |\longremark{Convert \texttt{s} to an array, see %
+c := []byte(s)	    |\longremark{Convert \texttt{s} to an array of \type{byte}s, see %
 chapter \ref{chap:beyond} section "\titleref{sec:conversions}";}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
@@ -278,7 +283,7 @@ fmt.Printf("%v\n", s2)
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex}. If
-you need a precise number of bits you have \lstinline{complex32} and
+you need to specify the number of bits you have \lstinline{complex32} and
 \lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
 
 \lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c")}\newline
@@ -342,7 +347,7 @@ types (maps, slices and channels).
 \func{make} and \func{copy} make their appearance in chapter
 \ref{chap:beyond}.
 
-\paragraph{\func{panic} and \func{panicln}} used for an elegant
+\paragraph{\func{panic} and \func{panicln}} used for an 
 \emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
 page \pageref{sec:panic} for more.
 
@@ -359,7 +364,7 @@ package. These are mainly used for debugging.
 \end{center}
 \end{table}
 Table \ref{tab:keywords} lists all the keywords in Go. 
-In the following paragraphs and chapters we will explain them.
+In the following paragraphs and chapters we will go over them.
 
 \section{Control structures}
 The control structures\footnote{This section is copied from \cite{effective_go}.} 
