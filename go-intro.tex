@@ -15,7 +15,7 @@ Its intended audience is people who are familiar with programming
 and know different languages, be it C\cite{c}, C$^{++}$\cite{c++}, 
 Java \cite{java}, Erlang\cite{erlang}, Scala\cite{scala} or
 Haskell\cite{haskell}. This is \emph{not} a book which teaches you how to 
-program, this is a book that teaches you how to use Go.
+program, this is a book that just teaches you how to use Go.
 
 As with
 learning new things, the best way to do this is to discover it for
@@ -25,9 +25,10 @@ to acquaint you with the language.
 An exercise
 is numbered as \textbf{Q$n$}, where $n$ is a number. After the
 exercise number another number in parentheses displays the difficulty
-of this particular assignment. This difficulty ranges from 0 to 9, where
-0 is easy and 9 is extremely difficult (or at least it should be).
-Then a short name is given, for easier reference.
+of this particular assignment. This difficulty ranges from 0 to
+50\footnote{This is the same scale Donald Knuth uses.}, where
+0 is easy and 50 is extremely difficult (such a problem is a unresolved
+research problem). Then a short name is given, for easier reference.
 For example
 \begin{verse}
 \textbf{Q1}. (4) A map function \ldots
@@ -61,17 +62,13 @@ The following convention is used throughout this book:
 \end{itemize}
 
 \section{Official documentation}
-The reader is assumed to have read (and somewhat understand), the
-Go Tutorial \cite{go_tutorial}, and the Effective Go
+There already is a substantial amount of documentation written about Go.
+The Go Tutorial \cite{go_tutorial}, and the Effective Go
 document \cite{effective_go}. The
-website \url{http://golang.org/doc/} is also a very good starting point
+website \url{http://golang.org/doc/} is a very good starting point
 for reading up on Go.\footnote{\url{http://golang.org/doc/} itself is served by 
-a Go program called \prog{godoc}.}
-
-\begin{lbar}
-Didn't read those documents? Go read them now and stop wasting your time
-with this one.
-\end{lbar}
+a Go program called \prog{godoc}.} This book does not require that you
+have read those documents, but it will help you if you did.
 
 \section{Getting Go}
 %% Set all Go variables
@@ -81,11 +78,11 @@ with this one.
 % $GOBIN
 There are currently (2010) no packages for Go in any Linux
 distribution. The route to install Go is thus slightly longer than
-it should be. When Go stabilizes this situation will change probably. For now
-you need to retrieve the code from the mercurial archive and compile
+it could be. When Go stabilizes this situation will change probably. For
+now, you need to retrieve the code from the mercurial archive and compile
 Go yourself.
 \begin{itemize}
-\item First install Mercurial (to get the \prog{hg} command), in
+\item First install Mercurial (to get the \prog{hg} command). In
 Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 
 \item For building Go you also need the packages: \prog{bison},
@@ -126,23 +123,9 @@ you can start playing.
 Go comes with its own documentation in the form of a Go program called
 \prog{godoc}. 
 You can use it yourself to look
-in the online (installed on your system) documentation. For
-instance, suppose we want to know more about the package \package{hash} 
-(more on packages see Chapter \ref{chap:packages} on page
-\pageref{chap:packages}). We could then give the command
-\prog{godoc hash}, which will display
-\begin{display}
-PACKAGE
-
-package hash
-import "hash"
-
-TYPES
-
-type Hash interface \{
-    // Write adds more data to the running ha ...
-    // ...
-\end{display}
+in the online documentation. For
+instance, suppose we want to know more about the package \package{hash}.
+We would then give the command \prog{godoc hash}.
 How to read this and how you can create your own package documentation
 is explained in chapter \ref{chap:packages}.
 
@@ -166,7 +149,7 @@ simple abstract data types. It is designed for safe execution even on
 small machines without hardware memory protection.
 \end{quote}
 That sounds a lot like Go, and one could say Go is a reimplementation of
-Limbo on Unix--like systems, like Linux. One feature of Limbo that is
+Limbo on Unix--like systems like Linux. One feature of Limbo that is
 also included in Go is the excellent support for cross compiling.
 
 Another feature Go inherited from Limbo is channels (see chapter
@@ -195,7 +178,7 @@ language which also uses them is Erlang \cite{erlang}.
 
 The whole of idea of using channels to communicate with other processes
 is called Communicating Sequential Processes (CSP) and was conceived
-by C. A. R. Hoare \cite{hoare}. Who incidentally is the same man that
+by C. A. R. Hoare \cite{hoare}, who incidentally is the same man that
 invented QuickSort \cite{Quicksort}.
 
 \begin{lbar}
