@@ -266,9 +266,9 @@ parameter like so:
 func f() (ret int){     |\coderemark{\var{ret} is initialized with %
 zero}|
 	defer func() {
-		ret++	|\coderemark{Increment \var{ret} with $1$}|
+		ret++	|\coderemark{Increment \var{ret} with 1}|
 	}()
-	return 0	|\coderemark{$1$ \emph{not} $0$ will be returned}|
+	return 0	|\coderemark{1 \emph{not} 0 will be returned}|
 }
 \end{lstlisting}
 

@@ -101,6 +101,14 @@ While our goroutines were running concurrent, they were not running in
 parallel. When you do not tell Go anything there can only be one
 goroutine running at a time.
 
+GOMAXPROCS sets the maximum number of CPUs that can be executing
+simultaneously and returns the previous setting. If n < 1, it does not
+change the current setting. This call will go away when the scheduler
+improves.
+
+If you do not want to change any source code you can also set an
+environment variable \verb|GOMAXPROCS| to the desired value.
+
 
 
 \section{Exercises}

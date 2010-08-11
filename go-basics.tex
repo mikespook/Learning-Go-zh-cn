@@ -178,8 +178,7 @@ _, b := 34, 35
 \end{lstlisting}
 Declared, but otherwise unused variables are a compiler error in Go, the
 following code generates:\footnote{Sometimes this can be annoying.}
-
-\noindent\error{var.go:3: i declared and not used}
+\error{i declared and not used}
 \begin{lstlisting}
 package main
 func main() { 
@@ -199,8 +198,9 @@ a 64 bits machine they are 64 bits.
 
 If you want to be explicit about the length you can have
 that too with \lstinline{int32}, or \lstinline{uint32}. The full
-(explicit) list for (signed and unsigned) integers is \lstinline{int8}, \lstinline{int16},
-\lstinline{int32} and \lstinline{int64}. With \lstinline{byte} being an
+(explicit) list for (signed and unsigned) integers is
+\type{int8/16/32/64}.
+With \lstinline{byte} being an
 alias for \lstinline{uint8}. For floating point values there only is
 \lstinline{float32} and \lstinline{float64}.
 
@@ -214,8 +214,9 @@ Gives the error on the assignment on line 7:
 
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
 
-Octal, hexadecimal and the scientific notation may be used: 077, 
-0xFF, 1e3 or 6.022e23 are all valid.
+When assigning values octal, hexadecimal and the scientific notation may be used: 
+\lstinline{077}, \lstinline{0xFF}, \lstinline{1e3} or
+\lstinline{6.022e23} are all valid.
 
 \subsection{Constants}
 Constants in Go are just that --- constant. They are created at compile
@@ -251,18 +252,19 @@ string is as simple as:
 \end{lstlisting}
 Strings in Go are a sequence of UTF-8 characters enclosed in double
 quotes ("). If you use the single quote (') you mean one character
-(encoded in UTF-8). 
+(encoded in UTF-8) --- which is \emph{not} a \lstinline{string} in Go.
 
 Once assigned to a variable the string can not be changed anymore: strings in Go are
 immutable. For
 people coming from C, the following is not legal in Go:
 \begin{lstlisting}
-var s string = "hello"; s[0] = 'c'
+var s string = "hello"
+s[0] = 'c'  |\coderemark{Change the first character to 'c'}|
 \end{lstlisting}
 To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
-c := []int(s)	    |\longremark{Convert \texttt{s} to an array, see %
+c := []byte(s)	    |\longremark{Convert \texttt{s} to an array, see %
 chapter \ref{chap:beyond} section "\titleref{sec:conversions}";}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
@@ -320,7 +322,7 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 \paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
 complex numbers.
 
-\paragraph{\func{close} and \func{closes}} are used in
+\paragraph{\func{close} and \func{closed}} are used in
 channel communication and the closing of those channels, see chapter \ref{chap:channels}
 for more on this.
 
