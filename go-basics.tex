@@ -3,7 +3,7 @@
 languages out there.
 \begin{description}
 \item[Clean and Simple]
-Go strives to keep things small and beautifull, you should
+Go strives to keep things small and beautiful, you should
 be able to do impressive things in a few lines of code;
 \item[Concurrent]
 Go makes it easy to ''fire off'' functions to be
@@ -23,7 +23,7 @@ Go has garbage collection, no more \func{free()} in Go,
 the language takes care of this;
 
 \item[Standard format]
-A Go program can be formatted in (almost) any way the programmmers want,
+A Go program can be formatted in (almost) any way the programmers want,
 \emph{but} an official format exist. The rule is very simple:
 The output of the filter \prog{gofmt} \emph{is the official} endorsed
 format.
@@ -46,7 +46,7 @@ Programming with Go should be fun again!
 
 \end{description}
 Erlang \cite{erlang} also shares some
-of the features of Go. Notible differences between Erlang
+of the features of Go. Notable differences between Erlang
 and Go is that Erlang borders on being a functional language,
 where Go is an imperative one. And Erlang runs in a virtual
 machine, while Go is compiled. Go also has a much more Unix-like
@@ -77,7 +77,7 @@ Just as \lstinline{package main} was required to be first,
 \lstinline{import} may come next. Always in Go, \lstinline{package} is first, then
 \lstinline{import}, then everything else.
 When your Go program is executed the first function called will be
-\lstinline{main.main()}, which mimics the behavoir from C.
+\lstinline{main.main()}, which mimics the behavior from C.
 
 %%\subsection{Some words about syntax}
 %%\todo{syntax} ??
@@ -187,8 +187,8 @@ func main() {
 \end{lstlisting}
 
 \subsection{Boolean types}
-A boolean type represents the set of boolean truth values denoted by the
-predeclared constants \emph{true} and \emph{false}. The boolean type is \type{bool}.
+A Boolean type represents the set of Boolean truth values denoted by the
+predeclared constants \emph{true} and \emph{false}. The Boolean type is \type{bool}.
 
 \subsection{Numerical types}
 Go has the well known types such as \lstinline{int} and
@@ -220,7 +220,7 @@ When assigning values octal, hexadecimal and the scientific notation may be used
 
 \subsection{Constants}
 Constants in Go are just that --- constant. They are created at compile
-time, and can only be numbers, strings or booleans;
+time, and can only be numbers, strings or boo leans;
 \lstinline{const x = 42} makes \var{x} a constant. You can use
 \first{\key{iota}}\footnote{The word [iota] is used in a common English phrase,
 'not one iota', meaning 'not the slightest difference', in reference to
@@ -300,7 +300,7 @@ all associate from left to right.
 \end{table}
 \verb|+ - * /| and \verb|%| all do what you would expect,
 \verb!& | ^!
-and \verb!&^! are bit operators for bitwise and, or, xor and bit clear 
+and \verb!&^! are bit operators for bit-wise and, or, xor and bit clear 
 respectively.
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
@@ -346,7 +346,7 @@ types (maps, slices and channels).
 \emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
 page \pageref{sec:panic} for more.
 
-\paragraph{\func{print} and \func{println}} are lowlevel printing
+\paragraph{\func{print} and \func{println}} are low level printing
 functions that can be used without reverting to the \package{fmt}
 package. These are mainly used for debugging.
 
@@ -616,7 +616,7 @@ a := [][]int{ []int{1,2}, []int{3,4} }
 So either specify the length of the array or let Go do the counting, but
 don't mix the two.
 \subsection{Slices}
-A slice refers to an underlaying array. What makes slices different than
+A slice refers to an under laying array. What makes slices different than
 arrays is that a slice is a pointer \emph{to} an array;
 slices are reference types, which means that if you assign one slice to
 another, both refer to the same underlying array. For instance, if a
@@ -651,7 +651,7 @@ we are greeted with a \emph{runtime} error.
 
 \subsection{Maps}
 \label{sec:maps}
-A lot of other languages have a simular type built-in, Perl has hashes
+A lot of other languages have a similar type built-in, Perl has hashes
 and Python has got its dictionaries for instance. In Go was have the
 \type{map} type. A \type{map} can be thought of as an array indexed by
 strings (in its most simple form).

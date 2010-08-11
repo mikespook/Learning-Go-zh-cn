@@ -29,7 +29,7 @@ Is 5 even? false
 In Go, a function from a package is exported (visible
 outside the package, i.e. public) when the first letter of the function name is a capital, hence
 the function name \func{\emph{E}ven}. If we change our \prog{myeven.go} on line
-7 to using to unexported funtion \func{even.uneven}:
+7 to using to unexported function \func{even.uneven}:
 
 \noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.uneven(i))}
 
@@ -39,7 +39,7 @@ We get an error when compiling, because we are trying to use a
 myeven.go:7: cannot refer to unexported name even.uneven
 myeven.go:7: undefined: even.uneven
 \end{display}
-To summarise:
+To summarize:
 \begin{itemize}
 \item Public functions have a name \emph{starting} with a Capital
 Letter;
@@ -179,7 +179,7 @@ package regexp
 \end{display}
 
 Each defined (and exported) function should has a small line of text
-documenting the behavoir of the function, from the \package{fmt}
+documenting the behavior of the function, from the \package{fmt}
 package:
 \begin{display}
 // Printf formats according to a format specifier and writes to standard output.

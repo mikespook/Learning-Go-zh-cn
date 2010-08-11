@@ -43,16 +43,16 @@ fmt.Printf("%v\n", *p)  |\coderemark{Prints 8}|
 fmt.Printf("%v\n", i)	|\coderemark{Idem}|
 \end{lstlisting}
 
-As said, there is no pointer arithemetic, so if you write:
+As said, there is no pointer arithmetic, so if you write:
 \lstinline{*p++} is Go, it is interpreted as \lstinline{(*p)++}: first
-dereference and increment then increment the value.
+deference and increment then increment the value.
 
 \section{Allocation}
 Go has garbage collection, meaning that you don't have to worry about
 memory allocation and deallocation. Of course almost every language
 since 1980 has this, but it is nice to see garbage collection in a
 C-like language. The following sections show how to handle allocation
-in Go. There is somewhat an artifical distinction between
+in Go. There is somewhat an artificial distinction between
 \first{\key{new}} and \first{\key{make}}. Details follow.
 
 \subsection{Allocation with \key{new}}
@@ -169,7 +169,7 @@ return &File{fd, name, nil, 0}
 \end{lstlisting}
 The fields of a composite literal are laid out in order and must all be
 present. However, by labeling the elements explicitly as field:value
-pbairs, the initializers can appear in any order, with the missing ones
+pairs, the initializers can appear in any order, with the missing ones
 left as their respective zero values. Thus we could say
 
 \begin{lstlisting}
@@ -228,7 +228,7 @@ Of course Go allows you to define new types, it does this in (almost) the
 same way as in C, with the \key{struct} keyword.
 
 An empty struct is created with \lstinline|var empty struct {}|.
-A more real-life example would be when we want record seomebody's name
+A more real-life example would be when we want record somebodies name
 and age in a single structure:
 
 \lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}

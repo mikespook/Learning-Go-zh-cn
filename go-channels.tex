@@ -1,6 +1,6 @@
 \epi{%
 \begin{itemize}
-\item{Parallelism is about performace;}
+\item{Parallelism is about performance;}
 \item{Concurrency is about program design.}
 \end{itemize}%
 }{\textit{Google IO 2010}\\\textsc{Robe Pike}}
@@ -70,7 +70,7 @@ func main() {i
 }
 \end{lstlisting}
 \showremarks
-There is still some remaining uglyness; we have to read twice from
+There is still some remaining ugliness; we have to read twice from
 the channel (lines 14 and 15). This is OK in this case, but what if
 we don't know how many goroutines we started? This is where another
 Go built-in comes in: \first{\key{select}}. With \key{select} you 
