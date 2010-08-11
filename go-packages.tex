@@ -56,7 +56,8 @@ where we put our package files in.
 \pr cp even.go even
 \end{display}
 \noindent{}Next we 
-can use the following Makefile, which 
+can use the following 
+\file{Makefile}, which 
 is adapted for our \package{even} package.
 \lstinputlisting[language=make,caption=\file{Makefile} for a
 package,numbers=right]{src/Makefile}
@@ -135,7 +136,7 @@ which is a clear, concise name. Moreover, because imported entities are
 always addressed with their package name, \func{bufio.Reader} does not conflict
 with \func{io.Reader}. Similarly, the function to make new instances of
 \func{ring.Ring}---which is the definition of a constructor in Go---would normally
-be called NewRing, but since Ring is the only type exported by the
+be called \func{NewRing}, but since \type{Ring} is the only type exported by the
 package, and since the package is called \package{ring}, it's called
 just \func{New}.
 Clients of the package see that as \func{ring.New}. Use the package structure
@@ -190,7 +191,7 @@ func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
 In Go it is customary to write (unit) tests for your package. Writing
 tests involves the \package{testing} package and the program \prog{gotest}. Both
 have excellent documentation. When you include tests with your package
-keep in mind that has to be build using the standard \prog{Makefile}
+keep in mind that has to be build using the standard \file{Makefile}
 (see section "\titleref{sec:building a package}").
 
 The testing itself is carried out with \prog{gotest}.
