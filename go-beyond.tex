@@ -67,7 +67,7 @@ a newly allocated zero value of type \type{T}.
 Since the memory returned by \key{new} is zeroed, it's helpful to arrange
 that the zeroed object can be used without further initialization. This
 means a user of the data structure can create one with \key{new} and get
-right to work. For example, the documentation for \type{bytes.Buffer} states
+right to work. For example, the documentation for \func{bytes.Buffer} states
 that "the zero value for Buffer is an empty buffer ready to use."
 Similarly, \func{sync.Mutex} does not have an explicit constructor or Init
 method. Instead, the zero value for a \func{sync.Mutex} is defined to be an
@@ -94,23 +94,25 @@ var v SyncedBuffer      // type  SyncedBuffer
 \subsection{Allocation with \key{make}}
 Back to allocation. The built-in function \func{make(T, args)} serves a purpose
 different from \func{new(T)}. It creates slices, maps, and channels only, and
-it returns an initialized (not zero) value of type T, not *T. The reason
+it returns an initialized (not zero) value of type \type{T}, not
+\type{*T}. The reason
 for the distinction is that these three types are, under the covers,
 references to data structures that must be initialized before use. A
 slice, for example, is a three-item descriptor containing a pointer to
 the data (inside an array), the length, and the capacity; until those
-items are initialized, the slice is nil. For slices, maps, and channels,
-make initializes the internal data structure and prepares the value for
+items are initialized, the slice is \type{nil}. For slices, maps, and channels,
+\key{make} initializes the internal data structure and prepares the value for
 use. For instance,
 \lstinline{make([]int, 10, 100)}
-allocates an array of 100 ints and then creates a slice structure with
+allocates an array of 100 \type{int}s and then creates a slice structure with
 length 10 and a capacity of 100 pointing at the first 10 elements of the
-array. (When making a slice, the capacity can be omitted; see the
-section on slices for more information.) In contrast, new([]int) returns
+array. In contrast,
+\lstinline{new([]int)} returns
 a pointer to a newly allocated, zeroed slice structure, that is, a
-pointer to a nil slice value.
+pointer to a \type{nil} slice value.
 
-These examples illustrate the difference between new() and make().
+These examples illustrate the difference between \key{new()} and
+\key{make()}.
 \begin{lstlisting}
 var p *[]int = new([]int)       // allocates slice structure; *p == nil; rarely useful
 var v  []int = make([]int, 100) // v now refers to a new array of 100 ints
@@ -122,8 +124,9 @@ var p *[]int = new([]int)
 // Idiomatic:
 v := make([]int, 100)
 \end{lstlisting}
-Remember that make() applies only to maps, slices and channels and does
-not return a pointer. To obtain an explicit pointer allocate with new().
+Remember that \key{make()} applies only to maps, slices and channels and does
+not return a pointer. To obtain an explicit pointer allocate with
+\key{new()}.
 
 \subsection{Constructors and composite literals}
 Sometimes the zero value isn't good enough and an initializing

@@ -174,24 +174,17 @@ that follows. An example is:
 
     regexp:
         concatenation { '|' concatenation }
-    concatenation:
-        { closure }
-    closure:
-        term [ '*' | '+' | '?' ]
-    term:
-        '^'
-        '\$'
-        '.'
-        character
-        '[' [ '^' ] character-ranges ']'
-        '(' regexp ')'
 */
 package regexp
 \end{display}
 
-
-
-
+Each defined (and exported) function should has a small line of text
+documenting the behavoir of the function, from the \package{fmt}
+package:
+\begin{display}
+// Printf formats according to a format specifier and writes to standard output.
+func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
+\end{display}
 
 \section{Testing packages}
 In Go it is customary to write (unit) tests for your package. Writing
