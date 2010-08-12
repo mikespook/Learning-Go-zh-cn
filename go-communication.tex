@@ -6,3 +6,25 @@ Communication with the outside world:
 \item{Starting other programs}
 \item{Forking}
 \end{itemize}
+
+\section{Files}
+Reading from (and writing to) files is easy in Go. This program
+only uses the \package{os} package to read data from the file \file{/etc/passwd}.
+\lstinputlisting[numbers=right,caption=Reading from a file
+(unbufferd),label=src:read]{src/file.go}
+If you want to use \first{buffered} IO there is the \package{bufio} package:
+\lstinputlisting[numbers=right,caption=Reading from a file
+(bufferd),label=src:bufread]{src/buffile.go}
+
+On line 12 we create a \type{bufio.Reader} from \var{f} which is of
+type \type{*File}. \func{NewReader} expects an \type{io.Reader}, so you
+might think this will fail. But it doesn't. An \type{io.Reader} is
+defined as:
+\begin{lstlisting}
+type Reader interface {
+    Read(p []byte) (n int, err os.Error)
+}
+\end{lstlisting}
+So \emph{anything} that has such a \func{Read()} function implements this
+interface. And from listing \ref{src:read} (line 10) we can see
+the \type{*File} indeed does so. 
