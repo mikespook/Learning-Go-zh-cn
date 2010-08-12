@@ -8,7 +8,6 @@ import (
 	"strings"
 	"strconv"
 	"container/vector"
-	"exp/iterable"
 )
 
 const (
@@ -65,9 +64,9 @@ func main() {
 			ppid, pids.Len())
 
 		if pids.Len() == 1 {
-			fmt.Print(": ")
+			fmt.Print(":")
 		} else {
-			fmt.Print("eren: ")
+			fmt.Print("eren:")
 		}
 		do := func(e int) {
 			fmt.Printf(" %d", e)
