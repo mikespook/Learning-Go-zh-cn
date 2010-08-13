@@ -367,20 +367,20 @@ Table \ref{tab:keywords} lists all the keywords in Go.
 In the following paragraphs and chapters we will go over them.
 
 \section{Control structures}
-The control structures\footnote{This section is copied from \cite{effective_go}.} 
-of Go are related to those of C but different in
-important ways. There is no do or while loop, only a slightly
-generalized \key{for}; \key{switch} is more flexible; \key{if} and
+There are only a few control structure in Go.
+\footnote{This section is copied from \cite{effective_go}.} 
+For instance there is no do or while loop, only a 
+\key{for}. There is a (flexible) \key{switch} statement and \key{if} and
 \key{switch} accept an
-optional initialization statement like that of \key{for}; and there are new
-control structures including a type switch and a multiway communications
-multiplexer, \key{select}. The syntax is also slightly different: parentheses
+optional initialization statement like that of \key{for}. There also is
+something called a type switch and a multiway communications
+multiplexer, \key{select} (see chapter \ref{chap:channels}. The syntax is different: parentheses
 are not required and the bodies must \emph{always} be brace-delimited.
 
 \subsection{If}
 In Go a simple \first{\key{if}} looks like this:
 \begin{lstlisting}
-if x > 0 {
+if x > 0 {	|\coderemark!{ is mandatory!|
     return y
 }
 \end{lstlisting}
@@ -442,15 +442,13 @@ HERE:	   |\coderemark{First word on a line ending with a colon is a label}|
 \end{lstlisting}
 
 \subsection{For}
-The Go \first{\key{for}} loop is similar to -- but not the same as -- C's. It
-unifies \key{for}
-and while and there is no do-while. There are three forms, only one of
+The Go \first{\key{for}} loop has three forms, only one of
 which has semicolons.
 \begin{lstlisting}
 // Like a C for
 for init; condition; post { }
 
-// Like a C while
+// Like a while
 for condition { }
 
 // Like a C for(;;)
@@ -473,7 +471,6 @@ for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
     a[i], a[j] = a[j], a[i] |\coderemark{Parallel assignment}|
 }
 \end{lstlisting}
-
 
 \subsection{Break}
 With \first{\key{break}} you can quit loops early, \key{break} breaks
@@ -576,7 +573,7 @@ func Compare(a, b []byte) int {
 \label{sec:arrays}
 Storing multiple values in a list can be done by utilizing arrays, or
 their more flexible cousin: slices. A dictionary or hash type is also
-available, it is called a map in Go.
+available, it is called a \type{map} in Go.
 
 \subsection{Arrays}
 An array is defined by: \verb|[n]<type>|, where $n$ is the length
@@ -594,7 +591,7 @@ It can't grow, because then it would have a different type. Also arrays
 are values: Assigning one array to another \emph{copies} all the elements.
 
 In particular, if you pass an array to a function, it will receive a
-copy of the array, not a pointer to it. This is a major difference with C.
+copy of the array, not a pointer to it. 
 
 To declare an array you can use the following: \lstinline{var a [3]int},
 to initialize it to something else than zero, use a \first{composite
@@ -693,10 +690,10 @@ To test for existence, you would use the
 following\cite{go_course_day2}\footnote{Adapted to the latest Go
 specification and the current example.}:
 \begin{lstlisting}
-var value int;
-var present bool;
+var value int
+var present bool
 
-value, present = monthday["Jan"];	// Does it exist?
+value, present = monthday["Jan"]	// Does it exist?
 // Or better and more Go like
 v, ok := monthday["Jan"]		// Hence, the "comma ok" form
 \end{lstlisting}
