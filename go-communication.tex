@@ -10,11 +10,9 @@ Communication with the outside world:
 \section{Files}
 Reading from (and writing to) files is easy in Go. This program
 only uses the \package{os} package to read data from the file \file{/etc/passwd}.
-\lstinputlisting[numbers=right,caption=Reading from a file
-(unbufferd),label=src:read]{src/file.go}
+\lstinputlisting[numbers=right,caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
 If you want to use \first{buffered} IO there is the \package{bufio} package:
-\lstinputlisting[numbers=right,caption=Reading from a file
-(bufferd),label=src:bufread]{src/buffile.go}
+%%\lstinputlisting[numbers=right,caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
 
 On line 12 we create a \type{bufio.Reader} from \var{f} which is of
 type \type{*File}. \func{NewReader} expects an \type{io.Reader}, so you
@@ -28,6 +26,35 @@ type Reader interface {
 So \emph{anything} that has such a \func{Read()} function implements this
 interface. And from listing \ref{src:read} (line 10) we can see
 the \type{*File} indeed does so. 
+
+\section{Executing programs}
+In the \package{os} package we find the \func{ForkExec} function. This
+is the premier way to start other executables.\footnote{There is talk on
+the \#gonuts mailling list about seperating \func{Fork} and
+\func{Exec}.} 
+The prototype for \func{ForkExec} is:
+\begin{lstlisting}
+func ForkExec(argv0 string, argv []string, envv []string, dir string, fd []*File) (pid int, err Error)
+\end{lstlisting}
+With the following documentation:
+\begin{quote}
+\func{ForkExec} forks the current process and invokes \func{Exec} with the
+file, arguments, and environment specified by \var{argv0}, \var{argv}, and
+\var{envv}. It returns the process id of the forked process and an
+\type{Error}, if any. The \var{fd} array specifies the file descriptors to be
+set up in the new process: \var{fd[0]} will be Unix file descriptor 0 (standard
+input), \var{fd[1]} descriptor 1, and so on.  A \var{nil} entry will cause the
+child to have no open file descriptor with that index.  If \var{dir} is not
+empty, the child chdirs into the directory before execing the program.
+\end{quote}
+Suppose we want to execute \verb|ls -l|:
+\begin{lstlisting}
+import "os"
+\ldots
+pid, err := os.ForkExec("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os.Stdin, os.Stdout, os.Stderr})
+defer os.Wait(pid, os.WNOHANG)
+\end{lstlisting}
+
 
 \section{Exercises}
 \input{ex-communication/ex-processes.tex}
