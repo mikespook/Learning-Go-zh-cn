@@ -3,18 +3,8 @@
 
 per chapter: minimum of 10 exercises
 
-calculate average
-
 Swap two variables
-
-Accepting input from the keyboard and sorting them any order (up/down)
-
-Time and Date : Get system time and convert it in different formats
-'DD-MON-YYYY', 'mm-dd-yyyy', 'dd/mm/yy' etc.
-
+Get system time and convert it in different formats:
+    'DD-MON-YYYY', 'mm-dd-yyyy', 'dd/mm/yy' etc.
 Extract uppercase words from a file
-
 write uniq in go
-
-
-
