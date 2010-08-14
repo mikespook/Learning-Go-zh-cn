@@ -8,11 +8,10 @@ Oby Prashant N Mhatre
 
 Swap two variables
 
-Accepting input from the keyboard and sorting them any order
+Accepting input from the keyboard and sorting them any order (up/down)
 
 (9) Time and Date : Get system time and convert it in different formats
 'DD-MON-YYYY', 'mm-dd-yyyy', 'dd/mm/yy' etc.
-
 
 (12) Extract uppercase words from a file, extract unique words
 
