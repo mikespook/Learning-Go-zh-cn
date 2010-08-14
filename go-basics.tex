@@ -116,12 +116,21 @@ After compilation we can run it:
 \'o\begin{math} \sigma\mu\epsilon\end{math}\texttt{; or }\begin{cjk}こんにちは 世界\end{cjk}
 \ \newline
 \ \newline
-In the next sections we will look at the variables, basic types,
-keywords and  control structures of our new language. 
 
-%% init stuff - i.e. above func main()
+\subsection{Building a program}
+\label{sec:building a program}
+Another, less laborious, way to build a Go program, is to use a
+\file{Makefile}. The following one can be used to build
+\prog{helloworld}:
+\lstinputlisting[language=make,caption=\file{Makefile} for a
+program,numbers=right]{src/Makefile.prog}
+A line 7 you specify the name for your compiled program and on line 9
+you enumerate the source files. Now only an invocation of \verb|make| is
+enough to get your program compiled.
 
 \section{Variables, types and keywords}
+In the next sections we will look at the variables, basic types,
+keywords and control structures of our new language. 
 Go is different from other languages in that the type of a variable
 is specified \emph{after} the variable name. So not: 
 \lstinline{int a}, but \lstinline{a int}. When declaring a variable it
