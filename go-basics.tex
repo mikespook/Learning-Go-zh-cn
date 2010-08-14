@@ -237,7 +237,7 @@ When assigning values octal, hexadecimal and the scientific notation may be used
 Constants in Go are just that --- constant. They are created at compile
 time, and can only be numbers, strings or boo leans;
 \lstinline{const x = 42} makes \var{x} a constant. You can use
-\first{\key{iota}}\footnote{The word [iota] is used in a common English phrase,
+\first{Keywords!\key{iota}}\footnote{The word [iota] is used in a common English phrase,
 'not one iota', meaning 'not the slightest difference', in reference to
 a phrase in the New Testament: "\emph{until heaven and earth pass away, not an
 iota, not a dot, will pass from the Law}."\cite{iota}}
@@ -387,7 +387,7 @@ multiplexer, \key{select} (see chapter \ref{chap:channels}. The syntax is differ
 are not required and the bodies must \emph{always} be brace-delimited.
 
 \subsection{If}
-In Go a simple \first{\key{if}} looks like this:
+In Go a simple \first{Keywords!\key{if}} looks like this:
 \begin{lstlisting}
 if x > 0 {	|\coderemark!{ is mandatory!|
     return y
@@ -436,7 +436,7 @@ codeUsing(f, d)
 \end{lstlisting}
 
 \subsection{Goto}
-Go has a \first{\key{goto}} statement --- use it wisely. With \key{goto}
+Go has a \first{Keywords!\key{goto}} statement --- use it wisely. With \key{goto}
 you jump to a label which must be defined within the current function.
 The labels are case sensitive. 
 For instance a loop in disguise:
@@ -451,7 +451,7 @@ HERE:	   |\coderemark{First word on a line ending with a colon is a label}|
 \end{lstlisting}
 
 \subsection{For}
-The Go \first{\key{for}} loop has three forms, only one of
+The Go \first{Keywords!\key{for}} loop has three forms, only one of
 which has semicolons.
 \begin{lstlisting}
 // Like a C for
@@ -482,7 +482,7 @@ for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
 \end{lstlisting}
 
 \subsection{Break}
-With \first{\key{break}} you can quit loops early, \key{break} breaks
+With \first{Keywords!\key{break}} you can quit loops early, \key{break} breaks
 the current loop.
 \begin{lstlisting}
 for i := 0; i < 10; i++ {
@@ -523,7 +523,7 @@ character x starts at byte position 3
 \end{display}
 
 \subsection{Switch}
-Go's \first{\key{switch}} is more general than C's. The expressions need
+Go's \first{Keywords!\key{switch}} is more general than C's. The expressions need
 not be
 constants or even integers, the cases are evaluated top to bottom until
 a match is found, and if the \key{switch} has no expression it switches on
