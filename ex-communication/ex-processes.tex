@@ -1,0 +1,55 @@
+\begin{Exercise}[title={Processes},difficulty=8]
+\label{ex:processes}
+\Question\label{ex:processes q1}
+Write a program that takes a list of all running processes and prints
+how many child processes each parent has spawned. The output should
+look like:
+%% For some reason the spacing in Exercise env. does weird things
+\vskip\baselineskip
+\begin{display}
+Pid 0 has 2 childeren: 1 2
+Pid 490 has 2 childeren: 1199 26524
+Pid 1824 has 1 child: 7293
+\end{display}
+\vskip\baselineskip
+\begin{itemize}
+\item{For acquiring the process list, you'll need to capture the output
+of \verb|ps -e -opid,ppid,comm|. This output looks like:
+\vskip\baselineskip
+\begin{display}
+  PID  PPID COMMAND
+ 9024  9023 zsh
+19560  9024 ps
+\end{display}
+\vskip\baselineskip}
+\item{If a parent has one child you must print \verb|child|, is there are
+more than one print \verb|childeren|;}
+\item{The process list must be numerically sorted, so you start with 
+pid 0 and work your way up.}
+\end{itemize}
+Here is a Perl version to help you on your way (or to create complete
+and utter confusion).
+\lstinputlisting[caption=Processes in Perl,language=Perl]{ex-communication/src/proc.pl}
+\end{Exercise}
+
+\begin{Answer}
+\Question There is lots of stuff to do here. We can divide our program
+up in the following sections:
+\begin{enumerate}
+\item{Starting \verb|ps| and capturing the output;}
+\item{Parsing the output and saving the child PIDs for each PPID;}
+\item{Sorting the PPID list;}
+\item{Printing the sorted list to the screen}
+\end{enumerate}
+In the solution presented below, we've opted to use
+\package{container/vector} to hold the PIDs. This "list" grows
+automatically.
+
+The function \func{atoi} (lines 19 through 22) is defined to get ride of the multiple return
+values of the original \func{strconv.Atoi}, so that it can be used
+inside function calls that only accept one argument, as we do on lines
+45, 47 and 50.
+
+A possible program is: 
+\lstinputlisting[caption=Processes in Go,numbers=right]{ex-communication/src/proc.go}
+\end{Answer}
