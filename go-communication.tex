@@ -28,7 +28,7 @@ interface. And from listing \ref{src:read} (line 10) we can see
 the \type{*File} indeed does so. 
 
 \section{Executing commands}
-The \package{exec} runs external commands, and it the premier way to
+The \package{exec} package has function to run external commands, and it the premier way to
 execute commands from within a Go program. We start commands with 
 the \func{Run} function:
 \begin{lstlisting}
@@ -39,12 +39,15 @@ Run starts the binary prog running with
 arguments \var{argv} and environment \var{envv}.
 It returns a pointer to a new \type{Cmd} representing the command or an error.
 \end{quote}
+Lets execute \verb|ls -l|:
+\begin{lstlisting}
+import "exec"
 
-\todo{example}
-
+cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exec.DevNull, exec.DevNull})
+\end{lstlisting}
 In the \package{os} package we find the \func{ForkExec} function. This
-is the premier way to start other executables.\footnote{There is talk on
-the \#gonuts mailling list about seperating \func{Fork} and
+is another way (but more low level) to start executables.\footnote{There is talk on
+the Gonuts mailing list about separating \func{Fork} and
 \func{Exec}.} 
 The prototype for \func{ForkExec} is:
 \begin{lstlisting}
@@ -61,12 +64,12 @@ input), \var{fd[1]} descriptor 1, and so on.  A \var{nil} entry will cause the
 child to have no open file descriptor with that index.  If \var{dir} is not
 empty, the child chdirs into the directory before execing the program.
 \end{quote}
-Suppose we want to execute \verb|ls -l|:
+Suppose we want to execute \verb|ls -l| again:
 \begin{lstlisting}
 import "os"
 
 pid, err := os.ForkExec("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os.Stdin, os.Stdout, os.Stderr})
-defer os.Wait(pid, os.WNOHANG)
+defer os.Wait(pid, os.WNOHANG) |\coderemark{Otherwise you create a zombie}|
 \end{lstlisting}
 
 
