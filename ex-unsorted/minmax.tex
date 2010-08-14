@@ -1,0 +1,37 @@
+\begin{Exercise}[title={Minimum and maximum},difficulty=3]
+\label{ex:minmax}
+\Question\label{ex:minmax q1} Write a function that calculates the
+maximum value in an \type{int} slice (\type{[]int}).
+
+\Question\label{ex:minmax q2} Write a function that calculates the
+minimum value in a \type{int} slice (\type{[]int}).
+
+\end{Exercise}
+
+\begin{Answer}
+\Question This the function for calculating a maximum:
+\begin{lstlisting}
+func max(l []int) (max int) {
+        max = l[0]
+        for _, v := range l { 
+                if v > max {
+                        max = v 
+                }   
+        }   
+        return
+}
+\end{lstlisting}
+
+\Question This the function for calculating a minimum:
+\begin{lstlisting}
+func min(l []int) (min int) {
+        min = l[0]
+        for _, v := range l { 
+                if v < min {
+                        min = v 
+                }   
+        }   
+        return
+}
+\end{lstlisting}
+\end{Answer}

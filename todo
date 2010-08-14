@@ -1,11 +1,20 @@
 %% linked list, exercise
 %% networking 
-%% other stuff
-%% arrays, interfaces
-%% types strings
-%% simple unix commands
-%% pointers
-%% channels go functions
 
 per chapter: minimum of 10 exercises
-new make \lstinline
+
+http://www.jobsnake.com/seek/articles/index.cgi?openarticle=8533
+Oby Prashant N Mhatre
+
+Swap two variables
+
+Accepting input from the keyboard and sorting them any order
+
+(9) Time and Date : Get system time and convert it in different formats
+'DD-MON-YYYY', 'mm-dd-yyyy', 'dd/mm/yy' etc.
+
+
+(12) Extract uppercase words from a file, extract unique words
+
+
+
