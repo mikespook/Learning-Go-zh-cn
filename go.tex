@@ -1,4 +1,4 @@
-\documentclass[a4paper,twoside]{blocksbook}
+\documentclass[a4paper,twoside,openleft]{blocksbook}
 \usepackage[cm-default]{fontspec}% provides font selecting commands
 \usepackage{xunicode}% provides unicode character macros
 \usepackage{xltxtra} % provides some fixes/extras
@@ -76,14 +76,7 @@ Go Nuts mailing list
 %% End title page %%
 
 \newpage
-\pagenumbering{roman}
-\tableofcontents
-\lstlistoflistings
-\listoffigures
-\listoftables
-\listofex
 
-\clearpage
 \thispagestyle{empty}
 \begin{figure}[H]
 \begin{center}
@@ -96,7 +89,16 @@ Go Nuts mailing list
 Go is \emph{fun}!
 \end{center}
 
+\clearpage
 
+\pagenumbering{roman}
+\tableofcontents
+\lstlistoflistings
+\listoffigures
+\listoftables
+\listofex
+
+\clearpage
 
 \chapter{Introduction}
 \label{chap:intro}

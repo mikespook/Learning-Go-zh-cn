@@ -1,5 +1,5 @@
 \epi{"There and back again."}{\textit{Lord of the Rings}\\\textsc{Bilbo Baggins}}
-\noindent{}There are a few things that make Go different than most other
+\noindent{}There are a few things that make Go different from most other
 languages out there.
 \begin{description}
 \item[Clean and Simple]
@@ -8,13 +8,13 @@ be able to do a lot in only a few lines of code;
 \item[Concurrent]
 Go makes it easy to ''fire off'' functions to be
 run as \emph{very} lightweight threads. These threads are called
-\first{goroutines}\footnote{Yes, that sounds a lot like
+\first{goroutines}{goroutines}\footnote{Yes, that sounds a lot like
 \emph{co}routines, but goroutines are slightly different as we will
 see in chapter \ref{chap:channels}.} in Go;
 
 \item[Channels] 
 Communication with these goroutines is done
-via \first{channels} \cite{csp}\cite{hoare};
+via \first{channels}{channels} \cite{csp}\cite{hoare};
 
 \item[Fast]
 Compilation is fast and execution is fast. The aim is
@@ -179,7 +179,8 @@ var (
 \end{lstlisting}
 Multiple variables of the same type can also be declared on a
 single line: \lstinline{var x, y int}, makes \var{x} and \var{y} both
-\type{int} variables. You can even make use of parallel assignment:
+\type{int} variables. You can also make use of \first{parallel
+assignment}{parallel assignment}:
 \begin{lstlisting}
 a, b := 20, 16
 \end{lstlisting}
@@ -237,7 +238,7 @@ When assigning values octal, hexadecimal and the scientific notation may be used
 Constants in Go are just that --- constant. They are created at compile
 time, and can only be numbers, strings or boo leans;
 \lstinline{const x = 42} makes \var{x} a constant. You can use
-\first{Keywords!\key{iota}}\footnote{The word [iota] is used in a common English phrase,
+\first{\key{iota}}{Keywords!iota}\footnote{The word [iota] is used in a common English phrase,
 'not one iota', meaning 'not the slightest difference', in reference to
 a phrase in the New Testament: "\emph{until heaven and earth pass away, not an
 iota, not a dot, will pass from the Law}."\cite{iota}}
@@ -293,7 +294,10 @@ fmt.Printf("%v\n", s2)
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex}. If
 you need to specify the number of bits you have \lstinline{complex32} and
-\lstinline{complex64} for 32 and 64 bits. A small example of using complex numbers:
+\lstinline{complex64} for 32 and 64 bits. Complex numbers are written as
+\var{re + im$i$}, where \var{re} is the real part,
+\var{im} is the imaginary part and $i$ is the literal '$i$' ($\sqrt{-1}$).
+An example of using complex numbers:
 
 \lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c")}\newline
 will print\newline
@@ -334,7 +338,7 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 \end{table}
 
 \paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
-complex numbers.
+\first{complex numbers}{complex numbers}.
 
 \paragraph{\func{close} and \func{closed}} are used in
 channel communication and the closing of those channels, see chapter \ref{chap:channels}
@@ -387,11 +391,11 @@ multiplexer, \key{select} (see chapter \ref{chap:channels}. The syntax is differ
 are not required and the bodies must \emph{always} be brace-delimited.
 
 \subsection{If}
-In Go a simple \first{Keywords!\key{if}} looks like this:
+In Go a simple \first{\key{if}}{Keywords!if} looks like this:
 \begin{lstlisting}
-if x > 0 {	|\coderemark!{ is mandatory!|
+if x > 0 {	|\coderemark{\{ is mandatory}|
     return y
-}
+}		|\coderemark{}|
 \end{lstlisting}
 Mandatory braces encourage writing simple \key{if} statements on multiple
 lines. It's good style to do so anyway, especially when the body
@@ -402,7 +406,8 @@ see one used to set up a (local) variable.
 \begin{lstlisting}
 if err := file.Chmod(0664); err != nil {  |\coderemark{\texttt{nil} is %
 like C's NULL}|
-    log.Stderr(err)
+    log.Stderr(err) |\coderemark{Scope of \var{err} is limited to %
+\key{if}'s body}|
     return err
 }
 \end{lstlisting}
@@ -416,7 +421,7 @@ f, err := os.Open(name, os.O_RDONLY, 0)
 if err != nil {
     return err
 }
-codeUsing(f)
+doSomething(f)
 \end{lstlisting}
 This is a example of a common situation where code must analyze a
 sequence of error possibilities. The code reads well if the successful
@@ -432,11 +437,11 @@ d, err := f.Stat()
 if err != nil {
     return err
 }
-codeUsing(f, d)
+doSomething(f, d)
 \end{lstlisting}
 
 \subsection{Goto}
-Go has a \first{Keywords!\key{goto}} statement --- use it wisely. With \key{goto}
+Go has a \first{\key{goto}}{Keywords!goto} statement --- use it wisely. With \key{goto}
 you jump to a label which must be defined within the current function.
 The labels are case sensitive. 
 For instance a loop in disguise:
@@ -451,7 +456,7 @@ HERE:	   |\coderemark{First word on a line ending with a colon is a label}|
 \end{lstlisting}
 
 \subsection{For}
-The Go \first{Keywords!\key{for}} loop has three forms, only one of
+The Go \first{\key{for}}{Keywords!for} loop has three forms, only one of
 which has semicolons.
 \begin{lstlisting}
 // Like a C for
@@ -468,12 +473,12 @@ Short declarations make it easy to declare the index variable right in the loop.
 sum := 0
 for i := 0; i < 10; i++ {
     sum += i
-}
+}   |\coderemark{\var{i} ceases to exist \emph{after} the loop}|
 \end{lstlisting}
 
-Finally, since Go has no comma operator and ++ and \-\- are statements not
-expressions (see appendix \ref{chap:expression}), if you want to run multiple variables in a \key{for} you should
-use \first{parallel assignment}.
+Finally, since Go has no comma operator and ++ and - - are statements not
+expressions (see appendix \ref{chap:articles}), if you want to run multiple variables in a \key{for} you should
+use \first{parallel assignment}{parallel assignment}.
 \begin{lstlisting}
 // Reverse a
 for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
@@ -482,7 +487,7 @@ for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
 \end{lstlisting}
 
 \subsection{Break}
-With \first{Keywords!\key{break}} you can quit loops early, \key{break} breaks
+With \first{\key{break}}{Keywords!break} you can quit loops early, \key{break} breaks
 the current loop.
 \begin{lstlisting}
 for i := 0; i < 10; i++ {
@@ -523,7 +528,7 @@ character x starts at byte position 3
 \end{display}
 
 \subsection{Switch}
-Go's \first{Keywords!\key{switch}} is more general than C's. The expressions need
+Go's \first{\key{switch}}{Keyword!switch} is very flexible. The expressions need
 not be
 constants or even integers, the cases are evaluated top to bottom until
 a match is found, and if the \key{switch} has no expression it switches on
@@ -568,13 +573,14 @@ func Compare(a, b []byte) int {
             return -1
         }
     }
+    // String are equal except for possible tail
     switch {
     case len(a) < len(b):
         return -1
     case len(a) > len(b):
         return 1
     }
-    return 0
+    return 0	// Strings are equal
 }
 \end{lstlisting}
 
@@ -595,8 +601,9 @@ arr[0] = 42
 arr[1] = 13
 fmt.Printf("The first element is %d\n", arr[0])
 \end{lstlisting}
-Array types like \lstinline{var arr = [10]int} have a fixed size.
-It can't grow, because then it would have a different type. Also arrays
+Array types like \lstinline{var arr = [10]int} have a fixed size. The
+size if \emph{part} of the type.
+They can't grow, because then they would have a different type. Also arrays
 are values: Assigning one array to another \emph{copies} all the elements.
 
 In particular, if you pass an array to a function, it will receive a
@@ -604,7 +611,7 @@ copy of the array, not a pointer to it.
 
 To declare an array you can use the following: \lstinline{var a [3]int},
 to initialize it to something else than zero, use a \first{composite
-literal}: \lstinline|a := [3]int{1, 2, 3}| and
+literal}{composite literal}: \lstinline|a := [3]int{1, 2, 3}| and
 this can be shortened to \lstinline|a := []int{1, 2, 3}|, where Go counts
 the elements automatically. \gomarginpar{A composite literal allows you
 to assign a value directly to an array, slice or map.}
@@ -620,30 +627,24 @@ a := [2][2]int{ []int{1,2}, []int{3,4} }
 As this gives a compile error:\newline
 \error{cannot use slice literal (type []int) as type [2]int in array
 index}\newline
-But this is then OK again:
+But the following is OK again:
 \begin{lstlisting}
 a := [][]int{ []int{1,2}, []int{3,4} }
 \end{lstlisting}
 So either specify the length of the array or let Go do the counting, but
 don't mix the two.
 \subsection{Slices}
-A slice refers to an under laying array. What makes slices different than
+A slice refers to an under laying array. What makes slices different
+from
 arrays is that a slice is a pointer \emph{to} an array;
 slices are reference types, which means that if you assign one slice to
 another, both refer to the same underlying array. For instance, if a
 function takes a slice argument, changes it makes to the elements of the
 slice will be visible to the caller, analogous to passing a pointer to
 the underlying array. A slice is always coupled to an array that has
-a fixed size. For slices we define a \first{capacity} and a
-\first{length}.
+a fixed size. For slices we define a \first{capacity}{capacity} and a
+\first{length}{length}.
 
-\begin{figure}[H]
-\caption{Array versus slice}
-\label{fig:array-vs-slice}
-\begin{center}
-\includegraphics[scale=0.65]{fig/array-vs-slice.pdf}
-\end{center}
-\end{figure}
 Figure \ref{fig:array-vs-slice} depicts the following Go code.
 First we create an array of $m$ elements of the type \lstinline{int}:
 \lstinline{var array[m+1]int}\newline
@@ -651,9 +652,17 @@ Next, we create a slice from this array:
 \lstinline{slice := array[0:n+1]}\newline
 And now we have:
 \begin{itemize}
-\item{\lstinline{len(slice) = n, cap(slice) = m}{} ;}
-\item{\lstinline{len(array) = cap(array) = m}{} .}
+\item{\lstinline{len(slice) == n, cap(slice) == m}{} ;}
+\item{\lstinline{len(array) == cap(array) == m}{} .}
 \end{itemize}
+\begin{figure}[H]
+\caption{Array versus slice}
+\label{fig:array-vs-slice}
+\begin{center}
+\includegraphics[scale=0.65]{fig/array-vs-slice.pdf}
+\end{center}
+\end{figure}
+
 The following code defines an array and slice:
 \lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
 On line 8 we dare to do to impossible and try to allocate something
@@ -662,8 +671,9 @@ we are greeted with a \emph{runtime} error.
 
 \subsection{Maps}
 \label{sec:maps}
-A lot of other languages have a similar type built-in, Perl has hashes
-and Python has got its dictionaries for instance. In Go was have the
+Many other languages have a similar type built-in, Perl has hashes
+Python has its dictionaries and C++ also has maps (in \package{lib}) for instance. 
+In Go we have the
 \type{map} type. A \type{map} can be thought of as an array indexed by
 strings (in its most simple form).
 In the following listing we define a \type{map} which converts from a
@@ -678,14 +688,15 @@ monthdays := map[string]int{
 	"Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{The comma here is OK}|
 }		    
 \end{lstlisting}
-Indexing a map goes like this, suppose we want to print the
+For indexing (searching) in the map, we use square brackets, for example
+suppose we want to print the
 number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
 If you're looping over an array, slice, string, or map a \key{range}
 clause help you again, which returns the key and corresponding value
 with each invocation.
 \begin{lstlisting}
 year := 0
-for _, days := range monthdays  // key is unused
+for _, days := range monthdays  // key is not used
     year += days
 }
 fmt.Printf("Numbers of days in a year: %d\n", year)
@@ -696,8 +707,7 @@ monthday["Undecim"] = 30	// Add a month
 monthday["Feb"]     = 29	// Overwrite entry - for leap years
 \end{lstlisting}
 To test for existence, you would use the
-following\cite{go_course_day2}\footnote{Adapted to the latest Go
-specification and the current example.}:
+following\cite{go_course_day2}:
 \begin{lstlisting}
 var value int
 var present bool

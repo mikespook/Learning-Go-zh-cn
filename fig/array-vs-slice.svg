@@ -364,7 +364,7 @@
          sodipodi:role="line"
          id="tspan5077"
          x="380"
-         y="112.36218">len = cap</tspan></text>
+         y="112.36218">len == cap</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"

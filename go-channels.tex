@@ -28,7 +28,8 @@ would be terminated immediately and any running goroutines would die with it.
 \lstinputlisting[numbers=right,label=src:sleeping,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
 What we need here is some kind of mechanism which allows us to
 communicate with the goroutines. This mechanism is available
-to us in the form of \first{channels}. A \first{channel} can be
+to us in the form of \first{channels}{channels}. A
+\first{channel}{channel} can be
 compared to a two-way pipe in Unix shells. You can send to and receive
 values from it. Those values can only be of a specific type: the
 type of the channel. If we define a channel, we must also define the
@@ -73,7 +74,7 @@ func main() {i
 There is still some remaining ugliness; we have to read twice from
 the channel (lines 14 and 15). This is OK in this case, but what if
 we don't know how many goroutines we started? This is where another
-Go built-in comes in: \first{\key{select}}. With \key{select} you 
+Go built-in comes in: \first{\key{select}}{Keywords!select}. With \key{select} you 
 can (among other things) listing for incoming data on a channel.
 
 Using \key{select} in our program does not really make it shorter,

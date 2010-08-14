@@ -12,7 +12,7 @@ Just like in C you declare a pointer by prefixing the type with an '*':
 \lstinline{var p *int}. Now \var{p} is a pointer to an integer value.
 All newly declared variables are assigned their zero value and pointer
 are no difference. A newly declared, or just a pointer that points to
-nothing has a \first{nil}-value. In other languages this is often called
+nothing has a \first{nil}{nil}-value. In other languages this is often called
 a NULL pointer in Go it is just \var{nil}. To make 
 a pointer point to something you can use the address-of operator
 (\func{\&}), which we do on line 5:
@@ -53,7 +53,7 @@ memory allocation and deallocation. Of course almost every language
 since 1980 has this, but it is nice to see garbage collection in a
 C-like language. The following sections show how to handle allocation
 in Go. There is somewhat an artificial distinction between
-\first{\key{new}} and \first{\key{make}}. Details follow.
+\first{\key{new}}{Keywords!new} and \first{\key{make}}{Keywords!make}. Details follow.
 
 \subsection{Allocation with \key{new}}
 Go has two allocation primitives, \key{new} and \key{make}. They do different
@@ -260,11 +260,12 @@ just create a new type.
 \section{Interfaces}
 %%\epi{I have this phobia about having my body penetrated surgically. You
 %%know what I  mean?}{\textit{eXistenZ}\\\textsc{Ted Pikul}}
-One of the interesting aspects of the Go language is \first{interface objects}.
+One of the interesting aspects of the Go language is \first{interface
+objects}{interface objects}.
 \gomarginpar{The following text is from \cite{go_interfaces}. Written by Ian 
 Lance Taylor --- one of the authors of Go.}
 In Go, the word interface is overloaded to mean several different
-things. Every type has an \first{interface}, which is the set of methods defined for
+things. Every type has an \first{interface}{interface}, which is the set of methods defined for
 that type. This bit of code defines a struct type \type{S} with one field, and
 defines two methods for \type{S}.
 \begin{lstlisting}[caption=Defining a struct and methods on it,label=src:interface object]
@@ -272,7 +273,7 @@ type S struct { i int }
 func (p *S) Get() int { return p.i }
 func (p *S) Put(v int) { p.i = v }
 \end{lstlisting}
-You can also define an \first{interface type}, which is simply a set of methods.
+You can also define an \first{interface type}{interface type}, which is simply a set of methods.
 This defines an interface \type{I} with two methods:
 \begin{lstlisting}
 type I interface {
@@ -283,7 +284,8 @@ type I interface {
 \type{S} is a valid implementation for \type{I}, because it defines the two 
 methods which \type{I} requires. Note that this is true even though there is 
 no explicit declaration that \type{S} implements \type{I}. A Go program can use 
-this fact via yet another meaning of interface, which is an \first{interface value}:
+this fact via yet another meaning of interface, which is an
+\first{interface value}{interface value}:
 
 \begin{lstlisting}
 func f(p I) { fmt.Println(p.Get()); p.Put(1) }
@@ -304,7 +306,8 @@ is not a requirement --- we could have defined the methods to take
 values --- but then the \func{Put} method would not work as expected.
 
 The fact that you do not need to declare whether a type implements an
-interface means that Go implements a form of \first{duck typing}. This is not
+interface means that Go implements a form of \first{duck typing}{duck typing}. 
+This is not
 pure duck typing, because when possible the Go compiler will statically
 check whether the type implements the interface. However, Go does have a
 purely dynamic aspect, in that you can convert from one interface type
@@ -331,7 +334,7 @@ func g(any interface{}) int { return any.(I).Get() }
 The \lstinline{return any.(I).Get()} is the tricky bit in this function.
 The value \var{any} has type \type{interface{}}, meaning no guarantee
 of any methods at all: it could contain any type. The \lstinline{.(I)}
-is a \first{type switch} which converts \var{any} to an interface of
+is a \first{type switch}{type switch} which converts \var{any} to an interface of
 type \type{I}. If we have that type we can invoke the \func{Get()}
 function.
 So if we create a new variable of the type \type{*S}, we can just
