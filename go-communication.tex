@@ -50,7 +50,7 @@ empty, the child chdirs into the directory before execing the program.
 Suppose we want to execute \verb|ls -l|:
 \begin{lstlisting}
 import "os"
-\ldots
+
 pid, err := os.ForkExec("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os.Stdin, os.Stdout, os.Stderr})
 defer os.Wait(pid, os.WNOHANG)
 \end{lstlisting}
