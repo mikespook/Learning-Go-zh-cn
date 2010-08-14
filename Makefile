@@ -1,6 +1,9 @@
-.PHONY: once
+.PHONY: once spell
 
 all:	go.pdf
+
+spell:
+	for i in *.tex ex-*/*.tex; do aspell check $$i; done
 
 once:	
 	xelatex go.tex

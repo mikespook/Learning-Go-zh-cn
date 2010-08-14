@@ -35,7 +35,7 @@ started on line 14.
 \lstinputlisting[label=go-quit-chan,caption=Adding an extra quit channel,numbers=right]{ex-channels/src/for-quit-chan.go}
 On line 20 we read from the quit channel and we discard the value we
 read. We could have used \lstinline{q := <-quit}, but then we would have used
-the variabele only once - which is illegal in Go. Another trick you
+the variable only once - which is illegal in Go. Another trick you
 might have pulled out of your hat may be: \lstinline{_ = <-quit}. This is
 valid in Go, but the Go idiom favors the one given on line 20.
 \end{Answer}
