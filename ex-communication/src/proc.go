@@ -13,7 +13,6 @@ import (
 const (
 	PID = iota
 	PPID
-	COMM
 )
 
 func atoi(s string) (x int) {
@@ -32,7 +31,7 @@ func main() {
 	pw.Close()
 
 	child := make(map[int]*vector.IntVector)
-	s, ok := r.ReadString('\n')	// Discard the header line
+	s, ok := r.ReadString('\n') // Discard the header line
 	s, ok = r.ReadString('\n')
 	for ok == nil {
 		f := strings.Fields(s)
