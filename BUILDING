@@ -10,7 +10,7 @@ following packages:
     texlive-xetex
     texlive-latex-extra
     texlive-latex-recommended
-    latex-cjk-xcjktex-cjk-xcjk
+    latex-cjk-xcjk
     git-core
     make
 

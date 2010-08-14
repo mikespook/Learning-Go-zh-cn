@@ -3,25 +3,18 @@
 
 per chapter: minimum of 10 exercises
 
-1. Write a program that asks for work hours, wage per hour and tax rate
-   and then prints payable money for a person.
-
 calculate average
-
-
-http://www.jobsnake.com/seek/articles/index.cgi?openarticle=8533
-Oby Prashant N Mhatre
-
-
 
 Swap two variables
 
 Accepting input from the keyboard and sorting them any order (up/down)
 
-(9) Time and Date : Get system time and convert it in different formats
+Time and Date : Get system time and convert it in different formats
 'DD-MON-YYYY', 'mm-dd-yyyy', 'dd/mm/yy' etc.
 
-(12) Extract uppercase words from a file, extract unique words
+Extract uppercase words from a file
+
+write uniq in go
 
 
 
