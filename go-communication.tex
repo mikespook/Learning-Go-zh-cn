@@ -27,7 +27,21 @@ So \emph{anything} that has such a \func{Read()} function implements this
 interface. And from listing \ref{src:read} (line 10) we can see
 the \type{*File} indeed does so. 
 
-\section{Executing programs}
+\section{Executing commands}
+The \package{exec} runs external commands, and it the premier way to
+execute commands from within a Go program. We start commands with 
+the \func{Run} function:
+\begin{lstlisting}
+func Run(argv0 string, argv, envv []string, dir string, stdin, stdout, stderr int) (p *Cmd, err os.Error)
+\end{lstlisting}
+\begin{quote}
+Run starts the binary prog running with
+arguments \var{argv} and environment \var{envv}.
+It returns a pointer to a new \type{Cmd} representing the command or an error.
+\end{quote}
+
+\todo{example}
+
 In the \package{os} package we find the \func{ForkExec} function. This
 is the premier way to start other executables.\footnote{There is talk on
 the \#gonuts mailling list about seperating \func{Fork} and
