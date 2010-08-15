@@ -8,13 +8,14 @@ the package you found for question \ref{ex:stack-package q2}.
 \end{Exercise}
 
 \begin{Answer}
-\Question
+\Question This is one answer
 \lstinputlisting[caption=A (rpn) calculator]{ex-packages/src/calc.go}
 
 \Question The \package{container/vector} package would be a could candidate. It
 even comes with \func{Push} and \func{Pop} functions \emph{predefined}.
 The changes needed to our program are \emph{minimal} to say the least,
 the following unified diff shows the differences:
+\vskip\baselineskip
 \begin{display}
 --- calc.go     2010-05-16 10:19:13.886855818 +0200
 +++ calcvec.go  2010-05-16 10:13:35.000000000 +0200
@@ -33,5 +34,6 @@ the following unified diff shows the differences:
  func main() \{
         for \{
 \end{display}
+\vskip\baselineskip
 \noindent{}Only two lines need to be changed. \emph{Nice}.
 \end{Answer}
