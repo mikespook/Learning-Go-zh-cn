@@ -58,7 +58,7 @@ func main() {
 		if child[ppid].Len() == 1 {
 			fmt.Printf(": %v\n", []int(*child[ppid]))
 		} else {
-			fmt.Printf("eren: %v\n", []int(*child[ppid]))
+			fmt.Printf("ren: %v\n", []int(*child[ppid]))
 		}
 	}
 }

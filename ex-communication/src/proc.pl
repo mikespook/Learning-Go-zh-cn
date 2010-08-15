@@ -11,5 +11,5 @@ foreach (@ps[1..$#ps]) {	    # Discard the header line
 # Walk through the sorted PPIDs
 foreach (sort { $a <=> $b } keys %child) {  
     print "Pid ", $_, " has ", @{$child{$_}}+0, " child",  # Print them
-	@{$child{$_}} == 1 ? ": " : "eren: ", "[@{$child{$_}}]";
+	@{$child{$_}} == 1 ? ": " : "ren: ", "[@{$child{$_}}]";
 }
