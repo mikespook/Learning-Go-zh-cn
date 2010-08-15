@@ -14,7 +14,7 @@ Reading from (and writing to) files is easy in Go. This program
 only uses the \package{os} package to read data from the file \file{/etc/passwd}.
 \lstinputlisting[numbers=right,caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
 If you want to use \first{buffered}{buffered} IO there is the
-\package{bufio}\index{Package!bufio} package:
+\package{bufio}\index{package!bufio} package:
 %%\lstinputlisting[numbers=right,caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
 
 On line 12 we create a \type{bufio.Reader} from \var{f} which is of
@@ -31,7 +31,7 @@ interface. And from listing \ref{src:read} (line 10) we can see
 the \type{*File} indeed does so. 
 
 \section{Executing commands}
-The \package{exec}\index{Package!exec} package has function to run external commands, and it the premier way to
+The \package{exec}\index{package!exec} package has function to run external commands, and it the premier way to
 execute commands from within a Go program. We start commands with 
 the \func{Run} function:
 \begin{lstlisting}
@@ -48,7 +48,7 @@ import "exec"
 
 cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exec.DevNull, exec.DevNull})
 \end{lstlisting}
-In the \package{os}\index{Package!os} package we find the \func{ForkExec} function. This
+In the \package{os}\index{package!os} package we find the \func{ForkExec} function. This
 is another way (but more low level) to start executables.\footnote{There is talk on
 the Gonuts mailing list about separating \func{Fork} and
 \func{Exec}.} 

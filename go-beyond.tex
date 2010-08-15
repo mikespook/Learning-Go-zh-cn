@@ -53,7 +53,7 @@ memory allocation and deallocation. Of course almost every language
 since 1980 has this, but it is nice to see garbage collection in a
 C-like language which in not C++. The following sections show how to handle allocation
 in Go. There is a somewhat an artificial distinction between
-\first{\key{new}}{Keywords!new} and \first{\key{make}}{Keywords!make}. 
+\first{\key{new}}{keyword!new} and \first{\key{make}}{keyword!make}. 
 
 \subsection{Allocation with new()}
 \label{sec:allocation with new}
@@ -442,7 +442,7 @@ default:
 In the following example we want to look at the "tag" (here named
 "namestr") defined in the
 type definition of \type{Person}. To do this we need the
-\package{reflect}\index{Package!reflect} package (there is no other way in Go). Keep in mind
+\package{reflect}\index{package!reflect} package (there is no other way in Go). Keep in mind
 that looking at a tag means going back the \emph{type} definition. So
 use the \package{reflect} we need figure out the type of the variable
 and then access the tag.

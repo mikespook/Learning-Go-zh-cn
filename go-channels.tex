@@ -74,7 +74,7 @@ func main() {i
 There is still some remaining ugliness; we have to read twice from
 the channel (lines 14 and 15). This is OK in this case, but what if
 we don't know how many goroutines we started? This is where another
-Go built-in comes in: \first{\key{select}}{Keywords!select}. With \key{select} you 
+Go built-in comes in: \first{\key{select}}{keyword!select}. With \key{select} you 
 can (among other things) listing for incoming data on a channel.
 
 Using \key{select} in our program does not really make it shorter,
