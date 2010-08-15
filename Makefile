@@ -9,7 +9,8 @@ once:
 	xelatex go.tex
 
 go.pdf:	go-*.tex ex-*/*.tex src/*.go tab/*.tex fig/*.tex blocksbook.cls go.bib .fig .tab go.tex
-	xelatex go.tex && bibtex go && makeindex go && xelatex go.tex && xelatex go.tex
+	xelatex go.tex && bibtex go && makeindex go \
+	&& xelatex go.tex && xelatex go.tex
 
 .fig:	fig/*.svg
 	( cd fig; make all )
