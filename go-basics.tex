@@ -279,13 +279,12 @@ s[0] = 'c'  |\coderemark{Change the first character to 'c', this is an error}|
 To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
-c := []byte(s)	    |\longremark{Convert \texttt{s} to an array of \type{byte}s, see %
+c := []byte(s)	    |\longremark{Convert \var{s} to an array of \type{byte}s, see %
 chapter \ref{chap:beyond} section "\titleref{sec:conversions}";}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
-s2 := string(c[0]) + string(c[1:]) |\longremark{Create a \emph{new} %
-string \texttt{s2} with the alteration. Note that we use \texttt{+} %
-to concatenate these two strings.}|
+s2 := string(c)     |\longremark{Create a \emph{new} %
+string \var{s2} with the alteration.}|
 fmt.Printf("%v\n", s2)
 \end{lstlisting}
 
@@ -528,7 +527,7 @@ character x starts at byte position 3
 \end{display}
 
 \subsection{Switch}
-Go's \first{\key{switch}}{Keyword!switch} is very flexible. The expressions need
+Go's \first{\key{switch}}{Keywords!switch} is very flexible. The expressions need
 not be
 constants or even integers, the cases are evaluated top to bottom until
 a match is found, and if the \key{switch} has no expression it switches on
@@ -642,8 +641,8 @@ another, both refer to the same underlying array. For instance, if a
 function takes a slice argument, changes it makes to the elements of the
 slice will be visible to the caller, analogous to passing a pointer to
 the underlying array. A slice is always coupled to an array that has
-a fixed size. For slices we define a \first{capacity}{capacity} and a
-\first{length}{length}.
+a fixed size. For slices we define a \first{capacity}{Slice!capacity} and a
+\first{length}{Slice!length}. \index{Array!length}\index{Array!capacity}
 
 Figure \ref{fig:array-vs-slice} depicts the following Go code.
 First we create an array of $m$ elements of the type \lstinline{int}:
