@@ -4,7 +4,7 @@ done. Old programs read like quiet conversations
 between a well-spoken research worker and a well-
 studied mechanical colleague, not as a debate with a
 compiler.  Who'd have guessed sophistication bought
-such noise?}{\textsc{Dick Gabriel}}
+such noise?}{\textsc{Richard P. Gabriel}}
 
 \noindent{}Functions are the basic building blocks in Go programs; all interesting
 stuff happens in them. A function is declared as follows:
@@ -22,15 +22,7 @@ func identity(in int) int {
     return in
 }
 \end{lstlisting}
-One thing that is now allowed in Go is functions in functions. 
-\begin{lstlisting}
-func a() {
-    println("Hello from a()")
-    func b() {			    |\coderemark{Illegal nesting}|
-	println("Hello from b()")    
-    }
-}
-\end{lstlisting}
+Go disallows nested functions.
 You can however
 work around this by using anonymous functions (see section
 "\titleref{sec:functions as values}" on page \pageref{sec:functions as values} 
@@ -40,8 +32,9 @@ in this chapter).
 Variables declared outside any functions are global in Go, those
 defined in functions are local to those functions. If names overlap --- a
 local variable is declared with the same name as a global one --- the
-local variable masks the global one when the current function is
+local variable hides the global one when the current function is
 executed.
+
 \begin{minipage}{.5\textwidth}
 \input{fig/scope1.tex}
 \hfill
@@ -54,7 +47,7 @@ executed.
 \end{minipage}
 
 In listing \ref{src:scope1} we introduce a local variable \var{a}
-in the function \func{q()}
+in the function \func{q()}.
 This local \var{a} is only visible in \func{q()}. That is
 why the code will print: \texttt{656}.
 In listing \ref{src:scope2} no new variables are introduced, there
@@ -64,11 +57,13 @@ print: \texttt{655}
 
 In the following example we call \func{g()} from \func{f()}:
 \lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
-And this will print: \texttt{565}. So a \emph{local} variable is only
-valid when we are executing the function in which it is defined. One
-remaining case has not been dealt with and that is a "function
+The printout will be: \texttt{565}. A \emph{local} variable is only
+valid when we are executing the function in which it is defined. 
+Finally, one can create
+a "function
 literal" in which you essentially define a function inside another
-function. The following figure should clarify why it
+function, i.e. a \first{nested function}{nested function}. 
+The following figure should clarify why it
 prints:\texttt{565757}. \emph{Hint}: Just follow the arrows.
 
 \input{fig/scope3.tex}
@@ -76,11 +71,12 @@ prints:\texttt{565757}. \emph{Hint}: Just follow the arrows.
 \section{Multiple return values}
 \label{sec:multiple return}
 One of Go's unusual features is that functions and methods can return multiple
-values. This can be used to improve on a couple of clumsy idioms in C programs:
+values (Python can do this too). This can be used to improve on a couple of 
+clumsy idioms in C programs:
 in-band error returns (such as -1 for \texttt{EOF}) and modifying an argument.
 
 In C, a write error is signaled by a negative count with the error code
-secreted away in a volatile location. In Go, \lstinline{Write} can return a count and an
+secreted away in a volatile location. In Go, \lstinline{Write} returns a count and an
 error: "Yes, you wrote some bytes but not all of them because you filled the
 device". The signature of \lstinline{*File.Write} in package
 \package{os} is:
@@ -113,7 +109,7 @@ You could use it to scan the numbers in an input array a like this:
         fmt.Printf("%d", x)
     }
 \end{lstlisting}
-With having tuples as a native type, multiple return values is the next
+Without having tuples as a native type, multiple return values is the next
 best thing to have. You can return precisely what you want without
 overloading the domain space with special values to signal errors.
 
@@ -165,9 +161,6 @@ func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is
    }
 }
 \end{lstlisting}
-
-When we use named result values, the code become indeed shorter and
-more easy to understand.
 So you could also write factorial as:
 \begin{lstlisting}
 func Factorial(x int) (result int) {
@@ -179,8 +172,9 @@ func Factorial(x int) (result int) {
   return;
 }
 \end{lstlisting}
-You can also write the function with multiple return values:
-
+When we use named result values, the code is shorter and
+easier to read.
+You can also write a function with multiple return values:
 \begin{lstlisting}
 func fib(n) (val int, pos int) {
    if n == 0 {
@@ -221,12 +215,12 @@ function ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-Where a lot of code is repeated, but with a good reason. To overcome this ---
+Here a lot of code is repeated, but with a good reason. To overcome this ---
 and do more in less code --- Go has the \func{defer} statement. After
 \func{defer} you specify a function which is called just \emph{before} a
 return from the function is executed.
 
-The above code could be rewritten with it as follows, making the whole
+The code above could be rewritten as follows. This makes the 
 function more readable, shorter and puts the \func{Close} right next 
 to the \func{Open}.
 \begin{lstlisting}[caption=With \func{defer}]
@@ -261,7 +255,7 @@ defer func() {
 }()		 |\coderemark{() is needed here}|
 \end{lstlisting}
 In that (unnamed) function you can access any named return
-parameter like so:
+parameter:
 \begin{lstlisting}[caption=Access return values within \func{defer}]
 func f() (ret int){     |\coderemark{\var{ret} is initialized with %
 zero}|
@@ -275,13 +269,13 @@ zero}|
 
 \section{Variadic parameters}
 Functions that take variadic parameters are functions that have a
-variable number of parameters. In Go this is done as follows.
-Firstly you need to declare your function to take variadic arguments:
+variable number of parameters. To do this, you first
+need to declare your function to take variadic arguments:
 \begin{lstlisting}[caption=Variadac parameters]
 func myfunc(arg ... int) {}
 \end{lstlisting}
 The \lstinline{arg ... int} instructs Go to see this as a function that
-takes a variable number of arguments. Note that all these arguments
+takes a variable number of arguments. Note that these arguments all
 have the type \type{int}. Inside your function's body the variable
 \var{arg} is a slice of \type{int}s:
 \begin{lstlisting}
@@ -295,21 +289,19 @@ empty interface \var{interface\{\}}.
 
 \section{Functions as values}
 \label{sec:functions as values}
-As with almost everything in Go, functions are also \emph{just} values,
-so they can be assigned to variables. Like so:
+As with almost everything in Go, functions are also \emph{just} values.
+They can be assigned to variables as follows:
 \lstinputlisting[label=src:anonfunc,caption=Anonymous function]{src/anon-func.go}
-If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of \var{a} it prints
-\func{func()}.
+If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
+\var{a}, it prints \func{func()}.
 
 Functions--as--values may also be used in other places, like in maps.
-This code is from the package \package{net} (in the file
-\package{net/dnsmsg.go}), where a map is used to convert
-from integers to functions.
+Here we convert from integers to functions.
 \begin{lstlisting}[caption=Function as values in maps]
-var rr_mk = map[int]func() dnsRR{
-    dnsTypeCNAME: func() dnsRR { return new(dnsRR_CNAME) },
-    dnsTypeHINFO: func() dnsRR { return new(dnsRR_HINFO) },
-    dnsTypeMB:    func() dnsRR { return new(dnsRR_MB) },
+var xs = map[int]func() int{
+    1: func() int { return 10 },
+    2: func() int { return 20 },
+    3: func() int { return 30 },
     ...
 \end{lstlisting}
 Or you can write a function that takes a function as its parameter, for
@@ -336,13 +328,12 @@ func main() {
 \label{sec:panic}
 \todo{}
 
-
 \section{Exercises}
+\input{ex-functions/ex-order.tex}
+
 \input{ex-functions/ex-stack.tex}
 
 \input{ex-functions/ex-stack-package.tex}
-
-\input{ex-functions/ex-calc.tex}
 
 \input{ex-functions/ex-vararg.tex}
 

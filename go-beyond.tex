@@ -55,7 +55,8 @@ C-like language. The following sections show how to handle allocation
 in Go. There is somewhat an artificial distinction between
 \first{\key{new}}{Keywords!new} and \first{\key{make}}{Keywords!make}. Details follow.
 
-\subsection{Allocation with \key{new}}
+\subsection{Allocation with new()}
+\label{sec:allocation with new}
 Go has two allocation primitives, \key{new} and \key{make}. They do different
 things and apply to different types, which can be confusing, but the
 rules are simple. Let's talk about \key{new} first. It's a built-in function
@@ -91,7 +92,8 @@ p := new(SyncedBuffer)  // type *SyncedBuffer
 var v SyncedBuffer      // type  SyncedBuffer
 \end{lstlisting}
 
-\subsection{Allocation with \key{make}}
+\subsection{Allocation with make()}
+\label{sec:allocation with make}
 Back to allocation. The built-in function \func{make(T, args)} serves a purpose
 different from \func{new(T)}. It creates slices, maps, and channels only, and
 it returns an initialized (not zero) value of type \type{T}, not

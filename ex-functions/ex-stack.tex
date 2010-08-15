@@ -4,10 +4,10 @@
 fixed amount of \key{int}s. It does not have to grow beyond this limit.
 Define both a \func{push} -- put something on the stack -- and a \func{pop} 
 -- retrieve something fro the stack -- function. The stack should be
-a FIFO (last in, first out) stack.
+a LIFO (last in, first out) stack.
 
 \begin{figure}[H]
-\caption{A simple FIFO stack}
+\caption{A simple LIFO stack}
 \label{fig:stack}
 \begin{center}
 \includegraphics[scale=0.65]{fig/stack.pdf}
@@ -29,7 +29,7 @@ converts the stack to a string representation.  This way you can print the stack
 %%\subsection*{Define our type} maybe nice to do this
 First we define a new type that represents a stack; we need an
 array (to hold the keys) and an index, which points to the last element.
-Our small stack only holds 10 elements.
+Our small stack can only hold 10 elements.
 
 \begin{lstlisting}
 type stack struct { |\coderemark{\emph{stack} is not exported}|
@@ -39,13 +39,13 @@ type stack struct { |\coderemark{\emph{stack} is not exported}|
 \end{lstlisting}
 
 Next we need the \func{push} and \func{pop} functions to actually
-use the damn thing. \emph{First we show the \emph{wrong}{} solution!}
+use the thing. \emph{First we show the \emph{wrong}{} solution!}
 In Go data passed to functions is \emph{passed-by-value} meaning a copy
 is created and given to the function. The first stab for the function
 \func{push} could be:
 
 \begin{lstlisting}
-func (s stack) push(k int) {
+func (s stack) push(k int) { \|coderemark{Works on copy of argument}|
 	if s.i+1 > 9 {
 		return
 	}
@@ -56,7 +56,7 @@ func (s stack) push(k int) {
 The function works on the \var{s} which is of the type \type{stack}. To
 use this we just call \lstinline{s.push(50)}, to push the integer 50 on
 the stack. But the push function gets a copy of \var{s}, so it is
-working on that on \emph{not} the real thing. Nothing gets pushed to our
+\emph{not} working the \emph{real} thing. Nothing gets pushed to our
 stack this way, for example the following code:
 
 \begin{lstlisting}
@@ -81,7 +81,8 @@ to the stack. This means we need to change \func{push} from
 $\rightarrow$
 \lstinline{func (s *stack) push(k int)}
 
-We should now use \func{new()} to create a \emph{pointer} to a newly
+We should now use \func{new()} (see "\titleref{sec:allocation with new}"
+in chapter \ref{chap:beyond}) to create a \emph{pointer} to a newly
 allocated \type{stack}, so line 1 from the example above needs to be
 \lstinline{s := new(stack)}
 
