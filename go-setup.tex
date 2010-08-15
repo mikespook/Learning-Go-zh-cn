@@ -8,7 +8,10 @@
 %% list of answers
 \newlistof{listofex}{ex}{List of Exercises}
 \newlistentry{exercise}{ex}{0}
-\renewcommand{\exmark}{\markboth{\myfamily \typename{}: List of Exercises}{\myfamily List of Exercices}}
+\renewcommand{\exmark}{\markboth{\myfamily \typename: List of Exercises}{\myfamily List of Exercices}}
+\renewcommand{\lofmark}{\markboth{\myfamily \typename: \listfigurename}{\myfamily \listfigurename}}
+\renewcommand{\lotmark}{\markboth{\myfamily \typename: \listtablename}{\myfamily \listtablename}}
+\renewcommand{\tocmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily \contentsname}}
 \renewcommand{\lstlistlistingname}{List of Code Examples}
 
 \nobibintoc
