@@ -151,6 +151,7 @@
     }
   \renewcommand{\afterchaptertitle}{%
     \vskip\onelineskip \vskip\onelineskip}
+  %% hacks section
   \setcounter{chapter}{-1} %% ugly
 }
 % appendix style
