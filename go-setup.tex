@@ -23,11 +23,8 @@
 \makeindex
 
 %% make quote print italics and other fancy stuff
-\expandafter\def\expandafter\quote\expandafter{\quote%
-\begin{tikzpicture}[overlay]
-\node [scale=4,color=black] (box){``};
-\end{tikzpicture}
-\hskip\baselineskip\em}
+\newcommand{\qquote}{{\scalefont{4.00}{``}}}
+\expandafter\def\expandafter\quote\expandafter{\quote\qquote\indent\em}
 
 %%\DeclareCaptionFont{white}{\color{white}}
 %%\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35,
