@@ -1,12 +1,12 @@
 \epi{\lstinline{fmt.Printf("\%p", i)}}{Printing the address of a pointer in Go.}
 \noindent{}
-You may have wished otherwise, but Go has pointers.
+You may have wished otherwise, but Go does have pointers.
 There is however no pointer arithmetic, so they act more like
 references than pointers that you may know from C. Pointers as
 they are still called in Go are useful.
-Remember when you call a function in Go the variables you pass are
-pass-by-value. So, for efficiency and the possibility to modify a
-passed value \emph{in} the function we have pointers.
+Remember that when you call a function in Go, the variables are
+\emph{pass-by-value}. So, for efficiency and the possibility to modify a
+passed value \emph{in} functions we have pointers.
 
 Just like in C you declare a pointer by prefixing the type with an '*':
 \lstinline{var p *int}. Now \var{p} is a pointer to an integer value.
@@ -32,7 +32,7 @@ types are therefore really easy to read just read out the names of the
 type modifiers: \type{[]} declares something called an array slice; "*"
 declares a pointer; \type{[size]} declares an array. So
 \type{[]*[3]*int} is an array slice of pointers to arrays of three
-pointers to \type{int}s.
+pointers to \type{int}s.\todo{Make nice info graphic}
 
 Dereferencing a pointer is done by prefixing the pointer variable with
 "*":
@@ -51,22 +51,21 @@ deference and increment then increment the value.
 Go has garbage collection, meaning that you don't have to worry about
 memory allocation and deallocation. Of course almost every language
 since 1980 has this, but it is nice to see garbage collection in a
-C-like language. The following sections show how to handle allocation
-in Go. There is somewhat an artificial distinction between
-\first{\key{new}}{Keywords!new} and \first{\key{make}}{Keywords!make}. Details follow.
+C-like language which in not C++. The following sections show how to handle allocation
+in Go. There is a somewhat an artificial distinction between
+\first{\key{new}}{Keywords!new} and \first{\key{make}}{Keywords!make}. 
 
 \subsection{Allocation with new()}
 \label{sec:allocation with new}
 Go has two allocation primitives, \key{new} and \key{make}. They do different
 things and apply to different types, which can be confusing, but the
-rules are simple. Let's talk about \key{new} first. It's a built-in function
+rules are simple. \key{new} is a built-in function
 essentially the same as its namesakes in other languages: \func{new(T)}
 allocates zeroed storage for a new item of type \type{T} and returns its
 address, a value of type \type{*T}. In Go terminology, it returns a pointer to
 a newly allocated zero value of type \type{T}.
 
-Since the memory returned by \key{new} is zeroed, it's helpful to arrange
-that the zeroed object can be used without further initialization. This
+This
 means a user of the data structure can create one with \key{new} and get
 right to work. For example, the documentation for \func{bytes.Buffer} states
 that "the zero value for Buffer is an empty buffer ready to use."
@@ -116,8 +115,9 @@ pointer to a \type{nil} slice value.
 These examples illustrate the difference between \key{new()} and
 \key{make()}.
 \begin{lstlisting}
-var p *[]int = new([]int)       // allocates slice structure; *p == nil; rarely useful
-var v  []int = make([]int, 100) // v now refers to a new array of 100 ints
+var p *[]int = new([]int)       // allocates slice structure; *p == nil
+				// rarely useful
+var v  []int = make([]int, 100) // v refers to a new array of 100 ints
 
 // Unnecessarily complex:
 var p *[]int = new([]int)
@@ -132,7 +132,7 @@ not return a pointer. To obtain an explicit pointer allocate with
 
 \subsection{Constructors and composite literals}
 Sometimes the zero value isn't good enough and an initializing
-constructor is necessary, as in this example derived from package
+constructor is necessary, as in this example taken from the package
 \package{os}.
 \begin{lstlisting}
 func NewFile(fd int, name string) *File {
@@ -184,12 +184,13 @@ creates a zero value for the type. The expressions
 
 Composite literals can also be created for arrays, slices, and maps,
 with the field labels being indices or map keys as appropriate. In these
-examples, the initializations work regardless of the values of Enone,
-Eio, and Einval, as long as they are distinct.
+examples, the initializations work regardless of the values of
+\var{Enone},
+\var{Eio}, and \var{Einval}, as long as they are distinct.
 \begin{lstlisting}
-a := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
-s := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
-m := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+ar := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+sl := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+ma := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 \end{lstlisting}
 
 \subsection{Conversions}
@@ -230,7 +231,7 @@ Of course Go allows you to define new types, it does this in (almost) the
 same way as in C, with the \key{struct} keyword.
 
 An empty struct is created with \lstinline|var empty struct {}|.
-A more real-life example would be when we want record somebodies name
+A more real-life example would be when we want record somebody's name
 and age in a single structure:
 
 \lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
@@ -239,35 +240,21 @@ Apropos, the output of \lstinline{fmt.Printf("\%v\n", a)} is
 \begin{display}
 {Pete, 42}
 \end{display}
-How nice is that, Go knows how to print your structure! If you
+That is nice!
+Go knows how to print your structure. If you
 only want to print one, or a few, fields of the structure you'll
-need to use \verb|.<field name>|. To only print the name:
+need to use \verb|.<field name>|. For example to only print the name:
 \begin{lstlisting}
 fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 \end{lstlisting}
 
-Defining a new type:
-
-\begin{lstlisting}
-type T struct {
-    name string // name of the object
-    value int // its value
-}
-\end{lstlisting}
-
-Or alias a build in one.
-Methods on types, and methods on build in type -- can not do that,
-just create a new type.
-
 \section{Interfaces}
 %%\epi{I have this phobia about having my body penetrated surgically. You
 %%know what I  mean?}{\textit{eXistenZ}\\\textsc{Ted Pikul}}
-One of the interesting aspects of the Go language is \first{interface
-objects}{interface objects}.
 \gomarginpar{The following text is from \cite{go_interfaces}. Written by Ian 
 Lance Taylor --- one of the authors of Go.}
-In Go, the word interface is overloaded to mean several different
-things. Every type has an \first{interface}{interface}, which is the set of methods defined for
+In Go, the word \first{interface}{interface} is overloaded to mean several different
+things. Every type has an interface, which is the set of methods defined for
 that type. This bit of code defines a struct type \type{S} with one field, and
 defines two methods for \type{S}.
 \begin{lstlisting}[caption=Defining a struct and methods on it,label=src:interface object]
@@ -300,15 +287,16 @@ implements \type{I}, we can call \func{f} passing in a pointer to a value of typ
 \begin{lstlisting}
 var s S; f(&s)
 \end{lstlisting}
-The reason we need to take the address of \type{S}, rather than a value of type
-\type{S}, is because we defined the methods on \type{S} to operate on
+The reason we need to take the address of \type{s}, rather than a value of type
+\type{S}, is because we defined the methods on \type{s} to operate on
 pointers, see the code above in listing \ref{src:interface object}.
 This
 is not a requirement --- we could have defined the methods to take
 values --- but then the \func{Put} method would not work as expected.
 
-The fact that you do not need to declare whether a type implements an
-interface means that Go implements a form of \first{duck typing}{duck typing}. 
+The fact that you do not need to declare whether or not a type implements an
+interface means that Go implements a form of 
+\first{duck typing}{duck typing}\cite{duck_typing}. 
 This is not
 pure duck typing, because when possible the Go compiler will statically
 check whether the type implements the interface. However, Go does have a
@@ -389,12 +377,12 @@ meaning. Conversely, if your type implements a method with the same
 meaning as a method on a well-known type, give it the same name and
 signature; call your string-converter method \func{String} not
 \func{ToString}.
-from \cite{effective_go}.
-
+\gomarginpar{Text copied from \cite{effective_go}.}
 
 \section{Introspection}
-A \key{switch} can also be used to discover the dynamic type of an interface
-variable. Such a type switch\gomarginindex{\emph{type switch}}{type switch} uses
+In a program, you can discover the dynamic type of an interfave variable
+by using a \key{switch}.
+Such a type switch\gomarginindex{\emph{type switch}}{type switch} uses
 the syntax of a type assertion with the keyword type inside the
 parentheses. If the switch declares a variable in the expression, the
 variable will have the corresponding type in each clause.
@@ -421,7 +409,7 @@ func main() {
 func WhichOne(x interface{}) { |\longremark{This function must accept \emph{both} %
 types as valid input, so we use the empty Interface, which every type implements;}|
 	switch t := x.(type) { |\longremark{The type switch: \texttt{(type)};}|
-	case *PersonAge:	|\longremark{When allocated with \func{new} its a %
+	case *PersonAge:	|\longremark{When allocated with \func{new} it's a %
 pointer. So we check for \type{*PersonAge}. If \func{WhichOne()} was %
 called with a non pointer value, we should check for \type{PersonAge}.}|
 		println("Age person")
@@ -436,8 +424,6 @@ The following is another example of performing a type switch, but this
 time checking for more (built-in) types:
 \begin{lstlisting}[caption=A more generic type switch]
 switch t := interfaceValue.(type) { |\coderemark{The type switch}|
-default:
-    fmt.Printf("unexpected type %T", t)  // \%T prints type
 case bool:
     fmt.Printf("boolean %t\n", t)
 case int:
@@ -446,6 +432,8 @@ case *bool:
     fmt.Printf("pointer to boolean %t\n", *t)
 case *int:
     fmt.Printf("pointer to integer %d\n", *t)
+default:
+    fmt.Printf("unexpected type %T", t)  // \%T prints type
 }
 \end{lstlisting}
 
@@ -453,8 +441,8 @@ case *int:
 \label{subsec:introspection and reflection}
 In the following example we want to look at the "tag" (here named
 "namestr") defined in the
-type definition of \type{Person}. We are using the
-\package{reflect} package (there is no other way in Go). Keep in mind
+type definition of \type{Person}. To do this we need the
+\package{reflect}\index{Package!reflect} package (there is no other way in Go). Keep in mind
 that looking at a tag means going back the \emph{type} definition. So
 use the \package{reflect} we need figure out the type of the variable
 and then access the tag.

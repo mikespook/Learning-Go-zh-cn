@@ -5,7 +5,7 @@ Perl packages\cite{perl-packages}. You declare a package with the
 \first{\key{package}}{Keywords!package} keyword. Note that (at least one of) the filename(s) should
 match the package name. Go packages may consist out of multiple files,
 but they share the \lstinline{package <name>} line.
-Lets define our package \package{even} in the file \prog{even.go}.
+Lets define our package \package{even}\index{Package!even} in the file \prog{even.go}.
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
 Names that start with a capital letter are exported and may be used
@@ -108,7 +108,7 @@ to work with: \lstinline{ReadFile, NewWriter, MakeSlice}
 
 \subsection{Package names}
 When a package is imported (with \first{\key{import}}{Keywords!import}, the package name becomes 
-an accessor for the contents. After
+an accessor for the contents. After\index{Package!bytes}
 \begin{lstlisting}
 import "bytes"
 \end{lstlisting}
@@ -131,11 +131,13 @@ which package is being used.
 Another convention is that the package name is the base name of its
 source directory; the package in \package{src/pkg/container/vector} is imported as
 "container/vector" but has name vector, not container\_vector and not
-containerVector.
+containerVector.\index{Package!container/vector}
 
 The importer of a package will use the name to refer to its contents, so 
 exported names in the package can use that fact to avoid
-stutter. For instance, the buffered reader type in the \package{bufio} package is
+stutter. For instance, the buffered reader type in the
+\package{bufio}\index{Package!bufio}
+package is
 called \func{Reader}, not \func{BufReader}, because users see it as
 \func{bufio.Reader},
 which is a clear, concise name. Moreover, because imported entities are
@@ -143,7 +145,8 @@ always addressed with their package name, \func{bufio.Reader} does not conflict
 with \func{io.Reader}. Similarly, the function to make new instances of
 \func{ring.Ring}---which is the definition of a constructor in Go---would normally
 be called \func{NewRing}, but since \type{Ring} is the only type exported by the
-package, and since the package is called \package{ring}, it's called
+package, and since the package is called
+\package{ring}\index{Package!ring}, it's called
 just \func{New}.
 Clients of the package see that as \func{ring.New}. Use the package structure
 to help you choose good names.
@@ -302,17 +305,19 @@ We cannot comment on each and everyone of the package, but the following
 a worth a mention:
 
 \begin{description}
-\item[\package{fmt}]{...}
-\item[\package{io}]{...}
-\item[\package{strconv}]{...}
-\item[\package{os}]{...}
-\item[\package{flag}]{...}
-\item[\package{json}]{...}
-\item[\package{template}]{...}
-\item[\package{http}]{...}
-\item[\package{unsafe}]{...}
-\item[\package{reflect}]{...}
-\item[\package{exec}]{...}
+\item[\package{fmt}]{\index{Package!fmt}...}
+\item[\package{io}]{\index{Package!io}...}
+\item[\package{bufio}]{\index{Package!bufio}...}
+\item[\package{sort}]{\index{Package!sort}...}
+\item[\package{strconv}]{\index{Package!strconv}...}
+\item[\package{os}]{\index{Package!os}...}
+\item[\package{flag}]{\index{Package!flag}...}
+\item[\package{json}]{\index{Package!json}...}
+\item[\package{template}]{\index{Package!template}...}
+\item[\package{http}]{\index{Package!http}...}
+\item[\package{unsafe}]{\index{Package!unsafe}...}
+\item[\package{reflect}]{\index{Package!reflect}...}
+\item[\package{exec}]{\index{Package!exec}...}
 \end{description}
 
 \section{Exercises}
