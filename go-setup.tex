@@ -8,11 +8,46 @@
 %% list of answers
 \newlistof{listofex}{ex}{List of Exercises}
 \newlistentry{exercise}{ex}{0}
-\renewcommand{\exmark}{\markboth{\myfamily \typename: List of Exercises}{\myfamily List of Exercices}}
-\renewcommand{\lofmark}{\markboth{\myfamily \typename: \listfigurename}{\myfamily \listfigurename}}
-\renewcommand{\lotmark}{\markboth{\myfamily \typename: \listtablename}{\myfamily \listtablename}}
+
+\newlistof{listofcode}{code}{List of Code Examples}
+\newlistentry{code}{code}{0}
+
+%% need to do this for code examples too
+%%\renewcommand{\lstlistlistingname}{List of Code Examples}
+%% toc
+\renewcommand{\tocheadstart}{}
+\renewcommand{\aftertoctitle}{\pagestyle{blocks}}
+\renewcommand{\aftertoctitle}{\thispagestyle{empty}\afterchaptertitle\pagestyle{blocks}}
+
+\renewcommand{\printtoctitle}[1]{}
+\renewcommand{\contentsname}{Table of Contents}
 \renewcommand{\tocmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily \contentsname}}
-\renewcommand{\lstlistlistingname}{List of Code Examples}
+%% new print the titles as section not as chapter, that explains
+%% why the page is headerless. the page style is empty
+%% lof
+\renewcommand{\lofheadstart}{}
+\renewcommand{\afterloftitle}{\thispagestyle{blocks}}
+\renewcommand{\printloftitle}[1]{\section*{#1}}
+\renewcommand{\lotmark}{\markboth{\myfamily \typename:
+\listfigurename}{\myfamily \listfigurename}}
+%% lot
+\renewcommand{\lotheadstart}{}
+\renewcommand{\afterlottitle}{\thispagestyle{blocks}}
+\renewcommand{\printlottitle}[1]{\section*{#1}}
+\renewcommand{\lofmark}{\markboth{\myfamily \typename:
+\listtablename}{\myfamily \listtablename}}
+%% ex
+\renewcommand{\exheadstart}{}
+\renewcommand{\afterextitle}{\thispagestyle{blocks}}
+\renewcommand{\printextitle}[1]{\section*{#1}}
+\renewcommand{\exmark}{\markboth{\myfamily \typename: List of
+Exercises}{\myfamily List of Exercises}}
+%% code
+\renewcommand{\codeheadstart}{}
+\renewcommand{\aftercodetitle}{\thispagestyle{blocks}}
+\renewcommand{\printcodetitle}[1]{\section*{#1}}
+\renewcommand{\codemark}{\markboth{\myfamily \typename: List of
+Code Examples}{\myfamily List of Code Examples}}
 
 \nobibintoc
 \renewcommand*{\indexmark}{%
