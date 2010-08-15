@@ -146,8 +146,12 @@ so the at least validate as \LaTeX.
 \chapter{Colophon}
 \input{go-colophon}
 
+\begin{twocolumn}
 \chapter{Index}
 \printindex
+\end{twocolumn}
+\begin{onecolumn}
+
 \bibliographystyle{plain}
 \bibliography{go}
 \newpage
@@ -155,4 +159,5 @@ so the at least validate as \LaTeX.
 \begin{center}
 \emph{This page is intentionally left blank.}
 \end{center}
+\end{onecolumn}
 \end{document}
