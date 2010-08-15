@@ -1,8 +1,8 @@
 \epi{\lstinline{^}}{\textit{Answer to whether there is a bitwise negation
 operator.}\\\textsc{Ken Thompson}}
-\noindent{}Packages are a collection of functions and data, they are sort alike the
+\noindent{}Packages are a collection of functions and data, they are like the
 Perl packages\cite{perl-packages}. You declare a package with the
-\lstinline{package} keyword. Note that (at least one of) the filename(s) should
+\first{\key{package}}{Keywords!package} keyword. Note that (at least one of) the filename(s) should
 match the package name. Go packages may consist out of multiple files,
 but they share the \lstinline{package <name>} line.
 Lets define our package \package{even} in the file \prog{even.go}.
@@ -20,7 +20,7 @@ then link it:
 \pr 6g myeven.go		\qquad\qquad\rem{# our program}
 \pr 6l -o myeven myeven.8
 \end{display}
-And now we can test it:
+And test it:
 \begin{display}
 \pr ./myeven
 Is 5 even? false
@@ -29,28 +29,28 @@ Is 5 even? false
 In Go, a function from a package is exported (visible
 outside the package, i.e. public) when the first letter of the function name is a capital, hence
 the function name \func{\emph{E}ven}. If we change our \prog{myeven.go} on line
-7 to using to unexported function \func{even.uneven}:
+7 to using to unexported function \func{even.odd}:
 
-\noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.uneven(i))}
+\noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.odd(i))}
 
 We get an error when compiling, because we are trying to use a
 \emph{private} function:
 \begin{display}
-myeven.go:7: cannot refer to unexported name even.uneven
-myeven.go:7: undefined: even.uneven
+myeven.go:7: cannot refer to unexported name even.odd
+myeven.go:7: undefined: even.odd
 \end{display}
 To summarize:
 \begin{itemize}
-\item Public functions have a name \emph{starting} with a Capital
-Letter;
+\item Public functions have a name \emph{starting} with a capital
+letter;
 \item Private function have a name starting with a lowercase letter.
 \end{itemize}
 
 \section{Building a package}
 \label{sec:building a package}
-The create a package other people can use (by just using
+The create a package that other people can use (by just using
 \lstinline{import "even"}) we first need to create a directory
-where we put our package files in. 
+to put the package files in. 
 \begin{display}
 \pr mkdir even
 \pr cp even.go even
@@ -92,7 +92,7 @@ own directory. So the following commands should build (and link) our
 \pr 6l -L even/\_obj myeven.6	# linking
 \end{display}
 
-\section{Names}
+\section{Identifiers}
 Names are as important in Go as in any other language. In some cases
 they even have semantic effect: for instance, the visibility of a name
 outside a package is determined by whether its first character is upper
@@ -119,7 +119,10 @@ concise, evocative. By convention, packages are given lower case,
 single-word names; there should be no need for underscores or mixedCaps.
 Err on the side of brevity, since everyone using your package will be
 typing that name. And don't worry about collisions a priori. The package
-name is only the default name for imports; it need not be unique across
+name is only the default name for imports. With the above import 
+you can use \lstinline{bytes.Buffer}. With \lstinline{import bar "bytes"}
+it becomes \lstinline{bar.Buffer}.
+So it does need not be unique across
 all source code, and in the rare case of a collision the importing
 package can choose a different name to use locally. In any case,
 confusion is rare because the file name in the import determines just
@@ -269,7 +272,7 @@ test look we redefine our test function:
 // Entering the twilight zone
 func TestEven(t *testing.T) {
         if false != Even(2) {
-                t.Log("2 should be uneven!")
+                t.Log("2 should be odd!")
                 t.Fail()
         }   
 }
@@ -277,7 +280,7 @@ func TestEven(t *testing.T) {
 We now get:
 \begin{display}
 --- FAIL: even.TestEven
-\qquad\qquad2 should be uneven!
+\qquad\qquad2 should be odd!
 FAIL
 make: *** [test] Error 1
 \end{display}
@@ -313,8 +316,6 @@ a worth a mention:
 \end{description}
 
 \section{Exercises}
-\input{ex-packages/ex-scope.tex}
-
 \input{ex-packages/ex-calc.tex}
 
 \cleardoublepage
