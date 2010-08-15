@@ -8,6 +8,8 @@
 %% list of answers
 \newlistof{listofex}{ex}{List of Exercises}
 \newlistentry{exercise}{ex}{0}
+\renewcommand{\exmark}{\markboth{\myfamily \typename{}: List of Exercises}{\myfamily List of Exercices}}
+\renewcommand{\lstlistlistingname}{List of Code Examples}
 
 \nobibintoc
 \renewcommand*{\indexmark}{%
@@ -49,7 +51,6 @@
   }[]%
 \lstset{language=Go,inputencoding=utf8,extendedchars=false,texcl,escapechar=\|,basicstyle=\ttfamily,keywordstyle=\bfseries,numbers=none,numberblanklines=false,showstringspaces=false,breaklines=true,numberstyle=\small\ttfamily,xleftmargin=\parindent,xrightmargin=1em,linewidth=0.98\linewidth}
 
-\renewcommand{\lstlistlistingname}{List of Code Examples}
 \newcommand{\coderemark}[1]{\qquad$\leftarrow \textit{\small #1}$}
 
 %% Exercises
@@ -76,8 +77,6 @@
 \newcommand{\softnewline}{\Pisymbol{psy}{191}}
 \newcommand{\hardnewline}{\ \\}
 \newcommand{\first}[2]{\emph{#1}\index{#2}}
-\newcommand{\second}[1]{#1\index{#1}}
-\newcommand{\hg}[1]{\newline{\texttt{\tiny{Go release.#1}}}}
 \newcommand{\error}[1]{\texttt{#1}}
 
 % Colors
