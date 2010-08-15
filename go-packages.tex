@@ -107,8 +107,8 @@ Camelcasing works best when you have whole words
 to work with: \lstinline{ReadFile, NewWriter, MakeSlice}
 
 \subsection{Package names}
-When a package is imported, the package name becomes an accessor for the
-contents. After
+When a package is imported (with \first{\key{import}}{Keywords!import}, the package name becomes 
+an accessor for the contents. After
 \begin{lstlisting}
 import "bytes"
 \end{lstlisting}
@@ -288,6 +288,9 @@ Writing new packages should go hand in hand with writing (some)
 documentation and test functions. It will make your code better and it
 shows that your really put in the effort.
 \end{lbar}
+
+\section{Advanced uses of \key{import}}
+\todo{import from the web?}
 
 \section{Useful packages}
 The standard Go repository includes a huge number of packages and it is
