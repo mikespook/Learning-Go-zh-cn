@@ -1,0 +1,56 @@
+\begin{Exercise}[title={Method calls},difficulty=8]
+\label{ex:methodcalls}
+\Question \label{ex:methodcalls q1} Suppose we have the following
+program:
+\begin{lstlisting}
+package main
+
+import "container/vector"
+
+func main() {
+	k1 := vector.IntVector{}
+	k2 := &vector.IntVector{}
+	k3 := new(vector.IntVector)
+	k1.Push(2)
+	k2.Push(3)
+	k3.Push(4)
+}
+\end{lstlisting}
+What are the types of \var{k1}, \var{k2} and \var{k3}?
+
+\Question Now, this program compiles and runs OK. All the \func{Push}
+operations work even though the variables are of a different type. The
+documentation for \func{Push} says:
+\begin{quote}
+func (p *IntVector) Push(x int)
+Push appends x to the end of the vector.
+\end{quote}
+So the receiver has to be of type \type{*IntVector}, why does the code
+above work then?
+
+\end{Exercise}
+
+\begin{Answer}
+\Question The type of \var{k1} is \type{vector.IntVector}. Why? We use 
+a composite literal (the \verb|{}|), so we get a value of that type
+back. The variable \var{k2} is of \type{*vector.IntVector}, because we
+take the address (\verb|&|) of the composite literal. And finally
+\var{k3} has also the type \type{*vector.IntVector}, because \func{new}
+returns a pointer to the type.
+
+\Question The answer is given in \cite{go_spec} in the section "Calls",
+where among other things it says:
+\begin{quote}
+A method call \func{x.m()} is valid if the method set of (the type of)
+\var{x}
+contains \func{m} and the argument list can be assigned to the parameter list
+of \func{m}. If \var{x} is addressable and \var{\&x}'s method set
+contains \func{m}, \func{x.m()} is shorthand for \func{(\&x).m()}.
+\end{quote}
+In other words because \var{k1} is addressable and
+\type{*vector.IntVector} \emph{does} have the \func{Push} method, the
+call \lstinline{k1.Push(2)} is translated by Go into 
+\lstinline{(&k1).Push(2)} which makes the type system happy again (and
+you too --- now you know this).
+
+\end{Answer}
