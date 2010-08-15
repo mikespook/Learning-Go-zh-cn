@@ -9,6 +9,13 @@ In 03-functions chapter
 Write:
     sort function
     sudoku solver
+    concurrent/parallel sudoku solver
+
+	"Heave parallism"
+	Take the Sudoku solver from exercise X, but instead
+	of iterating over possibilities sequentially do it 
+	concurrently.
+
     prime number tester
     prima number generator
     prime sieve

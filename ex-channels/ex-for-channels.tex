@@ -31,7 +31,7 @@ In the function \func{shower} we wait (as this blocks) until we receive a number
 15). Any received number is printed (line 16) and then continue the endless loop
 started on line 14.
 
-\Question The answer is
+\Question An answer is
 \lstinputlisting[label=go-quit-chan,caption=Adding an extra quit channel,numbers=right]{ex-channels/src/for-quit-chan.go}
 On line 20 we read from the quit channel and we discard the value we
 read. We could have used \lstinline{q := <-quit}, but then we would have used
