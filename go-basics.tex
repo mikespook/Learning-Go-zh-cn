@@ -642,8 +642,8 @@ another, both refer to the same underlying array. For instance, if a
 function takes a slice argument, changes it makes to the elements of the
 slice will be visible to the caller, analogous to passing a pointer to
 the underlying array. A slice is always coupled to an array that has
-a fixed size. For slices we define a \first{capacity}{Slice!capacity} and a
-\first{length}{Slice!length}. \index{Array!length}\index{Array!capacity}
+a fixed size. For slices we define a \first{capacity}{slice!capacity} and a
+\first{length}{slice!length}. \index{array!length}\index{array!capacity}
 
 Figure \ref{fig:array-vs-slice} depicts the following Go code.
 First we create an array of $m$ elements of the type \lstinline{int}:
