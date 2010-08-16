@@ -19,7 +19,7 @@
 \renewcommand{\aftertoctitle}{\pagestyle{blocks}}
 \renewcommand{\aftertoctitle}{\thispagestyle{empty}\afterchaptertitle\pagestyle{blocks}}
 
-\renewcommand{\printtoctitle}[1]{}
+%%\renewcommand{\printtoctitle}[1]{}
 \renewcommand{\contentsname}{Table of Contents}
 \renewcommand{\tocmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily \contentsname}}
 %% new print the titles as section not as chapter, that explains
@@ -29,25 +29,23 @@
 \renewcommand{\afterloftitle}{\thispagestyle{blocks}}
 \renewcommand{\printloftitle}[1]{\section*{#1}}
 \renewcommand{\lotmark}{\markboth{\myfamily \typename:
-\listfigurename}{\myfamily \listfigurename}}
+\contentsname}{\myfamily \listfigurename}}
 %% lot
 \renewcommand{\lotheadstart}{}
 \renewcommand{\afterlottitle}{\thispagestyle{blocks}}
 \renewcommand{\printlottitle}[1]{\section*{#1}}
 \renewcommand{\lofmark}{\markboth{\myfamily \typename:
-\listtablename}{\myfamily \listtablename}}
+\contentsname}{\myfamily \listtablename}}
 %% ex
 \renewcommand{\exheadstart}{}
 \renewcommand{\afterextitle}{\thispagestyle{blocks}}
 \renewcommand{\printextitle}[1]{\section*{#1}}
-\renewcommand{\exmark}{\markboth{\myfamily \typename: List of
-Exercises}{\myfamily List of Exercises}}
+\renewcommand{\exmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Exercises}}
 %% code
 \renewcommand{\codeheadstart}{}
 \renewcommand{\aftercodetitle}{\thispagestyle{blocks}}
 \renewcommand{\printcodetitle}[1]{\section*{#1}}
-\renewcommand{\codemark}{\markboth{\myfamily \typename: List of
-Code Examples}{\myfamily List of Code Examples}}
+\renewcommand{\codemark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Code Examples}}
 
 \nobibintoc
 \renewcommand*{\indexmark}{%

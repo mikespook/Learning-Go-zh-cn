@@ -123,6 +123,11 @@
   \renewcommand{\printchaptername}{}
   \renewcommand{\typename}{\chaptername}
   \renewcommand{\chapternamenum}{}
+%%  \renewcommand{\printchapternonum}{%
+%%        \addtolength{\fboxsep}{2ex}
+%%        \framebox{\myseries\myfamily\scalefont{6.0}{*}}
+%%	\afterchapternum
+%%}
   \renewcommand{\printchapternum}{%
         \addtolength{\fboxsep}{2ex} %% \numtoName
         \framebox{\myseries\myfamily\scalefont{6.0}{\thechapter}}
@@ -134,25 +139,6 @@
     }
   \renewcommand{\afterchaptertitle}{%
     \vskip\onelineskip \vskip\onelineskip}
-}
-\makechapterstyle{blocks*}{%
-  \renewcommand{\chapterheadstart}{\vspace{2cm}}
-  \renewcommand{\printchaptername}{}
-  \renewcommand{\typename}{\chaptername}
-  \renewcommand{\chapternamenum}{}
-  \renewcommand{\printchapternum}{%
-        \addtolength{\fboxsep}{2ex} %% \numtoName
-        \framebox{\myseries\myfamily\scalefont{6.0}{*}}
-}
-  \renewcommand{\afterchapternum}{\hskip 5mm}
-  \renewcommand{\printchaptertitle}[1]{%
-    \normalfont\raggedright\HUGE{{\myfamily##1}}%
-    \chaptermark{\myfamily##1}%
-    }
-  \renewcommand{\afterchaptertitle}{%
-    \vskip\onelineskip \vskip\onelineskip}
-  %% hacks section
-  \setcounter{chapter}{-1} %% ugly
 }
 % appendix style
 \addtodef{\appendix}{}{\renewcommand{\typename}{\appendixname}}
