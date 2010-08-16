@@ -10,18 +10,31 @@ $$ map(f(), (a_1,a_2,\ldots,a_{n-1},a_n)) =  (f(a_1), f(a_2),\ldots,f(a_{n-1}), 
 \func{map()}-function in Go. It is sufficient
 for this function only to work for \type{int}s.
 \Question \label{ex:map function q2} Expand your code to also work on a list of \type{strings}.
-\Question \label{ex:map funtion q3} Now make it generic using interfaces.
 
 \end{Exercise}
 
 \begin{Answer}
 
-\Question
+\Question 
+\begin{lstlisting}[caption=A \func{Map} function]
+func Map(f func(int) int, l []int) []int {
+        j := make([]int, len(l))
+        for k, v := range l {
+                j[k] = f(v)
+        }
+        return j
+}
 
-\lstinputlisting[label=src:map,caption=A map function in
-Go]{ex-functions/src/map.go}
-\Question Answer to question 
-\Question Answer to question
+func main() {
+        m := []int{1, 3, 4}
+        f := func(i int) int {
+                return i * i
+        }
+        fmt.Printf("%\v", (Map(f, m)))
+}
+\end{lstlisting}
+
+\Question Answer to question but now with strings
 \end{Answer}
 
 

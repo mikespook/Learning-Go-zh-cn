@@ -380,14 +380,14 @@ Table \ref{tab:keywords} lists all the keywords in Go.
 In the following paragraphs and chapters we will go over them.
 
 \section{Control structures}
-There are only a few control structure in Go.
-\footnote{This section is copied from \cite{effective_go}.} 
+There are only a few control structure in 
+Go\footnote{This section is copied from \cite{effective_go}.}.
 For instance there is no do or while loop, only a 
 \key{for}. There is a (flexible) \key{switch} statement and \key{if} and
 \key{switch} accept an
 optional initialization statement like that of \key{for}. There also is
 something called a type switch and a multiway communications
-multiplexer, \key{select} (see chapter \ref{chap:channels}. The syntax is different: parentheses
+multiplexer, \key{select} (see chapter \ref{chap:channels}). The syntax is different: parentheses
 are not required and the bodies must \emph{always} be brace-delimited.
 
 \subsection{If}
@@ -414,7 +414,7 @@ like C's NULL}|
 In the Go libraries, you'll find that when an \key{if} statement doesn't flow
 into the next statement-that is, the body ends in \key{break},
 \key{continue}, \key{goto},
-or \key{return}, the unnecessary \key{else} is omitted.
+or \key{return}, the unnecessary \first{\key{else}}{keyword!else} is omitted.
 
 \begin{lstlisting}
 f, err := os.Open(name, os.O_RDONLY, 0)
@@ -481,8 +481,8 @@ expressions (see appendix \ref{chap:articles}), if you want to run multiple vari
 use \first{parallel assignment}{parallel assignment}.
 \begin{lstlisting}
 // Reverse a
-for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
-    a[i], a[j] = a[j], a[i] |\coderemark{Parallel assignment}|
+for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 { |\coderemark{Parallel assignment}|
+    a[i], a[j] = a[j], a[i] |\coderemark{Here too}|
 }
 \end{lstlisting}
 
@@ -511,9 +511,12 @@ J:  for j := 0; j < 5; j++ {
 \end{lstlisting}
 
 \subsection{Range}
-For strings, you can use the \key{range} clause to manage the loop for
+For strings, you can use the \first{\key{range}}{keyword!range} clause to manage the loop for
 you. It breaks out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
-byte and produce the replacement rune U+FFFD). The loop
+byte and produce the replacement rune\footnote{In the UTF-8 world characters are
+sometimes called \first{runes}{runes}. Mostly, when people talk about
+characters, they mean 8 bit characters. As UTF-8 characters may be up to 32 bits the word
+rune is used.} U+FFFD). The loop:
 
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
@@ -522,9 +525,9 @@ for pos, char := range "a|$\Phi{}$|x" {
 \end{lstlisting}
 prints
 \begin{display}
-character a starts at byte position 0
-character \begin{math}\Phi\end{math} starts at byte position 1
-character x starts at byte position 3
+character 'a' starts at byte position 0
+character '\begin{math}\Phi\end{math}' starts at byte position 1
+character 'x' starts at byte position 3
 \end{display}
 
 \subsection{Switch}
@@ -612,7 +615,7 @@ copy of the array, not a pointer to it.
 To declare an array you can use the following: \lstinline{var a [3]int},
 to initialize it to something else than zero, use a \first{composite
 literal}{composite literal}: \lstinline|a := [3]int{1, 2, 3}| and
-this can be shortened to \lstinline|a := []int{1, 2, 3}|, where Go counts
+this can be shortened to \lstinline|a := [...]int{1, 2, 3}|, where Go counts
 the elements automatically. \gomarginpar{A composite literal allows you
 to assign a value directly to an array, slice or map.}
 Note that all fields must be specified.  So if you are using multidimensional
@@ -620,19 +623,14 @@ arrays you have to do quite some typing:
 \begin{lstlisting}
 a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
 \end{lstlisting}
-Which is \emph{not} the same as:
+Which is the same as:
 \begin{lstlisting}
-a := [2][2]int{ []int{1,2}, []int{3,4} }
+a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
 \end{lstlisting}
-As this gives a compile error:\newline
-\error{cannot use slice literal (type []int) as type [2]int in array
-index}\newline
-But the following is OK again:
-\begin{lstlisting}
-a := [][]int{ []int{1,2}, []int{3,4} }
-\end{lstlisting}
-So either specify the length of the array or let Go do the counting, but
-don't mix the two.
+
+When declaring arrays you \emph{always} have to type something in
+between the square brackets, either a number or three dots (\verb|...|).
+
 \subsection{Slices}
 A slice refers to an under laying array. What makes slices different
 from
@@ -692,7 +690,8 @@ monthdays := map[string]int{
 For indexing (searching) in the map, we use square brackets, for example
 suppose we want to print the
 number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
-If you're looping over an array, slice, string, or map a \key{range}
+If you're looping over an array, slice, string, or map a
+\first{\key{range}}{keyword!range}
 clause help you again, which returns the key and corresponding value
 with each invocation.
 \begin{lstlisting}

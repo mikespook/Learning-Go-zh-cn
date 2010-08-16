@@ -11,7 +11,7 @@ stuff happens in them. A function is declared as follows:
 \input{fig/function.tex}
 \showremarks
 Here are a two examples, the first is a function without a return value,
-the second is a simple function that returns it's input.
+the second is a simple function that returns its input.
 \begin{lstlisting}
 func subroutine(in int) {
     return
@@ -64,7 +64,7 @@ a "function
 literal" in which you essentially define a function inside another
 function, i.e. a \first{nested function}{nested function}. 
 The following figure should clarify why it
-prints:\texttt{565757}. \emph{Hint}: Just follow the arrows.
+prints: \texttt{565757}. \emph{Hint}: Just follow the arrows.
 
 \input{fig/scope3.tex}
 
@@ -84,7 +84,7 @@ device". The signature of \lstinline{*File.Write} in package
 func (file *File) Write(b []byte) (n int, err Error)
 \end{lstlisting}
 and as the documentation says, it returns the number of bytes written and a
-non-\lstinline{nil} Error when \lstinline{n != len(b)}. This is a common
+non-\lstinline{nil} \var{Error} when \lstinline{n != len(b)}. This is a common
 style in Go.
 
 A similar approach obviates the need to pass a pointer to a return value to
@@ -226,10 +226,10 @@ to the \func{Open}.
 \begin{lstlisting}[caption=With \func{defer}]
 function ReadWrite() bool {
     file.Open("file")
-    defer file.Close("file") |\coderemark{\func{file.Close} \emph{is} the function}|
+    defer file.Close("file") |\coderemark{\func{file.Close()} \emph{is} the function}|
     // Do you thing
     if failureX {
-	return false	     |\coderemark{\func{Close} is now done automatically}|
+	return false	     |\coderemark{\func{Close()} is now done automatically}|
     }
     if failureY {
 	return false	     |\coderemark{And here too}|
@@ -257,7 +257,7 @@ defer func() {
 In that (unnamed) function you can access any named return
 parameter:
 \begin{lstlisting}[caption=Access return values within \func{defer}]
-func f() (ret int){     |\coderemark{\var{ret} is initialized with %
+func f() (ret int) {    |\coderemark{\var{ret} is initialized with %
 zero}|
 	defer func() {
 		ret++	|\coderemark{Increment \var{ret} with 1}|
@@ -285,7 +285,8 @@ for _, n := range arg {
 \end{lstlisting}
 
 If you don't specify the type of the variadic argument it defaults to the
-empty interface \var{interface\{\}}.
+empty interface \var{interface\{\}} (see "\titleref{sec:interfaces}" in
+chapter \ref{chap:beyond}).
 
 \section{Functions as values}
 \label{sec:functions as values}
@@ -305,24 +306,9 @@ var xs = map[int]func() int{
     ...
 \end{lstlisting}
 Or you can write a function that takes a function as its parameter, for
-instance a \func{Map} function that work on \type{int} slices:
-\begin{lstlisting}[caption=A \func{Map} function]
-func Map(f func(int) int, l []int) []int {
-        j := make([]int, len(l))
-        for k, v := range l {
-                j[k] = f(v)
-        }
-        return j
-}
-
-func main() {
-        m := []int{1, 3, 4}
-        f := func(i int) int {
-                return i * i
-        }
-        fmt.Printf("%\v", (Map(f, m)))
-}
-\end{lstlisting}
+example a \func{Map} function that works on \type{int} slices. This is
+left as an exercise for the reader, see exercise Q\ref{ex:map function}
+on page \pageref{ex:map function}.
 
 \section{Panic and recovering}
 \label{sec:panic}

@@ -8,7 +8,8 @@ Remember that when you call a function in Go, the variables are
 \emph{pass-by-value}. So, for efficiency and the possibility to modify a
 passed value \emph{in} functions we have pointers.
 
-Just like in C you declare a pointer by prefixing the type with an '*':
+Just like in C you declare a pointer by prefixing the type with an
+'\key{*}':
 \lstinline{var p *int}. Now \var{p} is a pointer to an integer value.
 All newly declared variables are assigned their zero value and pointer
 are no difference. A newly declared, or just a pointer that points to
@@ -29,13 +30,14 @@ fmt.Printf("%v", p) |\coderemark{Prints something like \var{0x7ff96b81c000a}}|
 More general: \var{*X} is a pointer to an \type{X}; \var{[3]X} is an
 array of three \type{X}'s. The
 types are therefore really easy to read just read out the names of the
-type modifiers: \type{[]} declares something called an array slice; "*"
+type modifiers: \type{[]} declares something called an array slice;
+'\key{*}'
 declares a pointer; \type{[size]} declares an array. So
 \type{[]*[3]*int} is an array slice of pointers to arrays of three
 pointers to \type{int}s.\todo{Make nice info graphic}
 
 Dereferencing a pointer is done by prefixing the pointer variable with
-"*":
+'\type{*}':
 \begin{lstlisting}[caption=Dereferencing a pointer,label=src:deref]
 p = &i
 *p = 8			|\coderemark{Change the value of \var{i}}|
@@ -44,8 +46,8 @@ fmt.Printf("%v\n", i)	|\coderemark{Idem}|
 \end{lstlisting}
 
 As said, there is no pointer arithmetic, so if you write:
-\lstinline{*p++} is Go, it is interpreted as \lstinline{(*p)++}: first
-deference and increment then increment the value.
+\lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
+deference and then increment the value.
 
 \section{Allocation}
 Go has garbage collection, meaning that you don't have to worry about
@@ -55,7 +57,7 @@ C-like language which in not C++. The following sections show how to handle allo
 in Go. There is a somewhat an artificial distinction between
 \first{\key{new}}{keyword!new} and \first{\key{make}}{keyword!make}. 
 
-\subsection{Allocation with new()}
+\subsection{Allocation with new}
 \label{sec:allocation with new}
 Go has two allocation primitives, \key{new} and \key{make}. They do different
 things and apply to different types, which can be confusing, but the
@@ -91,7 +93,7 @@ p := new(SyncedBuffer)  // type *SyncedBuffer
 var v SyncedBuffer      // type  SyncedBuffer
 \end{lstlisting}
 
-\subsection{Allocation with make()}
+\subsection{Allocation with make}
 \label{sec:allocation with make}
 Back to allocation. The built-in function \func{make(T, args)} serves a purpose
 different from \func{new(T)}. It creates slices, maps, and channels only, and
@@ -180,7 +182,7 @@ return &File{fd: fd, name: name}
 As a limiting case, if a composite literal contains no fields at all, it
 creates a zero value for the type. The expressions
 \lstinline{new(File)} and 
-\lstinline|&File{]| are equivalent.
+\lstinline|&File{}| are equivalent.
 
 Composite literals can also be created for arrays, slices, and maps,
 with the field labels being indices or map keys as appropriate. In these
@@ -249,6 +251,7 @@ fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 \end{lstlisting}
 
 \section{Interfaces}
+\label{sec:interfaces}
 %%\epi{I have this phobia about having my body penetrated surgically. You
 %%know what I  mean?}{\textit{eXistenZ}\\\textsc{Ted Pikul}}
 \gomarginpar{The following text is from \cite{go_interfaces}. Written by Ian 
@@ -546,6 +549,8 @@ with a pointer argument.
 
 \section{Exercises}
 \input{ex-beyond/ex-interfaces.tex}
+
+\input{ex-beyond/ex-map.tex}
 
 \input{ex-beyond/ex-pointers.tex}
 

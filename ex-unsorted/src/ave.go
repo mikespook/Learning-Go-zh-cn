@@ -15,5 +15,5 @@ func average(xs []float) (ave float) {
 }
 
 func main() {
-
+	...
 }

@@ -1,4 +1,4 @@
-package even		|\coderemark{Our own namespace}|
+package even		|\coderemark{Start our own namespace}|
 
 func Even(i int) bool {	|\coderemark{Exported}|
 	if i % 2 == 0 {

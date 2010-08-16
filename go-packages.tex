@@ -43,7 +43,7 @@ To summarize:
 \begin{itemize}
 \item Public functions have a name \emph{starting} with a capital
 letter;
-\item Private function have a name starting with a lowercase letter.
+\item Private function have a name \emph{starting} with a lowercase letter.
 \end{itemize}
 
 \section{Building a package}
@@ -61,14 +61,15 @@ can use the following
 is adapted for our \package{even} package.
 \lstinputlisting[language=make,caption=\file{Makefile} for a
 package,numbers=right]{src/Makefile}
-Note that on line 5 we define our \package{even} package and on the
+Note that on line 7 we define our \package{even} package and on the
 lines 8 and 9 we enter the files which make up the package.
 Also note that this is the \emph{same} \prog{Makefile} setup as we used
 in section "\titleref{sec:building a progam}" in chapter
 \ref{chap:basics}.
 
-If we now issue \prog{make}, a file named \file{\_go\_.6}, a directory
-named \dir{\_obj/} and a file inside \dir{\_obj/} called \file{even.a} 
+If we now issue \prog{make}, a file named "\file{\_go\_.6}", a directory
+named "\dir{\_obj/}" and a file inside "\dir{\_obj/}" called
+"\file{even.a}"
 is created. The file \file{even.a} is a static library which holds
 the compiled Go code.
 With \prog{make install} the package (well, only the \file{even.a}) is installed in the \emph{official}
@@ -107,7 +108,7 @@ Camelcasing works best when you have whole words
 to work with: \lstinline{ReadFile, NewWriter, MakeSlice}
 
 \subsection{Package names}
-When a package is imported (with \first{\key{import}}{keyword!import}, the package name becomes 
+When a package is imported (with \first{\key{import}}{keyword!import}), the package name becomes 
 an accessor for the contents. After\index{package!bytes}
 \begin{lstlisting}
 import "bytes"
@@ -120,7 +121,10 @@ single-word names; there should be no need for underscores or mixedCaps.
 Err on the side of brevity, since everyone using your package will be
 typing that name. And don't worry about collisions a priori. The package
 name is only the default name for imports. With the above import 
-you can use \lstinline{bytes.Buffer}. With \lstinline{import bar "bytes"}
+you can use \lstinline{bytes.Buffer}. With 
+\begin{lstlisting}
+import bar "bytes"
+\end{lstlisting}
 it becomes \lstinline{bar.Buffer}.
 So it does need not be unique across
 all source code, and in the rare case of a collision the importing
@@ -130,8 +134,9 @@ which package is being used.
 
 Another convention is that the package name is the base name of its
 source directory; the package in \package{src/pkg/container/vector} is imported as
-"container/vector" but has name vector, not container\_vector and not
-containerVector.\index{package!container/vector}
+\var{container/vector} but has name \package{vector}, not
+\package{container\_vector} and not
+\package{containerVector}.\index{package!container/vector}
 
 The importer of a package will use the name to refer to its contents, so 
 exported names in the package can use that fact to avoid
@@ -198,7 +203,8 @@ func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
 
 \section{Testing packages}
 In Go it is customary to write (unit) tests for your package. Writing
-tests involves the \package{testing} package and the program \prog{gotest}. Both
+tests involves the \package{testing} package and the program
+\first{\prog{gotest}}{gotest}. Both
 have excellent documentation. When you include tests with your package
 keep in mind that has to be build using the standard \file{Makefile}
 (see section "\titleref{sec:building a package}").
@@ -260,8 +266,7 @@ also allows tests of unexported function and structures. We then import
 the \package{testing} package and on line 5 we define the only test
 function in this file. The displayed Go code should not hold any
 surprises: we check if the \func{Even} function works OK. 
-
-Now, the moment we've all been waiting for, executing the test:
+Now, the moment we've been waiting for, executing the test:
 \begin{display}
 \pr make test
 6g -o \_gotest\_.6 even.go  even\_test.go
@@ -269,7 +274,7 @@ rm -f \_test/even.a
 gopack grc \_test/even.a \_gotest\_.6 
 PASS
 \end{display}
-\noindent{}Our test ran and reported \texttt{PASS}. To show how a failed
+\noindent{}Our test ran and reported \texttt{PASS}. Success! To show how a failed
 test look we redefine our test function:
 \begin{lstlisting}
 // Entering the twilight zone
