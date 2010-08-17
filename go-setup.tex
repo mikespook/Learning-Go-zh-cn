@@ -58,7 +58,7 @@
 
 %% make quote print italics and other fancy stuff
 \newcommand{\qquote}{{\scalefont{4.00}{``}}}
-\expandafter\def\expandafter\quote\expandafter{\quote\hskip\parindent\em}
+\expandafter\def\expandafter\quote\expandafter{\quote\em}
 
 %%\DeclareCaptionFont{white}{\color{white}}
 %%\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35,
@@ -123,7 +123,7 @@
 
 \newenvironment{lbar}{%
 \def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
-\MakeFramed{\rightskip=\parindent\advance\hsize-\width \FrameRestore}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}}%
 {\endMakeFramed}
 
 %% Epigraph
