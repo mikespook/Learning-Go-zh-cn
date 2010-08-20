@@ -10,20 +10,13 @@ type Stack struct {
 }
 
 func (s *Stack) Push(k int) {
-	if s.i+1 > 9 {
-		return
-	}
 	s.data[s.i] = k
 	s.i++
 }
 
 func (s *Stack) Pop() (ret int) {
-	if s.i-1 < 0 {
-		return 0
-	}
-	ret = s.data[s.i]
 	s.i--
-	return ret
+	ret = s.data[s.i]
 }
 
 func (s *Stack) String() string {
