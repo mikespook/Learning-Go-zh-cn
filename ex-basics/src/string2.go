@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	str := "dsjkdshdjsdh|\ldots|js"
+	str := "dsjkdshdjsdh....js"
 	fmt.Printf("String %s\nLenght: %d, Runes: %d\n", str,
 		len([]byte(str)), utf8.RuneCount([]byte(str)))
 }
