@@ -1,5 +1,5 @@
 When building this from scratch you will need the
-following packages:
+following packages on Debian/Ubuntu:
 
     inkscape
     gnumeric
