@@ -1,6 +1,12 @@
 xx Sep 2010: 0.2 Miek Gieben <miek@miek.nl
-   * Releases version 0.2
+   * Released version 0.2
    * Apply comments from the Gonuts mailing list
+   * make()/new() rewritten
+   * Finished all current exercises
+   * Automatic checking of Go code
+   * Smaller changes:
+	- different footnote marker
+	- more plain quoting
 
 
 16 Aug 2010: 0.1 Miek Gieben <miek@miek.nl>
