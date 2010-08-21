@@ -11,6 +11,16 @@ In short:
 \lstinline{goto Error} .
 \end{description}
 
+\todo{From Rob Pike
+Appendix B is misleading in its treatment of Go.  The only Go
+expressions that can be statements are function calls, method calls,
+and channel operations.  It's almost like Fortran. The text implies
+that assignment is an expression, which is not true.  The confusion
+about = in if conditions is simply not present in Go.
+
+-rob}
+
+
 The distinction was crystal-clear in the earliest general-purpose
 programming languages, like FORTRAN. In FORTRAN, a statement was one
 unit of execution: "a thing that you did". 

@@ -104,7 +104,7 @@ func nextInt(b []byte, i int) (int, int) {
 \end{lstlisting}
 You could use it to scan the numbers in an input array a like this:
 \begin{lstlisting}
-    for i := 0; i < len(a); {
+    for i := 0; i < len(a); {	    // todo double check this code
         x, i = nextInt(a, i)
         fmt.Printf("%d", x)
     }
@@ -155,9 +155,9 @@ the factorial value of a value \var{x}.
 \begin{lstlisting}
 func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is also OK}|
    if x == 0 {
-      return 1;	
+      return 1
    } else {
-      return x * Factorial(x - 1);
+      return x * Factorial(x - 1)
    }
 }
 \end{lstlisting}
@@ -165,11 +165,11 @@ So you could also write factorial as:
 \begin{lstlisting}
 func Factorial(x int) (result int) {
   if x == 0 {
-    result = 1;	
+    result = 1	
   } else {
-    result = x * Factorial(x - 1);
+    result = x * Factorial(x - 1)
   }
-  return;
+  return
 }
 \end{lstlisting}
 When we use named result values, the code is shorter and
@@ -178,18 +178,18 @@ You can also write a function with multiple return values:
 \begin{lstlisting}
 func fib(n) (val int, pos int) {
    if n == 0 {
-      val = 1;
-      pos = 0;
+      val = 1
+      pos = 0
    } else if n == 1 {
-      val = 1;
-      pos = 1;
+      val = 1
+      pos = 1
    } else {
-      v1, _ := fib(n-1);
-      v2,_ := fib(n-2);
-      val = v1 + v2;
-      pos = n;
+      v1, _ := fib(n-1)
+      v2,_ := fib(n-2)
+      val = v1 + v2
+      pos = n
    }
-   return;
+   return
 }
 \end{lstlisting}
 
@@ -203,15 +203,15 @@ function ReadWrite() bool {
     file.Open("file")
     // Do you thing
     if failureX {
-	file.Close("file")
+	file.Close()
 	return false
     }
 
     if failureY {
-	file.Close("file")
+	file.Close()
 	return false
     }
-    file.Close("file")
+    file.Close()
     return true
 }
 \end{lstlisting}

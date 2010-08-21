@@ -56,15 +56,15 @@ Putting this together leads to the following program.
 
 \Question Reversing a string can be done as follows:
 \begin{lstlisting}
-package main
+package main //make this example more efficient
 
 import "fmt"
 
 func main() {
     a := "my string"
     b := ""
-    for _,k := range a {
-	b = k + b
+    for _, k := range a {
+	b = string(k) + b
     }
     fmt.Printf("%s\n", b)
 }
