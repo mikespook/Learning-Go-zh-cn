@@ -12,7 +12,7 @@
 is to provide a guide to this new and innovative language. 
 
 Its intended audience is people who are familiar with programming
-and know different languages, be it C\cite{c}, C$^{++}$\cite{c++}, 
+and know multiple programming languages, be it C\cite{c}, C$^{++}$\cite{c++}, 
 Java \cite{java}, Erlang\cite{erlang}, Scala\cite{scala} or
 Haskell\cite{haskell}. This is \emph{not} a book which teaches you how to 
 program, this is a book that just teaches you how to use Go.
@@ -26,7 +26,7 @@ An exercise
 is numbered as \textbf{Q$n$}, where $n$ is a number. After the
 exercise number another number in parentheses displays the difficulty
 of this particular assignment. This difficulty ranges from 0 to
-50\footnote{This is the same scale Donald Knuth uses.}, where
+50 \footnote{This is the same scale Donald Knuth uses.}, where
 0 is easy and 50 is extremely difficult (such a problem is a unresolved
 research problem). Then a short name is given, for easier reference.
 For example
@@ -34,23 +34,22 @@ For example
 \textbf{Q1}. (4) A map function \ldots
 \end{verse}
     
-gives a question numbered \textbf{Q1} of a level 4 difficulty, concerning a
+introduces a question numbered \textbf{Q1} of a level 4 difficulty, concerning a
 \func{map()}-function. The answers are included after the exercises on a
 new page.
 The numbering and setup of the answers is identical to the
 exercises, except that an answer starts with \textbf{A$n$}, where the
 number $n$ corresponds with the number of the exercise.
 
-\begin{lbar}
-The Go language is a young language and
-features are still added or even \emph{removed}. It 
+Go is a young language, where 
+features are still being added or even \emph{removed}. It 
 may be possible that some text is outdated when you
-read it. It is also
-possible that some answers to the exercises are
-too old. We will do our best to keep this document up to 
+read it. 
+Some exercise answers may become incorrect as Go continues
+to evolve.
+We will do our best to keep this document up to 
 date with respect to the latest Go release.
 An effort has been made to create "future proof" code examples.
-\end{lbar}
 \noindent{}The following convention is used throughout this book:
 \begin{itemize}
 \item Code is displayed in \prog{DejaVu Mono};
@@ -59,7 +58,9 @@ An effort has been made to create "future proof" code examples.
 \item Extra remarks in the code \coderemark{Are displayed like this};
 \item Line numbers are printed on the right side;
 \item Longer remarks get a number - \gocircle{1} - with the explanation following;
-\item Shell examples use a \pr{} as prompt.
+\item Shell examples use a \pr{} as prompt;
+\item An emphasised paragraph is indented and has a vertical bar on the
+left.
 \end{itemize}
 
 \section{Official documentation}

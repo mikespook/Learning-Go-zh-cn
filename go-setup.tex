@@ -126,6 +126,9 @@
 \MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}}%
 {\endMakeFramed}
 
+%% Footnotes
+\renewcommand*{\thefootnote}{\textbf{\emph\alph{footnote}}}
+
 %% Epigraph
 \newcommand{\epi}[2]{\epigraph{#1}{#2}}
 \setlength{\epigraphwidth}{1.2\epigraphwidth}

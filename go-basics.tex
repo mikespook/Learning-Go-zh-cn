@@ -8,7 +8,7 @@ be able to do a lot in only a few lines of code;
 \item[Concurrent]
 Go makes it easy to ''fire off'' functions to be
 run as \emph{very} lightweight threads. These threads are called
-\first{goroutines}{goroutines}\footnote{Yes, that sounds a lot like
+\first{goroutines}{goroutines} \footnote{Yes, that sounds a lot like
 \emph{co}routines, but goroutines are slightly different as we will
 see in chapter \ref{chap:channels}.} in Go;
 
@@ -240,7 +240,7 @@ When assigning values octal, hexadecimal and the scientific notation may be used
 Constants in Go are just that --- constant. They are created at compile
 time, and can only be numbers, strings or boo leans;
 \lstinline{const x = 42} makes \var{x} a constant. You can use
-\first{\key{iota}}{keyword!iota}\footnote{The word [iota] is used in a common English phrase,
+\first{\key{iota}}{keyword!iota} \footnote{The word [iota] is used in a common English phrase,
 'not one iota', meaning 'not the slightest difference', in reference to
 a phrase in the New Testament: "\emph{until heaven and earth pass away, not an
 iota, not a dot, will pass from the Law}."\cite{iota}}
@@ -383,7 +383,7 @@ In the following paragraphs and chapters we will go over them.
 
 \section{Control structures}
 There are only a few control structure in 
-Go\footnote{This section is copied from \cite{effective_go}.}.
+Go \footnote{This section is copied from \cite{effective_go}.}.
 For instance there is no do or while loop, only a 
 \key{for}. There is a (flexible) \key{switch} statement and \key{if} and
 \key{switch} accept an
@@ -515,7 +515,7 @@ J:  for j := 0; j < 5; j++ {
 \subsection{Range}
 For strings, you can use the \first{\key{range}}{keyword!range} clause to manage the loop for
 you. It breaks out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
-byte and produce the replacement rune\footnote{In the UTF-8 world characters are
+byte and produce the replacement rune \footnote{In the UTF-8 world characters are
 sometimes called \first{runes}{runes}. Mostly, when people talk about
 characters, they mean 8 bit characters. As UTF-8 characters may be up to 32 bits the word
 rune is used.} U+FFFD). The loop:
