@@ -1,12 +1,6 @@
-.PHONY: once spell
+.PHONY: once spell codecheck
 
 all:	go.pdf
-
-spell:
-	for i in *.tex ex-*/*.tex; do aspell check $$i; done
-
-once:	
-	xelatex go.tex
 
 go.pdf:	go-*.tex ex-*/*.tex src/*.go tab/*.tex fig/*.tex blocksbook.cls go.bib .fig .tab go.tex
 	xelatex go.tex && bibtex go && makeindex go \
@@ -28,3 +22,13 @@ distclean: clean
 	( cd fig; make clean )
 	( cd tab; make clean )
 	( cd src; make clean )
+
+spell:
+	for i in *.tex ex-*/*.tex; do aspell check $$i; done
+once:	
+	xelatex go.tex
+
+codecheck:
+	bin/go-lstinputlisting.pl ~/git/gobook   *.tex
+	bin/go-lstinputlisting.pl ~/git/gobook   ex-*/*.tex
+	rm -f *.6 *.8

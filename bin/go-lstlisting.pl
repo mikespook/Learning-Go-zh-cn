@@ -32,7 +32,6 @@ while(<>) {
 
 	    print @listing;
 
-
 	    @listing = ();
 	    next;
     }

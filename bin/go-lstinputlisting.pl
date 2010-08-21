@@ -11,13 +11,13 @@ if (!defined $basedir) {
 shift;
 
 # remove |coderemarks|
-sub removecoderemark($) {
+sub removeremark($) {
     my $file = shift;
     open GO, "+<", $file or die "Cannot open: $file";
     my @go;
-    my $intex = 0;
     while(<GO>) {
 	s/\|\\coderemark.*?\|//;
+	s/\|\\longremark.*?\|//;
 	push @go, $_;
     }
     truncate GO, 0;
@@ -33,7 +33,7 @@ sub compile($) {
     my $target = "/tmp/$$.go.$i";
     $i++;
     system("cp $basedir/$file $target");
-    removecoderemark($target);
+    removeremark($target);
     system("6g $target");
     unlink($target);
     $? >> 8;
@@ -43,7 +43,11 @@ my $inlisting = 0;
 my @listing;
 while(<>) {
     if (m|\\lstinputlisting(\[.*?\])?{(.*)}|) {
-	my $gofile=$2;
+	my $gofile = $2;
+	if ($gofile !~ /\.go$/) {
+	    print "No Go    : $gofile\n";
+	    next;
+	}
 	print "Compiling: 6g $gofile: ";
 	if (compile($gofile) != 0) {
 	    print "NOT OK\n";
