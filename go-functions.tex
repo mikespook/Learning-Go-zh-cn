@@ -24,9 +24,9 @@ func identity(in int) int {
 \end{lstlisting}
 Go disallows nested functions.
 You can however
-work around this by using anonymous functions (see section
+work around this by using anonymous functions, see section
 "\titleref{sec:functions as values}" on page \pageref{sec:functions as values} 
-in this chapter).
+in this chapter.
 
 \section{Scope}
 Variables declared outside any functions are global in Go, those
@@ -93,10 +93,9 @@ number from a position in a byte array, returning the number and the next
 position.
 \begin{lstlisting}
 func nextInt(b []byte, i int) (int, int) {
-    for ; i < len(b) && !isDigit(b[i]); i++ {
-    }
     x := 0
-    for ; i < len(b) && isDigit(b[i]); i++ {
+    // Naively assume everything is a number
+    for ; i < len(b); i++ {
         x = x*10 + int(b[i])-'0'
     }
     return x, i
@@ -104,10 +103,12 @@ func nextInt(b []byte, i int) (int, int) {
 \end{lstlisting}
 You could use it to scan the numbers in an input array a like this:
 \begin{lstlisting}
-    for i := 0; i < len(a); {	    // todo double check this code
-        x, i = nextInt(a, i)
-        fmt.Printf("%d", x)
-    }
+a := []byte{'1', '2', '3', '4'}
+var x int
+for i := 0; i < len(a); {	|\coderemark{No \texttt{i++}}|
+    x, i = nextInt(a, i)
+    println(x)
+}
 \end{lstlisting}
 Without having tuples as a native type, multiple return values is the next
 best thing to have. You can return precisely what you want without

@@ -230,7 +230,7 @@ from the floating point value;}
 \section{Defining your own}
 \label{sec:defining your own}
 Of course Go allows you to define new types, it does this in (almost) the
-same way as in C, with the \key{struct} keyword.
+same way as in C, with the \key{type} keyword.
 
 An empty struct is created with \lstinline|var empty struct {}|.
 A more real-life example would be when we want record somebody's name
@@ -249,6 +249,24 @@ need to use \verb|.<field name>|. For example to only print the name:
 \begin{lstlisting}
 fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 \end{lstlisting}
+
+\subsection{Methods}
+If you create functions that works on your newly defined type, you can
+take two routes:
+\begin{enumerate}
+\item Create a function that takes the type as an argument.
+\begin{lstlisting}
+func doSomething(in1 *NameAge, in2 int) { /* ... */ }
+\end{lstlisting}
+This is (you might have guessed) a \first{\emph{function call}}{function
+call}.
+\item Create a function that works on the type (see \emph{receiver} in
+listing \ref{src:function definition}):
+\begin{lstlisting}
+func (in1 *NameAge) doSomething(in2 int) { /* ... */ }
+\end{lstlisting}
+This is a \first{\emph{method call}}{method call}.
+\end{enumerate}
 
 \section{Interfaces}
 \label{sec:interfaces}

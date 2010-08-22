@@ -2,12 +2,13 @@ package main
 
 import "fmt"
 
-func main() {
-	var a struct {
-		name string
-		age  int
-	}
+type NameAge struct {
+	name string
+	age  int
+}
 
+func main() {
+	a := new(NameAge)
 	a.name = "Pete"
 	a.age = 42
 
