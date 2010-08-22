@@ -13,8 +13,26 @@ sub removeremark(@) {
     @go;
 }
 
+sub nl(@) {
+    my $i = 0;
+    foreach(@_) {
+	print ++$i, "\t", $_;
+    }
+}
+
+sub gofmt(@) {
+    open FMT, "|-", "gofmt > /dev/null";
+	foreach(@_) {
+	    print FMT  $_;
+	}
+    close FMT;
+    $?;
+}
+
 my $inlisting = 0;
 my @listing;
+my ($snip, $func);
+my (@func, @snip);
 while(<>) {
     if (m|\\begin{lstlisting}|) {
 	    $inlisting = 1;
@@ -23,17 +41,17 @@ while(<>) {
     if (m|\\end{lstlisting}|) {
 	    $inlisting = 0;
 	    
+	    @listing = removeremark(@listing);
+
 	    if ( grep { /package main/ } @listing ) {
 		print "// Full program\n";
 	    } elsif ( grep { /func .*?\(/ } @listing ) {
-		print "// Function\n";
+		push @func, "// Function " . ++$func . "\n";
+		@func = (@func, @listing);
 	    } else {
-		print "// Snippet\n";
+		push @snip, "// Snippet " . ++$snip . "\n";
+		@snip = (@snip, @listing);
 	    }
-	    @listing = removeremark(@listing);
-
-	    print @listing;
-
 	    @listing = ();
 	    next;
     }
@@ -41,4 +59,38 @@ while(<>) {
 	push @listing, $_;
     }
 }
+# snippets
+unshift @snip, <<EOF;
+package main
 
+import (
+    "fmt"
+)
+
+func main() {	// START
+
+EOF
+push @snip, "}   // END\n";
+unshift @func, <<EOF;
+package main
+
+func main () { }
+EOF
+
+print "SNIP SNIP SNIP\n";
+
+if (gofmt(@snip) != 0) {
+    nl @snip;
+    print "NOT OK\n";
+} else {
+    print "OK\n";
+}
+
+print "FUNC FUNC FUNC\n";
+
+if (gofmt(@func) != 0) {
+    nl @func;
+    print "NOT OK\n";
+} else {
+    print "OK\n";
+}

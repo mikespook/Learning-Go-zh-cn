@@ -130,7 +130,7 @@ If we name the results of \lstinline{nextInt} it becomes obvious which
 returned \type{int} is which.
 
 \begin{lstlisting}
-func nextInt(b []byte, pos int) (value, nextPos int) {
+func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
 \end{lstlisting}
 Because named results are initialized and tied to an unadorned
 \key{return},
@@ -200,7 +200,7 @@ writes and reads on it. In such a function there are often spots where
 you want to return early. If you do that, you will need to close the file
 descriptor you are working on. This often leads to the following code:
 \begin{lstlisting}[caption=Without \func{defer}]
-function ReadWrite() bool {
+func ReadWrite() bool {
     file.Open("file")
     // Do you thing
     if failureX {
@@ -225,15 +225,15 @@ The code above could be rewritten as follows. This makes the
 function more readable, shorter and puts the \func{Close} right next 
 to the \func{Open}.
 \begin{lstlisting}[caption=With \func{defer}]
-function ReadWrite() bool {
+func ReadWrite() bool {
     file.Open("file")
-    defer file.Close("file") |\coderemark{\func{file.Close()} \emph{is} the function}|
+    defer file.Close()	|\coderemark{\func{file.Close()} \emph{is} the function}|
     // Do you thing
     if failureX {
-	return false	     |\coderemark{\func{Close()} is now done automatically}|
+	return false    |\coderemark{\func{Close()} is now done automatically}|
     }
     if failureY {
-	return false	     |\coderemark{And here too}|
+	return false    |\coderemark{And here too}|
     }
     return true
 }
@@ -252,14 +252,13 @@ With \func{defer} you can even change return values, provided that
 you are using named result parameters and a function literal, i.e:
 \begin{lstlisting}[caption=Function literal]
 defer func() {
-	...
+	/* ... */
 }()		 |\coderemark{() is needed here}|
 \end{lstlisting}
 In that (unnamed) function you can access any named return
 parameter:
 \begin{lstlisting}[caption=Access return values within \func{defer}]
-func f() (ret int) {    |\coderemark{\var{ret} is initialized with %
-zero}|
+func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
 	defer func() {
 		ret++	|\coderemark{Increment \var{ret} with 1}|
 	}()
@@ -303,8 +302,9 @@ Here we convert from integers to functions.
 var xs = map[int]func() int{
     1: func() int { return 10 },
     2: func() int { return 20 },
-    3: func() int { return 30 },
-    ...
+    3: func() int { return 30 }, |\coderemark{Mandatory ,}|
+    /* ... */
+}
 \end{lstlisting}
 Or you can write a function that takes a function as its parameter, for
 example a \func{Map} function that works on \type{int} slices. This is

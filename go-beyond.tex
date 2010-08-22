@@ -229,16 +229,20 @@ from the floating point value;}
 
 \section{Defining your own}
 \label{sec:defining your own}
-Of course Go allows you to define new types, it does this in (almost) the
-same way as in C, with the \key{type} keyword.
-
-An empty struct is created with \lstinline|var empty struct {}|.
-A more real-life example would be when we want record somebody's name
-and age in a single structure:
-
+Of course Go allows you to define new types, it does this 
+with the \first{\key{type}}{keyword!type} keyword: 
+\begin{lstlisting}
+type foo int
+\end{lstlisting}
+Creates
+a new type \lstinline{foo} which acts like an \lstinline{int}.
+Creating more sophisticated types is done with the
+\first{\key{struct}}{keyword!struct}
+keyword.
+An example would be when we want record somebody's name (\type{string})
+and age (\type{int}) in a single structure and make it a new type:
 \lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
-
-Apropos, the output of \lstinline{fmt.Printf("\%v\n", a)} is 
+Apropos, the output of \lstinline{fmt.Printf("%v\n", a)} is 
 \begin{display}
 {Pete, 42}
 \end{display}
@@ -267,6 +271,13 @@ func (in1 *NameAge) doSomething(in2 int) { /* ... */ }
 \end{lstlisting}
 This is a \first{\emph{method call}}{method call}.
 \end{enumerate}
+\todo{Tell more about this}
+Take this quote from \cite{go_spec}:
+\begin{quote}
+If \type{x} is
+addressable and \lstinline{&x}'s method set contains \func{m}, 
+\lstinline{x.m()} is shorthand for \lstinline{(&x).m()}.
+\end{quote}
 
 \section{Interfaces}
 \label{sec:interfaces}

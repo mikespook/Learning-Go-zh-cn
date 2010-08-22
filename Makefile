@@ -1,4 +1,4 @@
-.PHONY: once spell progcheck snipcheck
+.PHONY: once spell compilecheck fmtcheck
 
 all:	go.pdf
 
@@ -28,11 +28,11 @@ spell:
 once:	
 	xelatex go.tex
 
-progcheck:
+compilecheck:
 	bin/go-lstinputlisting.pl ~/git/gobook   *.tex
 	bin/go-lstinputlisting.pl ~/git/gobook   ex-*/*.tex
 	rm -f *.6 *.8
 
-snipcheck:
+fmtcheck:
 	bin/go-lstlisting.pl *.tex
 	bin/go-lstlisting.pl ex-*/*.tex
