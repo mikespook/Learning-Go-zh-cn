@@ -11,15 +11,6 @@ In short:
 \lstinline{goto Error} .
 \end{description}
 
-\todo{From Rob Pike
-Appendix B is misleading in its treatment of Go.  The only Go
-expressions that can be statements are function calls, method calls,
-and channel operations.  It's almost like Fortran. The text implies
-that assignment is an expression, which is not true.  The confusion
-about = in if conditions is simply not present in Go.
--rob}
-
-
 The distinction was crystal-clear in the earliest general-purpose
 programming languages, like Fortran. In Fortran, a statement was one
 unit of execution: "a thing that you did". 
@@ -48,8 +39,10 @@ things like: \lstinline{callfunc(x = 2)}.
 This evaluates the expression \lstinline{x = 2} (assigning the value of 2 to x) and
 then passes that (the 2) to the function \func{callfunc()}.
 
-This blurring of expressions and statements occurs in all the
-C-derivatives (C, C++, C\#, and Java), which still have some
-statements (like \key{while}) but which allow almost any expression to be used
-as a statement. Functional languages like Lisp don't have statements.
+Luckily this blurring is significantly lessened in Go.
+The only Go
+expressions that can be statements are function calls, method calls,
+and channel operations. It's almost like Fortran. 
+
+Functional languages like Lisp don't have statements.
 All they have is expressions. 
