@@ -1,11 +1,7 @@
 Communication with the outside world:
 \begin{itemize}
-\item{Files}
-\item{Command line arguments and flags}
 \item{Input/Output, Stdin, Stdout}
 \item{Networking}
-\item{Starting other programs}
-\item{Forking}
 \item{Databases}
 \item{Web}
 \end{itemize}
@@ -30,6 +26,13 @@ type Reader interface {
 So \emph{anything} that has such a \func{Read()} function implements this
 interface. And from listing \ref{src:read} (line 10) we can see
 that \type{*File} indeed does so. 
+
+\section{Command line arguments}
+Arguments from the command line are available inside your program via
+the string slice \var{os.Args}, provided you have imported the package
+\package{os}. The \package{flag} package has a more sophisticated
+interface, and also provided a way to parse flags.
+\todo{example}.
 
 \section{Executing commands}
 The \package{exec}\index{package!exec} package has function to run external commands, and it the premier way to

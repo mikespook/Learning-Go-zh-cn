@@ -17,19 +17,18 @@ expressions that can be statements are function calls, method calls,
 and channel operations.  It's almost like Fortran. The text implies
 that assignment is an expression, which is not true.  The confusion
 about = in if conditions is simply not present in Go.
-
 -rob}
 
 
 The distinction was crystal-clear in the earliest general-purpose
-programming languages, like FORTRAN. In FORTRAN, a statement was one
+programming languages, like Fortran. In Fortran, a statement was one
 unit of execution: "a thing that you did". 
 An expression on its own couldn't do anything. You had to assign it to a
 variable.
 \begin{display}
 1 + 2 / X
 \end{display}
-is an error in FORTRAN, because it doesn't do anything. You had to do
+is an error in Fortran, because it doesn't do anything. You had to do
 something with that expression: 
 \begin{display}{X = 1 + 2 / X}\end{display}
 
@@ -50,7 +49,7 @@ This evaluates the expression \lstinline{x = 2} (assigning the value of 2 to x) 
 then passes that (the 2) to the function \func{callfunc()}.
 
 This blurring of expressions and statements occurs in all the
-C-derivatives (C, C++, C\#, Java and of course Go), which still have some
+C-derivatives (C, C++, C\#, and Java), which still have some
 statements (like \key{while}) but which allow almost any expression to be used
 as a statement. Functional languages like Lisp don't have statements.
 All they have is expressions. 
