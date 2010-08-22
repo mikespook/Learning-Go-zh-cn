@@ -25,6 +25,8 @@ while(<>) {
 	    
 	    if ( grep { /package main/ } @listing ) {
 		print "// Full program\n";
+	    } elsif ( grep { /func .*?\(/ } @listing ) {
+		print "// Function\n";
 	    } else {
 		print "// Snippet\n";
 	    }
