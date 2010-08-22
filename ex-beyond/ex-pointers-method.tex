@@ -51,6 +51,7 @@ In other words because \var{k1} is addressable and
 \type{*vector.IntVector} \emph{does} have the \func{Push} method, the
 call \lstinline{k1.Push(2)} is translated by Go into 
 \lstinline{(&k1).Push(2)} which makes the type system happy again (and
-you too --- now you know this).
+you too --- now you know this).\footnote{Also see section
+"\titleref{sec:methods}" in this chapter.}
 
 \end{Answer}

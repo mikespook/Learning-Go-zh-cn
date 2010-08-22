@@ -24,17 +24,24 @@ time and them print something to the screen. A
 it with the keyword \first{\key{go}}{keyword!go}.
 \begin{lstlisting}
 ready("Tee", 2)	    |\coderemark{Normal function call}|
-go ready("Tee", 2)  |\coderemark{\func{Tee()} started as goroutine}|
+go ready("Tee", 2)  |\coderemark{\func{Ready()} started as goroutine}|
 \end{lstlisting}
 On the lines 14 and 15 we start two goroutines.
 The \func{main} function
 waits long enough, so that both goroutines will have printed their text. Right
 now we wait for 5 seconds (\func{time.Sleep()} counts in ns) on line 17, but in fact we have no idea how
 long we should wait until all goroutines have exited.
+\lstinputlisting[numbers=right,label=src:sleeping,firstnumber=8,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
+Listing \ref{src:sleeping} outputs:
+\begin{display}
+I'm waiting
+Coffee is ready!
+Tee is ready!
+\end{display}
+
 If we did not wait for the goroutines (i.e. remove line 17) the program
 would be terminated immediately and any running goroutines would die with it. 
-\lstinputlisting[numbers=right,label=src:sleeping,firstnumber=8,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
-What we need here is some kind of mechanism which allows us to
+To fix this we need some kind of mechanism which allows us to
 communicate with the goroutines. This mechanism is available
 to us in the form of \first{channels}{channels}. A
 \first{channel}{channel} can be
