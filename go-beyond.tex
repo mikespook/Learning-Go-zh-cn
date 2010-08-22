@@ -269,15 +269,29 @@ listing \ref{src:function definition}):
 \begin{lstlisting}
 func (in1 *NameAge) doSomething(in2 int) { /* ... */ }
 \end{lstlisting}
-This is a \first{\emph{method call}}{method call}.
+This is a \first{\emph{method call}}{method call}, which can be
+used as: 
+\begin{lstlisting}
+var n *NameAge
+n.doSomething(2)
+\end{lstlisting}
 \end{enumerate}
-\todo{Tell more about this}
-Take this quote from \cite{go_spec}:
+But keep the following in mind, this is quoted from \cite{go_spec}:
 \begin{quote}
 If \type{x} is
 addressable and \lstinline{&x}'s method set contains \func{m}, 
 \lstinline{x.m()} is shorthand for \lstinline{(&x).m()}.
 \end{quote}
+In the above case this means that the following is \emph{not} an 
+error:
+\begin{lstlisting}
+var n NameAge	    |\coderemark{Not a pointer}|
+n.doSomething(2)    
+\end{lstlisting}
+Here Go will search the method list for \var{n} of type \type{NameAge},
+come up empty and will then \emph{also} search the method list for
+the type \type{*NameAge} and will translate this call to
+\lstinline{(&n).doSomething(2)}.
 
 \section{Interfaces}
 \label{sec:interfaces}
