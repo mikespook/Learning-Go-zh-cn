@@ -77,7 +77,7 @@ func ready(w string, sec int) {
 }
 
 func main() {i
-	c = make(chan int) |\longremark{Initialize \var{c}, note that we must use \func{make} here;}|
+	c = make(chan int) |\longremark{Initialize \var{c};}|
 	go ready("Tee", 2) |\longremark{Start the goroutines with the keyword \key{go}l;}|
 	go ready("Coffee", 1)
 	fmt.Println("I'm waiting, but not too long")
@@ -90,7 +90,7 @@ There is still some remaining ugliness; we have to read twice from
 the channel (lines 14 and 15). This is OK in this case, but what if
 we don't know how many goroutines we started? This is where another
 Go built-in comes in: \first{\key{select}}{keyword!select}. With \key{select} you 
-can (among other things) listing for incoming data on a channel.
+can (among other things) listen for incoming data on a channel.
 
 Using \key{select} in our program does not really make it shorter,
 because we run too few goroutines. We remove the lines 14 and 15 and
