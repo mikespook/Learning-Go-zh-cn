@@ -254,6 +254,11 @@ need to use \verb|.<field name>|. For example to only print the name:
 fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 \end{lstlisting}
 
+\todo{"reference-y" sounds like a pretty hazy concept to me. As has been
+noted already, struct types with non-exported fields cannot be copied
+by code outside of the type's package. This forces the type's users to
+pass it by reference.}
+
 \subsection{Methods}
 \label{sec:methods}
 If you create functions that works on your newly defined type, you can
