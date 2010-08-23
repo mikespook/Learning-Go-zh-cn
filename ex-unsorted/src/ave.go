@@ -1,7 +1,7 @@
 package main
 
 func average(xs []float) (ave float) {
-	sum := 0
+	sum := 0.0
 	switch len(xs) {
 	case 0:
 		ave = 0
@@ -9,7 +9,7 @@ func average(xs []float) (ave float) {
 		for _, v := range xs {
 			sum += v
 		}
-		ave = sum / len(xs)
+		ave = sum / float(len(xs))
 	}
 	return
 }

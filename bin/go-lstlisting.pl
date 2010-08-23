@@ -5,9 +5,19 @@ use warnings;
 
 sub removeremark(@) {
     my @go;
+    my $skip = 0;
     foreach(@_) {
-	s/\|\\coderemark.*?\|//;
-	s/\|\\longremark.*?\|//;
+	if ($skip) {
+	    # check if we have % again, if so, skip again
+	    if (/\%$/) { next; }
+	    $skip = 0;
+	    next;
+	}
+
+	if (/\%$/) { $skip = 1; }
+
+	s/\|\\coderemark.*?(\||\%$)//;
+	s/\|\\longremark.*?(\||\%$)//;
 	push @go, $_;
     }
     @go;
@@ -77,18 +87,20 @@ package main
 func main () { }
 EOF
 
-print "SNIP SNIP SNIP\n";
+print "SNIP SNIP SNIP -- ";
 
 if (gofmt(@snip) != 0) {
+    print "\n"
     nl @snip;
     print "NOT OK\n";
 } else {
     print "OK\n";
 }
 
-print "FUNC FUNC FUNC\n";
+print "FUNC FUNC FUNC -- ";
 
 if (gofmt(@func) != 0) {
+    print "\n"
     nl @func;
     print "NOT OK\n";
 } else {

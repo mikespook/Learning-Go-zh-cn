@@ -15,9 +15,19 @@ sub removeremark($) {
     my $file = shift;
     open GO, "+<", $file or die "Cannot open: $file";
     my @go;
+    my $skip = 0;
     while(<GO>) {
-	s/\|\\coderemark.*?\|//;
-	s/\|\\longremark.*?\|//;
+        if ($skip) {
+	# check if we have % again, if so, skip again
+        if (/\%$/) { next; }
+            $skip = 0;
+            next;
+        }   
+
+        if (/\%$/) { $skip = 1; }
+
+	s/\|\\coderemark.*?(\||\%$)//;
+	s/\|\\longremark.*?(\||\%$)//;
 	push @go, $_;
     }
     truncate GO, 0;
