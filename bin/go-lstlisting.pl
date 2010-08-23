@@ -3,6 +3,8 @@
 use strict;
 use warnings;
 
+my $quiet = 0;
+
 sub removeremark(@) {
     my @go;
     my $skip = 0;
@@ -18,6 +20,8 @@ sub removeremark(@) {
 
 	s/\|\\coderemark.*?(\||\%$)//;
 	s/\|\\longremark.*?(\||\%$)//;
+	s/\\newline//;
+	s/\|.*?\|//;
 	push @go, $_;
     }
     @go;
@@ -54,12 +58,24 @@ while(<>) {
 	    @listing = removeremark(@listing);
 
 	    if ( grep { /package main/ } @listing ) {
-		print "// Full program\n";
+
+		unshift @listing, "// Full program\n";
+		print "FULL FULL FULL -- " if not $quiet;
+		if (gofmt(@listing) != 0) {
+		    print "\n";
+		    nl @listing;
+		    print "$ARGV - NOT OK\n";
+		} else {
+		    print "OK\n" if not $quiet;
+		}
+
 	    } elsif ( grep { /func .*?\(/ } @listing ) {
-		push @func, "// Function " . ++$func . "\n";
+		push @func, "// $ARGV - Function " . ++$func . "\n";
+		grep { s/(import)/\/\/$1/}  @listing;
 		@func = (@func, @listing);
 	    } else {
-		push @snip, "// Snippet " . ++$snip . "\n";
+		push @snip, "// $ARGV - Snippet " . ++$snip . "\n";
+		grep { s/(import)/\/\/$1/}  @listing;
 		@snip = (@snip, @listing);
 	    }
 	    @listing = ();
@@ -87,22 +103,20 @@ package main
 func main () { }
 EOF
 
-print "SNIP SNIP SNIP -- ";
-
+print "SNIP SNIP SNIP -- " if not $quiet;
 if (gofmt(@snip) != 0) {
-    print "\n"
+    print "\n";
     nl @snip;
     print "NOT OK\n";
 } else {
-    print "OK\n";
+    print "OK\n" if not $quiet;
 }
-
-print "FUNC FUNC FUNC -- ";
+print "FUNC FUNC FUNC -- " if not $quiet;
 
 if (gofmt(@func) != 0) {
-    print "\n"
+    print "\n";
     nl @func;
     print "NOT OK\n";
 } else {
-    print "OK\n";
+    print "OK\n" if not $quiet;
 }

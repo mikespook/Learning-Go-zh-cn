@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+my $quiet = 1;
 my $i = 1;
 my $basedir=$ARGV[0] if defined $ARGV[0];
 if (!defined $basedir) {
@@ -28,6 +29,7 @@ sub removeremark($) {
 
 	s/\|\\coderemark.*?(\||\%$)//;
 	s/\|\\longremark.*?(\||\%$)//;
+	s/\\newline//;
 	push @go, $_;
     }
     truncate GO, 0;
@@ -55,15 +57,14 @@ while(<>) {
     if (m|\\lstinputlisting(\[.*?\])?{(.*)}|) {
 	my $gofile = $2;
 	if ($gofile !~ /\.go$/) {
-	    print "No Go    : $gofile\n";
+	    print "No Go    : $gofile\n" if not $quiet;
 	    next;
 	}
-	print "Compiling: 6g $gofile: ";
 	if (compile($gofile) != 0) {
+	    print "Compiling: 6g $gofile -- ";
 	    print "NOT OK\n";
 	} else {
-	    print "OK\n";
+	    print "OK\n" if not $quiet;
 	}
     }
 }
-

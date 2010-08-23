@@ -29,10 +29,10 @@ once:
 	xelatex go.tex
 
 compilecheck:
-	bin/go-lstinputlisting.pl ~/git/gobook   *.tex
-	bin/go-lstinputlisting.pl ~/git/gobook   ex-*/*.tex
-	rm -f *.6 *.8
+	@bin/go-lstinputlisting.pl ~/git/gobook   *.tex
+	@bin/go-lstinputlisting.pl ~/git/gobook   ex-*/*.tex
+	@rm -f *.6 *.8
 
 fmtcheck:
-	bin/go-lstlisting.pl *.tex
-	bin/go-lstlisting.pl ex-*/*.tex
+	@bin/go-lstlisting.pl *.tex
+	@bin/go-lstlisting.pl ex-*/*.tex

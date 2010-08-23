@@ -448,7 +448,7 @@ you jump to a label which must be defined within the current function.
 The labels are case sensitive. 
 For instance a loop in disguise:
 \begin{lstlisting}
-func main() {
+func myfunc() {
         i := 0                                                                                      
 HERE:	   |\coderemark{First word on a line ending with a colon is a label}|
         println(i)
@@ -522,7 +522,7 @@ rune is used.} U+FFFD). The loop:
 
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
-    fmt.Printf("character \'%c\' starts at byte position %d\n", char, pos)
+    fmt.Printf("character '%c' starts at byte position %d\n", char, pos)
 }
 \end{lstlisting}
 prints
@@ -703,7 +703,7 @@ clause help you again, which returns the key and corresponding value
 with each invocation.
 \begin{lstlisting}
 year := 0
-for _, days := range monthdays  // key is not used
+for _, days := range monthdays { // key is not used
     year += days
 }
 fmt.Printf("Numbers of days in a year: %d\n", year)

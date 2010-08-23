@@ -369,8 +369,7 @@ result in Go is powerful, flexible, efficient, and easy to write.
 For example, since every type satisfies the empty interface:
 \type{interface \{\}}. We can create a generic function which 
 has an empty interface as its argument:
-\begin{lstlisting}[caption=A function with a empty interface
-argument,label=src:interface empty]
+\begin{lstlisting}[caption=A function with a empty interface argument,label=src:interface empty]
 func g(any interface{}) int { return any.(I).Get() }
 \end{lstlisting}
 The \lstinline{return any.(I).Get()} is the tricky bit in this function.
@@ -408,7 +407,7 @@ You can make an integer type with its own methods. For example:
 type Foo int;
 
 func (self Foo) Emit() {
-  fmt.Printf("\%v", self);
+  fmt.Printf("%v", self);
 }
 
 type Emitter interface {
@@ -531,9 +530,10 @@ actual \type{string} contained deep within.}} %
 \includegraphics[scale=0.85]{fig/reflection.pdf} %
 \end{center}\end{figure} %
 Reflection works by pealing off layers once you have got your hands %
-on a \type{Value} in the reflection world.
-}|
+on a \type{Value} in the reflection world.}|
 	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0)\newline.(*reflect.StringValue).Get()
+    }
+}
 \end{lstlisting}
 \showremarks
 

@@ -50,7 +50,7 @@ Lets execute \verb|ls -l|:
 \begin{lstlisting}
 import "exec"
 
-cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exec.DevNull, exec.DevNull})
+cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exec.DevNull, exec.DevNull)
 \end{lstlisting}
 In the \package{os}\index{package!os} package we find the \func{ForkExec} function. This
 is another way (but more low level) to start executables.\footnote{There is talk on
