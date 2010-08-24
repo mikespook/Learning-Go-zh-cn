@@ -38,6 +38,7 @@ that reverses a string, so "foobar" is printed as "raboof".
 \begin{Answer}
 
 \Question This program is a solution:
+
 \lstinputlisting[label=string1,caption=Strings]{ex-basics/src/string1.go}
 
 \Question To answer this question we need some help of
@@ -47,14 +48,20 @@ we notice \lstinline{func RuneCount(p []byte) int}. Secondly
 we can convert \emph{string} to a \type{byte} slice with
 \begin{lstlisting}
 str := "hello"
-b   := []byte(str)  |\coderemark{A conversion, see section %
-\ref{sec:conversions} on page \pageref{sec:conversions}}|
+b   := []byte(str) |\coderemark{Conversion, see %
+page \pageref{sec:conversions}}|
 \end{lstlisting}
 
 Putting this together leads to the following program.
+
+\begin{minipage}{\textwidth}
 \lstinputlisting[label=src:string2,caption=Runes in strings]{ex-basics/src/string2.go}
+\end{minipage}
 
 \Question Reversing a string can be done as follows:
+
+\begin{minipage}{\textwidth}
 \lstinputlisting[label=src:stringrev,caption=Reverse a string]{ex-basics/src/stringrev.go}
+\end{minipage}
 
 \end{Answer}
