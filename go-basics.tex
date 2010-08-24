@@ -532,8 +532,10 @@ character '\begin{math}\Phi\end{math}' starts at byte position 1
 character 'x' starts at byte position 3
 \end{display}
 
-The \first{\key{range}}{keyword!range} keyword can also be used on arrays, slices and maps
-(see section "\titleref{sec:arrays}"). If used \key{range} is also an
+The \first{\key{range}}{keyword!range} keyword can also be used on
+arrays, slices, maps (see section "\titleref{sec:arrays}") and channels
+(see chapter \ref{chap:channels}, section ??).
+If used \key{range} is also an
 iterator that, when called, returns a key-value pair. The key is the
 index in the array, slice or map and the value corresponds with that
 key.
