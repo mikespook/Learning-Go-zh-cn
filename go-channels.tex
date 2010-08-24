@@ -17,7 +17,7 @@ stack space. And the stacks start small, so they are cheap, and grow by
 allocating (and freeing) heap storage as required.
 \end{quote}
 
-The following idea for a program was taken from \cite{curso_go}. 
+The following idea for a program was taken from \cite{go_course_day3}. 
 We run a function as two goroutines, the goroutines wait for an amount of
 time and them print something to the screen. A
 \first{goroutine}{goroutine} is a normal function, except that you start
@@ -34,9 +34,9 @@ long we should wait until all goroutines have exited.
 \lstinputlisting[numbers=right,label=src:sleeping,firstnumber=8,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
 Listing \ref{src:sleeping} outputs:
 \begin{display}
-I'm waiting
-Coffee is ready!
-Tee is ready!
+I'm waiting	    # right away
+Coffee is ready!    # after 1 minute
+Tee is ready!	    # after 2 minutes
 \end{display}
 
 If we did not wait for the goroutines (i.e. remove line 17) the program
