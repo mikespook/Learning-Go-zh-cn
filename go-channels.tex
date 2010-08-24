@@ -85,6 +85,8 @@ func main() {i
 	<-c |\longremark{Two goroutines, two values to receive.}|
 }
 \end{lstlisting}
+\todo{Do this with range, use select later}
+
 \showremarks
 There is still some remaining ugliness; we have to read twice from
 the channel (lines 14 and 15). This is OK in this case, but what if

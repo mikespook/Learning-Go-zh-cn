@@ -1,4 +1,4 @@
-\documentclass[a4paper,twoside,openleft]{blocksbook}
+\documentclass[a5paper,twoside,openleft]{blocksbook}
 \usepackage[cm-default]{fontspec}% provides font selecting commands
 \usepackage{xunicode}% provides unicode character macros
 \usepackage{xltxtra} % provides some fixes/extras
@@ -38,9 +38,9 @@
 \thispagestyle{empty}
 \newcommand{\version}{0.2}
 %% Title page
-\vspace*{-0.10\stockheight}
 \begin{figure}[t!]
 \begin{center}
+\vspace*{-0.10\stockheight}
     \hspace{1.0cm}{\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}Learning Go}}}}
     \includegraphics[scale=0.65]{fig/bumper-inverse.png}
 \end{center}
@@ -66,13 +66,14 @@ Go Nuts mailing list
 \end{flushright}
 \end{minipage}
 
-%%\vfill
 \begin{center}
 \hspace*{2.5cm}THIS IS A WORK IN PROGRESS\newline\newline
     \hspace*{1cm}\CcGroupByNcSa{0.83}{0.95ex}\\[2.5ex]
     \hspace*{1cm}{\tiny\CcNote{\CcLongnameByNcSa}}
 \newline\hspace*{1cm}{\tiny Version: \version{} (\today)}
 \end{center}
+%%\vfill
+\vspace{-3em}
 %% End title page %%
 
 \newpage
@@ -83,10 +84,10 @@ Go Nuts mailing list
 \includegraphics[scale=0.50]{fig/google_logo_black.pdf}
 \end{center}
 \end{figure}
-
 \begin{center}
-\vspace{8.0cm}
+\vfill
 \emph{Learning as we Go.}
+\vspace{.2\stockheight}
 \end{center}
 
 \clearpage

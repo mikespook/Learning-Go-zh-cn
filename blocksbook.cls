@@ -119,7 +119,7 @@
 
 %% chapter style
 \makechapterstyle{blocks}{%
-  \renewcommand{\chapterheadstart}{\vspace{2cm}}
+  \renewcommand{\chapterheadstart}{\vspace*{-5em}}
   \renewcommand{\printchaptername}{}
   \renewcommand{\typename}{\chaptername}
   \renewcommand{\chapternamenum}{}
