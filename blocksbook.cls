@@ -146,13 +146,13 @@
 %% part style
 \makepagestyle{part}
 \renewcommand{\partname}{}
-\renewcommand{\partnumfont}{\HUGE\myseries\myfamily}
-\renewcommand{\parttitlefont}{\HUGE\myseries\myfamily}
-\renewcommand{\printparttitle}[1]{\vspace{10ex}\parttitlefont #1}
+\renewcommand{\partnumfont}{\myseries\myfamily}
+\renewcommand{\parttitlefont}{\myseries\myfamily}
+\renewcommand{\printparttitle}[1]{\vspace{10ex}\parttitlefont\scalefont{3.0}{#1}}
 \renewcommand{\printpartnum}{%
         \raggedright
         \addtolength{\fboxsep}{5ex}
-        \framebox{\partnumfont\thepart}
+        \framebox{\partnumfont\scalefont{6.0}{\thepart}}
 }
 
 %% bibliography style
