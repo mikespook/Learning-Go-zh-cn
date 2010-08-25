@@ -1,5 +1,6 @@
 xx Sep 2010: 0.2 Miek Gieben <miek@miek.nl
    * Released version 0.2
+   release.2010-08-25 (different Make system)
    * Apply comments from the Gonuts mailing list
    * make()/new() rewritten
    * Finished all current exercises
