@@ -96,21 +96,26 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 \pr hg clone -r release https://go.googlecode.com/hg/ $GOROOT 
 \end{display}
 
-\item Set some more environment variables, namely:
-\begin{description}
-\item[\texttt{GOOS}] Must be set to your operation system, valid values
-are \texttt{linux}, \texttt{darwin} (for Mac OS X) and \texttt{freebsd}.
-\item[\texttt{GOARCH}] Must be set the either \texttt{386} for 32 bit
-systems or to \texttt{amd64} for 64 bit.
-\item[\texttt{GOBIN}] Can be optionally set to point to a directory where
-the Go binaries should be placed.
-\end{description}
-In this book we use the following settings:
+\item Set your PATH to find the Go binaries:
 \begin{display}
-\pr export GOOS=linux
-\pr export GOARCH=amd64
-\pr export GOBIN=~/bin
+\pr export PATH=$GOROOT/bin:$PATH
 \end{display}
+
+%%\item Set some more environment variables, namely:
+%%\begin{description}
+%%\item[\texttt{GOOS}] Must be set to your operation system, valid values
+%%are \texttt{linux}, \texttt{darwin} (for Mac OS X) and \texttt{freebsd}.
+%%\item[\texttt{GOARCH}] Must be set the either \texttt{386} for 32 bit
+%%systems or to \texttt{amd64} for 64 bit.
+%%\item[\texttt{GOBIN}] Can be optionally set to point to a directory where
+%%the Go binaries should be placed.
+%%\end{description}
+%%In this book we use the following settings:
+%%\begin{display}
+%%\pr export GOOS=linux
+%%\pr export GOARCH=amd64
+%%\pr export GOBIN=~/bin
+%%\end{display}
 
 \item Compile Go
 \begin{display}

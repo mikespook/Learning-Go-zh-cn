@@ -128,7 +128,10 @@ Another, less laborious (once setup), way to build a Go program, is to use a
 program,numbers=right]{src/Makefile.prog}
 A line 7 you specify the name for your compiled program and on line 9
 you enumerate the source files. Now only an invocation of \verb|make| is
-enough to get your program compiled.
+enough to get your program compiled. Note that Go ships with the variant
+of \prog{make}, called \prog{gomake}, which is (currently) a small
+wrapper around \prog{make}. As the build system for Go programs may
+change in the future and make \prog{make} go away, we use \prog{gomake}.
 
 \section{Variables, types and keywords}
 In the next sections we will look at the variables, basic types,

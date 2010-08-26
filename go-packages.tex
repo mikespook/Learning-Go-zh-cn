@@ -68,12 +68,12 @@ in section "\titleref{sec:building a program}" in chapter
 \ref{chap:basics}. The last line with the \verb|include| statement is
 different.
 
-If we now issue \prog{make}, a file named "\file{\_go\_.6}", a directory
+If we now issue \prog{gomake}, a file named "\file{\_go\_.6}", a directory
 named "\dir{\_obj/}" and a file inside "\dir{\_obj/}" called
 "\file{even.a}"
 is created. The file \file{even.a} is a static library which holds
 the compiled Go code.
-With \prog{make install} the package (well, only the \file{even.a}) is installed in the \emph{official}
+With \prog{gomake install} the package (well, only the \file{even.a}) is installed in the \emph{official}
 package directory:
 \begin{display}
 \pr make install
@@ -212,7 +212,7 @@ keep in mind that has to be build using the standard \file{Makefile}
 
 The testing itself is carried out with \prog{gotest}.
 The \prog{gotest} program run all the test functions. Without any
-defined tests for our \package{even} package a \prog{make test}, yields:
+defined tests for our \package{even} package a \prog{gomake test}, yields:
 \begin{display}
 \pr make test
 no test files found (*_test.go)
