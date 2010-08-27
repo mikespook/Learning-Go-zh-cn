@@ -210,6 +210,10 @@ have excellent documentation. When you include tests with your package
 keep in mind that has to be build using the standard \file{Makefile}
 (see section "\titleref{sec:building a package}").
 
+
+%% CLEANFILES+=hello fib chain run.out
+%%
+
 The testing itself is carried out with \prog{gotest}.
 The \prog{gotest} program run all the test functions. Without any
 defined tests for our \package{even} package a \prog{gomake test}, yields:
