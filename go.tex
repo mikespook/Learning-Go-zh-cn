@@ -34,6 +34,12 @@
 %%\input{draft.tex}
 %%\AddEverypageHook{\pagedraft}
 %%\usepackage{refcheck}
+%% a5paper
+%\setlength{\voffset}{-0.10\stockheight} 
+%\addtolength{\textheight}{0.12\stockheight}
+%% a4paper
+\setlength{\voffset}{-0.02\stockheight}
+
 
 \begin{document}
 \thispagestyle{empty}
@@ -43,8 +49,6 @@
 \begin{center}
     \hspace{1.0cm}{\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}Learning Go}}}}
     \includegraphics[scale=0.65]{fig/bumper-inverse.png}
-
-    \emph{Updated to Go release.2010-08-25}
 \end{center}
 \end{figure}
 \vspace*{0.02\stockheight}
@@ -57,7 +61,7 @@
 \vfill
 \end{flushleft}
 \end{minipage}
-%
+\hspace{5mm}
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
 \emph{Thanks to:} \\
@@ -69,10 +73,9 @@ Go Nuts mailing list
 \end{minipage}
 \vfill
 \begin{center}
-\hspace*{2.5cm}THIS IS A WORK IN PROGRESS\newline\newline
     \hspace*{1cm}\CcGroupByNcSa{0.83}{0.95ex}\\[2.5ex]
     \hspace*{1cm}{\tiny\CcNote{\CcLongnameByNcSa}}
-\newline\hspace*{1cm}{\tiny Version: \version{} (\today)}
+\newline\hspace*{1cm}{\tiny Build: \version --- \today}
 \end{center}
 \vspace{-3em}
 %% End title page %%
@@ -87,7 +90,9 @@ Go Nuts mailing list
 \end{figure}
 \begin{center}
 \vfill
-\emph{Learning as we Go.}
+\emph{Learning as we Go}
+
+\emph{Updated to Go release.2010-08-25}
 \vspace{.2\stockheight}
 \end{center}
 
