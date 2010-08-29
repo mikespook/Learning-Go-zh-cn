@@ -201,19 +201,43 @@ Sometimes you want to convert a type to another type. In C this is known
 as casting a value to another type. This is also possible in Go, but
 there are some rules. For starters, converting from one value to another
 is done by functions and not all conversion are allowed.
+
+\begin{table}[H]
+\begin{center}
+\caption{Valid conversions}
+\label{tab:convesion}
+\input{tab/conversion.tex}
+\end{center}
+\end{table}
+
 \begin{itemize}
 \item{
-From a \lstinline{string} to a slice of \lstinline{byte}s.
+From a \lstinline{string} to a slice of \lstinline{byte}s or
+\lstinline{int}s.
 \begin{lstlisting}
 mystring := "hello this is string"
+\end{lstlisting}
+
+\begin{lstlisting}
 byteslice := []byte(mystring)
 \end{lstlisting}
+Converts to a \type{byte} slice, each \type{byte} contains the integer value
+of the corresponding byte in the string. Note that as strings in Go
+are encoded in UTF-8 some characters in the string may end up in 1, 2, 3
+or 4 bytes.
+\begin{lstlisting}
+intslice  := []int(mystring)
+\end{lstlisting}
+Converts to an \type{int} slice, each \type{int} contains a Unicode code
+point. Every character from the string is corresponds to one integer.
 }
 \item{
-From a slice of \lstinline{byte}s to a \lstinline{string}.
+From a slice of \lstinline{byte}s or \lstinline{int}s to a \lstinline{string}.
 \begin{lstlisting}
 b := []byte{'h','e','l','l','o'} |\coderemark{Composite literal}|
 s := string(b)
+i := []int{257,1024,65} 
+r := string(i)
 \end{lstlisting}
 }
 \end{itemize}
