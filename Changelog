@@ -5,10 +5,13 @@ xx Sep 2010: 0.2 Miek Gieben <miek@miek.nl
    * Apply comments from the Gonuts mailing list
    * make()/new() rewritten
    * Finished all current exercises
+   * Interfaces back as sep. chapter
    * Automatic checking of Go code
    * Smaller changes:
 	- different footnote marker
 	- more plain quoting
+	- remove appendix A
+
 
 
 16 Aug 2010: 0.1 Miek Gieben <miek@miek.nl>
