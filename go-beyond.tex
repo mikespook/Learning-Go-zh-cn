@@ -33,8 +33,15 @@ types are therefore really easy to read just read out the names of the
 type modifiers: \type{[]} declares something called an array slice;
 '\key{*}'
 declares a pointer; \type{[size]} declares an array. So
-\type{[]*[3]*int} is an array slice of pointers to arrays of three
-pointers to \type{int}s.\todo{Make nice info graphic}
+\type{[]*[3]*X} is an array slice of pointers to arrays of three
+pointers to \type{X}s (also see figure \ref{fig:pointers}).
+\begin{figure}[h]
+\caption{Pointers and types, the values \var{v} all have type \type{X}}
+\label{fig:pointers}
+\begin{center}
+\includegraphics[scale=0.65]{fig/pointers.pdf}
+\end{center}
+\end{figure}
 
 Dereferencing a pointer is done by prefixing the pointer variable with
 '\type{*}':
