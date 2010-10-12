@@ -54,7 +54,7 @@ cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exe
 \end{lstlisting}
 In the \package{os}\index{package!os} package we find the \func{ForkExec} function. This
 is another way (but more low level) to start executables.\footnote{There is talk on
-the Gonuts mailing list about separating \func{Fork} and
+the go-nuts mailing list about separating \func{Fork} and
 \func{Exec}.} 
 The prototype for \func{ForkExec} is:
 \begin{lstlisting}
