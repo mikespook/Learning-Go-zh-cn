@@ -6,4 +6,3 @@ tabs := $(patsubst %.gnumeric,%.tex,$(wildcard *.gnumeric))
 all:	${tabs}
 
 clean:  
-	rm -f *.tex
