@@ -1,7 +1,4 @@
 #!/usr/bin/perl -l
-use strict;
-use warnings;
-
 my (%child, $pid, $parent);
 my @ps=`ps -e -opid,ppid,comm`;	    # Capture the ouput from `ps`
 foreach (@ps[1..$#ps]) {	    # Discard the header line
