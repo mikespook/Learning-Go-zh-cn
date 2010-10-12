@@ -137,12 +137,11 @@
 %% Margin notes
 \setmarginnotes{0.04\stockwidth}{0.12\stockwidth}{\onelineskip}
 \newcommand{\gomarginpar}[1]{%
-\marginpar{\rmfamily#1}}
+\marginpar{\rmfamily\itshape\small#1}}
 \newcommand{\todo}[1]{%
-\marginpar{{\sffamily{todo}}\\#1}}
+\gomarginpar{{\textsc{TODO}}\\#1}}
 %% typeset text in margin and index arg 2
-\newcommand{\gomarginindex}[2]{%
-\gomarginpar{#1}\index{#2}}
+\newcommand{\gomarginindex}[2]{\gomarginpar{#1}\index{#2}}
 
 \newenvironment{cjk}{%
 \begin{CJK*}{UTF8}{song}
