@@ -339,9 +339,6 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 \end{center}
 \end{table}
 
-\paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
-\first{complex numbers}{complex numbers}.
-
 \paragraph{\func{close} and \func{closed}} are used in
 channel communication and the closing of those channels, see chapter \ref{chap:channels}
 for more on this.
@@ -362,7 +359,7 @@ types (maps, slices and channels).
 \func{make} and \func{copy} make their appearance in chapter
 \ref{chap:beyond}.
 
-\paragraph{\func{panic} and \func{panicln}} used for an 
+\paragraph{\func{panic} and \func{panicln}} are used for an 
 \emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
 page \pageref{sec:panic} for more.
 
@@ -370,6 +367,10 @@ page \pageref{sec:panic} for more.
 functions that can be used without reverting to the
 \package{fmt}\index{package!fmt}
 package. These are mainly used for debugging.
+
+\paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
+\first{complex numbers}{complex numbers}.
+
 
 \section{Go keywords}
 \begin{table}[H]
