@@ -1,10 +1,3 @@
-%%\epi{I'm always delighted by the light touch and stillness of
-%%early programming languages.  Not much text; a lot gets
-%%done. Old programs read like quiet conversations
-%%between a well-spoken research worker and a well-
-%%studied mechanical colleague, not as a debate with a
-%%compiler.  Who'd have guessed sophistication bought
-%%such noise?}{Dick Gabriel}
 \epi{"I am interested in this and hope to do something."}
 {\textit{On adding complex numbers to Go}\\ \textsc{KEN THOMPSON}}
 
@@ -74,11 +67,6 @@ a Go program called \prog{godoc}.}. Reading these documents is
 certainly not required, but is recommended.
 
 \section{Getting Go for Linux}
-%% Set all Go variables
-% $GOOS=linux|darwin|freebsd
-% $GOARCH=386|amd64
-% $GOROOT
-% $GOBIN
 There are currently (2010) no packages for Go in any Linux
 distribution. The route to install Go is thus slightly longer than
 it could be. When Go stabilizes this situation will change probably. For
@@ -101,22 +89,6 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 \begin{display}
 \pr export PATH=$GOROOT/bin:$PATH
 \end{display}
-
-%%\item Set some more environment variables, namely:
-%%\begin{description}
-%%\item[\texttt{GOOS}] Must be set to your operation system, valid values
-%%are \texttt{linux}, \texttt{darwin} (for Mac OS X) and \texttt{freebsd}.
-%%\item[\texttt{GOARCH}] Must be set the either \texttt{386} for 32 bit
-%%systems or to \texttt{amd64} for 64 bit.
-%%\item[\texttt{GOBIN}] Can be optionally set to point to a directory where
-%%the Go binaries should be placed.
-%%\end{description}
-%%In this book we use the following settings:
-%%\begin{display}
-%%\pr export GOOS=linux
-%%\pr export GOARCH=amd64
-%%\pr export GOBIN=~/bin
-%%\end{display}
 
 \item Compile Go
 \begin{display}
