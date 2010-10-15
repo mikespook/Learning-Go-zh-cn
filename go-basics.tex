@@ -522,32 +522,26 @@ an iterator, that when called, returns a key-value pair from the thing it
 loops over. Depending on what the "thing" is, \key{range} returns
 different types.
 
+When looping over a slice or array \key{range} returns the index in the
+slice as the key and value is set to the value of that key.
+\todo{better}. Consider this code:
+\begin{lstlisting}
+list := []string{"a", "b", "c", "d", "e", "f"}|\longremark{Create a %
+slice (see bllabla) of \type{string}s.}|
+for k, v := range list {|\coderemark{Use \key{range} to loop over them.%
+In each interation \key{range} will return the index as \type{int} and %
+the key as a \type{string}, starting with 0 and "a".}|
+    // do what you want with k and v
+}
+\end{lstlisting}
+\showremarks
 
-The \first{\key{range}}{keyword!range} keyword can also be used on
-arrays, slices, maps (see section "\titleref{sec:arrays}") and channels
-(see chapter \ref{chap:channels}, section ??).
-If used \key{range} is also an
-iterator that, when called, returns a key-value pair. The key is the
-index in the array, slice or map and the value corresponds with that
-key.
-
-
-For strings, you can use the \first{\key{range}}{keyword!range} clause to manage the loop for
-you. It breaks out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
+You can also use \key{range} on strings directly. Then it
+will break out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
 byte and produce the replacement rune \footnote{In the UTF-8 world characters are
 sometimes called \first{runes}{runes}. Mostly, when people talk about
 characters, they mean 8 bit characters. As UTF-8 characters may be up to 32 bits the word
 rune is used.} U+FFFD). The loop:
-\todo{Explain more}
-Loop through a slice
-\begin{lstlisting}
-list := []string{"a", "b", "a", "a", "c", "d", "e", "f"}
-for _, v := range list {
-    // ...
-}
-\end{lstlisting}
-
-
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
     fmt.Printf("character '%c' starts at byte position %d\n", char, pos)
