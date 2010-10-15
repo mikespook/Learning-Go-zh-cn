@@ -494,12 +494,12 @@ loops over. Depending on what the "thing" is, \key{range} returns
 different types.
 
 When looping over a slice or array \key{range} returns the index in the
-slice as the key and value is set to the value of that key.
-\todo{better}. Consider this code:
+slice as the key and value is set to the value of that key
+\todo{better}. Consider this code: \index{keyword!range!on slices}
 \begin{lstlisting}
-list := []string{"a", "b", "c", "d", "e", "f"}|\longremark{Create a %
+list := []string{"a", "b", "c", "d", "e", "f"}     |\longremark{Create a %
 slice (see bllabla) of \type{string}s.}|
-for k, v := range list {|\coderemark{Use \key{range} to loop over them.%
+for k, v := range list {	|\longremark{Use \key{range} to loop over them.%
 In each interation \key{range} will return the index as \type{int} and %
 the key as a \type{string}, starting with 0 and "a".}|
     // do what you want with k and v
@@ -512,7 +512,7 @@ will break out the individual Unicode characters by parsing the UTF-8 (erroneous
 byte and produce the replacement rune \footnote{In the UTF-8 world characters are
 sometimes called \first{runes}{runes}. Mostly, when people talk about
 characters, they mean 8 bit characters. As UTF-8 characters may be up to 32 bits the word
-rune is used.} U+FFFD). The loop:
+rune is used.} U+FFFD). The loop: \index{keyword!range!on maps}
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
     fmt.Printf("character '%c' starts at byte position %d\n", char, pos)
@@ -669,7 +669,7 @@ Many other languages have a similar type built-in, Perl has hashes
 Python has its dictionaries and C++ also has maps (in
 \package{lib}\index{package!lib}) for instance. 
 In Go we have the
-\type{map} type. A \type{map} can be thought of as an array indexed by
+\first{\key{map}}{keyword!map} type. A \type{map} can be thought of as an array indexed by
 strings (in its most simple form).
 In the following listing we define a \type{map} which converts from a
 \lstinline{string} (month abbreviation) to an \lstinline{int} -- the number of days in that month. 
@@ -689,7 +689,7 @@ number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\new
 If you're looping over an array, slice, string, or map a
 \first{\key{range}}{keyword!range}
 clause help you again, which returns the key and corresponding value
-with each invocation.
+with each invocation.\index{keyword!range!on maps}
 \begin{lstlisting}
 year := 0
 for _, days := range monthdays { // key is not used
@@ -697,12 +697,12 @@ for _, days := range monthdays { // key is not used
 }
 fmt.Printf("Numbers of days in a year: %d\n", year)
 \end{lstlisting}
-Adding elements to the \type{map} would be done as:
+Adding elements to the \type{map} \index{keyword!map!add elements} would be done as:
 \begin{lstlisting}
 monthday["Undecim"] = 30	// Add a month
 monthday["Feb"]     = 29	// Overwrite entry - for leap years
 \end{lstlisting}
-To test for existence, you would use the
+To test for existence \index{keyword!map!existence}, you would use the
 following\cite{go_course_day2}:
 \begin{lstlisting}
 var value int
@@ -712,7 +712,7 @@ value, present = monthday["Jan"]	// Does it exist?
 // Or better and more Go like
 v, ok := monthday["Jan"]		// Hence, the "comma ok" form
 \end{lstlisting}
-And finally you can remove elements from the \type{map}:
+And finally you can remove elements \index{keyword!map!remove elements} from the \type{map}:
 \begin{lstlisting}
 monthday["Mar"] = 0, false    // Deletes "Mar", always rains anyway
 \end{lstlisting}
