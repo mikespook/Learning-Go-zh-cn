@@ -538,6 +538,15 @@ byte and produce the replacement rune \footnote{In the UTF-8 world characters ar
 sometimes called \first{runes}{runes}. Mostly, when people talk about
 characters, they mean 8 bit characters. As UTF-8 characters may be up to 32 bits the word
 rune is used.} U+FFFD). The loop:
+\todo{Explain more}
+Loop through a slice
+\begin{lstlisting}
+list := []string{"a", "b", "a", "a", "c", "d", "e", "f"}
+for _, v := range list {
+    // ...
+}
+\end{lstlisting}
+
 
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
@@ -653,6 +662,7 @@ When declaring arrays you \emph{always} have to type something in
 between the square brackets, either a number or three dots (\verb|...|).
 
 \subsection{Slices}
+\todo{Examples, with slice, slice[1:] slice[2:3] etc}
 A slice refers to an under laying array. What makes slices different
 from
 arrays is that a slice is a pointer \emph{to} an array;
