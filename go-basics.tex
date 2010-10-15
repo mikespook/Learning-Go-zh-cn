@@ -64,42 +64,13 @@ here it is, ''Hello World'' in Go.
 
 \lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
 Lets look at the program line by line.
-Line 1 is just required.  All Go files start with \lstinline{package <something>}.
-\lstinline{package main} is required for a standalone executable.  Line 3 says
-we need \package{"fmt"} in addition to \package{main}.  A package other than
-\package{main} is commonly called a library, a familiar concept of many programming
-languages (see chapter \ref{chap:packages}). 
-Line 3  ends with a
-comment which is started with \lstinline|//|. Line 5 is also a comment,
-but this one is enclosed in \lstinline|/*| and \lstinline|*/|.
-
-Just as \lstinline{package main} was required to be first, 
-\lstinline{import} may come next. In Go, \lstinline{package} is always first, then
-\lstinline{import}, then everything else.
-When your Go program is executed, the first function called will be
-\lstinline{main.main()}, which mimics the behavior from C.
-
-On line 7 we call a function from the package \package{fmt} to print a
-string to the screen. The string is enclosed with \lstinline{"} and may 
-contain non-ASCII characters. Here we use Greek and Chinese.
-
-%%\subsection{Some words about syntax}
-%%\todo{syntax} ??
-%% Something about syntax here
-%%func g()
-%%{                  // INVALID
-%%}
-%%A semicolon will be inserted after g(), causing it to be a function declaration rather than a function definition. Similarly, you may not write
-%%if x {
-%%}
-%%else {             // INVALID
-%%}
+\showremarks
 
 \section{Compiling and running code}
 The Go compiler is named \verb|<number>g|, where the number is 6 for 64 bit
 Intel and 8 for 32 bit Intel. The linker has a similar naming scheme:
 \verb|<number>l|. In this book we will use \prog{6g} and \prog{6l} for
-all the compiles.
+all the compiles. To compile the code from above, we use:
 \begin{display}
 \pr 6g helloworld.go		 \coderemark{compiles to helloworld.6 (for 64 bit)}
 \end{display}
@@ -108,7 +79,7 @@ And then we link it with \prog{6l}:
 \pr 6l -o helloworld helloworld.6
 \end{display}
 
-And then we can run it:
+And then we run it:
 \begin{display}
 \pr ./helloworld
 \end{display}
