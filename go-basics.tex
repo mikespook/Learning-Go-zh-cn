@@ -515,6 +515,23 @@ J:  for j := 0; j < 5; j++ {
 \end{lstlisting}
 
 \subsection{Range}
+The keyword \first{\key{range}}{keyword!range} can be used for loops. It
+can loop over slices, arrays, string, maps and channels (see chapter
+\ref{chap:channels}, section "\titleref{sec:channels}"). \key{range} is
+an iterator, that when called, returns a key-value pair from the thing it
+loops over. Depending on what the "thing" is, \key{range} returns
+different types.
+
+
+The \first{\key{range}}{keyword!range} keyword can also be used on
+arrays, slices, maps (see section "\titleref{sec:arrays}") and channels
+(see chapter \ref{chap:channels}, section ??).
+If used \key{range} is also an
+iterator that, when called, returns a key-value pair. The key is the
+index in the array, slice or map and the value corresponds with that
+key.
+
+
 For strings, you can use the \first{\key{range}}{keyword!range} clause to manage the loop for
 you. It breaks out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
 byte and produce the replacement rune \footnote{In the UTF-8 world characters are
@@ -534,13 +551,6 @@ character '\begin{math}\Phi\end{math}' starts at byte position 1
 character 'x' starts at byte position 3
 \end{display}
 
-The \first{\key{range}}{keyword!range} keyword can also be used on
-arrays, slices, maps (see section "\titleref{sec:arrays}") and channels
-(see chapter \ref{chap:channels}, section ??).
-If used \key{range} is also an
-iterator that, when called, returns a key-value pair. The key is the
-index in the array, slice or map and the value corresponds with that
-key.
 \subsection{Switch}
 Go's \first{\key{switch}}{keyword!switch} is very flexible. The expressions need
 not be
