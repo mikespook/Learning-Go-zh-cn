@@ -1,4 +1,7 @@
-\epi{\lstinline{fmt.Printf("\%p", i)}}{Printing the address of a pointer in Go.}
+\epi{Go has pointers but not pointer arithmetic. You cannot use a pointer
+variable to walk through the bytes of a string.}{\textit{Go For C++
+Programmers}\\{\textsc{GO AUTHORS}}}
+%%\epi{\lstinline{fmt.Printf("\%p", i)}}{Printing the address of a pointer in Go.}
 \noindent{}
 You may have wished otherwise, but Go does have pointers.
 There is however no pointer arithmetic, so they act more like
@@ -329,9 +332,6 @@ Here Go will search the method list for \var{n} of type \type{NameAge},
 come up empty and will then \emph{also} search the method list for
 the type \type{*NameAge} and will translate this call to
 \lstinline{(&n).doSomething(2)}.
-
-\section{Profiling}
-\todo{6prof}
 
 \section{Exercises}
 \input{ex-beyond/ex-interfaces.tex}
