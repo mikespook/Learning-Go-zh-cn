@@ -25,4 +25,20 @@ many there are). In the example above there are 544 ways to do it.
 
 \begin{Answer}
 \Question 
+\lstinputlisting[caption=Number cruncher (font size reduced because of
+the length of the code),
+basicstyle=\tiny\ttfamily]{ex-unsorted/src/permrec.go}
+
+\Question
+When starting \prog{permrec} we give 977 as the first argument:
+\vspace{1em}
+\begin{display}
+\pr ./permrec 977
+1+(((6+7)*75)+(8/8)) = 977  #1
+...                         ...
+((75+(8*6))*8)-7 = 977      #542
+(((75+(8*6))*8)-7)*1 = 977  #543
+(((75+(8*6))*8)-7)/1 = 977  #544
+\end{display}
+
 \end{Answer}
