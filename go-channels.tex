@@ -78,7 +78,7 @@ func ready(w string, sec int) {
 
 func main() {i
 	c = make(chan int) |\longremark{Initialize \var{c};}|
-	go ready("Tee", 2) |\longremark{Start the goroutines with the keyword \key{go}l;}|
+	go ready("Tee", 2) |\longremark{Start the goroutines with the keyword \key{go};}|
 	go ready("Coffee", 1)
 	fmt.Println("I'm waiting, but not too long")
 	<-c |\longremark{Wait until we receive a value from the channel. Note that the value we receive is discarded;}|
