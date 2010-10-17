@@ -99,13 +99,18 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 \item For building Go you also need the packages: \prog{bison},
 \prog{gcc}, \prog{libc6-dev}, \prog{ed}, \prog{gawk} and \prog{make};
 
+\item Set the environment variable \prog{GOROOT} to the root of your
+Go install:
+\begin{display}
+\pr export GOROOT=~/go
+\end{display}
+
 \item Then retrieve the Go source code:
 \begin{display}
-\pr export GOROOT=~/go	\rem{\# set the GOROOT environment variable}
 \pr hg clone -r release https://go.googlecode.com/hg/ $GOROOT 
 \end{display}
 
-\item Set your PATH to find the Go binaries:
+\item Set your PATH to so that the Shell can find the Go binaries:
 \begin{display}
 \pr export PATH=$GOROOT/bin:$PATH
 \end{display}
@@ -116,14 +121,29 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 \pr ./all.bash
 \end{display}
 \end{itemize}
-If all goes well, you should now have Go installed on your system and
-you can start playing.
+If all goes well, you should see the following:
+\begin{display}
+Installed Go for linux/amd64 in /home/gobook/go.
+Installed commands in /home/gobook/go/bin.
+The compiler is 6g.
+\end{display}
+You now have Go installed on your system and you can start playing.
+
+\subsection{Keeping up to date}
+New releases are announced on the Go Nuts mailing list \cite{go_nuts}. To update an
+existing tree to the latest release, you can run:
+\begin{display}
+\pr cd $GOROOT/src
+\pr hg pull
+\pr hg update release
+\pr ./all.bash
+\end{display}
 
 \section{Origins}
 Go has it origins in Plan 9 \cite{plan9}. Plan 9 is (or was 
-supposed to be) the successor of Unix. As you know one of the
+supposed to be) the successor of Unix. As you may know one of the
 core ideas of Unix is "everything is a file", so the \func{read()} and
-\func{write()} calls work as well on normal files as they do on I/O
+\func{write()} systemcalls work as well on normal files as they do on I/O
 devices. However for some devices this has never happened, notably
 network and video devices. In Plan 9 this "everything is a file"--idea
 is taken to the next level and truly everything is presented to the 
@@ -140,10 +160,10 @@ small machines without hardware memory protection.
 \end{quote}
 That sounds a lot like Go, and one could say Go is a reimplementation of
 Limbo on Unix--like systems like Linux. One feature of Limbo that is
-also included in Go is the excellent support for cross compiling.
+also included in Go is the support for cross compiling.
 
 Another feature Go inherited from Limbo is channels (see chapter
-\ref{chap:channels}). Again from the documentation.
+\ref{chap:channels}). Again from the Limbo documentation.
 \begin{quote}
 [A channel] is a communication mechanism capable of sending and receiving objects of
 the specified type to another agent in the system. Channels may be used
@@ -175,9 +195,6 @@ invented QuickSort \cite{Quicksort}.
 Go is the first C--like language that is widely available,
 runs on many
 different platforms and makes concurrency easy (or easier).
-Becoming proficient in a new language means doing your exercises,
-reading about it helps, but getting down to the little details when 
-programming your self is even better.
 \end{lbar}
 
 \section{Exercises}
