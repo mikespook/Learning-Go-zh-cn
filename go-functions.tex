@@ -299,7 +299,7 @@ If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
 
 Functions--as--values may also be used in other places, like in maps.
 Here we convert from integers to functions.
-\begin{lstlisting}[caption=Function as values in maps]
+\begin{lstlisting}[caption=Functions as values in maps]
 var xs = map[int]func() int{
     1: func() int { return 10 },
     2: func() int { return 20 },

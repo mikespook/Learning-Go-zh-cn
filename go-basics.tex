@@ -72,16 +72,16 @@ Intel and 8 for 32 bit Intel. The linker has a similar naming scheme:
 \verb|<number>l|. In this book we will use \prog{6g} and \prog{6l} for
 all the compiles. To compile the code from above, we use:
 \begin{display}
-\pr 6g helloworld.go		 \coderemark{compiles to helloworld.6 (for 64 bit)}
+\pr 6g helloworld.go
 \end{display}
 And then we link it with \prog{6l}:
 \begin{display}
-\pr 6l -o helloworld helloworld.6
+\pr 6l helloworld.6
 \end{display}
 
 And then we run it:
 \begin{display}
-\pr ./helloworld
+\pr ./6.out	    \coderemark{The default name for a Go executable}
 \end{display}
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
@@ -103,10 +103,14 @@ enough to get your program compiled. Note that Go ships with the variant
 of \prog{make}, called \prog{gomake}, which is (currently) a small
 wrapper around \prog{make}. As the build system for Go programs may
 change in the future and make \prog{make} go away, we use \prog{gomake}.
+Note that this \file{Makefile} creates an executable named
+\prog{helloworld}, not \prog{6.out}.
 
 \section{Variables, types and keywords}
-In the next sections we will look at the variables, basic types,
+\label{sec:vars}
+In the next sections we will look at variables, basic types,
 keywords and control structures of our new language. 
+
 Go is different from other languages in that the type of a variable
 is specified \emph{after} the variable name. So not: 
 \lstinline{int a}, but \lstinline{a int}. When declaring a variable it
@@ -117,7 +121,9 @@ which is \lstinline{""}.
 
 Declaring and assigning in Go is a two step process, but they may
 be combined. Compare the following pieces of code which have
-the same effect.
+the same effect. 
+\index{variables!declaring}
+\index{variables!assigning}
 
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[linewidth=.5\textwidth,caption=Declaration with \texttt{=}]
@@ -146,7 +152,7 @@ In that case the variable
 type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
 a value of \texttt{false} tells Go that the type should be \type{bool}. 
 Multiple \key{var} declarations may also be grouped, \key{const}
-and \key{import} also allow this. Note the use of parentheses.
+and \key{import} also allow this. Note the use of parentheses:
 \begin{lstlisting}
 var (
     x int
@@ -163,15 +169,18 @@ a, b := 20, 16
 Which makes \var{a} and \var{b} both integer variables and assigns
 20 to \var{a} and 16 to \var{b}.
 
-A special name for a variable is \var{\_} (underscore). Any value
+A special name for a variable is \var{\textbf{\_}} \index{variables!\_}
+(underscore) \index{variables!underscore}. Any value
 assigned to it, is discarded. In this example we only assign the integer
 value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
 _, b := 34, 35
 \end{lstlisting}
 Declared, but otherwise unused variables are a compiler error in Go, the
-following code generates:\footnote{Sometimes this can be annoying.}
-\error{i declared and not used}
+following code generates this error:
+
+\noindent\error{i declared and not used}
+
 \begin{lstlisting}
 package main
 func main() { 
@@ -191,31 +200,32 @@ a 64 bits machine they are 64 bits.
 
 If you want to be explicit about the length you can have
 that too with \lstinline{int32}, or \lstinline{uint32}. The full
-(explicit) list for (signed and unsigned) integers is
-\type{int8/16/32/64}.
+list for (signed and unsigned) integers is
+\type{int8,16,32,64} and \type{byte,uint8,uint16,uint32,uint64}.
 With \lstinline{byte} being an
 alias for \lstinline{uint8}. For floating point values there only is
 \lstinline{float32} and \lstinline{float64}.
 
 Note however
-that these types are distinct and assigning variables which mix
+that these types are all distinct and assigning variables which mix
 these types is a compiler error, like in the following code:
 \lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]{src/types.go}
 Gives the error on the assignment on line 7:
 
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
+
 When assigning values octal, hexadecimal and the scientific notation may be used: 
 \lstinline{077}, \lstinline{0xFF}, \lstinline{1e3} or
-\lstinline{6.022e23} are all valid.
+\mbox{\lstinline{6.022e23}} are all valid.
 
 \subsection{Constants}
 Constants in Go are just that --- constant. They are created at compile
-time, and can only be numbers, strings or boo leans;
+time, and can only be numbers, strings or booleans;
 \lstinline{const x = 42} makes \var{x} a constant. You can use
 \first{\key{iota}}{keyword!iota} \footnote{The word [iota] is used in a common English phrase,
 'not one iota', meaning 'not the slightest difference', in reference to
 a phrase in the New Testament: "\emph{until heaven and earth pass away, not an
-iota, not a dot, will pass from the Law}."\cite{iota}}
+iota, not a dot, will pass from the Law}." \cite{iota}}
 to enumerate values.
 \begin{lstlisting}
 const (
@@ -223,9 +233,11 @@ const (
 	b = iota 
 )
 \end{lstlisting}
-You can even do the following. The first use of \key{iota} will yield 0, so \var{a} is equal to 0, whenever
+The first use of \key{iota} will yield 0, so \var{a} is equal to 0, whenever
 \key{iota} is used again on a new line its value is incremented with 1, so \var{b}
-has a value of 1
+has a value of 1.
+
+You can even do the following, let Go repeat the use of \key{iota}:
 \begin{lstlisting}
 const (
 	a = iota
@@ -248,7 +260,7 @@ immutable. For
 people coming from C, the following is not legal in Go:
 \begin{lstlisting}
 var s string = "hello"
-s[0] = 'c'  |\coderemark{Change to 'c', this is an error}|
+s[0] = 'c'  |\coderemark{Change first char. to 'c', this is an error}|
 \end{lstlisting}
 To do this in Go you will need the following:
 \begin{lstlisting}
@@ -258,8 +270,8 @@ chapter \ref{chap:beyond} section "\titleref{sec:conversions}";}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
 s2 := string(c)     |\longremark{Create a \emph{new} %
-string \var{s2} with the alteration.}|
-fmt.Printf("%v\n", s2)
+string \var{s2} with the alteration;}|
+fmt.Printf("%s\n", s2) |\longremark{print the string with printf.}|
 \end{lstlisting}
 
 \showremarks
@@ -291,15 +303,17 @@ all associate from left to right.
 \end{table}
 \verb|+ - * /| and \verb|%| all do what you would expect,
 \verb!& | ^!
-and \verb!&^! are bit operators for bit-wise and, or, xor and bit clear 
-respectively.
+and \verb!&^! are bit operators for bit-wise \first{\key{and}}{operators!and}, 
+\first{\key{or}}{operators!or}, \first{\key{xor}}{operators!xor} and
+\first{\key{bit clear}}{operators!bit clear} respectively.
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
 operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
-floats, complex numbers and strings.\hfill
+floats, complex numbers and strings (adding strings is concatenating
+them).
 
-A small number of functions in Go are predefined, meaning they already
-exists and you \emph{don't} have to include any package to get
+A small number of functions are predefined, meaning 
+you \emph{don't} have to include any package to get
 access to them. Table \ref{tab:predef-functions} lists them all.
 
 \begin{table}[H]
@@ -340,8 +354,8 @@ functions that can be used without reverting to the
 package. These are mainly used for debugging.
 
 \paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
-\first{complex numbers}{complex numbers}.
-
+\first{complex numbers}{complex numbers}. \todo{Refer to other
+documentation.}
 
 \section{Go keywords}
 \begin{table}[H]
@@ -352,7 +366,23 @@ package. These are mainly used for debugging.
 \end{center}
 \end{table}
 Table \ref{tab:keywords} lists all the keywords in Go. 
-In the following paragraphs and chapters we will go over them.
+In the following paragraphs and chapters we will cover them. Some
+of these we have seen already.
+\begin{itemize}
+\item For \key{var} and \key{const} see section "\titleref{sec:vars}" on 
+page \pageref{sec:vars};
+\item \key{package} and \key{import} are briefly touch upon in section "\title{sec:hello
+world}". in chapter \ref{chap:packages} they are documented in more detail.
+\end{itemize}
+Others deserve more text and have their own chapter:
+\begin{itemize}
+\item \key{go}
+\item \key{func}
+\item \key{interface}
+\item \key{select}
+\item \key{struct}
+\item \key{type}
+\end{itemize}
 
 \section{Control structures}
 There are only a few control structure in 
@@ -366,15 +396,19 @@ multiplexer, \key{select} (see chapter \ref{chap:channels}). The syntax is diffe
 are not required and the bodies must \emph{always} be brace-delimited.
 
 \subsection{If}
-In Go a simple \first{\key{if}}{keyword!if} looks like this:
+In Go an \first{\key{if}}{keyword!if} looks like this:
 \begin{lstlisting}
 if x > 0 {	|\coderemark{\{ is mandatory}|
     return y
-}		|\coderemark{}|
+} else {
+    return x
+}
 \end{lstlisting}
 Mandatory braces encourage writing simple \key{if} statements on multiple
-lines. It's good style to do so anyway, especially when the body
-contains a control statement such as a \key{return} or \key{break}.
+lines. It is good style to do so anyway, especially when the body
+contains a control statement such as a
+\first{\key{return}}{keyword!return} or
+\first{\key{break}}{keyword!break}.
 
 Since \key{if} and \key{switch} accept an initialization statement, it's common to
 see one used to set up a (local) variable.
@@ -386,7 +420,7 @@ like C's NULL}|
     return err
 }
 \end{lstlisting}
-In the Go libraries, you'll find that when an \key{if} statement doesn't flow
+In the Go libraries, you will find that when an \key{if} statement doesn't flow
 into the next statement-that is, the body ends in \key{break},
 \key{continue}, \key{goto},
 or \key{return}, the unnecessary \first{\key{else}}{keyword!else} is omitted.
@@ -447,7 +481,7 @@ Short declarations make it easy to declare the index variable right in the loop.
 \begin{lstlisting}
 sum := 0
 for i := 0; i < 10; i++ {
-    sum += i
+    sum += i	|\coderemark{Short for sum = sum + i}|
 }   |\coderemark{\var{i} ceases to exist \emph{after} the loop}|
 \end{lstlisting}
 
@@ -468,7 +502,7 @@ the current loop.
 for i := 0; i < 10; i++ {
     println(i)
     if i > 5 {
-	break |\coderemark{Breaks this loop, making it print 0 to 6}|
+	break |\coderemark{Stop this loop, making it only print 0 to 6}|
     }
 }
 \end{lstlisting}
@@ -484,6 +518,10 @@ J:  for j := 0; j < 5; j++ {
 	}
     } 
 \end{lstlisting}
+
+\subsection{Func}
+\todo{Short section on these, with (sadly) forward refs}
+\subsection{Return}
 
 \subsection{Range}
 The keyword \first{\key{range}}{keyword!range} can be used for loops. It
@@ -545,8 +583,37 @@ func unhex(c byte) byte {
     return 0
 }
 \end{lstlisting}
-There is no automatic fall through, but cases can be presented in comma-separated lists.
+There is no automatic fall through, you can however use
+\first{\key{fallthrough}}{keyword!fallthrough} to make do just that.
+Without \key{fallthrough}:
+\begin{lstlisting}
+switch i {
+    case 0:  // empty case body
+    case 1:
+	f()  // f is not called when i == 0!
+}
+\end{lstlisting}
+And with:
+\begin{lstlisting}
+switch i {
+    case 0:  fallthrough
+    case 1:
+	f()  // f is called when i == 0!
+}
+\end{lstlisting}
+With \first{\key{default}}{keyword!default} you can specify an action
+when non of the other cases match.
+\begin{lstlisting}
+switch i {
+    case 0:  
+    case 1:
+	f()
+    default:	
+	g()	// called when i is not 0 or 1
+}
+\end{lstlisting}
 
+Cases can be presented in comma-separated lists.
 \begin{lstlisting}
 func shouldEscape(c byte) bool {
     switch c {
@@ -556,8 +623,8 @@ func shouldEscape(c byte) bool {
     return false
 }
 \end{lstlisting}
-Here's a comparison routine for byte arrays that uses two \key{switch} statements:
 
+Here's a comparison routine for byte arrays that uses two \key{switch} statements:
 \begin{lstlisting}
 // Compare returns an integer comparing the two byte arrays
 // lexicographically.
@@ -686,7 +753,7 @@ monthdays := map[string]int{
 For indexing (searching) in the map, we use square brackets, for example
 suppose we want to print the
 number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
-If you're looping over an array, slice, string, or map a
+If you are looping over an array, slice, string, or map a
 \first{\key{range}}{keyword!range}
 clause help you again, which returns the key and corresponding value
 with each invocation.\index{keyword!range!on maps}
