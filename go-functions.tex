@@ -22,6 +22,10 @@ func identity(in int) int {
     return in
 }
 \end{lstlisting}
+Functions can be declared in any order you wish, the compiler scans the
+entire file before execution. So function prototyping is a thing of the
+past in Go.
+
 Go disallows nested functions.
 You can however
 work around this by using anonymous functions, see section
@@ -29,8 +33,8 @@ work around this by using anonymous functions, see section
 in this chapter.
 
 \section{Scope}
-Variables declared outside any functions are global in Go, those
-defined in functions are local to those functions. If names overlap --- a
+Variables declared outside any functions are \first{global}{scope!local} in Go, those
+defined in functions are \first{local}{scope!local} to those functions. If names overlap --- a
 local variable is declared with the same name as a global one --- the
 local variable hides the global one when the current function is
 executed.
@@ -53,21 +57,20 @@ This local \var{a} is only visible in \func{q()}. That is
 why the code will print: \texttt{656}.
 In listing \ref{src:scope2} no new variables are introduced, there
 is only a global \var{a}.
-Assigning a new value to it is globally visible. This code will
+Assigning a new value to will be globally visible. This code will
 print: \texttt{655}
 
 In the following example we call \func{g()} from \func{f()}:
+
 \lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
+
 The printout will be: \texttt{565}. A \emph{local} variable is only
 valid when we are executing the function in which it is defined. 
-Finally, one can create
-a "function
-literal" in which you essentially define a function inside another
-function, i.e. a \first{nested function}{nested function}. 
-The following figure should clarify why it
-prints: \texttt{565757}. 
-
-\input{fig/scope3.tex}
+%%Finally, one can create a \first{"function literal"}{function literal} in which you essentially 
+%%define a function inside another
+%%function, i.e. a \first{nested function}{nested function}. 
+%%The following figure should clarify why it prints: \texttt{565757}. 
+%%\input{fig/scope3.tex}
 
 \section{Multiple return values}
 \label{sec:multiple return}
@@ -117,7 +120,7 @@ overloading the domain space with special values to signal errors.
 
 \section{Named result parameters}
 \label{sec:named result parameters}
-The return or result "parameters" of a Go function can be given names and used
+The return or result parameters of a Go function can be given names and used
 as regular variables, just like the incoming parameters. When named, they are
 initialized to the zero values for their types when the function begins; if the
 function executes a \key{return} statement with no arguments, the current values of
@@ -151,7 +154,7 @@ func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
 \end{lstlisting}
 
 In the following example we declare a simple function which calculates
-\gomarginpar{Some text in this chapter comes from \cite{go_intro}.}  % layout
+\gomarginpar{Some text in this section comes from \cite{go_intro}.}  % layout
 the factorial value of a value \var{x}.
 
 \begin{lstlisting}
@@ -217,10 +220,11 @@ func ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-Here a lot of code is repeated, but with a good reason. To overcome this ---
-and do more in less code --- Go has the \func{defer} statement. After
-\func{defer} you specify a function which is called just \emph{before} a
-return from the function is executed.
+Here a lot of code is repeated. To overcome this ---
+and do more in less code --- Go has the
+\first{\key{defer}}{keyword!defer} statement. After
+\key{defer} you specify a function which is called just \emph{before} a
+\key{return} from the function is executed.
 
 The code above could be rewritten as follows. This makes the 
 function more readable, shorter and puts the \func{Close} right next 
@@ -239,7 +243,7 @@ func ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-You can put multiple functions on the "deferred list", like this
+You can put multiple functions on the "deferred list"\index{defered list}, like this
 example from \cite{effective_go}:
 \begin{lstlisting}
 for i := 0; i < 5; i++ { 
@@ -250,7 +254,8 @@ Deferred functions are executed in LIFO order, so the above code
 prints: \lstinline{4 3 2 1 0}. 
 
 With \func{defer} you can even change return values, provided that
-you are using named result parameters and a function literal, i.e:
+you are using named result parameters and a function
+literal\index{function literal}, i.e:
 \begin{lstlisting}[caption=Function literal]
 defer func() {
 	/* ... */
@@ -263,16 +268,16 @@ func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
 	defer func() {
 		ret++	|\coderemark{Increment \var{ret} with 1}|
 	}()
-	return 0	|\coderemark{1 \emph{not} 0 will be returned}|
+	return 0	|\coderemark{1 \emph{not} 0 will be returned!}|
 }
 \end{lstlisting}
 
-
 \section{Variadic parameters}
+\todo{Extend this section a bit}
 Functions that take variadic parameters are functions that have a
 variable number of parameters. To do this, you first
 need to declare your function to take variadic arguments:
-\begin{lstlisting}[caption=Variadac parameters]
+\begin{lstlisting}[caption=Variadac function declaration]
 func myfunc(arg ... int) {}
 \end{lstlisting}
 The \lstinline{arg ... int} instructs Go to see this as a function that
@@ -291,6 +296,8 @@ chapter \ref{chap:beyond}).
 
 \section{Functions as values}
 \label{sec:functions as values}
+\index{function!as values}
+\index{function!literals}
 As with almost everything in Go, functions are also \emph{just} values.
 They can be assigned to variables as follows:
 \lstinputlisting[label=src:anonfunc,caption=Anonymous function]{src/anon-func.go}
@@ -298,7 +305,7 @@ If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
 \var{a}, it prints \func{func()}.
 
 Functions--as--values may also be used in other places, like in maps.
-Here we convert from integers to functions.
+Here we convert from integers to functions:
 \begin{lstlisting}[caption=Functions as values in maps]
 var xs = map[int]func() int{
     1: func() int { return 10 },
@@ -322,8 +329,6 @@ on page \pageref{ex:map function}.
 \input{ex-functions/ex-scope.tex}
 
 \input{ex-functions/ex-stack.tex}
-
-\input{ex-functions/ex-stack-package.tex}
 
 \input{ex-functions/ex-vararg.tex}
 
