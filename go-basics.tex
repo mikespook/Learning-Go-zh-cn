@@ -45,7 +45,7 @@ The Go license is completely open source, see the file LICENSE in the Go
 source code distribution;
 
 \item[Fun]
-Programming with Go should be fun again!
+Programming with Go should be fun!
 
 \end{description}
 Erlang \cite{erlang} also shares some
@@ -98,7 +98,7 @@ Another, less laborious (once setup), way to build a Go program, is to use a
 \prog{helloworld}:
 \lstinputlisting[language=make,caption=\file{Makefile} for a
 program,numbers=right]{src/Makefile.prog}
-A line 7 you specify the name for your compiled program and on line 9
+At line 7 you specify the name for your compiled program and on line 9
 you enumerate the source files. Now only an invocation of \verb|make| is
 enough to get your program compiled. Note that Go ships with the variant
 of \prog{make}, called \prog{gomake}, which is (currently) a small
@@ -272,7 +272,7 @@ c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
 s2 := string(c)     |\longremark{Create a \emph{new} %
 string \var{s2} with the alteration;}|
-fmt.Printf("%s\n", s2) |\longremark{print the string with printf.}|
+fmt.Printf("%s\n", s2) |\longremark{print the string with Printf.}|
 \end{lstlisting}
 
 \showremarks
@@ -375,14 +375,16 @@ page \pageref{sec:vars};
 \item \key{package} and \key{import} are briefly touch upon in section "\title{sec:hello
 world}". in chapter \ref{chap:packages} they are documented in more detail.
 \end{itemize}
-Others deserve more text and have their own chapter:
+Others deserve more text and have their own chapter/section:
 \begin{itemize}
-\item \key{go}
-\item \key{func}
-\item \key{interface}
-\item \key{select}
-\item \key{struct}
-\item \key{type}
+\item \key{func} is used to declare functions;
+\item \key{return} is used to return from functions, for both \key{func}
+and \key{return} see chapter \ref{chap:functions} for the details;
+\item \key{go} is used for concurrency (chapter \ref{chap:channels});
+\item \key{interface}, see XXX;
+\item \key{select}, see XXX;
+\item \key{struct}, see XXX;
+\item \key{type}, see XXX.
 \end{itemize}
 
 \section{Control structures}
@@ -475,7 +477,7 @@ for init; condition; post { }
 // Like a while
 for condition { }
 
-// Like a C for(;;)
+// Like a C for(;;) (endless loop)
 for { }
 \end{lstlisting}
 Short declarations make it easy to declare the index variable right in the loop.
@@ -496,15 +498,15 @@ for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 { |\coderemark{Parallel assignme
 }
 \end{lstlisting}
 
-\subsection{Break}
+\subsection{Break and continue}
 With \first{\key{break}}{keyword!break} you can quit loops early, \key{break} breaks
 the current loop.
 \begin{lstlisting}
 for i := 0; i < 10; i++ {
-    println(i)
     if i > 5 {
-	break |\coderemark{Stop this loop, making it only print 0 to 6}|
+	break |\coderemark{Stop this loop, making it only print 0 to 5}|
     }
+    println(i)
 }
 \end{lstlisting}
 With loops within loops you can specify a label after \key{break}.
@@ -512,12 +514,24 @@ Making the label identify \emph{which} loop to stop:
 \begin{lstlisting}
 J:  for j := 0; j < 5; j++ {
 	for i := 0; i < 10; i++ {
-	    println(i)
 	    if i > 5 { 
 		break J	|\coderemark{Now it breaks the \var{j}-loop, not the \var{i} one}|
 	    }
+	    println(i)
 	}
     } 
+\end{lstlisting}
+
+With \first{continue}{keyword!continue} you begin the next iteration of the
+loop, skipping any remaining code. In the same way as \key{break},
+\key{continue} also accepts a label. The following prints 0 to 5.
+\begin{lstlisting}
+for i := 0; i < 10; i++ {
+    if i > 5 {
+	continue |\coderemark{Skip any remaining code}|
+    }
+    println(i)
+}
 \end{lstlisting}
 
 \subsection{Func}
@@ -529,17 +543,17 @@ The keyword \first{\key{range}}{keyword!range} can be used for loops. It
 can loop over slices, arrays, string, maps and channels (see chapter
 \ref{chap:channels}, section "\titleref{sec:channels}"). \key{range} is
 an iterator, that when called, returns a key-value pair from the thing it
-loops over. Depending on what the "thing" is, \key{range} returns
-different types.
+loops over. Depending on what that is, \key{range} returns
+different things.
 
 When looping over a slice or array \key{range} returns the index in the
-slice as the key and value is set to the value of that key
-\todo{better}. Consider this code: \index{keyword!range!on slices}
+slice as the key and value belonging to that index.
+Consider this code: \index{keyword!range!on slices}
 \begin{lstlisting}
 list := []string{"a", "b", "c", "d", "e", "f"}     |\longremark{Create a %
-slice (see bllabla) of strings.}|
+slice (see \ref{sec:arrays} on page \pageref{sec:arrays}) of strings.}|
 for k, v := range list {	|\longremark{Use \key{range} to loop over them.%
-In each interation \key{range} will return the index as \type{int} and %
+With each iteration \key{range} will return the index as \type{int} and %
 the key as a \type{string}, starting with 0 and "a".}|
     // do what you want with k and v
 }
@@ -671,10 +685,10 @@ Array types like \lstinline{var arr = [10]int} have a fixed size. The
 size is \emph{part} of the type.
 They can't grow, because then they would have a different type. Also arrays
 are values: Assigning one array to another \emph{copies} all the elements.
-
 In particular, if you pass an array to a function, it will receive a
 copy of the array, not a pointer to it. 
 
+\index{array!multidimensional}
 To declare an array you can use the following: \lstinline{var a [3]int},
 to initialize it to something else than zero, use a \first{composite
 literal}{composite literal}: \lstinline|a := [3]int{1, 2, 3}| and
@@ -699,7 +713,7 @@ between the square brackets, either a number or three dots (\verb|...|).
 A slice refers to an under laying array. What makes slices different
 from
 arrays is that a slice is a pointer \emph{to} an array;
-slices are reference types, which means that if you assign one slice to
+slices are \first{reference types}{reference types}, which means that if you assign one slice to
 another, both refer to the same underlying array. For instance, if a
 function takes a slice argument, changes it makes to the elements of the
 slice will be visible to the caller, analogous to passing a pointer to
@@ -708,7 +722,7 @@ a fixed size. For slices we define a \first{capacity}{slice!capacity} and a
 \first{length}{slice!length}. \index{array!length}\index{array!capacity}
 
 Figure \ref{fig:array-vs-slice} depicts the following Go code.
-First we create an array of $m$ elements of the type \lstinline{int}:
+First we create an array of $m + 1$ elements of the type \lstinline{int}:
 \lstinline{var array[m+1]int}\newline
 Next, we create a slice from this array:
 \lstinline{slice := array[0:n+1]}\newline
@@ -725,11 +739,11 @@ And now we have:
 \end{center}
 \end{figure}
 
-The following code defines an array and slice:
-\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
-On line 8 we dare to do to impossible and try to allocate something
+In the code listed in \ref{src:arrays} we dare to do the impossible on
+line 8 and try to allocate something
 beyond the capacity (maximum length of the under laying array) and
 we are greeted with a \emph{runtime} error.
+\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
 
 \subsection{Maps}
 \label{sec:maps}
@@ -776,7 +790,7 @@ following\cite{go_course_day2}:
 var value int
 var present bool
 
-value, present = monthday["Jan"]	// Does it exist?
+value, present = monthday["Jan"]	// Does it exist? If so present has the value
 // Or better and more Go like
 v, ok := monthday["Jan"]		// Hence, the "comma ok" form
 \end{lstlisting}
@@ -784,6 +798,7 @@ And finally you can remove elements \index{keyword!map!remove elements} from the
 \begin{lstlisting}
 monthday["Mar"] = 0, false    // Deletes "Mar", always rains anyway
 \end{lstlisting}
+Which looks a bit like a reverse "comma ok" form.
 
 \section{Exercises}
 \input{ex-basics/ex-for.tex}
