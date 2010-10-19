@@ -266,7 +266,7 @@ s[0] = 'c'  |\coderemark{Change first char. to 'c', this is an error}|
 To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
-c := []byte(s)	    |\longremark{Convert \var{s} to an array of \type{byte}s, see %
+c := []byte(s)	    |\longremark{Convert \var{s} to an array of bytes, see %
 chapter \ref{chap:beyond} section "\titleref{sec:conversions}";}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
@@ -537,7 +537,7 @@ slice as the key and value is set to the value of that key
 \todo{better}. Consider this code: \index{keyword!range!on slices}
 \begin{lstlisting}
 list := []string{"a", "b", "c", "d", "e", "f"}     |\longremark{Create a %
-slice (see bllabla) of \type{string}s.}|
+slice (see bllabla) of strings.}|
 for k, v := range list {	|\longremark{Use \key{range} to loop over them.%
 In each interation \key{range} will return the index as \type{int} and %
 the key as a \type{string}, starting with 0 and "a".}|

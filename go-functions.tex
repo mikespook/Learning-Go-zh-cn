@@ -278,7 +278,7 @@ func myfunc(arg ... int) {}
 The \lstinline{arg ... int} instructs Go to see this as a function that
 takes a variable number of arguments. Note that these arguments all
 have the type \type{int}. Inside your function's body the variable
-\var{arg} is a slice of \type{int}s:
+\var{arg} is a slice of ints:
 \begin{lstlisting}
 for _, n := range arg {
     fmt.Printf("And the number is: %d\n", n)

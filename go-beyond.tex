@@ -117,7 +117,7 @@ items are initialized, the slice is \type{nil}. For slices, maps, and channels,
 \key{make} initializes the internal data structure and prepares the value for
 use. For instance,
 \lstinline{make([]int, 10, 100)}
-allocates an array of 100 \type{int}s and then creates a slice structure with
+allocates an array of 100 ints and then creates a slice structure with
 length 10 and a capacity of 100 pointing at the first 10 elements of the
 array. In contrast,
 \lstinline{new([]int)} returns
@@ -222,8 +222,7 @@ is done by functions and not all conversions are allowed.
 
 \begin{itemize}
 \item{
-From a \lstinline{string} to a slice of \lstinline{byte}s or
-\lstinline{int}s.
+From a \lstinline{string} to a slice of bytes or ints.
 \begin{lstlisting}
 mystring := "hello this is string"
 \end{lstlisting}
@@ -242,7 +241,7 @@ Converts to an \type{int} slice, each \type{int} contains a Unicode code
 point. Every character from the string is corresponds to one integer.
 }
 \item{
-From a slice of \lstinline{byte}s or \lstinline{int}s to a \lstinline{string}.
+From a slice of bytes or ints to a \lstinline{string}.
 \begin{lstlisting}
 b := []byte{'h','e','l','l','o'} |\coderemark{Composite literal}|
 s := string(b)
