@@ -88,12 +88,28 @@ allocated \type{stack}, so line 1 from the example above needs to be
 
 \noindent{}And our two functions become:
 
-\lstinputlisting[firstline=13,lastline=28,caption=The push and pop functions]{ex-functions/src/stack.go}
-Which we then use as follows
-%% NEWPAGE FOR LAYOUT (MG)
-\newpage
+\begin{lstlisting}[caption=The push and pop functions]
+func (s *stack) push(k int) {
+	s.data[s.i] = k
+	s.i++
+}
 
-\lstinputlisting[firstline=39,lastline=44,caption=Stack usage]{ex-functions/src/stack.go}
+func (s *stack) pop() int {
+	s.i--
+	return s.data[s.i]
+}
+\end{lstlisting}
+
+Which we then use as follows
+
+\begin{lstlisting}[caption=Stack usage]
+func main() {
+	var s stack
+	s.push(25)
+	s.push(14)
+	fmt.Printf("stack %v\n", s)
+}
+\end{lstlisting}
 
 \Question While this was a bonus question, having the ability to print
 the stack was very valuable when writing the code for this exercise.
