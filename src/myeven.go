@@ -1,6 +1,6 @@
 package main
 
-import (		|\longremark{Import the following packages};|
+import (		|\longremark{Import the following packages;}|
 	"./even"	|\longremark{The \emph{local} package \package{even};}|
 	"fmt"		|\longremark{The official \package{fmt} package;}|
 )

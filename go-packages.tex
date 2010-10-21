@@ -323,13 +323,16 @@ We cannot comment on each package, but the following a worth a mention:
 Package \package{fmt} implements formatted I/O with functions analogous
 to C's \func{printf} and \func{scanf}. The format \texttt{verbs} are derived
 from C's but are simpler. Some verbs (\%-sequences) that can be used:
+
 \begin{description}
-\item[\lstinline{\%v}]{The value in a default format.
+\item[\%v]{The value in a default format.
 when printing structs, the plus flag (\%+v) adds field names;}
-\item[\lstinline{\%\#v}]{a Go-syntax representation of the value.}
-\item[\lstinline{\%T}]{a Go-syntax representation of the type of the value;}
+\item[\%\#v]{a Go-syntax representation of the value.}
+\item[\%T]{a Go-syntax representation of the type of the value;}
 \end{description}
+
 }
+
 \item[\package{io}]{\index{package!io}
 This package provides basic interfaces to I/O primitives.
 Its primary job is to wrap existing implementations of such primitives,
@@ -387,7 +390,7 @@ value with static type \lstinline|interface{}| and extract its dynamic type
 information by calling \func{Typeof}, which returns an object with interface
 type \type{Type}.  That contains a pointer to a struct of type \type{*StructType},
 \type{*IntType}, etc. representing the details of the underlying type.  A type
-switch or type assertion can reveal which (See chapter \ref{chap:interfaces}, 
+switch or type assertion can reveal which (see chapter \ref{chap:interfaces}, 
 section "\titleref{sec:introspection}").
 }
 \item[\package{exec}]{\index{package!exec}

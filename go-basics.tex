@@ -202,7 +202,8 @@ a 64 bits machine they are 64 bits.
 If you want to be explicit about the length you can have
 that too with \lstinline{int32}, or \lstinline{uint32}. The full
 list for (signed and unsigned) integers is
-\type{int8,16,32,64} and \type{byte,uint8,uint16,uint32,uint64}.
+\type{int8}, \type{int16}, \type{int32}, \type{int64} and
+\type{byte}, \type{uint8}, \type{uint16}, \type{uint32}, \type{uint64}.
 With \lstinline{byte} being an
 alias for \lstinline{uint8}. For floating point values there only is
 \lstinline{float32} and \lstinline{float64}.
@@ -272,7 +273,7 @@ c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
 s2 := string(c)     |\longremark{Create a \emph{new} %
 string \var{s2} with the alteration;}|
-fmt.Printf("%s\n", s2) |\longremark{print the string with Printf.}|
+fmt.Printf("%s\n", s2) |\longremark{print the string with \func{fmt.Printf}.}|
 \end{lstlisting}
 
 \showremarks
