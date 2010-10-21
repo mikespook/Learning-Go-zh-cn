@@ -205,7 +205,76 @@ sl := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 ma := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 \end{lstlisting}
 
-\subsection{Conversions}
+\section{Defining your own}
+\label{sec:defining your own}
+Of course Go allows you to define new types, it does this 
+with the \first{\key{type}}{keyword!type} keyword: 
+\begin{lstlisting}
+type foo int
+\end{lstlisting}
+Creates
+a new type \lstinline{foo} which acts like an \lstinline{int}.
+Creating more sophisticated types is done with the
+\first{\key{struct}}{keyword!struct}
+keyword.
+An example would be when we want record somebody's name (\type{string})
+and age (\type{int}) in a single structure and make it a new type:
+\lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
+Apropos, the output of \lstinline{fmt.Printf("%v\n", a)} is 
+\begin{display}
+{Pete, 42}
+\end{display}
+That is nice!
+Go knows how to print your structure. If you
+only want to print one, or a few, fields of the structure you'll
+need to use \verb|.<field name>|. For example to only print the name:
+\begin{lstlisting}
+fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
+\end{lstlisting}
+
+\todo{Struct with non-exported fields}
+
+\subsection{Methods}
+\label{sec:methods}
+If you create functions that works on your newly defined type, you can
+take two routes:
+\begin{enumerate}
+\item Create a function that takes the type as an argument.
+\begin{lstlisting}
+func doSomething(in1 *NameAge, in2 int) { /* ... */ }
+\end{lstlisting}
+This is (you might have guessed) a \first{\emph{function call}}{function
+call}.
+\item Create a function that works on the type (see \emph{receiver} in
+listing \ref{src:function definition}):
+\begin{lstlisting}
+func (in1 *NameAge) doSomething(in2 int) { /* ... */ }
+\end{lstlisting}
+This is a \first{\emph{method call}}{method call}, which can be
+used as: 
+\begin{lstlisting}
+var n *NameAge
+n.doSomething(2)
+\end{lstlisting}
+\end{enumerate}
+But keep the following in mind, this is quoted from \cite{go_spec}:
+\begin{quote}
+If \type{x} is
+addressable and \lstinline{&x}'s method set contains \func{m}, 
+\lstinline{x.m()} is shorthand for \lstinline{(&x).m()}.
+\end{quote}
+In the above case this means that the following is \emph{not} an 
+error:
+\begin{lstlisting}
+var n NameAge	    |\coderemark{Not a pointer}|
+n.doSomething(2)    
+\end{lstlisting}
+Here Go will search the method list for \var{n} of type \type{NameAge},
+come up empty and will then \emph{also} search the method list for
+the type \type{*NameAge} and will translate this call to
+\lstinline{(&n).doSomething(2)}.
+
+\section{Conversions}
 \label{sec:conversions}
 Sometimes you want to convert a type to another type. In C this is known
 as casting a value to another type. This is also possible in Go, but
@@ -260,77 +329,28 @@ from the floating point value;}
 \item{The other way around: \lstinline{float(int)};}
 \end{itemize}
 
-\section{Defining your own}
-\label{sec:defining your own}
-Of course Go allows you to define new types, it does this 
-with the \first{\key{type}}{keyword!type} keyword: 
+\todo{Conversions between user defined types.}
+We create two types here \type{Foo} and \type{Bar}, where
+\lstinline{Bar} is an alias for \type{Foo}:
 \begin{lstlisting}
-type foo int
-\end{lstlisting}
-Creates
-a new type \lstinline{foo} which acts like an \lstinline{int}.
-Creating more sophisticated types is done with the
-\first{\key{struct}}{keyword!struct}
-keyword.
-An example would be when we want record somebody's name (\type{string})
-and age (\type{int}) in a single structure and make it a new type:
-\lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
-Apropos, the output of \lstinline{fmt.Printf("%v\n", a)} is 
-\begin{display}
-{Pete, 42}
-\end{display}
-That is nice!
-Go knows how to print your structure. If you
-only want to print one, or a few, fields of the structure you'll
-need to use \verb|.<field name>|. For example to only print the name:
-\begin{lstlisting}
-fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
+type foo struct { int } 
+type bar foo
 \end{lstlisting}
 
-\todo{"reference-y" sounds like a pretty hazy concept to me. As has been
-noted already, struct types with non-exported fields cannot be copied
-by code outside of the type's package. This forces the type's users to
-pass it by reference.}
+Then we:
+\begin{lstlisting}
+var b bar = bar{1} |\coderemark{Declare \var{b} to be a \type{bar}}|
+var f foo = b	   |\coderemark{Assign \var{b} to \var{f}}|
+\end{lstlisting}
+Which fails on the last line with:
 
-\subsection{Methods}
-\label{sec:methods}
-If you create functions that works on your newly defined type, you can
-take two routes:
-\begin{enumerate}
-\item Create a function that takes the type as an argument.
+\noindent\error{cannot use b (type bar) as type foo in assignment}
+
+\todo{Needs to be tested}
+This can be fixed with a conversion:
 \begin{lstlisting}
-func doSomething(in1 *NameAge, in2 int) { /* ... */ }
+var f foo = foo(b)
 \end{lstlisting}
-This is (you might have guessed) a \first{\emph{function call}}{function
-call}.
-\item Create a function that works on the type (see \emph{receiver} in
-listing \ref{src:function definition}):
-\begin{lstlisting}
-func (in1 *NameAge) doSomething(in2 int) { /* ... */ }
-\end{lstlisting}
-This is a \first{\emph{method call}}{method call}, which can be
-used as: 
-\begin{lstlisting}
-var n *NameAge
-n.doSomething(2)
-\end{lstlisting}
-\end{enumerate}
-But keep the following in mind, this is quoted from \cite{go_spec}:
-\begin{quote}
-If \type{x} is
-addressable and \lstinline{&x}'s method set contains \func{m}, 
-\lstinline{x.m()} is shorthand for \lstinline{(&x).m()}.
-\end{quote}
-In the above case this means that the following is \emph{not} an 
-error:
-\begin{lstlisting}
-var n NameAge	    |\coderemark{Not a pointer}|
-n.doSomething(2)    
-\end{lstlisting}
-Here Go will search the method list for \var{n} of type \type{NameAge},
-come up empty and will then \emph{also} search the method list for
-the type \type{*NameAge} and will translate this call to
-\lstinline{(&n).doSomething(2)}.
 
 \section{Exercises}
 \input{ex-beyond/ex-interfaces.tex}
