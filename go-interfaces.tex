@@ -21,6 +21,10 @@ type I interface {
   Put(int)
 }
 \end{lstlisting}
+\begin{lbar}
+An interface type is a set of methods.
+\end{lbar}
+
 \type{S} is a valid \emph{implementation} for \type{I}, because it defines the two 
 methods which \type{I} requires. Note that this is true even though there is 
 no explicit declaration that \type{S} implements \type{I}. A Go program can use 
@@ -142,8 +146,9 @@ Another thing about the receiver; it can not be a defined for interface
 types, doing so results in a \error{invalid receiver type ...} compiler
 error. The authoritative word from the language spec \cite{go_spec}:
 \begin{quote}
-The receiver type must be of the form T or *T where T is a type name. T
-is called the receiver base type or just base type. The base type must
+The receiver type must be of the form \type{T} or \type{*T} where
+\type{T} is a type name. \type{T} is called the receiver base type or just base 
+type. The base type must
 not be a pointer or interface type and must be declared in the same
 package as the method.
 \end{quote}
