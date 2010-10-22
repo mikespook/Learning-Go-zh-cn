@@ -117,6 +117,26 @@ type Emitter interface {
 }
 \end{lstlisting}
 
+Doing this on built-in (are types defined in other package) types yields:
+% Empty line here is critical, otherwise no new paragraph is created
+
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[linewidth=.7\textwidth,caption=Failure extending built-in types]
+func (i int) Emit() {
+  fmt.Printf("%d", i)
+}
+\end{lstlisting}
+\noindent\error{cannot define new methods\\ on non-local type int}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[caption=Failure extending non-local types]
+func (a *net.AddrError) Emit() {
+  fmt.Printf("%v", a)
+}
+\end{lstlisting}
+\noindent\error{cannot define new methods\\ on non-local type net.AddrError}
+\end{minipage}
+
 \section{Interface names}
 By convention, one-method interfaces are named by the method name plus
 the \emph{-er} suffix: Read\emph{er}, Writ\emph{er}, Formatt\emph{er} etc.
