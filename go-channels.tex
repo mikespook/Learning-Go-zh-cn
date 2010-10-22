@@ -17,16 +17,16 @@ stack space. And the stacks start small, so they are cheap, and grow by
 allocating (and freeing) heap storage as required.
 \end{quote}
 
-The following idea for a program was taken from \cite{go_course_day3}. 
-We run a function as two goroutines, the goroutines wait for an amount of
-time and them print something to the screen. A
-\first{goroutine}{goroutine} is a normal function, except that you start
+A \first{goroutine}{goroutine} is a normal function, except that you start
 it with the keyword \first{\key{go}}{keyword!go}.
 \begin{lstlisting}
 ready("Tee", 2)	    |\coderemark{Normal function call}|
 go ready("Tee", 2)  |\coderemark{\func{Ready()} started as goroutine}|
 \end{lstlisting}
-On the lines 14 and 15 we start two goroutines.
+The following idea for a program was taken from \cite{go_course_day3}. 
+We run a function as two goroutines, the goroutines wait for an amount of
+time and them print something to the screen. 
+On the lines 14 and 15 we start the goroutines.
 The \func{main} function
 waits long enough, so that both goroutines will have printed their text. Right
 now we wait for 5 seconds (\func{time.Sleep()} counts in ns) on line 17, but in fact we have no idea how
@@ -40,7 +40,8 @@ Tee is ready!	    # after 2 minutes
 \end{display}
 
 If we did not wait for the goroutines (i.e. remove line 17) the program
-would be terminated immediately and any running goroutines would die with it. 
+would be terminated immediately and any running goroutines would
+\emph{die with it}. 
 To fix this we need some kind of mechanism which allows us to
 communicate with the goroutines. This mechanism is available
 to us in the form of \first{channels}{channels}. A
@@ -48,7 +49,8 @@ to us in the form of \first{channels}{channels}. A
 compared to a two-way pipe in Unix shells: you can send to and receive
 values from it. Those values can only be of a specific type: the
 type of the channel. If we define a channel, we must also define the
-type of the values we can send on the channel:
+type of the values we can send on the channel. Note that we must use
+\key{make} to create a channel:
 \begin{lstlisting}
 ci := make(chan int)
 cs := make(chan string)
@@ -58,7 +60,8 @@ Makes \var{ci} a channel on which we can send and receive integers,
 makes \var{cs} a channel for strings and \var{cf} a channel for types
 that satisfy the empty interface. 
 Sending on a channel and receiving from it, is done with the same operator:
-\lstinline{<-}. Depending on the operands it figures out what to do:
+\lstinline{<-}. \index{operator!channel}
+Depending on the operands it figures out what to do:
 \begin{lstlisting}
 ci <- 1	    |\coderemark{\emph{Send} the integer 1 to the channel \var{ci}}|
 <-ci	    |\coderemark{\emph{Receive} an integer from the channel \var{ci}}|
