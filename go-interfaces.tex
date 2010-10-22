@@ -1,13 +1,11 @@
 \epi{I have this phobia about having my body penetrated surgically. You
 know what I mean?}{\textit{eXistenZ}\\\textsc{TED PIKUL}}
 \noindent{}
-
-\section{Interfaces}
-\label{sec:interfaces}
 \gomarginpar{The following text is from \cite{go_interfaces}. Written by Ian 
 Lance Taylor --- one of the authors of Go.}
-In Go, the word \first{interface}{interface} is overloaded to mean several different
-things. Every type has an interface, which is the set of methods defined for
+In Go, the word \first{\emph{interface}}{interface} is overloaded to mean several different
+things. Every type has an interface, which is the \emph{set of methods
+defined} for \index{interface!set of methods}
 that type. This bit of code defines a struct type \type{S} with one field, and
 defines two methods for \type{S}.
 \begin{lstlisting}[caption=Defining a struct and methods on it,label=src:interface object]
@@ -15,19 +13,19 @@ type S struct { i int }
 func (p *S) Get() int { return p.i }
 func (p *S) Put(v int) { p.i = v }
 \end{lstlisting}
-You can also define an \first{interface type}{interface type}, which is simply a set of methods.
+You can also define an \first{interface type}{interface!type}, which is simply a set of methods.
 This defines an interface \type{I} with two methods:
 \begin{lstlisting}
 type I interface {
-  Get() int;
-  Put(int);
+  Get() int
+  Put(int)
 }
 \end{lstlisting}
-\type{S} is a valid implementation for \type{I}, because it defines the two 
+\type{S} is a valid \emph{implementation} for \type{I}, because it defines the two 
 methods which \type{I} requires. Note that this is true even though there is 
 no explicit declaration that \type{S} implements \type{I}. A Go program can use 
 this fact via yet another meaning of interface, which is an
-\first{interface value}{interface value}:
+\first{interface!value}{interface!value}:
 
 \begin{lstlisting}
 func f(p I) { fmt.Println(p.Get()); p.Put(1) }
@@ -101,18 +99,21 @@ method Get}
 have a \func{Get()} function.
 
 \subsection{Methods}
-You can also define functions (or better called methods from now on) on
-interfaces. In fact, any value, and type can have methods. 
+Methods are function that have an receiver (see chaper
+\ref{chap:functions}).
+You can define methods on
+interfaces. In fact, any value, and type (except the built-ins like
+\type{int}) can have methods. 
 You can make an integer type with its own methods. For example:
 \begin{lstlisting}
-type Foo int;
+type Foo int
 
 func (self Foo) Emit() {
-  fmt.Printf("%v", self);
+  fmt.Printf("%v", self)
 }
 
 type Emitter interface {
-  Emit();
+  Emit()
 }
 \end{lstlisting}
 

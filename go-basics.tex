@@ -388,6 +388,14 @@ and \key{return} see chapter \ref{chap:functions} for the details;
 \item \key{type}, see XXX.
 \end{itemize}
 
+\subsection{Syntax}
+Go has a C-like feel when it comes to its syntax. 
+If you want to put two (or more) statements on one line, they must be
+seperated with a semicolon (';'), like so:
+\begin{lstlisting}
+a = 5; a = a + 1
+\end{lstlisting}
+
 \section{Control structures}
 There are only a few control structure in 
 Go \footnote{This section is copied from \cite{effective_go}.}.
@@ -452,6 +460,16 @@ if err != nil {
 }
 doSomething(f, d)
 \end{lstlisting}
+
+Syntax wise the following is illegal in Go:
+\begin{lstlisting}
+if err != nil
+{		    |\coderemark{Must be on the same line as the if}|
+    return err
+}
+\end{lstlisting}
+See \cite{effective_go} section "Semicolons" on the deeper reasons
+behind this.
 
 \subsection{Goto}
 Go has a \first{\key{goto}}{keyword!goto} statement --- use it wisely. With \key{goto}
