@@ -329,35 +329,52 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 \paragraph{\func{close} and \func{closed}} are used in
 channel communication and the closing of those channels, see chapter \ref{chap:channels}
 for more on this.
+\index{built-in!close}\index{built-in!closed}
+\todo{section needs to be written}
 
 \paragraph{\func{len} and \func{cap}} are used on a number of different
 types, \func{len} is
 used for returning the length of strings and the length of slices and
 arrays. See section "\titleref{sec:arrays}" for the details of slices and
-arrays and the function \func{cap}.
+arrays and the function
+\func{cap}.\index{built-in!len}\index{built-in!cap}
 
 \paragraph{\func{new}} is used for allocating memory for user defined
-data types.
+data types. See section "\titleref{sec:allocation with new}" on page
+\pageref{sec:allocation with new}.
+\index{built-in!new}
 
 \paragraph{\func{make}} is used for allocating memory for built-in
-types (maps, slices and channels).
+types (maps, slices and channels). See section 
+"\titleref{sec:allocation with make}" on page
+\pageref{sec:allocation with make}.
+\index{built-in!make}
 
 \paragraph{\func{copy}} is used for copying slices. \func{new},
 \func{make} and \func{copy} make their appearance in chapter
 \ref{chap:beyond}.
+\index{built-in!copy}
+\todo{copy is handled there}
 
 \paragraph{\func{panic} and \func{panicln}} are used for an 
 \emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
 page \pageref{sec:panic} for more.
+\index{built-in!panic}
+\index{built-in!panicln}
+\todo{Needs to be written}
 
 \paragraph{\func{print} and \func{println}} are low level printing
 functions that can be used without reverting to the
 \package{fmt}\index{package!fmt}
 package. These are mainly used for debugging.
+\index{built-in!print}\index{built-in!prinln}
 
 \paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
 \first{complex numbers}{complex numbers}. \todo{Refer to other
 documentation.}
+\index{built-in!cmplx}
+\index{built-in!real}
+\index{built-in!imag}
 
 \section{Go keywords}
 \begin{table}[H]
