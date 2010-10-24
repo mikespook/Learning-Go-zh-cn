@@ -22,7 +22,7 @@ will need the \func{select} statement.}
 \Question A possible program is: 
 \lstinputlisting[label=go-chan,caption=Channels in Go,numbers=right]{ex-channels/src/for-chan.go}
 We start of in the usual way, then at line 6 we create a new channel of
-\key{int}s. In the next line we fire off the function \func{shower} with
+ints. In the next line we fire off the function \func{shower} with
 the \prog{ch} variable as it argument, so that we may communicate with
 it. Next we start our for-loop (lines 8-10) and in the loop
 we send (with \lstinline{<-}) our number to the function (now a goroutine) \func{shower}.

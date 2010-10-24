@@ -1,12 +1,11 @@
 \epi{Go has pointers but not pointer arithmetic. You cannot use a pointer
 variable to walk through the bytes of a string.}{\textit{Go For C++
 Programmers}\\{\textsc{GO AUTHORS}}}
-%%\epi{\lstinline{fmt.Printf("\%p", i)}}{Printing the address of a pointer in Go.}
 \noindent{}
-You may have wished otherwise, but Go does have pointers.
+Go has pointers.
 There is however no pointer arithmetic, so they act more like
-references than pointers that you may know from C. Pointers as
-they are still called in Go are useful.
+references than pointers that you may know from C. Pointers 
+are are useful.
 Remember that when you call a function in Go, the variables are
 \emph{pass-by-value}. So, for efficiency and the possibility to modify a
 passed value \emph{in} functions we have pointers.
@@ -14,14 +13,14 @@ passed value \emph{in} functions we have pointers.
 Just like in C you declare a pointer by prefixing the type with an
 '\key{*}':
 \lstinline{var p *int}. Now \var{p} is a pointer to an integer value.
-All newly declared variables are assigned their zero value and pointer
+All newly declared variables are assigned their zero value and pointers
 are no difference. A newly declared, or just a pointer that points to
 nothing has a \first{nil}{nil}-value. In other languages this is often called
 a NULL pointer in Go it is just \var{nil}. To make 
-a pointer point to something you can use the address-of operator
+a pointer point to something you can use the \first{address-of operator}{operator!address-of}
 (\func{\&}), which we do on line 5:
 \begin{lstlisting}[caption=Make use of a pointer,numbers=right,label=src:pointers]
-var p *int	    
+var p *int
 fmt.Printf("%v", p) |\coderemark{Prints \var{nil}}|
 
 var i int	    |\coderemark{Declare integer variable \var{i}}|
@@ -31,9 +30,9 @@ fmt.Printf("%v", p) |\coderemark{Prints something like \var{0x7ff96b81c000a}}|
 \end{lstlisting}
 
 More general: \var{*X} is a pointer to an \type{X}; \var{[3]X} is an
-array of three \type{X}'s. The
+array of three \type{X}s. The
 types are therefore really easy to read just read out the names of the
-type modifiers: \type{[]} declares something called an array slice;
+type modifiers: \type{[]} declares an array slice;
 '\key{*}'
 declares a pointer; \type{[size]} declares an array. So
 \type{[]*[3]*X} is an array slice of pointers to arrays of three
@@ -49,7 +48,7 @@ pointers to \type{X}s (also see figure \ref{fig:pointers}).
 Dereferencing a pointer is done by prefixing the pointer variable with
 '\type{*}':
 \begin{lstlisting}[caption=Dereferencing a pointer,label=src:deref]
-p = &i
+p = &i			|\coderemark{Take the address of \var{i}}|
 *p = 8			|\coderemark{Change the value of \var{i}}|
 fmt.Printf("%v\n", *p)  |\coderemark{Prints 8}|
 fmt.Printf("%v\n", i)	|\coderemark{Idem}|
@@ -57,25 +56,32 @@ fmt.Printf("%v\n", i)	|\coderemark{Idem}|
 
 As said, there is no pointer arithmetic, so if you write:
 \lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
-deference and then increment the value.
+deference and then increment the value.\index{operator!increment}
 
 \section{Allocation}
 Go has garbage collection, meaning that you don't have to worry about
 memory allocation and deallocation. Of course almost every language
 since 1980 has this, but it is nice to see garbage collection in a
-C-like language which in not C++. The following sections show how to handle allocation
-in Go. There is a somewhat an artificial distinction between
-\first{\key{new}}{keyword!new} and \first{\key{make}}{keyword!make}. 
+C-like language.
+
+Go has two allocation primitives, \key{new} and \key{make}. They do different
+things and apply to different types, which can be confusing, but the
+rules are simple.
+The following sections show how to handle allocation
+in Go and hopefully clarifies the somewhat artificial distinction between
+\first{\key{new}}{built-in!new} and \first{\key{make}}{built-in!make}. 
 
 \subsection{Allocation with new}
 \label{sec:allocation with new}
-Go has two allocation primitives, \key{new} and \key{make}. They do different
-things and apply to different types, which can be confusing, but the
-rules are simple. \key{new} is a built-in function
+The built-in function \key{new} is 
 essentially the same as its namesakes in other languages: \func{new(T)}
 allocates zeroed storage for a new item of type \type{T} and returns its
 address, a value of type \type{*T}. In Go terminology, it returns a pointer to
-a newly allocated zero value of type \type{T}.
+a newly allocated zero value of type \type{T}. This is important to
+remember:
+\begin{lbar}
+\key{new} returns a \emph{pointer}.
+\end{lbar}
 
 This
 means a user of the data structure can create one with \key{new} and get
@@ -115,9 +121,16 @@ slice, for example, is a three-item descriptor containing a pointer to
 the data (inside an array), the length, and the capacity; until those
 items are initialized, the slice is \type{nil}. For slices, maps, and channels,
 \key{make} initializes the internal data structure and prepares the value for
-use. For instance,
+use. 
+
+\begin{lbar}
+\key{make} returns initialized (non zero) \emph{values}.
+\end{lbar}
+
+
+For instance,
 \lstinline{make([]int, 10, 100)}
-allocates an array of 100 \type{int}s and then creates a slice structure with
+allocates an array of 100 ints and then creates a slice structure with
 length 10 and a capacity of 100 pointing at the first 10 elements of the
 array. In contrast,
 \lstinline{new([]int)} returns
@@ -205,64 +218,9 @@ sl := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 ma := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 \end{lstlisting}
 
-\subsection{Conversions}
-\label{sec:conversions}
-Sometimes you want to convert a type to another type. In C this is known
-as casting a value to another type. This is also possible in Go, but
-there are some rules. For starters, converting from one value to another
-is done by functions and not all conversions are allowed.
-
-\begin{table}[H]
-\begin{center}
-\caption{Valid conversions}
-\label{tab:convesion}
-\input{tab/conversion.tex}
-\end{center}
-\end{table}
-
-\begin{itemize}
-\item{
-From a \lstinline{string} to a slice of \lstinline{byte}s or
-\lstinline{int}s.
-\begin{lstlisting}
-mystring := "hello this is string"
-\end{lstlisting}
-
-\begin{lstlisting}
-byteslice := []byte(mystring)
-\end{lstlisting}
-Converts to a \type{byte} slice, each \type{byte} contains the integer value
-of the corresponding byte in the string. Note that as strings in Go
-are encoded in UTF-8 some characters in the string may end up in 1, 2, 3
-or 4 bytes.
-\begin{lstlisting}
-intslice  := []int(mystring)
-\end{lstlisting}
-Converts to an \type{int} slice, each \type{int} contains a Unicode code
-point. Every character from the string is corresponds to one integer.
-}
-\item{
-From a slice of \lstinline{byte}s or \lstinline{int}s to a \lstinline{string}.
-\begin{lstlisting}
-b := []byte{'h','e','l','l','o'} |\coderemark{Composite literal}|
-s := string(b)
-i := []int{257,1024,65} 
-r := string(i)
-\end{lstlisting}
-}
-\end{itemize}
-For numeric values the following conversion are defined:
-\begin{itemize}
-\item{Convert to a integer with a specific (bit) length: 
-\lstinline{uint8(int)};}
-\item{From floating point to an integer value: 
-\lstinline{int(float)}. This discards the fraction part
-from the floating point value;}
-\item{The other way around: \lstinline{float(int)};}
-\end{itemize}
-
 \section{Defining your own}
 \label{sec:defining your own}
+\todo{tags in structs}
 Of course Go allows you to define new types, it does this 
 with the \first{\key{type}}{keyword!type} keyword: 
 \begin{lstlisting}
@@ -288,10 +246,7 @@ need to use \verb|.<field name>|. For example to only print the name:
 fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 \end{lstlisting}
 
-\todo{"reference-y" sounds like a pretty hazy concept to me. As has been
-noted already, struct types with non-exported fields cannot be copied
-by code outside of the type's package. This forces the type's users to
-pass it by reference.}
+\todo{Struct with exported fields}
 
 \subsection{Methods}
 \label{sec:methods}
@@ -302,7 +257,7 @@ take two routes:
 \begin{lstlisting}
 func doSomething(in1 *NameAge, in2 int) { /* ... */ }
 \end{lstlisting}
-This is (you might have guessed) a \first{\emph{function call}}{function
+This is (you might have guessed) a \first{\emph{function!call}}{function
 call}.
 \item Create a function that works on the type (see \emph{receiver} in
 listing \ref{src:function definition}):
@@ -333,9 +288,83 @@ come up empty and will then \emph{also} search the method list for
 the type \type{*NameAge} and will translate this call to
 \lstinline{(&n).doSomething(2)}.
 
-\section{Exercises}
-\input{ex-beyond/ex-interfaces.tex}
+\section{Conversions}
+\label{sec:conversions}
+Sometimes you want to convert a type to another type. In C this is known
+as casting a value to another type. This is also possible in Go, but
+there are some rules. For starters, converting from one value to another
+is done by functions and not all conversions are allowed.
 
+\begin{table}[H]
+\begin{center}
+\caption{Valid conversions}
+\label{tab:convesion}
+\input{tab/conversion.tex}
+\end{center}
+\end{table}
+
+\begin{itemize}
+\item{
+From a \lstinline{string} to a slice of bytes or ints.
+\begin{lstlisting}
+mystring := "hello this is string"
+\end{lstlisting}
+
+\begin{lstlisting}
+byteslice := []byte(mystring)
+\end{lstlisting}
+Converts to a \type{byte} slice, each \type{byte} contains the integer value
+of the corresponding byte in the string. Note that as strings in Go
+are encoded in UTF-8 some characters in the string may end up in 1, 2, 3
+or 4 bytes.
+\begin{lstlisting}
+intslice  := []int(mystring)
+\end{lstlisting}
+Converts to an \type{int} slice, each \type{int} contains a Unicode code
+point. Every character from the string is corresponds to one integer.
+}
+\item{
+From a slice of bytes or ints to a \lstinline{string}.
+\begin{lstlisting}
+b := []byte{'h','e','l','l','o'} |\coderemark{Composite literal}|
+s := string(b)
+i := []int{257,1024,65} 
+r := string(i)
+\end{lstlisting}
+}
+\end{itemize}
+For numeric values the following conversion are defined:
+\begin{itemize}
+\item{Convert to a integer with a specific (bit) length: 
+\lstinline{uint8(int)};}
+\item{From floating point to an integer value: 
+\lstinline{int(float)}. This discards the fraction part
+from the floating point value;}
+\item{The other way around: \lstinline{float(int)};}
+\end{itemize}
+
+We create two types here \type{Foo} and \type{Bar}, where
+\lstinline{Bar} is an alias for \type{Foo}:
+\begin{lstlisting}
+type foo struct { int } 
+type bar foo
+\end{lstlisting}
+
+Then we:
+\begin{lstlisting}
+var b bar = bar{1} |\coderemark{Declare \var{b} to be a \type{bar}}|
+var f foo = b	   |\coderemark{Assign \var{b} to \var{f}}|
+\end{lstlisting}
+Which fails on the last line with:
+
+\noindent\error{cannot use b (type bar) as type foo in assignment}
+
+This can be fixed with a conversion:
+\begin{lstlisting}
+var f foo = foo(b)
+\end{lstlisting}
+
+\section{Exercises}
 \input{ex-beyond/ex-map.tex}
 
 \input{ex-beyond/ex-pointers.tex}

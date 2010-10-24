@@ -2,32 +2,43 @@
 {\textit{On adding complex numbers to Go}\\ \textsc{KEN THOMPSON}}
 
 \noindent{}This is an introduction to the Go language from Google. Its aim
-is to provide a guide to this new and innovative language. 
+is to provide a guide to this new and innovative language. What is
+Go? From the website \cite{go_web}:
+\begin{quote}
+The Go programming language is an open source project to make
+programmers more productive. Go is expressive, concise, clean, and
+efficient. Its concurrency mechanisms make it easy to write programs
+that get the most out of multicore and networked machines, while its
+novel type system enables flexible and modular program construction. Go
+compiles quickly to machine code yet has the convenience of garbage
+collection and the power of run-time reflection. It's a fast, statically
+typed, compiled language that feels like a dynamically typed,
+interpreted language.
+\end{quote}
 
-Its intended audience is people who are familiar with programming
+The intended audience of this book is people who are familiar with programming
 and know multiple programming languages, be it C\cite{c}, C$^{++}$\cite{c++}, 
-Java \cite{java}, Erlang\cite{erlang}, Scala\cite{scala} or
+Perl \cite{perl}, Java \cite{java}, Erlang\cite{erlang}, Scala\cite{scala} or
 Haskell\cite{haskell}. This is \emph{not} a book which teaches you how to 
 program, this is a book that just teaches you how to use Go.
 
 As with
-learning new things, the best way to do this is to discover it for
+learning new things, probably the best way to do this is to discover it for
 yourself by creating your own programs.
-Each chapter includes a number of exercises (and answers)
+Therefor includes each chapter a number of exercises (and answers)
 to acquaint you with the language.
 An exercise
 is numbered as \textbf{Q$n$}, where $n$ is a number. After the
 exercise number another number in parentheses displays the difficulty
 of this particular assignment. This difficulty ranges from 0 to
-50 \footnote{This is the same scale Donald Knuth uses.}, where
-0 is easy and 50 is extremely difficult (such a problem is a unresolved
-research problem). Then a short name is given, for easier reference.
+2, where 0 is easy and 2 is difficult. 
+Then a short name is given, for easier reference.
 For example
 \begin{verse}
-\textbf{Q1}. (4) A map function \ldots
+\textbf{Q1}. (1) A map function \ldots
 \end{verse}
     
-introduces a question numbered \textbf{Q1} of a level 4 difficulty, concerning a
+introduces a question numbered \textbf{Q1} of a level 1 difficulty, concerning a
 \func{map()}-function. The answers are included after the exercises on a
 new page, except for those pesky unresolved research problems.
 The numbering and setup of the answers is identical to the
@@ -43,9 +54,9 @@ to evolve.
 We will do our best to keep this document up to 
 date with respect to the latest Go release.
 An effort has been made to create "future proof" code examples.
-\noindent{}The following convention is used throughout this book:
+
+The following convention is used throughout this book:
 \begin{itemize}
-\item Normal text is typeset use the Droid Fonts;
 \item Code is displayed in \prog{DejaVu Mono};
 \item Keywords are displayed in \key{DejaVu Mono Bold};
 \item Comments are displayed in \rem{DejaVu Mono Italic};
@@ -53,7 +64,7 @@ An effort has been made to create "future proof" code examples.
 \item Longer remarks get a number -- \gocircle{1} -- with the explanation following;
 \item Line numbers are printed on the right side;
 \item Shell examples use a \pr{} as prompt;
-\item An emphasised paragraph is indented and has a vertical bar on the
+\item An emphasized paragraph is indented and has a vertical bar on the
 left.
 \end{itemize}
 
@@ -66,12 +77,21 @@ for reading up on Go\footnote{\url{http://golang.org/doc/} itself is served by
 a Go program called \prog{godoc}.}. Reading these documents is
 certainly not required, but is recommended.
 
-\section{Getting Go for Linux}
+Go comes with its own documentation in the form of a Go program called
+\prog{godoc}. 
+You can use it yourself to look
+in the online documentation. For
+instance, suppose we want to know more about the package \package{hash}.
+We would then give the command \prog{godoc hash}.
+How to read this and how you can create your own package documentation
+is explained in chapter \ref{chap:packages}.
+
+\section{Getting Go}
 There are currently (2010) no packages for Go in any Linux
 distribution. The route to install Go is thus slightly longer than
 it could be. When Go stabilizes this situation will change probably. For
 now, you need to retrieve the code from the mercurial archive and compile
-Go yourself.
+Go yourself. For other Unix like systems the procedure is the same.
 \begin{itemize}
 \item First install Mercurial (to get the \prog{hg} command). In
 Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
@@ -79,13 +99,18 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 \item For building Go you also need the packages: \prog{bison},
 \prog{gcc}, \prog{libc6-dev}, \prog{ed}, \prog{gawk} and \prog{make};
 
+\item Set the environment variable \prog{GOROOT} to the root of your
+Go install:
+\begin{display}
+\pr export GOROOT=~/go
+\end{display}
+
 \item Then retrieve the Go source code:
 \begin{display}
-\pr export GOROOT=~/go	\rem{\# set the GOROOT environment variable}
 \pr hg clone -r release https://go.googlecode.com/hg/ $GOROOT 
 \end{display}
 
-\item Set your PATH to find the Go binaries:
+\item Set your PATH to so that the Shell can find the Go binaries:
 \begin{display}
 \pr export PATH=$GOROOT/bin:$PATH
 \end{display}
@@ -96,24 +121,29 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 \pr ./all.bash
 \end{display}
 \end{itemize}
-If all goes well, you should now have Go installed on your system and
-you can start playing.
+If all goes well, you should see the following:
+\begin{display}
+Installed Go for linux/amd64 in /home/gobook/go.
+Installed commands in /home/gobook/go/bin.
+The compiler is 6g.
+\end{display}
+You now have Go installed on your system and you can start playing.
 
-\section{Online documentation}
-Go comes with its own documentation in the form of a Go program called
-\prog{godoc}. 
-You can use it yourself to look
-in the online documentation. For
-instance, suppose we want to know more about the package \package{hash}.
-We would then give the command \prog{godoc hash}.
-How to read this and how you can create your own package documentation
-is explained in chapter \ref{chap:packages}.
+\subsection{Keeping up to date}
+New releases are announced on the Go Nuts mailing list \cite{go_nuts}. To update an
+existing tree to the latest release, you can run:
+\begin{display}
+\pr cd $GOROOT/src
+\pr hg pull
+\pr hg update release
+\pr ./all.bash
+\end{display}
 
 \section{Origins}
 Go has it origins in Plan 9 \cite{plan9}. Plan 9 is (or was 
-supposed to be) the successor of Unix. As you know one of the
+supposed to be) the successor of Unix. As you may know one of the
 core ideas of Unix is "everything is a file", so the \func{read()} and
-\func{write()} calls work as well on normal files as they do on I/O
+\func{write()} system calls work as well on normal files as they do on I/O
 devices. However for some devices this has never happened, notably
 network and video devices. In Plan 9 this "everything is a file"--idea
 is taken to the next level and truly everything is presented to the 
@@ -130,10 +160,10 @@ small machines without hardware memory protection.
 \end{quote}
 That sounds a lot like Go, and one could say Go is a reimplementation of
 Limbo on Unix--like systems like Linux. One feature of Limbo that is
-also included in Go is the excellent support for cross compiling.
+also included in Go is the support for cross compiling.
 
 Another feature Go inherited from Limbo is channels (see chapter
-\ref{chap:channels}). Again from the documentation.
+\ref{chap:channels}). Again from the Limbo documentation.
 \begin{quote}
 [A channel] is a communication mechanism capable of sending and receiving objects of
 the specified type to another agent in the system. Channels may be used
@@ -165,9 +195,6 @@ invented QuickSort \cite{Quicksort}.
 Go is the first C--like language that is widely available,
 runs on many
 different platforms and makes concurrency easy (or easier).
-Becoming proficient in a new language means doing your exercises,
-reading about it helps, but getting down to the little details when 
-programming your self is even better.
 \end{lbar}
 
 \section{Exercises}

@@ -3,9 +3,9 @@ operator.}\\\textsc{KEN THOMPSON}}
 \noindent{}Packages are a collection of functions and data, they are like the
 Perl packages\cite{perl-packages}. You declare a package with the
 \first{\key{package}}{keyword!package} keyword. Note that (at least one of) the filename(s) should
-match the package name. Go packages may consist out of multiple files,
+match the package name. Go packages may consist of multiple files,
 but they share the \lstinline{package <name>} line.
-Lets define our package \package{even}\index{package!even} in the file \prog{even.go}.
+Lets define a package \package{even}\index{package!even} in the file \prog{even.go}.
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
 Names that start with a capital letter are exported and may be used
@@ -13,12 +13,14 @@ outside your package, more on that later. We can now use
 the package as follows in our own program \prog{myeven.go}:
 
 \lstinputlisting[label=src:myeven,caption=Use of the \package{even} package]{src/myeven.go}
+\showremarks
+
 Now we just need to compile and link, first the package, then \prog{myeven.go} and
 then link it:
 \begin{display}
 \pr 6g even.go			\qquad\qquad\rem{# package}
 \pr 6g myeven.go		\qquad\qquad\rem{# our program}
-\pr 6l -o myeven myeven.8
+\pr 6l -o myeven myeven.6
 \end{display}
 And test it:
 \begin{display}
@@ -41,10 +43,15 @@ myeven.go:7: undefined: even.odd
 \end{display}
 To summarize:
 \begin{itemize}
-\item Public functions have a name \emph{starting} with a capital
+\item Public functions have a name starting with a \emph{capital}
 letter;
-\item Private function have a name \emph{starting} with a lowercase letter.
+\index{public}
+\item Private function have a name starting with a \emph{lowercase} letter.
+\index{private}
 \end{itemize}
+
+This convention also holds true for other names (new types, global
+variables) you define in a package.
 
 \section{Building a package}
 \label{sec:building a package}
@@ -53,7 +60,7 @@ The create a package that other people can use (by just using
 to put the package files in. 
 \begin{display}
 \pr mkdir even
-\pr cp even.go even
+\pr cp even.go even/
 \end{display}
 \noindent{}Next we 
 can use the following 
@@ -101,12 +108,12 @@ outside a package is determined by whether its first character is upper
 case. It's therefore worth spending a little time talking about naming
 conventions in Go programs.
 
-The convention we adopted was to leave well-known legacy
+The convention that is used was to leave well-known legacy
 not-quite-words alone rather than try to figure out where
 the capital letters go.  \lstinline{Atoi}, \lstinline{Getwd},
 \lstinline{Chmod}.
 Camelcasing works best when you have whole words
-to work with: \lstinline{ReadFile, NewWriter, MakeSlice}
+to work with: \lstinline{ReadFile, NewWriter, MakeSlice}.
 
 \subsection{Package names}
 When a package is imported (with \first{\key{import}}{keyword!import}), the package name becomes 
@@ -174,13 +181,13 @@ begins.
 \todo{Variable section}
 
 \section{Documenting packages}
-This text is copied from \cite{effective_go}.
+\gomarginpar{This text is copied from \cite{effective_go}.}
 Every package should have a \emph{package comment}, a block comment preceding the
 \key{package} clause. For multi-file packages, the package comment only needs to be
 present in one file, and any one will do. The package comment should introduce
 the package and provide information relevant to the package as a whole. It will
 appear first on the \prog{godoc} page and should set up the detailed documentation
-that follows. An example is:
+that follows. An example from the official \package{regexp} package:
 \begin{display}
 /*
     The regexp package implements a simple library for
@@ -218,7 +225,7 @@ The testing itself is carried out with \prog{gotest}.
 The \prog{gotest} program run all the test functions. Without any
 defined tests for our \package{even} package a \prog{gomake test}, yields:
 \begin{display}
-\pr make test
+\pr gomake test
 no test files found (*_test.go)
 make: *** [test] Error 2
 \end{display}
@@ -234,20 +241,20 @@ func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
 
 When writing test you will need to tell \prog{gotest} that a test has
 failed or was successful. A successful test function just returns. When
-test fails you can signal this with the following
+the test fails you can signal this with the following
 functions \cite{go_doc}. These are the most important ones (see \prog{godoc testing}
 for more):
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Fail()
 \end{lstlisting}
-\func{Fail} marks the Test function as having failed but continues execution.
+\func{Fail} marks the test function as having failed but continues execution.
 
 \begin{lstlisting}[numbers=none]
 func (t *T) FailNow()
 \end{lstlisting}
-\func{FailNow} marks the Test function as having failed and stops its execution.
-Execution will continue at the next Test. So any other test in
+\func{FailNow} marks the test function as having failed and stops its execution.
+Execution will continue at the next test. So any other test in
 \emph{this} file are skipped too.
 
 \begin{lstlisting}[numbers=none]
@@ -259,9 +266,9 @@ func (t *T) Log(args ...interface{})
 \begin{lstlisting}[numbers=none]
 func (t *T) Fatal(args ...interface{})
 \end{lstlisting}
-\func{Fatal} is equivalent to Log() followed by FailNow().
+\func{Fatal} is equivalent to \func{Log()} followed by \func{FailNow()}.
 
-Putting all this together we can write our very own test file. First
+Putting all this together we can write our test. First
 we pick a name: \file{even\_test.go}. Then we add the following contents:
 \lstinputlisting[label=src:eventest,caption=Test file for \package{even}
 package,numbers=right]{src/even_test.go}
@@ -273,7 +280,7 @@ function in this file. The displayed Go code should not hold any
 surprises: we check if the \func{Even} function works OK. 
 Now, the moment we've been waiting for, executing the test:
 \begin{display}
-\pr make test
+\pr gomake test
 6g -o \_gotest\_.6 even.go  even\_test.go
 rm -f \_test/even.a
 gopack grc \_test/even.a \_gotest\_.6 
@@ -315,8 +322,17 @@ We cannot comment on each package, but the following a worth a mention:
 \item[\package{fmt}]{\index{package!fmt}
 Package \package{fmt} implements formatted I/O with functions analogous
 to C's \func{printf} and \func{scanf}. The format \texttt{verbs} are derived
-from C's but are simpler.
+from C's but are simpler. Some verbs (\%-sequences) that can be used:
+
+\begin{description}
+\item[\%v]{The value in a default format.
+when printing structs, the plus flag (\%+v) adds field names;}
+\item[\%\#v]{a Go-syntax representation of the value.}
+\item[\%T]{a Go-syntax representation of the type of the value;}
+\end{description}
+
 }
+
 \item[\package{io}]{\index{package!io}
 This package provides basic interfaces to I/O primitives.
 Its primary job is to wrap existing implementations of such primitives,
@@ -332,7 +348,7 @@ object, creating another object (Reader or Writer) that also implements
 the interface but provides buffering and some help for textual I/O.
 }
 \item[\package{sort}]{\index{package!sort}
-The sort package provides primitives for sorting arrays
+The \package{sort} package provides primitives for sorting arrays
 and user-defined collections.
 }
 \item[\package{strconv}]{\index{package!strconv}
@@ -374,15 +390,17 @@ value with static type \lstinline|interface{}| and extract its dynamic type
 information by calling \func{Typeof}, which returns an object with interface
 type \type{Type}.  That contains a pointer to a struct of type \type{*StructType},
 \type{*IntType}, etc. representing the details of the underlying type.  A type
-switch or type assertion can reveal which (See chapter \ref{chap:interfaces}, 
+switch or type assertion can reveal which (see chapter \ref{chap:interfaces}, 
 section "\titleref{sec:introspection}").
 }
 \item[\package{exec}]{\index{package!exec}
-The exec package runs external commands.
+The \package{exec} package runs external commands.
 }
 \end{description}
 
 \section{Exercises}
+\input{ex-packages/ex-stack-package.tex}
+
 \input{ex-packages/ex-calc.tex}
 
 \cleardoublepage
