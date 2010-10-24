@@ -82,7 +82,7 @@ And then we link it with \prog{6l}:
 
 And then we run it:
 \begin{display}
-\pr ./6.out	    \coderemark{The default name for a Go executable}
+\pr ./6.out	    \coderemark{The default name for a (64 bit) Go executable}
 \end{display}
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
@@ -179,8 +179,7 @@ _, b := 34, 35
 \end{lstlisting}
 Declared, but otherwise unused variables are a compiler error in Go, the
 following code generates this error:
-
-\noindent\error{i declared and not used}
+\error{i declared and not used}
 
 \begin{lstlisting}
 package main
@@ -287,8 +286,7 @@ you need to specify the number of bits you have \lstinline{complex32} and
 An example of using complex numbers:
 
 \lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c")}\newline
-will print\newline
-\indent\lstinline{(5+5i)}
+will print: \lstinline{(5+5i)}
 
 \section{Operators and built-in functions}
 Go supports the normal set of numerical operations,
@@ -414,14 +412,15 @@ a = 5; a = a + 1
 \end{lstlisting}
 
 \section{Control structures}
-There are only a few control structure in 
+There are only a few control structures in 
 Go \footnote{This section is copied from \cite{effective_go}.}.
 For instance there is no do or while loop, only a 
 \key{for}. There is a (flexible) \key{switch} statement and \key{if} and
 \key{switch} accept an
 optional initialization statement like that of \key{for}. There also is
 something called a type switch and a multiway communications
-multiplexer, \key{select} (see chapter \ref{chap:channels}). The syntax is different: parentheses
+multiplexer, \key{select} (see chapter \ref{chap:channels}). The syntax is 
+different (from that in C): parentheses
 are not required and the bodies must \emph{always} be brace-delimited.
 
 \subsection{If}
@@ -484,7 +483,7 @@ if err != nil
     return err
 }
 \end{lstlisting}
-See \cite{effective_go} section "Semicolons" on the deeper reasons
+See \cite{effective_go} section "Semicolons" for the deeper reasons
 behind this.
 
 \subsection{Goto}
@@ -648,7 +647,7 @@ switch i {
 }
 \end{lstlisting}
 With \first{\key{default}}{keyword!default} you can specify an action
-when non of the other cases match.
+when none of the other cases match.
 \begin{lstlisting}
 switch i {
     case 0:  

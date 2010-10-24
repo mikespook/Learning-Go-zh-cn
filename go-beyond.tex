@@ -80,7 +80,7 @@ address, a value of type \type{*T}. In Go terminology, it returns a pointer to
 a newly allocated zero value of type \type{T}. This is important to
 remember:
 \begin{lbar}
-\key{new} returns a \emph{pointer}.
+\key{new} returns \emph{pointers}.
 \end{lbar}
 
 This
@@ -126,7 +126,6 @@ use.
 \begin{lbar}
 \key{make} returns initialized (non zero) \emph{values}.
 \end{lbar}
-
 
 For instance,
 \lstinline{make([]int, 10, 100)}
@@ -181,8 +180,8 @@ func NewFile(fd int, name string) *File {
     if fd < 0 {
         return nil
     }
-    f := File{fd, name, nil, 0}
-    return &f
+    f := File{fd, name, nil, 0}	|\coderemark{Create a new \type{File}}|
+    return &f			|\coderemark{Return the address of \var{f}}|
 }
 \end{lstlisting}
 Note that it's perfectly OK to return the address of a local variable;
@@ -257,8 +256,7 @@ take two routes:
 \begin{lstlisting}
 func doSomething(in1 *NameAge, in2 int) { /* ... */ }
 \end{lstlisting}
-This is (you might have guessed) a \first{\emph{function!call}}{function
-call}.
+This is (you might have guessed) a \first{\emph{function call}}{function!call}.
 \item Create a function that works on the type (see \emph{receiver} in
 listing \ref{src:function definition}):
 \begin{lstlisting}

@@ -85,6 +85,7 @@ instance, suppose we want to know more about the package \package{hash}.
 We would then give the command \prog{godoc hash}.
 How to read this and how you can create your own package documentation
 is explained in chapter \ref{chap:packages}.
+\todo{We don't explain how to read this in that chapter.}
 
 \section{Getting Go}
 There are currently (2010) no packages for Go in any Linux
@@ -133,13 +134,12 @@ You now have Go installed on your system and you can start playing.
 New releases are announced on the Go Nuts mailing list \cite{go_nuts}. To update an
 existing tree to the latest release, you can run:
 \begin{display}
-\pr cd $GOROOT/src
+\pr cd $GOROOT
 \pr hg pull
 \pr hg update release
 \pr cd src
 \pr ./all.bash
 \end{display}
-
 To see what you are running right now:
 \begin{display}
 \pr cd $GOROOT
@@ -147,7 +147,6 @@ To see what you are running right now:
 79997f0e5823 release/release.2010-10-20
 \end{display}
 That would be \texttt{release.2010-10-20}.
-
 
 \section{Origins}
 Go has it origins in Plan 9 \cite{plan9}. Plan 9 is (or was 
