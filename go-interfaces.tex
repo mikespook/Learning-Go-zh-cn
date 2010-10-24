@@ -142,6 +142,7 @@ func (a *net.AddrError) Emit() {
 \noindent\error{cannot define new methods\\ on non-local type net.AddrError}
 \end{minipage}
 
+\paragraph{}  %% needed otherwise the minipage flows over
 Another thing about the receiver; it can not be a defined for interface
 types, doing so results in a \error{invalid receiver type ...} compiler
 error. The authoritative word from the language spec \cite{go_spec}:
