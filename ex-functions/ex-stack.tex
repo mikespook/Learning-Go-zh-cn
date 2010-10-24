@@ -117,5 +117,14 @@ According to the Go documentation \lstinline{fmt.Printf("%v")} can
 print any value (\%v) that satisfies the \func{Stringer} interface.
 For this to work we only need to define a \func{String()} function for
 our type:
-\lstinputlisting[firstline=30,lastline=37,caption=stack.String()]{ex-functions/src/stack.go}
+\begin{lstlisting}[caption=stack.String()]
+func (s stack) String() string {
+	var str string
+	for i := 0; i <= s.i; i++ {
+		str = str + "[" +
+			strconv.Itoa(i) + ":" + strconv.Itoa(s.data[i]) + "]"
+	}
+	return str
+}
+\end{lstlisting}
 \end{Answer}

@@ -16,12 +16,18 @@ sub removeremark(@) {
 	    next;
 	}
 
-	if (/\%$/) { $skip = 1; }
+	if (/\%$/) { $skip = 1; next; }
+	if (/\|\\begin/) { $skip = 1; next; }
+	if (/\|\\draw/) { $skip = 1; next; }
+	if (/\\end/) { $skip = 0; next; }
 
-	s/\|\\coderemark.*?(\||\%$)//;
-	s/\|\\longremark.*?(\||\%$)//;
+
+	s/\%[^a-zA-Z].*$//;
+	s/\\draw.*$//;
+	s/\|\\coderemark.*?(\||\%$|$)//;
+	s/\|\\longremark.*?(\||\%$|$)//;
 	s/\\newline//;
-	s/\|.*?\|//;
+	s/\|.*\|//;
 	push @go, $_;
     }
     @go;
@@ -99,7 +105,6 @@ EOF
 push @snip, "}   // END\n";
 unshift @func, <<EOF;
 package main
-
 func main () { }
 EOF
 

@@ -663,7 +663,7 @@ Cases can be presented in comma-separated lists.
 \begin{lstlisting}
 func shouldEscape(c byte) bool {
     switch c {
-    case ' ', '?', '&', '=', '#', '+', '%': |\coderemark{, as "or"}|
+    case ' ', '?', '&', '=', '#', '+': |\coderemark{, as "or"}|
         return true
     }
     return false
