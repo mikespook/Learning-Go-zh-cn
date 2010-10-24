@@ -1,6 +1,5 @@
 xx Oct 2010: 0.2 Miek Gieben <miek@miek.nl
    * Released version 0.2
-   * Updated to release.2010-08-25
    * Apply comments from the go-nuts mailing list
    * Interfaces back as sep. chapter
    * Automatic checking of Go code
