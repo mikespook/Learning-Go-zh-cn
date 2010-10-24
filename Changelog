@@ -1,13 +1,13 @@
-xx Oct 2010: 0.2 Miek Gieben <miek@miek.nl
+25 Oct 2010: 0.2 Miek Gieben <miek@miek.nl
    * Released version 0.2
    * Updated to release 'release.2010-10-20'
+   * Automatic checking of Go code
    * Apply comments from the go-nuts mailing list
    * Interfaces back as sep. chapter
-   * Automatic checking of Go code
    * Smaller changes:
 	- different footnote marker
 	- more plain quoting
-	- remove appendix A
+	- removed appendix A
 
 
 16 Aug 2010: 0.1 Miek Gieben <miek@miek.nl>

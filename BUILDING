@@ -15,4 +15,5 @@ following packages on Debian/Ubuntu:
     git-core
     make
 
-After that, you will hopefully only to give 'make'
+After that, you will hopefully only have to give 'make'
+If not, so the pre-build pdfs on www.miek.nl/files/go/
