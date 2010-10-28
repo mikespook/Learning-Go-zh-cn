@@ -738,6 +738,19 @@ a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
 When declaring arrays you \emph{always} have to type something in
 between the square brackets, either a number or three dots (\verb|...|).
 
+% > From the release of notes of Go release.2010-10-27
+% > The syntax for arrays, slices, and maps of composite literals has been
+% > simplified. Within a composite literal of array, slice, or map type, elements
+% > that are themselves composite literals may elide the type if it is identical to
+% > the outer literal’s element type. For example, these expressions:
+% >         [][]int{[]int{1, 2, 3}, []int{4, 5}}
+% >         map[string]Point{“x”: Point{1.5, -3.5}, “y”: Point{0, 0}}
+% > can be simplified to:
+% >         [][]int{{1, 2, 3}, {4, 5}}
+% >         map[string]Point{“x”: {1.5, -3.5}, “y”: {0, 0}}
+% > Gofmt can make these simplifications mechanically when invoked with the
+% > new -s flag.
+
 \subsection{Slices}
 \todo{Examples, with slice, slice[1:] slice[2:3] etc}
 A slice refers to an under laying array. What makes slices different
