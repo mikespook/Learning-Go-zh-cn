@@ -1,0 +1,18 @@
+the go-nuts mailing list the other day. I believe that there are a few
+minor inaccuracies in the Origins section. The Inferno operating
+system included the Limbo language, not Plan 9. Furthermore, Limbo
+compiles to bytecode and so, when you mention the support for cross
+compiling, I believe you mean the Plan 9 compiler tools (which also
+are the inspiration for the [568][acgl] names of the tools that form
+the compiler chain). I imagine that the Alef programming language
+(which was exclusive to Plan 9) should probably appear in there
+somewhere.
+
+Also, the diagram of the chronology of Go includes Ken Thompson's
+birthdate but omits those of other key people such as Rob Pike, to
+name but one.
+
+I hope you take this criticism in the spirit in which it is intended:
+to make a good book better.
+
+
