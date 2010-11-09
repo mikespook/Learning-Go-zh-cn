@@ -6,17 +6,13 @@
 
 package main
 
-import (
-	"fmt"
-	"rand"
-	"time"
-)
+import "fmt"
 
 // Generic Interface to any sortable type 
-type Sorter interface {
-	Len() int		// len() as a method
-	Less(i, j int) bool	// <     as a method
-	Swap(i, j int)		// p[i], p[j] = p[j], p[i] as a method
+type S interface {
+	Len() int           // len() as a method
+	Less(i, j int) bool // <     as a method
+	Swap(i, j int)      // p[i], p[j] = p[j], p[i] as a method
 }
 // For each type we want to sort we have to implement the above interface
 
@@ -24,25 +20,25 @@ type Sorter interface {
 // define a type for an array of floats
 // Needed because you can not define methods
 // on built-in types.
-type FloatArray []float
+type Xf []float
 
-func (p FloatArray) Len() int               { return len(p) }
-func (p FloatArray) Less(i int, j int) bool { return p[i] < p[j] }
-func (p FloatArray) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+func (p Xf) Len() int               { return len(p) }
+func (p Xf) Less(i int, j int) bool { return p[i] < p[j] }
+func (p Xf) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 
 // same for strings
-type StringArray []string
+type Xs []string
 
-func (p StringArray) Len() int               { return len(p) }
-func (p StringArray) Less(i int, j int) bool { return p[i] < p[j] }
-func (p StringArray) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+func (p Xs) Len() int               { return len(p) }
+func (p Xs) Less(i int, j int) bool { return p[i] < p[j] }
+func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 
 // The generic sort function become sorter, because
 // of all the work we did above
-func Sort(Sorter Interface) {
-	for i := 1; i < Sorter.Len(); i++ {
-		for j := i; j > 0 && Sorter.Less(j, j-1); j-- {
-			Sorter.Swap(j, j-1)
+func Sort(S Interface) {
+	for i := 1; i < S.Len(); i++ {
+		for j := i; j > 0 && S.Less(j, j-1); j-- {
+			S.Swap(j, j-1)
 		}
 	}
 }
