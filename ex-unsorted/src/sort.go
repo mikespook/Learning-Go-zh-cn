@@ -4,6 +4,14 @@
 // Why can't you use a type switch to detect the type
 // of the array and fire off the correct sort function?
 
+/*
+if type == string { string sort }
+if type == int { int sort }
+can not write stuff like that in Go, need
+interfaces
+*/
+
+
 package main
 
 import "fmt"
@@ -37,6 +45,16 @@ type Xs []string
 func (p Xs) Len() int               { return len(p) }
 func (p Xs) Less(i int, j int) bool { return p[i] < p[j] }
 func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+
+// Both Xs and Xf implement interface S. That type
+// check detailed above (see xxx) is now *implicit*!
+// few things are implicit in Go, but this is.
+// So you don't see the if's from above, they are
+// *hidden* behind the interface.
+// Go will work out in runtime what it has got and
+// will call the correct functiosn. Xf.swap() in
+// case of Xfs (float) and Xs.swap() in case of Xs (strings).
+
 
 // The generic sort function become sorter, because
 // of all the work we did above
