@@ -1,6 +1,8 @@
 // orignally from:
 // http://www.thebitsource.com/programming-software-development/google-go-programming-introduction/
 // heavily modified and influenced by the Go sort package
+// Why can't you use a type switch to detect the type
+// of the array and fire off the correct sort function?
 
 package main
 
