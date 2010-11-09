@@ -16,8 +16,13 @@ type S interface {
 }
 // For each type we want to sort we have to implement the above interface
 
+// this is what needs to be done, but you cannot redefine non-local
+// and thus built-in types.
+//func (p []float) Len() int               { return len(p) }
+//func (p []float) Less(i int, j int) bool { return p[i] < p[j] }
+//func (p []float) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 
-// define a type for an array of floats
+// So define a type for an array of floats
 // Needed because you can not define methods
 // on built-in types.
 type Xf []float
