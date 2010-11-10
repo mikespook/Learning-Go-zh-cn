@@ -76,6 +76,10 @@ pid, err := os.ForkExec("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os
 defer os.Wait(pid, os.WNOHANG) |\coderemark{Otherwise you create a zombie}|
 \end{lstlisting}
 
+\section{Networking}
+
+\section{Netchan: networking and channels}
+
 
 \section{Exercises}
 \input{ex-communication/ex-processes.tex}
