@@ -149,15 +149,8 @@ To see what you are running right now:
 That would be \texttt{release.2010-10-20}.
 
 \section{Origins}
-Go has it origins in Plan 9 \cite{plan9}. Plan 9 is (or was 
-supposed to be) the successor of Unix. As you may know one of the
-core ideas of Unix is "everything is a file", so the \func{read()} and
-\func{write()} system calls work as well on normal files as they do on I/O
-devices. However for some devices this has never happened, notably
-network and video devices. In Plan 9 this "everything is a file"--idea
-is taken to the next level and truly everything is presented to the 
-user as a file, including networking and video devices. This has nothing
-to do with Go per se, but Plan 9 included a language called Limbo
+Go has it origins in Inferno \cite{inferno} (which in turn was based
+upon Plan 9 \cite{plan9}). Inferno included a language called Limbo
 \cite{limbo}. Quoting from the Limbo paper:
 \begin{quote}
 Limbo is a programming language intended for applications running
@@ -170,6 +163,7 @@ small machines without hardware memory protection.
 That sounds a lot like Go, and one could say Go is a reimplementation of
 Limbo on Unix--like systems like Linux. One feature of Limbo that is
 also included in Go is the support for cross compiling.
+\todo{Aleph language on Plan 9}
 
 Another feature Go inherited from Limbo is channels (see chapter
 \ref{chap:channels}). Again from the Limbo documentation.
