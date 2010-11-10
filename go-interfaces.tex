@@ -365,15 +365,23 @@ func sort(i []interface{}) {
 \end{lstlisting}
 This fails with
 \error{cannot use n (type []int) as type []interface { } in function argument}
-\todo{And why is this exactly?}
 
-So what is the Go way of creating such a "generic" function? Interfaces
-of course. Instead of doing the type inference our selves, we handover 
-that task to Go.
+This is because Go will implicitly convert a single \type{string} or
+\type{int} (or whatever) to an interface, this is very easy to
+do. Go just puts the type inside an interface. This costs $O(1)$. With a slice Go needs to copy (and convert) each element to a
+\emph{new} slice.  This means the new slice now refers to a different
+underlaying array and this can potentially take a long time, at least
+$O(n)$, hence Go does \emph{not} do this.
+For those interested the full thread can be found at
+\cite{go_nuts_interfaces}.
+
+So what is the Go way of creating such a "generic" function? 
+But instead of doing the type inference our selves, we handover 
+that task to Go by using interfaces.
 The following steps are required:
 \begin{enumerate}
-\item Define an interface type (S) with a number of methods needed for
-sorting.
+\item Define an interface type (called \type{S} here) with a number of 
+methods needed for sorting.
 We will at least a function to get the length of the array,
 a function to compare two values and a swap function;
 \begin{lstlisting}
@@ -383,28 +391,28 @@ type S interface {
     Swap(i, j int)      // p[i], p[j] = p[j], p[i] as a method
 }
 \end{lstlisting}
-\item Define new types for the arrays you want to sort;
+\item Define new types for the arrays we want to sort;
 \begin{lstlisting}
 type Xi []int
 type Xs []string
 \end{lstlisting}
-\item Implement the functions of the Sort interface.
+\item Implement the functions of the \type{S} interface.
 For integers:
 \begin{lstlisting}
 func (p Xi) Len() int               { return len(p) }
 func (p Xi) Less(i int, j int) bool { return p[i] < p[j] }
 func (p Xi) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 \end{lstlisting}
-And for string;
+And for strings;
 \begin{lstlisting}
 func (p Xs) Len() int               { return len(p) }
 func (p Xs) Less(i int, j int) bool { return p[i] < p[j] }
 func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 \end{lstlisting}
-\item Write a generic sort function that works on the S interface.
+\item Write a generic Sort function that works on the \type{S} interface.
 \begin{lstlisting}
 func Sort(S Interface) {
-    for i := 1; i < S.Len(); i++ {
+    for i := 0; i < S.Len(); i++ {
 	for j := i; j < S.Len(); j++ {
 	    if S.Less(i, j) {
 		S.Swap(i, j)
@@ -414,16 +422,16 @@ func Sort(S Interface) {
 }
 \end{lstlisting}
 \end{enumerate}
-%%	numbers := FloatArray{44.5, 67.3, 3.9, 17.8, 89.0, 10.2, 76.3, 9.4, 14.7, 89.1}
-%%	strings := StringArray{"kobe", "odom", "farmar", "fisher", "artest", "bynum", "brown", "gas
-%%
-%%	Sort(numbers)
-%%	fmt.Printf("%v\n", numbers)
-%%
-%%	Sort(strings)
-%%	fmt.Printf("%v\n", strings)
-%%}
+We can now use you generic \func{Sort} function as follows:
+\begin{lstlisting}
+ints := Xi{44, 67, 3, 17, 89, 10, 73, 9, 14, 8}
+strings := Xs{"aap", "noot", "mies", "miek", "Go"}
 
+Sort(ints)
+fmt.Printf("%v\n", numbers)
+Sort(strings)
+fmt.Printf("%v\n", strings)
+\end{lstlisting}
 
 \section{Exercises}
 \input{ex-interfaces/ex-interfaces.tex}
