@@ -364,7 +364,7 @@ func sort(i []interface{}) {
     // return sorted array
 }
 \end{lstlisting}
-When we call this function with \lstinline{sort([]int{1, 4, 5})}, it
+When we call this function with \lstinline|sort([]int{1, 4, 5})|, it
 fails with
 \error{cannot use i (type []int) as type []interface { } in function argument}
 
@@ -374,7 +374,7 @@ do. Go just puts the type inside an interface. This costs $O(1)$. With a slice G
 \emph{new} slice.  This means the new slice now refers to a different
 underlaying array and this can potentially take a long time, at least
 $O(n)$, hence Go does \emph{not} do this.
-\gomargin{For those interested the full thread discussing this, it can be 
+\gomarginpar{For those interested the full thread discussing this, it can be 
 found at \cite{go_nuts_interfaces}.}
 
 So what is the Go way of creating such a "generic" function? 
