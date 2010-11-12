@@ -5,11 +5,11 @@ import "fmt"
 func main() {
 	const (
 		FIZZ = 3 |\longremark{Define two constants to make the code more %
-readable. See section "\nameref{sec:constants}";}|
+readable. See section "\titleref{sec:constants}";}|
 		BUZZ = 5
 	)
 	var p boolean |\longremark{Holds if we already printed someting;}|
-	for i := 1; i < 100; i++ { |\longremark{for-loop, see section "\nameref{sec:for}"};|
+	for i := 1; i < 100; i++ { |\longremark{for-loop, see section "\titleref{sec:for}"};|
 		p = false
 		if i%FIZZ == 0 { |\longremark{If divisible by FIZZ, print "Fizz";}|
 			fmt.Printf("Fizz")
