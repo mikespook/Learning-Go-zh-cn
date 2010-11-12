@@ -3,9 +3,7 @@
 \Question \label{ex:for-loop q1} Create a simple loop with the \key{for} construct. Make it loop
 10 times and print out the loop counter with the \package{fmt} package.
 
-%%\Question \label{ex:for-loop q2} Put the body of the loop in a separate function.
-
-\Question \label{ex:for-loop q3} Rewrite the loop from 1. to use \key{goto}. The
+\Question \label{ex:for-loop q2} Rewrite the loop from 1. to use \key{goto}. The
 keyword \key{for} may not be used.
 \end{Exercise}
 
@@ -28,5 +26,17 @@ Lets compile this and look at the output.
 \end{display}
 \vskip\baselineskip
 
-Need an answer for the last question.
+\Question Rewriting the loop results in code that should look something
+like this (only showing the \func{main}-function):
+\begin{lstlisting}
+func main() {
+        i := 0		|\codereamrk{Define our loop variable;}|
+I:			|\coderemark{Define a label;}|
+        fmt.Printf("%d\n", i)
+        i++ 
+        if i < 10 {
+                goto I	|\coderemark{Jump back to the label.}|
+        }   
+}
+\end{lstlisting}
 \end{Answer}
