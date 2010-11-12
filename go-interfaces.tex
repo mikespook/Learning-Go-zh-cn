@@ -346,7 +346,7 @@ func bubblesort(n []int) {
 }
 \end{lstlisting}
 A version that sorts strings is identical except for the signature of
-the function call:
+the function:
 \begin{lstlisting}
 func bubblesortString(n []string) { /* ... */ }
 \end{lstlisting}
@@ -364,18 +364,18 @@ func sort(i []interface{}) {
     // return sorted array
 }
 \end{lstlisting}
-When we call this function with \lstinline|sort([]int{1, 4, 5})|, it
+But when we call this function with \lstinline|sort([]int{1, 4, 5})|, it
 fails with
 \error{cannot use i (type []int) as type []interface { } in function argument}
 
 This is because Go will implicitly convert an \type{int} or
-\type{string} (or whatever) to an interface, this is very easy to
-do. Go just puts the type inside an interface. This costs $O(1)$. With a slice Go needs to copy (and convert) each element to a
-\emph{new} slice.  This means the new slice now refers to a different
-underlaying array and this can potentially take a long time, at least
-$O(n)$, hence Go does \emph{not} do this.
-\gomarginpar{For those interested the full thread discussing this, it can be 
-found at \cite{go_nuts_interfaces}.}
+\type{string} (or whatever) to an interface, as this is very easy to
+do. But converting a slice is much more costly. Also when
+converting a slice the content is copied to another slice and thus
+that new slice refers to a different array. To keep a 
+\gomarginpar{the full mailing list discussion on this subject
+can be found at \cite{go_nuts_interfaces}.}
+long story short: Go does not (implicitly) convert slices for you.
 
 So what is the Go way of creating such a "generic" function? 
 Instead of doing the type inference our selves, we handover 
@@ -428,10 +428,10 @@ func Sort(x S) {
 We can now use you generic \func{Sort} function as follows:
 \begin{lstlisting}
 ints := Xi{44, 67, 3, 17, 89, 10, 73, 9, 14, 8}
-strings := Xs{"aap", "noot", "mies", "miek", "Go"}
+strings := Xs{"noot", "aap", "mies", "miek", "Go"}
 
 Sort(ints)
-fmt.Printf("%v\n", numbers)
+fmt.Printf("%v\n", ints)
 Sort(strings)
 fmt.Printf("%v\n", strings)
 \end{lstlisting}
