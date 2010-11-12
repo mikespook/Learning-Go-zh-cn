@@ -4,22 +4,24 @@ import "fmt"
 
 func main() {
 	const (
-		FIZZ = 3
+		FIZZ = 3	|\longremark{Define two constants to make the code more readable;}|
 		BUZZ = 5
 	)
+	var p boolean |\longremark{Holds if we already printed someting;}|
 	for i := 1; i < 100; i++ {
-		p := false
-		if i%FIZZ == 0 {
+		p = false
+		if i%FIZZ == 0 { |\longremark{If divisible by FIZZ, print "Fizz";}|
 			fmt.Printf("Fizz")
 			p = true
 		}
-		if i%BUZZ == 0 {
+		if i%BUZZ == 0 { |\longremark{And if divisble by BUZZ, print %
+"Buzz". Note that we have also taken care of the FizzBuzz case;}|
 			fmt.Printf("Buzz")
 			p = true
 		}
-		if !p {
+		if !p {	|\longremark{If neither FIZZ nor BUZZ printed, print the value;}|
 			fmt.Printf("%v", i)
 		}
-		fmt.Println()
+		fmt.Println() |\longremark{Format each output on a new line.}|
 	}
 }
