@@ -810,6 +810,9 @@ monthdays := map[string]int{
 	"Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{The comma here is required}|
 }		    
 \end{lstlisting}
+Note to use \lstinline{make} when only declaring a \lstinline{map}:
+\lstinline|monthdays := make(map[string]int|
+
 For indexing (searching) in the map, we use square brackets, for example
 suppose we want to print the
 number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
