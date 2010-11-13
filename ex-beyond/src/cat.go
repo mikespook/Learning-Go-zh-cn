@@ -1,5 +1,6 @@
 package main
 
+|\longremark{Include all the packages we need;}|
 import (
 	"os"
 	"fmt"
@@ -7,19 +8,23 @@ import (
 	"flag"
 )
 
-var numberFlag = flag.Bool("n", false, "number each line")
+var numberFlag = flag.Bool("n", false, "number each line") \|longremark{Define a %
+new flag "n", which defaults to off. Note that we get the \-h (help) for free;}|
 
+\|longremark{Start the function that actually reads the file's contents %
+and displays it;}|
 func cat(r *bufio.Reader) {
 	i := 1
 	for {
-		buf, e := r.ReadBytes('\n')
-		if e == os.EOF {
+		buf, e := r.ReadBytes('\n')	|\longremark{Read one line at the time;}|
+		if e == os.EOF {		|\longremark{Or stop if we hit the end;}|
 			break
 		}
-		if *numberFlag {
+		if *numberFlag {		|\longremark{If we should number %
+each line, print the line number and then the line itself;}|
 			fmt.Fprintf(os.Stdout, "%5d  %s", i, buf)
 			i++
-		} else {
+		} else {			|\longremark{Otherwise we could just print the line;}|
 			fmt.Fprintf(os.Stdout, "%s", buf)
 		}
 	}
