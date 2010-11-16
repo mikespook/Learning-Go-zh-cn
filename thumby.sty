@@ -1,0 +1,320 @@
+%% Thumby - LaTeX package for creating thumb indexes.
+%
+%  Version: 0.1
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Requirements:
+%
+%   - memoir document class
+%
+%   - Packages:
+%
+%       - PerlTeX
+%       - tikz
+%       - bophook
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Instructions:
+%
+% Put something like the following in your document (we'll call it "foo.tex"):
+%
+%     \documentclass[twoside]{memoir}
+%
+%     \usepackage{thumby}
+%
+%     \thumbySides{two}
+%     \thumbyTotalChapters{10}
+%     \thumbyPageHeight{792}
+%     \thumbyThumbWidth{42.5}
+%     \thumbyForeground{white}
+%     \thumbyBackground{black}
+%     \thumbyNumberFormat{\Huge\textbf{$chapter_number}}
+%
+%     \thumbySetup
+%
+% Then, run twice:
+%
+%     perltex --latex=pdflatex foo.tex
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Please change the above to reflect your document and preferences.
+% In particular, you should change the \thumbyTotalChapters from 10 to the number
+% of chapters in your document, and the \thumbyPageHeight from 792 to the height
+% of your document (in points), and \thumbySides to reflect whether your document
+% uses one- or two-sided pages.
+%
+% Note: Units for page height, width, etc, are in points.
+%
+% Note: Only normal, numbered chapters will have a thumb index.
+%       For example, the of contents and \frontmatter chapters will not have a thumb index.
+%
+% Note: When \thumbyNumberFormat contains the literal $chapter_number
+%       Thumby will substitute the actual chapter number for this literal.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Thumby - LaTeX package for creating thumb indexes.
+%
+%   Copyright (C) 2010  Sergey Goldgaber
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of version 3 of the GNU General Public License
+%   as published by the Free Software Foundation.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{thumby}[2010/01/14 v0.1 Thumby]
+
+\typeout{}
+\typeout{***********************************************}
+\typeout{*********** Loading Thumby Package ************}
+\typeout{***********************************************}
+\typeout{}
+
+% We use the tikz library to draw and position the thumb indexes.
+\RequirePackage{tikz}
+
+% We use the perltex package to run perl within LaTeX.
+% This is used to do the calculations of the dimensions
+% of the thumb boxes and their locations, which are fed
+% to tikz.
+\RequirePackage{perltex}
+
+%% We use the bophook package to place a thumb box on each page.
+\RequirePackage{bophook}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Configuration commands.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\perlnewcommand{\thumbyNumberFormat}[1]{
+    $thumby_number_format = $_[0] ;
+    # Slashes have to be doubled, as otherwise perl will interpret them as indicating
+    # that a special character follows.
+    $thumby_number_format =~ s{/}{//} ;
+    return "\\typeout{Thumby number format: $thumby_number_format}" ;
+}
+
+% Place a thumb index on each page.
+\perlnewcommand{\thumbySides}[1]{
+    $thumby_sides = $_[0] ;
+
+    if ( $thumby_sides eq "one" ) {
+        $output = <<END;
+        % Using command from the bophook package to place a thumb index on each page.
+        \\AtBeginPage{%
+            \\thumbyprintthumbright{\\thumbychapnum}
+        }
+END
+    } elsif ( $thumby_sides eq "two" ) {
+        $output = <<END;
+        % Using command from the bophook package to place a thumb index on each page.
+        \\AtBeginPage{%
+            % Odd pages should have the thumb index on the right,
+            % while even ones on the left.
+            \\checkoddpage
+            \\ifoddpage
+               \\thumbyprintthumbright{\\thumbychapnum}
+            \\else
+               \\thumbyprintthumbleft{\\thumbychapnum}
+            \\fi
+        }
+END
+    } else {
+        $output = <<END;
+        \\PackageError{thumby}{\\protect\\thumbySides \\space must be "one" or "two"}{}
+END
+    }
+    return $output ;
+}
+
+\perlnewcommand{\thumbyBackground}[1]{
+    $thumby_background = $_[0] ;
+    return "" ;
+}
+
+\perlnewcommand{\thumbyForeground}[1]{
+    $thumby_foreground = $_[0] ;
+    return "" ;
+}
+
+\perlnewcommand{\thumbyPageHeight}[1]{
+    $thumby_page_height = $_[0] ;
+
+    # Sanity checks
+    if ( $thumby_page_height =~ m{^\d+$} ) {
+        # An integer.
+        # Looks good.  Doing nothing.
+        $output = "" ;
+    } elsif ( $thumby_page_height =~ m{^\d*\.\d+$} ) {
+        # A floating point number.
+        # Looks good.  Doing nothing.
+        $output = "" ;
+    } else {
+        $output = "\\PackageError{thumby}{\\protect\\thumbyPageHeight \\space must a number.}{}" ;
+    }
+
+    return $output ;
+}
+
+\perlnewcommand{\thumbyThumbWidth}[1]{
+    $thumby_thumb_width = $_[0] ;
+
+    # Sanity checks
+    if ( $thumby_thumb_width =~ m{^\d+$} ) {
+        # An integer.
+        # Looks good.  Doing nothing.
+        $output = "" ;
+    } elsif ( $thumby_thumb_width =~ m{^\d*\.\d+$} ) {
+        # A floating point number.
+        # Looks good.  Doing nothing.
+        $output = "" ;
+    } else {
+        $output = "\\PackageError{thumby}{\\protect\\thumbyThumbWidth \\space must a number.}{}" ;
+    }
+
+    return $output ;
+}
+
+\perlnewcommand{\thumbySetup}{
+    $thumby_thumb_height = $thumby_page_height / $thumby_total_chapters ;
+    $half_thumb_width = $thumby_thumb_width / 2 ;
+    $output = <<END;
+\\typeout{}
+\\typeout{** Thumby setup **}
+\\typeout{Sides: $thumby_sides}
+\\typeout{Total chapters: $thumby_total_chapters}
+\\typeout{Page height: $thumby_page_height points}
+\\typeout{Thumb height: $thumby_thumb_height points}
+\\typeout{Thumb width: $thumby_thumb_width points}
+\\typeout{Foreground: $thumby_foreground}
+\\typeout{Background: $thumby_background}
+\\typeout{Chapter number format: $thumby_number_format}
+\\typeout{}
+END
+    return $output ;
+}
+
+\perlnewcommand{\thumbyTotalChapters}[1]{
+    $thumby_total_chapters = $_[0] ;
+    my $output = "" ;
+    if ( $thumby_total_chapters =~ m{^\d+$} ) {
+        if ( $thumby_total_chapters < 1 ) {
+            $output = <<END;
+            \\PackageError{thumby}{\\protect\\thumbyTotalChapters \\space must be greater than 0.}{}
+END
+        } else {
+            # Looks good.  Doing nothing.
+            $output = "" ;
+        }
+    } else {
+        $output = <<END;
+        \\PackageError{thumby}{\\protect\\thumbyTotalChapters \\space must be an integer}{}
+END
+    }
+
+    return $output ;
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Miscellaneous commands
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Definition of \thumbychapnum, which returns the current chapter number,
+% but only for chapters, not for parts.
+\newcommand{\thumbychapnum}{}
+
+\renewcommand{\mempartinfo}[4]{%
+\renewcommand{\thumbychapnum}{}
+}
+
+\renewcommand{\memchapinfo}[4]{%
+\renewcommand{\thumbychapnum}{\thechapter}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Thumb index printing commands.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This command will print a thumb box on the left or right of the page,
+% depending on the value of the second argument given to it.
+%
+% Some sanity checks are also run on the chapter number, to make sure it's valid.
+% NOTE, chapter numbers less than 1 are not printed.
+\perlnewcommand{\thumbyprintthumb}[2]{
+    $thumby_chapter_number = shift ;
+    $left_or_right = shift ;
+
+    # Run some sanity checks on $thumby_chapter_number
+    if ( $thumby_chapter_number eq "" ) {
+        # Doing nothing
+        return ""
+    } elsif ( not ( $thumby_chapter_number =~ m{^\d+$} ) ) {
+        # $thumby_chapter_number is not a number
+        return 'ERROR: chapternumber "' . $thumby_chapter_number . '" is not a number' ;
+    } elsif ( $thumby_chapter_number < 1 ) {
+        # Doing nothing
+        return "" ;
+    }
+
+    # Determine the position of the thumb index
+    if ( $left_or_right eq "left" ) {
+        $horizontal_thumb_position = $half_thumb_width ;
+        $origin = "north west" ;
+    } elsif ( $left_or_right eq "right" ) {
+        $horizontal_thumb_position = -$half_thumb_width ;
+        $origin = "north east" ;
+    }
+
+    $vertical_thumb_position = ( $thumby_chapter_number * $thumby_thumb_height ) - $thumby_thumb_height ;
+
+    $thumby_formatted_chapter_number = $thumby_number_format ;
+    $thumby_formatted_chapter_number =~ s{\$chapter_number}{$thumby_chapter_number} ;
+
+# Tikz code to draw the chapter number surrounded by a box:
+$output = <<END;
+\\pgfrememberpicturepositiononpagetrue
+\\begin{pgfpicture}
+\\pgfusepath{use as bounding box}
+\\pgftransformshift{\\pgfpointanchor{current page}{$origin}}
+\\pgftransformshift{\\pgfpoint{$horizontal_thumb_position}{-$vertical_thumb_position}}
+\\pgfset{minimum width=$thumby_thumb_width}
+\\pgfset{minimum height=$thumby_thumb_height}
+\\pgfsetfillcolor{$thumby_background}
+\\pgfnode{rectangle}{north}{}{thumb}{\\pgfusepath{fill}}
+\\pgfsetfillcolor{$thumby_foreground}
+\\pgfnode{rectangle}{north}{$thumby_formatted_chapter_number}{thumb}{\\pgfusepath{stroke}}
+\\end{pgfpicture}
+END
+    return $output ;
+}
+
+\perlnewcommand{\thumbyprintthumbleft}[1]{
+    $thumby_chapter_number = $_[0] ;
+    return latex_thumbyprintthumb( $thumby_chapter_number, "left" ) ;
+}
+
+\perlnewcommand{\thumbyprintthumbright}[1]{
+    $thumby_chapter_number = $_[0] ;
+    return latex_thumbyprintthumb( $thumby_chapter_number, "right" ) ;
+}
+
+\endinput
