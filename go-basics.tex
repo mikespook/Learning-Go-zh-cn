@@ -276,6 +276,26 @@ string \var{s2} with the alteration;}|
 fmt.Printf("%s\n", s2) |\longremark{print the string with \func{fmt.Printf}.}|
 \end{lstlisting}
 
+%%See \cite{effective_go} section "Semicolons" for the deeper reasons
+%%behind this.
+%%>         url := "http://query.yahooapis.com/v1/public/yql"
+%%>                 + "?q=select%20*%20from%20yahoo.finance"
+%%>                 + "&callback=cbfunc"
+%%>
+%%> gets transformed into
+%%>
+%%>         url := "http://query.yahooapis.com/v1/public/yql";
+%%>                 + "?q=select%20*%20from%20yahoo.finance";
+%%>                 + "&callback=cbfunc";
+%%>
+%%> so you need to do
+%%>
+%%>         url := "http://query.yahooapis.com/v1/public/yql" +
+%%>                 "?q=select%20*%20from%20yahoo.finance" +
+%%>                 ".industry%20where%20id%3D%22" + id +
+
+
+
 \showremarks
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
@@ -411,7 +431,6 @@ separated with a semicolon (';'), like so:
 \begin{lstlisting}
 a = 5; a = a + 1
 \end{lstlisting}
-
 \section{Control structures}
 There are only a few control structures in 
 Go \footnote{This section is copied from \cite{effective_go}.}.
