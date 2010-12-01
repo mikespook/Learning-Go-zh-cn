@@ -275,28 +275,28 @@ s2 := string(c)     |\longremark{Create a \emph{new} %
 string \var{s2} with the alteration;}|
 fmt.Printf("%s\n", s2) |\longremark{print the string with \func{fmt.Printf}.}|
 \end{lstlisting}
-
-%%See \cite{effective_go} section "Semicolons" for the deeper reasons
-%%behind this.
-%%>         url := "http://query.yahooapis.com/v1/public/yql"
-%%>                 + "?q=select%20*%20from%20yahoo.finance"
-%%>                 + "&callback=cbfunc"
-%%>
-%%> gets transformed into
-%%>
-%%>         url := "http://query.yahooapis.com/v1/public/yql";
-%%>                 + "?q=select%20*%20from%20yahoo.finance";
-%%>                 + "&callback=cbfunc";
-%%>
-%%> so you need to do
-%%>
-%%>         url := "http://query.yahooapis.com/v1/public/yql" +
-%%>                 "?q=select%20*%20from%20yahoo.finance" +
-%%>                 ".industry%20where%20id%3D%22" + id +
-
-
-
 \showremarks
+
+\begin{lbar}[Multi-line strings]
+Due to the insertion of semicolons (again \cite{effective_go} section
+"Semicolons"), you need to be careful with using multiline strings. If
+you write:
+\begin{lstlisting}
+s := "Starting part"
+    + "Ending part"
+\end{lstlisting}
+This is transformed into:
+\begin{lstlisting}
+s := "Starting part";
+    + "Ending part";
+\end{lstlisting}
+You need to write:
+\begin{lstlisting}
+s := "Starting part" +
+     "Ending part"
+\end{lstlisting}
+Then Go will not insert the semicolons in the wrong places.
+\end{lbar}
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex}. If
@@ -332,68 +332,6 @@ overloading for that matter), some of the built-in
 operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
 floats, complex numbers and strings (adding strings is concatenating
 them).
-
-A small number of functions are predefined, meaning 
-you \emph{don't} have to include any package to get
-access to them. Table \ref{tab:predef-functions} lists them all.
-
-\begin{table}[H]
-\begin{center}
-\caption{Pre--defined functions in Go}
-\label{tab:predef-functions}
-\input{tab/functions.tex}
-\end{center}
-\end{table}
-
-\paragraph{\func{close} and \func{closed}} are used in
-channel communication and the closing of those channels, see chapter \ref{chap:channels}
-for more on this.
-\index{built-in!close}\index{built-in!closed}
-\todo{section needs to be written}
-
-\paragraph{\func{len} and \func{cap}} are used on a number of different
-types, \func{len} is
-used for returning the length of strings and the length of slices and
-arrays. See section "\titleref{sec:arrays}" for the details of slices and
-arrays and the function
-\func{cap}.\index{built-in!len}\index{built-in!cap}
-
-\paragraph{\func{new}} is used for allocating memory for user defined
-data types. See section "\titleref{sec:allocation with new}" on page
-\pageref{sec:allocation with new}.
-\index{built-in!new}
-
-\paragraph{\func{make}} is used for allocating memory for built-in
-types (maps, slices and channels). See section 
-"\titleref{sec:allocation with make}" on page
-\pageref{sec:allocation with make}.
-\index{built-in!make}
-
-\paragraph{\func{copy}} is used for copying slices. \func{new},
-\func{make} and \func{copy} make their appearance in chapter
-\ref{chap:beyond}.
-\index{built-in!copy}
-\todo{copy isn't handled there}
-
-\paragraph{\func{panic} and \func{panicln}} are used for an 
-\emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
-page \pageref{sec:panic} for more.
-\index{built-in!panic}
-\index{built-in!panicln}
-\todo{Needs to be written}
-
-\paragraph{\func{print} and \func{println}} are low level printing
-functions that can be used without reverting to the
-\package{fmt}\index{package!fmt}
-package. These are mainly used for debugging.
-\index{built-in!print}\index{built-in!println}
-
-\paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
-\first{complex numbers}{complex numbers}. \todo{Refer to other
-documentation.}
-\index{built-in!cmplx}
-\index{built-in!real}
-\index{built-in!imag}
 
 \section{Go keywords}
 \begin{table}[H]
@@ -714,6 +652,73 @@ func Compare(a, b []byte) int {
     return 0	// Strings are equal
 }
 \end{lstlisting}
+
+\section{Built-in functions}
+A small number of functions are predefined, meaning 
+you \emph{don't} have to include any package to get
+access to them. Table \ref{tab:predef-functions} lists them all.
+
+\begin{table}[H]
+\begin{center}
+\caption{Pre--defined functions in Go}
+\label{tab:predef-functions}
+\input{tab/functions.tex}
+\end{center}
+\end{table}
+
+\paragraph{\func{close} and \func{closed}} are used in
+channel communication and the closing of those channels, see chapter \ref{chap:channels}
+for more on this.
+\index{built-in!close}\index{built-in!closed}
+\todo{section needs to be written}
+
+\paragraph{\func{len} and \func{cap}} are used on a number of different
+types, \func{len} is
+used for returning the length of strings and the length of slices and
+arrays. See section "\titleref{sec:arrays}" for the details of slices and
+arrays and the function
+\func{cap}.\index{built-in!len}\index{built-in!cap}
+
+\paragraph{\func{new}} is used for allocating memory for user defined
+data types. See section "\titleref{sec:allocation with new}" on page
+\pageref{sec:allocation with new}.
+\index{built-in!new}
+
+\paragraph{\func{make}} is used for allocating memory for built-in
+types (maps, slices and channels). See section 
+"\titleref{sec:allocation with make}" on page
+\pageref{sec:allocation with make}.
+\index{built-in!make}
+
+\paragraph{\func{copy}} is used for copying slices. \func{append} is 
+for concatenating slices.
+\func{new}, \func{make}, \func{copy} and \func{append}
+make their appearance in chapter
+\ref{chap:beyond}.
+\index{built-in!copy}
+\index{built-in!append}
+\todo{copy isn't handled there}
+
+\paragraph{\func{panic} and \func{panicln}} are used for an 
+\emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
+page \pageref{sec:panic} for more.
+\index{built-in!panic}
+\index{built-in!panicln}
+\todo{Needs to be written}
+
+\paragraph{\func{print} and \func{println}} are low level printing
+functions that can be used without reverting to the
+\package{fmt}\index{package!fmt}
+package. These are mainly used for debugging.
+\index{built-in!print}\index{built-in!println}
+
+\paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
+\first{complex numbers}{complex numbers}. \todo{Refer to other
+documentation.}
+\index{built-in!cmplx}
+\index{built-in!real}
+\index{built-in!imag}
+
 
 \section{Arrays, slices and maps}
 \label{sec:arrays}
