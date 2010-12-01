@@ -1,10 +1,12 @@
 .PHONY: once spell compilecheck fmtcheck
 
+GREPV=grep -v Underfull|grep -v Overfull|grep -v ^\(
+
 all:	go.pdf
 
 go.pdf:	go-*.tex ex-*/*.tex src/*.go tab/*.tex fig/*.tex blocksbook.cls go.bib .fig .tab go.tex
-	xelatex go.tex && bibtex go && makeindex go \
-	&& xelatex go.tex && xelatex go.tex
+	xelatex go.tex | $(GREPV) && bibtex go && makeindex go \
+	&& xelatex go.tex | $(GREPV) && xelatex go.tex | $(GREPV)
 
 .fig:	fig/*.svg
 	( cd fig; make all )
