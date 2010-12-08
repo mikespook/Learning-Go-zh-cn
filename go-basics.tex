@@ -444,6 +444,20 @@ if err != nil
 See \cite{effective_go} section "Semicolons" for the deeper reasons
 behind this.
 
+\begin{lbar}[Ending with \key{if-then-else}]
+Note that if you end a function like this:
+\begin{lstlisting}
+if err != nil {
+    return err
+} else {
+    return nil
+}
+\end{lstlisting}
+it will not compile. This is a bug in the Go compiler. See
+\cite{go_issue_65} for a extended problem description and
+hopefully a fix.
+\end{lbar}
+
 \subsection{Goto}
 Go has a \first{\key{goto}}{keyword!goto} statement --- use it wisely. With \key{goto}
 you jump to a label which must be defined within the current function.
@@ -778,7 +792,7 @@ between the square brackets, either a number or three dots (\verb|...|).
 % > new -s flag.
 
 \subsection{Slices}
-\todo{Examples, with slice, slice[1:] slice[2:3] etc}
+\todo{Examples, with slice, slice[1:'] slice[2:3] etc}
 A slice refers to an under laying array. What makes slices different
 from
 arrays is that a slice is a pointer \emph{to} an array;
