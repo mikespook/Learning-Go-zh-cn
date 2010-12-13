@@ -196,7 +196,9 @@ predeclared constants \emph{true} and \emph{false}. The Boolean type is \type{bo
 Go has the well known types such as \lstinline{int} and
 \lstinline{float}. These types have the appropriate length for your
 machine, meaning that on a 32 bits machine they are 32 bits, and on
-a 64 bits machine they are 64 bits.
+a 64 bits machine they are 64 bits. Note: an \lstinline{int} is
+either 32 or 64 bits, no other values are defined. Same goes 
+for \lstinline{uint}.
 
 If you want to be explicit about the length you can have
 that too with \lstinline{int32}, or \lstinline{uint32}. The full
@@ -204,8 +206,8 @@ list for (signed and unsigned) integers is
 \type{int8}, \type{int16}, \type{int32}, \type{int64} and
 \type{byte}, \type{uint8}, \type{uint16}, \type{uint32}, \type{uint64}.
 With \lstinline{byte} being an
-alias for \lstinline{uint8}. For floating point values there only is
-\lstinline{float32} and \lstinline{float64}.
+alias for \lstinline{uint8}. For floating point values there is
+\lstinline{float32} and \lstinline{float64}. 
 
 Note however
 that these types are all distinct and assigning variables which mix
@@ -324,9 +326,14 @@ all associate from left to right.
 \end{table}
 \verb|+ - * /| and \verb|%| all do what you would expect,
 \verb!& | ^!
-and \verb!&^! are bit operators for bit-wise \first{\key{and}}{operator!and}, 
-\first{\key{or}}{operator!or}, \first{\key{xor}}{operator!xor} and
-\first{\key{bit clear}}{operator!bit clear} respectively.
+and \verb!&^! are bit operators for
+\first{\key{bit wise and}}{operator!bit wise and}, 
+\first{\key{bit wise or}}{operator!bit wise or}, \first{\key{bit wise xor}}{operator!bit
+wise xor} and \first{\key{bit clear}}{operator!bit wise clear} respectively.
+The \verb|&&|, \verb/||/ and \verb|!| operators are 
+\first{\key{logical and}}{operator!and},
+\first{\key{logical or}}{operator!or} and
+\first{\key{logical not}}{operator!not}.
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
 operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
@@ -406,6 +413,18 @@ like C's NULL}|
     return err
 }
 \end{lstlisting}
+
+You can use the logical operators (see table \ref{tab:op-precedence}) as
+you would normally do:
+\begin{lstlisting}
+if true && true  {
+    println("true")
+}
+if ! false {
+    println("true")
+}
+\end{lstlisting}
+
 In the Go libraries, you will find that when an \key{if} statement doesn't flow
 into the next statement-that is, the body ends in \key{break},
 \key{continue}, \key{goto},
