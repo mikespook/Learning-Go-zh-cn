@@ -113,6 +113,13 @@ L: for {
 \end{lstlisting}
 
 \todo{block 'n stuff, close 'n closed}
+%%Furthermore, while receives from a channel normally block, you can also do a non-blocking receive from a channel.
+
+%%If a receive expression is used in an assignment or initialization of the form
+
+%%x, ok = <-ch
+%%x, ok := <-ch
+%%var x, ok = <-ch
 
 \subsection{Make it run in parallel}
 While our goroutines were running concurrent, they were not running in
