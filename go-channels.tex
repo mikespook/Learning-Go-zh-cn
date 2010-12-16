@@ -121,6 +121,12 @@ L: for {
 %%x, ok := <-ch
 %%var x, ok = <-ch
 
+%% Receivers always block until there is data to receive. If the channel
+%%is unbuffered, the sender blocks until the receiver has received the
+%%value. If the channel has a buffer, the sender blocks only until the
+%%value has been copied to the buffer; if the buffer is full, this means
+%%waiting until some receiver has retrieved a value.
+
 \subsection{Make it run in parallel}
 While our goroutines were running concurrent, they were not running in
 parallel. When you do not tell Go anything there can only be one
