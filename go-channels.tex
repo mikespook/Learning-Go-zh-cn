@@ -112,21 +112,6 @@ L: for {
 }   
 \end{lstlisting}
 
-\todo{block 'n stuff, close 'n closed}
-%%Furthermore, while receives from a channel normally block, you can also do a non-blocking receive from a channel.
-
-%%If a receive expression is used in an assignment or initialization of the form
-
-%%x, ok = <-ch
-%%x, ok := <-ch
-%%var x, ok = <-ch
-
-%% Receivers always block until there is data to receive. If the channel
-%%is unbuffered, the sender blocks until the receiver has received the
-%%value. If the channel has a buffer, the sender blocks only until the
-%%value has been copied to the buffer; if the buffer is full, this means
-%%waiting until some receiver has retrieved a value.
-
 \subsection{Make it run in parallel}
 While our goroutines were running concurrent, they were not running in
 parallel. When you do not tell Go anything there can only be one
@@ -141,6 +126,55 @@ improves.}
 \end{quote}
 If you do not want to change any source code you can also set an
 environment variable \verb|GOMAXPROCS| to the desired value.
+
+%%\section{So many channels and still \ldots}
+\section{More on channels}
+\label{sec:more on channels}
+When you create a channel in Go with \lstinline{ch := make(chan bool)}, 
+an \first{unbuffered channel}{channel!unbuffered} for
+bools is created. What does this mean for your program? For one, if you
+read (\lstinline{value := <-ch}) it will block until there is data to
+receive. Secondly anything sending (\lstinline{ch<-5}) will block until there
+is somebody to read it. 
+Unbuffered channels make a perfect tool for synchronising multiple
+goroutines.
+\index{channel!blocking read}
+\index{channel!blocking write}
+
+But Go allows you to specify the buffer size of
+a channel, which is quite simple how many elements a channel can hold.
+\lstinline{ch := make(chan bool, 4)}, creates a buffered channels of
+bools that can hold 4 elements. The first 4 elements in this channels
+are written without any blocking.
+When you write the 5$^{th}$ element, your
+code \emph{will} block, until another goroutine reads some elements from the
+channel to make room. 
+\index{channel!non-blocking read}
+\index{channel!non-blocking write}
+
+Although reads from channels block, you can perform an
+non-blocking read with the following syntax: \todo{Test this}
+\begin{lstlisting}
+x, ok = <-ch
+\end{lstlisting}
+Where \lstinline{ok} is set to \lstinline{true} when there was something
+to read (otherwise it is \lstinline{false}. 
+And if that was the case \lstinline{x} get the value read
+from the channel. 
+In conclusion, the following is true in Go:
+$$
+\textrm{\lstinline{ch := make(chan type, value)}}
+\left\{
+\begin{array}{ll}
+value == 0 & \rightarrow \textrm{unbuffered (blocking)} \\
+value >  0 & \rightarrow \textrm{buffered (non-blocking) up to \emph{value} elements)}
+\end{array}
+\right.
+$$
+
+\subsection{Closing channels}
+\todo{close 'n closed}
+%%Furthermore, while receives from a channel normally block, you can also do a non-blocking receive from a channel.
 
 \section{Exercises}
 \input{ex-channels/ex-for-channels.tex}
