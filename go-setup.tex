@@ -67,7 +67,7 @@
 
 %% Listings
 \lstdefinelanguage{Go}
-  {morekeywords={break,cap,case,chan,const,continue,copy,default,defer,else,fallthrough,%
+  {morekeywords={append,break,cap,case,chan,const,continue,copy,default,defer,else,fallthrough,%
   for,func,go,goto,if,import,interface,len,make,map,new,package,range,return,select,%
   struct,switch,type,var,%  % types
   uint8,uint16,uint32,uint64,int8,int16,int32,int64,float32,float64,byte,%
@@ -111,6 +111,7 @@
 \newcommand{\first}[2]{#1\index{#2}}
 \newcommand{\error}[1]{\texttt{#1}}
 \newcommand{\pr}{\%}
+\newcommand{\gorelease}[1]{\texttt{release.#1}}
 
 \newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
 \MakeFramed{\advance\hsize-\width\FrameRestore}%%

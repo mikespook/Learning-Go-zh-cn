@@ -724,13 +724,10 @@ types (maps, slices and channels). See section
 \index{built-in!make}
 
 \paragraph{\func{copy}} is used for copying slices. \func{append} is 
-for concatenating slices.
-\func{new}, \func{make}, \func{copy} and \func{append}
-make their appearance in chapter
-\ref{chap:beyond}.
+for concatenating slices. See section "\titleref{sec:slices}" in this
+chapter.
 \index{built-in!copy}
 \index{built-in!append}
-\todo{copy isn't handled there}
 
 \paragraph{\func{panic} and \func{panicln}} are used for an 
 \emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
@@ -793,36 +790,45 @@ Which is the same as:
 \begin{lstlisting}
 a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
 \end{lstlisting}
-
 When declaring arrays you \emph{always} have to type something in
-between the square brackets, either a number or three dots (\verb|...|).
-
-% > From the release of notes of Go release.2010-10-27
-% > The syntax for arrays, slices, and maps of composite literals has been
-% > simplified. Within a composite literal of array, slice, or map type, elements
-% > that are themselves composite literals may elide the type if it is identical to
-% > the outer literal’s element type. For example, these expressions:
-% >         [][]int{[]int{1, 2, 3}, []int{4, 5}}
-% >         map[string]Point{“x”: Point{1.5, -3.5}, “y”: Point{0, 0}}
-% > can be simplified to:
-% >         [][]int{{1, 2, 3}, {4, 5}}
-% >         map[string]Point{“x”: {1.5, -3.5}, “y”: {0, 0}}
-% > Gofmt can make these simplifications mechanically when invoked with the
-% > new -s flag.
+between the square brackets, either a number or three dots (\verb|...|)
+when using a composite literal. 
+\gomarginpar{Go \gorelease{2010-10-27}} 
+Since \gorelease{2010-10-27} this syntax was further simplified.
+From the release notes:
+\begin{quote}
+The syntax for arrays, slices, and maps of composite literals has been
+simplified. Within a composite literal of array, slice, or map type, elements
+that are themselves composite literals may elide the type if it is identical to
+the outer literal's element type. 
+\end{quote}
+This means our example can become:
+\begin{lstlisting}
+a := [2][2]int{ {1,2}, {3,4} }
+\end{lstlisting}
 
 \subsection{Slices}
-\todo{Examples, with slice, slice[1:'] slice[2:3] etc}
-A slice refers to an under laying array. What makes slices different
+\label{sec:slices}
+A slice is simular to an array, but it can grow when new elements
+are added.
+A slice always refers to an under laying array. What makes slices different
 from
 arrays is that a slice is a pointer \emph{to} an array;
-slices are \first{reference types}{reference types}, which means that if you assign one slice to
+slices are \first{reference types}{reference types}, 
+\gomarginpar{Reference types are created with \lstinline{make}}
+which means that if you assign one slice to
 another, both refer to the same underlying array. For instance, if a
 function takes a slice argument, changes it makes to the elements of the
 slice will be visible to the caller, analogous to passing a pointer to
-the underlying array. A slice is always coupled to an array that has
+the underlying array. With:
+\begin{lstlisting}
+sl := make([]int, 10)
+\end{lstlisting}
+you create a slice which can hold ten elements. Note that the
+underlaying array isn't specified.
+A slice is always coupled to an array that has
 a fixed size. For slices we define a \first{capacity}{slice!capacity} and a
 \first{length}{slice!length}. \index{array!length}\index{array!capacity}
-
 Figure \ref{fig:array-vs-slice} depicts the following Go code.
 First we create an array of $m + 1$ elements of the type \lstinline{int}:
 \lstinline{var array[m+1]int}\newline
@@ -841,11 +847,62 @@ And now we have:
 \end{center}
 \end{figure}
 
+Go provides a syntax to take out of few elements from an array to create
+a new slice, or to create a slice from a slice.
+\begin{lstlisting}
+// array[n:m], create a slice from element n to m
+a := []int{1, 2, 3, 4, 5} |\longremark{Define an array with 5 elements;}|
+s1 := a[2:4] |\longremark{Create a slice with the elements from index 2 to 4;}|
+s2 := a[:]   |\longremark{Create a slice with all the elements of the %
+array in it. This is a shorthand for: \texttt{a[0:len(a)]};}|
+s3 := a[:4]  |\longremark{Create a slice with the element from index %
+zero to index 4, this is thus short for: \texttt{a[0:4]};}|
+s4 := s2[:]  |\longremark{Create a slice from a slice, note that %
+\texttt{s4} still refers to the array \texttt{a}.}|
+\end{lstlisting}
+\showremarks
+
 In the code listed in \ref{src:arrays} we dare to do the impossible on
 line 8 and try to allocate something
 beyond the capacity (maximum length of the under laying array) and
 we are greeted with a \emph{runtime} error.
 \lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
+
+From the language specificiation \cite{go_spec}:
+\begin{quote}
+The function \lstinline{append} appends zero or more values \lstinline{x} to a
+slice \lstinline{s} and returns the resulting slice, with the same type as
+\lstinline{s}.
+If the capacity of \lstinline{s} is not large enough to fit the additional values,
+\lstinline{append} allocates a new, sufficiently large slice that fits both the
+existing slice elements and the additional values. Thus, the returned
+slice may refer to a different underlying array.
+\end{quote}
+\index{built-in!append}
+\begin{lstlisting}
+s0 := []int{0, 0}
+s1 := append(s0, 2)       // append a single element, s1 == []int\{0, 0, 2\}
+s2 := append(s1, 3, 5, 7) // append multiple elements, 
+                          // s2 == []int\{0, 0, 2, 3, 5, 7\}
+s3 := append(s2, s0...)   // append a slice, 
+                          // s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}
+\end{lstlisting}
+
+\begin{quote}
+The function \lstinline{copy} copies slice elements from a source
+\lstinline{src} to a
+destination \lstinline{dst} and returns the number of elements copied. Source and
+destination may overlap. The number of arguments
+copied is the minimum of \lstinline{len(src)} and \lstinline{len(dst)}.
+\end{quote}
+\index{built-in!copy}
+\begin{lstlisting}
+var a = [...]int{0, 1, 2, 3, 4, 5, 6, 7}
+var s = make([]int, 6)
+var b = make([]byte, 5)
+n1 := copy(s, a[0:])    // n1 == 6, s == []int{0, 1, 2, 3, 4, 5}
+n2 := copy(s, s[2:])    // n2 == 4, s == []int{2, 3, 4, 5, 4, 5}
+\end{lstlisting}
 
 \subsection{Maps}
 \label{sec:maps}
