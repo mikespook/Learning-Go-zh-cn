@@ -868,7 +868,8 @@ beyond the capacity (maximum length of the under laying array) and
 we are greeted with a \emph{runtime} error.
 \lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
 
-From the language specificiation \cite{go_spec}:
+To make it easier to deal with slices in Go, two new built-ins were
+added: \lstinline{append} and \lstinline{copy}. From \cite{go_spec}:
 \begin{quote}
 The function \lstinline{append} appends zero or more values \lstinline{x} to a
 slice \lstinline{s} and returns the resulting slice, with the same type as
@@ -887,13 +888,14 @@ s2 := append(s1, 3, 5, 7) // append multiple elements,
 s3 := append(s2, s0...)   // append a slice, 
                           // s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}
 \end{lstlisting}
-
+And
 \begin{quote}
 The function \lstinline{copy} copies slice elements from a source
 \lstinline{src} to a
 destination \lstinline{dst} and returns the number of elements copied. Source and
 destination may overlap. The number of arguments
-copied is the minimum of \lstinline{len(src)} and \lstinline{len(dst)}.
+copied is the minimum of \lstinline{len(src)} and
+\mbox{\lstinline{len(dst)}}.
 \end{quote}
 \index{built-in!copy}
 \begin{lstlisting}
