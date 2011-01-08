@@ -75,6 +75,12 @@ import "os"
 pid, err := os.ForkExec("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os.Stdin, os.Stdout, os.Stderr})
 defer os.Wait(pid, os.WNOHANG) |\coderemark{Otherwise you create a zombie}|
 \end{lstlisting}
+Note that \lstinline{os.Wait} (among other things) returns the
+\func{exit code}, with:
+\begin{lstlisting}
+w := os.Wait(pid, os.WNOHANG)
+e := w.WaitStatus.ExitStatus()  |\coderemark{ExitStatus() return an integer}|
+\end{lstlisting}
 
 \section{Networking}
 

@@ -58,6 +58,9 @@ As said, there is no pointer arithmetic, so if you write:
 \lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
 deference and then increment the value.\index{operator!increment}
 
+
+
+
 \section{Allocation}
 Go has garbage collection, meaning that you don't have to worry about
 memory allocation and deallocation. Of course almost every language
@@ -220,6 +223,7 @@ ma := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 \section{Defining your own}
 \label{sec:defining your own}
 \todo{tags in structs}
+\todo{move this to the beginning. As the allocation section uses structs}
 Of course Go allows you to define new types, it does this 
 with the \first{\key{type}}{keyword!type} keyword: 
 \begin{lstlisting}
@@ -243,6 +247,33 @@ only want to print one, or a few, fields of the structure you'll
 need to use \verb|.<field name>|. For example to only print the name:
 \begin{lstlisting}
 fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
+\end{lstlisting}
+
+\subsection{More on structure fields}
+Each item in a structure is called a field. 
+An struct with no fields:
+\begin{lstlisting}
+struct {}
+\end{lstlisting}
+
+One with 5 fields:
+\begin{lstlisting}
+struct {
+        x, y int
+        _ float  |\coderemark{padding}|
+        A *[]int
+        F func()
+}
+\end{lstlisting}
+If you omit the name for a field, you create an anonymous field, for
+instance:
+\begin{lstlisting}
+struct {
+        T1        // field name is T1
+        *T2       // field name is T2
+        P.T3      // field name is T3
+        x, y int  // field names are x and y
+}
 \end{lstlisting}
 
 \todo{Struct with exported fields}
