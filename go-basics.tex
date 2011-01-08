@@ -207,7 +207,9 @@ list for (signed and unsigned) integers is
 \type{byte}, \type{uint8}, \type{uint16}, \type{uint32}, \type{uint64}.
 With \lstinline{byte} being an
 alias for \lstinline{uint8}. For floating point values there is
-\lstinline{float32} and \lstinline{float64}. 
+\lstinline{float32} and \lstinline{float64}. A 64 bit integer or
+floating point value is \emph{always} 64 bit, also on 32 bit
+architectures.
 
 Note however
 that these types are all distinct and assigning variables which mix
