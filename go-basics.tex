@@ -852,16 +852,26 @@ And now we have:
 
 Go provides a syntax to take out of few elements from an array to create
 a new slice, or to create a slice from a slice.
+Given an array, or another slice, a new slice is created via
+\lstinline{a[I:J]}. This creates a new slice which refers to 
+\lstinline{a}, starts at index \var{I}, and ends
+before index \var{J}. It has length \lstinline{J - I}.
+
 \begin{lstlisting}
-// array[n:m], create a slice from element n to m
-a := []int{1, 2, 3, 4, 5} |\longremark{Define an array with 5 elements;}|
-s1 := a[2:4] |\longremark{Create a slice with the elements from index 2 to 4;}|
-s2 := a[:]   |\longremark{Create a slice with all the elements of the %
+// array[n:m], create a slice from array with elements n to m-1
+a := [...]int{1, 2, 3, 4, 5} |\longremark{Define an array with 5 %
+elements, from index 0 to index 4;}|
+s1 := a[2:4] |\longremark{Create a slice with the elements from index 2 %
+to 3, this contains: \texttt{3, 4};}|
+s2 := a[1:5] |\longremark{Create a slice with the elements from index 1 %
+to 4, contains: \texttt{2, 3, 4, 5};}|
+s3 := a[:]   |\longremark{Create a slice with all the elements of the %
 array in it. This is a shorthand for: \texttt{a[0:len(a)]};}|
-s3 := a[:4]  |\longremark{Create a slice with the element from index %
-zero to index 4, this is thus short for: \texttt{a[0:4]};}|
-s4 := s2[:]  |\longremark{Create a slice from a slice, note that %
-\texttt{s4} still refers to the array \texttt{a}.}|
+s4 := a[:4]  |\longremark{Create a slice with the elements from index %
+zero to index 3, this is thus short for: \texttt{a[0:4]}, and yields: \texttt{1, 2,%
+3, 4};}|
+s5 := s2[:]  |\longremark{Create a slice from the slice \var{s2}, note that %
+\texttt{s5} still refers to the array \texttt{a}.}|
 \end{lstlisting}
 \showremarks
 
