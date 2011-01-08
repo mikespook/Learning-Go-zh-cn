@@ -225,6 +225,7 @@ When assigning values octal, hexadecimal and the scientific notation may be used
 
 \subsection{Constants}
 \label{sec:constants}
+\todo{typed constants, see crypto/rsa for instance}
 Constants in Go are just that --- constant. They are created at compile
 time, and can only be numbers, strings or booleans;
 \lstinline{const x = 42} makes \var{x} a constant. You can use
@@ -243,13 +244,22 @@ The first use of \key{iota} will yield 0, so \var{a} is equal to 0, whenever
 \key{iota} is used again on a new line its value is incremented with 1, so \var{b}
 has a value of 1.
 
-You can even do the following, let Go repeat the use of \key{iota}:
+You can even do the following, let Go repeat the use of \key{= iota}:
 \begin{lstlisting}
 const (
 	a = iota
 	b	    // implicitly 'b = iota'
 )
 \end{lstlisting}
+
+You may also explicitly type a constant:
+\begin{lstlisting}
+const (
+	a int = 0
+	b string = "B"
+)
+\end{lstlisting}
+
 
 \subsection{Strings}
 An important other built in type is \lstinline{string}. Assigning a
