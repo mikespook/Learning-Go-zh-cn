@@ -915,9 +915,8 @@ copied is the minimum of \lstinline{len(src)} and
 \begin{lstlisting}
 var a = [...]int{0, 1, 2, 3, 4, 5, 6, 7}
 var s = make([]int, 6)
-var b = make([]byte, 5)
-n1 := copy(s, a[0:])    // n1 == 6, s == []int{0, 1, 2, 3, 4, 5}
-n2 := copy(s, s[2:])    // n2 == 4, s == []int{2, 3, 4, 5, 4, 5}
+n1 := copy(s, a[0:])    // n1 == 6, s == []int\{0, 1, 2, 3, 4, 5\}
+n2 := copy(s, s[2:])    // n2 == 4, s == []int\{2, 3, 4, 5, 4, 5\}
 \end{lstlisting}
 
 \subsection{Maps}
@@ -976,7 +975,7 @@ And finally you can remove elements \index{keyword!map!remove elements} from the
 \begin{lstlisting}
 monthday["Mar"] = 0, false    // Deletes "Mar", always rains anyway
 \end{lstlisting}
-Which looks a bit like a reverse "comma ok" form.
+Which looks a bit like the reverse of the "comma ok" form.
 
 \section{Exercises}
 \input{ex-basics/ex-for.tex}

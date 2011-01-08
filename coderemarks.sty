@@ -5,9 +5,9 @@
 %% \longremark[1] where you can say something about the code
 %% \showremarks - displays all remarks in a list after the code
 \newcounter{coderemarks}
-\setcounter{coderemarks}{1}
+\setcounter{coderemarks}{0}
 \newcounter{codevar}
-\setcounter{codevar}{1}
+\setcounter{codevar}{0}
 %
 \newcommand{\gocircle}[1]{%
 \tikz\node[text=white,font=\sffamily\bfseries,inner sep=0.2mm,draw,circle,fill=black]{#1};}
@@ -24,6 +24,6 @@
 \item \expandafter\csname codebox\the\value{codevar}\endcsname %
 \stepcounter{codevar}} %
 \end{list} %
-\setcounter{coderemarks}{1}%
-\setcounter{codevar}{1}%
+\setcounter{coderemarks}{0}%
+\setcounter{codevar}{0}%
 }
