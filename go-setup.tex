@@ -1,8 +1,9 @@
+\setmonofont[SmallCapsFont={DejaVu Sans Mono},Scale=0.70]{DejaVu Sans Mono}
+%% Fontfeatures after setting the mono font to keep
+%% lstlisting fonts happy
 \defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
 \setmainfont[SmallCapsFont={Droid Sans Mono}]{Droid Serif}
 \setsansfont{Droid Sans}
-%%\setmonofont[Scale=0.70]{Droid Sans Mono} %% No italic font face??
-\setmonofont[SmallCapsFont={DejaVu Sans Mono},Scale=0.70]{DejaVu Sans Mono}
 \def\inputGnumericTable{}
 
 %% list of answers
@@ -84,6 +85,7 @@
     morestring=[b]',%
   }[]%
 \lstset{language=Go,inputencoding=utf8,extendedchars=false,texcl,escapechar=\|,basicstyle=\ttfamily,keywordstyle=\bfseries,numbers=none,numberblanklines=false,showstringspaces=false,breaklines=true,numberstyle=\small\ttfamily,xleftmargin=\parindent,xrightmargin=1em,linewidth=0.98\linewidth}
+%,literate={"}{\textasciiquote}{1}}
 
 \newcommand{\coderemark}[1]{\qquad$\leftarrow \textit{\small #1}$}
 

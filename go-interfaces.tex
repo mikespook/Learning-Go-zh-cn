@@ -82,7 +82,7 @@ func g(any interface{}) int {
 The \lstinline{return any.(I).Get()} is the tricky bit in this function.
 The value \var{any} has type \type{interface{}}, meaning no guarantee
 of any methods at all: it could contain any type. The \lstinline{.(I)}
-is a \first{type switch}{type switch} which converts \var{any} to an interface of
+is a \first{type assertion}{type assertion} which converts \var{any} to an interface of
 type \type{I}. If we have that type we can invoke the \func{Get()}
 function.
 So if we create a new variable of the type \type{*S}, we can just
@@ -175,7 +175,7 @@ signature; call your string-converter method \func{String} not
 \label{sec:introspection}
 In a program, you can discover the dynamic type of an interface variable
 by using a \key{switch}.
-Such a type switch\gomarginindex{type switch}{type switch} uses
+Such a type assertion\gomarginindex{type assertion}{type assertion} uses
 the syntax of a type assertion with the keyword type inside the
 parentheses. If the switch declares a variable in the expression, the
 variable will have the corresponding type in each clause.

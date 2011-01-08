@@ -302,13 +302,14 @@ Then Go will not insert the semicolons in the wrong places.
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex}. If
-you need to specify the number of bits you have \lstinline{complex32} and
-\lstinline{complex64} for 32 and 64 bits. Complex numbers are written as
+you need to specify the number of bits you have \lstinline{complex64} and
+\lstinline{complex128} for 32 and 64 bits real and imaginary parts. 
+Complex numbers are written as
 \var{re + im$i$}, where \var{re} is the real part,
 \var{im} is the imaginary part and $i$ is the literal '$i$' ($\sqrt{-1}$).
 An example of using complex numbers:
 
-\lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c")}\newline
+\lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c)}\newline
 will print: \lstinline{(5+5i)}
 
 \section{Operators and built-in functions}
@@ -762,7 +763,7 @@ of the array.
 Assigning, or indexing an element in the array is done with square
 brackets:
 \begin{lstlisting}
-var arr = [10]int
+var arr [10]int
 arr[0] = 42
 arr[1] = 13
 fmt.Printf("The first element is %d\n", arr[0])
@@ -809,7 +810,7 @@ a := [2][2]int{ {1,2}, {3,4} }
 
 \subsection{Slices}
 \label{sec:slices}
-A slice is simular to an array, but it can grow when new elements
+A slice is similar to an array, but it can grow when new elements
 are added.
 A slice always refers to an under laying array. What makes slices different
 from
@@ -887,6 +888,7 @@ s2 := append(s1, 3, 5, 7) // append multiple elements,
                           // s2 == []int\{0, 0, 2, 3, 5, 7\}
 s3 := append(s2, s0...)   // append a slice, 
                           // s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}
+                          // Note the three dots!
 \end{lstlisting}
 And
 \begin{quote}
@@ -927,7 +929,7 @@ monthdays := map[string]int{
 }		    
 \end{lstlisting}
 Note to use \lstinline{make} when only declaring a \lstinline{map}:
-\lstinline|monthdays := make(map[string]int|
+\lstinline|monthdays := make(map[string]int)|
 
 For indexing (searching) in the map, we use square brackets, for example
 suppose we want to print the
