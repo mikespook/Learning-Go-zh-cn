@@ -25,7 +25,7 @@ go ready("Tee", 2)  |\coderemark{\func{Ready()} started as goroutine}|
 \end{lstlisting}
 The following idea for a program was taken from \cite{go_course_day3}. 
 We run a function as two goroutines, the goroutines wait for an amount of
-time and them print something to the screen. 
+time and then print something to the screen. 
 On the lines 14 and 15 we start the goroutines.
 The \func{main} function
 waits long enough, so that both goroutines will have printed their text. Right
@@ -34,9 +34,9 @@ long we should wait until all goroutines have exited.
 \lstinputlisting[numbers=right,label=src:sleeping,firstnumber=8,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
 Listing \ref{src:sleeping} outputs:
 \begin{display}
-I'm waiting	    # right away
-Coffee is ready!    # after 1 minute
-Tee is ready!	    # after 2 minutes
+I'm waiting         \coderemark{right away}
+Coffee is ready!    \coderemark{after 1 second}
+Tee is ready!       \coderemark{after 2 seconds}
 \end{display}
 
 If we did not wait for the goroutines (i.e. remove line 17) the program
