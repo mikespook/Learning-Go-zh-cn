@@ -79,7 +79,7 @@ func ready(w string, sec int) {
 	c <- 1	|\longremark{Send the integer 1 on the channel \var{c};}|
 }
 
-func main() {i
+func main() {
 	c = make(chan int) |\longremark{Initialize \var{c};}|
 	go ready("Tee", 2) |\longremark{Start the goroutines with the keyword \key{go};}|
 	go ready("Coffee", 1)
