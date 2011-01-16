@@ -1,3 +1,12 @@
+var _ = x
+string literals with : `
+
+labels are Case Sensitive
+goyacc (some history there)
+It is largely transliterated from the Inferno version written in Limbo
+which in turn was largely transliterated from the Plan 9 version written
+in C and documented at
+
 the go-nuts mailing list the other day. I believe that there are a few
 minor inaccuracies in the Origins section. The Inferno operating
 system included the Limbo language, not Plan 9. Furthermore, Limbo

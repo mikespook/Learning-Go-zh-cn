@@ -309,7 +309,12 @@ You need to write:
 s := "Starting part" +
      "Ending part"
 \end{lstlisting}
-Then Go will not insert the semicolons in the wrong places.
+Then Go will not insert the semicolons in the wrong places. Another way
+would be to use \index{string literals} by using back-quotes: \key{`}:
+\begin{lstlisting}
+s := `Starting part
+     Ending part`
+\end{lstlisting}
 \end{lbar}
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
