@@ -1,7 +1,13 @@
 var _ = x
-string literals with : `
 
-labels are Case Sensitive
+"The language change is that uses of pointers to interface values no
+longer
+automatically dereference the pointer.  A pointer to an interface value
+is more
+often a beginner’s bug than correct code."
+
+http://golang.org/doc/devel/release.html#2010-10-13
+
 goyacc (some history there)
 It is largely transliterated from the Inferno version written in Limbo
 which in turn was largely transliterated from the Plan 9 version written
@@ -16,12 +22,3 @@ are the inspiration for the [568][acgl] names of the tools that form
 the compiler chain). I imagine that the Alef programming language
 (which was exclusive to Plan 9) should probably appear in there
 somewhere.
-
-Also, the diagram of the chronology of Go includes Ken Thompson's
-birthdate but omits those of other key people such as Rob Pike, to
-name but one.
-
-I hope you take this criticism in the spirit in which it is intended:
-to make a good book better.
-
-

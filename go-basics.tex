@@ -260,7 +260,6 @@ const (
 )
 \end{lstlisting}
 
-
 \subsection{Strings}
 An important other built in type is \lstinline{string}. Assigning a
 string is as simple as:
@@ -310,12 +309,14 @@ s := "Starting part" +
      "Ending part"
 \end{lstlisting}
 Then Go will not insert the semicolons in the wrong places. Another way
-would be to use \index{string literals} by using back-quotes: \key{`}:
+would be to use \emph{raw} string literals\index{string literal!raw} by using back quotes: \key{`}:
 \begin{lstlisting}
 s := `Starting part
      Ending part`
 \end{lstlisting}
 \end{lbar}
+Unlike \emph{interpreted} string literals \index{string literal!interpreted} a raw string literal's value
+is composed of the uninterpreted characters between the quotes.
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex}. If
@@ -497,8 +498,7 @@ hopefully a fix.
 
 \subsection{Goto}
 Go has a \first{\key{goto}}{keyword!goto} statement --- use it wisely. With \key{goto}
-you jump to a label which must be defined within the current function.
-The labels are case sensitive. 
+you jump to a \index{label} label which must be defined within the current function.
 For instance a loop in disguise:
 \begin{lstlisting}
 func myfunc() {
@@ -509,6 +509,7 @@ HERE:	   |\coderemark{First word on a line ending with a colon is a label}|
         goto HERE |\coderemark{Jump}|
 }
 \end{lstlisting}
+The name of the label is case sensitive.
 
 \subsection{For}
 \label{sec:for}
