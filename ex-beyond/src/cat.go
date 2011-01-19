@@ -8,11 +8,10 @@ import (
 	"flag"
 )
 
-var numberFlag = flag.Bool("n", false, "number each line") \|longremark{Define a %
-new flag "n", which defaults to off. Note that we get the \-h (help) for free;}|
+var numberFlag = flag.Bool("n", false, "number each line") |\longremark{Define a %
+new flag "n", which defaults to off. Note that we get the help for free;}|
 
-\|longremark{Start the function that actually reads the file's contents %
-and displays it;}|
+|\longremark{Start the function that actually reads the file's contents and displays it;}|
 func cat(r *bufio.Reader) {
 	i := 1
 	for {
@@ -24,7 +23,7 @@ func cat(r *bufio.Reader) {
 each line, print the line number and then the line itself;}|
 			fmt.Fprintf(os.Stdout, "%5d  %s", i, buf)
 			i++
-		} else {			|\longremark{Otherwise we could just print the line;}|
+		} else {			|\longremark{Otherwise we could just print the line.}|
 			fmt.Fprintf(os.Stdout, "%s", buf)
 		}
 	}
