@@ -193,9 +193,9 @@ A Boolean type represents the set of Boolean truth values denoted by the
 predeclared constants \emph{true} and \emph{false}. The Boolean type is \type{bool}.
 
 \subsection{Numerical types}
-Go has the well known types such as \lstinline{int} and
-\lstinline{float}. These types have the appropriate length for your
-machine, meaning that on a 32 bits machine they are 32 bits, and on
+Go has the well known types such as \lstinline{int}, this type
+has the appropriate length for your machine. 
+Meaning that on a 32 bits machine they are 32 bits, and on
 a 64 bits machine they are 64 bits. Note: an \lstinline{int} is
 either 32 or 64 bits, no other values are defined. Same goes 
 for \lstinline{uint}.
@@ -207,8 +207,8 @@ list for (signed and unsigned) integers is
 \type{byte}, \type{uint8}, \type{uint16}, \type{uint32}, \type{uint64}.
 With \lstinline{byte} being an
 alias for \lstinline{uint8}. For floating point values there is
-\lstinline{float32} and \lstinline{float64}. A 64 bit integer or
-floating point value is \emph{always} 64 bit, also on 32 bit
+\lstinline{float32} and \lstinline{float64} (there is no \lstinline{float} type. 
+A 64 bit integer or floating point value is \emph{always} 64 bit, also on 32 bit
 architectures.
 
 Note however
@@ -319,15 +319,16 @@ Unlike \emph{interpreted} string literals \index{string literal!interpreted} a r
 is composed of the uninterpreted characters between the quotes.
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
-use them you need a variable of the type \lstinline{complex}. If
-you need to specify the number of bits you have \lstinline{complex64} and
-\lstinline{complex128} for 32 and 64 bits real and imaginary parts. 
+use them you need a variable of the type \lstinline{complex128} (64
+bit imaginary part). If you
+want something smaller there is \lstinline{complex64} -- for a 32 bits
+imaginary part.
 Complex numbers are written as
 \var{re + im$i$}, where \var{re} is the real part,
 \var{im} is the imaginary part and $i$ is the literal '$i$' ($\sqrt{-1}$).
 An example of using complex numbers:
 
-\lstinline{var c complex = 5+5i; fmt.Printf("Value is: %v", c)}\newline
+\lstinline{var c complex64 = 5+5i; fmt.Printf("Value is: %v", c)}\newline
 will print: \lstinline{(5+5i)}
 
 \section{Operators and built-in functions}
@@ -761,10 +762,10 @@ functions that can be used without reverting to the
 package. These are mainly used for debugging.
 \index{built-in!print}\index{built-in!println}
 
-\paragraph{\func{cmplx}, \func{real} and \func{imag}} all deal with
+\paragraph{\func{complex}, \func{real} and \func{imag}} all deal with
 \first{complex numbers}{complex numbers}. \todo{Refer to other
 documentation.}
-\index{built-in!cmplx}
+\index{built-in!complex}
 \index{built-in!real}
 \index{built-in!imag}
 

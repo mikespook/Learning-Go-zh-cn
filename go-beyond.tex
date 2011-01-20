@@ -258,7 +258,7 @@ One with 5 fields:
 \begin{lstlisting}
 struct {
         x, y int
-        _ float  |\coderemark{padding}|
+        _ float64  |\coderemark{padding}|
         A *[]int
         F func()
 }
@@ -324,7 +324,7 @@ is done by functions and not all conversions are allowed.
 
 \begin{table}[H]
 \begin{center}
-\caption{Valid conversions}
+\caption[Valid conversions]{Valid conversions, \lstinline{float64} works the same as \lstinline{float32}}
 \label{tab:convesion}
 \input{tab/conversion.tex}
 \end{center}
@@ -367,7 +367,7 @@ For numeric values the following conversion are defined:
 \item{From floating point to an integer value: 
 \lstinline{int(float)}. This discards the fraction part
 from the floating point value;}
-\item{The other way around: \lstinline{float(int)};}
+\item{The other way around: \lstinline{float64(int)};}
 \end{itemize}
 
 \subsection{User defined types}
