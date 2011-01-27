@@ -104,10 +104,22 @@ This compiles OK, but when we run this we get slammed with:
 method Get}
 
 \noindent{}Which is completely true, the built-in type \type{int} does not
-have a \func{Get()} function.
+have a \func{Get()} method.
 
 \subsection{Pointers to interfaces}
-\todo{Explain why bad idea}
+You can have interfaces values, those are variables that have the interface
+as their type. Interally interfaces are implemented using pointers to in
+essence a interface value \emph{already} is a pointer; you just don't see that
+as a programmer. So using the address of an interface value as \emph{another}
+indirection, and only that -- it does not generate more efficient code.
+\gomarginpar{Go \gorelease{2010-10-13}} Currently is in fact illegal do
+create a pointer to an interface value. The release notes leave no room
+for doubt:
+\begin{qote}
+The language change is that uses of pointers to interface values no longer 
+automatically dereference the pointer.  A pointer to an interface value is more 
+often a beginner’s bug than correct code.
+\end{quote}
 
 \subsection{Methods}
 Methods are functions that have an receiver (see chapter
@@ -158,6 +170,12 @@ type. The base type must
 not be a pointer or interface type and must be declared in the same
 package as the method.
 \end{quote}
+
+\subsection{Methods on interface values}
+With interfaces you define wat types much a certain interface and interface itself
+are just a definition. The implementation of that definition is done with types
+and methods on those types. Putting methods on definitions would lead to mixing
+the two.
 
 \section{Interface names}
 By convention, one-method interfaces are named by the method name plus
