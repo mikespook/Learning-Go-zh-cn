@@ -29,24 +29,31 @@ An interface type is a set of methods.
 methods which \type{I} requires. Note that this is true even though there is 
 no explicit declaration that \type{S} implements \type{I}. A Go program can use 
 this fact via yet another meaning of interface, which is an
-\first{interface!value}{interface!value}:
+\first{interface value}{interface!value}:
 
 \begin{lstlisting}
-func f(p I) { fmt.Println(p.Get()); p.Put(1) }
+func f(p I) {  |\longremark{Declare a function that takes an interface type %
+as the argument;}|
+    fmt.Println(p.Get()) |\longremark{As \var{p} implements interface \type{I} %
+is \emph{must} have the \func{Get()} method;}|
+    p.Put(1) |\longremark{Same holds for the \func{Put()} method.}|
+}
 \end{lstlisting}
+
+\showremarks
+
 Here the variable \var{p} holds a value of interface type. Because
-\type{S}
-implements \type{I}, we can call \func{f} passing in a pointer to a value of type
-\type{S}:
+\type{S} implements \type{I}, we can call \func{f} passing in a pointer to a 
+value of type \type{S}:
 
 \begin{lstlisting}
 var s S; f(&s)
 \end{lstlisting}
+
 The reason we need to take the address of \type{s}, rather than a value of type
 \type{S}, is because we defined the methods on \type{s} to operate on
 pointers, see the code above in listing \ref{src:interface object}.
-This
-is not a requirement --- we could have defined the methods to take
+This is not a requirement --- we could have defined the methods to take
 values --- but then the \func{Put} method would not work as expected.
 
 The fact that you do not need to declare whether or not a type implements an
@@ -68,10 +75,35 @@ interface values, static type checking, dynamic runtime conversion, and no
 requirement for explicitly declaring that a type satisfies an interface. The
 result in Go is powerful, flexible, efficient, and easy to write.
 
-\todo{Tell how to check if a type implements an interface}
+\subsection{Which is what?}
+Lets define another type that also implement the interface \type{I}:
+\begin{lstlisting}[caption=Another type that implements \type{I}]
+type R struct { i int }
+func (p *R) Get() int { return p.i }
+func (p *R) Put(v int) { p.i = v }
+\end{lstlisting}
+
+The function \func{f} can now accept variables of type \type{R} and \type{S}, but
+suppose you need to know the actual type in the function \func{f}. In Go you can 
+figure that out by using a \first{type switch}{type switch}.
+
+\begin{lstlisting}
+func f(p I) {
+    switch t := p.(type) { \|longremark{The type switch. Use \key{(type)} in a \key{switch} %
+statement. We store the type in the variable in \var{t};}|
+        case *S: |\longremark{The actual type of \var{p} is a pointer to \type{S};}|
+        case *R: |\longremark{The actual type of \var{p} is a pointer to \type{R};}|
+        case S:  |\longremark{The actual type of \var{p} is a \type{S};}|
+        case R:  |\longremark{The actual type of \var{p} is a \type{R};}|
+        default: |\longremark{It's another type that implements \type{I}.}|
+    }
+}
+\end{lstlisting}
+Note that a type switch is the only way to figure out the run-time type of an interface. Using
+\key{(type)} outside a \key{switch} is illegal.
 
 \subsection{Empty interface}
-For example, since every type satisfies the empty interface:
+Since every type satisfies the empty interface:
 \type{interface \{\}}. We can create a generic function which 
 has an empty interface as its argument:
 \begin{lstlisting}[caption=A function with a empty interface argument,label=src:interface empty]
