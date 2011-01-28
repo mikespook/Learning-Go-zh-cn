@@ -113,7 +113,7 @@ essence a interface value \emph{already} is a pointer; you just don't see that
 as a programmer. So using the address of an interface value as \emph{another}
 indirection, and only that -- it does not generate more efficient code.
 \gomarginpar{Go \gorelease{2010-10-13}} Currently is in fact illegal do
-create a pointer to an interface value. The release notes leave no room
+create a pointer to an interface value. The release notes for that release leave no room
 for doubt:
 \begin{quote}
 The language change is that uses of pointers to interface values no longer 
@@ -172,10 +172,10 @@ package as the method.
 \end{quote}
 
 \subsection{Methods on interface values}
-With interfaces you define wat types much a certain interface and interface itself
-are just a definition. The implementation of that definition is done with types
-and methods on those types. Putting methods on definitions would lead to mixing
-the two.
+An interfaces defines a set of methods. A method contains the actual code.
+In other words, an interface is the definition and methods are the implementation.
+By allowing methods on interfaces these two get mixed and that is something you don't
+want.
 
 \section{Interface names}
 By convention, one-method interfaces are named by the method name plus
