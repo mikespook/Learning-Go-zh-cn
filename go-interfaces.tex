@@ -25,9 +25,11 @@ type I interface {
 An interface type is a set of methods.
 \end{lbar}
 
-\type{S} is a valid \emph{implementation} for \type{I}, because it defines the two 
+\noindent\type{S} is a valid \emph{implementation} for interface \type{I}, because it defines the two 
 methods which \type{I} requires. Note that this is true even though there is 
-no explicit declaration that \type{S} implements \type{I}. A Go program can use 
+no explicit declaration that \type{S} implements \type{I}. 
+
+A Go program can use 
 this fact via yet another meaning of interface, which is an
 \first{interface value}{interface!value}:
 
@@ -39,13 +41,10 @@ is \emph{must} have the \func{Get()} method;}|
     p.Put(1) |\longremark{Same holds for the \func{Put()} method.}|
 }
 \end{lstlisting}
-
 \showremarks
-
 Here the variable \var{p} holds a value of interface type. Because
 \type{S} implements \type{I}, we can call \func{f} passing in a pointer to a 
 value of type \type{S}:
-
 \begin{lstlisting}
 var s S; f(&s)
 \end{lstlisting}
@@ -76,21 +75,20 @@ requirement for explicitly declaring that a type satisfies an interface. The
 result in Go is powerful, flexible, efficient, and easy to write.
 
 \subsection{Which is what?}
-Lets define another type that also implement the interface \type{I}:
+Lets define another type that also implements the interface \type{I}:
 \begin{lstlisting}[caption=Another type that implements \type{I}]
 type R struct { i int }
 func (p *R) Get() int { return p.i }
 func (p *R) Put(v int) { p.i = v }
 \end{lstlisting}
-
-The function \func{f} can now accept variables of type \type{R} and \type{S}, but
-suppose you need to know the actual type in the function \func{f}. In Go you can 
+The function \func{f} can now accept variables of type \type{R} and \type{S}.
+Suppose you need to know the actual type in the function \func{f}. In Go you can 
 figure that out by using a \first{type switch}{type switch}.
 
 \begin{lstlisting}
 func f(p I) {
-    switch t := p.(type) { \|longremark{The type switch. Use \key{(type)} in a \key{switch} %
-statement. We store the type in the variable in \var{t};}|
+    switch t := p.(type) { |\longremark{The type switch. Use \key{(type)} in a \key{switch} %
+statement. We store the type in the variable \var{t};}|
         case *S: |\longremark{The actual type of \var{p} is a pointer to \type{S};}|
         case *R: |\longremark{The actual type of \var{p} is a pointer to \type{R};}|
         case S:  |\longremark{The actual type of \var{p} is a \type{S};}|
@@ -99,12 +97,13 @@ statement. We store the type in the variable in \var{t};}|
     }
 }
 \end{lstlisting}
-Note that a type switch is the only way to figure out the run-time type of an interface. Using
+\showremarks
+Note that a type switch is the only way to figure out what type of an interface variable is. Using
 \key{(type)} outside a \key{switch} is illegal.
 
 \subsection{Empty interface}
 Since every type satisfies the empty interface:
-\type{interface \{\}}. We can create a generic function which 
+\type{interface\{\}}. We can create a generic function which 
 has an empty interface as its argument:
 \begin{lstlisting}[caption=A function with a empty interface argument,label=src:interface empty]
 func g(any interface{}) int { 
@@ -112,7 +111,7 @@ func g(any interface{}) int {
 }
 \end{lstlisting}
 The \lstinline{return any.(I).Get()} is the tricky bit in this function.
-The value \var{any} has type \type{interface{}}, meaning no guarantee
+The value \var{any} has type \type{interface\{\}}, meaning no guarantee
 of any methods at all: it could contain any type. The \lstinline{.(I)}
 is a \first{type assertion}{type assertion} which converts \var{any} to an interface of
 type \type{I}. If we have that type we can invoke the \func{Get()}
@@ -127,7 +126,7 @@ The call to \func{g} will work fine and will print 0. If we however
 invoke \func{g()} with a value that does not implement \type{I} we have
 a problem:
 \begin{lstlisting}[caption=Failing to implement an interface,label=src:interface fail]
-i := 5		// make i a "lousy" int
+i := 5		|\coderemark{Make i a "lousy" \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}
 This compiles OK, but when we run this we get slammed with:
@@ -138,27 +137,23 @@ method Get}
 \noindent{}Which is completely true, the built-in type \type{int} does not
 have a \func{Get()} method.
 
-\subsection{Pointers to interfaces}
-You can have interfaces values, those are variables that have the interface
-as their type. Interally interfaces are implemented using pointers to in
-essence a interface value \emph{already} is a pointer; you just don't see that
-as a programmer. So using the address of an interface value as \emph{another}
-indirection, and only that -- it does not generate more efficient code.
-\gomarginpar{Go \gorelease{2010-10-13}} Currently is in fact illegal do
-create a pointer to an interface value. The release notes for that release leave no room
-for doubt:
-\begin{quote}
-The language change is that uses of pointers to interface values no longer 
-automatically dereference the pointer.  A pointer to an interface value is more 
-often a beginner’s bug than correct code.
-\end{quote}
+\subsection{Checking for interfaces}
+In your code you want to prevent these kind of errors, therefor Go provides you 
+with a way to check if a variable implements a certain interface, again this 
+uses a type assertion, but now in an \key{if} statement.
 
-\subsection{Methods}
+\begin{lstlisting}
+if ok := any.(I); ok { 
+   /* any implements the interface I */
+} 
+\end{lstlisting}
+
+\section{Methods}
 Methods are functions that have an receiver (see chapter
 \ref{chap:functions}).
-You can define methods on any type (except the built-ins like
-\type{int}) can have methods. 
-You can make an integer type with its own methods. For example:
+You can define methods on any type (except on non-local types, this includes
+built-in types: the type \type{int} can not have methods).
+You can however make a new integer type with its own methods. For example:
 \begin{lstlisting}
 type Foo int
 
@@ -170,8 +165,7 @@ type Emitter interface {
   Emit()
 }
 \end{lstlisting}
-
-Doing this on built-in (are types defined in other package) types yields:
+Doing this on non-local (types defined in other packages) types yields:
 % Empty line here is critical, otherwise no new paragraph is created
 
 \begin{minipage}{.5\textwidth}
@@ -192,7 +186,11 @@ func (a *net.AddrError) Emit() {
 \end{minipage}
 
 \paragraph{}  %% needed otherwise the minipage flows over
-Another thing about the receiver; it can not be a defined for interface
+
+\subsection{Methods on interface types}
+An interfaces defines a set of methods. A method contains the actual code.
+In other words, an interface is the definition and the methods are the implementation.
+So a receiver can not be a defined for interface
 types, doing so results in a \error{invalid receiver type ...} compiler
 error. The authoritative word from the language spec \cite{go_spec}:
 \begin{quote}
@@ -203,11 +201,20 @@ not be a pointer or interface type and must be declared in the same
 package as the method.
 \end{quote}
 
-\subsection{Methods on interface values}
-An interfaces defines a set of methods. A method contains the actual code.
-In other words, an interface is the definition and methods are the implementation.
-By allowing methods on interfaces these two get mixed and that is something you don't
-want.
+\subsection{Pointers to interfaces}
+Creating a pointer to an interface value is a useless action in Go.
+Internally interfaces are implemented using pointers. So in
+essence an interface value \emph{already} is a pointer; you just don't see that
+as a programmer. Using the address of an interface value adds \emph{another}
+indirection, and only that -- it does not generate more efficient code.
+\gomarginpar{Go \gorelease{2010-10-13}.} It is in fact illegal to
+create a pointer to an interface value. The release notes for that release that
+made them illegal leave no room for doubt:
+\begin{quote}
+The language change is that uses of pointers to interface values no longer 
+automatically dereference the pointer.  A pointer to an interface value is more 
+often a beginner's bug than correct code.
+\end{quote}
 
 \section{Interface names}
 By convention, one-method interfaces are named by the method name plus
@@ -228,7 +235,7 @@ signature; call your string-converter method \func{String} not
 \label{sec:introspection}
 In a program, you can discover the dynamic type of an interface variable
 by using a \key{switch}.
-Such a type assertion\gomarginindex{type assertion}{type assertion} uses
+Such a type assertion\gomarginindex{Type assertion.}{type assertion} uses
 the syntax of a type assertion with the keyword type inside the
 parentheses. If the switch declares a variable in the expression, the
 variable will have the corresponding type in each clause.
@@ -428,7 +435,7 @@ This is because Go will implicitly convert an \type{int} or
 do. But converting a slice is much more costly. Also when
 converting a slice the content is copied to another slice and thus
 that new slice refers to a different array. To keep a 
-\gomarginpar{the full mailing list discussion on this subject
+\gomarginpar{The full mailing list discussion on this subject
 can be found at \cite{go_nuts_interfaces}.}
 long story short: Go does not (implicitly) convert slices for you.
 

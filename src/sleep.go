@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-func ready(w string, sec int) {
-	time.Sleep(int64(sec) * 1e9)
+func ready(w string, sec int64) {
+	time.Sleep(sec * 1e9)
 	fmt.Println(w, "is ready!")
 }
 
