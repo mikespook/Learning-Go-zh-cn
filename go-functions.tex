@@ -336,8 +336,30 @@ on page \pageref{ex:map function}.
 
 \section{Panic and recovering}
 \label{sec:panic}
-\cite{go_blog_panic}
-\todo{}
+Go does not have a exception mechanism, like that in Java for instance: you can not throw exceptions.
+Instead it using a panic-and-recover mechanism. It is worth remembering that you should use this as
+a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
+use it wisely. So, how do you use it.
+
+The following description was taken from \cite{go_blog_panic}:
+\begin{description}
+\item[Panic]{is a built-in function that stops the ordinary flow of control and begins panicking. When the function 
+\func{F} calls \key{panic},
+execution of \func{F} stops, any deferred functions in \func{F} are executed normally, and 
+then \func{F} returns to its caller. To the caller, \func{F} then
+behaves like a call to \key{panic}. The process continues up the stack until all functions in the current 
+goroutine have returned, at which point the program crashes. 
+
+Panics can be initiated by invoking \func{panic} directly. They can also be caused by \emph{runtime errors}, such
+as out-of-bounds array accesses.}
+
+\item[Recover]{is a built-in function that regains control of a panicking goroutine. Recover is \emph{only} useful inside 
+\emph{deferred functions.}
+
+During normal execution, a call to \func{recover} will return \type{nil} and have no other effect. 
+If the current goroutine is panicking, a call
+to \func{recover} will capture the value given to \func{panic} and resume normal execution.}
+\end{description}
 
 \section{Exercises}
 \input{ex-functions/ex-order.tex}

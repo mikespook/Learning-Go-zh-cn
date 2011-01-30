@@ -374,8 +374,8 @@ of these we have seen already.
 \begin{itemize}
 \item For \key{var} and \key{const} see section "\titleref{sec:vars}" on 
 page \pageref{sec:vars};
-\item \key{package} and \key{import} are briefly touch upon in section "\title{sec:hello
-world}". in chapter \ref{chap:packages} they are documented in more detail.
+\item \key{package} and \key{import} are briefly touch upon in section "\titleref{sec:hello world}". 
+In chapter \ref{chap:packages} they are documented in more detail.
 \end{itemize}
 Others deserve more text and have their own chapter/section:
 \begin{itemize}
@@ -383,10 +383,10 @@ Others deserve more text and have their own chapter/section:
 \item \key{return} is used to return from functions, for both \key{func}
 and \key{return} see chapter \ref{chap:functions} for the details;
 \item \key{go} is used for concurrency (chapter \ref{chap:channels});
-\item \key{interface}, see XXX;
-\item \key{select}, see XXX;
-\item \key{struct}, see XXX;
-\item \key{type}, see XXX.
+\item \key{interface}, see chapter \ref{chap:interfaces};
+\item \key{select}, see chapter \ref{chap:channels};
+\item \key{struct}, see chapter \ref{chap:beyond};
+\item \key{type}, also see chapter \ref{chap:beyond}.
 \end{itemize}
 
 \subsection{Syntax}
@@ -749,12 +749,11 @@ chapter.
 \index{built-in!copy}
 \index{built-in!append}
 
-\paragraph{\func{panic} and \func{panicln}} are used for an 
+\paragraph{\func{panic} and \func{recover}} are used for an 
 \emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
 page \pageref{sec:panic} for more.
 \index{built-in!panic}
-\index{built-in!panicln}
-\todo{Needs to be written}
+\index{built-in!recover}
 
 \paragraph{\func{print} and \func{println}} are low level printing
 functions that can be used without reverting to the
@@ -763,8 +762,8 @@ package. These are mainly used for debugging.
 \index{built-in!print}\index{built-in!println}
 
 \paragraph{\func{complex}, \func{real} and \func{imag}} all deal with
-\first{complex numbers}{complex numbers}. \todo{Refer to other
-documentation.}
+\first{complex numbers}{complex numbers}. Other than the simple example
+we gave, we will not further explain complex numbers.
 \index{built-in!complex}
 \index{built-in!real}
 \index{built-in!imag}
@@ -835,7 +834,7 @@ A slice always refers to an under laying array. What makes slices different
 from
 arrays is that a slice is a pointer \emph{to} an array;
 slices are \first{reference types}{reference types}, 
-\gomarginpar{Reference types are created with \lstinline{make}}
+\gomarginpar{Reference types are created with \lstinline{make}.}
 which means that if you assign one slice to
 another, both refer to the same underlying array. For instance, if a
 function takes a slice argument, changes it makes to the elements of the
