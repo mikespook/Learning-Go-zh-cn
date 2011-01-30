@@ -20,7 +20,7 @@ A \first{goroutine}{goroutine} is a normal function, except that you start
 it with the keyword \first{\key{go}}{keyword!go}.
 \begin{lstlisting}
 ready("Tee", 2)	    |\coderemark{Normal function call}|
-go ready("Tee", 2)  |\coderemark{\func{Ready()} started as goroutine}|
+go ready("Tee", 2)  |\coderemark{\func{ready()} started as goroutine}|
 \end{lstlisting}
 The following idea for a program was taken from \cite{go_course_day3}. 
 We run a function as two goroutines, the goroutines wait for an amount of
