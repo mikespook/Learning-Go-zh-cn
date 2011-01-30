@@ -28,8 +28,19 @@ that \type{*File} indeed does so.
 Arguments from the command line are available inside your program via
 the string slice \var{os.Args}, provided you have imported the package
 \package{os}. The \package{flag} package has a more sophisticated
-interface, and also provided a way to parse flags.
-\todo{example.}
+interface, and also provides a way to parse flags. Take this example
+from a little DNS query tool:
+\begin{lstlisting}
+var dnssec *bool = flag.Bool("dnssec", false, "Request DNSSEC records") |\longremark{Define a \texttt{bool} flag, %%
+\texttt{-dnssec}. The variable must be a pointer otherwise the package can not set its value;}|
+var port *string = flag.String("port", "53", "Set the query port")      |\longremark{Idem, but for a \texttt{port} option;}|
+flag.Usage = func() {   |\longremark{Slightly redefine the \func{Usage} function, to be a little more verbose;}|
+    fmt.Fprintf(os.Stderr, "Usage: %s [@server] [qtype] [qclass] [name ...]\n", os.Args[0])
+    flag.PrintDefaults() |\longremark{For every flag given, \func{PrintDefaults} will output the help string;}|
+}
+flag.Parse()   |\longremark{Parse the flags and fill the variables.}|
+\end{lstlisting}
+\showremarks
 
 \section{Executing commands}
 The \package{exec}\index{package!exec} package has function to run external commands, and it the premier way to
