@@ -357,7 +357,7 @@ Panics can be initiated by invoking \func{panic} directly. They can also be caus
 as out-of-bounds array accesses.}
 
 \item[Recover]{is a built-in function that regains control of a panicking goroutine. Recover is \emph{only} useful inside 
-\emph{deferred functions.}
+\emph{deferred} functions.
 
 During normal execution, a call to \func{recover} will return \type{nil} and have no other effect. 
 If the current goroutine is panicking, a call
