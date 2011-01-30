@@ -850,13 +850,13 @@ A slice is always coupled to an array that has
 a fixed size. For slices we define a \first{capacity}{slice!capacity} and a
 \first{length}{slice!length}. \index{array!length}\index{array!capacity}
 Figure \ref{fig:array-vs-slice} depicts the following Go code.
-First we create an array of $m + 1$ elements of the type \lstinline{int}:
-\lstinline{var array[m+1]int}\newline
+First we create an array of $m$ elements of the type \lstinline{int}:
+\lstinline{var array[m]int}\newline
 Next, we create a slice from this array:
-\lstinline{slice := array[0:n+1]}\newline
+\lstinline{slice := array[0:n]}\newline
 And now we have:
 \begin{itemize}
-\item{\lstinline{len(slice) == n, cap(slice) == m}{} ;}
+\item{\lstinline{len(slice) == n == cap(slice) == n}{} ;}
 \item{\lstinline{len(array) == cap(array) == m}{} .}
 \end{itemize}
 \begin{figure}[H]
@@ -867,8 +867,6 @@ And now we have:
 \end{center}
 \end{figure}
 
-Go provides a syntax to take out of few elements from an array to create
-a new slice, or to create a slice from a slice.
 Given an array, or another slice, a new slice is created via
 \lstinline{a[I:J]}. This creates a new slice which refers to 
 \lstinline{a}, starts at index \var{I}, and ends
@@ -877,7 +875,7 @@ before index \var{J}. It has length \lstinline{J - I}.
 \begin{lstlisting}
 // array[n:m], create a slice from array with elements n to m-1
 a := [...]int{1, 2, 3, 4, 5} |\longremark{Define an array with 5 %
-elements, from index 0 to index 4;}|
+elements, from index 0 to 4;}|
 s1 := a[2:4] |\longremark{Create a slice with the elements from index 2 %
 to 3, this contains: \texttt{3, 4};}|
 s2 := a[1:5] |\longremark{Create a slice with the elements from index 1 %
@@ -885,7 +883,7 @@ to 4, contains: \texttt{2, 3, 4, 5};}|
 s3 := a[:]   |\longremark{Create a slice with all the elements of the %
 array in it. This is a shorthand for: \texttt{a[0:len(a)]};}|
 s4 := a[:4]  |\longremark{Create a slice with the elements from index %
-zero to index 3, this is thus short for: \texttt{a[0:4]}, and yields: \texttt{1, 2, %
+0 to 3, this is thus short for: \texttt{a[0:4]}, and yields: \texttt{1, 2, %
 3, 4};}|
 s5 := s2[:]  |\longremark{Create a slice from the slice \var{s2}, note that %
 \texttt{s5} still refers to the array \texttt{a}.}|
@@ -897,7 +895,6 @@ line 8 and try to allocate something
 beyond the capacity (maximum length of the under laying array) and
 we are greeted with a \emph{runtime} error.
 \lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
-
 To make it easier to deal with slices in Go, two new built-ins were
 added: \lstinline{append} and \lstinline{copy}. From \cite{go_spec}:
 \begin{quote}
@@ -912,13 +909,13 @@ slice may refer to a different underlying array.
 \index{built-in!append}
 \begin{lstlisting}
 s0 := []int{0, 0}
-s1 := append(s0, 2)       // append a single element, s1 == []int\{0, 0, 2\}
-s2 := append(s1, 3, 5, 7) // append multiple elements, 
-                          // s2 == []int\{0, 0, 2, 3, 5, 7\}
-s3 := append(s2, s0...)   // append a slice, 
-                          // s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}
-                          // Note the three dots!
+s1 := append(s0, 2)       |\longremark{append a single element, \texttt{s1 == []int\{0, 0, 2\}};}|
+s2 := append(s1, 3, 5, 7) |\longremark{append multiple elements, %% 
+\texttt{s2 == []int\{0, 0, 2, 3, 5, 7\}};}|
+s3 := append(s2, s0...)   |\longremark{append a slice, \texttt{s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}}. %%
+Note the three dots!}|
 \end{lstlisting}
+\showremarks
 And
 \begin{quote}
 The function \lstinline{copy} copies slice elements from a source
@@ -932,8 +929,8 @@ copied is the minimum of \lstinline{len(src)} and
 \begin{lstlisting}
 var a = [...]int{0, 1, 2, 3, 4, 5, 6, 7}
 var s = make([]int, 6)
-n1 := copy(s, a[0:])    // n1 == 6, s == []int\{0, 1, 2, 3, 4, 5\}
-n2 := copy(s, s[2:])    // n2 == 4, s == []int\{2, 3, 4, 5, 4, 5\}
+n1 := copy(s, a[0:])    |\coderemark{\texttt{n1 == 6, s == []int\{0, 1, 2, 3, 4, 5\}}}|
+n2 := copy(s, s[2:])    |\coderemark{\texttt{n2 == 4, s == []int\{2, 3, 4, 5, 4, 5\}}}|
 \end{lstlisting}
 
 \subsection{Maps}
@@ -968,15 +965,15 @@ clause help you again, which returns the key and corresponding value
 with each invocation.\index{keyword!range!on maps}
 \begin{lstlisting}
 year := 0
-for _, days := range monthdays { // key is not used
+for _, days := range monthdays {    |\coderemark{Key is not used, hence \texttt{\_, days}}|
     year += days
 }
 fmt.Printf("Numbers of days in a year: %d\n", year)
 \end{lstlisting}
 Adding elements to the \type{map} \index{keyword!map!add elements} would be done as:
 \begin{lstlisting}
-monthday["Undecim"] = 30	// Add a month
-monthday["Feb"]     = 29	// Overwrite entry - for leap years
+monthday["Undecim"] = 30	|\coderemark{Add a month}|
+monthday["Feb"]     = 29	|\coderemark{Overwrite entry - for leap years}|
 \end{lstlisting}
 To test for existence \index{keyword!map!existence}, you would use the
 following\cite{go_course_day2}:
@@ -984,13 +981,13 @@ following\cite{go_course_day2}:
 var value int
 var present bool
 
-value, present = monthday["Jan"]	// Does it exist? If so present has the value
-// Or better and more Go like
-v, ok := monthday["Jan"]		// Hence, the "comma ok" form
+value, present = monthday["Jan"] |\coderemark{If exist, \texttt{present} has the value}|
+                                 |\coderemark{Or better and more Go like}|
+v, ok := monthday["Jan"]	 |\coderemark{Hence, the "comma ok" form}|
 \end{lstlisting}
 And finally you can remove elements \index{keyword!map!remove elements} from the \type{map}:
 \begin{lstlisting}
-monthday["Mar"] = 0, false    // Deletes "Mar", always rains anyway
+monthday["Mar"] = 0, false       |\coderemark{Deletes "Mar", always rains anyway}|
 \end{lstlisting}
 Which looks a bit like the reverse of the "comma ok" form.
 

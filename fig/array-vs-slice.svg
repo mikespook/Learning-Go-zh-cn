@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.0 r9654"
    sodipodi:docname="array-vs-slice.svg">
   <defs
      id="defs4">
@@ -168,13 +168,13 @@
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
      inkscape:cx="323.79373"
-     inkscape:cy="905.9967"
+     inkscape:cy="906.17527"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1052"
+     inkscape:window-width="1680"
+     inkscape:window-height="1022"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1">
@@ -364,7 +364,7 @@
          sodipodi:role="line"
          id="tspan5077"
          x="380"
-         y="112.36218">len == cap</tspan></text>
+         y="112.36218">len == cap == m</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
@@ -485,17 +485,6 @@
        ry="0" />
     <text
        xml:space="preserve"
-       style="font-size:16;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="410"
-       y="232.36218"
-       id="text5075-5"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5077-9"
-         x="410"
-         y="232.36218">cap</tspan></text>
-    <text
-       xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
        x="450"
        y="172.36218"
@@ -505,17 +494,6 @@
          id="tspan5267-5"
          x="450"
          y="172.36218">slice</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="205"
-       y="232.36218"
-       id="text5075-5-6"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5077-9-4"
-         x="205"
-         y="232.36218">len </tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -542,47 +520,47 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="188.57143"
-       y="53.0765"
+       x="180"
+       y="52.362183"
        id="text5381"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5383"
-         x="188.57143"
-         y="53.0765">n</tspan></text>
+         x="180"
+         y="52.362183">n-1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="190"
+       x="180"
        y="172.36218"
        id="text5385"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5387"
-         x="190"
-         y="172.36218">n</tspan></text>
+         x="180"
+         y="172.36218">n-1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="390"
+       x="385"
        y="52.362183"
        id="text5389"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5391"
-         x="390"
-         y="52.362183">m</tspan></text>
+         x="385"
+         y="52.362183">m-1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="395"
+       x="390"
        y="172.36218"
        id="text5393"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5395"
-         x="395"
-         y="172.36218">m</tspan></text>
+         x="390"
+         y="172.36218">m-1</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Mend)"
        d="m 415,97.362183 c 0,-20 0,-25 0,-25"
@@ -593,10 +571,16 @@
        d="m 215,217.36218 c 0,-20 0,-25 0,-25"
        id="path2894-3"
        sodipodi:nodetypes="cc" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Mend)"
-       d="m 420,217.36218 c 0,-20 0,-25 0,-25"
-       id="path2894-5"
-       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
+       x="185"
+       y="232.36218"
+       id="text5075-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5077-0"
+         x="185"
+         y="232.36218">len == cap == n</tspan></text>
   </g>
 </svg>
