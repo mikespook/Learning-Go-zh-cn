@@ -2,8 +2,9 @@
 operator.}\\\textsc{KEN THOMPSON}}
 \noindent{}Packages are a collection of functions and data, they are like the
 Perl packages\cite{perl-packages}. You declare a package with the
-\first{\key{package}}{keyword!package} keyword. Note that (at least one of) the filename(s) should
-match the package name. The convention for package names is to use
+\first{\key{package}}{keyword!package} keyword. The filename does not
+have to match the package name.
+The convention for package names is to use
 lowercase characters.
 Go packages may consist of multiple files,
 but they share the \lstinline{package <name>} line.
@@ -20,8 +21,8 @@ the package as follows in our own program \prog{myeven.go}:
 Now we just need to compile and link, first the package, then \prog{myeven.go} and
 then link it:
 \begin{display}
-\pr 6g even.go			\qquad\qquad\rem{# package}
-\pr 6g myeven.go		\qquad\qquad\rem{# our program}
+\pr 6g even.go			\coderemark{The package}
+\pr 6g myeven.go		\coderemark{Our program}
 \pr 6l -o myeven myeven.6
 \end{display}
 And test it:
@@ -99,11 +100,11 @@ as-is (\lstinline{import "even"}) and continue development in your
 own directory. So the following commands should build (and link) our
 \prog{myeven} program with our package.
 \begin{display}
-\pr 6g -I even/\_obj myeven.go	# building
-\pr 6l -L even/\_obj myeven.6	# linking
+\pr 6g -I even/\_obj myeven.go	\coderemark{Building}
+\pr 6l -L even/\_obj myeven.6	\coderemark{Linking}
 \end{display}
 
-\todo{Imported but not used error: import \_ "fmt"}
+Imported, but otherwise unused packages are an error.
 
 \section{Identifiers}
 Names are as important in Go as in any other language. In some cases
