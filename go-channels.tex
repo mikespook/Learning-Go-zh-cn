@@ -87,7 +87,6 @@ func main() {
 	<-c |\longremark{Two goroutines, two values to receive.}|
 }
 \end{lstlisting}
-\todo{Do this with range, use select later}
 
 \showremarks
 There is still some remaining ugliness; we have to read twice from
@@ -164,7 +163,7 @@ channel to make room.
 \index{channel!non-blocking write}
 
 Although reads from channels block, you can perform an
-non-blocking read with the following syntax: \todo{Test this}
+non-blocking read with the following syntax: \todo{Still need to test this.}
 \begin{lstlisting}
 x, ok = <-ch
 \end{lstlisting}
@@ -184,7 +183,7 @@ value >  0 & \rightarrow \textrm{buffered (non-blocking) up to \emph{value} elem
 $$
 
 \subsection{Closing channels}
-\todo{close 'n closed}
+%% section needs to be written
 %%Furthermore, while receives from a channel normally block, you can also do a non-blocking receive from a channel.
 
 \section{Exercises}
