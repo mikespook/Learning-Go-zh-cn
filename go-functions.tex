@@ -258,21 +258,10 @@ for i := 0; i < 5; i++ {
 Deferred functions are executed in LIFO order, so the above code
 prints: \lstinline{4 3 2 1 0}. 
 
-\todo{Rob Pike: Closures are just local functions}
-%% Rob Pike: Closures are just local functions
-%%func Compose(f, g func(x float64) float64)
-%%func(x float64) float64 {
-%%return func(x float64) float64 {
-%%return f(g(x))
-%%}
-%%}
-%%func main() {
-%%print(Compose(sin, cos)(0.5))
-%%}
-
 With \func{defer} you can even change return values, provided that
 you are using named result parameters and a function
-literal\index{function!literal}, i.e:
+literal\index{function!literal}\footnote{A function literal
+is sometimes called a \index{closure} closure.}, i.e:
 \begin{lstlisting}[caption=Function literal]
 defer func() {
 	/* ... */

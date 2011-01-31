@@ -225,7 +225,6 @@ When assigning values octal, hexadecimal and the scientific notation may be used
 
 \subsection{Constants}
 \label{sec:constants}
-\todo{typed constants, see crypto/rsa for instance}
 Constants in Go are just that --- constant. They are created at compile
 time, and can only be numbers, strings or booleans;
 \lstinline{const x = 42} makes \var{x} a constant. You can use
@@ -256,7 +255,7 @@ You may also explicitly type a constant:
 \begin{lstlisting}
 const (
 	a int = 0
-	b string = "B"
+	b string = "0"
 )
 \end{lstlisting}
 
@@ -723,7 +722,6 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 channel communication and the closing of those channels, see chapter \ref{chap:channels}
 for more on this.
 \index{built-in!close}\index{built-in!closed}
-\todo{section needs to be written}
 
 \paragraph{\func{len} and \func{cap}} are used on a number of different
 types, \func{len} is
