@@ -231,6 +231,116 @@ signature; call your string-converter method \func{String} not
 \func{ToString}.
 \gomarginpar{Text copied from \cite{effective_go}.}
 
+\section{A sorting example}
+Recall the Bubblesort exercise (Q\ref{ex:bubble}), where we sorted an
+array of integers:
+\begin{lstlisting}
+func bubblesort(n []int) {
+    for i := 0; i < len(n); i++ {
+	for j := i; j < len(n); j++ {
+	    if n[j] < n[i] {
+		    n[i], n[j] = n[j], n[i]
+	    }
+	}
+    }
+}
+\end{lstlisting}
+A version that sorts strings is identical except for the signature of
+the function:
+\begin{lstlisting}
+func bubblesortString(n []string) { /* ... */ }
+\end{lstlisting}
+Using this apprach would lead to two functions, one for each type. By using
+interfaces we can make this more \index{generic} generic.
+
+Lets create a new function that will sort both strings and
+integers, something along the lines of the non-working example:
+\begin{lstlisting}
+func sort(i []interface{}) { |\longremark{Our function will receive a slice of %
+empty interfaces;}|
+    switch i.(type) {        |\longremark{Using a type switch we find out what the %
+actual type is of the input;}|
+	case string:         |\longremark{And then sort accordingly.}|
+	    // convert to string
+	case int:
+	    // convert to int
+    }
+    // sort
+    // return sorted array
+}
+\end{lstlisting}
+\showremarks
+But when we call this function with \lstinline|sort([]int{1, 4, 5})|, it
+fails with:
+\error{cannot use i (type []int) as type []interface { } in function argument}
+
+This is because Go can not easily convert to a \emph{slice} of interfaces.
+Just converting to an interface is easy, but to a slice is much more costly.
+To keep a 
+\gomarginpar{The full mailing list discussion on this subject
+can be found at \cite{go_nuts_interfaces}.}
+long story short: Go does not (implicitly) convert slices for you.
+
+So what is the Go way of creating such a "generic" function? 
+Instead of doing the type inference our selves with a type switch, we let
+Go do it implicitly:
+The following steps are required:
+\begin{enumerate}
+\item Define an interface type (called \type{Sorter} here) with a number of 
+methods needed for sorting.
+We will at least need a function to get the length of the slice,
+a function to compare two values and a swap function;
+\begin{lstlisting}
+type Sorter interface {
+    Len() int           |\coderemark{\texttt{len()} as a method}
+    Less(i, j int) bool |\coderemark{\texttt{$<$}     as a method}
+    Swap(i, j int)      |\coderemark{\texttt{p[i], p[j] = p[j], p[i]} as a method}
+}
+\end{lstlisting}
+\item Define new types for the slices we want to sort. Note that we
+declare slice types;
+\begin{lstlisting}
+type Xi []int
+type Xs []string
+\end{lstlisting}
+\item Implementation of the methods of the \type{Sorter} interface.
+For integers:
+\begin{lstlisting}
+func (p Xi) Len() int               { return len(p) }
+func (p Xi) Less(i int, j int) bool { return p[i] < p[j] }
+func (p Xi) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+\end{lstlisting}
+And for strings:
+\begin{lstlisting}
+func (p Xs) Len() int               { return len(p) }
+func (p Xs) Less(i int, j int) bool { return p[i] < p[j] }
+func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+\end{lstlisting}
+\item Write a \emph{generic} Sort function that works on the \type{Sorter} interface.
+\begin{lstlisting}
+func Sort(x Sorter) { |\longremark{\var{x} is now of the \texttt{Sorter} type;}|
+    for i := 0; i < x.Len(); i++ { |\longremark{Using the defined functions, we implement
+Bubblesort;}|
+	for j := i; j < x.Len(); j++ {
+	    if x.Less(i, j) {
+		x.Swap(i, j)
+	    }
+	}
+    }
+}
+\end{lstlisting}
+\end{enumerate}
+We can now use you generic \func{Sort} function as follows:
+\begin{lstlisting}
+ints := Xi{44, 67, 3, 17, 89, 10, 73, 9, 14, 8}
+strings := Xs{"noot", "aap", "Mies", "Miek", "Go"}
+
+Sort(ints)
+fmt.Printf("%v\n", ints)
+Sort(strings)
+fmt.Printf("%v\n", strings)
+\end{lstlisting}
+
 \section{Introspection}
 \label{sec:introspection}
 In a program, you can discover the dynamic type of an interface variable
@@ -392,111 +502,6 @@ field}
 \noindent{}The code on the right works OK and sets the member \var{Name}
 to "Albert Einstein". Of course this only works when you call \func{Set()}
 with a pointer argument.
-
-\section{A sorting example}
-Recall the Bubblesort exercise (Q\ref{ex:bubble}), where we sorted an
-array of integers:
-\begin{lstlisting}
-func bubblesort(n []int) {
-    for i := 0; i < len(n); i++ {
-	for j := i; j < len(n); j++ {
-	    if n[j] < n[i] {
-		    n[i], n[j] = n[j], n[i]
-	    }
-	}
-    }
-}
-\end{lstlisting}
-A version that sorts strings is identical except for the signature of
-the function:
-\begin{lstlisting}
-func bubblesortString(n []string) { /* ... */ }
-\end{lstlisting}
-Now we want to create a new function that will sort both strings and
-integers, something along the lines:
-\begin{lstlisting}
-func sort(i []interface{}) {
-    switch i.(type) {
-	case string:
-	    // convert to string
-	case int:
-	    // convert to int
-    }
-    // sort
-    // return sorted array
-}
-\end{lstlisting}
-But when we call this function with \lstinline|sort([]int{1, 4, 5})|, it
-fails with
-\error{cannot use i (type []int) as type []interface { } in function argument}
-
-This is because Go will implicitly convert an \type{int} or
-\type{string} (or whatever) to an interface, as this is very easy to
-do. But converting a slice is much more costly. Also when
-converting a slice the content is copied to another slice and thus
-that new slice refers to a different array. To keep a 
-\gomarginpar{The full mailing list discussion on this subject
-can be found at \cite{go_nuts_interfaces}.}
-long story short: Go does not (implicitly) convert slices for you.
-
-So what is the Go way of creating such a "generic" function? 
-Instead of doing the type inference our selves, we handover 
-that task to Go by using interfaces.
-The following steps are required:
-\begin{enumerate}
-\item Define an interface type (called \type{S} here) with a number of 
-methods needed for sorting.
-We will at least need a function to get the length of the array,
-a function to compare two values and a swap function;
-\begin{lstlisting}
-type S interface {
-    Len() int           // len() as a method
-    Less(i, j int) bool // <     as a method
-    Swap(i, j int)      // p[i], p[j] = p[j], p[i] as a method
-}
-\end{lstlisting}
-\item Define new types for the arrays we want to sort. We need this
-because we can not declare methods on built-in types;
-\begin{lstlisting}
-type Xi []int
-type Xs []string
-\end{lstlisting}
-\item Implement the methods of the \type{S} interface.
-For integers:
-\begin{lstlisting}
-func (p Xi) Len() int               { return len(p) }
-func (p Xi) Less(i int, j int) bool { return p[i] < p[j] }
-func (p Xi) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
-\end{lstlisting}
-And for strings;
-\begin{lstlisting}
-func (p Xs) Len() int               { return len(p) }
-func (p Xs) Less(i int, j int) bool { return p[i] < p[j] }
-func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
-\end{lstlisting}
-\item Write a generic Sort function that works on the \type{S} interface.
-\begin{lstlisting}
-func Sort(x S) {
-    for i := 0; i < x.Len(); i++ {
-	for j := i; j < x.Len(); j++ {
-	    if x.Less(i, j) {
-		x.Swap(i, j)
-	    }
-	}
-    }
-}
-\end{lstlisting}
-\end{enumerate}
-We can now use you generic \func{Sort} function as follows:
-\begin{lstlisting}
-ints := Xi{44, 67, 3, 17, 89, 10, 73, 9, 14, 8}
-strings := Xs{"noot", "aap", "mies", "miek", "Go"}
-
-Sort(ints)
-fmt.Printf("%v\n", ints)
-Sort(strings)
-fmt.Printf("%v\n", strings)
-\end{lstlisting}
 
 \section{Exercises}
 \input{ex-interfaces/ex-interfaces.tex}
