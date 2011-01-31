@@ -6,5 +6,18 @@ that calculates the average of a \type{float64} slice.
 
 \begin{Answer}
 \Question The following code calculates the average.
-%%\lstinputlisting[caption=Average in Go,linerange={3,15}]{ex-unsorted/src/ave.go}
+\begin{lstlisting}
+sum := 0.0 
+switch len(xs) {
+case 0:                 |\longremark{Is the length is zero, we return 0;}|
+        ave = 0
+default:                |\longremark{Otherwise we calculate the average;}|
+        for _, v := range xs {
+                sum += v
+        }
+        ave = sum / float64(len(xs)) |\longremark{We have to convert the value to a
+\key{float64} to make the division work;}|
+}
+\end{lstlisting}
+\showremarks
 \end{Answer}
