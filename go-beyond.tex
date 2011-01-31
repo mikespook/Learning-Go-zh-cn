@@ -324,7 +324,8 @@ is done by functions and not all conversions are allowed.
 
 \begin{table}[H]
 \begin{center}
-\caption[Valid conversions]{Valid conversions, \lstinline{float64} works the same as \lstinline{float32}}
+\caption[Valid conversions]{Valid conversions, 
+\lstinline{float64} works the same as \lstinline{float32}}
 \label{tab:convesion}
 \input{tab/conversion.tex}
 \end{center}
@@ -365,19 +366,19 @@ For numeric values the following conversion are defined:
 \item{Convert to a integer with a specific (bit) length: 
 \lstinline{uint8(int)};}
 \item{From floating point to an integer value: 
-\lstinline{int(float)}. This discards the fraction part
+\lstinline{int(float32)}. This discards the fraction part
 from the floating point value;}
-\item{The other way around: \lstinline{float64(int)};}
+\item{The other way around: \lstinline{float32(int)};}
 \end{itemize}
 
-\subsection{User defined types}
-\todo{Make the text flow more nicely into this paragraph.}
-\todo{CHECK THIS.}
+\subsection{User defined types and conversions}
+How can you convert between the types you have defined
+yourself?
 We create two types here \type{Foo} and \type{Bar}, where
 \lstinline{Bar} is an alias for \type{Foo}:
 \begin{lstlisting}
-type foo struct { int } 
-type bar foo
+type foo struct { int }  |\coderemark{anymous struct field}|
+type bar foo             |\coderemark{bar is an alias for foo}|
 \end{lstlisting}
 
 Then we:
@@ -389,10 +390,14 @@ Which fails on the last line with:
 
 \noindent\error{cannot use b (type bar) as type foo in assignment}
 
-This can be fixed with a conversion:
+\noindent{}This can be fixed with a conversion:
 \begin{lstlisting}
 var f foo = foo(b)
 \end{lstlisting}
+Note the converting structures that are not identical in their fields
+is more difficult. Also note that converting \lstinline{b} to a plain
+\type{int} also fails; an integer is not the same as a structure containing
+an integer.
 
 \section{Exercises}
 \input{ex-beyond/ex-map.tex}
