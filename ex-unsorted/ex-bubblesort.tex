@@ -10,6 +10,20 @@ that the list is sorted. The algorithm gets its name from the way smaller
 elements "bubble" to the top of the list. 
 \end{quote}
 
+\cite{bubblesort} also gives an example in pseudo code:
+\begin{lstlisting}[language=pascal]
+procedure bubbleSort( A : list of sortable items )
+  do
+    swapped = false
+    for each i in 1 to length(A) - 1 inclusive do:
+      if A[i-1] > A[i] then
+        swap( A[i-1], A[i] )
+        swapped = true
+      end if
+    end for
+  while swapped
+end procedure
+\end{lstlisting}
 \end{Exercise}
 
 \begin{Answer}
@@ -17,7 +31,7 @@ elements "bubble" to the top of the list.
 The Bubble sort isn't terrible efficient, for $n$ elements it scales
 $O(n^2)$. See Quick sort (ref XXX) for a better sorting algorithm.
 
-But Bubble is easy to implement, the following is an example.
+But Bubble sort is easy to implement, the following is an example.
 \lstinputlisting[caption=Bubble sort,linerange=5-22]{ex-unsorted/src/bubblesort.go}
 
 \end{Answer}
