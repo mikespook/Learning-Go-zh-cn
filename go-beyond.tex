@@ -249,12 +249,11 @@ fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 
 \subsection{More on structure fields}
 Each item in a structure is called a field. 
-An struct with no fields:
+A struct with no fields:
 \begin{lstlisting}
 struct {}
 \end{lstlisting}
-
-One with 5 fields:
+One with five fields:
 \begin{lstlisting}
 struct {
         x, y int
@@ -273,8 +272,10 @@ struct {
         x, y int  // field names are x and y
 }
 \end{lstlisting}
-
-\todo{Struct with exported fields}
+Note the fieldnames that start with a capital letter are exported, i.e. can be
+set or read from other packages. Fieldnames that start with a lowercase are private
+to the current package. The same goes for functions defined in packages, see chapter
+\ref{chap:packages}.
 
 \subsection{Methods}
 \label{sec:methods}
