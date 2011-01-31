@@ -37,6 +37,18 @@ work around this by using anonymous functions, see section
 "\titleref{sec:functions as values}" on page \pageref{sec:functions as values} 
 in this chapter.
 
+Recursive functions just work as in other languages:
+\begin{lstlisting}[caption=Recursive function]
+func rec(i int) {
+   if i == 10 {
+        return
+   }
+   rec(i+1)
+   fmt.Printf("%d ", i)
+}
+\end{lstlisting}
+This prints \texttt{9 8 7 6 5 4 3 2 1 0}.
+
 \section{Scope}
 Variables declared outside any functions are \first{global}{scope!local} in Go, those
 defined in functions are \first{local}{scope!local} to those functions. If names overlap --- a
