@@ -15,7 +15,7 @@ Names that start with a capital letter are exported and may be used
 outside your package, more on that later. We can now use
 the package as follows in our own program \prog{myeven.go}:
 
-\lstinputlisting[label=src:myeven,caption=Use of the \package{even} package]{src/myeven.go}
+\lstinputlisting[label=src:myeven,caption=Use of the even package]{src/myeven.go}
 \showremarks
 
 Now we just need to compile and link, first the package, then \prog{myeven.go} and
@@ -69,8 +69,7 @@ to put the package files in.
 can use the following 
 \file{Makefile}, which 
 is adapted for our \package{even} package.
-\lstinputlisting[language=make,caption=\file{Makefile} for a
-package,numbers=right]{src/Makefile}
+\lstinputlisting[language=make,caption=Makefile for a package,numbers=right]{src/Makefile}
 Note that on line 7 we define our \package{even} package and on the
 lines 8 and 9 we enter the files which make up the package.
 Also note that this is \emph{not} the \emph{same} \prog{Makefile} setup as we used
@@ -275,7 +274,7 @@ func (t *T) Fatal(args ...interface{})
 
 Putting all this together we can write our test. First
 we pick a name: \file{even\_test.go}. Then we add the following contents:
-\lstinputlisting[label=src:eventest,caption=Test file for \package{even}
+\lstinputlisting[label=src:eventest,caption=Test file for even
 package,numbers=right]{src/even_test.go}
 Note that we use \lstinline{package even} on line 1, the test fall in the same
 namespace as the package we are testing. This not only convenient, but

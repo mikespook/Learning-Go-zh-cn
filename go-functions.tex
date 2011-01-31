@@ -220,7 +220,7 @@ Suppose you have a function in which you open a file and perform various
 writes and reads on it. In such a function there are often spots where
 you want to return early. If you do that, you will need to close the file
 descriptor you are working on. This often leads to the following code:
-\begin{lstlisting}[caption=Without \func{defer}]
+\begin{lstlisting}[caption=Without defer]
 func ReadWrite() bool {
     file.Open("file")
     // Do you thing
@@ -246,7 +246,7 @@ and do more in less code --- Go has the
 The code above could be rewritten as follows. This makes the 
 function more readable, shorter and puts the \func{Close} right next 
 to the \func{Open}.
-\begin{lstlisting}[caption=With \func{defer}]
+\begin{lstlisting}[caption=With defer]
 func ReadWrite() bool {
     file.Open("file")
     defer file.Close()	|\coderemark{\func{file.Close()} \emph{is} the function}|
@@ -288,7 +288,7 @@ defer func(x int) {
 \end{lstlisting}
 In that (unnamed) function you can access any named return
 parameter:
-\begin{lstlisting}[caption=Access return values within \func{defer}]
+\begin{lstlisting}[caption=Access return values within defer]
 func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
 	defer func() {
 		ret++	|\coderemark{Increment \var{ret} with 1}|

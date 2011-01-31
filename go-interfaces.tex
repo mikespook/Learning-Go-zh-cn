@@ -76,7 +76,7 @@ result in Go is powerful, flexible, efficient, and easy to write.
 
 \subsection{Which is what?}
 Lets define another type that also implements the interface \type{I}:
-\begin{lstlisting}[caption=Another type that implements \type{I}]
+\begin{lstlisting}[caption=Another type that implements I]
 type R struct { i int }
 func (p *R) Get() int { return p.i }
 func (p *R) Put(v int) { p.i = v }
