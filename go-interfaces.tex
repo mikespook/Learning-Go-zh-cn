@@ -299,9 +299,9 @@ We will at least need a function to get the length of the slice,
 a function to compare two values and a swap function;
 \begin{lstlisting}
 type Sorter interface {
-    Len() int           |\coderemark{\texttt{len()} as a method}
-    Less(i, j int) bool |\coderemark{\texttt{$<$}     as a method}
-    Swap(i, j int)      |\coderemark{\texttt{p[i], p[j] = p[j], p[i]} as a method}
+    Len() int           |\coderemark{\texttt{len()} as a method}|
+    Less(i, j int) bool |\coderemark{\texttt{$<$}     as a method}|
+    Swap(i, j int)      |\coderemark{\texttt{p[i], p[j] = p[j], p[i]} as a method}|
 }
 \end{lstlisting}
 \item Define new types for the slices we want to sort. Note that we
