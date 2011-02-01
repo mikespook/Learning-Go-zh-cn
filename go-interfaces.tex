@@ -215,6 +215,13 @@ The language change is that uses of pointers to interface values no longer
 automatically dereference the pointer.  A pointer to an interface value is more 
 often a beginner's bug than correct code.
 \end{quote}
+From the \cite{go_faq}.  If not for this restriction, this code:
+\begin{lstlisting}
+var buf bytes.Buffer
+io.Copy(buf, os.Stdin)
+\end{lstlisting}
+Would copy standard input into a copy of \bar{buf}, not into \var{buf} itself. 
+This is almost never the desired behavior.
 
 \section{Interface names}
 By convention, one-method interfaces are named by the method name plus
