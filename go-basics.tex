@@ -1,7 +1,7 @@
 \epi{In Go, the code does exactly what it says on the page.}{\textit{Go
 Nuts mailing list}\\\textsc{ANDREW GERRAND}}
-\noindent{}There are a few things that make Go different from most other
-languages out there.
+\noindent{}There are a few things that make Go different from other
+languages.
 \begin{description}
 \item[Clean and Simple]
 Go strives to keep things small and beautiful, you should
@@ -82,7 +82,7 @@ And then we link it with \prog{6l}:
 
 And then we run it:
 \begin{display}
-\pr ./6.out	    \coderemark{The default name for a (64 bit) Go executable}
+\pr ./6.out	    \coderemark{The default name for a (64 bit) Go executable (8.out on 32 bits)}
 \end{display}
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
@@ -96,21 +96,23 @@ And then we run it:
 Another, less laborious (once setup), way to build a Go program, is to use a
 \file{Makefile}. The following one can be used to build
 \prog{helloworld}:
-\lstinputlisting[language=make,caption=Makefile for a
-program,numbers=right]{src/Makefile.prog}
-At line 7 you specify the name for your compiled program and on line 9
-you enumerate the source files. Now only an invocation of \verb|make| is
+\lstinputlisting[language=make,caption=Makefile for a program,numbers=right,linerange={5,11}]{src/Makefile.prog}
+At line 3 you specify the name for your compiled program and on line 5
+you enumerate the source files. Now an invocation of \verb|make| is
 enough to get your program compiled. Note that Go ships with the variant
 of \prog{make}, called \prog{gomake}, which is (currently) a small
 wrapper around \prog{make}. As the build system for Go programs may
 change in the future and make \prog{make} go away, we use \prog{gomake}.
 Note that this \file{Makefile} creates an executable named
-\prog{helloworld}, not \prog{6.out}.
+\prog{helloworld}, not \prog{6.out} or \prog{8.out}.
 
 \section{Variables, types and keywords}
 \label{sec:vars}
 In the next sections we will look at variables, basic types,
 keywords and control structures of our new language. 
+Go has a C-like feel when it comes to its syntax. 
+If you want to put two (or more) statements on one line, they must be
+separated with a semicolon (';'). Normally you don't need the semicolon.
 
 Go is different from other languages in that the type of a variable
 is specified \emph{after} the variable name. So not: 
@@ -189,8 +191,8 @@ func main() {
 \end{lstlisting}
 
 \subsection{Boolean types}
-A Boolean type represents the set of Boolean truth values denoted by the
-predeclared constants \emph{true} and \emph{false}. The Boolean type is \type{bool}.
+A boolean type represents the set of boolean truth values denoted by the
+predeclared constants \emph{true} and \emph{false}. The boolean type is \type{bool}.
 
 \subsection{Numerical types}
 Go has the well known types such as \lstinline{int}, this type
@@ -207,7 +209,7 @@ list for (signed and unsigned) integers is
 \type{byte}, \type{uint8}, \type{uint16}, \type{uint32}, \type{uint64}.
 With \lstinline{byte} being an
 alias for \lstinline{uint8}. For floating point values there is
-\lstinline{float32} and \lstinline{float64} (there is no \lstinline{float} type. 
+\lstinline{float32} and \lstinline{float64} (there is no \lstinline{float} type). 
 A 64 bit integer or floating point value is \emph{always} 64 bit, also on 32 bit
 architectures.
 
@@ -219,7 +221,7 @@ Gives the error on the assignment on line 7:
 
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
 
-When assigning values octal, hexadecimal and the scientific notation may be used: 
+The assigned values may be denoted using octal, hexadecimal or the scientific notation:
 \lstinline{077}, \lstinline{0xFF}, \lstinline{1e3} or
 \mbox{\lstinline{6.022e23}} are all valid.
 
@@ -247,15 +249,14 @@ You can even do the following, let Go repeat the use of \key{= iota}:
 \begin{lstlisting}
 const (
 	a = iota
-	b	    // implicitly 'b = iota'
+	b	    |\coderemark{Implicitly \texttt{b = iota}}|
 )
 \end{lstlisting}
-
-You may also explicitly type a constant:
+You may also explicitly type a constant, if you need that:
 \begin{lstlisting}
 const (
-	a int = 0
-	b string = "0"
+	a = 0           |\coderemark{Is an \key{int} now}|
+	b string = "0" 
 )
 \end{lstlisting}
 
@@ -290,7 +291,7 @@ fmt.Printf("%s\n", s2) |\longremark{print the string with \func{fmt.Printf}.}|
 \showremarks
 
 \begin{lbar}[Multi-line strings]
-Due to the insertion of semicolons (again see \cite{effective_go} section
+Due to the insertion of semicolons (see \cite{effective_go} section
 "Semicolons"), you need to be careful with using multiline strings. If
 you write:
 \begin{lstlisting}
@@ -302,7 +303,7 @@ This is transformed into:
 s := "Starting part";
     + "Ending part";
 \end{lstlisting}
-You need to write:
+Which is not valid syntax, you need to write:
 \begin{lstlisting}
 s := "Starting part" +
      "Ending part"
@@ -313,9 +314,10 @@ would be to use \emph{raw} string literals\index{string literal!raw} by using ba
 s := `Starting part
      Ending part`
 \end{lstlisting}
+Be aware that in this example \var{s} now also contains the newline.
 \end{lbar}
 Unlike \emph{interpreted} string literals \index{string literal!interpreted} a raw string literal's value
-is composed of the uninterpreted characters between the quotes.
+is composed of the \emph{uninterpreted} characters between the quotes.
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex128} (64
@@ -346,13 +348,13 @@ all associate from left to right.
 \verb|+ - * /| and \verb|%| all do what you would expect,
 \verb!& | ^!
 and \verb!&^! are bit operators for
-\first{\key{bit wise and}}{operator!bit wise!and}, 
-\first{\key{bit wise or}}{operator!bit wise!or}, \first{\key{bit wise!xor}}{operator!bit
-wise xor} and \first{\key{bit clear}}{operator!bit wise!clear} respectively.
+\first{\key{bitwise and}}{operator!bitwise!and}, 
+\first{\key{bitwise or}}{operator!bitwise!or}, \first{\key{bitwise xor}}{operator!bit
+wise xor} and \first{\key{bit clear}}{operator!bitwise!clear} respectively.
 The \verb|&&|, \verb/||/ and \verb|!| operators are 
-\first{\key{logical and}}{operator!and},
-\first{\key{logical or}}{operator!or} and
-\first{\key{logical not}}{operator!not}.
+logical \first{\key{and}}{operator!and},
+logical \first{\key{or}}{operator!or} and
+logical \first{\key{not}}{operator!not}.
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
 operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
@@ -378,23 +380,16 @@ In chapter \ref{chap:packages} they are documented in more detail.
 \end{itemize}
 Others deserve more text and have their own chapter/section:
 \begin{itemize}
-\item \key{func} is used to declare functions;
+\item \key{func} is used to declare functions and methods;
 \item \key{return} is used to return from functions, for both \key{func}
 and \key{return} see chapter \ref{chap:functions} for the details;
 \item \key{go} is used for concurrency (chapter \ref{chap:channels});
-\item \key{interface}, see chapter \ref{chap:interfaces};
-\item \key{select}, see chapter \ref{chap:channels};
-\item \key{struct}, see chapter \ref{chap:beyond};
-\item \key{type}, also see chapter \ref{chap:beyond}.
+\item \key{select} used to choose from different types of communication, see chapter \ref{chap:channels};
+\item \key{interface} see chapter \ref{chap:interfaces};
+\item \key{struct} is used for abstract data types, see chapter \ref{chap:beyond};
+\item \key{type} also see chapter \ref{chap:beyond}.
 \end{itemize}
 
-\subsection{Syntax}
-Go has a C-like feel when it comes to its syntax. 
-If you want to put two (or more) statements on one line, they must be
-separated with a semicolon (';'), like so:
-\begin{lstlisting}
-a = 5; a = a + 1
-\end{lstlisting}
 \section{Control structures}
 There are only a few control structures in 
 Go \footnote{This section is copied from \cite{effective_go}.}.
@@ -405,7 +400,7 @@ optional initialization statement like that of \key{for}. There also is
 something called a type switch and a multiway communications
 multiplexer, \key{select} (see chapter \ref{chap:channels}). The syntax is 
 different (from that in C): parentheses
-are not required and the bodies must \emph{always} be brace-delimited.
+are not required and the bodie must \emph{always} be brace-delimited.
 
 \subsection{If}
 In Go an \first{\key{if}}{keyword!if} looks like this:
@@ -432,7 +427,6 @@ like C's NULL}|
     return err
 }
 \end{lstlisting}
-
 You can use the logical operators (see table \ref{tab:op-precedence}) as
 you would normally do:
 \begin{lstlisting}
@@ -491,7 +485,7 @@ if err != nil {
     return nil
 }
 \end{lstlisting}
-it will not compile. This is a bug in the Go compiler. See
+It will not compile. This is a bug in the Go compiler. See
 \cite{go_issue_65} for a extended problem description and
 hopefully a fix.
 \end{lbar}
@@ -516,14 +510,11 @@ The name of the label is case sensitive.
 The Go \first{\key{for}}{keyword!for} loop has three forms, only one of
 which has semicolons.
 \begin{lstlisting}
-// Like a C for
-for init; condition; post { }
+for init; condition; post { } |\coderemark{Like a C \key{for}}|
 
-// Like a while
-for condition { }
+for condition { }             |\coderemark{Like a while}|
 
-// Like a C for(;;) (endless loop)
-for { }
+for { }                       |\coderemark{ Like a C \key{for(;;)} (endless loop)}|
 \end{lstlisting}
 Short declarations make it easy to declare the index variable right in the loop.
 \begin{lstlisting}
@@ -532,7 +523,6 @@ for i := 0; i < 10; i++ {
     sum += i	|\coderemark{Short for sum = sum + i}|
 }   |\coderemark{\var{i} ceases to exist \emph{after} the loop}|
 \end{lstlisting}
-
 Finally, since Go has no comma operator and ++ and - - are statements not
 expressions, if you want to run multiple variables in a \key{for} you should
 use \first{parallel assignment}{parallel assignment}.
@@ -567,7 +557,7 @@ J:  for j := 0; j < 5; j++ {
     } 
 \end{lstlisting}
 
-With \first{continue}{keyword!continue} you begin the next iteration of the
+With \first{\key{continue}}{keyword!continue} you begin the next iteration of the
 loop, skipping any remaining code. In the same way as \key{break},
 \key{continue} also accepts a label. The following prints 0 to 5.
 \begin{lstlisting}
@@ -581,7 +571,7 @@ for i := 0; i < 10; i++ {
 
 \subsection{Range}
 The keyword \first{\key{range}}{keyword!range} can be used for loops. It
-can loop over slices, arrays, string, maps and channels (see chapter
+can loop over slices, arrays, strings, maps and channels (see chapter
 \ref{chap:channels}). \key{range} is
 an iterator, that when called, returns a key-value pair from the thing it
 loops over. Depending on what that is, \key{range} returns
@@ -592,11 +582,12 @@ slice as the key and value belonging to that index.
 Consider this code: \index{keyword!range!on slices}
 \begin{lstlisting}
 list := []string{"a", "b", "c", "d", "e", "f"}     |\longremark{Create a %
-slice (see \ref{sec:arrays} on page \pageref{sec:arrays}) of strings.}|
+slice (see "\titleref{sec:arrays}" on page \pageref{sec:arrays}) of strings.}|
 for k, v := range list {	|\longremark{Use \key{range} to loop over them.%
 With each iteration \key{range} will return the index as \type{int} and %
 the key as a \type{string}, starting with 0 and "a".}|
-    // do what you want with k and v
+    // do what you want with k and v \longremark{\var{k} will have the value 0\ldots5, and %
+\var{v} will loop through "a"\ldots"f".}
 }
 \end{lstlisting}
 \showremarks
@@ -775,7 +766,7 @@ available, it is called a \type{map} in Go.
 
 \subsection{Arrays}
 An array is defined by: \verb|[n]<type>|, where $n$ is the length
-of the array.
+of the array and \verb|<type>| is the stuff you want to store.
 Assigning, or indexing an element in the array is done with square
 brackets:
 \begin{lstlisting}
@@ -828,7 +819,7 @@ a := [2][2]int{ {1,2}, {3,4} }
 \label{sec:slices}
 A slice is similar to an array, but it can grow when new elements
 are added.
-A slice always refers to an under laying array. What makes slices different
+A slice always refers to an underlaying array. What makes slices different
 from
 arrays is that a slice is a pointer \emph{to} an array;
 slices are \first{reference types}{reference types}, 
@@ -889,11 +880,12 @@ s5 := s2[:]  |\longremark{Create a slice from the slice \var{s2}, note that %
 
 In the code listed in \ref{src:arrays} we dare to do the impossible on
 line 8 and try to allocate something
-beyond the capacity (maximum length of the under laying array) and
+beyond the capacity (maximum length of the underlaying array) and
 we are greeted with a \emph{runtime} error.
 \lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
-To make it easier to deal with slices in Go, two new built-ins were
-added: \lstinline{append} and \lstinline{copy}. From \cite{go_spec}:
+If you want to extend a slice, there are a couple of built-in functions
+that make life easier:
+\lstinline{append} and \lstinline{copy}. From \cite{go_spec}:
 \begin{quote}
 The function \lstinline{append} appends zero or more values \lstinline{x} to a
 slice \lstinline{s} and returns the resulting slice, with the same type as

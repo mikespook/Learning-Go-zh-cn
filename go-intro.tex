@@ -89,14 +89,14 @@ is explained in chapter \ref{chap:packages}.
 \section{Getting Go}
 There are currently (2011) no packages for Go in any Linux
 distribution. The route to install Go is thus slightly longer than
-it could be. When Go stabilizes this situation will change probably. For
+it could be. When Go stabilizes this situation will change. For
 now, you need to retrieve the code from the mercurial archive and compile
 Go yourself. For other Unix like systems the procedure is the same.
 \begin{itemize}
 \item First install Mercurial (to get the \prog{hg} command). In
 Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 
-\item For building Go you also need the packages: \prog{bison},
+\item For building Go you need the packages: \prog{bison},
 \prog{gcc}, \prog{libc6-dev}, \prog{ed}, \prog{gawk} and \prog{make};
 
 \item Set the environment variable \prog{GOROOT} to the root of your
@@ -166,11 +166,9 @@ communication over typed channels}, automatic \emph{garbage collection}, and
 simple abstract data types. It is designed for safe execution even on
 small machines without hardware memory protection.
 \end{quote}
-That sounds a lot like Go, and one could say Go is a reimplementation of
-Limbo on Unix--like systems like Linux. One feature of Limbo that is
-also included in Go is the support for cross compiling.
-\todo{Aleph language on Plan 9}
-
+One feature of Limbo that is
+included in Go is the support for cross compiling.
+\todo{Aleph language on Plan 9. Also presented in 1995.}
 Another feature Go inherited from Limbo is channels (see chapter
 \ref{chap:channels}). Again from the Limbo documentation.
 \begin{quote}
