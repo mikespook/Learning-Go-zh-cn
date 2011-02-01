@@ -11,7 +11,7 @@ but they share the \lstinline{package <name>} line.
 Lets define a package \package{even}\index{package!even} in the file \prog{even.go}.
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
-Names that start with a capital letter are exported and may be used
+Names that start with a capital letter are \emph{exported} and may be used
 outside your package, more on that later. We can now use
 the package as follows in our own program \prog{myeven.go}:
 
@@ -23,7 +23,7 @@ then link it:
 \begin{display}
 \pr 6g even.go			\coderemark{The package}
 \pr 6g myeven.go		\coderemark{Our program}
-\pr 6l -o myeven myeven.6
+\pr 6l -o myeven myeven.6       \coderemark{Linking stage}
 \end{display}
 And test it:
 \begin{display}
@@ -44,7 +44,8 @@ We get an error when compiling, because we are trying to use a
 myeven.go:7: cannot refer to unexported name even.odd
 myeven.go:7: undefined: even.odd
 \end{display}
-To summarize:
+
+\noindent{}To summarize:
 \begin{itemize}
 \item Public functions have a name starting with a \emph{capital}
 letter;
@@ -69,9 +70,9 @@ to put the package files in.
 can use the following 
 \file{Makefile}, which 
 is adapted for our \package{even} package.
-\lstinputlisting[language=make,caption=Makefile for a package,numbers=right]{src/Makefile}
-Note that on line 7 we define our \package{even} package and on the
-lines 8 and 9 we enter the files which make up the package.
+\lstinputlisting[language=make,caption=Makefile for a package,linerange={5,},numbers=right]{src/Makefile}
+Note that on line 3 we define our \package{even} package and on the
+lines 4 and 5 we enter the files which make up the package.
 Also note that this is \emph{not} the \emph{same} \prog{Makefile} setup as we used
 in section "\titleref{sec:building a program}" in chapter
 \ref{chap:basics}. The last line with the \verb|include| statement is
@@ -103,7 +104,7 @@ own directory. So the following commands should build (and link) our
 \pr 6l -L even/\_obj myeven.6	\coderemark{Linking}
 \end{display}
 
-Imported, but otherwise unused packages are an error.
+\noindent{}Imported, but otherwise unused packages are an error.
 
 \section{Identifiers}
 Names are as important in Go as in any other language. In some cases
@@ -276,7 +277,7 @@ Putting all this together we can write our test. First
 we pick a name: \file{even\_test.go}. Then we add the following contents:
 \lstinputlisting[label=src:eventest,caption=Test file for even
 package,numbers=right]{src/even_test.go}
-Note that we use \lstinline{package even} on line 1, the test fall in the same
+Note that we use \lstinline{package even} on line 1, the tests fall in the same
 namespace as the package we are testing. This not only convenient, but
 also allows tests of unexported function and structures. We then import
 the \package{testing} package and on line 5 we define the only test
@@ -325,7 +326,7 @@ We cannot comment on each package, but the following a worth a mention:
 \begin{description}
 \item[\package{fmt}]{\index{package!fmt}
 Package \package{fmt} implements formatted I/O with functions analogous
-to C's \func{printf} and \func{scanf}. The format \texttt{verbs} are derived
+to C's \func{printf} and \func{scanf}. The format verbs are derived
 from C's but are simpler. Some verbs (\%-sequences) that can be used:
 
 \begin{description}
@@ -364,8 +365,9 @@ The \package{os} package provides a platform-independent interface to operating
 system functionality.  The design is Unix-like.
 }
 \item[\package{flag}]{\index{package!flag}
-The \package{flag} package implements command-line flag parsing. See "\titleref{sec:option parsing}"
-on page \pageref{sec:option parsing}.
+The \package{flag} package implements command-line flag parsing. 
+\emph{See "\titleref{sec:option parsing}"
+on page \pageref{sec:option parsing}.}
 }
 \item[\package{json}]{\index{package!json}
 The \package{json} package implements encoding and decoding of JSON objects as
@@ -387,6 +389,7 @@ HTTP client.
 }
 \item[\package{unsafe}]{\index{package!unsafe}
 The \package{unsafe} package contains operations that step around the type safety of Go programs.
+\emph{Normally you don't need this package.}
 }
 \item[\package{reflect}]{\index{package!reflect}
 The \package{reflect} package implements run-time reflection, allowing a program to
