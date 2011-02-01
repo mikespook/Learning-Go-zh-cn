@@ -81,7 +81,7 @@ In the following example we call \func{g()} from \func{f()}:
 
 \lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
 
-The printout will be: \texttt{565}. A \emph{local} variable is only
+The printout will be: \texttt{565}. A \emph{local} variable is \emph{only}
 valid when we are executing the function in which it is defined. 
 %%Finally, one can create a \first{"function literal"}{function literal} in which you essentially 
 %%define a function inside another
@@ -95,9 +95,7 @@ One of Go's unusual features is that functions and methods can return multiple
 values (Python can do this too). This can be used to improve on a couple of 
 clumsy idioms in C programs:
 in-band error returns (such as -1 for \texttt{EOF}) and modifying an argument.
-
-In C, a write error is signaled by a negative count with the error code
-secreted away in a volatile location. In Go, \lstinline{Write} returns a count and an
+In Go, \lstinline{Write} returns a count and an
 error: "Yes, you wrote some bytes but not all of them because you filled the
 device". The signature of \lstinline{*File.Write} in package
 \package{os} is:
@@ -169,11 +167,9 @@ func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
     return
 }
 \end{lstlisting}
-
 In the following example we declare a simple function which calculates
 \gomarginpar{Some text in this section comes from \cite{go_intro}.}  % layout
 the factorial value of a value \var{x}.
-
 \begin{lstlisting}
 func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is also OK}|
    if x == 0 {
@@ -237,8 +233,7 @@ func ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-Here a lot of code is repeated. To overcome this ---
-and do more in less code --- Go has the
+Here a lot of code is repeated. To overcome this Go has the
 \first{\key{defer}}{keyword!defer} statement. After
 \key{defer} you specify a function which is called just \emph{before} a
 \key{return} from the function is executed.
@@ -299,7 +294,7 @@ func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
 
 \section{Variadic parameters}
 \todo{Extend this section a bit. How to call another function with
-a variadic argument (propagation).}
+a variadic argument (propagation) (MG).}
 Functions that take variadic parameters are functions that have a
 variable number of parameters. To do this, you first
 need to declare your function to take variadic arguments:
@@ -326,7 +321,7 @@ empty interface \var{interface\{\}} (see chapter
 \index{function!literals}
 As with almost everything in Go, functions are also \emph{just} values.
 They can be assigned to variables as follows:
-\lstinputlisting[label=src:anonfunc,caption=Anonymous function]{src/anon-func.go}
+\lstinputlisting[label=src:anonfunc,caption=Anonymous function,linerange={3,}]{src/anon-func.go}
 If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
 \var{a}, it prints \func{func()}.
 

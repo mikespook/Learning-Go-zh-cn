@@ -1,8 +1,8 @@
 package main
 
 func main() {
-	a := func() {     // Define a nameless function and assign to a
+	a := func() {     |\coderemark{Define a nameless function and assign to \var{a}}|
 	  println("Hello")
-	}		  // No () here
-	a()               // Call the function
+	}		  |\coderemark{No () here}|
+	a()               |\coderemark{Call the function}|
 }
