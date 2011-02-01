@@ -87,8 +87,7 @@ allocated \type{stack}, so line 1 from the example above needs to be
 \lstinline{s := new(stack)}
 
 \noindent{}And our two functions become:
-
-\begin{lstlisting}[caption=The push and pop functions]
+\begin{lstlisting}
 func (s *stack) push(k int) {
 	s.data[s.i] = k
 	s.i++
@@ -99,10 +98,8 @@ func (s *stack) pop() int {
 	return s.data[s.i]
 }
 \end{lstlisting}
-
 Which we then use as follows
-
-\begin{lstlisting}[caption=Stack usage]
+\begin{lstlisting}
 func main() {
 	var s stack
 	s.push(25)
