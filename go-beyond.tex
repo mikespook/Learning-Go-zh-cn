@@ -19,7 +19,7 @@ nothing has a \first{nil}{nil}-value. In other languages this is often called
 a NULL pointer in Go it is just \var{nil}. To make 
 a pointer point to something you can use the \first{address-of operator}{operator!address-of}
 (\func{\&}), which we do on line 5:
-\begin{lstlisting}[caption=Make use of a pointer,label=src:pointers]
+\begin{lstlisting}[caption=Use of a pointer,label=src:pointers]
 var p *int
 fmt.Printf("%v", p) |\coderemark{Prints \var{nil}}|
 
@@ -93,7 +93,8 @@ method. Instead, the zero value for a \func{sync.Mutex} is defined to be an
 unlocked mutex.
 
 The zero-value-is-useful property works transitively. Consider this type
-declaration.
+declaration. See section "\titleref{sec:defining your own}" on page
+\pageref{sec:defining your own}.
 
 \begin{lstlisting}
 type SyncedBuffer struct {
@@ -106,8 +107,8 @@ allocation or just declaration. In this snippet, both \var{p} and
 \var{v} will work
 correctly without further arrangement.
 \begin{lstlisting}
-p := new(SyncedBuffer)  // type *SyncedBuffer
-var v SyncedBuffer      // type  SyncedBuffer
+p := new(SyncedBuffer)  |\coderemark{Type *SyncedBuffer}|
+var v SyncedBuffer      |\coderemark{Type  SyncedBuffer}|
 \end{lstlisting}
 
 \subsection{Allocation with make}
@@ -137,8 +138,8 @@ array. In contrast,
 a pointer to a newly allocated, zeroed slice structure, that is, a
 pointer to a \type{nil} slice value.
 
-These examples illustrate the difference between \key{new()} and
-\key{make()}.
+These examples illustrate the difference between \key{new} and
+\key{make}.
 \begin{lstlisting}
 var p *[]int = new([]int)       // allocates slice structure; *p == nil
 				// rarely useful
@@ -151,9 +152,9 @@ var p *[]int = new([]int)
 // Idiomatic:
 v := make([]int, 100)
 \end{lstlisting}
-Remember that \key{make()} applies only to maps, slices and channels and does
+Remember that \key{make} applies only to maps, slices and channels and does
 not return a pointer. To obtain an explicit pointer allocate with
-\key{new()}.
+\key{new}.
 
 \subsection{Constructors and composite literals}
 Sometimes the zero value isn't good enough and an initializing
@@ -220,8 +221,6 @@ ma := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 
 \section{Defining your own types}
 \label{sec:defining your own}
-\todo{tags in structs}
-\todo{move this to the beginning. As the allocation section uses structs}
 Of course Go allows you to define new types, it does this 
 with the \first{\key{type}}{keyword!type} keyword: 
 \begin{lstlisting}
@@ -318,8 +317,8 @@ the type \type{*NameAge} and will translate this call to
 
 \section{Conversions}
 \label{sec:conversions}
-Sometimes you want to convert a type to another type. In C this is known
-as casting a value to another type. This is also possible in Go, but
+Sometimes you want to convert a type to another type. 
+This is possible in Go, but
 there are some rules. For starters, converting from one value to another
 is done by functions and not all conversions are allowed.
 
