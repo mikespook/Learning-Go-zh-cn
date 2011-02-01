@@ -40,7 +40,7 @@ unleash \func{.Tag} to access this name: \texttt{Field(0).Tag}. This %
 \emph{finally} gives us \texttt{namestr}.}
 \end{tikzpicture}|
 type Person struct {
-    name string "namestr"
+    name string "namestr" |\coderemark{\texttt{"namestr"} is the tag}|
     age  int
 }
 

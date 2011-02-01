@@ -239,6 +239,7 @@ signature; call your string-converter method \func{String} not
 \gomarginpar{Text copied from \cite{effective_go}.}
 
 \section{A sorting example}
+\label{sec:a sorting example}
 Recall the Bubblesort exercise (Q\ref{ex:bubble}), where we sorted an
 array of integers:
 \begin{lstlisting}
@@ -267,13 +268,12 @@ func sort(i []interface{}) { |\longremark{Our function will receive a slice of %
 empty interfaces;}|
     switch i.(type) {        |\longremark{Using a type switch we find out what the %
 actual type is of the input;}|
-	case string:         |\longremark{And then sort accordingly.}|
-	    // convert to string
+	case string:         |\longremark{And then sort accordingly;}|
+	    // ...
 	case int:
-	    // convert to int
+	    // ...
     }
-    // sort
-    // return sorted array
+    |\longremark{Return the sorted slice.}|
 }
 \end{lstlisting}
 \showremarks

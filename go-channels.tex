@@ -67,7 +67,7 @@ ci <- 1	    |\coderemark{\emph{Send} the integer 1 to the channel \var{ci}}|
 i := <-ci   |\coderemark{\emph{Receive} from the channel \var{ci} and storing it in \var{i}}|
 \end{lstlisting}
 Lets put this to use.
-\begin{lstlisting}[numbers=right,caption=Go routines and a channel,label=src:sleeping with channels]
+\begin{lstlisting}[numbers=none,caption=Go routines and a channel,label=src:sleeping with channels]
 var c chan int |\longremark{Declare \var{c} to be a variable that is a %
 channel of ints. That is: this channel can move integers. Note %
 that this variable is global so that the goroutines have access to it;}|
