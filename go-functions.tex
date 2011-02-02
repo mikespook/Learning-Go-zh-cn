@@ -235,8 +235,8 @@ func ReadWrite() bool {
 \end{lstlisting}
 Here a lot of code is repeated. To overcome this Go has the
 \first{\key{defer}}{keyword!defer} statement. After
-\key{defer} you specify a function which is called just \emph{after} a
-\key{return} from the function is executed, but before the function returns.
+\key{defer} you specify a function which is called just \emph{after} the
+\key{return} \emph{statement} from the function is executed, but before the function returns.
 
 The code above could be rewritten as follows. This makes the 
 function more readable, shorter and puts the \func{Close} right next 
