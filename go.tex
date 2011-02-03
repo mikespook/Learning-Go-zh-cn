@@ -27,24 +27,21 @@
 \usetikzlibrary{arrows,decorations.pathreplacing}
 \usepackage{float}
 \usepackage{natbib}
-\usepackage{coderemarks}    %% my own package
-
+%% local tex stuff
+\usepackage{coderemarks}
 \input{go-setup.tex}
 \input{go-cc-license.tex}
-%%\input{draft.tex}
-%%\AddEverypageHook{\pagedraft}
-%%\usepackage{refcheck}
-%% a5paper
-%\setlength{\voffset}{-0.10\stockheight} 
-%\addtolength{\textheight}{0.12\stockheight}
 
 \begin{document}
 \thispagestyle{empty}
 \newcommand{\version}{0.3}
 %% Title page
-\begin{figure}[t!]
 \begin{center}
-    \hspace{1.0cm}{\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}Learning Go}}}}
+\hspace{1.0cm}{\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}Learning Go}}}}
+\end{center}
+\vspace*{3cm}
+\begin{figure}[h!]
+\begin{center}
     \includegraphics[scale=0.65]{fig/bumper-inverse.png}
 \end{center}
 \end{figure}
