@@ -101,8 +101,7 @@ At line 3 you specify the name for your compiled program and on line 5
 you enumerate the source files. Now an invocation of \verb|make| is
 enough to get your program compiled. Note that Go ships with the variant
 of \prog{make}, called \prog{gomake}, which is (currently) a small
-wrapper around \prog{make}
-\footnote{This is GNU Make.}. As the build system for Go programs may
+wrapper around GNU make. As the build system for Go programs may
 change in the future and make \prog{make} go away, we use \prog{gomake}.
 Note that this \file{Makefile} creates an executable named
 \prog{helloworld}, not \prog{6.out} or \prog{8.out}.
