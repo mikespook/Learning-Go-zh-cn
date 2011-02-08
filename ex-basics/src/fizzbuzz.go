@@ -8,7 +8,7 @@ func main() {
 readable. See section "\titleref{sec:constants}";}|
 		BUZZ = 5
 	)
-	var p boolean |\longremark{Holds if we already printed someting;}|
+	var p bool      |\longremark{Holds if we already printed someting;}|
 	for i := 1; i < 100; i++ { |\longremark{for-loop, see section "\titleref{sec:for}"};|
 		p = false
 		if i%FIZZ == 0 { |\longremark{If divisible by FIZZ, print "Fizz";}|

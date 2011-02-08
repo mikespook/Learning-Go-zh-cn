@@ -61,6 +61,7 @@ import "exec"
 
 cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exec.DevNull, exec.DevNull)
 \end{lstlisting}
+\todo{TODO. StartProcess}
 In the \package{os}\index{package!os} package we find the \func{ForkExec} function. This
 is another way (but more low level) to start executables.\footnote{There is talk on
 the go-nuts mailing list about separating \func{Fork} and
