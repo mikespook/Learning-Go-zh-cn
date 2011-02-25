@@ -203,10 +203,7 @@ package as the method.
 
 \subsection{Pointers to interfaces}
 Creating a pointer to an interface value is a useless action in Go.
-Internally interfaces are implemented using pointers. So in
-essence an interface value \emph{already} is a pointer; you just don't see that
-as a programmer. Using the address of an interface value adds \emph{another}
-indirection, and only that -- it does not generate more efficient code.
+\todo{Interfaces is not a pointer, not reference type}
 \gomarginpar{Go \gorelease{2010-10-13}.} It is in fact illegal to
 create a pointer to an interface value. The release notes for that release that
 made them illegal leave no room for doubt:
@@ -512,6 +509,8 @@ with a pointer argument.
 
 \section{Exercises}
 \input{ex-interfaces/ex-interfaces.tex}
+
+\input{ex-beyond/ex-pointers-and-reflect.tex}
 
 \input{ex-interfaces/ex-minmax.tex}
 
