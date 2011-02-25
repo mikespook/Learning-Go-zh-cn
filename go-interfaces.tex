@@ -447,7 +447,7 @@ actual \type{string} contained deep within.}} %
 \end{center}\end{figure} %
 Reflection works by pealing off layers once you have got your hands %
 on a \type{Value} in the reflection world.}|
-	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0)\newline.(*reflect.StringValue).Get()
+	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0).|\newline|(*reflect.StringValue).Get()
     }
 }
 \end{lstlisting}
