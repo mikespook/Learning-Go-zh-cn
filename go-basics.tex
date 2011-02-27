@@ -961,8 +961,8 @@ fmt.Printf("Numbers of days in a year: %d\n", year)
 \end{lstlisting}
 Adding elements to the \type{map} \index{keyword!map!add elements} would be done as:
 \begin{lstlisting}
-monthday["Undecim"] = 30	|\coderemark{Add a month}|
-monthday["Feb"]     = 29	|\coderemark{Overwrite entry - for leap years}|
+monthdays["Undecim"] = 30	|\coderemark{Add a month}|
+monthdays["Feb"]     = 29	|\coderemark{Overwrite entry - for leap years}|
 \end{lstlisting}
 To test for existence \index{keyword!map!existence}, you would use the
 following\cite{go_course_day2}:
@@ -970,13 +970,13 @@ following\cite{go_course_day2}:
 var value int
 var present bool
 
-value, present = monthday["Jan"] |\coderemark{If exist, \texttt{present} has the value}|
+value, present = monthdays["Jan"] |\coderemark{If exist, \texttt{present} has the value}|
                                  |\coderemark{Or better and more Go like}|
-v, ok := monthday["Jan"]	 |\coderemark{Hence, the "comma ok" form}|
+v, ok := monthdays["Jan"]	 |\coderemark{Hence, the "comma ok" form}|
 \end{lstlisting}
 And finally you can remove elements \index{keyword!map!remove elements} from the \type{map}:
 \begin{lstlisting}
-monthday["Mar"] = 0, false       |\coderemark{Deletes "Mar", always rains anyway}|
+monthdays["Mar"] = 0, false       |\coderemark{Deletes "Mar", always rains anyway}|
 \end{lstlisting}
 Which looks a bit like the reverse of the "comma ok" form.
 
