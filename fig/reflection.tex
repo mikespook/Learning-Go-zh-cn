@@ -8,16 +8,19 @@ to the documentation\footnote{\texttt{godoc reflect}}:%
 Elem returns the value that v points to. %
 If v is a nil pointer, Elem returns a nil Value. %
 \end{quote} %
-we can use \func{Elem()} to get the type the pointer points to. %
-In this case \type{*reflect.StructValue}. We have also %
-used \type{reflect.NewValue(i)} for the type assertion, so that %
-we get back types in the \type{*reflect} namespace;}
+So on \var{t} we use \func{Elem()} to get the value the pointer %
+points to.}
+%%We can use \func{Elem()} to get the type the pointer points to. %
+%%In this case \type{*reflect.StructValue}. We have also %
+%%used \type{reflect.NewValue(i)} for the type assertion, so that %
+%%we get back types in the \type{*reflect} namespace;}
 %
-\ubrace{4.3,-5.2}{3.6,-5.2}{On a \var{Value} we can use the function %
-\func{Type()} which returns \type{reflect.Type};}%
+\ubrace{4.3,-5.2}{3.6,-5.2}{On \var{Value} we use the function %
+\func{Type()} which returns \type{reflect.Type}. We need to get %
+the type because there is where the tag is defined;}%
 %
 \ubrace{7.7,-5.2}{4.8,-5.2}{%
-Again according to the documentation, we have:\\%
+So now we have a \var{reflect.Type}:\\%
 \begin{quote} %
 \ldots which returns an object with interface %
 type \type{Type}.  That contains a pointer to a struct of type %
