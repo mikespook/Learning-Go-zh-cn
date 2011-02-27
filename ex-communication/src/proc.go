@@ -26,7 +26,7 @@ func main() {
 	r := bufio.NewReader(pr)
 	w := bufio.NewWriter(os.Stdout)
 	defer w.Flush()
-	pid, _ := os.ForkExec("/bin/ps", []string{"ps", "-e", "-opid,ppid,comm"}, nil, "", []*os.File{nil, pw, nil})
+	pid, _ := os.StartProcess("/bin/ps", []string{"ps", "-e", "-opid,ppid,comm"}, nil, "", []*os.File{nil, pw, nil})
 	defer os.Wait(pid, os.WNOHANG)
 	pw.Close()
 

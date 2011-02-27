@@ -61,31 +61,28 @@ import "exec"
 
 cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exec.DevNull, exec.DevNull)
 \end{lstlisting}
-\todo{TODO. StartProcess}
-In the \package{os}\index{package!os} package we find the \func{ForkExec} function. This
+In the \package{os}\index{package!os} package we find the \func{StartProcess} function. This
 is another way (but more low level) to start executables.\footnote{There is talk on
 the go-nuts mailing list about separating \func{Fork} and
 \func{Exec}.} 
-The prototype for \func{ForkExec} is:
+The prototype for \func{StartProcess} is:
 \begin{lstlisting}
-func ForkExec(argv0 string, argv []string, envv []string, dir string, fd []*File) (pid int, err Error)
+func StartProcess(name string, argv []string, envv []string, dir string, fd []*File) (pid int, err Error)
 \end{lstlisting}
 With the following documentation:
 \begin{quote}
-\func{ForkExec} forks the current process and invokes \func{Exec} with the
-file, arguments, and environment specified by \var{argv0}, \var{argv}, and
-\var{envv}. It returns the process id of the forked process and an
-\type{Error}, if any. The \var{fd} array specifies the file descriptors to be
-set up in the new process: \var{fd[0]} will be Unix file descriptor 0 (standard
-input), \var{fd[1]} descriptor 1, and so on.  A \var{nil} entry will cause the
-child to have no open file descriptor with that index.  If \var{dir} is not
-empty, the child chdirs into the directory before execing the program.
+\func{StartProcess} starts a new process with the program, arguments,
+and environment specified by \var{name}, \var{argv}, and \var{envv}. The \var{fd} array specifies the
+file descriptors to be set up in the new process: \var{fd[0]} will be Unix file
+descriptor 0 (standard input), \var{fd[1]} descriptor 1, and so on.  A \type{nil} entry
+will cause the child to have no open file descriptor with that index.
+If \var{dir} is not empty, the child chdirs into the directory before execing the program.
 \end{quote}
 Suppose we want to execute \verb|ls -l| again:
 \begin{lstlisting}
 import "os"
 
-pid, err := os.ForkExec("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os.Stdin, os.Stdout, os.Stderr})
+pid, err := os.StartProcess("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os.Stdin, os.Stdout, os.Stderr})
 defer os.Wait(pid, os.WNOHANG) |\coderemark{Otherwise you create a zombie}|
 \end{lstlisting}
 Note that \lstinline{os.Wait} (among other things) returns the
