@@ -14,7 +14,7 @@ prints that array to the screen.
 
 \Question There are a multitude of possibilities, 
 one of the solutions could be:
-\lstinputlisting[label=src:for]{ex-basics/src/for.go}
+\lstinputlisting[caption={Simple for loop},label=src:for]{ex-basics/src/for.go}
 Lets compile this and look at the output.
 \vskip\baselineskip
 \begin{display}
@@ -45,7 +45,7 @@ I:			|\coderemark{Define a label}|
 
 \Question 
 The following might one possible solution:
-\lstinputlisting[label=src:for-arr,linerange={5,11}]{ex-basics/src/for-arr.go}
+\lstinputlisting[label=src:for-arr,caption={For loop with an array},linerange={5,11}]{ex-basics/src/for-arr.go}
 You could even do this in one fell swoop by using a composite literal:
 \begin{lstlisting}
 a := [...]int{0,1,2,3,4,5,6,7,8,9} |\coderemark{With [...] you let Go count}|
