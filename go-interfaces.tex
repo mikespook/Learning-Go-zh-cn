@@ -436,7 +436,7 @@ Now we have arrived at the structure. Then we go the the first field %
 \var{*reflect.StringValue} and invoke the \lstinline{Get()} method on %
 it. %
 \begin{figure}[H] %
-\hskip3\baselineskip\parbox{0.7\textwidth}{\caption[Pealing away the layers using reflection]{Pealing away the %
+\hskip3\baselineskip\parbox{0.7\textwidth}{\caption[Peeling away the layers using reflection]{Peeling away the %
 layers using reflection. %
 Going from a \type{*Person} via \mbox{\type{*reflect.PtrValue}} using the %
 methods described in \prog{godoc reflect} to get the %
@@ -445,7 +445,7 @@ actual \type{string} contained deep within.}} %
 \begin{center} %
 \includegraphics[scale=0.75]{fig/reflection.pdf} %
 \end{center}\end{figure} %
-Reflection works by pealing off layers once you have got your hands %
+Reflection works by peeling off layers once you have got your hands %
 on a \type{Value} in the reflection world.}|
 	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0).|\newline|(*reflect.StringValue).Get()
     }

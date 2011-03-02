@@ -186,12 +186,14 @@ func NewFile(fd int, name string) *File {
     return &f			|\coderemark{Return the address of \var{f}}|
 }
 \end{lstlisting}
-Note that it's perfectly OK to return the address of a local variable;
+It is OK to return the address of a local variable;
 the storage associated with the variable survives after the function
-returns. In fact, taking the address of a composite literal allocates a
-fresh instance each time it is evaluated, so we can combine these last
-two lines.
+returns.
 
+In fact, taking the address of a composite literal allocates a
+fresh instance each time it is evaluated, so we can combine these last
+two lines.\footnote{Taking the address of a composite literal tells the 
+compiler to allocate it on the heap, not the stack.}
 \begin{lstlisting}
 return &File{fd, name, nil, 0}
 \end{lstlisting}

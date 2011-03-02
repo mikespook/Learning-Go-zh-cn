@@ -351,15 +351,16 @@ and \verb!&^! are bit operators for
 \first{\key{bitwise and}}{operator!bitwise!and}, 
 \first{\key{bitwise or}}{operator!bitwise!or}, \first{\key{bitwise xor}}{operator!bit
 wise xor} and \first{\key{bit clear}}{operator!bitwise!clear} respectively.
-The \verb|&&|, \verb/||/ and \verb|!| operators are 
-logical \first{\key{and}}{operator!and},
-logical \first{\key{or}}{operator!or} and
-logical \first{\key{not}}{operator!not}.
+The \verb|&&| and \verb/||/ operators are 
+logical \first{\key{and}}{operator!and} and
+logical \first{\key{or}}{operator!or}. Not listed in the table
+is the logical \first{\key{not}}{operator!not}: \verb/!/ .
+
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
 operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
 floats, complex numbers and strings (adding strings is concatenating
-them).
+them). 
 
 \section{Go keywords}
 \begin{table}[H]
@@ -400,7 +401,7 @@ optional initialization statement like that of \key{for}. There also is
 something called a type switch and a multiway communications
 multiplexer, \key{select} (see chapter \ref{chap:channels}). The syntax is 
 different (from that in C): parentheses
-are not required and the bodie must \emph{always} be brace-delimited.
+are not required and the body must \emph{always} be brace-delimited.
 
 \subsection{If}
 In Go an \first{\key{if}}{keyword!if} looks like this:
