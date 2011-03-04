@@ -194,7 +194,7 @@ When we use named result values, the code is shorter and
 easier to read.
 You can also write a function with multiple return values:
 \begin{lstlisting}
-func fib(n) (val int, pos int) {
+func fib(n) (val, pos int) { |\coderemark{Both ints}|
    if n == 0 {
       val = 1
       pos = 0
@@ -219,7 +219,7 @@ descriptor you are working on. This often leads to the following code:
 \begin{lstlisting}[caption=Without defer]
 func ReadWrite() bool {
     file.Open("file")
-    // Do you thing
+    // Do your thing
     if failureX {
 	file.Close()
 	return false
@@ -245,7 +245,7 @@ to the \func{Open}.
 func ReadWrite() bool {
     file.Open("file")
     defer file.Close()	|\coderemark{\func{file.Close()} \emph{is} the function}|
-    // Do you thing
+    // Do your thing
     if failureX {
 	return false    |\coderemark{\func{Close()} is now done automatically}|
     }
