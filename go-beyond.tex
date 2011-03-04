@@ -273,8 +273,8 @@ struct {
         x, y int  // field names are x and y
 }
 \end{lstlisting}
-Note the fieldnames that start with a capital letter are exported, i.e. can be
-set or read from other packages. Fieldnames that start with a lowercase are private
+Note the field names that start with a capital letter are exported, i.e. can be
+set or read from other packages. Field names that start with a lowercase are private
 to the current package. The same goes for functions defined in packages, see chapter
 \ref{chap:packages}.
 
@@ -379,7 +379,7 @@ yourself?
 We create two types here \type{Foo} and \type{Bar}, where
 \lstinline{Bar} is an alias for \type{Foo}:
 \begin{lstlisting}
-type foo struct { int }  |\coderemark{anymous struct field}|
+type foo struct { int }  |\coderemark{anonymous struct field}|
 type bar foo             |\coderemark{bar is an alias for foo}|
 \end{lstlisting}
 
