@@ -212,6 +212,7 @@ func fib(n) (val, pos int) { |\coderemark{Both ints}|
 \end{lstlisting}
 
 \section{Deferred code}
+\label{sec:deferred code}
 Suppose you have a function in which you open a file and perform various
 writes and reads on it. In such a function there are often spots where
 you want to return early. If you do that, you will need to close the file
@@ -342,6 +343,37 @@ on page \pageref{ex:map function}.
 
 \section{Callbacks and closures}
 \label{sec:callbacks}
+With functions as values there are easy to pass to other function, from where
+they can be used as callbacks.
+
+
+We've already seen some use of closures in section \titleref{deferred code}, but there
+is more to tell. When you define a closure, i.e. when you start using a function
+literal you still have access to the (local) variables defined in the current
+function:
+
+\begin{lstlisting}
+// Define some local vars
+// This code is WAY to complex, but illustrates it nicely
+    frameSquare := func(x, y int) {
+            // closure effortlessly passes local variables to callback
+            if thickFrame {
+                    // draw 3 x 3 pixel block for thicker rectangle
+                    for x0 := x - 1; x0 <= x+1; x0++ {
+                            for y0 := y - 1; y0 <= y+1; y0++ {
+                                    rgba.Set(x0, y0, redColor)
+                            }
+                    }
+            } else {
+                    rgba.Set(x, y, blueColor)
+            }
+    }
+\end{lstlisting}
+
+If you want to do this by \emph{not} using a closure and defining a completely new
+function you need to pass all vars to the function.
+\todo{Gist is there, but needs much better wording and code}
+
 
 
 \section{Panic and recovering}
@@ -389,6 +421,8 @@ to \func{recover} will capture the value given to \func{panic} and resume normal
 \input{ex-functions/ex-minmax.tex}
 
 \input{ex-functions/ex-bubblesort.tex}
+
+\input{ex-functions/ex-funcfunc.tex}
 
 \cleardoublepage
 \section{Answers}
