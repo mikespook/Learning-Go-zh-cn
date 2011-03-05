@@ -360,10 +360,10 @@ func callback(y int, f func(int)) { |\coderemark{\func{f} holds the function}|
     f(y)    |\coderemark{Call the callback \func{f} with \var{y}}|
 }
 \end{lstlisting}
-We've already seen some use of closures in section \titleref{deferred code}, but there
+We've already seen some use of closures in section "\titleref{deferred code}", but there
 is more to tell. When you define a closure, i.e. when you start using a function
 literal you still have access to the (local) variables defined in the current
-function:
+function.
 
 \begin{lstlisting}
 // Define some local vars
