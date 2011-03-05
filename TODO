@@ -1,4 +1,6 @@
-var _ = x
+Function callbacks
+Panic and recovering
+
 
 goyacc (some history there)
 It is largely transliterated from the Inferno version written in Limbo
