@@ -129,7 +129,7 @@ the same effect.
 \index{variables!assigning}
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption=Declaration with =]
+\begin{lstlisting}[linewidth=.5\textwidth,caption={Declaration with =}]
 var a int
 var b bool
 a = 15
@@ -138,7 +138,7 @@ b = false
 \hfill
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption=Declaration with :=]
+\begin{lstlisting}[linewidth=.5\textwidth,caption={Declaration with :=}]
 a := 15
 b := false
 \end{lstlisting}
@@ -281,7 +281,8 @@ To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
 c := []byte(s)	    |\longremark{Convert \var{s} to an array of bytes, see %
-chapter \ref{chap:beyond} section "\titleref{sec:conversions}";}|
+chapter \ref{chap:beyond} section "\titleref{sec:conversions}" on %
+page \pageref{sec:conversions};}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
 s2 := string(c)     |\longremark{Create a \emph{new} %
@@ -314,10 +315,10 @@ would be to use \emph{raw} string literals\index{string literal!raw} by using ba
 s := `Starting part
      Ending part`
 \end{lstlisting}
-Be aware that in this example \var{s} now also contains the newline.
-\end{lbar}
+Be aware that in this last example \var{s} now also contains the newline.
 Unlike \emph{interpreted} string literals \index{string literal!interpreted} a raw string literal's value
 is composed of the \emph{uninterpreted} characters between the quotes.
+\end{lbar}
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex128} (64
@@ -498,10 +499,10 @@ For instance a loop in disguise:
 \begin{lstlisting}
 func myfunc() {
         i := 0                                                                                      
-HERE:	   |\coderemark{First word on a line ending with a colon is a label}|
+Here:	   |\coderemark{First word on a line ending with a colon is a label}|
         println(i)
         i++ 
-        goto HERE |\coderemark{Jump}|
+        goto Here |\coderemark{Jump}|
 }
 \end{lstlisting}
 The name of the label is case sensitive.
@@ -583,7 +584,7 @@ slice as the key and value belonging to that index.
 Consider this code: \index{keyword!range!on slices}
 \begin{lstlisting}
 list := []string{"a", "b", "c", "d", "e", "f"}     |\longremark{Create a %
-slice (see "\titleref{sec:arrays}" on page \pageref{sec:arrays}) of strings.}|
+slice (see "\titleref{sec:arrays}" on page \pageref{sec:arrays})) of strings.}|
 for k, v := range list {	|\longremark{Use \key{range} to loop over them.%
 With each iteration \key{range} will return the index as \type{int} and %
 the key as a \type{string}, starting with 0 and "a".}|
@@ -594,11 +595,12 @@ the key as a \type{string}, starting with 0 and "a".}|
 \showremarks
 
 You can also use \key{range} on strings directly. Then it
-will break out the individual Unicode characters by parsing the UTF-8 (erroneous encodings consume one
-byte and produce the replacement rune \footnote{In the UTF-8 world characters are
-sometimes called \first{runes}{runes}. Mostly, when people talk about
+will break out the individual Unicode characters 
+\footnote{In the UTF-8 world characters are sometimes called \first{runes}{runes}. 
+Mostly, when people talk about
 characters, they mean 8 bit characters. As UTF-8 characters may be up to 32 bits the word
-rune is used.} U+FFFD). The loop: \index{keyword!range!on maps}
+rune is used.} and their start position, by parsing the UTF-8.
+The loop: \index{keyword!range!on maps}
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
     fmt.Printf("character '%c' starts at byte position %d\n", char, pos)
@@ -608,7 +610,7 @@ prints
 \begin{display}
 character 'a' starts at byte position 0
 character '\begin{math}\Phi\end{math}' starts at byte position 1
-character 'x' starts at byte position 3
+character 'x' starts at byte position 3 \coderemark{\begin{math}\Phi\end{math} took 2 bytes}
 \end{display}
 
 \subsection{Switch}
