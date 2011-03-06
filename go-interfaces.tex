@@ -297,7 +297,7 @@ a function to compare two values and a swap function;
 \begin{lstlisting}
 type Sorter interface {
     Len() int           |\coderemark{\texttt{len()} as a method}|
-    Less(i, j int) bool |\coderemark{\texttt{$<$}     as a method}|
+    Less(i, j int) bool |\coderemark{\texttt{p[j] $<$ p[i]} as a method}|
     Swap(i, j int)      |\coderemark{\texttt{p[i], p[j] = p[j], p[i]} as a method}|
 }
 \end{lstlisting}
@@ -311,13 +311,13 @@ type Xs []string
 For integers:
 \begin{lstlisting}
 func (p Xi) Len() int               { return len(p) }
-func (p Xi) Less(i int, j int) bool { return p[i] < p[j] }
+func (p Xi) Less(i int, j int) bool { return p[j] < p[i] }
 func (p Xi) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 \end{lstlisting}
 And for strings:
 \begin{lstlisting}
 func (p Xs) Len() int               { return len(p) }
-func (p Xs) Less(i int, j int) bool { return p[i] < p[j] }
+func (p Xs) Less(i int, j int) bool { return p[j] < p[i] }
 func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 \end{lstlisting}
 \item Write a \emph{generic} Sort function that works on the \type{Sorter} interface.
@@ -337,7 +337,7 @@ func Sort(x Sorter) { |\longremark{\var{x} is now of the \texttt{Sorter} type;}|
 We can now use you generic \func{Sort} function as follows:
 \begin{lstlisting}
 ints := Xi{44, 67, 3, 17, 89, 10, 73, 9, 14, 8}
-strings := Xs{"noot", "aap", "Mies", "Miek", "Go"}
+strings := Xs{"nut", "ape", "elephant", "zoo", "go"}
 
 Sort(ints)
 fmt.Printf("%v\n", ints)
