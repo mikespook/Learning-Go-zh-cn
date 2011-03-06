@@ -1,5 +1,6 @@
 xx fff 2011: 0.4 Miek Gieben <miek@miek.nl>
    * Fixes
+   * Use hyperref, accurate numbering in the pdf and clickable links
    * Functions: callbacks, closures added 
    * Functions: panic, recover added (TODO)
    * Communication: Dial, netchan added (TODO)

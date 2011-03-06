@@ -323,7 +323,7 @@ func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 \item Write a \emph{generic} Sort function that works on the \type{Sorter} interface.
 \begin{lstlisting}
 func Sort(x Sorter) { |\longremark{\var{x} is now of the \texttt{Sorter} type;}|
-    for i := 0; i < x.Len()-1; i++ { |\longremark{Using the defined functions, we implement Bubblesort;}|
+    for i := 0; i < x.Len() - 1; i++ { |\longremark{Using the defined functions, we implement Bubblesort.}|
 	for j := i + 1; j < x.Len(); j++ {
 	    if x.Less(i, j) {
 		x.Swap(i, j)

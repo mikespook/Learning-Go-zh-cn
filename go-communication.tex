@@ -89,10 +89,28 @@ Note that \lstinline{os.Wait} (among other things) returns the
 \func{exit code}, with:
 \begin{lstlisting}
 w := os.Wait(pid, os.WNOHANG)
-e := w.WaitStatus.ExitStatus()  |\coderemark{ExitStatus() return an integer}|
+e := w.WaitStatus.ExitStatus()  |\coderemark{ExitStatus() returns an integer}|
 \end{lstlisting}
 
 \section{Networking}
+All network related types and functions can be found in the package \package{net}. One of the
+most important functions in there is \func{Dial}\index{networking!Dial}. When you \func{Dial}
+into a remote system the function returns a \var{Conn} interface type, which can be used
+to send and receive information. The function \func{Dial} neatly abstracts away the network
+family and transport. So IPv4 or IPv6, TCP or UDP can all share a common interface. 
+
+Dialing a remote system (port 80) over TCP, then UDP and lastly TCP over IPv6 looks
+like this:\footnote{In case
+you are wondering, 192.0.32.10 and 2620:0:2d0:200::10 are \url{www.example.org}.}
+\begin{lstlisting}
+conn, err := Dial("tcp", "", "192.0.32.10:80")
+conn, err := Dial("udp", "", "192.0.32.10:80")
+conn, err := Dial("tcp", "", "[2620:0:2d0:200::10]:80") |\coderemark{Brackets are mandatory}|
+\end{lstlisting}
+
+And with \var{conn} you can do read/write \todo{dkls}.
+
+\todo{Write echo server}
 
 \section{Netchan: networking and channels}
 %%http://blog.golang.org/2010/09/go-concurrency-patterns-timing-out-and.html
