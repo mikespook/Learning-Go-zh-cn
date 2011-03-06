@@ -1,9 +1,6 @@
 package main
 
-import (
-	"os"
-	"bufio"
-)
+import ( "os"; "bufio")
 
 func main() {
 	buf := make([]byte, 1024)
@@ -14,9 +11,7 @@ func main() {
 	defer w.Flush()
 	for {
 		n, _ := r.Read(buf)
-		if n == 0 {
-			break
-		}
+		if n == 0 { break }
 		w.Write(buf[0:n])
 	}
 }

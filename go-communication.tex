@@ -11,7 +11,7 @@ If you want to use \first{buffered}{buffered} IO there is the
 \package{bufio}\index{package!bufio} package:
 \lstinputlisting[numbers=right,caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
 
-On line 12 we create a \type{bufio.Reader} from \var{f} which is of
+On line 9 we create a \type{bufio.Reader} from \var{f} which is of
 type \type{*File}. \func{NewReader} expects an \type{io.Reader}, so you
 might think this will fail. But it doesn't. An \type{io.Reader} is
 defined as:
