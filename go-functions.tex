@@ -347,20 +347,20 @@ With functions as values they are easy to pass to functions, from where
 they can be used as callbacks. First define a function that
 does "something" with an integer value:
 \begin{lstlisting}
-func printit(x int) {       |\coderemark{Function return nothing}|
+func printit(x int) {       |\coderemark{Function returns nothing}|
     fmt.Print("%v\n", x)    |\coderemark{Just print it}|
 
 }
 \end{lstlisting}
 The signature of this function is: \lstinline{func printit(int)}, or
-without the function name: \lstinline{func(int)}. To create a new function
+without the function name: \mbox{\lstinline{func(int)}}. To create a new function
 that uses this one as a callback we need to use this signature:
 \begin{lstlisting}
-func callback(y int, f func(int)) { |\coderemark{\func{f} holds the function}|
+func callback(y int, f func(int)) { |\coderemark{\func{f} will hold the function}|
     f(y)    |\coderemark{Call the callback \func{f} with \var{y}}|
 }
 \end{lstlisting}
-We've already seen some use of closures in section "\titleref{deferred code}", but there
+We've already seen some use of closures in section "\titleref{sec:deferred code}", but there
 is more to tell. When you define a closure, i.e. when you start using a function
 literal you still have access to the (local) variables defined in the current
 function.
