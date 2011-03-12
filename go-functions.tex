@@ -294,13 +294,11 @@ func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
 \end{lstlisting}
 
 \section{Variadic parameters}
-\todo{Extend this section a bit. How to call another function with
-a variadic argument (propagation) (MG).}
 Functions that take variadic parameters are functions that have a
 variable number of parameters. To do this, you first
 need to declare your function to take variadic arguments:
 \begin{lstlisting}
-func myfunc(arg ... int) {}
+func myfunc(arg ...int) {}
 \end{lstlisting}
 The \lstinline{arg ... int} instructs Go to see this as a function that
 takes a variable number of arguments. Note that these arguments all
@@ -311,10 +309,17 @@ for _, n := range arg {
     fmt.Printf("And the number is: %d\n", n)
 }
 \end{lstlisting}
-
 If you don't specify the type of the variadic argument it defaults to the
 empty interface \var{interface\{\}} (see chapter
 \ref{chap:interfaces}").
+Suppose we have another variadic function called \func{myfunc2}, the 
+following example shows how to pass the variadic arguments to it:
+\begin{lstlisting}
+func myfunc(arg ...int) {
+    myfunc2(arg...)  |\coderemark{Pass it as-is}|
+    myfunc2(arg[:2]...)  |\coderemark{Slice it}|
+}
+\end{lstlisting}
 
 \section{Functions as values}
 \label{sec:functions as values}
