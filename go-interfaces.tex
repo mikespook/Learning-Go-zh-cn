@@ -259,7 +259,7 @@ Using this apprach would lead to two functions, one for each type. By using
 interfaces we can make this more \index{generic} generic.
 
 Lets create a new function that will sort both strings and
-integers, something along the lines of the non-working example:
+integers, something along the lines of this non-working example:
 \begin{lstlisting}
 func sort(i []interface{}) { |\longremark{Our function will receive a slice of %
 empty interfaces;}|
@@ -350,7 +350,7 @@ fmt.Printf("%v\n", strings)
 In a program, you can discover the dynamic type of an interface variable
 by using a \key{switch}.
 Such a type assertion\gomarginindex{Type assertion.}{type assertion} uses
-the syntax of a type assertion with the keyword type inside the
+the syntax of a type assertion with the keyword \key{type} inside the
 parentheses. If the switch declares a variable in the expression, the
 variable will have the corresponding type in each clause.
 \begin{lstlisting}[caption=Dynamically find out the type]
@@ -376,7 +376,7 @@ func main() {
 func WhichOne(x interface{}) { |\longremark{This function must accept \emph{both} %
 types as valid input, so we use the empty Interface, which every type implements;}|
 	switch t := x.(type) { |\longremark{The type switch: \texttt{(type)};}|
-	case *PersonAge:	|\longremark{When allocated with \func{new} it's a %
+	case *PersonAge:	|\longremark{When allocated with \func{new}, it's a %
 pointer. So we check for \type{*PersonAge}. If \func{WhichOne()} was %
 called with a non pointer value, we should check for \type{PersonAge}.}|
 		println("Age person")
