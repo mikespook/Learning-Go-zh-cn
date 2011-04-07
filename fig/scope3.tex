@@ -1,0 +1,36 @@
+\begin{lstlisting}[caption=Scope and function literals,label=src:scope3,float]
+|\begin{tikzpicture}[overlay]
+\draw [->,thick] (2.8,-4.10) arc (-60:90:0.20cm);
+\draw [->,thick] (2.8,-2.00) arc (-60:90:0.20cm);
+\draw [->,thick] (2.4,-1.60) arc (-60:90:0.50cm);
+%
+\draw [->,thick] (4.4,-8.75) arc (-60:80:4.30cm);
+% function f()
+\draw [->,thick] (4.4,-5.85) arc (-60:90:0.30cm);
+\draw [->,thick] (4.4,-5.25) arc (-60:90:0.90cm);
+%
+\draw [->,thick] (3.2,-7.45) arc (-60:65:2.00cm);
+\end{tikzpicture}|
+package main
+var a int
+func main() {
+        a = 5
+        println(a)
+        f()
+}
+func f() {
+        a := 6
+        println(a)
+        g()
+        x := func() {
+                a = 7
+                println(a)
+        }
+        x()
+        g()
+        println(a)
+}
+func g() {
+        println(a)
+}
+\end{lstlisting}

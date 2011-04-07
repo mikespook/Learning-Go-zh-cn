@@ -1,0 +1,25 @@
+\begin{Exercise}[title={Fibonacci II},difficulty=7]
+\label{ex:fibonaci II}
+\Question\label{ex:fibonaci II q1}
+This is the same exercise as the one given page \pageref{ex:fibonaci} 
+in exercise \ref{ex:fibonaci}. For completeness the complete question:
+
+\begin{quote}
+The Fibonacci sequence starts as follows: $1, 1, 2, 3, 5, 8, 13, \ldots$
+Or in mathematical terms: $ x_1 = 1; x_2 = 1; x_n = x_{n-1} +
+x_{n-2}\quad\forall n > 2 $.
+
+Write a function that takes an \type{int} value and gives 
+that many terms of the Fibonacci sequence.
+\end{quote}
+\emph{But} now the twist: You must use channels.
+
+\end{Exercise}
+
+\begin{Answer}
+\Question
+The following program calculates the Fibonacci numbers using channels.
+\lstinputlisting[label=src:fib II,caption=A Fibonacci function in Go]{ex-channels/src/fib.go}
+\end{Answer}
+
+

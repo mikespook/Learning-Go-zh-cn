@@ -1,0 +1,174 @@
+\setmonofont[SmallCapsFont={DejaVu Sans Mono},Scale=0.70]{DejaVu Sans Mono}
+%% Fontfeatures after setting the mono font to keep
+%% lstlisting fonts happy
+\defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
+\setmainfont[SmallCapsFont={Droid Sans Mono}]{Droid Serif}
+\setsansfont{Droid Sans}
+\def\inputGnumericTable{}
+
+%% list of answers
+\newlistof{listofex}{ex}{List of Exercises}
+\newlistentry{exercise}{ex}{0}
+
+\newlistof{listofcode}{code}{List of Code Examples}
+\newlistentry{code}{code}{0}
+
+%% need to do this for code examples too
+%%\renewcommand{\lstlistlistingname}{List of Code Examples}
+%% toc
+\renewcommand{\tocheadstart}{}
+\renewcommand{\aftertoctitle}{\pagestyle{blocks}}
+\renewcommand{\aftertoctitle}{\thispagestyle{empty}\afterchaptertitle\pagestyle{blocks}}
+
+%%\renewcommand{\printtoctitle}[1]{}
+\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\tocmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily \contentsname}}
+%% new print the titles as section not as chapter, that explains
+%% why the page is headerless. the page style is empty
+%% lof
+\renewcommand{\lofheadstart}{}
+\renewcommand{\afterloftitle}{\thispagestyle{blocks}}
+\renewcommand{\printloftitle}[1]{\section*{#1}}
+\renewcommand{\lotmark}{\markboth{\myfamily \typename:
+\contentsname}{\myfamily \listfigurename}}
+%% lot
+\renewcommand{\lotheadstart}{}
+\renewcommand{\afterlottitle}{\thispagestyle{blocks}}
+\renewcommand{\printlottitle}[1]{\section*{#1}}
+\renewcommand{\lofmark}{\markboth{\myfamily \typename:
+\contentsname}{\myfamily \listtablename}}
+%% ex
+\renewcommand{\exheadstart}{}
+\renewcommand{\afterextitle}{\thispagestyle{blocks}}
+\renewcommand{\printextitle}[1]{\section*{#1}}
+\renewcommand{\exmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Exercises}}
+%% code
+\renewcommand{\codeheadstart}{}
+\renewcommand{\aftercodetitle}{\thispagestyle{blocks}}
+\renewcommand{\printcodetitle}[1]{\section*{#1}}
+\renewcommand{\codemark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Code Examples}}
+
+\nobibintoc
+\renewcommand*{\indexmark}{%
+\markboth{\myfamily \typename{} \thechapter: \indexname}{\myfamily\indexname}%
+}
+
+\onecolindexfalse  %% doesn't do its things as advertised
+\noindexintoc
+\makeindex
+
+%% make quote print italics and other fancy stuff
+\newcommand{\qquote}{{\scalefont{4.00}{``}}}
+\expandafter\def\expandafter\quote\expandafter{\quote\em}
+
+%%\DeclareCaptionFont{white}{\color{white}}
+%%\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35,
+%%0.35,0.01}{\parbox{0.5\textwidth}{\hspace{0.5em}#1#2#3}}} % 0.98 same as listings
+%%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white,singlelinecheck=false,margin=0em,font={bf,footnotesize}}
+
+%% Listings
+\lstdefinelanguage{Go}
+  {morekeywords={append,break,cap,case,chan,const,continue,copy,default,defer,else,fallthrough,%
+  for,func,go,goto,if,import,interface,len,make,map,new,package,range,return,select,%
+  struct,switch,type,var,%  % types
+  uint8,uint16,uint32,uint64,int8,int16,int32,int64,float32,float64,byte,%
+  complex,complex128,complex64,%
+  int,uint,bool,uintptr,string,%
+  iota,%
+  },%
+  otherkeywords={<-,!,;,\{,\}},%  %% nog beter maken
+    sensitive=true,%
+    morecomment=[l]{//},%
+    morecomment=[s]{/*}{*/},%
+    morecomment=[n]{(*}{*)},%
+    morestring=[b]",%
+    morestring=[b]',%
+    morestring=[b]`,%
+  }[]%
+\lstset{language=Go,inputencoding=utf8,extendedchars=false,texcl,escapechar=\|,basicstyle=\ttfamily,keywordstyle=\bfseries,numbers=none,numberblanklines=false,showstringspaces=false,breaklines=true,numberstyle=\small\ttfamily,xleftmargin=\parindent,xrightmargin=1em,linewidth=0.98\linewidth}
+%,literate={"}{\textasciiquote}{1}}
+
+\newcommand{\coderemark}[1]{\qquad$\leftarrow \textit{\small #1}$}
+
+%% Cite style
+%%\bibpunct{[}{]}{;}{s}{,}{,}
+
+%% Exercises
+\renewcommand{\ExerciseHeaderTitle}{\ExerciseTitle}
+\renewcommand{\ExerciseHeaderLabel}{}
+\renewcommand{\ExerciseName}{}	%% was 'Exercise'
+\renewcommand{\ExerciseHeaderNB}{\theExercise}
+%% This one is actually used
+\renewcommand{\ExerciseHeader}{\vspace{.7ex}\noindent\textbf{Q\theExercise}. (\number\ExerciseDifficulty) \ExerciseTitle\quad%
+\addcontentsline{ex}{exercise}{\numberline{\theExercise}(\number\ExerciseDifficulty) \ExerciseTitle}}
+\renewcommand{\AnswerHeader}{\vspace{.7ex}\noindent\textbf{A\theExercise}.  (\number\ExerciseDifficulty) \ExerciseTitle\quad}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{\textbf{#1}}}
+\newcommand{\type}[1]{\texttt{\textbf{#1}}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+\newcommand{\first}[2]{#1\index{#2}}
+\newcommand{\error}[1]{\texttt{#1}}
+\newcommand{\pr}{\%}
+\newcommand{\gorelease}[1]{\texttt{release.#1}}
+
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+%% Footnotes
+%%\renewcommand*{\thefootnote}{\textbf{\emph\MakeUppercase{\alph{footnote}}}}
+\renewcommand*{\thefootnote}{\textbf{\emph\alph{footnote}}}
+
+%% Epigraph
+\newcommand{\epi}[2]{\epigraph{#1}{#2}}
+\setlength{\epigraphwidth}{1.2\epigraphwidth}
+
+%% Margin notes
+\setmarginnotes{0.04\stockwidth}{0.12\stockwidth}{\onelineskip}
+\newcommand{\gomarginpar}[1]{%
+\marginpar{\rmfamily\itshape\small#1}}
+\newcommand{\todo}[1]{%
+\gomarginpar{{\textsc{TODO}}\\#1}}
+%% typeset text in margin and index arg 2
+\newcommand{\gomarginindex}[2]{\gomarginpar{#1}\index{#2}}
+\newcommand{\gopher}{%
+\begin{figure}[H]%
+\includegraphics[scale=0.20, width=.70\marginparwidth]{fig/gopher.png}%
+\end{figure}%
+}
+
+\newenvironment{cjk}{%
+\begin{CJK*}{UTF8}{song}
+\setCJKfamilyfont{Chinese}{WenQuanYi Zen Hei}
+\CJKfamily{Chinese}
+}%
+{%
+\end{CJK*}%
+}
+
+% start, end, text
+\newcommand{\ubrace}[3]{%
+\draw [thick,decorate,decoration={brace,amplitude=4pt},xshift=0pt,yshift=0pt] %
+(#1) -- (#2) node [black,midway,below=4pt,xshift=0pt] %
+{\longremark{#3}}; %
+}
+
+%% fixes
+\newcommand{\exdisfix}{\vspace{1ex}}

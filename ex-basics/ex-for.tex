@@ -1,0 +1,54 @@
+\begin{Exercise}[title={For-loop},difficulty=1]
+\label{ex:for-loop}
+\Question \label{ex:for-loop q1} Create a simple loop with the \key{for} construct. Make it loop
+10 times and print out the loop counter with the \package{fmt} package.
+
+\Question \label{ex:for-loop q2} Rewrite the loop from \ref{ex:for-loop q1}. to use \key{goto}. The
+keyword \key{for} may not be used.
+
+\Question \label{ex:for-loop q3} Rewrite the loop again so that it fills an array and then
+prints that array to the screen.
+\end{Exercise}
+
+\begin{Answer}
+
+\Question There are a multitude of possibilities, 
+one of the solutions could be:
+\lstinputlisting[caption={Simple for loop},label=src:for]{ex-basics/src/for.go}
+Lets compile this and look at the output.
+\vskip\baselineskip
+\begin{display}
+\pr 6g for.go && 6l -o for for.6
+\pr ./for
+0
+1
+.
+.
+.
+9
+\end{display}
+\vskip\baselineskip
+
+\Question Rewriting the loop results in code that should look something
+like this (only showing the \func{main}-function):
+\begin{lstlisting}
+func main() {
+        i := 0		|\coderemark{Define our loop variable}|
+I:			|\coderemark{Define a label}|
+        fmt.Printf("%d\n", i)
+        i++ 
+        if i < 10 {
+                goto I	|\coderemark{Jump back to the label}|
+        }   
+}
+\end{lstlisting}
+
+\Question 
+The following might one possible solution:
+\lstinputlisting[label=src:for-arr,caption={For loop with an array},linerange={5,11}]{ex-basics/src/for-arr.go}
+You could even do this in one fell swoop by using a composite literal:
+\begin{lstlisting}
+a := [...]int{0,1,2,3,4,5,6,7,8,9} |\coderemark{With [...] you let Go count}|
+fmt.Printf("%v\n", a)
+\end{lstlisting}
+\end{Answer}

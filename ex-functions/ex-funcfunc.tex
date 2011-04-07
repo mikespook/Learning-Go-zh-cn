@@ -1,0 +1,45 @@
+\begin{Exercise}[title={Functions that return functions},difficulty=6]
+\label{ex:function}
+\Question\label{ex:function q1} Write a function that returns a function
+that performs a $+2$ on integers. Name the function \func{plusTwo}.
+You should then be able do the following:
+\begin{lstlisting}
+p := plusTwo()
+fmt.Printf("%v\n", p(2))
+\end{lstlisting}
+Which should print 4.
+See section \titleref{sec:callbacks} on page \pageref{sec:callbacks} for information
+about this topic.
+
+\Question\label{ex:function q2} Generalize the function from \ref{ex:function q1},
+and create a \func{plusX(x)} which returns a functions that add \var{x} to an
+integer.
+\end{Exercise}
+
+\begin{Answer}
+\Question
+\begin{lstlisting}
+func main() {
+        p2 := plusTwo()
+        fmt.Printf("%v\n",p2(2))
+}
+
+func plusTwo() func(int) int { |\longremark{Define a new function that returns a function. %
+See how you you can just write down what you mean;}|
+        return func(x int) int { return x + 2 } |\longremark{Function literals at work, %
+we define the +2--function right there in the return statement.}|
+}
+\end{lstlisting}
+\showremarks
+
+\Question
+Here we use a closure:
+\begin{lstlisting}
+func plusX(x int) func(int) int { |\longremark{Again define a function that returns %
+a function;}|
+        return func(y int) int { return x + y } |\longremark{Use the \emph{local} variable %
+\var{x} in the function literal.}|
+}
+\end{lstlisting}
+\showremarks
+\end{Answer}

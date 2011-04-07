@@ -1,0 +1,35 @@
+\begin{Exercise}[title={Documentation},difficulty=1]
+\label{ex:doc}
+\Question
+Go's documentation can be read with the \prog{godoc} program, which is
+included the Go distribution.
+
+\prog{godoc hash} gives information about the \package{hash} package. Reading the
+documentation on \package{container} gives the following result:
+\vskip\baselineskip
+\begin{display}
+SUBDIRECTORIES
+
+heap
+list
+ring
+vector
+\end{display}
+\vskip\baselineskip
+With which \prog{godoc} command can you read the documentation of \package{vector} contained in
+\package{container}?
+
+\end{Exercise}
+
+\begin{Answer}
+\Question
+The package \package{vector} is in a \emph{subdirectory} of
+\package{container}, so you will only need\quad \texttt{godoc
+container/vector}.
+
+Specific functions inside the "Go manual" can also be accessed. For
+instance the function \func{Printf} is described in \package{fmt}, but to
+only view the documentation concerning this function use: \prog{godoc fmt Printf}{} .
+
+You can even display the source code with: \prog{godoc -src fmt Printf} .     
+\end{Answer}

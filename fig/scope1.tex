@@ -1,0 +1,24 @@
+\begin{lstlisting}[caption=Local scope,label=src:scope1]
+|\begin{tikzpicture}[overlay]
+\draw [->,thick] (3.1,-5.00) arc (-60:90:2.00cm);
+\draw [->,thick] (3.1,-7.00) arc (-60:90:0.20cm);
+\end{tikzpicture}|
+package main
+
+var a = 6
+
+func main() {
+    p()
+    q()
+    p()
+}
+
+func p() {
+    println(a)
+}
+
+func q() {
+    a := 5	    |\coderemark{Definition}|
+    println(a)
+}
+\end{lstlisting}

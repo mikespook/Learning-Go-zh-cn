@@ -1,0 +1,10 @@
+\begin{tabular}{lllllll}
+\textbf{From}	 &  \verb|xb []byte|& \verb|xi []int|& \verb|s string|     & \verb|f float32|	&  \verb|i int|	\\ \cmidrule(r){1-6}
+\textbf{To}	 &		    &		     &			   &			& \\ \cmidrule(r){1-1}
+\verb|[]byte|    & $\texttimes$	    &		     & \verb|[]byte(s)|	   &			& \\
+\verb|[]int|     &		    & $\texttimes$   & \verb|[]int(s)|	   &			& \\
+\verb|string|    &\verb|string(xb)| &\verb|string(xi)|&	$\texttimes$	   &			& \\
+\verb|float32|	 &		    &		     &			   & $\texttimes$	& \verb|float32(i)|\\
+\verb|int|	 &		    &		     &			   & \verb|int(f)|	& $\texttimes$ \\
+%%\bottomrule
+\end{tabular}

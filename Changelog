@@ -1,0 +1,29 @@
+xx fff 2011: 0.4 Miek Gieben <miek@miek.nl>
+   * Fixes
+   * Use hyperref, accurate numbering in the pdf and clickable links
+   * Functions: callbacks, closures added 
+   * Functions: panic, recover added (TODO)
+   * Communication: Dial, netchan added (TODO)
+   * Exercises: .... (TODO)
+
+
+28 Feb 2011: 0.3 Miek Gieben <miek@miek.nl>
+   * Released version 0.3
+   * Real programmers count from 0 - code bullets start with zero now
+   * Fix quotes in the code examples
+   * Lots of improvements and fixes from people. See Colophone.
+
+25 Oct 2010: 0.2 Miek Gieben <miek@miek.nl>
+   * Released version 0.2
+   * Updated to release 'release.2010-10-20'
+   * Automatic checking of Go code
+   * Apply comments from the go-nuts mailing list
+   * Interfaces back as sep. chapter
+   * Smaller changes:
+	- different footnote marker
+	- more plain quoting
+	- removed appendix A
+
+
+16 Aug 2010: 0.1 Miek Gieben <miek@miek.nl>
+    * Released version 0.1

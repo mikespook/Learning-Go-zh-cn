@@ -1,0 +1,55 @@
+\begin{Exercise}[title={Pointers},difficulty=6]
+\label{ex:pointers}
+
+\Question
+Suppose we have defined the following structure:
+\begin{lstlisting}
+type Person struct {
+    name string
+    age	 int
+}
+\end{lstlisting}
+
+What is the difference between the following two lines?
+\begin{lstlisting}
+var p1 Person
+p2 := new(Person)
+\end{lstlisting}
+
+\Question
+What is the difference between the following two allocations?
+\begin{lstlisting}[numbers=none]
+func Set(t *T) {
+    x = t
+}
+\end{lstlisting}
+and
+\begin{lstlisting}[numbers=none]
+func Set(t T) {
+    x= &t
+}
+\end{lstlisting}
+\end{Exercise}
+
+\begin{Answer}
+\Question
+In first line: \lstinline{var p1 Person} allocates a
+\texttt{Person}-\emph{value} to \var{p1}. The type of \var{p1} is
+\type{Person}.
+
+The second line: \lstinline{p2 := new(Person)} allocates memory
+and assigns a \emph{pointer} to \var{p2}. The type of \var{p2} is
+\type{*Person}.
+
+\Question
+In the second function, \var{x} points to a new
+(heap-allocated) variable \var{t} which contains
+a copy of whatever the actual argument value is.
+
+In the first function, \var{x} points to the same thing
+that \var{t} does, which is the same thing that the actual
+argument points to.
+
+So in the second function, we have an "extra" variable
+containing a copy of the interesting value.
+\end{Answer}

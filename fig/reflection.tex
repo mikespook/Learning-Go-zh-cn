@@ -1,0 +1,58 @@
+\begin{lstlisting}[caption=Introspection using reflection,label=src:introspection]
+|\begin{tikzpicture}[overlay]
+\ubrace{3.2,-5.2}{2.2,-5.2}{%
+We are dealing with a \type{PtrValue} and according %
+to the documentation\footnote{\texttt{godoc reflect}}:%
+\begin{quote} %
+\texttt{\func{func} (v *PtrValue) Elem() Value}\\%
+Elem returns the value that v points to. %
+If v is a nil pointer, Elem returns a nil Value. %
+\end{quote} %
+So on \var{t} we use \func{Elem()} to get the value the pointer %
+points to.}
+%%We can use \func{Elem()} to get the type the pointer points to. %
+%%In this case \type{*reflect.StructValue}. We have also %
+%%used \type{reflect.NewValue(i)} for the type assertion, so that %
+%%we get back types in the \type{*reflect} namespace;}
+%
+\ubrace{4.3,-5.2}{3.6,-5.2}{On \var{Value} we use the function %
+\func{Type()} which returns \type{reflect.Type}. We need to get %
+the type because there is where the tag is defined;}%
+%
+\ubrace{7.7,-5.2}{4.8,-5.2}{%
+So now we have a \var{reflect.Type}:\\%
+\begin{quote} %
+\ldots which returns an object with interface %
+type \type{Type}.  That contains a pointer to a struct of type %
+\type{*StructType}, %
+\type{*IntType}, etc. representing the details of the underlying type. %
+A type switch or type assertion can reveal which. %
+\end{quote} %
+So we can access your specific type as a member of this struct. Which %
+we do with \type{(*reflect.StructType)};}
+%
+\ubrace{8.9,-5.2}{7.9,-5.2}{%
+A \type{StructType} has a number of methods, one of which is %
+\func{Field($n$)} which returns the $n^{th}$ field of a structure. %
+The type of this return is a \type{StructField};}
+%
+\ubrace{9.6,-5.2}{9.1,-5.2}{%
+The struct \type{StructField} has a \var{Tag} member which %
+returns the tag-name as a string. So on the $0^{th}$ field we can %
+unleash \func{.Tag} to access this name: \texttt{Field(0).Tag}. This %
+\emph{finally} gives us \texttt{namestr}.}
+\end{tikzpicture}|
+type Person struct {
+    name string "namestr" |\coderemark{\texttt{"namestr"} is the tag}|
+    age  int
+}
+
+p1 := new(Person)   |\coderemark{\func{new} returns a pointer to Person}|
+ShowTag(p1)	    |\coderemark{\func{ShowTag()} is now called with this pointer}|
+
+func ShowTag(i interface{}) {
+ switch t := reflect.NewValue(i).(type) { |\coderemark{Type assert on \type{reflect} value}|
+ case *reflect.PtrValue:	  |\coderemark{Hence the case for \var{*reflect.PtrValue}}|
+	tag := t.Elem().Type().(||*reflect.StructType).Field(0).Tag
+||
+\end{lstlisting}

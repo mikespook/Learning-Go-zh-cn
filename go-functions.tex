@@ -1,0 +1,447 @@
+\epi{I'm always delighted by the light touch and stillness of
+early programming languages.  Not much text; a lot gets
+done. Old programs read like quiet conversations
+between a well-spoken research worker and a well-
+studied mechanical colleague, not as a debate with a
+compiler.  Who'd have guessed sophistication bought
+such noise?}{\textsc{RICHARD P. GABRIEL}}
+
+\noindent{}Functions are the basic building blocks in Go programs; all interesting
+stuff happens in them. A function is declared as follows:
+\input{fig/function.tex}
+\showremarks
+Here are a two examples, the left is a function without a return value,
+the one on the right is a simple function that returns its input.
+
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}
+func subroutine(in int) {
+    return
+}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}
+func identity(in int) int {
+    return in
+}
+\end{lstlisting}
+\end{minipage}
+
+Functions can be declared in any order you wish, the compiler scans the
+entire file before execution. So function prototyping is a thing of the
+past in Go.
+Go disallows nested functions.
+You can however
+work around this by using anonymous functions, see section
+"\titleref{sec:functions as values}" on page \pageref{sec:functions as values} 
+in this chapter.
+
+Recursive functions just work as in other languages:
+\begin{lstlisting}[caption=Recursive function]
+func rec(i int) {
+   if i == 10 {
+        return
+   }
+   rec(i+1)
+   fmt.Printf("%d ", i)
+}
+\end{lstlisting}
+This prints \texttt{9 8 7 6 5 4 3 2 1 0}.
+
+\section{Scope}
+Variables declared outside any functions are \first{global}{scope!local} in Go, those
+defined in functions are \first{local}{scope!local} to those functions. If names overlap --- a
+local variable is declared with the same name as a global one --- the
+local variable hides the global one when the current function is
+executed.
+
+\begin{minipage}{.5\textwidth}
+\input{fig/scope1.tex}
+\hfill
+\vfill
+\end{minipage}
+\hfill
+\begin{minipage}{.5\textwidth}
+\input{fig/scope2.tex}
+\hfill
+\vfill
+\end{minipage}
+
+In listing \ref{src:scope1} we introduce a local variable \var{a}
+in the function \func{q()}.
+This local \var{a} is only visible in \func{q()}. That is
+why the code will print: \texttt{656}.
+In listing \ref{src:scope2} no new variables are introduced, there
+is only a global \var{a}.
+Assigning a new value to will be globally visible. This code will
+print: \texttt{655}
+
+In the following example we call \func{g()} from \func{f()}:
+
+\lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
+
+The printout will be: \texttt{565}. A \emph{local} variable is \emph{only}
+valid when we are executing the function in which it is defined. 
+%%Finally, one can create a \first{"function literal"}{function literal} in which you essentially 
+%%define a function inside another
+%%function, i.e. a \first{nested function}{nested function}. 
+%%The following figure should clarify why it prints: \texttt{565757}. 
+%%\input{fig/scope3.tex}
+
+\section{Multiple return values}
+\label{sec:multiple return}
+One of Go's unusual features is that functions and methods can return multiple
+values (Python can do this too). This can be used to improve on a couple of 
+clumsy idioms in C programs:
+in-band error returns (such as -1 for \texttt{EOF}) and modifying an argument.
+In Go, \lstinline{Write} returns a count and an
+error: "Yes, you wrote some bytes but not all of them because you filled the
+device". The signature of \lstinline{*File.Write} in package
+\package{os} is:
+\begin{lstlisting}
+func (file *File) Write(b []byte) (n int, err Error)
+\end{lstlisting}
+and as the documentation says, it returns the number of bytes written and a
+non-\lstinline{nil} \var{Error} when \lstinline{n != len(b)}. This is a common
+style in Go.
+
+A similar approach obviates the need to pass a pointer to a return value to
+simulate a reference parameter. Here's a simple-minded function to grab a
+number from a position in a byte array, returning the number and the next
+position.
+\begin{lstlisting}
+func nextInt(b []byte, i int) (int, int) {
+    x := 0
+    // Naively assume everything is a number
+    for ; i < len(b); i++ {
+        x = x*10 + int(b[i])-'0'
+    }
+    return x, i
+}
+\end{lstlisting}
+You could use it to scan the numbers in an input array a like this:
+\begin{lstlisting}
+a := []byte{'1', '2', '3', '4'}
+var x int
+for i := 0; i < len(a); {	|\coderemark{No \texttt{i++}}|
+    x, i = nextInt(a, i)
+    println(x)
+}
+\end{lstlisting}
+Without having tuples as a native type, multiple return values is the next
+best thing to have. You can return precisely what you want without
+overloading the domain space with special values to signal errors.
+
+\section{Named result parameters}
+\label{sec:named result parameters}
+The return or result parameters of a Go function can be given names and used
+as regular variables, just like the incoming parameters. When named, they are
+initialized to the zero values for their types when the function begins; if the
+function executes a \key{return} statement with no arguments, the current values of
+the result parameters are used as the returned values. Using this
+features enables you (again) to do more with less code \footnote{This is
+a motto of Go; "Do \emph{more} with \emph{less} code".}.
+
+The names are not mandatory but they can make code shorter and clearer:
+\emph{they are documentation}. 
+If we name the results of \lstinline{nextInt} it becomes obvious which
+returned \type{int} is which.
+
+\begin{lstlisting}
+func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
+\end{lstlisting}
+Because named results are initialized and tied to an unadorned
+\key{return},
+they can simplify as well as clarify. Here's a version of
+\lstinline{io.ReadFull} that uses them well:
+
+\begin{lstlisting}
+func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
+    for len(buf) > 0 && err == nil {
+        var nr int
+        nr, err = r.Read(buf)
+        n += nr
+        buf = buf[nr:len(buf)]
+    }
+    return
+}
+\end{lstlisting}
+In the following example we declare a simple function which calculates
+\gomarginpar{Some text in this section comes from \cite{go_intro}.}  % layout
+the factorial value of a value \var{x}.
+\begin{lstlisting}
+func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is also OK}|
+   if x == 0 {
+      return 1
+   } else {
+      return x * Factorial(x - 1)
+   }
+}
+\end{lstlisting}
+So you could also write factorial as:
+\begin{lstlisting}
+func Factorial(x int) (result int) {
+  if x == 0 {
+    result = 1	
+  } else {
+    result = x * Factorial(x - 1)
+  }
+  return
+}
+\end{lstlisting}
+When we use named result values, the code is shorter and
+easier to read.
+You can also write a function with multiple return values:
+\begin{lstlisting}
+func fib(n) (val, pos int) { |\coderemark{Both ints}|
+   if n == 0 {
+      val = 1
+      pos = 0
+   } else if n == 1 {
+      val = 1
+      pos = 1
+   } else {
+      v1, _ := fib(n-1)
+      v2, _ := fib(n-2)
+      val = v1 + v2
+      pos = n
+   }
+   return
+}
+\end{lstlisting}
+
+\section{Deferred code}
+\label{sec:deferred code}
+Suppose you have a function in which you open a file and perform various
+writes and reads on it. In such a function there are often spots where
+you want to return early. If you do that, you will need to close the file
+descriptor you are working on. This often leads to the following code:
+\begin{lstlisting}[caption=Without defer]
+func ReadWrite() bool {
+    file.Open("file")
+    // Do your thing
+    if failureX {
+	file.Close()
+	return false
+    }
+
+    if failureY {
+	file.Close()
+	return false
+    }
+    file.Close()
+    return true
+}
+\end{lstlisting}
+Here a lot of code is repeated. To overcome this Go has the
+\first{\key{defer}}{keyword!defer} statement. After
+\key{defer} you specify a function which is called just \emph{before} a
+return from the function is executed.
+
+The code above could be rewritten as follows. This makes the 
+function more readable, shorter and puts the \func{Close} right next 
+to the \func{Open}.
+\begin{lstlisting}[caption=With defer]
+func ReadWrite() bool {
+    file.Open("file")
+    defer file.Close()	|\coderemark{\func{file.Close()} \emph{is} the function}|
+    // Do your thing
+    if failureX {
+	return false    |\coderemark{\func{Close()} is now done automatically}|
+    }
+    if failureY {
+	return false    |\coderemark{And here too}|
+    }
+    return true
+}
+\end{lstlisting}
+You can put multiple functions on the "deferred list"\index{deferred list}, like this
+example from \cite{effective_go}:
+\begin{lstlisting}
+for i := 0; i < 5; i++ { 
+    defer fmt.Printf("%d ", i) 
+} 
+\end{lstlisting}
+Deferred functions are executed in LIFO order, so the above code
+prints: \lstinline{4 3 2 1 0}. 
+
+With \func{defer} you can even change return values, provided that
+you are using named result parameters and a function
+literal\index{function!literal}\footnote{A function literal
+is sometimes called a \index{closure} closure.}, i.e:
+\begin{lstlisting}[caption=Function literal]
+defer func() {
+	/* ... */
+}()		 |\coderemark{() is needed here}|
+\end{lstlisting}
+Or this example which makes it easier to understand why and where
+you need the braces:
+\begin{lstlisting}[caption=Function literal with parameters]
+defer func(x int) {
+	/* ... */
+}(5)		 |\coderemark{Give the input variable \var{x} the value 5}|
+\end{lstlisting}
+In that (unnamed) function you can access any named return
+parameter:
+\begin{lstlisting}[caption=Access return values within defer]
+func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
+	defer func() {
+		ret++	|\coderemark{Increment \var{ret} with 1}|
+	}()
+	return 0	|\coderemark{1 \emph{not} 0 will be returned!}|
+}
+\end{lstlisting}
+
+\section{Variadic parameters}
+Functions that take variadic parameters are functions that have a
+variable number of parameters. To do this, you first
+need to declare your function to take variadic arguments:
+\begin{lstlisting}
+func myfunc(arg ...int) {}
+\end{lstlisting}
+The \lstinline{arg ... int} instructs Go to see this as a function that
+takes a variable number of arguments. Note that these arguments all
+have the type \type{int}. Inside your function's body the variable
+\var{arg} is a slice of ints:
+\begin{lstlisting}
+for _, n := range arg {
+    fmt.Printf("And the number is: %d\n", n)
+}
+\end{lstlisting}
+If you don't specify the type of the variadic argument it defaults to the
+empty interface \var{interface\{\}} (see chapter
+\ref{chap:interfaces}").
+Suppose we have another variadic function called \func{myfunc2}, the 
+following example shows how to pass the variadic arguments to it:
+\begin{lstlisting}
+func myfunc(arg ...int) {
+    myfunc2(arg...)  |\coderemark{Pass it as-is}|
+    myfunc2(arg[:2]...)  |\coderemark{Slice it}|
+}
+\end{lstlisting}
+
+\section{Functions as values}
+\label{sec:functions as values}
+\index{function!as values}
+\index{function!literals}
+As with almost everything in Go, functions are also \emph{just} values.
+They can be assigned to variables as follows:
+\lstinputlisting[label=src:anonfunc,caption=Anonymous function,linerange={3,}]{src/anon-func.go}
+If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
+\var{a}, it prints \func{func()}.
+
+Functions--as--values may also be used in other places, like in maps.
+Here we convert from integers to functions:
+\begin{lstlisting}[caption=Functions as values in maps]
+var xs = map[int]func() int{
+    1: func() int { return 10 },
+    2: func() int { return 20 },
+    3: func() int { return 30 }, |\coderemark{Mandatory ,}|
+    /* ... */
+}
+\end{lstlisting}
+Or you can write a function that takes a function as its parameter, for
+example a \func{Map} function that works on \type{int} slices. This is
+left as an exercise for the reader, see exercise Q\ref{ex:map function}
+on page \pageref{ex:map function}.
+
+\section{Callbacks and closures}
+\label{sec:callbacks}
+With functions as values they are easy to pass to functions, from where
+they can be used as callbacks. First define a function that
+does "something" with an integer value:
+\begin{lstlisting}
+func printit(x int) {       |\coderemark{Function returns nothing}|
+    fmt.Print("%v\n", x)    |\coderemark{Just print it}|
+
+}
+\end{lstlisting}
+The signature of this function is: \lstinline{func printit(int)}, or
+without the function name: \mbox{\lstinline{func(int)}}. To create a new function
+that uses this one as a callback we need to use this signature:
+\begin{lstlisting}
+func callback(y int, f func(int)) { |\coderemark{\func{f} will hold the function}|
+    f(y)    |\coderemark{Call the callback \func{f} with \var{y}}|
+}
+\end{lstlisting}
+We've already seen some use of closures in section "\titleref{sec:deferred code}", but there
+is more to tell. When you define a closure, i.e. when you start using a function
+literal you still have access to the (local) variables defined in the current
+function.
+
+\begin{lstlisting}
+// Define some local vars
+// This code is WAY to complex, but illustrates it nicely
+    frameSquare := func(x, y int) {
+            // closure effortlessly passes local variables to callback
+            if thickFrame {
+                    // draw 3 x 3 pixel block for thicker rectangle
+                    for x0 := x - 1; x0 <= x+1; x0++ {
+                            for y0 := y - 1; y0 <= y+1; y0++ {
+                                    rgba.Set(x0, y0, redColor)
+                            }
+                    }
+            } else {
+                    rgba.Set(x, y, blueColor)
+            }
+    }
+\end{lstlisting}
+
+If you want to do this by \emph{not} using a closure and defining a completely new
+function you need to pass all vars to the function.
+\todo{Gist is there, but needs much better wording and code}
+
+
+
+\section{Panic and recovering}
+\label{sec:panic}
+Go does not have a exception mechanism, like that in Java for instance: you can not throw exceptions.
+Instead it using a panic-and-recover mechanism. It is worth remembering that you should use this as
+a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
+use it wisely. So, how do you use it.
+
+The following description was taken from \cite{go_blog_panic}:
+\begin{description}
+\item[Panic]{is a built-in function that stops the ordinary flow of control and begins panicking. When the function 
+\func{F} calls \key{panic},
+execution of \func{F} stops, any deferred functions in \func{F} are executed normally, and 
+then \func{F} returns to its caller. To the caller, \func{F} then
+behaves like a call to \key{panic}. The process continues up the stack until all functions in the current 
+goroutine have returned, at which point the program crashes. 
+
+Panics can be initiated by invoking \func{panic} directly. They can also be caused by \emph{runtime errors}, such
+as out-of-bounds array accesses.}
+
+\item[Recover]{is a built-in function that regains control of a panicking goroutine. Recover is \emph{only} useful inside 
+\emph{deferred} functions.
+
+During normal execution, a call to \func{recover} will return \type{nil} and have no other effect. 
+If the current goroutine is panicking, a call
+to \func{recover} will capture the value given to \func{panic} and resume normal execution.}
+\end{description}
+
+\section{Exercises}
+\input{ex-functions/ex-average.tex}
+
+\input{ex-functions/ex-order.tex}
+
+\input{ex-functions/ex-scope.tex}
+
+\input{ex-functions/ex-stack.tex}
+
+\input{ex-functions/ex-vararg.tex}
+
+\input{ex-functions/ex-fib.tex}
+
+\input{ex-functions/ex-map.tex}
+
+\input{ex-functions/ex-minmax.tex}
+
+\input{ex-functions/ex-bubblesort.tex}
+
+\input{ex-functions/ex-funcfunc.tex}
+
+\cleardoublepage
+\section{Answers}
+\shipoutAnswer

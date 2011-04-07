@@ -1,0 +1,421 @@
+\epi{\lstinline{^}}{\textit{Answer to whether there is a bitwise negation
+operator.}\\\textsc{KEN THOMPSON}}
+\noindent{}Packages are a collection of functions and data, they are like the
+Perl packages\cite{perl-packages}. You declare a package with the
+\first{\key{package}}{keyword!package} keyword. The filename does not
+have to match the package name.
+The convention for package names is to use
+lowercase characters.
+Go packages may consist of multiple files,
+but they share the \lstinline{package <name>} line.
+Lets define a package \package{even}\index{package!even} in the file \prog{even.go}.
+
+\lstinputlisting[label=src:even,caption=A small package]{src/even.go}
+Names that start with a capital letter are \emph{exported} and may be used
+outside your package, more on that later. We can now use
+the package as follows in our own program \prog{myeven.go}:
+
+\lstinputlisting[label=src:myeven,caption=Use of the even package]{src/myeven.go}
+\showremarks
+
+Now we just need to compile and link, first the package, then \prog{myeven.go} and
+then link it:
+\begin{display}
+\pr 6g even.go			\coderemark{The package}
+\pr 6g myeven.go		\coderemark{Our program}
+\pr 6l -o myeven myeven.6       \coderemark{Linking stage}
+\end{display}
+And test it:
+\begin{display}
+\pr ./myeven
+Is 5 even? false
+\end{display}
+
+In Go, a function from a package is exported (visible
+outside the package, i.e. public) when the first letter of the function name is a capital, hence
+the function name \func{\emph{E}ven}. If we change our \prog{myeven.go} on line
+7 to using to unexported function \func{even.odd}:
+
+\noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.odd(i))}
+
+We get an error when compiling, because we are trying to use a
+\emph{private} function:
+\begin{display}
+myeven.go:7: cannot refer to unexported name even.odd
+myeven.go:7: undefined: even.odd
+\end{display}
+
+\noindent{}To summarize:
+\begin{itemize}
+\item Public functions have a name starting with a \emph{capital}
+letter;
+\index{public}
+\item Private function have a name starting with a \emph{lowercase} letter.
+\index{private}
+\end{itemize}
+This convention also holds true for other names (new types, global
+variables) you define in a package. Note that the term "capital" is not limited
+to US ASCII, it extends into the entire Unicode range. So captial Greek, Coptic, etc. is OK too.
+
+\section{Building a package}
+\label{sec:building a package}
+To create a package that other people can use (by just using
+\lstinline{import "even"}) we first need to create a directory
+to put the package files in. 
+\begin{display}
+\pr mkdir even
+\pr cp even.go even/
+\end{display}
+\noindent{}Next we 
+can use the following 
+\file{Makefile}, which 
+is adapted for our \package{even} package.
+\lstinputlisting[language=make,caption=Makefile for a package,linerange={5,},numbers=right]{src/Makefile}
+Note that on line 3 we define our \package{even} package and on the
+lines 4 and 5 we enter the files which make up the package.
+Also note that this is \emph{not} the \emph{same} \prog{Makefile} setup as we used
+in section "\titleref{sec:building a program}" in chapter
+\ref{chap:basics}. The last line with the \verb|include| statement is
+different.
+
+If we now issue \prog{gomake}, a file named "\file{\_go\_.6}", a directory
+named "\dir{\_obj/}" and a file inside "\dir{\_obj/}" called
+"\file{even.a}"
+is created. The file \file{even.a} is a static library which holds
+the compiled Go code.
+With \prog{gomake install} the package (well, only the \file{even.a}) is installed in the \emph{official}
+package directory:
+\begin{display}
+\pr make install
+cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
+\end{display}
+\noindent{}After installing we can change our \key{import} from
+\lstinline{"./even"} to \lstinline{"even"}.
+
+But what if you do not want to install packages in the official Go
+directory, or maybe you do not have the permission to do so? When using
+\prog{6/8g} you can use the \flag{\-I}-flag to specify an alternate
+package directory. With this flag you can leave your import statement
+as-is (\lstinline{import "even"}) and continue development in your
+own directory. So the following commands should build (and link) our
+\prog{myeven} program with our package.
+\begin{display}
+\pr 6g -I even/\_obj myeven.go	\coderemark{Building}
+\pr 6l -L even/\_obj myeven.6	\coderemark{Linking}
+\end{display}
+
+\noindent{}Imported, but otherwise unused packages are an error.
+
+\section{Identifiers}
+Names are as important in Go as in any other language. In some cases
+they even have semantic effect: for instance, the visibility of a name
+outside a package is determined by whether its first character is upper
+case. It's therefore worth spending a little time talking about naming
+conventions in Go programs.
+
+The convention that is used was to leave well-known legacy
+not-quite-words alone rather than try to figure out where
+the capital letters go.  \lstinline{Atoi}, \lstinline{Getwd},
+\lstinline{Chmod}.
+Camelcasing works best when you have whole words
+to work with: \lstinline{ReadFile, NewWriter, MakeSlice}.
+
+\subsection{Package names}
+When a package is imported (with \first{\key{import}}{keyword!import}), the package name becomes 
+an accessor for the contents. After\index{package!bytes}
+\begin{lstlisting}
+import "bytes"
+\end{lstlisting}
+the importing package can talk about \func{bytes.Buffer}. It's helpful if
+everyone using the package can use the same name to refer to its
+contents, which implies that the package name should be good: short,
+concise, evocative. By convention, packages are given lower case,
+single-word names; there should be no need for underscores or mixedCaps.
+Err on the side of brevity, since everyone using your package will be
+typing that name. And don't worry about collisions a priori. The package
+name is only the default name for imports. With the above import 
+you can use \lstinline{bytes.Buffer}. With 
+\begin{lstlisting}
+import bar "bytes"
+\end{lstlisting}
+it becomes \lstinline{bar.Buffer}.
+So it does need not be unique across
+all source code, and in the rare case of a collision the importing
+package can choose a different name to use locally. In any case,
+confusion is rare because the file name in the import determines just
+which package is being used.
+
+Another convention is that the package name is the base name of its
+source directory; the package in \package{src/pkg/container/vector} is imported as
+\var{container/vector} but has name \package{vector}, not
+\package{container\_vector} and not
+\package{containerVector}.\index{package!container/vector}
+
+The importer of a package will use the name to refer to its contents, so 
+exported names in the package can use that fact to avoid
+stutter. For instance, the buffered reader type in the
+\package{bufio}\index{package!bufio}
+package is
+called \func{Reader}, not \func{BufReader}, because users see it as
+\func{bufio.Reader},
+which is a clear, concise name. Moreover, because imported entities are
+always addressed with their package name, \func{bufio.Reader} does not conflict
+with \func{io.Reader}. Similarly, the function to make new instances of
+\func{ring.Ring}---which is the definition of a constructor in Go---would normally
+be called \func{NewRing}, but since \type{Ring} is the only type exported by the
+package, and since the package is called
+\package{ring}\index{package!ring}, it's called
+just \func{New}.
+Clients of the package see that as \func{ring.New}. Use the package structure
+to help you choose good names.
+
+Another short example is \func{once.Do}; \func{once.Do(setup)} reads well and would
+not be improved by writing \lstinline{once.DoOrWaitUntilDone(setup)}. Long names
+don't automatically make things more readable. If the name represents
+something intricate or subtle, it's usually better to write a helpful
+doc comment than to attempt to put all the information into the name.
+
+Finally, the convention in Go is to use \first{MixedCaps}{MixedCaps} or mixedCaps rather
+than underscores to write multiword names.
+
+%% Advanced Go, leave it
+%%\section{Initialization}
+%%Every source file in a package can define an \func{init()} function. This function is
+%%called after the variables in the package have gotten their value. The
+%%\func{init()} function can be used to setup state before the execution
+%%begins.
+
+\section{Documenting packages}
+\gomarginpar{This text is copied from \cite{effective_go}.}
+Every package should have a \emph{package comment}, a block comment preceding the
+\key{package} clause. For multi-file packages, the package comment only needs to be
+present in one file, and any one will do. The package comment should introduce
+the package and provide information relevant to the package as a whole. It will
+appear first on the \prog{godoc} page and should set up the detailed documentation
+that follows. An example from the official \package{regexp} package:
+\begin{display}
+/*
+    The regexp package implements a simple library for
+    regular expressions.
+
+    The syntax of the regular expressions accepted is:
+
+    regexp:
+        concatenation { '|' concatenation }
+*/
+package regexp
+\end{display}
+
+Each defined (and exported) function should have a small line of text
+documenting the behavior of the function, from the \package{fmt}
+package:
+\begin{display}
+// Printf formats according to a format specifier and writes to standard output.
+func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
+\end{display}
+
+\section{Testing packages}
+In Go it is customary to write (unit) tests for your package. Writing
+tests involves the \package{testing} package and the program
+\first{\prog{gotest}}{gotest}. Both
+have excellent documentation. When you include tests with your package
+keep in mind that has to be build using the standard \file{Makefile}
+(see section "\titleref{sec:building a package}").
+
+
+%% CLEANFILES+=hello fib chain run.out
+%%
+
+The testing itself is carried out with \prog{gotest}.
+The \prog{gotest} program run all the test functions. Without any
+defined tests for our \package{even} package a \prog{gomake test}, yields:
+\begin{display}
+\pr gomake test
+no test files found (*_test.go)
+make: *** [test] Error 2
+\end{display}
+Let us fix this by defining a test in a test file. Test files reside
+in the package directory and are named \file{*\_test.go}. Those test
+files are just like other Go program, but \prog{gotest} will only
+execute the test functions.
+Each test function has the same signature and its name should start
+with \lstinline{Test}:
+\begin{lstlisting}
+func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
+\end{lstlisting}
+
+When writing test you will need to tell \prog{gotest} that a test has
+failed or was successful. A successful test function just returns. When
+the test fails you can signal this with the following
+functions \cite{go_doc}. These are the most important ones (see \prog{godoc testing}
+for more):
+
+\begin{lstlisting}[numbers=none]
+func (t *T) Fail()
+\end{lstlisting}
+\func{Fail} marks the test function as having failed but continues execution.
+
+\begin{lstlisting}[numbers=none]
+func (t *T) FailNow()
+\end{lstlisting}
+\func{FailNow} marks the test function as having failed and stops its execution.
+Execution will continue at the next test. So any other test in
+\emph{this} file are skipped too.
+
+\begin{lstlisting}[numbers=none]
+func (t *T) Log(args ...interface{})
+\end{lstlisting}
+\func{Log} formats its arguments using default formatting, analogous to
+\func{Print()}, and records the text in the error log.
+
+\begin{lstlisting}[numbers=none]
+func (t *T) Fatal(args ...interface{})
+\end{lstlisting}
+\func{Fatal} is equivalent to \func{Log()} followed by \func{FailNow()}.
+
+Putting all this together we can write our test. First
+we pick a name: \file{even\_test.go}. Then we add the following contents:
+\lstinputlisting[label=src:eventest,caption=Test file for even
+package,numbers=right]{src/even_test.go}
+Note that we use \lstinline{package even} on line 1, the tests fall in the same
+namespace as the package we are testing. This not only convenient, but
+also allows tests of unexported function and structures. We then import
+the \package{testing} package and on line 5 we define the only test
+function in this file. The displayed Go code should not hold any
+surprises: we check if the \func{Even} function works OK. 
+Now, the moment we've been waiting for, executing the test:
+\begin{display}
+\pr gomake test
+6g -o \_gotest\_.6 even.go  even\_test.go
+rm -f \_test/even.a
+gopack grc \_test/even.a \_gotest\_.6 
+PASS
+\end{display}
+\noindent{}Our test ran and reported \texttt{PASS}. Success! To show how a failed
+test look we redefine our test function:
+\begin{lstlisting}
+// Entering the twilight zone
+func TestEven(t *testing.T) {
+        if ! Even(2) {
+                t.Log("2 should be odd!")
+                t.Fail()
+        }   
+}
+\end{lstlisting}
+We now get:
+\begin{display}
+--- FAIL: even.TestEven
+\qquad\qquad2 should be odd!
+FAIL
+make: *** [test] Error 1
+\end{display}
+\noindent{}And you can act accordingly (by fixing the test for instance).
+
+\begin{lbar}
+Writing new packages should go hand in hand with writing (some)
+documentation and test functions. It will make your code better and it
+shows that your really put in the effort.
+\end{lbar}
+
+\section{Useful packages}
+The standard Go repository includes a huge number of packages and it is
+even possible to install more along side your current Go installation. 
+It is very enlightening to browse the \file{\$GOROOT/src/pkg} directory and
+look at the packages.
+We cannot comment on each package, but the following a worth a mention:
+\footnote{The descriptions are copied from the packages' \prog{godoc}. Extra
+remarks are type set in italic.}
+
+\begin{description}
+\item[\package{fmt}]{\index{package!fmt}
+Package \package{fmt} implements formatted I/O with functions analogous
+to C's \func{printf} and \func{scanf}. The format verbs are derived
+from C's but are simpler. Some verbs (\%-sequences) that can be used:
+
+\begin{description}
+\item[\%v]{The value in a default format.
+when printing structs, the plus flag (\%+v) adds field names;}
+\item[\%\#v]{a Go-syntax representation of the value.}
+\item[\%T]{a Go-syntax representation of the type of the value;}
+\end{description}
+
+}
+
+\item[\package{io}]{\index{package!io}
+This package provides basic interfaces to I/O primitives.
+Its primary job is to wrap existing implementations of such primitives,
+such as those in package os, into shared public interfaces that
+abstract the functionality, plus some other related primitives.
+}
+\item[\package{bufio}]{\index{package!bufio}
+This package implements buffered I/O.  It wraps an 
+\lstinline{io.Reader}
+or
+\lstinline{io.Writer}
+object, creating another object (Reader or Writer) that also implements
+the interface but provides buffering and some help for textual I/O.
+}
+\item[\package{sort}]{\index{package!sort}
+The \package{sort} package provides primitives for sorting arrays
+and user-defined collections.
+}
+\item[\package{strconv}]{\index{package!strconv}
+The \package{strconv} package implements conversions to and from
+string representations of basic data types.
+}
+\item[\package{os}]{\index{package!os}
+The \package{os} package provides a platform-independent interface to operating
+system functionality.  The design is Unix-like.
+}
+\item[\package{flag}]{\index{package!flag}
+The \package{flag} package implements command-line flag parsing. 
+\emph{See "\titleref{sec:option parsing}"
+on page \pageref{sec:option parsing}.}
+}
+\item[\package{json}]{\index{package!json}
+The \package{json} package implements encoding and decoding of JSON objects as
+defined in RFC 4627.
+}
+\item[\package{template}]{\index{package!template}
+Data-driven templates for generating textual output such as HTML.
+
+Templates are executed by applying them to a data structure.  Annotations in
+the template refer to elements of the data structure (typically a field of a
+struct or a key in a map) to control execution and derive values to be
+displayed.  The template walks the structure as it executes and the "cursor" @
+represents the value at the current location in the structure.
+}
+\item[\package{http}]{\index{package!http}
+The \package{http} package implements parsing of HTTP requests, replies,
+and URLs and provides an extensible HTTP server and a basic
+HTTP client.
+}
+\item[\package{unsafe}]{\index{package!unsafe}
+The \package{unsafe} package contains operations that step around the type safety of Go programs.
+\emph{Normally you don't need this package.}
+}
+\item[\package{reflect}]{\index{package!reflect}
+The \package{reflect} package implements run-time reflection, allowing a program to
+manipulate objects with arbitrary types.  The typical use is to take a
+value with static type \lstinline|interface{}| and extract its dynamic type
+information by calling \func{Typeof}, which returns an object with interface
+type \type{Type}.  That contains a pointer to a struct of type \type{*StructType},
+\type{*IntType}, etc. representing the details of the underlying type.  A type
+switch or type assertion can reveal which. \emph{See chapter \ref{chap:interfaces}, 
+section "\titleref{sec:introspection}"}.
+}
+\item[\package{exec}]{\index{package!exec}
+The \package{exec} package runs external commands.
+}
+\end{description}
+
+\section{Exercises}
+\todo{Write exercise for testing the stack package. (MG)}
+
+\input{ex-packages/ex-stack-package.tex}
+
+\input{ex-packages/ex-calc.tex}
+
+\cleardoublepage
+\section{Answers}
+\shipoutAnswer

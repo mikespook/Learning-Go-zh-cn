@@ -1,0 +1,19 @@
+\begin{Exercise}[title={Fibonacci},difficulty=5]
+\label{ex:fibonaci}
+\Question\label{ex:fibonaci q1}
+The Fibonacci sequence starts as follows: $1, 1, 2, 3, 5, 8, 13, \ldots$
+Or in mathematical terms: $ x_1 = 1; x_2 = 1; x_n = x_{n-1} +
+x_{n-2}\quad\forall n > 2 $.
+
+Write a function that takes an \type{int} value and gives 
+that many terms of the Fibonacci sequence.
+
+\end{Exercise}
+
+\begin{Answer}
+\Question
+The following program calculates the Fibonacci numbers.
+\lstinputlisting[label=src:fib,caption=Fibonacci function in Go]{ex-functions/src/fib.go}
+
+\showremarks
+\end{Answer}

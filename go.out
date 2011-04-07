@@ -1,0 +1,66 @@
+\BOOKMARK [0][-]{chapter.1}{\347\256\200\344\273\213}{}
+\BOOKMARK [1][-]{section*.5}{Official documentation}{chapter.1}
+\BOOKMARK [1][-]{section*.6}{Getting Go}{chapter.1}
+\BOOKMARK [1][-]{section*.8}{Origins}{chapter.1}
+\BOOKMARK [1][-]{section*.9}{Exercises}{chapter.1}
+\BOOKMARK [1][-]{section*.10}{Answers}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{\345\237\272\347\241\200}{}
+\BOOKMARK [1][-]{section*.11}{Hello World}{chapter.2}
+\BOOKMARK [1][-]{section*.12}{Compiling and running code}{chapter.2}
+\BOOKMARK [1][-]{section*.14}{Variables, types and keywords}{chapter.2}
+\BOOKMARK [1][-]{section*.20}{Operators and built-in functions}{chapter.2}
+\BOOKMARK [1][-]{section*.21}{Go keywords}{chapter.2}
+\BOOKMARK [1][-]{section*.22}{Control structures}{chapter.2}
+\BOOKMARK [1][-]{section*.29}{Built-in functions}{chapter.2}
+\BOOKMARK [1][-]{section*.38}{Arrays, slices and maps}{chapter.2}
+\BOOKMARK [1][-]{section*.42}{Exercises}{chapter.2}
+\BOOKMARK [1][-]{section*.43}{Answers}{chapter.2}
+\BOOKMARK [0][-]{chapter.3}{\345\207\275\346\225\260}{}
+\BOOKMARK [1][-]{section*.44}{Scope}{chapter.3}
+\BOOKMARK [1][-]{section*.45}{Multiple return values}{chapter.3}
+\BOOKMARK [1][-]{section*.46}{Named result parameters}{chapter.3}
+\BOOKMARK [1][-]{section*.47}{Deferred code}{chapter.3}
+\BOOKMARK [1][-]{section*.48}{Variadic parameters}{chapter.3}
+\BOOKMARK [1][-]{section*.49}{Functions as values}{chapter.3}
+\BOOKMARK [1][-]{section*.50}{Callbacks and closures}{chapter.3}
+\BOOKMARK [1][-]{section*.51}{Panic and recovering}{chapter.3}
+\BOOKMARK [1][-]{section*.52}{Exercises}{chapter.3}
+\BOOKMARK [1][-]{section*.53}{Answers}{chapter.3}
+\BOOKMARK [0][-]{chapter.4}{\345\214\205}{}
+\BOOKMARK [1][-]{section*.54}{Building a package}{chapter.4}
+\BOOKMARK [1][-]{section*.55}{Identifiers}{chapter.4}
+\BOOKMARK [1][-]{section*.57}{Documenting packages}{chapter.4}
+\BOOKMARK [1][-]{section*.58}{Testing packages}{chapter.4}
+\BOOKMARK [1][-]{section*.59}{Useful packages}{chapter.4}
+\BOOKMARK [1][-]{section*.60}{Exercises}{chapter.4}
+\BOOKMARK [1][-]{section*.61}{Answers}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{\350\277\233\351\230\266}{}
+\BOOKMARK [1][-]{section*.62}{Allocation}{chapter.5}
+\BOOKMARK [1][-]{section*.66}{Defining your own types}{chapter.5}
+\BOOKMARK [1][-]{section*.69}{Conversions}{chapter.5}
+\BOOKMARK [1][-]{section*.71}{Exercises}{chapter.5}
+\BOOKMARK [1][-]{section*.72}{Answers}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{\346\216\245\345\217\243}{}
+\BOOKMARK [1][-]{section*.76}{Methods}{chapter.6}
+\BOOKMARK [1][-]{section*.80}{Interface names}{chapter.6}
+\BOOKMARK [1][-]{section*.81}{A sorting example}{chapter.6}
+\BOOKMARK [1][-]{section*.82}{Introspection}{chapter.6}
+\BOOKMARK [1][-]{section*.84}{Exercises}{chapter.6}
+\BOOKMARK [1][-]{section*.85}{Answers}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{\345\271\266\350\241\214}{}
+\BOOKMARK [1][-]{section*.87}{More on channels}{chapter.7}
+\BOOKMARK [1][-]{section*.90}{Exercises}{chapter.7}
+\BOOKMARK [1][-]{section*.91}{Answers}{chapter.7}
+\BOOKMARK [0][-]{chapter.8}{\351\200\232\350\256\257}{}
+\BOOKMARK [1][-]{section*.92}{Files}{chapter.8}
+\BOOKMARK [1][-]{section*.93}{Command line arguments}{chapter.8}
+\BOOKMARK [1][-]{section*.94}{Executing commands}{chapter.8}
+\BOOKMARK [1][-]{section*.95}{Networking}{chapter.8}
+\BOOKMARK [1][-]{section*.96}{Netchan: networking and channels}{chapter.8}
+\BOOKMARK [1][-]{section*.97}{Exercises}{chapter.8}
+\BOOKMARK [1][-]{section*.98}{Answers}{chapter.8}
+\BOOKMARK [0][-]{appendix.A}{\347\211\210\346\235\203}{}
+\BOOKMARK [1][-]{section*.99}{\350\264\241\347\214\256\350\200\205}{appendix.A}
+\BOOKMARK [1][-]{section*.102}{\350\256\270\345\217\257\350\257\201\345\222\214\347\211\210\346\235\203}{appendix.A}
+\BOOKMARK [0][-]{appendix.B}{\347\264\242\345\274\225}{}
+\BOOKMARK [0][-]{appendix.C}{Bibliography}{}

@@ -1,0 +1,25 @@
+\begin{Exercise}[title={Average},difficulty=4]
+\label{ex:average no func}
+\Question\label{ex:average no func q1} Give the code
+that calculates the average of a \type{float64} slice. In
+a later exercise (Q\ref{ex:average} you will make it into
+a function.
+\end{Exercise}
+
+\begin{Answer}
+\Question The following code calculates the average.
+\begin{lstlisting}
+sum := 0.0 
+switch len(xs) {
+case 0:                 |\longremark{If the length is zero, we return 0;}|
+        ave = 0
+default:                |\longremark{Otherwise we calculate the average;}|
+        for _, v := range xs {
+                sum += v
+        }
+        ave = sum / float64(len(xs)) |\longremark{We have to convert the value to a %
+\key{float64} to make the division work.}|
+}
+\end{lstlisting}
+\showremarks
+\end{Answer}

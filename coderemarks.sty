@@ -1,0 +1,29 @@
+\ProvidesPackage{coderemarks}
+\RequirePackage{tikz}
+%% Code Remarks -- Miek Gieben
+%% define 2 commands
+%% \longremark[1] where you can say something about the code
+%% \showremarks - displays all remarks in a list after the code
+\newcounter{coderemarks}
+\setcounter{coderemarks}{0}
+\newcounter{codevar}
+\setcounter{codevar}{0}
+%
+\newcommand{\gocircle}[1]{%
+\tikz\node[text=white,font=\sffamily\bfseries,inner sep=0.2mm,draw,circle,fill=black]{#1};}
+%
+\newcommand{\longremark}[1]{%
+\gocircle{\arabic{coderemarks}}%
+\global \expandafter\def \csname codebox\the\value{coderemarks}\endcsname{#1}%
+\stepcounter{coderemarks}}
+%
+\newcommand{\showremarks}{%
+\begin{list}{\gocircle{\arabic{codevar}}} %
+{} %
+\whiledo{\value{codevar} < \value{coderemarks}}{ %
+\item \expandafter\csname codebox\the\value{codevar}\endcsname %
+\stepcounter{codevar}} %
+\end{list} %
+\setcounter{coderemarks}{0}%
+\setcounter{codevar}{0}%
+}

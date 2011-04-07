@@ -1,0 +1,132 @@
+\epi{Good communication is as stimulating as black coffee, and just as hard
+to sleep after.}{\textsc{ANNE MORROW LINDBERGH}}
+\noindent{}In this chapter we are going to look at the building blocks in Go for 
+communicating with the outside world.
+
+\section{Files}
+Reading from (and writing to) files is easy in Go. This program
+only uses the \package{os} package to read data from the file \file{/etc/passwd}.
+\lstinputlisting[numbers=right,caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
+If you want to use \first{buffered}{buffered} IO there is the
+\package{bufio}\index{package!bufio} package:
+\lstinputlisting[numbers=right,caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
+
+On line 9 we create a \type{bufio.Reader} from \var{f} which is of
+type \type{*File}. \func{NewReader} expects an \type{io.Reader}, so you
+might think this will fail. But it doesn't. An \type{io.Reader} is
+defined as:
+\begin{lstlisting}
+type Reader interface {
+    Read(p []byte) (n int, err os.Error)
+}
+\end{lstlisting}
+So \emph{anything} that has such a \func{Read()} function implements this
+interface. And from listing \ref{src:read} (line 10) we can see
+that \type{*File} indeed does so. 
+
+\section{Command line arguments}
+\label{sec:option parsing}
+Arguments from the command line are available inside your program via
+the string slice \var{os.Args}, provided you have imported the package
+\package{os}. The \package{flag} package has a more sophisticated
+interface, and also provides a way to parse flags. Take this example
+from a little DNS query tool:
+\begin{lstlisting}
+var dnssec *bool = flag.Bool("dnssec", false, "Request DNSSEC records") |\longremark{Define a \texttt{bool} flag, %%
+\texttt{-dnssec}. The variable must be a pointer otherwise the package can not set its value;}|
+var port *string = flag.String("port", "53", "Set the query port")      |\longremark{Idem, but for a \texttt{port} option;}|
+flag.Usage = func() {   |\longremark{Slightly redefine the \func{Usage} function, to be a little more verbose;}|
+    fmt.Fprintf(os.Stderr, "Usage: %s [@server] [qtype] [qclass] [name ...]\n", os.Args[0])
+    flag.PrintDefaults() |\longremark{For every flag given, \func{PrintDefaults} will output the help string;}|
+}
+flag.Parse()   |\longremark{Parse the flags and fill the variables.}|
+\end{lstlisting}
+\showremarks
+
+\section{Executing commands}
+The \package{exec}\index{package!exec} package has function to run external commands, and it the premier way to
+execute commands from within a Go program. We start commands with 
+the \func{Run} function:
+\begin{lstlisting}
+func Run(argv0 string, argv, envv []string, dir string, stdin, stdout, stderr int) (p *Cmd, err os.Error)
+\end{lstlisting}
+\begin{quote}
+Run starts the binary prog running with
+arguments \var{argv} and environment \var{envv}.
+It returns a pointer to a new \type{Cmd} representing the command or an error.
+\end{quote}
+Lets execute \verb|ls -l|:
+\begin{lstlisting}
+import "exec"
+
+cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exec.DevNull, exec.DevNull)
+\end{lstlisting}
+In the \package{os}\index{package!os} package we find the \func{StartProcess} function. This
+is another way (but more low level) to start executables.\footnote{There is talk on
+the go-nuts mailing list about separating \func{Fork} and
+\func{Exec}.} 
+The prototype for \func{StartProcess} is:
+\begin{lstlisting}
+func StartProcess(name string, argv []string, envv []string, dir string, fd []*File) (pid int, err Error)
+\end{lstlisting}
+With the following documentation:
+\begin{quote}
+\func{StartProcess} starts a new process with the program, arguments,
+and environment specified by \var{name}, \var{argv}, and \var{envv}. The \var{fd} array specifies the
+file descriptors to be set up in the new process: \var{fd[0]} will be Unix file
+descriptor 0 (standard input), \var{fd[1]} descriptor 1, and so on.  A \type{nil} entry
+will cause the child to have no open file descriptor with that index.
+If \var{dir} is not empty, the child chdirs into the directory before execing the program.
+\end{quote}
+Suppose we want to execute \verb|ls -l| again:
+\begin{lstlisting}
+import "os"
+
+pid, err := os.StartProcess("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os.Stdin, os.Stdout, os.Stderr})
+defer os.Wait(pid, os.WNOHANG) |\coderemark{Otherwise you create a zombie}|
+\end{lstlisting}
+Note that \lstinline{os.Wait} (among other things) returns the
+\func{exit code}, with:
+\begin{lstlisting}
+w := os.Wait(pid, os.WNOHANG)
+e := w.WaitStatus.ExitStatus()  |\coderemark{ExitStatus() returns an integer}|
+\end{lstlisting}
+
+\section{Networking}
+All network related types and functions can be found in the package \package{net}. One of the
+most important functions in there is \func{Dial}\index{networking!Dial}. When you \func{Dial}
+into a remote system the function returns a \var{Conn} interface type, which can be used
+to send and receive information. The function \func{Dial} neatly abstracts away the network
+family and transport. So IPv4 or IPv6, TCP or UDP can all share a common interface. 
+
+Dialing a remote system (port 80) over TCP, then UDP and lastly TCP over IPv6 looks
+like this:\footnote{In case
+you are wondering, 192.0.32.10 and 2620:0:2d0:200::10 are \url{www.example.org}.}
+\begin{lstlisting}
+conn, err := Dial("tcp", "", "192.0.32.10:80")
+conn, err := Dial("udp", "", "192.0.32.10:80")
+conn, err := Dial("tcp", "", "[2620:0:2d0:200::10]:80") |\coderemark{Brackets are mandatory}|
+\end{lstlisting}
+
+And with \var{conn} you can do read/write \todo{dkls}.
+
+\todo{Write echo server}
+
+\section{Netchan: networking and channels}
+%%http://blog.golang.org/2010/09/go-concurrency-patterns-timing-out-and.html
+
+
+\section{Exercises}
+\input{ex-communication/ex-processes.tex}
+
+\input{ex-communication/ex-wordcount.tex}
+
+\input{ex-communication/ex-uniq.tex}
+
+\input{ex-communication/ex-quine.tex}
+
+\input{ex-communication/ex-numbercruncher.tex}
+
+\cleardoublepage
+\section{Answers}
+\shipoutAnswer

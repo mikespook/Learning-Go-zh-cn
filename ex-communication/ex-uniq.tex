@@ -1,0 +1,25 @@
+\begin{Exercise}[title={Uniq},difficulty=4]
+\label{ex:Uniq}
+\Question\label{ex:Uniq q1} Write a Go program that mimics the function
+of the Unix \prog{uniq} command. This program should work as follows,
+given a list with the following items: 
+
+\begin{display}
+'a' 'b' 'a' 'a' 'a' 'c' 'd' 'e' 'f' 'g'
+\end{display}
+
+it should print only those item which don't have the same successor:
+
+\begin{display}
+'a' 'b' 'a' 'c' 'd' 'e' 'f'
+\end{display}
+\exdisfix
+Listing \ref{src:uniq} is a Perl implementation of the algorithm.
+\lstinputlisting[label=src:uniq,caption=uniq(1) in Perl,language=Perl]{ex-communication/src/uniq.pl}
+
+\end{Exercise}
+
+\begin{Answer}
+\Question The following is a uniq implementation in Go.
+\lstinputlisting[caption=uniq(1) in Go]{ex-communication/src/uniq.go}
+\end{Answer}

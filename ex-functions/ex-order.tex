@@ -1,0 +1,22 @@
+\begin{Exercise}[title={Integer ordering},difficulty=3]
+\label{ex:ordering function}
+\Question Write a function that returns its (two) parameters in the right,
+numerical (ascending) order:\newline 
+\lstinline{f(7,2)} $\rightarrow$ \lstinline{2,7}\newline
+\lstinline{f(2,7)} $\rightarrow$ \lstinline{2,7}\newline
+\end{Exercise}
+
+\begin{Answer}
+\Question 
+Here we can use the multiple return values (section "\titleref{sec:multiple return}")
+from Go:
+\begin{lstlisting}
+func order(a, b int) (int, int) {
+        if a > b { 
+                return b,a 
+        }   
+        return a,b 
+}
+\end{lstlisting}
+
+\end{Answer}

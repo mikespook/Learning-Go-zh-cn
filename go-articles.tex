@@ -1,0 +1,48 @@
+\section{Expression versus statement}
+\label{sec:expression versus statement}
+In this book we talk about expressions and statements, but%
+\gomarginpar{This section comes from \cite{so_expression_vs_statement}.}
+what \emph{is} the difference between the two?
+In short:
+\begin{description}
+\item[Expression] Something which evaluates to a value, like:
+\lstinline{1+2/x} ;
+\item[Statement] A line of code which does something, like
+\lstinline{goto Error} .
+\end{description}
+
+The distinction was crystal-clear in the earliest general-purpose
+programming languages, like Fortran. In Fortran, a statement was one
+unit of execution: "a thing that you did". 
+An expression on its own couldn't do anything. You had to assign it to a
+variable.
+\begin{display}
+1 + 2 / X
+\end{display}
+is an error in Fortran, because it doesn't do anything. You had to do
+something with that expression: 
+\begin{display}{X = 1 + 2 / X}\end{display}
+
+The earliest popular language to blur the lines was C. The designers of
+C realized that no harm was done if you were allowed to evaluate an
+expression and throw away the result. In C, every expression could be a
+statement: 
+\begin{display}1 + 2 / x\end{display}
+is a totally legit statement even though absolutely nothing will happen.
+Why? Because in C, expressions could have side-effects --- they could
+change something: \begin{display}{1 + 2 / callfunc(12)}\end{display}
+
+Because \func{callfunc()} might just do something useful.
+Once you allow any expression to be a statement, you might as well allow
+the assignment operator (=) inside expressions. That's why C lets you do
+things like: \lstinline{callfunc(x = 2)}.
+This evaluates the expression \lstinline{x = 2} (assigning the value of 2 to x) and
+then passes that (the 2) to the function \func{callfunc()}.
+
+Luckily this blurring is significantly lessened in Go.
+The only Go
+expressions that can be statements are function calls, method calls,
+and channel operations. It's almost like Fortran. 
+
+Functional languages like Lisp don't have statements.
+All they have is expressions. 

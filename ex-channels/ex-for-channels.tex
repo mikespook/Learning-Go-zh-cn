@@ -1,0 +1,41 @@
+\begin{Exercise}[title={Channels},difficulty=4]
+\label{ex:channels}
+\Question\label{ex:channels q1} Modify the program you created in
+exercise Q\ref{ex:for-loop}
+to use channels, in other words, the function called in the body
+should now be a goroutine and communication should happen via
+channels. You should not worry yourself on how the goroutine
+terminates.
+
+\Question\label{ex:channels q2} There are a few annoying issues left if
+you resolve question \ref{ex:channels q1}. One of the problems is
+that the goroutine isn't neatly cleaned up when \func{main.main()}
+exits. And worse, due to a race condition between the exit of 
+\func{main.main()} and \func{main.shower()} not all numbers are printed.
+It should print up until 9, but sometimes it prints only to 8. Adding
+a second quit-channel you can remedy both issues. Do this.\footnote{You
+will need the \func{select} statement.}
+
+\end{Exercise}
+
+\begin{Answer}
+\Question A possible program is: 
+\lstinputlisting[label=go-chan,caption=Channels in Go,numbers=right]{ex-channels/src/for-chan.go}
+We start of in the usual way, then at line 6 we create a new channel of
+ints. In the next line we fire off the function \func{shower} with
+the \prog{ch} variable as it argument, so that we may communicate with
+it. Next we start our for-loop (lines 8-10) and in the loop
+we send (with \lstinline{<-}) our number to the function (now a goroutine) \func{shower}.
+
+In the function \func{shower} we wait (as this blocks) until we receive a number (line
+15). Any received number is printed (line 16) and then continue the endless loop
+started on line 14.
+
+\Question An answer is
+\lstinputlisting[label=go-quit-chan,caption=Adding an extra quit channel,numbers=right]{ex-channels/src/for-quit-chan.go}
+On line 20 we read from the quit channel and we discard the value we
+read. We could have used \lstinline{q := <-quit}, but then we would have used
+the variable only once --- which is illegal in Go. Another trick you
+might have pulled out of your hat may be: \lstinline{_ = <-quit}. This is
+valid in Go, but the Go idiom favors the one given on line 20.
+\end{Answer}

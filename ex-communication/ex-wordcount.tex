@@ -1,0 +1,18 @@
+\begin{Exercise}[title={Word and letter count},difficulty=5]
+\label{ex:wc}
+\Question\label{ex:wc q1} Write a small program that reads text from
+standard input and performs the following actions:
+\begin{enumerate}
+\item{Count the number of characters (including spaces);}
+\item{Count the number of words;}
+\item{Count the numbers of lines.}
+\end{enumerate}
+In other words implement \prog{wc(1)} (check you local manual page),
+however you only have to read from standard input.
+\end{Exercise}
+
+\begin{Answer}
+\Question The following program is an implementation of \prog{wc(1)}.
+\lstinputlisting[caption=wc(1) in Go]{ex-communication/src/wc.go}
+\showremarks
+\end{Answer}
