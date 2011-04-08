@@ -1,88 +1,76 @@
-\epi{In Go, the code does exactly what it says on the page.}{\textit{Go
-Nuts mailing list}\\\textsc{ANDREW GERRAND}}
-\noindent{}There are a few things that make Go different from other
-languages.
+\epi{在 Go 中，代码说到做到。}{\textit{Go
+Nuts 邮件列表}\\\textsc{ANDREW GERRAND}}
+\noindent{}有一些东西使得 Go 不同于其他语言。
 \begin{description}
-\item[Clean and Simple]
-Go strives to keep things small and beautiful, you should
-be able to do a lot in only a few lines of code;
-\item[Concurrent]
-Go makes it easy to ''fire off'' functions to be
-run as \emph{very} lightweight threads. These threads are called
-\first{goroutines}{goroutines} \footnote{Yes, that sounds a lot like
-\emph{co}routines, but goroutines are slightly different as we will
-see in chapter \ref{chap:channels}.} in Go;
+\item[清晰并且简洁]
+Go 努力保持小并且优美，你可以在短短几行代码里做许多事情。
+
+\item[并行]
+Go 让函数很容易成为\emph{非常}轻量的线程。
+这些线程在 Go 中被叫做 \first{goroutines}{goroutines} 
+\footnote{是的，它的发音很接近 \emph{co}routines，
+但是 goroutines 确实有一些不同，我们将在 \ref{chap:channels} 章节讨论。}；
 %% gofix.go:11: non-declaration statement outside function body
-\item[Channels] 
-Communication with these goroutines is done
-via \first{channels}{channels} \cite{csp}\cite{hoare};
 
-\item[Fast]
-Compilation is fast and execution is fast. The aim is
-to be as fast as C. Compilation time is measured in seconds;
+\item[Channel]
+这些 goroutines 之间的通讯由
+\first{channel}{channel} \cite{csp}\cite{hoare} 完成；
 
-\item[Safe]
-Go has garbage collection, no more \func{free()} in Go,
-the language takes care of this;
+\item[快速]
+编译很快，执行也很快。目标是跟 C 一样快。编译时间用秒计算；
 
-\item[Standard format]
-A Go program can be formatted in (almost) any way the programmers want,
-\emph{but} an official format exist. The rule is very simple:
-The output of the filter \prog{gofmt} \emph{is the official} endorsed
-format.
+\item[安全]
+Go 有垃圾收集，在 Go 中无须 \func{free()}，语言会处理这一切；
 
-\item[Postfix types]
-Types are given \emph{after} the variable name, thus \prog{var a int},
-instead of \prog{int a;} as one would in C;
+\item[标准的格式化]
+Go 程序可以被格式化为程序员希望的（几乎）任何形式，
+\emph{但是}官方格式是存在的。标准也非常简单：
+\prog{gofmt} 的输出就是\emph{官方}认可的格式。
+
+\item[类型后置]
+类型在变量名的\emph{后面}，像这样 \prog{var a int}，
+来代替 C 中的 \prog{int a;}；
 
 \item[UTF-8]
-UTF-8 is everywhere, in strings
-\emph{and} in the program code. Finally you can use \prog{$\Phi$ =
-$\Phi$ + 1} in your source code;
+任何地方都是 UTF-8的，包括字符串\emph{以及}程序代码。 
+你可以在代码中使用 \prog{$\Phi$ = $\Phi$ + 1}；
 
-\item[Open Source]
-The Go license is completely open source, see the file LICENSE in the Go
-source code distribution;
+\item[开源]
+Go 的许可证是完全开源的，查阅 Go 发布的源码中的 LICENSE 文件。
 
-\item[Fun]
-Programming with Go should be fun!
+\item[开心]
+用 Go 写程序会非常开心！
 
 \end{description}
-Erlang \cite{erlang} also shares some
-of the features of Go. Notable differences between Erlang
-and Go is that Erlang borders on being a functional language,
-where Go is an imperative one. And Erlang runs in a virtual
-machine, while Go is compiled. Go also has a much more Unix-like
-feeling to it.
+Erlang \cite{erlang} 与 Go 在部分功能上类似。
+Erlang 和 Go 之间主要的区别是 Erlang 是函数式语言，而 Go 是命令式的。
+Erlang 运行在虚拟机上，而 Go 是编译的。Go 用起来感觉更接近 Unix。
 
 \section{Hello World}
 \label{sec:hello world}
-In the Go tutorial, Go is presented to the world in the typical
-manner: letting it print "Hello World" (Ken Thompson and
-Dennis Ritchie started this when they presented the C language in 
-the nineteen seventies). We don't think we can do better, so 
-here it is, ''Hello World'' in Go.
+在 Go 指南中，用一个传统的方式展现了 Go：让它打印 "Hello World"
+（Ken Thompson 和 Dennis Ritchie 在 20 世纪 70 年代，发布 C 语言的时候开创了这个先河）。
+我们不认为可以做得更好，所以就是这个，Go 的 ''Hello World''。
 
 \lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
-Lets look at the program line by line.
+逐行阅读这个程序。
 \showremarks
 
-\section{Compiling and running code}
-The Go compiler is named \verb|<number>g|, where the number is 6 for 64 bit
-Intel and 8 for 32 bit Intel. The linker has a similar naming scheme:
-\verb|<number>l|. In this book we will use \prog{6g} and \prog{6l} for
-all the compiles. To compile the code from above, we use:
+\section{编译和运行代码}
+Go 编译器叫做 \verb|<数字>g|，数字是 6 表示用于 64 位 Intel 而 8 表示 32 位 Intel。
+连接器用相同的命名方式：\verb|<数字>l|。在本书中，我们将使用 \prog{6g} 和 \prog{6l} 完成所有的编译。
+为了编译上面的代码，执行：
 \begin{display}
 \pr 6g helloworld.go
 \end{display}
-And then we link it with \prog{6l}:
+并且用 \prog{6l} 链接它：
 \begin{display}
 \pr 6l helloworld.6
 \end{display}
 
-And then we run it:
+然后执行：
 \begin{display}
-\pr ./6.out	    \coderemark{The default name for a (64 bit) Go executable (8.out on 32 bits)}
+    \pr ./6.out	    \coderemark{默认的（64位） Go 可执行文件名（32 位上是 8.out）}
 \end{display}
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
@@ -91,40 +79,33 @@ And then we run it:
 \ \newline
 \ \newline
 
-\subsection{Using a Makefile}
+\subsection{使用 Makefile}
 \label{sec:building a program}
-Another, less laborious (once setup), way to build a Go program, is to use a
-\file{Makefile}. The following one can be used to build
-\prog{helloworld}:
+另一种可以少折腾的（在建立好后）编译 Go 程序的办法，是使用 \file{Makefile}。
+下面是用于构建 \prog{helloworld}的：
 \lstinputlisting[language=make,caption=Makefile for a program,numbers=right,linerange={5,11}]{src/Makefile.prog}
-At line 3 you specify the name for your compiled program and on line 5
-you enumerate the source files. Now an invocation of \verb|make| is
-enough to get your program compiled. Note that Go ships with the variant
-of \prog{make}, called \prog{gomake}, which is (currently) a small
-wrapper around GNU make. As the build system for Go programs may
-change in the future and make \prog{make} go away, we use \prog{gomake}.
-Note that this \file{Makefile} creates an executable named
-\prog{helloworld}, not \prog{6.out} or \prog{8.out}.
+行 3 指定了编译的程序的名字，而行 5 列举了源代码文件。
+现在执行 \verb|make| 就可以完成你的程序编译。
+留意 Go 使用了不同于 \prog{make} 的，叫做 \prog{gomake} 的命令。它是（当前来说）一个 GNU make 的小封装。
+Go 程序的构建系统在将来可能会发生变化，从而将 \prog{make} 移除。所以我们使用 \prog{gomake}。
+留意 \file{Makefile} 创建的可执行文件叫做 \prog{helloworld}，而不是 \prog{6.out} 或者 \prog{8.out}。
 
-\section{Variables, types and keywords}
+\section{变量、类型和保留字}
 \label{sec:vars}
-In the next sections we will look at variables, basic types,
-keywords and control structures of our new language. 
-Go has a C-like feel when it comes to its syntax. 
-If you want to put two (or more) statements on one line, they must be
-separated with a semicolon (';'). Normally you don't need the semicolon.
+在接下来的章节中，我们将会了解这个新语言的变量、基本类型、保留字和控制流。
+Go 在语法上有着类 C 的感觉。
+如果你希望将两个（或更多）语句放在一行书写，它们必须用分号(';')分隔。
+一般情况下，你不需要分号。
 
-Go is different from other languages in that the type of a variable
-is specified \emph{after} the variable name. So not: 
-\lstinline{int a}, but \lstinline{a int}. When declaring a variable it
-is assigned the "natural" null value for the type. This means that after
-\lstinline{var a int}, \lstinline{a} has a value of 0. With
-\lstinline{var s string}, \lstinline{s} is assigned the zero string,
-which is \lstinline{""}. 
+Go 同其他语言不同的地方在于变量的类型在变量名的\emph{后面}。
+不是：\lstinline{int a}，而是 \lstinline{a int}。
+当定义了一个变量，它默认赋值为其类型的 null 值。
+这意味着，在 \lstinline{var a int}后，\lstinline{a} 的值为 0。
+而 \lstinline{var s string}，意味着 \lstinline{s} 被赋值为零长度字符串，
+也就是 \lstinline{""}。
 
-Declaring and assigning in Go is a two step process, but they may
-be combined. Compare the following pieces of code which have
-the same effect. 
+在 Go 中，声明和赋值是两步的一个过程，但是可以连在一起。
+比较下面作用相同的代码片段。
 \index{variables!declaring}
 \index{variables!assigning}
 
@@ -147,41 +128,35 @@ b := false
 \hfill
 \end{minipage}
 
-On the left we use the
-\key{var} keyword to declare a variable and \emph{then} assign a value to
-it. The code on the right uses \mbox{\key{:=}{ }} to do this in one
-step (this form may only be used \emph{inside} functions).
-In that case the variable
-type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
-a value of \texttt{false} tells Go that the type should be \type{bool}. 
-Multiple \key{var} declarations may also be grouped, \key{const}
-and \key{import} also allow this. Note the use of parentheses:
+在左边使用了保留字 \key{var} 声明变量，\emph{然后}赋值给它。
+右边的代码使用了 \mbox{\key{:=}{ }} 使得在一步内完成了声明和赋值
+（这一形式只可用在函数\emph{内}）。
+在这种情况下，变量的类型是由值\emph{推演}出来的。
+值 15 表示是 \type{int} 类型，值 \texttt{false} 告诉 Go 它的类型应当是 \type{bool}。
+多个 \key{var} 声明可以成组，\key{const} 和 \key{import} 同样允许这么做。
+留意圆括号的使用：
 \begin{lstlisting}
 var (
     x int
     b bool
 )
 \end{lstlisting}
-Multiple variables of the same type can also be declared on a
-single line: \lstinline{var x, y int}, makes \var{x} and \var{y} both
-\type{int} variables. You can also make use of \first{parallel
-assignment}{parallel assignment}:
+
+有相同类型的多个变量同样可以在一行内完成声明：
+\lstinline{var x, y int} 让 \var{x} 和 \var{y} 都是 \type{int} 类型变量。
+同样可以使用 \first{parallel assignment}{parallel assignment}：
 \begin{lstlisting}
 a, b := 20, 16
 \end{lstlisting}
-Which makes \var{a} and \var{b} both integer variables and assigns
-20 to \var{a} and 16 to \var{b}.
+让 \var{a} 和 \var{b} 都是整数变量，并且赋值 20 给 \var{a}，16 给 \var{b}。
 
-A special name for a variable is \var{\textbf{\_}} \index{variables!\_}
-(underscore) \index{variables!underscore}. Any value
-assigned to it, is discarded. In this example we only assign the integer
-value of 35 to \var{b} and discard the value 34.
+一个特殊的变量名是 \var{\textbf{\_}} \index{variables!\_}（下划线）\index{variables!underscore}。
+任何赋给它的值都被丢弃。在这个例子中，将 35 赋值给 \var{b}，同时丢弃 34。
 \begin{lstlisting}
 _, b := 34, 35
 \end{lstlisting}
-Declared, but otherwise unused variables are a compiler error in Go, the
-following code generates this error:
-\error{i declared and not used}
+Go 的编译器对声明却未使用的变量在报错，下面的代码会产生这个错误：
+\error{声明了 i 却未使用}
 
 \begin{lstlisting}
 package main
@@ -190,69 +165,62 @@ func main() {
 }
 \end{lstlisting}
 
-\subsection{Boolean types}
-A boolean type represents the set of boolean truth values denoted by the
-predeclared constants \emph{true} and \emph{false}. The boolean type is \type{bool}.
+\subsection{布尔类型}
+布尔类型表示由预定义的常量 \emph{true} 和 \emph{false} 代表的布尔判定值。
+布尔类型是 \type{bool}。
 
-\subsection{Numerical types}
-Go has the well known types such as \lstinline{int}, this type
-has the appropriate length for your machine. 
-Meaning that on a 32 bits machine they are 32 bits, and on
-a 64 bits machine they are 64 bits. Note: an \lstinline{int} is
-either 32 or 64 bits, no other values are defined. Same goes 
-for \lstinline{uint}.
+\subsection{数字类型}
+Go 有众所周知的类型如 \lstinline{int}，这个类型根据你的硬件决定适当的长度。
+意味着在 32 位硬件上，是 32 位的；在 64 位硬件上是 64 位的。
+注意：\lstinline{int} 是 32 或 64 位之一，不会定义成其他值。
+\lstinline{uint} 情况相同。
 
-If you want to be explicit about the length you can have
-that too with \lstinline{int32}, or \lstinline{uint32}. The full
-list for (signed and unsigned) integers is
-\type{int8}, \type{int16}, \type{int32}, \type{int64} and
-\type{byte}, \type{uint8}, \type{uint16}, \type{uint32}, \type{uint64}.
-With \lstinline{byte} being an
-alias for \lstinline{uint8}. For floating point values there is
-\lstinline{float32} and \lstinline{float64} (there is no \lstinline{float} type). 
-A 64 bit integer or floating point value is \emph{always} 64 bit, also on 32 bit
-architectures.
+如果你希望明确其长度，你可以使用 \lstinline{int32} 或者 \lstinline{uint32}。
+完整的整数类型列表（符号和无符号）是 
+\type{int8}，\type{int16}，\type{int32}，\type{int64} 和
+\type{byte}，\type{uint8}，\type{uint16}，\type{uint32}，\type{uint64}。
+\lstinline{byte} 是 \lstinline{uint8} 的别名。
+浮点类型的值有 \lstinline{float32} 和 \lstinline{float64}
+（没有 \lstinline{float} 类型）。 
+64 位的整数和浮点数\emph{总是} 64 位的，即便是在 32 位的架构上。
 
-Note however
-that these types are all distinct and assigning variables which mix
-these types is a compiler error, like in the following code:
+需要留意的是这些类型全部都是独立的，并且混合用这些类型向变量赋值会引起编译器错误，
+例如下面的代码：
 \lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]{src/types.go}
-Gives the error on the assignment on line 7:
+在行 7 触发一个赋值错误：
 
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
 
-The assigned values may be denoted using octal, hexadecimal or the scientific notation:
+赋值可以用八进制、十六进制或科学计数法：
 \lstinline{077}, \lstinline{0xFF}, \lstinline{1e3} or
-\mbox{\lstinline{6.022e23}} are all valid.
+\mbox{\lstinline{6.022e23}} 这些都是合法的。
 
-\subsection{Constants}
+\subsection{常量}
 \label{sec:constants}
-Constants in Go are just that --- constant. They are created at compile
-time, and can only be numbers, strings or booleans;
-\lstinline{const x = 42} makes \var{x} a constant. You can use
-\first{\key{iota}}{keyword!iota} \footnote{The word [iota] is used in a common English phrase,
-'not one iota', meaning 'not the slightest difference', in reference to
-a phrase in the New Testament: "\emph{until heaven and earth pass away, not an
+常量在 Go 中，也就是 constant。它们在编译时被创建，只能是数字、字符串或布尔值；
+\lstinline{const x = 42} 生成 \var{x} 这个常量。可以使用 \first{\key{iota}}{keyword!iota}
+\footnote{单词 [iota] 在日常英语短语 'not one iota'，意思是 '不是最小的差异'，
+是来自新约中的短语："\emph{until heaven and earth pass away, not an
 iota, not a dot, will pass from the Law}." \cite{iota}}
-to enumerate values.
+生成枚举值。
 \begin{lstlisting}
 const (
 	a = iota
 	b = iota 
 )
 \end{lstlisting}
-The first use of \key{iota} will yield 0, so \var{a} is equal to 0, whenever
-\key{iota} is used again on a new line its value is incremented with 1, so \var{b}
-has a value of 1.
+第一个 \key{iota} 表示为 0，因此 \var{a} 等于 0，
+当 \key{iota} 再次在新的一行使用时，它的值增加了 1，
+因此 \var{b} 的值是 1。
 
-You can even do the following, let Go repeat the use of \key{= iota}:
+也可以像下面这样，省略 Go 重复的 \key{= iota}：
 \begin{lstlisting}
 const (
 	a = iota
 	b	    |\coderemark{Implicitly \texttt{b = iota}}|
 )
 \end{lstlisting}
-You may also explicitly type a constant, if you need that:
+如果需要，可以明确指定常量的类型：
 \begin{lstlisting}
 const (
 	a = 0           |\coderemark{Is an \key{int} now}|
@@ -260,136 +228,116 @@ const (
 )
 \end{lstlisting}
 
-\subsection{Strings}
-An important other built in type is \lstinline{string}. Assigning a
-string is as simple as:
+\subsection{字符串}
+另一个重要的内建类型是 \lstinline{string}。赋值字符串的例子：
 \begin{lstlisting}
 s := "Hello World!"
 \end{lstlisting}
-Strings in Go are a sequence of UTF-8 characters enclosed in double
-quotes ("). If you use the single quote (') you mean one character
-(encoded in UTF-8) --- which is \emph{not} a \lstinline{string} in Go.
+字符串在 Go 中是 UTF-8 的由双引号 (") 包裹的字符序列。
+如果你使用单引号 (') 则表示一个字符（UTF-8编码）
+——这种在 Go 中\emph{不是} \lstinline{string}。
 
-Once assigned to a variable the string can not be changed anymore: strings in Go are
-immutable. For
-people coming from C, the following is not legal in Go:
+一旦给变量赋值，字符串就不能修改了：在 Go 中字符串是不可变的。
+从 C 来的用户，下面的情况在 Go 中是非法的。
 \begin{lstlisting}
 var s string = "hello"
-s[0] = 'c'  |\coderemark{Change first char. to 'c', this is an error}|
+s[0] = 'c'  |\coderemark{修改第一个字符为 'c'，这会报错}|
 \end{lstlisting}
-To do this in Go you will need the following:
+在 Go 中实现这个，需要下面的方法：
 \begin{lstlisting}
 s := "hello"
-c := []byte(s)	    |\longremark{Convert \var{s} to an array of bytes, see %
-chapter \ref{chap:beyond} section "\titleref{sec:conversions}" on %
-page \pageref{sec:conversions};}|
-c[0] = 'c'	    |\longremark{Change the first element of this %
-array;}|
-s2 := string(c)     |\longremark{Create a \emph{new} %
-string \var{s2} with the alteration;}|
-fmt.Printf("%s\n", s2) |\longremark{print the string with \func{fmt.Printf}.}|
+c := []byte(s)	    |\longremark{转换 \var{s} 为字节数组，%
+查阅在 \ref{chap:beyond} 章 "\titleref{sec:conversions}" 小节、%
+页面 \pageref{sec:conversions} 的内容；}|
+c[0] = 'c'	    |\longremark{修改数组的第一个元素；}|
+s2 := string(c)     |\longremark{创建\emph{新的}字符串 \var{s2} 保存修改；}|
+fmt.Printf("%s\n", s2) |\longremark{用 \func{fmt.Printf} 函数输出字符串。}|
 \end{lstlisting}
 \showremarks
 
-\begin{lbar}[Multi-line strings]
-Due to the insertion of semicolons (see \cite{effective_go} section
-"Semicolons"), you need to be careful with using multiline strings. If
-you write:
+\begin{lbar}[多行字符串]
+基于分号的置入（查阅 \cite{effective_go} 章节 "Semicolons"），
+你需要小心使用多行字符串。如果这样写：
 \begin{lstlisting}
 s := "Starting part"
     + "Ending part"
 \end{lstlisting}
-This is transformed into:
+会被转换为：
 \begin{lstlisting}
 s := "Starting part";
     + "Ending part";
 \end{lstlisting}
-Which is not valid syntax, you need to write:
+这是错误的语法，应当这样写：
 \begin{lstlisting}
 s := "Starting part" +
      "Ending part"
 \end{lstlisting}
-Then Go will not insert the semicolons in the wrong places. Another way
-would be to use \emph{raw} string literals\index{string literal!raw} by using back quotes: \key{`}:
+Go 就不会在错误的地方插入分号。另一种方式是使用反引号 \key{`} 作为\emph{原始}字符串符号\index{string literal!raw}：
 \begin{lstlisting}
 s := `Starting part
      Ending part`
 \end{lstlisting}
-Be aware that in this last example \var{s} now also contains the newline.
-Unlike \emph{interpreted} string literals \index{string literal!interpreted} a raw string literal's value
-is composed of the \emph{uninterpreted} characters between the quotes.
+留意最后一个例子 \var{s} 现在也包含换行。
+不像\emph{转义}字符串标识 \index{string literal!interpreted} ，
+原始字符串标识的值在引号内的字符是\emph{不转义}的。
 \end{lbar}
-\subsection{Complex numbers}
-Go has native support for complex numbers. If you 
-use them you need a variable of the type \lstinline{complex128} (64
-bit imaginary part). If you
-want something smaller there is \lstinline{complex64} -- for a 32 bits
-imaginary part.
-Complex numbers are written as
-\var{re + im$i$}, where \var{re} is the real part,
-\var{im} is the imaginary part and $i$ is the literal '$i$' ($\sqrt{-1}$).
-An example of using complex numbers:
+\subsection{复数}
+Go 原生支持复数。它的变量类型是 \lstinline{complex128}
+（64 位虚数部分）。如果需要小一些的，还有 \lstinline{complex64}
+——32 位的虚数部分。复数写为 \var{re + im$i$}，\var{re} 是实数部分，
+\var{im} 是虚数部分，而 $i$ 是标记 '$i$' ($\sqrt{-1}$)。
+使用复数的一个例子：
 
 \lstinline{var c complex64 = 5+5i; fmt.Printf("Value is: %v", c)}\newline
-will print: \lstinline{(5+5i)}
+将会打印：\lstinline{(5+5i)}
 
-\section{Operators and built-in functions}
-Go supports the normal set of numerical operations,
-table \ref{tab:op-precedence}
-lists the current ones and their relative precedence. They
-all associate from left to right.
+\section{运算符和内建函数}
+Go 支持普通的数字运算符，表格 \ref{tab:op-precedence} 列出了当前支持的运算符，
+以及其优先级。它们全部是从左到右结合的。
 
 \begin{table}[H]
 \begin{center}
-\caption{Operator precedence}
+\caption{运算优先级}
 \label{tab:op-precedence}
 \input{tab/precedence.tex}
 \end{center}
 \end{table}
-\verb|+ - * /| and \verb|%| all do what you would expect,
+\verb|+ - * /| 和 \verb|%| 会像你期望的那样工作，
 \verb!& | ^!
-and \verb!&^! are bit operators for
-\first{\key{bitwise and}}{operator!bitwise!and}, 
-\first{\key{bitwise or}}{operator!bitwise!or}, \first{\key{bitwise xor}}{operator!bit
-wise xor} and \first{\key{bit clear}}{operator!bitwise!clear} respectively.
-The \verb|&&| and \verb/||/ operators are 
-logical \first{\key{and}}{operator!and} and
-logical \first{\key{or}}{operator!or}. Not listed in the table
-is the logical \first{\key{not}}{operator!not}: \verb/!/ .
+和 \verb!&^! 分别表示位运算符\first{\key{按位与}}{operator!bitwise!and}，
+\first{\key{按位或}}{operator!bitwise!or}，\first{\key{按位异或}}{operator!bit
+wise xor}和\first{\key{位清除}}{operator!bitwise!clear}。
+\verb|&&| 和 \verb/||/ 运算符是逻辑\first{\key{与}}{operator!and}和逻辑
+\first{\key{或}}{operator!or}。表格中没有列出的是逻辑\first{\key{非}}{operator!not}：\verb/!/。
 
-Although Go does not support operator overloading (or method
-overloading for that matter), some of the built-in
-operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
-floats, complex numbers and strings (adding strings is concatenating
-them). 
+虽然 Go 不支持运算符重载（或者方法重载），而一些内建运算符却\emph{支持}重载。
+例如 \texttt{+} 可以用于整数、浮点数、复数和字符串（字符串相加表示串联它们）。
 
-\section{Go keywords}
+\section{Go 保留字}
 \begin{table}[H]
 \begin{center}
-\caption{Keywords in Go}
+\caption{Go 中的保留字}
 \label{tab:keywords}
 \input{tab/keywords.tex}
 \end{center}
 \end{table}
-Table \ref{tab:keywords} lists all the keywords in Go. 
-In the following paragraphs and chapters we will cover them. Some
-of these we have seen already.
+表格 \ref{tab:keywords} 列出了 Go 中所有的保留字。
+在下面的段落和章节中会介绍它们。其中有一些已经遇到过了。
 \begin{itemize}
-\item For \key{var} and \key{const} see section "\titleref{sec:vars}" on 
-page \pageref{sec:vars};
-\item \key{package} and \key{import} are briefly touch upon in section "\titleref{sec:hello world}". 
-In chapter \ref{chap:packages} they are documented in more detail.
+\item \key{var} 和 \key{const} 参阅 "\titleref{sec:vars}" 在 \pageref{sec:vars} 页；
+\item \key{package} 和 \key{import} 已经有过短暂的接触，在 "\titleref{sec:hello world}" 部分。 
+\ref{chap:packages} 这章对其有详细的描述。
 \end{itemize}
-Others deserve more text and have their own chapter/section:
+其他都有对应的介绍和章节：
 \begin{itemize}
-\item \key{func} is used to declare functions and methods;
-\item \key{return} is used to return from functions, for both \key{func}
-and \key{return} see chapter \ref{chap:functions} for the details;
-\item \key{go} is used for concurrency (chapter \ref{chap:channels});
-\item \key{select} used to choose from different types of communication, see chapter \ref{chap:channels};
-\item \key{interface} see chapter \ref{chap:interfaces};
-\item \key{struct} is used for abstract data types, see chapter \ref{chap:beyond};
-\item \key{type} also see chapter \ref{chap:beyond}.
+\item \key{func} 用于定义函数和方法；
+\item \key{return} 用于从函数返回，\key{func} 和 \key{return}
+参阅\ref{chap:functions}了解详细信息；
+\item \key{go} 用于并行（\ref{chap:channels}章）；
+\item \key{select} 用于选择不同类型的通讯，参阅\ref{chap:channels}章；
+\item \key{interface} 参阅 \ref{chap:interfaces}；
+\item \key{struct} 用于抽象数据类型，参阅\ref{chap:beyond}章；
+\item \key{type} 同样参阅 \ref{chap:beyond}。
 \end{itemize}
 
 \section{Control structures}

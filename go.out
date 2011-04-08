@@ -6,8 +6,8 @@
 \BOOKMARK [1][-]{section*.10}{\347\255\224\346\241\210}{chapter.1}
 \BOOKMARK [0][-]{chapter.2}{\345\237\272\347\241\200}{}
 \BOOKMARK [1][-]{section*.11}{Hello World}{chapter.2}
-\BOOKMARK [1][-]{section*.12}{Compiling and running code}{chapter.2}
-\BOOKMARK [1][-]{section*.14}{Variables, types and keywords}{chapter.2}
+\BOOKMARK [1][-]{section*.12}{\347\274\226\350\257\221\345\222\214\350\277\220\350\241\214\344\273\243\347\240\201}{chapter.2}
+\BOOKMARK [1][-]{section*.14}{\345\217\230\351\207\217\343\200\201\347\261\273\345\236\213\345\222\214\344\277\235\347\225\231\345\255\227}{chapter.2}
 \BOOKMARK [1][-]{section*.20}{Operators and built-in functions}{chapter.2}
 \BOOKMARK [1][-]{section*.21}{Go keywords}{chapter.2}
 \BOOKMARK [1][-]{section*.22}{Control structures}{chapter.2}
