@@ -542,12 +542,10 @@ character 'x' starts at byte position 3 \coderemark{\begin{math}\Phi\end{math} t
 \end{display}
 
 \subsection{switch}
-Go's \first{\key{switch}}{keyword!switch} is very flexible. The expressions need
-not be
-constants or even integers, the cases are evaluated top to bottom until
-a match is found, and if the \key{switch} has no expression it switches on
-\type{true}. It's therefore possible -- and idiomatic -- to write an
-\key{if-else-if-else} chain as a \key{switch}.
+Go 的 \first{\key{switch}}{keyword!switch} 非常灵活。
+表达式不必是常量或整数，执行的过程从上至下，直到找到匹配项，
+而如果 \key{switch} 没有表达式，它会匹配 \type{true} 。
+这产生一种可能——使用 \key{switch} 编写 \key{if-else-if-else} 判断序列。
 \begin{lstlisting}
 func unhex(c byte) byte {
     switch {
@@ -561,37 +559,37 @@ func unhex(c byte) byte {
     return 0
 }
 \end{lstlisting}
-There is no automatic fall through, you can however use
-\first{\key{fallthrough}}{keyword!fallthrough} to make do just that.
-Without \key{fallthrough}:
+它不会匹配失败后自动向下尝试，但是可以使用
+\first{\key{fallthrough}}{keyword!fallthrough}
+使其这样做。
+没有 \key{fallthrough}：
 \begin{lstlisting}
 switch i {
-    case 0:  // empty case body
+    case 0:  // 空的 case 体
     case 1:
-	f()  // f is not called when i == 0!
+	f()  // 当 i == 0 时，f 不会被调用！
 }
 \end{lstlisting}
-And with:
+而这样：
 \begin{lstlisting}
 switch i {
     case 0:  fallthrough
     case 1:
-	f()  // f is called when i == 0!
+	f()  // 当 i == 0 时，f 会被调用！
 }
 \end{lstlisting}
-With \first{\key{default}}{keyword!default} you can specify an action
-when none of the other cases match.
+用 \first{\key{default}}{keyword!default} 可以指定当其他所有分支都不匹配的时候的行为。
 \begin{lstlisting}
 switch i {
     case 0:  
     case 1:
 	f()
     default:	
-	g()	// called when i is not 0 or 1
+	g()	// 当 i 不等于 0 或 1 时调用
 }
 \end{lstlisting}
 
-Cases can be presented in comma-separated lists.
+分支可以使用逗号分隔的列表。
 \begin{lstlisting}
 func shouldEscape(c byte) bool {
     switch c {
@@ -602,11 +600,10 @@ func shouldEscape(c byte) bool {
 }
 \end{lstlisting}
 
-Here's a comparison routine for byte arrays that uses two \key{switch} statements:
+这里有一个使用两个 \key{switch} 对字节数组进行比较的例子：
 \begin{lstlisting}
-// Compare returns an integer comparing the two byte arrays
-// lexicographically.
-// The result will be 0 if a == b, -1 if a < b, and +1 if a > b
+// 比较返回两个字节数组字典数序先后的整数。
+// 如果 a == b 返回 0，如果 a < b 返回 -1，而如果 a > b 返回 +1
 func Compare(a, b []byte) int {
     for i := 0; i < len(a) && i < len(b); i++ {
         switch {
@@ -616,14 +613,14 @@ func Compare(a, b []byte) int {
             return -1
         }
     }
-    // String are equal except for possible tail
+    // 长度不同，则不相等
     switch {
     case len(a) < len(b):
         return -1
     case len(a) > len(b):
         return 1
     }
-    return 0	// Strings are equal
+    return 0	// 字符串相等
 }
 \end{lstlisting}
 
@@ -633,98 +630,82 @@ func Compare(a, b []byte) int {
 
 \begin{table}[H]
 \begin{center}
-\caption{Pre--defined functions in Go}
+\caption{Go 中的预定义函数}
 \label{tab:predef-functions}
 \input{tab/functions.tex}
 \end{center}
 \end{table}
 
-\paragraph{\func{close} and \func{closed}} are used in
-channel communication and the closing of those channels, see chapter \ref{chap:channels}
-for more on this.
+\paragraph{\func{close} 和 \func{closed}} 用于 channel
+通讯和关闭 channel，参阅 \ref{chap:channels} 章节了解更多。
 \index{built-in!close}\index{built-in!closed}
 
-\paragraph{\func{len} and \func{cap}} are used on a number of different
-types, \func{len} is
-used for returning the length of strings and the length of slices and
-arrays. See section "\titleref{sec:arrays}" for the details of slices and
-arrays and the function
-\func{cap}.\index{built-in!len}\index{built-in!cap}
+\paragraph{\func{len} 和 \func{cap}} 可用于不同的类型，
+\func{len} 用于返回字符串、slice 和数组的长度。
+参阅 "\titleref{sec:arrays}" 章节了解更多关于 slice、
+数组和函数 \func{cap} 的详细信息。
+\index{built-in!len}\index{built-in!cap}
 
-\paragraph{\func{new}} is used for allocating memory for user defined
-data types. See section "\titleref{sec:allocation with new}" on page
-\pageref{sec:allocation with new}.
+\paragraph{\func{new}} 用于各种类型的内存分配。
+参阅 "\titleref{sec:allocation with new}" 在 \pageref{sec:allocation with new}。
 \index{built-in!new}
 
-\paragraph{\func{make}} is used for allocating memory for built-in
-types (maps, slices and channels). See section 
-"\titleref{sec:allocation with make}" on page
-\pageref{sec:allocation with make}.
+\paragraph{\func{make}} 用于内建类型（map、slice 和 channel）的内存分配。
+参阅 "\titleref{sec:allocation with make}" 在 \pageref{sec:allocation with make}。
 \index{built-in!make}
 
-\paragraph{\func{copy}} is used for copying slices. \func{append} is 
-for concatenating slices. See section "\titleref{sec:slices}" in this
-chapter.
+\paragraph{\func{copy}} 用于复制 slice。\func{append} 用于追加 slice。
+参阅本章的 "\titleref{sec:slices}"。
 \index{built-in!copy}
 \index{built-in!append}
 
-\paragraph{\func{panic} and \func{recover}} are used for an 
-\emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
-page \pageref{sec:panic} for more.
+\paragraph{\func{panic} 和 \func{recover}} 用于\emph{异常}处理机制。
+参阅 "\titleref{sec:panic}" 在 \pageref{sec:panic} 了解更多信息。
 \index{built-in!panic}
 \index{built-in!recover}
 
-\paragraph{\func{print} and \func{println}} are low level printing
-functions that can be used without reverting to the
-\package{fmt}\index{package!fmt}
-package. These are mainly used for debugging.
+\paragraph{\func{print} 和 \func{println}} 是底层打印函数，可以在不引入
+\package{fmt}\index{package!fmt} 包的情况下使用。它们主要用于调试。
 \index{built-in!print}\index{built-in!println}
 
-\paragraph{\func{complex}, \func{real} and \func{imag}} all deal with
-\first{complex numbers}{complex numbers}. Other than the simple example
-we gave, we will not further explain complex numbers.
+\paragraph{\func{complex}、\func{real} 和 \func{imag}} 全部用于处理
+\first{complex numbers}{complex numbers}。有了之前给的简单的例子，不用再进一步讨论复数了。
 \index{built-in!complex}
 \index{built-in!real}
 \index{built-in!imag}
 
 
-\section{Arrays, slices and maps}
+\section{array、slices 和 map}
 \label{sec:arrays}
-Storing multiple values in a list can be done by utilizing arrays, or
-their more flexible cousin: slices. A dictionary or hash type is also
-available, it is called a \type{map} in Go.
+可以利用 array 在列表中进行多个值的排序，或者使用更加灵活的：slice。
+字典或哈希类型同样可以使用，在 Go 中叫做 \type{map}。
 
-\subsection{Arrays}
-An array is defined by: \verb|[n]<type>|, where $n$ is the length
-of the array and \verb|<type>| is the stuff you want to store.
-Assigning, or indexing an element in the array is done with square
-brackets:
+\subsection{array}
+array 由 \verb|[n]<type>| 定义，$n$ 标示 array 的长度，
+而 \verb|<type>| 标示希望存储的内容的类型。
+对 array 的元素赋值或索引是由方括号完成的：
 \begin{lstlisting}
 var arr [10]int
 arr[0] = 42
 arr[1] = 13
 fmt.Printf("The first element is %d\n", arr[0])
 \end{lstlisting}
-Array types like \lstinline{var arr = [10]int} have a fixed size. The
-size is \emph{part} of the type.
-They can't grow, because then they would have a different type. Also arrays
-are values: Assigning one array to another \emph{copies} all the elements.
-In particular, if you pass an array to a function, it will receive a
-copy of the array, not a pointer to it. 
+像 \lstinline{var arr = [10]int} 这样的数组类型有固定的大小。
+大小是类型的\emph{一部分}。由于不同的大小是不同的类型，因此不能改变大小。
+数组同样是值类型的：将一个数组赋值给另一个数组，会\emph{复制}所有的元素。
+尤其是当向函数内传递一个数组的时候，它会获得一个数组的副本，而不是数组的指针。
 
 \index{array!multidimensional}
-To declare an array you can use the following: \lstinline{var a [3]int},
-to initialize it to something else than zero, use a \first{composite
-literal}{composite literal}: \lstinline|a := [3]int{1, 2, 3}| and
-this can be shortened to \lstinline|a := [...]int{1, 2, 3}|, where Go counts
-the elements automatically. \gomarginpar{A composite literal allows you
-to assign a value directly to an array, slice or map.}
-Note that all fields must be specified.  So if you are using multidimensional
-arrays you have to do quite some typing:
+可以像这样声明一个数组：\lstinline{var a [3]int}，
+如果不使用零来初始化它，则用\first{composite
+literal}{composite literal}：\lstinline|a := [3]int{1, 2, 3}| 也可以简写为
+\lstinline|a := [...]int{1, 2, 3}|，Go 会自动统计元素的个数。
+\gomarginpar{复合符号允许你直接将值赋值给 array、slice 或者 map}
+注意，所有项目必须都指定。因此，如果你使用多维数组，有一些内容你必须录入：
 \begin{lstlisting}
 a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
 \end{lstlisting}
-Which is the same as:
+类似于：
 \begin{lstlisting}
 a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
 \end{lstlisting}
