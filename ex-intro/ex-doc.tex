@@ -1,11 +1,10 @@
 \begin{Exercise}[title={Documentation},difficulty=1]
 \label{ex:doc}
 \Question
-Go's documentation can be read with the \prog{godoc} program, which is
-included the Go distribution.
+Go 的文档可以通过 \prog{godoc} 程序阅读，它包含在 Go 的发布包中。
 
-\prog{godoc hash} gives information about the \package{hash} package. Reading the
-documentation on \package{container} gives the following result:
+\prog{godoc hash} 给出了 \package{hash} 包的信息。
+阅读 \package{container} 包的帮助，给出了下面的结果：
 \vskip\baselineskip
 \begin{display}
 SUBDIRECTORIES
@@ -16,20 +15,17 @@ ring
 vector
 \end{display}
 \vskip\baselineskip
-With which \prog{godoc} command can you read the documentation of \package{vector} contained in
-\package{container}?
+哪个 \prog{godoc} 的命令可以显示 \package{container} 包中的 \package{vector} 文档？
 
 \end{Exercise}
 
 \begin{Answer}
 \Question
-The package \package{vector} is in a \emph{subdirectory} of
-\package{container}, so you will only need\quad \texttt{godoc
-container/vector}.
+\package{vector} 包在 \package{container} 的\emph{子目录}中，所以只需要 \quad \texttt{godoc
+container/vector} 即可。
 
-Specific functions inside the "Go manual" can also be accessed. For
-instance the function \func{Printf} is described in \package{fmt}, but to
-only view the documentation concerning this function use: \prog{godoc fmt Printf}{} .
+也可以指定“Go 手册”中某个函数的的文档。例如，函数
+\func{Printf} 在 \package{fmt} 包中，仅阅读这个函数的文档，使用：\prog{godoc fmt Printf}{}。
 
-You can even display the source code with: \prog{godoc -src fmt Printf} .     
+甚至可以显示源代码：\prog{godoc -src fmt Printf}。
 \end{Answer}

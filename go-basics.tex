@@ -700,7 +700,7 @@ fmt.Printf("The first element is %d\n", arr[0])
 如果不使用零来初始化它，则用\first{composite
 literal}{composite literal}：\lstinline|a := [3]int{1, 2, 3}| 也可以简写为
 \lstinline|a := [...]int{1, 2, 3}|，Go 会自动统计元素的个数。
-\gomarginpar{复合符号允许你直接将值赋值给 array、slice 或者 map}
+\gomarginpar{复合声明允许你直接将值赋值给 array、slice 或者 map}
 注意，所有项目必须都指定。因此，如果你使用多维数组，有一些内容你必须录入：
 \begin{lstlisting}
 a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
@@ -710,120 +710,96 @@ a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
 a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
 \end{lstlisting}
 当声明一个 array 时，你\emph{必须}在方括号内输入些内容，数字或者三个点
-(\verb|...|)
-when using a composite literal. 
+(\verb|...|)。 
 \gomarginpar{Go \gorelease{2010-10-27} \cite{go_release_hist}.} 
-Since \gorelease{2010-10-27} this syntax was further simplified.
-From the release notes:
+从 \gorelease{2010-10-27} 这个语法使用更加简单了。
+来自于发布记录：
 \begin{quote}
-The syntax for arrays, slices, and maps of composite literals has been
-simplified. Within a composite literal of array, slice, or map type, elements
-that are themselves composite literals may elide the type if it is identical to
-the outer literal's element type. 
+array、slice 和 map 的复合声明变得更加简单。使用复合声明的
+array、slice 和 map，元素复合声明的类型与外部一直，则可以省略。
 \end{quote}
-This means our example can become:
+这表示上面的例子可以修改为：
 \begin{lstlisting}
 a := [2][2]int{ {1,2}, {3,4} }
 \end{lstlisting}
 
-\subsection{Slices}
+\subsection{slice}
 \label{sec:slices}
-A slice is similar to an array, but it can grow when new elements
-are added.
-A slice always refers to an underlaying array. What makes slices different
-from
-arrays is that a slice is a pointer \emph{to} an array;
-slices are \first{reference types}{reference types}, 
-\gomarginpar{Reference types are created with \lstinline{make}.}
-which means that if you assign one slice to
-another, both refer to the same underlying array. For instance, if a
-function takes a slice argument, changes it makes to the elements of the
-slice will be visible to the caller, analogous to passing a pointer to
-the underlying array. With:
+slice 与 array 接近，但是在新的元素加入的时候可以增加长度。
+slice 总是指向底层的一个 array。slice 是一个\emph{指向} array 的指针，
+这是其与 array 不同的地方；
+slice 是\first{reference types}{reference types}，
+\gomarginpar{引用类型使用 \lstinline{make} 创建。}
+这意味着当赋值某个 slice 到另外一个变量，两个引用会指向同一个 array。
+例如，如果一个函数需要一个 slice 参数，在其内对 slice 元素的修改也会体现在函数调用者中，
+这和传递底层的 array 指针类似。
+通过：
 \begin{lstlisting}
 sl := make([]int, 10)
 \end{lstlisting}
-you create a slice which can hold ten elements. Note that the
-underlaying array isn't specified.
-A slice is always coupled to an array that has
-a fixed size. For slices we define a \first{capacity}{slice!capacity} and a
-\first{length}{slice!length}. \index{array!length}\index{array!capacity}
-Figure \ref{fig:array-vs-slice} depicts the following Go code.
-First we create an array of $m$ elements of the type \lstinline{int}:
+创建了一个保存有 10 个元素的 slice。需要注意的是底层的 array 并无不同。
+slice总是与一个固定长度的 array 成对出现。对 slice 定义了
+\first{capacity}{slice!capacity} 和 \first{length}{slice!length}。
+\index{array!length}\index{array!capacity}
+图 \ref{fig:array-vs-slice} 描述了下面的 Go 代码。
+首先创建了 $m$ 个元素长度的 array，元素类型 \lstinline{int}：
 \lstinline{var array[m]int}\newline
-Next, we create a slice from this array:
+然后对这个 array 创建 slice：
 \lstinline{slice := array[0:n]}\newline
-And now we have:
+然后现在有：
 \begin{itemize}
 \item{\lstinline{len(slice) == n == cap(slice) == n}{} ;}
 \item{\lstinline{len(array) == cap(array) == m}{} .}
 \end{itemize}
 \begin{figure}[H]
-\caption{Array versus slice}
+\caption{array 与 slice 对比}
 \label{fig:array-vs-slice}
 \begin{center}
 \includegraphics[scale=0.65]{fig/array-vs-slice.pdf}
 \end{center}
 \end{figure}
 
-Given an array, or another slice, a new slice is created via
-\lstinline{a[I:J]}. This creates a new slice which refers to 
-\lstinline{a}, starts at index \var{I}, and ends
-before index \var{J}. It has length \lstinline{J - I}.
+给定一个 array 或者其他 slice，一个新 slice 通过 \lstinline{a[I:J]}
+的方式创建。
+这会创建一个新的 slice，指向 \lstinline{a}，从序号 \var{I} 开始，结束在序号 \var{J}之前。
+长度为 \lstinline{J - I}。
 
 \begin{lstlisting}
-// array[n:m], create a slice from array with elements n to m-1
-a := [...]int{1, 2, 3, 4, 5} |\longremark{Define an array with 5 %
-elements, from index 0 to 4;}|
-s1 := a[2:4] |\longremark{Create a slice with the elements from index 2 %
-to 3, this contains: \texttt{3, 4};}|
-s2 := a[1:5] |\longremark{Create a slice with the elements from index 1 %
-to 4, contains: \texttt{2, 3, 4, 5};}|
-s3 := a[:]   |\longremark{Create a slice with all the elements of the %
-array in it. This is a shorthand for: \texttt{a[0:len(a)]};}|
-s4 := a[:4]  |\longremark{Create a slice with the elements from index %
-0 to 3, this is thus short for: \texttt{a[0:4]}, and yields: \texttt{1, 2, %
-3, 4};}|
-s5 := s2[:]  |\longremark{Create a slice from the slice \var{s2}, note that %
-\texttt{s5} still refers to the array \texttt{a}.}|
+// array[n:m] 从 array 创建了一个 slice，具有元素 n to m-1
+a := [...]int{1, 2, 3, 4, 5} |\longremark{定义一个 5 个元素的 array，
+序号从 0 到 4；}|
+s1 := a[2:4] |\longremark{从序号 2 至 3 创建 slice，它包含元素 \texttt{3, 4}；}|
+s2 := a[1:5] |\longremark{从序号 1 至 4 创建，它包含元素 \texttt{2, 3, 4, 5}；}|
+s3 := a[:]   |\longremark{用 array 中的所有元素创建 slice，这是 \texttt{a[0:len(a)]} 的简化写法；}|
+s4 := a[:4]  |\longremark{从序号 0 至 3 创建，这是 \texttt{a[0:4]} 的简化写法，得到 \texttt{1, 2, 3, 4}；}|
+s5 := s2[:]  |\longremark{从 slice \var{s2} 创建 slice，注意 \texttt{s5} 仍然指向 array \texttt{a}。}|
 \end{lstlisting}
 \showremarks
 
-In the code listed in \ref{src:arrays} we dare to do the impossible on
-line 8 and try to allocate something
-beyond the capacity (maximum length of the underlaying array) and
-we are greeted with a \emph{runtime} error.
-\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
-If you want to extend a slice, there are a couple of built-in functions
-that make life easier:
-\lstinline{append} and \lstinline{copy}. From \cite{go_spec}:
+在 \ref{src:arrays} 列出的代码中，我们尝试在第八行做一些不可能的处理，
+让一些东西超出范围（底层 array 的最大长度），然后得到了一个\emph{运行时}错误。
+\lstinputlisting[numbers=right,label=src:arrays,caption=array 和 slice]{src/array-and-slices.go}
+如果你想要扩展 slice，有一堆内建函数让你的日子更加好过一些：
+\lstinline{append} 和 \lstinline{copy}。来自于 \cite{go_spec}：
 \begin{quote}
-The function \lstinline{append} appends zero or more values \lstinline{x} to a
-slice \lstinline{s} and returns the resulting slice, with the same type as
-\lstinline{s}.
-If the capacity of \lstinline{s} is not large enough to fit the additional values,
-\lstinline{append} allocates a new, sufficiently large slice that fits both the
-existing slice elements and the additional values. Thus, the returned
-slice may refer to a different underlying array.
+函数 \lstinline{append} 向 slice \lstinline{s} 追加零值或其他 \lstinline{x} 值，
+并且返回追加后的新的、与 \lstinline{s} 有相同类型的 slice。
+如果 \lstinline{s} 没有足够的容量存储追加的值，\lstinline{append} 分配一个足够大的、新的 slice
+来存放原有 slice 的元素和追加的值。因此，返回的 slice 可能指向不同的底层 array。
 \end{quote}
 \index{built-in!append}
 \begin{lstlisting}
 s0 := []int{0, 0}
-s1 := append(s0, 2)       |\longremark{append a single element, \texttt{s1 == []int\{0, 0, 2\}};}|
-s2 := append(s1, 3, 5, 7) |\longremark{append multiple elements, %% 
-\texttt{s2 == []int\{0, 0, 2, 3, 5, 7\}};}|
-s3 := append(s2, s0...)   |\longremark{append a slice, \texttt{s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}}. %%
-Note the three dots!}|
+s1 := append(s0, 2)       |\longremark{追加一个元素，\texttt{s1 == []int\{0, 0, 2\}}；}|
+s2 := append(s1, 3, 5, 7) |\longremark{追加多个元素，\texttt{s2 == []int\{0, 0, 2, 3, 5, 7\}}；}|
+s3 := append(s2, s0...)   |\longremark{追加一个 slice，\texttt{s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}}。注意这三个点！}|
 \end{lstlisting}
 \showremarks
-And
+还有
 \begin{quote}
-The function \lstinline{copy} copies slice elements from a source
-\lstinline{src} to a
-destination \lstinline{dst} and returns the number of elements copied. Source and
-destination may overlap. The number of arguments
-copied is the minimum of \lstinline{len(src)} and
-\mbox{\lstinline{len(dst)}}.
+函数 \lstinline{copy} 从源 slice \lstinline{src} 复制元素到目标 \lstinline{dst}，
+并且返回复制的元素的个数。源和目标可能重叠。复制的数量是 \lstinline{len(src)} 和
+\mbox{\lstinline{len(dst)}} 中的最小值。
 \end{quote}
 \index{built-in!copy}
 \begin{lstlisting}
@@ -833,65 +809,58 @@ n1 := copy(s, a[0:])    |\coderemark{\texttt{n1 == 6, s == []int\{0, 1, 2, 3, 4,
 n2 := copy(s, s[2:])    |\coderemark{\texttt{n2 == 4, s == []int\{2, 3, 4, 5, 4, 5\}}}|
 \end{lstlisting}
 
-\subsection{Maps}
+\subsection{map}
 \label{sec:maps}
-Many other languages have a similar type built-in, Perl has hashes,
-Python has its dictionaries and C++ also has maps (in
-\package{lib}\index{package!lib}) for instance. 
-In Go we have the
-\first{\key{map}}{keyword!map} type. A \type{map} can be thought of as an array indexed by
-strings (in its most simple form).
-In the following listing we define a \type{map} which converts from a
-\lstinline{string} (month abbreviation) to an \lstinline{int} -- the number of days in that month. 
-The generic way to define a map is with: \verb|map[<from type>]<to type>|
+许多语言都内建了类似的类型，例如 Perl 有哈希，Python 有字典，
+而 C++ 同样也有 map（在 \package{lib}\index{package!lib}中）。 
+在 Go 中有 \first{\key{map}}{keyword!map} 类型。\type{map} 
+可以认为是一个用字符串做索引的数组（在其最简单的形式下）。
+下面定义了 \type{map} 类型，用于将 \lstinline{string} （月的缩写）转换为 \lstinline{int}——那个月的天数。 
+一般定义 map 的方法是：\verb|map[<from type>]<to type>|
 
 \begin{lstlisting}
 monthdays := map[string]int{
 	"Jan": 31, "Feb": 28, "Mar": 31, 
 	"Apr": 30, "May": 31, "Jun": 30, 
 	"Jul": 31, "Aug": 31, "Sep": 30, 
-	"Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{The comma here is required}|
+	"Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{逗号是必须的}|
 }		    
 \end{lstlisting}
-Note to use \lstinline{make} when only declaring a \lstinline{map}:
+留意，当只需要声明一个 \lstinline{map} 的时候，使用 \lstinline{make} 的形式：
 \lstinline|monthdays := make(map[string]int)|
 
-For indexing (searching) in the map, we use square brackets, for example
-suppose we want to print the
-number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
-If you are looping over an array, slice, string, or map a
-\first{\key{range}}{keyword!range}
-clause help you again, which returns the key and corresponding value
-with each invocation.\index{keyword!range!on maps}
+当在 map 中索引（搜索）时，使用方括号，例如打印出 12 月的天数：
+\lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
+当对 array、slice、string 或者 map 循环遍历的时候，\first{\key{range}}{keyword!range}
+会帮助你，每次调用，它都会返回一个键和对应的值。\index{keyword!range!on maps}
 \begin{lstlisting}
 year := 0
-for _, days := range monthdays {    |\coderemark{Key is not used, hence \texttt{\_, days}}|
+for _, days := range monthdays {    |\coderemark{键没有使用，因此用 \texttt{\_, days}}|
     year += days
 }
 fmt.Printf("Numbers of days in a year: %d\n", year)
 \end{lstlisting}
-Adding elements to the \type{map} \index{keyword!map!add elements} would be done as:
+向 \type{map} 增加元素，\index{keyword!map!add elements} 可以这样做：
 \begin{lstlisting}
-monthdays["Undecim"] = 30	|\coderemark{Add a month}|
-monthdays["Feb"]     = 29	|\coderemark{Overwrite entry - for leap years}|
+monthdays["Undecim"] = 30	|\coderemark{添加一个月}|
+monthdays["Feb"]     = 29	|\coderemark{闰年时重写这个元素}|
 \end{lstlisting}
-To test for existence \index{keyword!map!existence}, you would use the
-following\cite{go_course_day2}:
+检查元素是否存在\index{keyword!map!existence}，可以使用下面的方式\cite{go_course_day2}：
 \begin{lstlisting}
 var value int
 var present bool
 
-value, present = monthdays["Jan"] |\coderemark{If exist, \texttt{present} has the value \key{true}}|
-                                 |\coderemark{Or better and more Go like}|
-v, ok := monthdays["Jan"]	 |\coderemark{Hence, the "comma ok" form}|
+value, present = monthdays["Jan"] |\coderemark{如果存在，\texttt{present} 则有值 \key{true}}|
+                                 |\coderemark{或者更接近 Go 的方式}|
+v, ok := monthdays["Jan"]	 |\coderemark{“逗号 ok”形式}|
 \end{lstlisting}
-And finally you can remove elements \index{keyword!map!remove elements} from the \type{map}:
+也可以从 \type{map} 中移除元素 \index{keyword!map!remove elements}：
 \begin{lstlisting}
-monthdays["Mar"] = 0, false       |\coderemark{Deletes "Mar", always rains anyway}|
+monthdays["Mar"] = 0, false       |\coderemark{删除 "Mar" 吧，总是下雨}|
 \end{lstlisting}
-Which looks a bit like the reverse of the "comma ok" form.
+看起来有点像把“逗号 ok”形式反过来。
 
-\section{Exercises}
+\section{练习}
 \input{ex-basics/ex-for.tex}
 
 \input{ex-basics/ex-fizzbuzz.tex}
@@ -901,5 +870,5 @@ Which looks a bit like the reverse of the "comma ok" form.
 \input{ex-basics/ex-average-no-func.tex}
 
 \cleardoublepage
-\section{Answers}
+\section{答案}
 \shipoutAnswer
