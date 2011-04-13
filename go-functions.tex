@@ -1,17 +1,14 @@
-\epi{I'm always delighted by the light touch and stillness of
-early programming languages.  Not much text; a lot gets
-done. Old programs read like quiet conversations
-between a well-spoken research worker and a well-
-studied mechanical colleague, not as a debate with a
-compiler.  Who'd have guessed sophistication bought
-such noise?}{\textsc{RICHARD P. GABRIEL}}
+\epi{我总是兴奋于阳光的轻抚和沉寂在早期编程语言中。
+无需太多文字；许多已经完成了。
+旧的程序阅读起来就像是同表达良好的研究工作者或受到良好训练的机器同事沟通一样，
+而不是与编译器争论。谁愿意让其成熟到发出这样的声音呢？
+}{\textsc{RICHARD P. GABRIEL}}
 
-\noindent{}Functions are the basic building blocks in Go programs; all interesting
-stuff happens in them. A function is declared as follows:
+\noindent{}函数是构建 Go 程序的基础部件；所遇有趣的事情都是在它其中发生的。
+函数的定义看起来像这样：
 \input{fig/function.tex}
 \showremarks
-Here are a two examples, the left is a function without a return value,
-the one on the right is a simple function that returns its input.
+这里有两个例子，左边的函数没有返回值，右边的只是简单的将输入返回。
 
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}
@@ -28,17 +25,14 @@ func identity(in int) int {
 \end{lstlisting}
 \end{minipage}
 
-Functions can be declared in any order you wish, the compiler scans the
-entire file before execution. So function prototyping is a thing of the
-past in Go.
-Go disallows nested functions.
-You can however
-work around this by using anonymous functions, see section
-"\titleref{sec:functions as values}" on page \pageref{sec:functions as values} 
-in this chapter.
+可以随意安排函数定义的顺序，编译器会在执行前扫描每个文件。所以函数原型在 Go 中都是过期的旧物。
+Go 不允许函数嵌套。
+然而你可以利用匿名函数实现它，参阅本章的 "\titleref{sec:functions as values}" 在
+\pageref{sec:functions as values} 页。
 
-Recursive functions just work as in other languages:
-\begin{lstlisting}[caption=Recursive function]
+
+递归函数跟其他语言是一样的：
+\begin{lstlisting}[caption=递归函数]
 func rec(i int) {
    if i == 10 {
         return
@@ -47,14 +41,13 @@ func rec(i int) {
    fmt.Printf("%d ", i)
 }
 \end{lstlisting}
-This prints \texttt{9 8 7 6 5 4 3 2 1 0}.
+这会打印 \texttt{9 8 7 6 5 4 3 2 1 0}。
 
-\section{Scope}
-Variables declared outside any functions are \first{global}{scope!local} in Go, those
-defined in functions are \first{local}{scope!local} to those functions. If names overlap --- a
-local variable is declared with the same name as a global one --- the
-local variable hides the global one when the current function is
-executed.
+\section{作用域}
+在 Go 中，定义在函数外的变量是\first{全局}{scope!local}的，
+那些定义在函数内部的变量，对于函数来说是\first{局部}{scope!local}的。
+如果命名覆盖——一个局部变量与一个全局变量有相同的名字——在函数执行的时候，
+局部变量将覆盖全局变量。
 
 \begin{minipage}{.5\textwidth}
 \input{fig/scope1.tex}
@@ -68,21 +61,16 @@ executed.
 \vfill
 \end{minipage}
 
-In listing \ref{src:scope1} we introduce a local variable \var{a}
-in the function \func{q()}.
-This local \var{a} is only visible in \func{q()}. That is
-why the code will print: \texttt{656}.
-In listing \ref{src:scope2} no new variables are introduced, there
-is only a global \var{a}.
-Assigning a new value to will be globally visible. This code will
-print: \texttt{655}
+在 \ref{src:scope1} 中定义了函数 \func{q()} 的局部变量 \var{a}。
+局部变量 \var{a} 仅在 \func{q()} 中可见。这也就是为什么代码会打印：\texttt{656}。
+在 \ref{src:scope2} 中没有定义局部变量，只有全局变量 \var{a}。
+这将使得赋值全局可见。这段代码将会打印：\texttt{655}。
 
-In the following example we call \func{g()} from \func{f()}:
+在下面的例子中，我们在 \func{f()} 中调用 \func{g()}：
 
-\lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
+\lstinputlisting[caption=当函数调用函数时的作用域]{src/scope3.go}
 
-The printout will be: \texttt{565}. A \emph{local} variable is \emph{only}
-valid when we are executing the function in which it is defined. 
+输出内容将是：\texttt{565}。\emph{局部}变量\emph{仅仅}在执行定义它的函数时有效。
 %%Finally, one can create a \first{"function literal"}{function literal} in which you essentially 
 %%define a function inside another
 %%function, i.e. a \first{nested function}{nested function}. 

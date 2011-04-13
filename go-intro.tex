@@ -48,19 +48,20 @@ Go 是一个年轻的语言，特性仍然在不断增加或\emph{删除}中。
 \end{itemize}
 
 \section{官方文档}
-Go 已经有大量的文档。Go Tutorial \cite{go_tutorial} 和 Effective Go \cite{effective_go}。
+Go 已经有大量的文档。例如 Go Tutorial \cite{go_tutorial} 和 Effective Go \cite{effective_go}。
 网站 \url{http://golang.org/doc/} 是绝佳的起点 
-\footnote{\url{http://golang.org/doc/} 本身是由 Go 程序 \prog{godoc} 支撑的。}。
-并不是一定要阅读这些文档，但是强烈建议阅读。
+\footnote{\url{http://golang.org/doc/} 本身是由 Go 程序 \prog{godoc} 提供服务的。}。
+虽然并不一定要阅读这些文档，但是强烈建议这么做。
 
 Go 用叫做 \prog{godoc} 的 Go 程序格式化其文档。
 你可以用它查阅在线文档。例如，假设我们需要了解关于 \package{hash} 包的更多信息。
-可以用命令 \prog{godoc hash}。如何创建你自己的包的文档在 \ref{chap:packages} 章节中介绍。
+可以用命令 \prog{godoc hash} 查阅它。如何创建你自己的包的文档在第
+\ref{chap:packages} 章中介绍。
 
 \section{获得 Go}
-当前（2011）任何 Linux 发行版都没有提供 Go 包。
-安装 Go 的道路也因此也比预期的要稍微长一些。当 Go 稳定后，这一状况会得到改善。
-现在来说，你需要从 mercurial 中获取源代码，并且编译 Go。
+当前（2011）任何 Linux 发行版都没有提供 Go 安装包。
+安装 Go 的过程因此也比预期的要稍微长一些。当 Go 稳定之后，这一情况应该会得到改善。
+现在来说，你需要从 mercurial 中获取源代码，然后编译 Go。
 对于其他类 Unix 系统，过程类似。
 \begin{itemize}
 \item 首先安装 Mercurial （获取 \prog{hg} 命令）。
@@ -95,10 +96,10 @@ Installed Go for linux/amd64 in /home/gobook/go.
 Installed commands in /home/gobook/go/bin.
 The compiler is 6g.
 \end{display}
-现在，已经将 Go 安装到了系统中，可以开始游戏了。
+现在，Go 已经被安装到了系统中，可以开始游戏了。
 
 \subsection{保持更新}
-新的发布会公布在 Go Nuts 邮件列表 \cite{go_nuts}。将已经存在的代码树更新到最新，需要执行：
+新的发布会公布在 Go Nuts 邮件列表 \cite{go_nuts} 中。将已经存在的代码树更新到最新，需要执行：
 \begin{display}
 \pr cd $GOROOT
 \pr hg pull
@@ -125,7 +126,7 @@ Limbo 是用于开发运行在小型计算机上的分布式应用的编程语�
 \end{quote}
 Limbo 的一个特性已经包含进了 Go 用于支持交叉编译。
 \todo{Plan 9 上的首席语言。在 1995 年提出。}
-Go 从 Limbo 继承的另一个特性是 channel（参阅 \ref{chap:channels} 章节）。
+Go 从 Limbo 继承的另一个特性是 channel（参阅第 \ref{chap:channels} 章）。
 从 Limbo 文档来的另一段：
 \begin{quote}
 [channel] 是用于向系统中其他代理发送和接收特定类型对象的通讯机制。

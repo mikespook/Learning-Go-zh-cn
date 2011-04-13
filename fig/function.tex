@@ -1,37 +1,29 @@
-\begin{lstlisting}[caption=A function declaration,label=src:function definition]
+\begin{lstlisting}[caption=函数定义,label=src:function definition]
 |\begin{tikzpicture}[overlay]
-\ubrace{0.6,-1.5}{0.0,-1.5}{The keyword \key{func} is used to declare a function;}
+\ubrace{0.6,-1.5}{0.0,-1.5}{保留字 \key{func} 用于定义一个函数；}
 %
-\ubrace{2.2,-1.5}{0.8,-1.5}{A function can be defined to work on a specific type, a %
-more common name for such a function is \index{method}{method}. This part is %
-called a \first{\emph{receiver}}{receiver} and it is optional. This %
-will be used in chapter \ref{chap:interfaces};}
+\ubrace{2.2,-1.5}{0.8,-1.5}{函数可以定义用于特定的类型，%
+这类函数更加通俗的称呼是 \index{method}{method}。这部分称作 %
+\first{\emph{receiver}}{receiver} 而它是可选的。它将在 %
+\ref{chap:interfaces} 章使用；}
 %
-\ubrace{3.4,-1.5}{2.4,-1.5}{\emph{funcname} is the name of your function;}
+\ubrace{3.4,-1.5}{2.4,-1.5}{\emph{funcname} 是你函数的名字；}
 %
-\ubrace{4.5,-1.5}{3.6,-1.5}{The variable \var{q} of type \type{int} is %
-the input parameter. The parameters are passed %
-\first{\emph{pass-by-value}}{pass-by-value} meaning they are copied. %
-But be aware that reference types (slices, channels, maps and interfaces) are %
-\first{\emph{pass-by-reference}}{pass-by-reference} even though you %
-do not see the pointers directly in the code;}
+\ubrace{4.5,-1.5}{3.6,-1.5}{\type{int} 类型的变量 \var{q} 是输入参数。%
+参数用 \first{\emph{pass-by-value}}{pass-by-value} 方式传递，意味着它们会被复制。%
+但是留意引用类型（slice、channel、map 和 interface）用 %
+\first{\emph{pass-by-reference}}{pass-by-reference} 传递，%
+虽然你并没有在代码里直接看到指针；}
 %
 \ubrace{6.0,-1.5}{4.9,-1.5}{%
-The variables \var{r} and \var{s} are the %
-\index{named return parameters}{named return parameters} for this function. %
-Note that functions in Go can have multiple return values. See section %
-"\titleref{sec:multiple return}" on page \pageref{sec:multiple return}. %
-If you want the return %
-parameters not to be named you only give the types: %
-\lstinline{(int,int)}. If you have only one value to return you may omit %
-the parentheses. If your function is a subroutine and does not have %
-anything to return you may omit this entirely;}
+变量 \var{r} 和 \var{s} 是这个函数的 \index{named return parameters}{named return parameters}。%
+注意在 Go 的函数中可以返回多个值。参阅 "\titleref{sec:multiple return}" 在 \pageref{sec:multiple return}。%
+如果想要返回无命名的参数，只需要提供类型：\lstinline{(int,int)}。%
+如果只有一个返回值，可以省略圆括号。如果函数是一个子过程，并且没有任何返回值，也可以省略这些内容；}
 %
-\ubrace{8.2,-1.5}{6.3,-1.5}{This is the function's body, note that %
-\func{return} is a statement so the braces around the parameter(s) are %
-optional.}
+\ubrace{8.2,-1.5}{6.3,-1.5}{这是函数体，注意 \func{return} 是一个语句，所以包裹参数的括号是可选的。}
 \end{tikzpicture}|
-type mytype int	|\coderemark{New type, see chapter \ref{chap:beyond}}|
+type mytype int	|\coderemark{新的类型，参阅 \ref{chap:beyond} 章节}|
 
 func (p mytype) funcname(q int) (r,s int) { return 0,0 }
 ||

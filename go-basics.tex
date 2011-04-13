@@ -9,7 +9,7 @@ Go 努力保持小并且优美，你可以在短短几行代码里做许多事�
 Go 让函数很容易成为\emph{非常}轻量的线程。
 这些线程在 Go 中被叫做 \first{goroutines}{goroutines} 
 \footnote{是的，它的发音很接近 \emph{co}routines，
-但是 goroutines 确实有一些不同，我们将在 \ref{chap:channels} 章节讨论。}；
+但是 goroutines 确实有一些不同，我们将在第 \ref{chap:channels} 章讨论。}；
 %% gofix.go:11: non-declaration statement outside function body
 
 \item[Channel]
@@ -87,7 +87,7 @@ Go 编译器叫做 \verb|<数字>g|，数字是 6 表示用于 64 位 Intel 而 
 行 3 指定了编译的程序的名字，而行 5 列举了源代码文件。
 现在执行 \verb|make| 就可以完成你的程序编译。
 留意 Go 使用了不同于 \prog{make} 的，叫做 \prog{gomake} 的命令。它是（当前来说）一个 GNU make 的小封装。
-Go 程序的构建系统在将来可能会发生变化，从而将 \prog{make} 移除。所以我们使用 \prog{gomake}。
+Go 程序的构建系统在将来可能会发生变化，从而 \prog{make} 会被移除。所以我们使用 \prog{gomake} 进行构建。
 留意 \file{Makefile} 创建的可执行文件叫做 \prog{helloworld}，而不是 \prog{6.out} 或者 \prog{8.out}。
 
 \section{变量、类型和保留字}
@@ -144,7 +144,7 @@ var (
 
 有相同类型的多个变量同样可以在一行内完成声明：
 \lstinline{var x, y int} 让 \var{x} 和 \var{y} 都是 \type{int} 类型变量。
-同样可以使用 \first{parallel assignment}{parallel assignment}：
+同样可以使用 \first{平行赋值}{parallel assignment}：
 \begin{lstlisting}
 a, b := 20, 16
 \end{lstlisting}
@@ -247,8 +247,8 @@ s[0] = 'c'  |\coderemark{修改第一个字符为 'c'，这会报错}|
 \begin{lstlisting}
 s := "hello"
 c := []byte(s)	    |\longremark{转换 \var{s} 为字节数组，%
-查阅在 \ref{chap:beyond} 章 "\titleref{sec:conversions}" 小节、%
-页面 \pageref{sec:conversions} 的内容；}|
+查阅在第 \ref{chap:beyond} 章 "\titleref{sec:conversions}"节、%
+\pageref{sec:conversions} 页的内容；}|
 c[0] = 'c'	    |\longremark{修改数组的第一个元素；}|
 s2 := string(c)     |\longremark{创建\emph{新的}字符串 \var{s2} 保存修改；}|
 fmt.Printf("%s\n", s2) |\longremark{用 \func{fmt.Printf} 函数输出字符串。}|
@@ -326,18 +326,18 @@ wise xor}和\first{\key{位清除}}{operator!bitwise!clear}。
 \begin{itemize}
 \item \key{var} 和 \key{const} 参阅 "\titleref{sec:vars}" 在 \pageref{sec:vars} 页；
 \item \key{package} 和 \key{import} 已经有过短暂的接触，在 "\titleref{sec:hello world}" 部分。 
-\ref{chap:packages} 这章对其有详细的描述。
+在第 \ref{chap:packages} 章对其有详细的描述。
 \end{itemize}
 其他都有对应的介绍和章节：
 \begin{itemize}
 \item \key{func} 用于定义函数和方法；
 \item \key{return} 用于从函数返回，\key{func} 和 \key{return}
-参阅\ref{chap:functions}了解详细信息；
-\item \key{go} 用于并行（\ref{chap:channels}章）；
-\item \key{select} 用于选择不同类型的通讯，参阅\ref{chap:channels}章；
-\item \key{interface} 参阅 \ref{chap:interfaces}；
-\item \key{struct} 用于抽象数据类型，参阅\ref{chap:beyond}章；
-\item \key{type} 同样参阅 \ref{chap:beyond}。
+参阅第 \ref{chap:functions} 章了解详细信息；
+\item \key{go} 用于并行（第 \ref{chap:channels} 章）；
+\item \key{select} 用于选择不同类型的通讯，参阅第 \ref{chap:channels} 章；
+\item \key{interface} 参阅第 \ref{chap:interfaces} 章；
+\item \key{struct} 用于抽象数据类型，参阅第 \ref{chap:beyond} 章；
+\item \key{type} 同样参阅第 \ref{chap:beyond} 章。
 \end{itemize}
 
 \section{控制结构}
@@ -346,7 +346,7 @@ wise xor}和\first{\key{位清除}}{operator!bitwise!clear}。
 例如这里没有 do 或者 while 循环，只有 \key{for}。
 有（灵活的）\key{switch} 语句和 \key{if}，而
 \key{switch} 接受像\key{for}那样可选的初始化语句。
-还有叫做类型选择和多路通讯转接器的 \key{select} （参阅 \ref{chap:channels} 章节）。
+还有叫做类型选择和多路通讯转接器的 \key{select} （参阅第 \ref{chap:channels} 章）。
 语法有所不同（同 C 相比）：无需圆括号，而语句体必须\emph{总是}包含在大括号内。
 
 \subsection{if}
@@ -430,7 +430,7 @@ if err != nil {
 
 \subsection{goto}
 Go 有 \first{\key{goto}}{keyword!goto} 语句——明智的使用它。
-用 \key{goto} 跳转到一定是当前函数内定义的 \index{label} 标签。
+用 \key{goto} 跳转到一定是当前函数内定义的标签\index{label}。
 例如假设这样一个循环：
 \begin{lstlisting}
 func myfunc() {
@@ -461,7 +461,7 @@ for i := 0; i < 10; i++ {
 }   |\coderemark{\var{i} 实例在循环\emph{结束}会消失}|
 \end{lstlisting}
 最后，由于 Go 没有逗号表达式，而 ++ 和 -- 是语句而不是表达式，
-如果你想在 \key{for} 中执行多个变量，应当使用 \first{parallel assignment}{parallel assignment}。
+如果你想在 \key{for} 中执行多个变量，应当使用 \first{平行赋值}{parallel assignment}。
 \begin{lstlisting}
 // Reverse a
 for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 { |\coderemark{平行赋值}|
@@ -504,7 +504,7 @@ for i := 0; i < 10; i++ {
 
 \subsection{range}
 保留字 \first{\key{range}}{keyword!range} 可用于循环。
-它可以在 slice、array、string、map 和 channel（参阅 \ref{chap:channels} 章节）。
+它可以在 slice、array、string、map 和 channel（参阅第 \ref{chap:channels} 章）。
 \key{range} 是个迭代器，当被调用的时候，从它循环的内容中返回一个键值对。
 基于不同的内容，\key{range} 返回不同的东西。
 
@@ -637,21 +637,21 @@ func Compare(a, b []byte) int {
 \end{table}
 
 \paragraph{\func{close} 和 \func{closed}} 用于 channel
-通讯和关闭 channel，参阅 \ref{chap:channels} 章节了解更多。
+通讯和关闭 channel，参阅第 \ref{chap:channels} 章了解更多。
 \index{built-in!close}\index{built-in!closed}
 
 \paragraph{\func{len} 和 \func{cap}} 可用于不同的类型，
 \func{len} 用于返回字符串、slice 和数组的长度。
-参阅 "\titleref{sec:arrays}" 章节了解更多关于 slice、
+参阅 "\titleref{sec:arrays}" 小节了解更多关于 slice、
 数组和函数 \func{cap} 的详细信息。
 \index{built-in!len}\index{built-in!cap}
 
 \paragraph{\func{new}} 用于各种类型的内存分配。
-参阅 "\titleref{sec:allocation with new}" 在 \pageref{sec:allocation with new}。
+参阅 "\titleref{sec:allocation with new}" 在 \pageref{sec:allocation with new} 页。
 \index{built-in!new}
 
 \paragraph{\func{make}} 用于内建类型（map、slice 和 channel）的内存分配。
-参阅 "\titleref{sec:allocation with make}" 在 \pageref{sec:allocation with make}。
+参阅 "\titleref{sec:allocation with make}" 在 \pageref{sec:allocation with make} 页。
 \index{built-in!make}
 
 \paragraph{\func{copy}} 用于复制 slice。\func{append} 用于追加 slice。
@@ -660,7 +660,7 @@ func Compare(a, b []byte) int {
 \index{built-in!append}
 
 \paragraph{\func{panic} 和 \func{recover}} 用于\emph{异常}处理机制。
-参阅 "\titleref{sec:panic}" 在 \pageref{sec:panic} 了解更多信息。
+参阅 "\titleref{sec:panic}" 在 \pageref{sec:panic} 页了解更多信息。
 \index{built-in!panic}
 \index{built-in!recover}
 
@@ -669,7 +669,7 @@ func Compare(a, b []byte) int {
 \index{built-in!print}\index{built-in!println}
 
 \paragraph{\func{complex}、\func{real} 和 \func{imag}} 全部用于处理
-\first{complex numbers}{complex numbers}。有了之前给的简单的例子，不用再进一步讨论复数了。
+\first{复数}{complex numbers}。有了之前给的简单的例子，不用再进一步讨论复数了。
 \index{built-in!complex}
 \index{built-in!real}
 \index{built-in!imag}
@@ -697,8 +697,7 @@ fmt.Printf("The first element is %d\n", arr[0])
 
 \index{array!multidimensional}
 可以像这样声明一个数组：\lstinline{var a [3]int}，
-如果不使用零来初始化它，则用\first{composite
-literal}{composite literal}：\lstinline|a := [3]int{1, 2, 3}| 也可以简写为
+如果不使用零来初始化它，则用\first{复合声明}{composite literal}：\lstinline|a := [3]int{1, 2, 3}| 也可以简写为
 \lstinline|a := [...]int{1, 2, 3}|，Go 会自动统计元素的个数。
 \gomarginpar{复合声明允许你直接将值赋值给 array、slice 或者 map}
 注意，所有项目必须都指定。因此，如果你使用多维数组，有一些内容你必须录入：
@@ -710,9 +709,8 @@ a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
 a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
 \end{lstlisting}
 当声明一个 array 时，你\emph{必须}在方括号内输入些内容，数字或者三个点
-(\verb|...|)。 
-\gomarginpar{Go \gorelease{2010-10-27} \cite{go_release_hist}.} 
-从 \gorelease{2010-10-27} 这个语法使用更加简单了。
+(\verb|...|)。%
+从 \gorelease{2010-10-27}\cite{go_release_hist} 这个语法使用更加简单了。
 来自于发布记录：
 \begin{quote}
 array、slice 和 map 的复合声明变得更加简单。使用复合声明的
@@ -728,7 +726,7 @@ a := [2][2]int{ {1,2}, {3,4} }
 slice 与 array 接近，但是在新的元素加入的时候可以增加长度。
 slice 总是指向底层的一个 array。slice 是一个\emph{指向} array 的指针，
 这是其与 array 不同的地方；
-slice 是\first{reference types}{reference types}，
+slice 是\first{引用类型}{reference types}，
 \gomarginpar{引用类型使用 \lstinline{make} 创建。}
 这意味着当赋值某个 slice 到另外一个变量，两个引用会指向同一个 array。
 例如，如果一个函数需要一个 slice 参数，在其内对 slice 元素的修改也会体现在函数调用者中，
@@ -738,8 +736,8 @@ slice 是\first{reference types}{reference types}，
 sl := make([]int, 10)
 \end{lstlisting}
 创建了一个保存有 10 个元素的 slice。需要注意的是底层的 array 并无不同。
-slice总是与一个固定长度的 array 成对出现。对 slice 定义了
-\first{capacity}{slice!capacity} 和 \first{length}{slice!length}。
+slice 总是与一个固定长度的 array 成对出现。其影响 slice 
+的\first{容量}{slice!capacity}和\first{长度}{slice!length}。
 \index{array!length}\index{array!capacity}
 图 \ref{fig:array-vs-slice} 描述了下面的 Go 代码。
 首先创建了 $m$ 个元素长度的 array，元素类型 \lstinline{int}：
@@ -766,8 +764,7 @@ slice总是与一个固定长度的 array 成对出现。对 slice 定义了
 
 \begin{lstlisting}
 // array[n:m] 从 array 创建了一个 slice，具有元素 n to m-1
-a := [...]int{1, 2, 3, 4, 5} |\longremark{定义一个 5 个元素的 array，
-序号从 0 到 4；}|
+a := [...]int{1, 2, 3, 4, 5} |\longremark{定义一个 5 个元素的 array，序号从 0 到 4；}|
 s1 := a[2:4] |\longremark{从序号 2 至 3 创建 slice，它包含元素 \texttt{3, 4}；}|
 s2 := a[1:5] |\longremark{从序号 1 至 4 创建，它包含元素 \texttt{2, 3, 4, 5}；}|
 s3 := a[:]   |\longremark{用 array 中的所有元素创建 slice，这是 \texttt{a[0:len(a)]} 的简化写法；}|
@@ -776,7 +773,7 @@ s5 := s2[:]  |\longremark{从 slice \var{s2} 创建 slice，注意 \texttt{s5} �
 \end{lstlisting}
 \showremarks
 
-在 \ref{src:arrays} 列出的代码中，我们尝试在第八行做一些不可能的处理，
+在 \ref{src:arrays} 列出的代码中，我们在第八行尝试做一些错误的事情，
 让一些东西超出范围（底层 array 的最大长度），然后得到了一个\emph{运行时}错误。
 \lstinputlisting[numbers=right,label=src:arrays,caption=array 和 slice]{src/array-and-slices.go}
 如果你想要扩展 slice，有一堆内建函数让你的日子更加好过一些：
