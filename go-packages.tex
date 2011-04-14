@@ -1,182 +1,134 @@
-\epi{\lstinline{^}}{\textit{Answer to whether there is a bitwise negation
-operator.}\\\textsc{KEN THOMPSON}}
-\noindent{}Packages are a collection of functions and data, they are like the
-Perl packages\cite{perl-packages}. You declare a package with the
-\first{\key{package}}{keyword!package} keyword. The filename does not
-have to match the package name.
-The convention for package names is to use
-lowercase characters.
-Go packages may consist of multiple files,
-but they share the \lstinline{package <name>} line.
-Lets define a package \package{even}\index{package!even} in the file \prog{even.go}.
+\epi{\lstinline{^}}{\textit{对是否有按位非的运算符的回答。}\\\textsc{KEN THOMPSON}}
+\noindent{}
+包是函数和数据的集合，跟 Perl 的包\cite{perl-packages}差不多。
+用 \first{\key{package}}{keyword!package} 保留字定义一个包。
+文件名不需要与包名一致。包名的约定是使用小写字符。
+Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <name>} 这一行。
+让我们在文件 \prog{even.go} 中定义一个叫做 \package{even}\index{package!even} 的包。
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
-Names that start with a capital letter are \emph{exported} and may be used
-outside your package, more on that later. We can now use
-the package as follows in our own program \prog{myeven.go}:
+名称以大写字幕起始的是\emph{可导出}的，可以在包的外部调用，稍候会讨论这个。
+现在可以在下面的程序 \prog{myeven.go} 中使用这个包了：
 
 \lstinputlisting[label=src:myeven,caption=Use of the even package]{src/myeven.go}
 \showremarks
 
-Now we just need to compile and link, first the package, then \prog{myeven.go} and
-then link it:
+现在只需要编译和链接，首先是那个包，然后是 \prog{myeven.go}，并且链接它们：
 \begin{display}
-\pr 6g even.go			\coderemark{The package}
-\pr 6g myeven.go		\coderemark{Our program}
-\pr 6l -o myeven myeven.6       \coderemark{Linking stage}
+\pr 6g even.go			\coderemark{包}
+\pr 6g myeven.go		\coderemark{程序}
+\pr 6l -o myeven myeven.6       \coderemark{链接步骤}
 \end{display}
-And test it:
+然后测试一下：
 \begin{display}
 \pr ./myeven
 Is 5 even? false
 \end{display}
 
-In Go, a function from a package is exported (visible
-outside the package, i.e. public) when the first letter of the function name is a capital, hence
-the function name \func{\emph{E}ven}. If we change our \prog{myeven.go} on line
-7 to using to unexported function \func{even.odd}:
+在 Go 中，当函数的首字母大写的时候，函数会被从包中导出（在包外部可见，或者说公有的），
+因此函数名是 \func{\emph{E}ven}。如果修改 \prog{myeven.go} 的第 7 行，使用未导出的函数
+\func{even.odd}：
 
 \noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.odd(i))}
 
-We get an error when compiling, because we are trying to use a
-\emph{private} function:
+由于使用了\emph{私有}的函数，会得到一个编译错误：
 \begin{display}
 myeven.go:7: cannot refer to unexported name even.odd
 myeven.go:7: undefined: even.odd
 \end{display}
 
-\noindent{}To summarize:
+\noindent{}概括来说：
 \begin{itemize}
-\item Public functions have a name starting with a \emph{capital}
-letter;
+\item 公有函数的名字以\emph{大写}字母开头；
 \index{public}
-\item Private function have a name starting with a \emph{lowercase} letter.
+\item 私有函数的名字以\emph{小写}字幕开头。
 \index{private}
 \end{itemize}
-This convention also holds true for other names (new types, global
-variables) you define in a package. Note that the term "capital" is not limited
-to US ASCII, it extends into the entire Unicode range. So captial Greek, Coptic, etc. is OK too.
+这个规则同样适用于定义在包中的其他名字（新类型、全局变量）。
+注意，“大写”的含义并不仅限于 US ASCII，它被扩展到了整个 Unicode 范围。
+所以大写的希腊语、古埃及语都是可以的。
 
-\section{Building a package}
+\section{构建一个包}
 \label{sec:building a package}
-To create a package that other people can use (by just using
-\lstinline{import "even"}) we first need to create a directory
-to put the package files in. 
+为了创建一个别人可以用的包（只需要 \lstinline{import "even"} 即可使用），首先需要创建一个目录放入包文件。
 \begin{display}
 \pr mkdir even
 \pr cp even.go even/
 \end{display}
-\noindent{}Next we 
-can use the following 
-\file{Makefile}, which 
-is adapted for our \package{even} package.
-\lstinputlisting[language=make,caption=Makefile for a package,linerange={5,},numbers=right]{src/Makefile}
-Note that on line 3 we define our \package{even} package and on the
-lines 4 and 5 we enter the files which make up the package.
-Also note that this is \emph{not} the \emph{same} \prog{Makefile} setup as we used
-in section "\titleref{sec:building a program}" in chapter
-\ref{chap:basics}. The last line with the \verb|include| statement is
-different.
+\noindent{}然后可以使用根据 \package{even} 包改写的 \file{Makefile} 文件。
+\lstinputlisting[language=make,caption=用于包的 Makefile,linerange={5,},numbers=right]{src/Makefile}
+注意第 3 行定义了 \package{even} 包，而第 4 和第 5 行录入了构成包的文件。
+同样注意，这\emph{不是}在第 \ref{chap:basics} 章，第 "\titleref{sec:building a program}"
+节中使用的\emph{那个} \prog{Makefile}。最后一行的 \verb|include| 语句是不同的。
 
-If we now issue \prog{gomake}, a file named "\file{\_go\_.6}", a directory
-named "\dir{\_obj/}" and a file inside "\dir{\_obj/}" called
-"\file{even.a}"
-is created. The file \file{even.a} is a static library which holds
-the compiled Go code.
-With \prog{gomake install} the package (well, only the \file{even.a}) is installed in the \emph{official}
-package directory:
+如果现在执行 \prog{gomake}，一个叫做 "\file{\_go\_.6}" 的文件、一个叫做
+"\dir{\_obj/}" 的目录，和 "\dir{\_obj/}" 目录中，叫做 "\file{even.a}" 的文件被创建。
+文件 \file{even.a} 是有编译后的 Go 代码的静态库。
+通过 \prog{gomake install} 包（好吧，只有 \file{even.a}）被安装在\emph{官方}包目录中：
 \begin{display}
 \pr make install
 cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
 \end{display}
-\noindent{}After installing we can change our \key{import} from
-\lstinline{"./even"} to \lstinline{"even"}.
+\noindent{}安装完后，就可以修改 \key{import} 从
+\lstinline{"./even"} 到 \lstinline{"even"}。
 
-But what if you do not want to install packages in the official Go
-directory, or maybe you do not have the permission to do so? When using
-\prog{6/8g} you can use the \flag{\-I}-flag to specify an alternate
-package directory. With this flag you can leave your import statement
-as-is (\lstinline{import "even"}) and continue development in your
-own directory. So the following commands should build (and link) our
-\prog{myeven} program with our package.
+但是，如果不希望将包安装到官方的 Go 目录，或者没有权限这么做的话。
+在使用 \prog{6/8g} 的时候，可以指定 \flag{\-I} 标志替换包目录。
+有了这个标志，你可以让你的导入语句变成（\lstinline{import "even"}）却继续部署在自定义的目录中。
+所以，下面的命令可以联合包构建（并且链接）\prog{myeven}程序。
 \begin{display}
 \pr 6g -I even/\_obj myeven.go	\coderemark{Building}
 \pr 6l -L even/\_obj myeven.6	\coderemark{Linking}
 \end{display}
 
-\noindent{}Imported, but otherwise unused packages are an error.
+\noindent{}导入但是没有使用的包会引起一个错误。
 
-\section{Identifiers}
-Names are as important in Go as in any other language. In some cases
-they even have semantic effect: for instance, the visibility of a name
-outside a package is determined by whether its first character is upper
-case. It's therefore worth spending a little time talking about naming
-conventions in Go programs.
+\section{标识符}
+像在其他语言中一样，Go 的命名是很重要的。在某些情况下，它们甚至有语义上的作用：
+例如，在包外是否可见决定于首字母是不是大写。因此有必要花点时间讨论一下 Go 程序的命名规则。
 
-The convention that is used was to leave well-known legacy
-not-quite-words alone rather than try to figure out where
-the capital letters go.  \lstinline{Atoi}, \lstinline{Getwd},
-\lstinline{Chmod}.
-Camelcasing works best when you have whole words
-to work with: \lstinline{ReadFile, NewWriter, MakeSlice}.
+使用的规则是让众所周知的缩写保持原样，而不是去尝试到底哪里应该大写。
+\lstinline{Atoi}，\lstinline{Getwd}，\lstinline{Chmod}。
 
-\subsection{Package names}
-When a package is imported (with \first{\key{import}}{keyword!import}), the package name becomes 
-an accessor for the contents. After\index{package!bytes}
+驼峰式对那些有完整单词的会很好：\lstinline{ReadFile，NewWriter，MakeSlice}。
+
+\subsection{包名}
+当包导入（通过 \first{\key{import}}{keyword!import}）时，包名成为了内容的入口。
+在\index{package!bytes} 
 \begin{lstlisting}
 import "bytes"
 \end{lstlisting}
-the importing package can talk about \func{bytes.Buffer}. It's helpful if
-everyone using the package can use the same name to refer to its
-contents, which implies that the package name should be good: short,
-concise, evocative. By convention, packages are given lower case,
-single-word names; there should be no need for underscores or mixedCaps.
-Err on the side of brevity, since everyone using your package will be
-typing that name. And don't worry about collisions a priori. The package
-name is only the default name for imports. With the above import 
-you can use \lstinline{bytes.Buffer}. With 
+之后，导入包的可以调用函数\func{bytes.Buffer}。任何使用这个包的人，
+可以使用同样的名字访问到它的内容，因此这样的包名是好的：短的、简洁的、好记的。
+根据规则，包名是小写的一个单词；不应当有下划线或混合大小写。
+由于每个人都可能需要录入这个名字，所以尽可能的简短。不要提前考虑冲突。
+包名是导入的默认名称。就上面的 \lstinline{bytes.Buffer} 来说。通过 
 \begin{lstlisting}
 import bar "bytes"
 \end{lstlisting}
-it becomes \lstinline{bar.Buffer}.
-So it does need not be unique across
-all source code, and in the rare case of a collision the importing
-package can choose a different name to use locally. In any case,
-confusion is rare because the file name in the import determines just
-which package is being used.
+它变成了 \lstinline{bar.Buffer}。
+因此，它无须在整个代码中唯一，在少有的冲突中，可以给导入的包选择另一个名字在局部使用。
+在任何时候，冲突都是很少见的，因为导入的文件名会用来做判断，到底是哪个包使用了。
 
-Another convention is that the package name is the base name of its
-source directory; the package in \package{src/pkg/container/vector} is imported as
-\var{container/vector} but has name \package{vector}, not
-\package{container\_vector} and not
-\package{containerVector}.\index{package!container/vector}
+另一个规则是包名就是代码的根目录名；在 \package{src/pkg/container/vector} 的包，
+作为 \var{container/vector} 导入，但名字是 \package{vector}，
+不是 \package{container\_vector} 也不是 \package{containerVector}。\index{package!container/vector}
 
-The importer of a package will use the name to refer to its contents, so 
-exported names in the package can use that fact to avoid
-stutter. For instance, the buffered reader type in the
-\package{bufio}\index{package!bufio}
-package is
-called \func{Reader}, not \func{BufReader}, because users see it as
-\func{bufio.Reader},
-which is a clear, concise name. Moreover, because imported entities are
-always addressed with their package name, \func{bufio.Reader} does not conflict
-with \func{io.Reader}. Similarly, the function to make new instances of
-\func{ring.Ring}---which is the definition of a constructor in Go---would normally
-be called \func{NewRing}, but since \type{Ring} is the only type exported by the
-package, and since the package is called
-\package{ring}\index{package!ring}, it's called
-just \func{New}.
-Clients of the package see that as \func{ring.New}. Use the package structure
-to help you choose good names.
+导入包将使用其名字引用到内容上，所以导入的包可以利用这个避免罗嗦。
+例如，缓冲类型 \package{bufio}\index{package!bufio} 包的读取方法，叫做 \func{Reader}，而不是
+\func{BufReader}，因为用户看到的是 \func{bufio.Reader} 这个清晰、简洁的名字。
+更进一步说，由于导入的实例总是它们包名指向的地址，\func{bufio.Reader} 不会与
+\func{io.Reader} 冲突。相似的，\func{ring.Ring} 创建新实例的函数——在 Go 中定义的构造函数——通常叫做
+\func{NewRing}，但是由于 \type{Ring} 是这个包唯一的一个导出的类型，同时，这个包也叫做
+\package{ring}\index{package!ring}，所以它可以只称作 \func{New}。
+包的客户看到的是 \func{ring.New}。用包的结构帮助你选择更好的名字。
 
-Another short example is \func{once.Do}; \func{once.Do(setup)} reads well and would
-not be improved by writing \lstinline{once.DoOrWaitUntilDone(setup)}. Long names
-don't automatically make things more readable. If the name represents
-something intricate or subtle, it's usually better to write a helpful
-doc comment than to attempt to put all the information into the name.
+另外一个简短的例子是 \func{once.Do}；\func{once.Do(setup)} 读起来很不错，并且
+命名为 \lstinline{once.DoOrWaitUntilDone(setup)} 不会有任何帮助。长的名字不会让其变得容易阅读。
+如果名字表达了一些复杂并且微妙的内容，更好的办法是编写一些有帮助的注释，而不是将所有信息都放入名字里。
 
-Finally, the convention in Go is to use \first{MixedCaps}{MixedCaps} or mixedCaps rather
-than underscores to write multiword names.
+最后，在 Go 中使用\first{混合大小写}{MixedCaps} MixedCaps 或者 mixedCaps，
+而不是下划线区分含有多个单词的名字。
 
 %% Advanced Go, leave it
 %%\section{Initialization}

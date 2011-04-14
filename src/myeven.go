@@ -1,13 +1,12 @@
 package main
 
-import (		|\longremark{Import the following packages;}|
-	"./even"	|\longremark{The \emph{local} package \package{even} is imported here;}|
-	"fmt"		|\longremark{The official \package{fmt} package gets imported;}|
+import (		|\longremark{导入下面的包；}|
+	"./even"	|\longremark{\emph{本地}包 \package{even} 在这里导入；}|
+	"fmt"		|\longremark{官方 \package{fmt} 包导入；}|
 )
 
 func main() {
 	i := 5
-	fmt.Printf("Is %d even? %v\n", i, even.Even(i)) |\longremark{Use the function from the %
-\package{even} package. The syntax for accessing a function from a package is %
-\lstinline{<package>.Function()}.}|
+	fmt.Printf("Is %d even? %v\n", i, even.Even(i)) |\longremark{调用 \package{even} 包中的函数。%
+访问一个包中的函数的语法是 \lstinline{<package>.Function()}。}|
 }
