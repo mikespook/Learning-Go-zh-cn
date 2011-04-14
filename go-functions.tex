@@ -77,72 +77,62 @@ func rec(i int) {
 %%The following figure should clarify why it prints: \texttt{565757}. 
 %%\input{fig/scope3.tex}
 
-\section{Multiple return values}
+\section{多个返回值}
 \label{sec:multiple return}
-One of Go's unusual features is that functions and methods can return multiple
-values (Python can do this too). This can be used to improve on a couple of 
-clumsy idioms in C programs:
-in-band error returns (such as -1 for \texttt{EOF}) and modifying an argument.
-In Go, \lstinline{Write} returns a count and an
-error: "Yes, you wrote some bytes but not all of them because you filled the
-device". The signature of \lstinline{*File.Write} in package
-\package{os} is:
+Go 一个非常特别的特性是函数和方法可以返回多个值（Python 也可以）。
+这可以用于改进一大堆在 C 程序中糟糕的惯例用法：
+修改参数的方式，返回一个错误（例如遇到 \texttt{EOF} 则返回 -1）。
+在 Go 中，\lstinline{Write} 返回一个计数值和一个错误：
+"是的，你写入了一些字节，但是由于设备异常，并不是全部都写入了。"。
+\package{os} 包中的 \lstinline{*File.Write} 是这样声明的：
 \begin{lstlisting}
 func (file *File) Write(b []byte) (n int, err Error)
 \end{lstlisting}
-and as the documentation says, it returns the number of bytes written and a
-non-\lstinline{nil} \var{Error} when \lstinline{n != len(b)}. This is a common
-style in Go.
+如同文档所述，它返回写入的字节数和一个非 \lstinline{nil} 的 \var{Error}
+当 \lstinline{n != len(b)}。
+这是 Go 中常见的样式。
 
-A similar approach obviates the need to pass a pointer to a return value to
-simulate a reference parameter. Here's a simple-minded function to grab a
-number from a position in a byte array, returning the number and the next
-position.
+类似的方法避免了传递指针模拟引用参数来返回值。
+这里有个样例函数，从字节数组的指定位上取得数值，返回这个值和下一个位置。
 \begin{lstlisting}
 func nextInt(b []byte, i int) (int, int) {
     x := 0
-    // Naively assume everything is a number
+    // 假设所有的都是数字
     for ; i < len(b); i++ {
         x = x*10 + int(b[i])-'0'
     }
     return x, i
 }
 \end{lstlisting}
-You could use it to scan the numbers in an input array a like this:
+你可以在输入的数组中扫描数字，像这样：
 \begin{lstlisting}
 a := []byte{'1', '2', '3', '4'}
 var x int
-for i := 0; i < len(a); {	|\coderemark{No \texttt{i++}}|
+for i := 0; i < len(a); {	|\coderemark{没有 \texttt{i++}}|
     x, i = nextInt(a, i)
     println(x)
 }
 \end{lstlisting}
-Without having tuples as a native type, multiple return values is the next
-best thing to have. You can return precisely what you want without
-overloading the domain space with special values to signal errors.
+没有元组作为原生类型，多返回值可能是最佳的选择。
+你可以精确的返回希望的值，而无须重载域空间到特定的错误信号上。
 
-\section{Named result parameters}
+\section{命名返回参数}
 \label{sec:named result parameters}
-The return or result parameters of a Go function can be given names and used
-as regular variables, just like the incoming parameters. When named, they are
-initialized to the zero values for their types when the function begins; if the
-function executes a \key{return} statement with no arguments, the current values of
-the result parameters are used as the returned values. Using this
-features enables you (again) to do more with less code \footnote{This is
-a motto of Go; "Do \emph{more} with \emph{less} code".}.
+Go 函数的返回值或者结果参数可以指定一个名字，并且像原始的变量那样使用，就像输入参数那样。
+如果对其命名，在函数开始时，它们会用其类型的零值初始化；如果函数在不加参数的情况下执行了
+\key{return} 语句，结果参数的当前值会作为返回值返回。
+用这个特性，允许（再一次的）用较少的代码做更多的事
+\footnote{这是 Go 的格言："用\emph{更少}的代码做\emph{更多}的事"。}。
 
-The names are not mandatory but they can make code shorter and clearer:
-\emph{they are documentation}. 
-If we name the results of \lstinline{nextInt} it becomes obvious which
-returned \type{int} is which.
+名字不是强制的，但是它们可以使得代码更加健壮和清晰：
+\emph{这是文档}。
+如果命名 \lstinline{nextInt} 的 \type{int} 返回值哪个代表哪个。
 
 \begin{lstlisting}
 func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
 \end{lstlisting}
-Because named results are initialized and tied to an unadorned
-\key{return},
-they can simplify as well as clarify. Here's a version of
-\lstinline{io.ReadFull} that uses them well:
+由于命名结果会被初始化并关联于无修饰的 \key{return}，
+它们可以非常简单并且清晰。这里有一个 \lstinline{io.ReadFull} 的版本，很好的运用了它：
 
 \begin{lstlisting}
 func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
@@ -155,11 +145,11 @@ func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
     return
 }
 \end{lstlisting}
-In the following example we declare a simple function which calculates
-\gomarginpar{Some text in this section comes from \cite{go_intro}.}  % layout
-the factorial value of a value \var{x}.
+在下面的例子中，定义了一个简单的函数，用于计算
+\gomarginpar{这一节的部分内容来自 \cite{go_intro}。}  % layout
+值 \var{x} 的阶乘。
 \begin{lstlisting}
-func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is also OK}|
+func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} 同样也行}|
    if x == 0 {
       return 1
    } else {
@@ -167,7 +157,7 @@ func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is
    }
 }
 \end{lstlisting}
-So you could also write factorial as:
+所以，也可以将函数编写为：
 \begin{lstlisting}
 func Factorial(x int) (result int) {
   if x == 0 {
@@ -178,11 +168,10 @@ func Factorial(x int) (result int) {
   return
 }
 \end{lstlisting}
-When we use named result values, the code is shorter and
-easier to read.
-You can also write a function with multiple return values:
+当命名了返回值，代码变得健壮并且易读。
+同样也可以编写一个多返回值的函数：
 \begin{lstlisting}
-func fib(n) (val, pos int) { |\coderemark{Both ints}|
+func fib(n) (val, pos int) { |\coderemark{都是 int}|
    if n == 0 {
       val = 1
       pos = 0
@@ -199,16 +188,14 @@ func fib(n) (val, pos int) { |\coderemark{Both ints}|
 }
 \end{lstlisting}
 
-\section{Deferred code}
+\section{延迟的代码}
 \label{sec:deferred code}
-Suppose you have a function in which you open a file and perform various
-writes and reads on it. In such a function there are often spots where
-you want to return early. If you do that, you will need to close the file
-descriptor you are working on. This often leads to the following code:
-\begin{lstlisting}[caption=Without defer]
+假设有一个函数，打开文件并且对其进行若干读写。在这样的函数中，经常有提前返回的地方。
+如果你这样做，就需要关闭正在工作的文件描述符。这经常导致产生下面的代码：
+\begin{lstlisting}[caption=没有 defer]
 func ReadWrite() bool {
     file.Open("file")
-    // Do your thing
+    // 做一些工作
     if failureX {
 	file.Close()
 	return false
@@ -222,62 +209,56 @@ func ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-Here a lot of code is repeated. To overcome this Go has the
-\first{\key{defer}}{keyword!defer} statement. After
-\key{defer} you specify a function which is called just \emph{before} a
-return from the function is executed.
+在这里有许多重复的代码。为了解决这些，Go 有了
+\first{\key{defer}}{keyword!defer} 语句。在 \key{defer}
+后指定的函数会在函数退出\emph{前}调用。
 
-The code above could be rewritten as follows. This makes the 
-function more readable, shorter and puts the \func{Close} right next 
-to the \func{Open}.
+上面的代码可以被改写为下面这样。这使得函数更加可读、健壮，将
+\func{Close} 对应的放置于 \func{Open} 后。
 \begin{lstlisting}[caption=With defer]
 func ReadWrite() bool {
     file.Open("file")
-    defer file.Close()	|\coderemark{\func{file.Close()} \emph{is} the function}|
+    defer file.Close()	|\coderemark{\func{file.Close()} \emph{是}函数}|
     // Do your thing
     if failureX {
-	return false    |\coderemark{\func{Close()} is now done automatically}|
+	return false    |\coderemark{\func{Close()} 现在自动调用}|
     }
     if failureY {
-	return false    |\coderemark{And here too}|
+	return false    |\coderemark{这里也是}|
     }
     return true
 }
 \end{lstlisting}
-You can put multiple functions on the "deferred list"\index{deferred list}, like this
-example from \cite{effective_go}:
+
+可以将多个函数放入"延迟列表"\index{deferred list}中，这个例子来自 \cite{effective_go}：
 \begin{lstlisting}
 for i := 0; i < 5; i++ { 
     defer fmt.Printf("%d ", i) 
 } 
 \end{lstlisting}
-Deferred functions are executed in LIFO order, so the above code
-prints: \lstinline{4 3 2 1 0}. 
+延迟的函数是按照后进先出（LIFO）的顺序执行，所以上面的代码打印：
+\lstinline{4 3 2 1 0}。
 
-With \func{defer} you can even change return values, provided that
-you are using named result parameters and a function
-literal\index{function!literal}\footnote{A function literal
-is sometimes called a \index{closure} closure.}, i.e:
-\begin{lstlisting}[caption=Function literal]
+利用 \func{defer} 甚至可以修改返回值，假设正在使用命名结果参数和函数符号
+\index{function!literal}\footnote{函数符号也就是被叫做\index{closure}闭包的东西。}，例如：
+\begin{lstlisting}[caption=函数符号]
 defer func() {
 	/* ... */
-}()		 |\coderemark{() is needed here}|
+}()		 |\coderemark{() 在这里是必须的}|
 \end{lstlisting}
-Or this example which makes it easier to understand why and where
-you need the braces:
-\begin{lstlisting}[caption=Function literal with parameters]
+或者这个例子，更加容易了解为什么，以及在哪里需要括号：
+\begin{lstlisting}[caption=带参数的函数符号]
 defer func(x int) {
 	/* ... */
-}(5)		 |\coderemark{Give the input variable \var{x} the value 5}|
+}(5)		 |\coderemark{为输入参数 \var{x} 赋值 5}|
 \end{lstlisting}
-In that (unnamed) function you can access any named return
-parameter:
-\begin{lstlisting}[caption=Access return values within defer]
-func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
+在这个（匿名）函数中，可以访问任何命名返回参数：
+\begin{lstlisting}[caption=在 defer 中访问返回值]
+func f() (ret int) {    |\coderemark{\var{ret} 初始化为零}|
 	defer func() {
-		ret++	|\coderemark{Increment \var{ret} with 1}|
+		ret++	|\coderemark{\var{ret} 增加为 1}|
 	}()
-	return 0	|\coderemark{1 \emph{not} 0 will be returned!}|
+	return 0	|\coderemark{返回的是 1 而\emph{不是} 0！}|
 }
 \end{lstlisting}
 
