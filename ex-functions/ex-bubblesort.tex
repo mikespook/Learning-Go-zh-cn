@@ -1,16 +1,13 @@
-\begin{Exercise}[title={Bubble sort},difficulty=5]
+\begin{Exercise}[title={冒泡排序},difficulty=5]
 \label{ex:bubble}
-\Question\label{ex:bubble q1} Write a function that performs 
-Bubble sort on slice of ints. From \cite{bubblesort}:
+\Question\label{ex:bubble q1} 编写一个针对 int 类型的 slice 冒泡排序的函数。这里 \cite{bubblesort}：
 \begin{quote}
-It works by repeatedly stepping through the list to be sorted, comparing each
-pair of adjacent items and swapping them if they are in the wrong order. The
-pass through the list is repeated until no swaps are needed, which indicates
-that the list is sorted. The algorithm gets its name from the way smaller
-elements "bubble" to the top of the list. 
+它在一个列表上重复步骤来排序，比较每个相邻的元素，并且顺序错误的时候，交换它们。
+一遍一遍扫描列表，直到没有交换为止，这意味着列表排序完成。
+算法得名于更小的元素就像“泡泡”一样冒到列表的顶端。
 \end{quote}
 
-\cite{bubblesort} also gives an example in pseudo code:
+\cite{bubblesort} 这里有一个过程代码作为示例：
 \begin{lstlisting}[language=pascal]
 procedure bubbleSort( A : list of sortable items )
   do
@@ -28,10 +25,10 @@ end procedure
 
 \begin{Answer}
 \Question 
-The Bubble sort isn't terrible efficient, for $n$ elements it scales
-$O(n^2)$. See Quick sort (ref XXX) for a better sorting algorithm.
+冒泡排序并不是最有效率的，对于 $n$ 个元素它的算法复杂度是 $O(n^2)$。
+快速排序（ref ???）是更好的排序算法。
 
-But Bubble sort is easy to implement, the following is an example.
+但是冒泡排序容易实现，下面是一个例子。
 \lstinputlisting[caption=Bubble sort,linerange=5-22]{ex-functions/src/bubblesort.go}
 
 \end{Answer}

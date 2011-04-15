@@ -1,6 +1,6 @@
-\begin{Exercise}[title={Scope},difficulty=4]
+\begin{Exercise}[title={作用域},difficulty=4]
 \label{ex:scope}
-\Question\label{ex:scope q1} What is wrong with the following program?
+\Question\label{ex:scope q1} 下面的程序有什么错误？
 
 \begin{lstlisting}[numbers=right]
 package main
@@ -19,9 +19,9 @@ func main() {
 
 \begin{Answer}
 \Question
-The program does not even compile, because \var{i} on line 9 is
-not defined: \var{i} is only defined within the \key{for}-loop. To fix
-this the function \func{main()} should become:
+这个程序不能被编译，由于第 9 行的变量 \var{i}，未定义：
+\var{i} 仅在 \key{for} 循环中有效。为了修正这个，
+\func{main()} 应修改为：
 \begin{lstlisting}[numbers=none]
 func main() {
         var i int
@@ -31,6 +31,6 @@ func main() {
 	fmt.Printf("%v\n", i)
 }
 \end{lstlisting}
-Now \var{i} is defined outside the \key{for}-loop and still visible
-after wards. This code will print the numbers 0 through 10.
+现在 \var{i} 在 \key{for} 循环外定义，并且在其后仍然可访问。
+这会打印数字从 0 到 10。
 \end{Answer}

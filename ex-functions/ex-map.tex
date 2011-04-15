@@ -1,22 +1,19 @@
 \begin{Exercise}[title={Map function},difficulty=4]
 \label{ex:map function}
-A \func{map()}-function is a function that takes
-a function and a list. The function is applied to 
-each member in the list and a new list containing
-these calculated values is returned.
-Thus: 
+\func{map()} 函数是一个接受一个函数和一个列表作为参数的函数。
+函数应用于列表中的每个元素，而一个新的包含有计算结果的列表被返回。
+因此： 
 $$ map(f(), (a_1,a_2,\ldots,a_{n-1},a_n)) =  (f(a_1), f(a_2),\ldots,f(a_{n-1}), f(a_n)) $$
-\Question \label{ex:map function q1} Write a simple
-\func{map()}-function in Go. It is sufficient
-for this function only to work for ints.
-\Question \label{ex:map function q2} Expand your code to also work on a list of strings.
+\Question \label{ex:map function q1} 编写 Go 中的简单的 \func{map()} 函数。
+它能工作于操作整数的函数就可以了。
+\Question \label{ex:map function q2} 扩展代码使其工作于字符串列表。
 
 \end{Exercise}
 
 \begin{Answer}
 
 \Question 
-\begin{lstlisting}[caption=A \func{Map} function]
+\begin{lstlisting}[caption=\func{Map} 函数]
 func Map(f func(int) int, l []int) []int {
         j := make([]int, len(l))
         for k, v := range l {
@@ -34,7 +31,7 @@ func main() {
 }
 \end{lstlisting}
 
-\Question Answer to question but now with strings
+\Question 字符串问题的答案
 \end{Answer}
 
 

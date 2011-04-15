@@ -1,15 +1,14 @@
-\begin{Exercise}[title={Integer ordering},difficulty=3]
+\begin{Exercise}[title={整数顺序},difficulty=3]
 \label{ex:ordering function}
-\Question Write a function that returns its (two) parameters in the right,
-numerical (ascending) order:\newline 
+\Question 编写函数，返回其（两个）参数正确的（自然）数字顺序：
+\newline 
 \lstinline{f(7,2)} $\rightarrow$ \lstinline{2,7}\newline
 \lstinline{f(2,7)} $\rightarrow$ \lstinline{2,7}\newline
 \end{Exercise}
 
 \begin{Answer}
 \Question 
-Here we can use the multiple return values (section "\titleref{sec:multiple return}")
-from Go:
+这里可以利用 Go 中的多返回值（参阅第 "\titleref{sec:multiple return}" 节）：
 \begin{lstlisting}
 func order(a, b int) (int, int) {
         if a > b { 
