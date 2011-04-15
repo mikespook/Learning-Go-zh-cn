@@ -1,15 +1,13 @@
-\begin{Exercise}[title={Var args},difficulty=5]
+\begin{Exercise}[title={变参},difficulty=5]
 \label{ex:varargs}
 \Question\label{ex:varargs q1}
-Write a function that takes a variable numbers of ints and prints
-each integer on a separate line
+编写函数接受整数类型变参，并且每行打印一个数字。
 \end{Exercise}
 
 \begin{Answer}
 \Question
-For this we need the \lstinline{...}-syntax to signal we define a
-function that takes an arbitrary number of arguments. 
+需要使用 \lstinline{...} 语法来实现函数接受若干个数字作为变参。
 
-\lstinputlisting[label=src:varargs,caption=A function with variable number of arguments]{ex-functions/src/var-arg.go}
+\lstinputlisting[label=src:varargs,caption=有变参的函数]{ex-functions/src/var-arg.go}
 
 \end{Answer}
