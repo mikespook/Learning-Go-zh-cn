@@ -1,48 +1,40 @@
-\section{Expression versus statement}
+\section{表达式与语句的对比}
 \label{sec:expression versus statement}
-In this book we talk about expressions and statements, but%
-\gomarginpar{This section comes from \cite{so_expression_vs_statement}.}
-what \emph{is} the difference between the two?
-In short:
+在这部分讨论一下表达式和语句，但是它们之前的区别\emph{是}什么呢？
+\gomarginpar{这部分来自于 \cite{so_expression_vs_statement}。}
+简单来说：
 \begin{description}
-\item[Expression] Something which evaluates to a value, like:
-\lstinline{1+2/x} ;
-\item[Statement] A line of code which does something, like
+\item[Expression] 某些同值有关的定义，例如：
+\lstinline{1+2/x}；
+\item[Statement] 有一些功能的一行代码，例如：
 \lstinline{goto Error} .
 \end{description}
 
-The distinction was crystal-clear in the earliest general-purpose
-programming languages, like Fortran. In Fortran, a statement was one
-unit of execution: "a thing that you did". 
-An expression on its own couldn't do anything. You had to assign it to a
-variable.
+在早期通用语言中，例如 Fortran，这一区别是相当明确的。
+在 Fortran 中，语句是一个执行单元："一件要做的事"。 
+表达式本身无法做任何事情。必须将其赋值给一个变量。
 \begin{display}
 1 + 2 / X
 \end{display}
-is an error in Fortran, because it doesn't do anything. You had to do
-something with that expression: 
+在 Fortran 中是错误的，因为这什么都不能做。
+必须对这个表达式做一些事情：
 \begin{display}{X = 1 + 2 / X}\end{display}
 
-The earliest popular language to blur the lines was C. The designers of
-C realized that no harm was done if you were allowed to evaluate an
-expression and throw away the result. In C, every expression could be a
-statement: 
+第一个混淆这个界限的早期流行语言是 C。C 的设计者认为，允许执行一个表达式，
+并且将结果丢弃不会带来任何的坏处。在 C 中，每个表达式都可以是一个语句：
 \begin{display}1 + 2 / x\end{display}
-is a totally legit statement even though absolutely nothing will happen.
-Why? Because in C, expressions could have side-effects --- they could
-change something: \begin{display}{1 + 2 / callfunc(12)}\end{display}
+是绝对合法的语句，虽然完全没有发生任何事情。
+为什么？因为在 C 中，表达式可能会有副作用——可能会改变一些内容：
+\begin{display}{1 + 2 / callfunc(12)}\end{display}
 
-Because \func{callfunc()} might just do something useful.
-Once you allow any expression to be a statement, you might as well allow
-the assignment operator (=) inside expressions. That's why C lets you do
-things like: \lstinline{callfunc(x = 2)}.
-This evaluates the expression \lstinline{x = 2} (assigning the value of 2 to x) and
-then passes that (the 2) to the function \func{callfunc()}.
+由于 \func{callfunc()} 可能会做一些有用的事情。
+一旦允许任何表达式都是语句，同样就是允许赋值符号（=）出现在表达式中。
+这也就是为什么 C 允许这样做：\lstinline{callfunc(x = 2)}。
+这样执行了表达式 \lstinline{x = 2}（赋值 2 到 x）然后将其（那个 2）
+传递到函数 \func{callfunc()}。
 
-Luckily this blurring is significantly lessened in Go.
-The only Go
-expressions that can be statements are function calls, method calls,
-and channel operations. It's almost like Fortran. 
+幸运的是这个混淆在 Go 中明显降低了。
+Go 中将表达式当作语句使用的，仅有函数调用、方法调用、和 channel 操作。
+这和 Fortran 很像。
 
-Functional languages like Lisp don't have statements.
-All they have is expressions. 
+函数语言例如 Lisp 没有语句。所有都是表达式。
