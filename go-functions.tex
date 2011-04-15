@@ -262,90 +262,77 @@ func f() (ret int) {    |\coderemark{\var{ret} 初始化为零}|
 }
 \end{lstlisting}
 
-\section{Variadic parameters}
-Functions that take variadic parameters are functions that have a
-variable number of parameters. To do this, you first
-need to declare your function to take variadic arguments:
+\section{变参}
+接受变参的函数是有着不定数量的参数的。为了做到这点，首先需要定义函数使其接受变参：
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
-The \lstinline{arg ... int} instructs Go to see this as a function that
-takes a variable number of arguments. Note that these arguments all
-have the type \type{int}. Inside your function's body the variable
-\var{arg} is a slice of ints:
+\lstinline{arg ... int} 告诉 Go 这个函数接受不定数量的参数。
+注意，这些参数的类型全部是 \type{int}。在函数体中，变量
+\var{arg} 是一个 int 的 slice：
 \begin{lstlisting}
 for _, n := range arg {
     fmt.Printf("And the number is: %d\n", n)
 }
 \end{lstlisting}
-If you don't specify the type of the variadic argument it defaults to the
-empty interface \var{interface\{\}} (see chapter
-\ref{chap:interfaces}").
-Suppose we have another variadic function called \func{myfunc2}, the 
-following example shows how to pass the variadic arguments to it:
+如果不指定变参的类型，默认是空的接口 \var{interface\{\}} （参阅第 \ref{chap:interfaces} 章）。
+假设有另一个变参函数叫做 \func{myfunc2}，下面的例子演示了如何向其传递变参：
 \begin{lstlisting}
 func myfunc(arg ...int) {
-    myfunc2(arg...)  |\coderemark{Pass it as-is}|
-    myfunc2(arg[:2]...)  |\coderemark{Slice it}|
+    myfunc2(arg...)  |\coderemark{按原样传递}|
+    myfunc2(arg[:2]...)  |\coderemark{传递片段}|
 }
 \end{lstlisting}
 
-\section{Functions as values}
+\section{函数作为值}
 \label{sec:functions as values}
 \index{function!as values}
 \index{function!literals}
-As with almost everything in Go, functions are also \emph{just} values.
-They can be assigned to variables as follows:
+就像其他在 Go 中的几乎所有东西，函数也同样是值\emph{而已}。
+它们可以像下面这样赋值给变量：
 \lstinputlisting[label=src:anonfunc,caption=Anonymous function,linerange={3,}]{src/anon-func.go}
-If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
-\var{a}, it prints \func{func()}.
+如果使用 \lstinline{fmt.Printf("%T\n", a)} 打印 \var{a} 的类型，输出结果是 \func{func()}。
 
-Functions--as--values may also be used in other places, like in maps.
-Here we convert from integers to functions:
-\begin{lstlisting}[caption=Functions as values in maps]
+函数作为值，也会被用在其他一些地方，例如 map。
+这里将整数转换为函数：
+\begin{lstlisting}[caption=使用 map 的函数作为值]
 var xs = map[int]func() int{
     1: func() int { return 10 },
     2: func() int { return 20 },
-    3: func() int { return 30 }, |\coderemark{Mandatory ,}|
+    3: func() int { return 30 }, |\coderemark{必须有逗号}|
     /* ... */
 }
 \end{lstlisting}
-Or you can write a function that takes a function as its parameter, for
-example a \func{Map} function that works on \type{int} slices. This is
-left as an exercise for the reader, see exercise Q\ref{ex:map function}
-on page \pageref{ex:map function}.
+也可以编写一个接受函数作为参数的函数，例如工作在 \type{int} 的 slice 上的 \func{Map} 函数。
+这是一个留给读者的练习，参考在第 \pageref{ex:map function} 页的练习 Q\ref{ex:map function}。
 
-\section{Callbacks and closures}
+\section{回调和闭包}
 \label{sec:callbacks}
-With functions as values they are easy to pass to functions, from where
-they can be used as callbacks. First define a function that
-does "something" with an integer value:
+当函数作为值时，就可以很容易的传递到其他函数里，然后可以作为回调。
+首先定义一个函数，对整数做一些“事情”：
 \begin{lstlisting}
-func printit(x int) {       |\coderemark{Function returns nothing}|
-    fmt.Print("%v\n", x)    |\coderemark{Just print it}|
+func printit(x int) {       |\coderemark{函数无返回值}|
+    fmt.Print("%v\n", x)    |\coderemark{仅仅打印}|
 
 }
 \end{lstlisting}
-The signature of this function is: \lstinline{func printit(int)}, or
-without the function name: \mbox{\lstinline{func(int)}}. To create a new function
-that uses this one as a callback we need to use this signature:
+这个函数的标识是 \lstinline{func printit(int)}，或者没有函数名：
+\mbox{\lstinline{func(int)}}。创建新的函数使用这个作为回调，需要用到这个标识：
 \begin{lstlisting}
-func callback(y int, f func(int)) { |\coderemark{\func{f} will hold the function}|
-    f(y)    |\coderemark{Call the callback \func{f} with \var{y}}|
+func callback(y int, f func(int)) { |\coderemark{\func{f} 将会保存函数}|
+    f(y)    |\coderemark{调用回调函数 \func{f} 输入变量 \var{y}}|
 }
 \end{lstlisting}
-We've already seen some use of closures in section "\titleref{sec:deferred code}", but there
-is more to tell. When you define a closure, i.e. when you start using a function
-literal you still have access to the (local) variables defined in the current
-function.
+我们已经在第 "\titleref{sec:deferred code}" 节看到了闭包的部分应用，但是还有一些需要讨论。
+当定义一个闭包时，例如，在用函数符号开始定义时，仍然可以访问当前函数定义的（局部）变量。
 
 \begin{lstlisting}
-// Define some local vars
-// This code is WAY to complex, but illustrates it nicely
+// 定义一些局部变量
+// 这个函数有意写得复杂了，但是用来举例还是不错的
     frameSquare := func(x, y int) {
-            // closure effortlessly passes local variables to callback
+            // 闭包可以毫不费力的将局部变量传递到回调
             if thickFrame {
-                    // draw 3 x 3 pixel block for thicker rectangle
+                    // 为一个矩形绘制一个 3 x 3 像素的块
                     for x0 := x - 1; x0 <= x+1; x0++ {
                             for y0 := y - 1; y0 <= y+1; y0++ {
                                     rgba.Set(x0, y0, redColor)
@@ -357,40 +344,36 @@ function.
     }
 \end{lstlisting}
 
-If you want to do this by \emph{not} using a closure and defining a completely new
-function you need to pass all vars to the function.
-\todo{Gist is there, but needs much better wording and code}
+如果\emph{不}希望使用闭包，并且定义一个完整的函数，需要传递所有的变量到这个函数。
+\todo{要点都在这里，但是需要更多的解说和代码}
 
 
 
-\section{Panic and recovering}
+\section{恐慌（Panic）和恢复（Recover）}
 \label{sec:panic}
-Go does not have a exception mechanism, like that in Java for instance: you can not throw exceptions.
-Instead it using a panic-and-recover mechanism. It is worth remembering that you should use this as
-a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
-use it wisely. So, how do you use it.
+\footnote{对应异常机制，Go 的这种错误机制或许可以叫做恐慌机制：当你遇到它时应该感到恐慌，然后应该恢复（recover）它。}
+Go 没有例如像 Java 那样的异常机制：不能抛出一个异常。
+作为代替，它使用了恐慌和恢复（panic-and-recover）机制。一定要记得，这应当作为最后的手段被使用，
+你的代码中应当没有，或者很少的令人恐慌的东西。这是个强大的工具，明智的使用它。
+那么，应该如何使用它。
 
-The following description was taken from \cite{go_blog_panic}:
+下面的描述来自于 \cite{go_blog_panic}：
 \begin{description}
-\item[Panic]{is a built-in function that stops the ordinary flow of control and begins panicking. When the function 
-\func{F} calls \key{panic},
-execution of \func{F} stops, any deferred functions in \func{F} are executed normally, and 
-then \func{F} returns to its caller. To the caller, \func{F} then
-behaves like a call to \key{panic}. The process continues up the stack until all functions in the current 
-goroutine have returned, at which point the program crashes. 
+\item[Panic]{是一个内建函数，可以中断原有的控制流程，进入一个令人恐慌的流程中。
+当函数 \func{F} 调用 \key{panic}，函数 \func{F} 的执行被中断，并且 \func{F} 中的延迟函数会正常执行，然后
+\func{F} 返回到调用它的地方。在调用的地方，\func{F} 的行为就像调用了 \key{panic}。
+这一过程继续向上，直到程序崩溃时的所有 goroutine 返回。
 
-Panics can be initiated by invoking \func{panic} directly. They can also be caused by \emph{runtime errors}, such
-as out-of-bounds array accesses.}
+恐慌可以直接调用 \func{panic} 产生。也可以由\emph{运行时错误}产生，例如访问越界的数组。}
 
-\item[Recover]{is a built-in function that regains control of a panicking goroutine. Recover is \emph{only} useful inside 
-\emph{deferred} functions.
+\item[Recover]{是一个内建的函数，可以让进入令人恐慌的流程中的 goroutine 恢复过来。
+Recover \emph{仅在}\emph{延迟}函数中有效。
 
-During normal execution, a call to \func{recover} will return \type{nil} and have no other effect. 
-If the current goroutine is panicking, a call
-to \func{recover} will capture the value given to \func{panic} and resume normal execution.}
+在正常的执行过程中，调用 \func{recover} 会返回 \type{nil} 并且没有其他任何效果。
+如果当前的 goroutine 陷入恐慌，调用 \func{recover} 可以捕获到 \func{panic} 的输入值，并且恢复正常的执行。}
 \end{description}
 
-\section{Exercises}
+\section{练习}
 \input{ex-functions/ex-average.tex}
 
 \input{ex-functions/ex-order.tex}
@@ -412,5 +395,5 @@ to \func{recover} will capture the value given to \func{panic} and resume normal
 \input{ex-functions/ex-funcfunc.tex}
 
 \cleardoublepage
-\section{Answers}
+\section{答案}
 \shipoutAnswer

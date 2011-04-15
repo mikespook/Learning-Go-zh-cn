@@ -17,18 +17,18 @@
 \BOOKMARK [1][-]{section*.43}{\347\255\224\346\241\210}{chapter.2}
 \BOOKMARK [0][-]{chapter.3}{\345\207\275\346\225\260}{}
 \BOOKMARK [1][-]{section*.44}{\344\275\234\347\224\250\345\237\237}{chapter.3}
-\BOOKMARK [1][-]{section*.45}{Multiple return values}{chapter.3}
-\BOOKMARK [1][-]{section*.46}{Named result parameters}{chapter.3}
-\BOOKMARK [1][-]{section*.47}{Deferred code}{chapter.3}
-\BOOKMARK [1][-]{section*.48}{Variadic parameters}{chapter.3}
-\BOOKMARK [1][-]{section*.49}{Functions as values}{chapter.3}
-\BOOKMARK [1][-]{section*.50}{Callbacks and closures}{chapter.3}
-\BOOKMARK [1][-]{section*.51}{Panic and recovering}{chapter.3}
-\BOOKMARK [1][-]{section*.52}{Exercises}{chapter.3}
-\BOOKMARK [1][-]{section*.53}{Answers}{chapter.3}
+\BOOKMARK [1][-]{section*.45}{\345\244\232\344\270\252\350\277\224\345\233\236\345\200\274}{chapter.3}
+\BOOKMARK [1][-]{section*.46}{\345\221\275\345\220\215\350\277\224\345\233\236\345\217\202\346\225\260}{chapter.3}
+\BOOKMARK [1][-]{section*.47}{\345\273\266\350\277\237\347\232\204\344\273\243\347\240\201}{chapter.3}
+\BOOKMARK [1][-]{section*.48}{\345\217\230\345\217\202}{chapter.3}
+\BOOKMARK [1][-]{section*.49}{\345\207\275\346\225\260\344\275\234\344\270\272\345\200\274}{chapter.3}
+\BOOKMARK [1][-]{section*.50}{\345\233\236\350\260\203\345\222\214\351\227\255\345\214\205}{chapter.3}
+\BOOKMARK [1][-]{section*.51}{\346\201\220\346\205\214\357\274\210Panic\357\274\211\345\222\214\346\201\242\345\244\215\357\274\210Recover\357\274\211}{chapter.3}
+\BOOKMARK [1][-]{section*.52}{\347\273\203\344\271\240}{chapter.3}
+\BOOKMARK [1][-]{section*.53}{\347\255\224\346\241\210}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{\345\214\205}{}
-\BOOKMARK [1][-]{section*.54}{Building a package}{chapter.4}
-\BOOKMARK [1][-]{section*.55}{Identifiers}{chapter.4}
+\BOOKMARK [1][-]{section*.54}{\346\236\204\345\273\272\344\270\200\344\270\252\345\214\205}{chapter.4}
+\BOOKMARK [1][-]{section*.55}{\346\240\207\350\257\206\347\254\246}{chapter.4}
 \BOOKMARK [1][-]{section*.57}{Documenting packages}{chapter.4}
 \BOOKMARK [1][-]{section*.58}{Testing packages}{chapter.4}
 \BOOKMARK [1][-]{section*.59}{Useful packages}{chapter.4}
