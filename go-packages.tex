@@ -137,14 +137,13 @@ import bar "bytes"
 %%\func{init()} function can be used to setup state before the execution
 %%begins.
 
-\section{Documenting packages}
-\gomarginpar{This text is copied from \cite{effective_go}.}
-Every package should have a \emph{package comment}, a block comment preceding the
-\key{package} clause. For multi-file packages, the package comment only needs to be
-present in one file, and any one will do. The package comment should introduce
-the package and provide information relevant to the package as a whole. It will
-appear first on the \prog{godoc} page and should set up the detailed documentation
-that follows. An example from the official \package{regexp} package:
+\section{包的文档}
+\gomarginpar{这段复制于 \cite{effective_go}。}
+每个包都应该有\emph{包注释}，在 \key{package} 前的一个注释块。
+对于多文件包，包注释只需要出现在一个文件前，任意一个文件都可以。
+包注释应当对包进行介绍，并提供相关于包的整体信息。
+这会出现在 \prog{godoc} 生成的关于包的页面上，并且相关的细节会跟随气候。
+来自官方 \package{regexp} 包的例子：
 \begin{display}
 /*
     The regexp package implements a simple library for
@@ -158,84 +157,74 @@ that follows. An example from the official \package{regexp} package:
 package regexp
 \end{display}
 
-Each defined (and exported) function should have a small line of text
-documenting the behavior of the function, from the \package{fmt}
-package:
+每个定义（并且导出）的函数应当有一小段文字描述该函数的行为，来自于
+ \package{fmt} 包：
 \begin{display}
 // Printf formats according to a format specifier and writes to standard output.
 func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
 \end{display}
 
-\section{Testing packages}
-In Go it is customary to write (unit) tests for your package. Writing
-tests involves the \package{testing} package and the program
-\first{\prog{gotest}}{gotest}. Both
-have excellent documentation. When you include tests with your package
-keep in mind that has to be build using the standard \file{Makefile}
-(see section "\titleref{sec:building a package}").
+\section{测试包}
+在 Go 中为包编写单元测试应当是一种习惯。编写测试需要包含
+\package{testing} 包和程序 \first{\prog{gotest}}{gotest}。
+两者都有良好的文档。当对某个包进行测试时，务必要记得必须使用
+\file{Makefile} 进行编译（参阅第 "\titleref{sec:building a package}" 节）。
 
 
 %% CLEANFILES+=hello fib chain run.out
 %%
 
-The testing itself is carried out with \prog{gotest}.
-The \prog{gotest} program run all the test functions. Without any
-defined tests for our \package{even} package a \prog{gomake test}, yields:
+测试本身是由 \prog{gotest} 完成的。
+\prog{gotest} 程序调用了所有的测试函数。
+\package{even} 包没有定义任何测试函数，执行 \prog{gomake test}，这样：
 \begin{display}
 \pr gomake test
 no test files found (*_test.go)
 make: *** [test] Error 2
 \end{display}
-Let us fix this by defining a test in a test file. Test files reside
-in the package directory and are named \file{*\_test.go}. Those test
-files are just like other Go program, but \prog{gotest} will only
-execute the test functions.
-Each test function has the same signature and its name should start
-with \lstinline{Test}:
+在测试文件中定义一个测试来修复这个。测试文件也在包目录中，被命名为 \file{*\_test.go}。
+这些测试文件同 Go 程序中的其他文件一样，但是 \prog{gotest} 只会执行测试函数。
+每个测试函数都有相同的标识，它的名字以 \lstinline{Test} 开头：
 \begin{lstlisting}
-func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
+func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheNe}|
 \end{lstlisting}
 
-When writing test you will need to tell \prog{gotest} that a test has
-failed or was successful. A successful test function just returns. When
-the test fails you can signal this with the following
-functions \cite{go_doc}. These are the most important ones (see \prog{godoc testing}
-for more):
+编写测试时，需要告诉 \prog{gotest} 测试是失败还是成功。测试成功则直接返回。
+当测试失败可以用下面的函数标记 \cite{go_doc}。这是非常重要的（参阅 \prog{godoc testing} 了解更多）：
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Fail()
 \end{lstlisting}
-\func{Fail} marks the test function as having failed but continues execution.
+\func{Fail} 标记测试函数失败，但仍然继续执行。
 
 \begin{lstlisting}[numbers=none]
 func (t *T) FailNow()
 \end{lstlisting}
-\func{FailNow} marks the test function as having failed and stops its execution.
-Execution will continue at the next test. So any other test in
-\emph{this} file are skipped too.
+\func{FailNow} 标记测试函数失败，并且中断其执行。
+这将会执行下一个测试。因此，\emph{当前}文件的其他所有测试都被跳过。
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Log(args ...interface{})
 \end{lstlisting}
-\func{Log} formats its arguments using default formatting, analogous to
-\func{Print()}, and records the text in the error log.
+\func{Log} 用默认格式对其参数进行格式化，与
+\func{Print()} 类似，并且记录文本到错误日志。
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Fatal(args ...interface{})
 \end{lstlisting}
-\func{Fatal} is equivalent to \func{Log()} followed by \func{FailNow()}.
+\func{Fatal} 等价于 \func{Log()} 后跟随 \func{FailNow()}。
 
-Putting all this together we can write our test. First
-we pick a name: \file{even\_test.go}. Then we add the following contents:
-\lstinputlisting[label=src:eventest,caption=Test file for even
-package,numbers=right]{src/even_test.go}
-Note that we use \lstinline{package even} on line 1, the tests fall in the same
-namespace as the package we are testing. This not only convenient, but
-also allows tests of unexported function and structures. We then import
-the \package{testing} package and on line 5 we define the only test
-function in this file. The displayed Go code should not hold any
-surprises: we check if the \func{Even} function works OK. 
-Now, the moment we've been waiting for, executing the test:
+将这些凑到一起，就可以编写测试了。首先，选择名字 \file{even\_test.go}。
+然后添加下面的内容：
+\lstinputlisting[label=src:eventest,caption=even 
+包的测试,numbers=right]{src/even_test.go}
+
+注意在第一行使用了 \lstinline{package even}，测试使用与被测试的包使用相同的名字空间。
+这不仅仅是为了方便，也允许了测试未导出的函数和结构。然后导入
+\package{testing} 包，并且在第 5 行定义了这个文件中唯一的测试函数。
+展示的 Go 代码应当没有任何惊异的地方：
+检查了 \func{Even} 函数是否工作正常。
+现在等待了好久的时刻到了，执行测试：
 \begin{display}
 \pr gomake test
 6g -o \_gotest\_.6 even.go  even\_test.go
@@ -243,8 +232,7 @@ rm -f \_test/even.a
 gopack grc \_test/even.a \_gotest\_.6 
 PASS
 \end{display}
-\noindent{}Our test ran and reported \texttt{PASS}. Success! To show how a failed
-test look we redefine our test function:
+\noindent{}测试执行并且报告 \texttt{PASS}。成功了！为了展示失败的测试，修改测试函数：
 \begin{lstlisting}
 // Entering the twilight zone
 func TestEven(t *testing.T) {
@@ -254,22 +242,21 @@ func TestEven(t *testing.T) {
         }   
 }
 \end{lstlisting}
-We now get:
+然后得到：
 \begin{display}
 --- FAIL: even.TestEven
 \qquad\qquad2 should be odd!
 FAIL
 make: *** [test] Error 1
 \end{display}
-\noindent{}And you can act accordingly (by fixing the test for instance).
+\noindent{}然后你可以以此行事（修复测试的实例）
 
 \begin{lbar}
-Writing new packages should go hand in hand with writing (some)
-documentation and test functions. It will make your code better and it
-shows that your really put in the effort.
+在编写包的时候应当一边写代码，一边写（一些）文档和测试函数。
+这可以让你的程序更好，并且它展示了你的努力。
 \end{lbar}
 
-\section{Useful packages}
+\section{常用的包}
 The standard Go repository includes a huge number of packages and it is
 even possible to install more along side your current Go installation. 
 It is very enlightening to browse the \file{\$GOROOT/src/pkg} directory and
@@ -361,13 +348,13 @@ The \package{exec} package runs external commands.
 }
 \end{description}
 
-\section{Exercises}
-\todo{Write exercise for testing the stack package. (MG)}
+\section{练习}
+\todo{编写一个测试 stack 包的练习。}
 
 \input{ex-packages/ex-stack-package.tex}
 
 \input{ex-packages/ex-calc.tex}
 
 \cleardoublepage
-\section{Answers}
+\section{答案}
 \shipoutAnswer
