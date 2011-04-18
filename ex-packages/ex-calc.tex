@@ -1,19 +1,16 @@
-\begin{Exercise}[title={Calculator},difficulty=7]
+\begin{Exercise}[title={计算器},difficulty=7]
 \label{ex:calc}
-\Question\label{ex:calc q1} Create a reverse polish calculator. Use your
-stack package.
+\Question\label{ex:calc q1} 使用 stack 包创建逆波兰计算器。
 
-\Question\label{ex:calc q2} Bonus. Rewrite your calculator to use the
-the package you found for question \ref{ex:stack-package q2}.
+\Question\label{ex:calc q2} 扩展一下，用你在问题 \ref{ex:stack-package q2} 中发现的包重写计算器。
 \end{Exercise}
 
 \begin{Answer}
-\Question This is one answer
-\lstinputlisting[caption=A (rpn) calculator,basicstyle=\tiny\ttfamily]{ex-packages/src/calc.go}
-\Question The \package{container/vector} package would be a good candidate. It
-even comes with \func{Push} and \func{Pop} functions \emph{predefined}.
-The changes needed to our program are \emph{minimal} to say the least,
-the following unified diff shows the differences:
+\Question 这是第一个答案
+\lstinputlisting[caption=逆波兰计算器,basicstyle=\tiny\ttfamily]{ex-packages/src/calc.go}
+\Question \package{container/vector} 包应当是不错的选择。它同样\emph{预定义}了
+\func{Push} 和 \func{Pop} 函数。
+对于我们的程序来说修改是非常\emph{小}的，下面的差异文件显示了不同的地方：
 \vskip\baselineskip
 \begin{display}
 --- calc.go     2010-05-16 10:19:13.886855818 +0200
@@ -34,5 +31,5 @@ the following unified diff shows the differences:
         for \{
 \end{display}
 \vskip\baselineskip
-\noindent{}Only two lines need to be changed. \emph{Nice}.
+\noindent{}只有两行需要修改。\emph{太棒了}。
 \end{Answer}

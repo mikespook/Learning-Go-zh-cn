@@ -1,24 +1,18 @@
-\begin{Exercise}[title={Stack as package},difficulty=2]
+\begin{Exercise}[title={stack 包},difficulty=2]
 \label{ex:stack-package}
 \Question\label{ex:stack-package q1} 
-See the Q\ref{ex:stack} exercise. In this exercise we want to create
-a separate package for that code.
+参考 Q\ref{ex:stack} 练习。在这个练习中将从那个代码中建立一个独立的包。
 
-Create a proper package for your
-stack implementation, \func{Push}, \func{Pop} and the \type{Stack} type need to be
-exported.
+为 stack 的实现创建一个合适的包，\func{Push}、\func{Pop} 和 \type{Stack} 类型需要被导出。
 
-\Question\label{ex:stack-package q2} Which official Go package could
-also be used for a (FIFO) stack?
+\Question\label{ex:stack-package q2} 先进先出栈可以使用哪个官方包实现。
 
 \end{Exercise}
 
 \begin{Answer}
-\Question There are a few details that should be changed to make a proper package
-for our stack. First, the exported function should begin with a capital 
-letter and so should \type{Stack}. So the full package (including the
-\func{String}) function becomes
-\lstinputlisting[caption=Stack in a
-package]{ex-packages/src/stack-as-package.go}
+\Question 在创建 stack 包时，仅有一些小细节需要修改。
+首先，导出的函数应当大写首字母，因此应该是 \type{Stack}。
+所以完整的包（包含 \func{String}）变成为
+\lstinputlisting[caption=包里的 Stack]{ex-packages/src/stack-as-package.go}
 
 \end{Answer}

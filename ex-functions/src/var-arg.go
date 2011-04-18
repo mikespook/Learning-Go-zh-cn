@@ -7,7 +7,7 @@ func main() {
 	printthem(1, 2, 4)
 }
 
-func printthem(numbers ... int) { |\coderemark{\var{numbers} is now a slice of ints}|
+func printthem(numbers ... int) { |\coderemark{\var{numbers} 现在是整数类型的 slice}|
 	for _, d := range numbers {
 		fmt.Printf("%d\n", d)
 	}
