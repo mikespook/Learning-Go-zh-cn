@@ -1,62 +1,56 @@
-\epi{Go has pointers but not pointer arithmetic. You cannot use a pointer
-variable to walk through the bytes of a string.}{\textit{Go For C++
+\epi{Go 有指针，但是没有指针运算。你不能用指针变量遍历字符串的各个字节。
+}{\textit{Go For C++
 Programmers}\\{\textsc{GO AUTHORS}}}
 \noindent{}
-Go has pointers.
-There is however no pointer arithmetic, so they act more like
-references than pointers that you may know from C. Pointers 
-are useful.
-Remember that when you call a function in Go, the variables are
-\emph{pass-by-value}. So, for efficiency and the possibility to modify a
-passed value \emph{in} functions we have pointers.
+Go 有指针。然而却没有指针运算，因此它们更象是引用而不是你所知道的来自于 C 的指针。
+指针非常有用。
+在 Go 中调用函数的时候，得记得变量是\emph{值传递}的。
+因此，为了修改一个传递\emph{入}函数的值的效率和可能性，有了指针。
 
-Just like in C you declare a pointer by prefixing the type with an
-'\key{*}':
-\lstinline{var p *int}. Now \var{p} is a pointer to an integer value.
-All newly declared variables are assigned their zero value and pointers
-are no difference. A newly declared, or just a pointer that points to
-nothing has a \first{nil}{nil}-value. In other languages this is often called
-a NULL pointer in Go it is just \var{nil}. To make 
-a pointer point to something you can use the \first{address-of operator}{operator!address-of}
-(\func{\&}), which we do on line 5:
+跟 C 中一样，用类型前的 '\key{*}' 定义一个指针：
+\lstinline{var p *int}。现在 \var{p} 是一个指向整数值的指针。
+所有新定义的变量都被赋值为其类型的零值，而指针也一样。
+一个新定义的或者没有任何指向的指针，有值 \first{nil}{nil}。
+在其他语言中，这经常被叫做空（NULL）指针，在 Go 中就是 \var{nil}。
+让指针指向某些内容，可以使用\first{取址操作符}{operator!address-of}
+（\func{\&}），像第 5 行那样：
 \begin{lstlisting}[caption=Use of a pointer,label=src:pointers]
 var p *int
-fmt.Printf("%v", p) |\coderemark{Prints \var{nil}}|
+fmt.Printf("%v", p) |\coderemark{打印 \var{nil}}|
 
-var i int	    |\coderemark{Declare integer variable \var{i}}|
-p = &i		    |\coderemark{Make \var{p} point to \var{i}}|
+var i int	    |\coderemark{定义一个整形变量 \var{i}}|
+p = &i		    |\coderemark{使得 \var{p} 指向 \var{i}}|
 
-fmt.Printf("%v", p) |\coderemark{Prints something like \var{0x7ff96b81c000a}}|
+fmt.Printf("%v", p) |\coderemark{打印出来的内容类似 \var{0x7ff96b81c000a}}|
 \end{lstlisting}
 
-More general: \var{*X} is a pointer to an \type{X}; \var{[3]X} is an
-array of three \type{X}s. The
-types are therefore really easy to read just read out the names of the
-type modifiers: \type{[]} declares an array slice;
+更简单来说：\var{*X} 是指向 \type{X} 的指针；\var{[3]X} 是有三个 \type{X} 的数组。
+因此类型更加容易从类型变化的名称上来理解：
+\type{[]} 定义了 slice；
 '\key{*}'
-declares a pointer; \type{[size]} declares an array. So
-\type{[]*[3]*X} is an array slice of pointers to arrays of three
-pointers to \type{X}s (also see figure \ref{fig:pointers}).
+定义了指针；
+\type{[size]} 定义了数组。因此 \type{[]*[3]*X} 是一个 slice，
+元素是指向有三个元素的数组的指针，数组元素是指向 \type{X} 的指针。
+（参阅 \ref{fig:pointers}）。
 \begin{figure}[h]
-\caption[Pointers and types]{Pointers and types, the values \var{v} all have type \type{X}}
+\caption[Pointers and types]{指针和类型，值 \var{v} 全部为 \type{X} 类型}
 \label{fig:pointers}
 \begin{center}
 \includegraphics[scale=0.65]{fig/pointers.pdf}
 \end{center}
 \end{figure}
 
-Dereferencing a pointer is done by prefixing the pointer variable with
-'\type{*}':
-\begin{lstlisting}[caption=Dereferencing a pointer,label=src:deref]
-p = &i			|\coderemark{Take the address of \var{i}}|
-*p = 8			|\coderemark{Change the value of \var{i}}|
-fmt.Printf("%v\n", *p)  |\coderemark{Prints 8}|
-fmt.Printf("%v\n", i)	|\coderemark{Idem}|
+从指针获取值是通过在指针变量前置'\type{*}'实现的：
+\begin{lstlisting}[caption=获取指针指向的值,label=src:deref]
+p = &i			|\coderemark{获取 \var{i} 的地址}|
+*p = 8			|\coderemark{修改 \var{i} 的值}|
+fmt.Printf("%v\n", *p)  |\coderemark{打印 8}|
+fmt.Printf("%v\n", i)	|\coderemark{同上}|
 \end{lstlisting}
 
-As said, there is no pointer arithmetic, so if you write:
-\lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
-dereference and then increment the value.\index{operator!increment}
+前面已经说了，没有指针运算，所以如果这样写：
+\lstinline{*p++}，它表示 \lstinline{(*p)++}：首先获取指针指向的值，然后对这个值加一。
+\index{operator!increment}
 
 
 \section{Allocation}
