@@ -53,102 +53,81 @@ fmt.Printf("%v\n", i)	|\coderemark{同上}|
 \index{operator!increment}
 
 
-\section{Allocation}
-Go has garbage collection, meaning that you don't have to worry about
-memory allocation and deallocation. Of course almost every language
-since 1980 has this, but it is nice to see garbage collection in a
-C-like language.
+\section{内存分配}
+Go 有垃圾收集，意味着无须担心内存分配和回收。当然，自从 1980 以来几乎所有语言都有这个，
+但是在类 C 语言中看到垃圾收集感觉还是很好。
 
-Go has two allocation primitives, \key{new} and \key{make}. They do different
-things and apply to different types, which can be confusing, but the
-rules are simple.
-The following sections show how to handle allocation
-in Go and hopefully clarifies the somewhat artificial distinction between
-\first{\key{new}}{built-in!new} and \first{\key{make}}{built-in!make}. 
+Go 有两个内存分配原语，\key{new} 和 \key{make}。它们应用于不同的类型，做不同的工作，
+可能有些迷惑人，但是规则很简单。
+下面的章节展示了在 Go 中如何处理内存分配，并且希望能够让
+\first{\key{new}}{built-in!new} 和 \first{\key{make}}{built-in!make} 之间的区别更加清晰。
 
-\subsection{Allocation with new}
+\subsection{用 new 分配内存}
 \label{sec:allocation with new}
-The built-in function \key{new} is 
-essentially the same as its namesakes in other languages: \func{new(T)}
-allocates zeroed storage for a new item of type \type{T} and returns its
-address, a value of type \type{*T}. In Go terminology, it returns a pointer to
-a newly allocated zero value of type \type{T}. This is important to
-remember:
+内建函数 \key{new} 本质上说跟其他语言中的同名函数功能一样：
+\func{new(T)} 分配了零值填充的 \type{T} 类型的内存空间，并且返回其地址，
+一个 \type{*T} 类型的值。用 Go 的术语说，它返回了一个指针，指向新分配的类型 \type{T}
+的零值。有一点非常重要：
 \begin{lbar}
-\key{new} returns \emph{pointers}.
+\key{new} 返回\emph{指针}。
 \end{lbar}
 
-This
-means a user of the data structure can create one with \key{new} and get
-right to work. For example, the documentation for \func{bytes.Buffer} states
-that "the zero value for Buffer is an empty buffer ready to use."
-Similarly, \func{sync.Mutex} does not have an explicit constructor or Init
-method. Instead, the zero value for a \func{sync.Mutex} is defined to be an
-unlocked mutex.
+这意味着使用者可以用 \key{new} 创建一个数据结构的实例并且可以直接工作。
+如 \func{bytes.Buffer} 的文档所述“Buffer 的零值是一个准备好了的空缓冲。”
+类似的，\func{sync.Mutex} 也没有明确的构造函数或 Init 方法。取而代之，
+\func{sync.Mutex} 的零值被定义为非锁定的互斥量。
 
-The zero-value-is-useful property works transitively. Consider this type
-declaration. See section "\titleref{sec:defining your own}" on page
-\pageref{sec:defining your own}.
-
+零值是非常有用的。例如这样的类型定义，\pageref{sec:defining your own}
+页的 "\titleref{sec:defining your own}" 内容。
 \begin{lstlisting}
 type SyncedBuffer struct {
     lock    sync.Mutex
     buffer  bytes.Buffer
 }
 \end{lstlisting}
-Values of type \type{SyncedBuffer} are also ready to use immediately upon
-allocation or just declaration. In this snippet, both \var{p} and
-\var{v} will work
-correctly without further arrangement.
+\type{SyncedBuffer} 的值在分配内存或定义之后立刻就可以使用。在这个片段中，
+\var{p} 和 \var{v} 都可以在没有任何更进一步处理的情况下工作。
 \begin{lstlisting}
 p := new(SyncedBuffer)  |\coderemark{Type *SyncedBuffer}|
 var v SyncedBuffer      |\coderemark{Type  SyncedBuffer}|
 \end{lstlisting}
 
-\subsection{Allocation with make}
+\subsection{用 make 分配内存}
 \label{sec:allocation with make}
-Back to allocation. The built-in function \func{make(T, args)} serves a purpose
-different from \func{new(T)}. It creates slices, maps, and channels only, and
-it returns an initialized (not zero) value of type \type{T}, not
-\type{*T}. The reason
-for the distinction is that these three types are, under the covers,
-references to data structures that must be initialized before use. A
-slice, for example, is a three-item descriptor containing a pointer to
-the data (inside an array), the length, and the capacity; until those
-items are initialized, the slice is \type{nil}. For slices, maps, and channels,
-\key{make} initializes the internal data structure and prepares the value for
-use. 
+回到内存分配。内建函数 \func{make(T, args)} 与 \func{new(T)} 有着不同的功能。
+它只能创建 slice，map 和 channel，并且返回一个有初始值（非零）的 \type{T} 类型，
+而不是 \type{*T}。本质来讲，
+导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。
+例如，一个 slice，是一个包含指向数据（内部 array）的指针，长度和容量的三项描述符；
+在这些项目被初始化之前，slice 为 \type{nil}。对于 slice，map 和 channel，
+\key{make} 初始化了内部的数据结构，填充适当的值。
 
 \begin{lbar}
-\key{make} returns initialized (non zero) \emph{values}.
+\key{make} 返回初始化后的（非零）\emph{值}。
 \end{lbar}
 
-For instance,
+例如，
 \lstinline{make([]int, 10, 100)}
-allocates an array of 100 ints and then creates a slice structure with
-length 10 and a capacity of 100 pointing at the first 10 elements of the
-array. In contrast,
-\lstinline{new([]int)} returns
-a pointer to a newly allocated, zeroed slice structure, that is, a
-pointer to a \type{nil} slice value.
+分配了 100 个整数的数组，然后用长度 10 和容量 100 创建了 slice 
+结构指向数组的前 10 个元素。
+区别是，\lstinline{new([]int)} 返回指向新分配的内存的指针，
+而零值填充的 slice 结构是指向 \type{nil} 的 slice 值。
 
-These examples illustrate the difference between \key{new} and
-\key{make}.
+这个例子展示了 \key{new} 和 \key{make} 的不同。
 \begin{lstlisting}
-var p *[]int = new([]int)       // allocates slice structure; *p == nil
-				// rarely useful
-var v  []int = make([]int, 100) // v refers to a new array of 100 ints
+var p *[]int = new([]int)       // 分配 slice 结构内存；*p == nil
+				// 已经可用
+var v  []int = make([]int, 100) // v 指向一个新分配的有 100 个整数的数组。
 
-// Unnecessarily complex:
+// 不必要的复杂例子：
 var p *[]int = new([]int)
 *p = make([]int, 100, 100)
 
-// Idiomatic:
+// 更常见：
 v := make([]int, 100)
 \end{lstlisting}
-Remember that \key{make} applies only to maps, slices and channels and does
-not return a pointer. To obtain an explicit pointer allocate with
-\key{new}.
+务必记得 \key{make} 仅适用于 map，slice 和 channel，并且返回的不是指针。
+应当用 \key{new} 获得特定的指针。
 
 \subsection{Constructors and composite literals}
 Sometimes the zero value isn't good enough and an initializing
