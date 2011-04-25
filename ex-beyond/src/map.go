@@ -1,7 +1,7 @@
 package main
 import "fmt"
 
-/* define the empty interface as a type */
+/* 定义一个空的 interface 类型 */
 type e interface{}
 
 func mult2(f e) e {

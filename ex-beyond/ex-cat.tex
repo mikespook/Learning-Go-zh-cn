@@ -1,20 +1,17 @@
 \begin{Exercise}[title={Cat},difficulty=6]
 \label{ex:cat}
-\Question \label{ex:cat q1} Write a program which mimics Unix program
-\prog{cat}. For those who don't know this program, the following 
-invocation displays the contents of the file \dir{blah}:
+\Question \label{ex:cat q1} 编写一个程序，模仿 Unix 的 \prog{cat} 程序。
+对于不知道这个程序的人来说，下面的调用显示了文件 \dir{blah} 的内容：
 \begin{display}
 \pr cat blah
 \end{display}
 
-\Question Make it support the \-n flag, where each line is
-numbered.
+\Question 使其支持 \-n 开关，用于输出每行的行号。
 
 \end{Exercise}
 
 \begin{Answer}
-\Question The following is implemention of \prog{cat} which also 
-supports a \-n flag to number each line.
-\lstinputlisting[label=src:cat,caption=A cat program]{ex-beyond/src/cat.go}
+\Question 下面是 \prog{cat} 的实现，同样支持 \-n 输出每行的行号。
+\lstinputlisting[label=src:cat,caption=cat 程序]{ex-beyond/src/cat.go}
 \showremarks
 \end{Answer}

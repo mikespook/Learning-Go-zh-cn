@@ -1,6 +1,6 @@
 package main
 
-|\longremark{Include all the packages we need;}|
+|\longremark{包含所有需要用到的包；}|
 import (
 	"os"
 	"fmt"
@@ -8,22 +8,21 @@ import (
 	"flag"
 )
 
-var numberFlag = flag.Bool("n", false, "number each line") |\longremark{Define a %
-new flag "n", which defaults to off. Note that we get the help for free;}|
+var numberFlag = flag.Bool("n", false, "number each line") |\longremark{定义新的开关 "n"，默认是关闭的。%
+注意很容易写的帮助文本；}|
 
-|\longremark{Start the function that actually reads the file's contents and displays it;}|
+|\longremark{实际上读取并且显示文件内容的函数；}|
 func cat(r *bufio.Reader) {
 	i := 1
 	for {
-		buf, e := r.ReadBytes('\n')	|\longremark{Read one line at the time;}|
-		if e == os.EOF {		|\longremark{Or stop if we hit the end;}|
+		buf, e := r.ReadBytes('\n')	|\longremark{每次读一行；}|
+		if e == os.EOF {		|\longremark{如果到达文件结尾；}|
 			break
 		}
-		if *numberFlag {		|\longremark{If we should number %
-each line, print the line number and then the line itself;}|
+		if *numberFlag {		|\longremark{如果设定了行号，打印行号然后是内容本身；}|
 			fmt.Fprintf(os.Stdout, "%5d  %s", i, buf)
 			i++
-		} else {			|\longremark{Otherwise we could just print the line.}|
+		} else {			|\longremark{否则，仅仅打印该行内容。}|
 			fmt.Fprintf(os.Stdout, "%s", buf)
 		}
 	}
