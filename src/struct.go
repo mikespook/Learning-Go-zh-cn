@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 type NameAge struct {
-	name string	|\coderemark{Not exported}|
-	age  int	|\coderemark{Not exported, Age would be exported}|
+	name string	|\coderemark{不导出}|
+	age  int	|\coderemark{不导出，如果是 Age 就可以导出}|
 }
 
 func main() {

@@ -129,10 +129,9 @@ v := make([]int, 100)
 务必记得 \key{make} 仅适用于 map，slice 和 channel，并且返回的不是指针。
 应当用 \key{new} 获得特定的指针。
 
-\subsection{Constructors and composite literals}
-Sometimes the zero value isn't good enough and an initializing
-constructor is necessary, as in this example taken from the package
-\package{os}.
+\subsection{构造函数与复合声明}
+有时零值不能满足需求，必须要有一个用于初始化的构造函数，例如这个来自
+\package{os} 包的例子。
 \begin{lstlisting}
 func NewFile(fd int, name string) *File {
     if fd < 0 {
@@ -146,9 +145,7 @@ func NewFile(fd int, name string) *File {
     return f
 }
 \end{lstlisting}
-There's a lot of boiler plate in there. We can simplify it using a
-composite literal, which is an expression that creates a new instance
-each time it is evaluated.
+有许多冗长的内容。可以使用复合声明使其更加简洁，每次只用一个表达式创建一个新的实例。
 
 \begin{lstlisting}
 func NewFile(fd int, name string) *File {
@@ -159,91 +156,74 @@ func NewFile(fd int, name string) *File {
     return &f			|\coderemark{Return the address of \var{f}}|
 }
 \end{lstlisting}
-It is OK to return the address of a local variable;
-the storage associated with the variable survives after the function
-returns.
+返回本地变量的地址没有问题；在函数返回后，相关的存储区域仍然存在。
 
-In fact, taking the address of a composite literal allocates a
-fresh instance each time it is evaluated, so we can combine these last
-two lines.\footnote{Taking the address of a composite literal tells the 
-compiler to allocate it on the heap, not the stack.}
+事实上，从复合声明获取分配的实例的地址更好，因此可以最终将两行缩短到一行。
+\footnote{从复合声明中获取地址，意味着告诉编译器在堆中分配空间，而不是栈中。}
 \begin{lstlisting}
 return &File{fd, name, nil, 0}
 \end{lstlisting}
-The fields of a composite literal are laid out in order and must all be
-present. However, by labeling the elements explicitly as field:value
-pairs, the initializers can appear in any order, with the missing ones
-left as their respective zero values. Thus we could say
+联合声明中所有的字段都必须按顺序全部写上。然而，通过对元素用字段:值成对的标识，
+初始化内容可以按任意顺序出现，并且可以省略初始化为零值的字段。因此可以这样
 
 \begin{lstlisting}
 return &File{fd: fd, name: name}
 \end{lstlisting}
-As a limiting case, if a composite literal contains no fields at all, it
-creates a zero value for the type. The expressions
-\lstinline{new(File)} and 
-\lstinline|&File{}| are equivalent.
+在特定的情况下，如果复合声明不包含任何字段，它创建特定类型的零值。
+表达式 \lstinline{new(File)} 和 \lstinline|&File{}| 是等价的。
 
-Composite literals can also be created for arrays, slices, and maps,
-with the field labels being indices or map keys as appropriate. In these
-examples, the initializations work regardless of the values of
-\var{Enone},
-\var{Eio}, and \var{Einval}, as long as they are distinct.
+复合声明同样可以用于创建 array，slice 和 map，通过指定适当的索引和 map 键来标识字段。
+在这个例子中，无论是 \var{Enone}，\var{Eio} 还是 \var{Einval} 初始化都能很好的工作，只要确保它们不同就好了。
 \begin{lstlisting}
 ar := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 sl := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 ma := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
 \end{lstlisting}
 
-\section{Defining your own types}
+\section{定义自己的类型}
 \label{sec:defining your own}
-Of course Go allows you to define new types, it does this 
-with the \first{\key{type}}{keyword!type} keyword: 
+自然，Go 允许定义新的类型，通过保留字
+\first{\key{type}}{keyword!type} 实现： 
 \begin{lstlisting}
 type foo int
 \end{lstlisting}
-Creates
-a new type \lstinline{foo} which acts like an \lstinline{int}.
-Creating more sophisticated types is done with the
-\first{\key{struct}}{keyword!struct}
-keyword.
-An example would be when we want record somebody's name (\type{string})
-and age (\type{int}) in a single structure and make it a new type:
+创建了一个新的类型 \lstinline{foo} 作用跟 \lstinline{int} 一样。
+创建更加复杂的类型需要用到 \first{\key{struct}}{keyword!struct} 保留字。
+这有个在一个数据结构中记录某人的姓名（\type{string}）和年龄（\type{int}），
+并且使其成为一个新的类型的例子：
 \lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
-Apropos, the output of \lstinline{fmt.Printf("%v\n", a)} is 
+通常，\lstinline{fmt.Printf("%v\n", a)} 的输出是
 \begin{display}
 &\{Pete 42\}
 \end{display}
-That is nice!
-Go knows how to print your structure. If you
-only want to print one, or a few, fields of the structure you'll
-need to use \verb|.<field name>|. For example to only print the name:
+这很棒！Go 知道如何打印结构。如果仅想打印某一个，或者某几个结构中的字段，
+需要使用 \verb|.<field name>|。例如，仅仅打印名字：
 \begin{lstlisting}
-fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
+fmt.Printf("%s", a.name) |\coderemark{\%s 格式化字符串}|
 \end{lstlisting}
 
-\subsection{More on structure fields}
-Each item in a structure is called a field. 
-A struct with no fields:
+\subsection{结构字段}
+每个在结构中的项目被称为字段。
+没有字段的结构：
 \begin{lstlisting}
 struct {}
 \end{lstlisting}
-One with five fields:
+有五个字段的：
 \begin{lstlisting}
 struct {
         x, y int
-        _ float64  |\coderemark{padding}|
+        _ float64  |\coderemark{填充}|
         A *[]int
         F func()
 }
 \end{lstlisting}
-If you omit the name for a field, you create an anonymous field, for
-instance:
+如果省略字段的名字，可以创建匿名字段，例如：
 \begin{lstlisting}
 struct {
-        T1        // field name is T1
-        *T2       // field name is T2
-        P.T3      // field name is T3
-        x, y int  // field names are x and y
+        T1        // 字段名字是 T1
+        *T2       // 字段名字是 T2
+        P.T3      // 字段名字是 T3
+        x, y int  // 字段名字是 x 和 y
 }
 \end{lstlisting}
 Note the field names that start with a capital letter are exported, i.e. can be
