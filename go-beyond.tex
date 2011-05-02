@@ -226,61 +226,53 @@ struct {
         x, y int  // 字段名字是 x 和 y
 }
 \end{lstlisting}
-Note the field names that start with a capital letter are exported, i.e. can be
-set or read from other packages. Field names that start with a lowercase are private
-to the current package. The same goes for functions defined in packages, see chapter
-\ref{chap:packages}.
+注意首字母大写的字段可以被导出，也就是说，在其他包中可以进行读写。
+字段名以小写字幕开头是当前包的私有的。包的函数定义是类似的，参阅第 \ref{chap:packages} 章。
 
-\subsection{Methods}
+\subsection{方法}
 \label{sec:methods}
-If you create functions that works on your newly defined type, you can
-take two routes:
+可以对新定义的类型创先函数以便操作，可以通过两种途径：
 \begin{enumerate}
-\item Create a function that takes the type as an argument.
+\item 创建一个函数接受这个类型的参数。
 \begin{lstlisting}
 func doSomething(in1 *NameAge, in2 int) { /* ... */ }
 \end{lstlisting}
-This is (you might have guessed) a \first{\emph{function call}}{function!call}.
-\item Create a function that works on the type (see \emph{receiver} in
-listing \ref{src:function definition}):
+（你可能已经猜到了）这是 \first{\emph{函数调用}}{function!call}。
+\item 创建一个工作在这个类型上的函数（参阅在 \ref{src:function definition}
+中定义的\emph{接收方}）：
 \begin{lstlisting}
 func (in1 *NameAge) doSomething(in2 int) { /* ... */ }
 \end{lstlisting}
-This is a \first{\emph{method call}}{method call}, which can be
-used as: 
+这是\first{\emph{方法调用}}{method call}，可以类似这样使用：
 \begin{lstlisting}
 var n *NameAge
 n.doSomething(2)
 \end{lstlisting}
 \end{enumerate}
-But keep the following in mind, this is quoted from \cite{go_spec}:
+但是下面的内容一定要留意，引用自 \cite{go_spec}：
 \begin{quote}
-If \type{x} is
-addressable and \lstinline{&x}'s method set contains \func{m}, 
-\lstinline{x.m()} is shorthand for \lstinline{(&x).m()}.
+如果 \type{x} 可获取地址，并且 \lstinline{&x} 的方法中包含了 \func{m}，
+\lstinline{x.m()} 是 \lstinline{(&x).m()} 更短的写法。
 \end{quote}
-In the above case this means that the following is \emph{not} an 
-error:
+根据上面所述，这意味着下面的情况\emph{不是}错误：
 \begin{lstlisting}
-var n NameAge	    |\coderemark{Not a pointer}|
+var n NameAge	    |\coderemark{不是指针}|
 n.doSomething(2)    
 \end{lstlisting}
-Here Go will search the method list for \var{n} of type \type{NameAge},
-come up empty and will then \emph{also} search the method list for
-the type \type{*NameAge} and will translate this call to
-\lstinline{(&n).doSomething(2)}.
+这里 Go 会查找 \type{NameAge} 类型的变量 \var{n} 的方法列表，
+没有找到就会\emph{再}查找 \type{*NameAge} 类型的方法列表，并且将其转化为
+\lstinline{(&n).doSomething(2)}。
 
-\section{Conversions}
+\section{转换}
 \label{sec:conversions}
-Sometimes you want to convert a type to another type. 
-This is possible in Go, but
-there are some rules. For starters, converting from one value to another
-is done by functions and not all conversions are allowed.
+有时需要将一个类型转换为另一个类型。
+在 Go 中可以做到，不过有一些规则。首先，将一个值转换为另一个是由函数完成的，
+并且不是所有的转换都是允许的。
 
 \begin{table}[H]
 \begin{center}
-\caption[Valid conversions]{Valid conversions, 
-\lstinline{float64} works the same as \lstinline{float32}}
+\caption[Valid conversions]{合法的转换， 
+\lstinline{float64} 同 \lstinline{float32} 类似}
 \label{tab:convesion}
 \input{tab/conversion.tex}
 \end{center}
@@ -288,7 +280,7 @@ is done by functions and not all conversions are allowed.
 
 \begin{itemize}
 \item{
-From a \lstinline{string} to a slice of bytes or ints.
+从 \lstinline{string} 到字节或者整形的 slice。
 \begin{lstlisting}
 mystring := "hello this is string"
 \end{lstlisting}
@@ -296,65 +288,59 @@ mystring := "hello this is string"
 \begin{lstlisting}
 byteslice := []byte(mystring)
 \end{lstlisting}
-Converts to a \type{byte} slice, each \type{byte} contains the integer value
-of the corresponding byte in the string. Note that as strings in Go
-are encoded in UTF-8 some characters in the string may end up in 1, 2, 3
-or 4 bytes.
+转换到 \type{byte} slice，每个 \type{byte} 保存字符串对应字节的整数值。
+注意 Go 的字符串是 UTF-8 编码的，一些字符可能是1、2、3 或者 4 个字节结尾。
 \begin{lstlisting}
 intslice  := []int(mystring)
 \end{lstlisting}
-Converts to an \type{int} slice, each \type{int} contains a Unicode code
-point. Every character from the string is corresponds to one integer.
+转换到 \type{int} slice，每个 \type{int} 保存 Unicode 编码的指针。
+字符串中的每个字符对应一个整数。
 }
 \item{
-From a slice of bytes or ints to a \lstinline{string}.
+从字节或者整形的 slice 到 \lstinline{string}。
 \begin{lstlisting}
-b := []byte{'h','e','l','l','o'} |\coderemark{Composite literal}|
+b := []byte{'h','e','l','l','o'} |\coderemark{复合声明}|
 s := string(b)
 i := []int{257,1024,65} 
 r := string(i)
 \end{lstlisting}
 }
 \end{itemize}
-For numeric values the following conversion are defined:
+对于数值，定义了下面的转换：
 \begin{itemize}
-\item{Convert to a integer with a specific (bit) length: 
-\lstinline{uint8(int)};}
-\item{From floating point to an integer value: 
-\lstinline{int(float32)}. This discards the fraction part
-from the floating point value;}
-\item{The other way around: \lstinline{float32(int)};}
+\item{将整数转换到指定的（bit）长度： 
+\lstinline{uint8(int)}；}
+\item{从浮点数到整数：
+\lstinline{int(float32)}。这会截断浮点数的小数部分；}
+\item{其他的类似：\lstinline{float32(int)}。}
 \end{itemize}
 
-\subsection{User defined types and conversions}
-How can you convert between the types you have defined
-yourself?
-We create two types here \type{Foo} and \type{Bar}, where
-\lstinline{Bar} is an alias for \type{Foo}:
+\subsection{用户定义类型的转换}
+如何在自定义类型之间进行转换？
+这里创建了两个类型 \type{Foo} 和 \type{Bar}，而
+\lstinline{Bar} 是 \type{Foo} 的一个别名：
 \begin{lstlisting}
-type foo struct { int }  |\coderemark{anonymous struct field}|
-type bar foo             |\coderemark{bar is an alias for foo}|
+type foo struct { int }  |\coderemark{匿名字段}|
+type bar foo             |\coderemark{bar 是 foo 的别名}|
 \end{lstlisting}
 
-Then we:
+然后：
 \begin{lstlisting}
-var b bar = bar{1} |\coderemark{Declare \var{b} to be a \type{bar}}|
-var f foo = b	   |\coderemark{Assign \var{b} to \var{f}}|
+var b bar = bar{1} |\coderemark{声明 \var{b} 为 \type{bar} 类型}|
+var f foo = b	   |\coderemark{赋值 \var{b} 到 \var{f}}|
 \end{lstlisting}
-Which fails on the last line with:
+最后一行会引起错误：
 
-\noindent\error{cannot use b (type bar) as type foo in assignment}
+\noindent\error{cannot use b (type bar) as type foo in assignment(不能使用 b（类型 bar）作为类型 foo 赋值)}
 
-\noindent{}This can be fixed with a conversion:
+\noindent{}这可以通过转换来修复：
 \begin{lstlisting}
 var f foo = foo(b)
 \end{lstlisting}
-Note the converting structures that are not identical in their fields
-is more difficult. Also note that converting \lstinline{b} to a plain
-\type{int} also fails; an integer is not the same as a structure containing
-an integer.
+注意转换那些字段不一致的结构是相当困难的。同时注意，转换
+\lstinline{b} 到 \type{int} 同样会出错；整数与有整数字段的结构并不一样。
 
-\section{Exercises}
+\section{练习}
 \input{ex-beyond/ex-map.tex}
 
 \input{ex-beyond/ex-pointers.tex}
@@ -366,5 +352,5 @@ an integer.
 \input{ex-beyond/ex-pointers-method.tex}
 
 \cleardoublepage
-\section{Answers}
+\section{答案}
 \shipoutAnswer
