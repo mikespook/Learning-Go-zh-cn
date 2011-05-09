@@ -1,20 +1,16 @@
-\epi{I have this phobia about having my body penetrated surgically. You
-know what I mean?}{\textit{eXistenZ}\\\textsc{TED PIKUL}}
+\epi{我对外科手术般进入我的身体总是有恐惧。你知道我说的是什么。}{\textit{eXistenZ}\\\textsc{TED PIKUL}}
 \noindent{}
-\gomarginpar{The following text is from \cite{go_interfaces}. Written by Ian 
-Lance Taylor --- one of the authors of Go.}
-In Go, the word \first{\emph{interface}}{interface} is overloaded to mean several different
-things. Every type has an interface, which is the \emph{set of methods
-defined} for \index{interface!set of methods}
-that type. This bit of code defines a struct type \type{S} with one field, and
-defines two methods for \type{S}.
-\begin{lstlisting}[caption=Defining a struct and methods on it,label=src:interface object]
+\gomarginpar{下面的内容来自 \cite{go_interfaces}。是 Ian Lance Taylor 编写的，他是 Go 的作者之一。}
+在 Go 中，保留字 \first{\emph{interface}}{interface} 被赋予了多种不同的含义。
+每个类型都有接口，意味着对那个类型\emph{定义了方法集合}
+\index{interface!set of methods}。这段代码定义了具有一个字段和两个方法的结构类型 \type{S}。
+\begin{lstlisting}[caption=定义结构和结构的方法,label=src:interface object]
 type S struct { i int }
 func (p *S) Get() int { return p.i }
 func (p *S) Put(v int) { p.i = v }
 \end{lstlisting}
-You can also define an \first{interface type}{interface!type}, which is simply a set of methods.
-This defines an interface \type{I} with two methods:
+也可以定义\first{接口类型}{interface!type}，仅仅是方法的集合。
+这里定义了一个有两个方法的接口 \type{I}：
 \begin{lstlisting}
 type I interface {
   Get() int
@@ -22,38 +18,31 @@ type I interface {
 }
 \end{lstlisting}
 \begin{lbar}
-An interface type is a set of methods.
+接口类型就是方法的集合。
 \end{lbar}
 
-\noindent\type{S} is a valid \emph{implementation} for interface \type{I}, because it defines the two 
-methods which \type{I} requires. Note that this is true even though there is 
-no explicit declaration that \type{S} implements \type{I}. 
+\noindent对于接口 \type{I}，\type{S} 是合法的\emph{实现}，因为它定义了 \type{I}
+所需的两个方法。注意，即便是没有明确定义 \type{S} 实现了 \type{I}，这也是正确的。
 
-A Go program can use 
-this fact via yet another meaning of interface, which is an
-\first{interface value}{interface!value}:
+Go 程序可以利用这个特点来实现接口的另一个含义，就是
+\first{接口值}{interface!value}:
 
 \begin{lstlisting}
-func f(p I) {  |\longremark{Declare a function that takes an interface type %
-as the argument;}|
-    fmt.Println(p.Get()) |\longremark{As \var{p} implements interface \type{I} %
-is \emph{must} have the \func{Get()} method;}|
-    p.Put(1) |\longremark{Same holds for the \func{Put()} method.}|
+func f(p I) {  |\longremark{定义一个函数接受一个接口类型作为参数；}|
+    fmt.Println(p.Get()) |\longremark{\var{p} 实现了接口 \type{I}，\emph{必须}有 \func{Get()} 方法；}|
+    p.Put(1) |\longremark{\func{Put()} 方法是类似的。}|
 }
 \end{lstlisting}
 \showremarks
-Here the variable \var{p} holds a value of interface type. Because
-\type{S} implements \type{I}, we can call \func{f} passing in a pointer to a 
-value of type \type{S}:
+这里的变量 \var{p} 保存了接口类型的值。因为
+\type{S} 实现了 \type{I}，可以调用 \func{f} 向其传递 \type{S} 类型的值的指针：
 \begin{lstlisting}
 var s S; f(&s)
 \end{lstlisting}
 
-The reason we need to take the address of \type{s}, rather than a value of type
-\type{S}, is because we defined the methods on \type{s} to operate on
-pointers, see the code above in listing \ref{src:interface object}.
-This is not a requirement --- we could have defined the methods to take
-values --- but then the \func{Put} method would not work as expected.
+获取 \type{s} 的地址，而不是 \type{S} 的值的原因，是因为在 \type{s} 
+的指针上定义了方法，参阅上面的代码 \ref{src:interface object}。
+这并不是必须的——可以定义让方法接受值——但是这样的话 \func{Put} 方法就不会像期望的那样工作了。
 
 The fact that you do not need to declare whether or not a type implements an
 interface means that Go implements a form of 
