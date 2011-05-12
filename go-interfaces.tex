@@ -44,51 +44,43 @@ var s S; f(&s)
 的指针上定义了方法，参阅上面的代码 \ref{src:interface object}。
 这并不是必须的——可以定义让方法接受值——但是这样的话 \func{Put} 方法就不会像期望的那样工作了。
 
-The fact that you do not need to declare whether or not a type implements an
-interface means that Go implements a form of 
-\first{duck typing}{duck typing}\cite{duck_typing}. 
-This is not
-pure duck typing, because when possible the Go compiler will statically
-check whether the type implements the interface. However, Go does have a
-purely dynamic aspect, in that you can convert from one interface type
-to another. In the general case, that conversion is checked at runtime.
-If the conversion is invalid --- if the type of the value stored in the
-existing interface value does not satisfy the interface to which it is
-being converted --- the program will fail with a runtime error.
+实际上，无须明确一个类型是否实现了一个接口意味着 Go 实现了叫做
+\first{duck typing}{duck typing}\cite{duck_typing} 的模式。
+这不是纯粹的 duck typing，因为如果可能的话 Go 编译器将对类型是否实现了接口进行实现静态检查。
+然而，Go 确实有纯粹动态的方面，如可将一个接口类型转换到另一个。
+通常情况下，转换的检查是在运行时进行的。
+如果是非法转换——当在已有接口值中存储的类型值不匹配将要转换到的接口——程序会抛出运行时错误。
 
-Interfaces in Go are similar to ideas in several other programming languages:
-pure abstract virtual base classes in C++, typeclasses in Haskell or duck typing
-in Python. However there is no other language which combines
-interface values, static type checking, dynamic runtime conversion, and no
-requirement for explicitly declaring that a type satisfies an interface. The
-result in Go is powerful, flexible, efficient, and easy to write.
+在 Go 中的接口有着与许多其他编程语言类似的思路：
+C++ 中的纯抽象虚基类，Haskell 中的 typeclasses 或者 Python 中的 duck typing。
+然而没有其他任何一个语言联合了接口值、静态类型检查、运行时动态转换，以及无须明确定义类型适配一个接口。
+这些给 Go 来来的结果是，强大、灵活、高效和容易编写的。
 
-\subsection{Which is what?}
-Lets define another type that also implements the interface \type{I}:
-\begin{lstlisting}[caption=Another type that implements I]
+\subsection{那个是什么？}
+来定义另外一个类型同样实现了接口 \type{I}：
+\begin{lstlisting}[caption=实现了 I 的另一个类型]
 type R struct { i int }
 func (p *R) Get() int { return p.i }
 func (p *R) Put(v int) { p.i = v }
 \end{lstlisting}
-The function \func{f} can now accept variables of type \type{R} and \type{S}.
-Suppose you need to know the actual type in the function \func{f}. In Go you can 
-figure that out by using a \first{type switch}{type switch}.
+函数 \func{f} 现在可以接受 \type{R} 个 \type{S} 类型的变量。
+假设需要在函数 \func{f} 中知道实际的类型。在 Go 中可以使用
+ \first{type switch}{type switch} 得到。
 
 \begin{lstlisting}
 func f(p I) {
-    switch t := p.(type) { |\longremark{The type switch. Use \key{(type)} in a \key{switch} %
-statement. We store the type in the variable \var{t};}|
-        case *S: |\longremark{The actual type of \var{p} is a pointer to \type{S};}|
-        case *R: |\longremark{The actual type of \var{p} is a pointer to \type{R};}|
-        case S:  |\longremark{The actual type of \var{p} is a \type{S};}|
-        case R:  |\longremark{The actual type of \var{p} is a \type{R};}|
-        default: |\longremark{It's another type that implements \type{I}.}|
+    switch t := p.(type) { |\longremark{类型判断。在 \key{switch} 语句中使用 \key{(type)}。保存类型到变量 \var{t}；}|
+        case *S: |\longremark{\var{p} 的实际类型是 \type{S} 的指针；}|
+        case *R: |\longremark{\var{p} 的实际类型是 \type{R} 的指针；}|
+        case S:  |\longremark{\var{p} 的实际类型是 \type{S}；}|
+        case R:  |\longremark{\var{p} 的实际类型是 \type{R}；}|
+        default: |\longremark{实现了 \type{I} 的其他类型。}|
     }
 }
 \end{lstlisting}
 \showremarks
-Note that a type switch is the only way to figure out what type of an interface variable is. Using
-\key{(type)} outside a \key{switch} is illegal.
+注意，得到接口变量的类型的唯一方法是使用类型判断。
+在 \key{switch} 外使用 \key{(type)} 是非法的。
 
 \subsection{Empty interface}
 Since every type satisfies the empty interface:
@@ -125,7 +117,7 @@ method Get}
 
 \noindent{}Which is completely true, the built-in type \type{int} does not
 have a \func{Get()} method.
-
+l
 \subsection{Checking for interfaces}
 In your code you want to prevent these kind of errors, therefor Go provides you 
 with a way to check if a variable implements a certain interface, again this 
