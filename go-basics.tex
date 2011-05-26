@@ -196,11 +196,8 @@ predeclared constants \emph{true} and \emph{false}. The boolean type is \type{bo
 
 \subsection{Numerical types}
 Go has the well known types such as \lstinline{int}, this type
-has the appropriate length for your machine. 
-Meaning that on a 32 bits machine they are 32 bits, and on
-a 64 bits machine they are 64 bits. Note: an \lstinline{int} is
-either 32 or 64 bits, no other values are defined. Same goes 
-for \lstinline{uint}.
+has a length of 32 bits on 32 \emph{and} 64 bits architectures.
+Same goes for \lstinline{uint}.
 
 If you want to be explicit about the length you can have
 that too with \lstinline{int32}, or \lstinline{uint32}. The full
