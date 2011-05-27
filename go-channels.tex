@@ -1,13 +1,12 @@
 \epi{%
 \begin{itemize}
-\item{Parallelism is about performance;}
-\item{Concurrency is about program design.}
+\item{并行是关于性能的；}
+\item{并发是关于程序设计的。}
 \end{itemize}%
 }{\textit{Google IO 2010}\\\textsc{ROBE PIKE}}
-\noindent{}In this chapter we will show off Go's ability for
-concurrent programming using channels and goroutines. Goroutines
-are the central entity in Go's ability for concurrency. But what
-\emph{is} a goroutine? From \cite{effective_go}:
+\noindent{}在这章中将展示 Go 使用 channel 和 goroutine 开发并行程序的能力。
+goroutine 是 Go 并发能力的核心要素。但是，goroutine 到底 \emph{是}什么？来自
+\cite{effective_go}：
 \begin{quote}
 They're called goroutines because the existing terms --- threads, coroutines,
 processes, and so on --- convey inaccurate connotations. A goroutine has a simple
@@ -16,11 +15,11 @@ address space}. It is lightweight, costing little more than the allocation of
 stack space. And the stacks start small, so they are cheap, and grow by
 allocating (and freeing) heap storage as required.
 \end{quote}
-A \first{goroutine}{goroutine} is a normal function, except that you start
-it with the keyword \first{\key{go}}{keyword!go}.
+\first{goroutine}{goroutine} 是一个普通的函数，只是需要使用保留字
+\first{\key{go}}{keyword!go} 作为开头。
 \begin{lstlisting}
-ready("Tee", 2)	    |\coderemark{Normal function call}|
-go ready("Tee", 2)  |\coderemark{\func{ready()} started as goroutine}|
+ready("Tee", 2)	    |\coderemark{普通函数调用}|
+go ready("Tee", 2)  |\coderemark{\func{ready()} 作为 goroutine 运行}|
 \end{lstlisting}
 The following idea for a program was taken from \cite{go_course_day3}. 
 We run a function as two goroutines, the goroutines wait for an amount of
