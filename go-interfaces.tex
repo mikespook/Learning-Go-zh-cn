@@ -54,9 +54,9 @@ var s S; f(&s)
 在 Go 中的接口有着与许多其他编程语言类似的思路：
 C++ 中的纯抽象虚基类，Haskell 中的 typeclasses 或者 Python 中的 duck typing。
 然而没有其他任何一个语言联合了接口值、静态类型检查、运行时动态转换，以及无须明确定义类型适配一个接口。
-这些给 Go 来来的结果是，强大、灵活、高效和容易编写的。
+这些给 Go 带来的结果是，强大、灵活、高效和容易编写的。
 
-\subsection{那个是什么？}
+\subsection{到底是什么？}
 来定义另外一个类型同样实现了接口 \type{I}：
 \begin{lstlisting}[caption=实现了 I 的另一个类型]
 type R struct { i int }
@@ -82,59 +82,52 @@ func f(p I) {
 注意，得到接口变量的类型的唯一方法是使用类型判断。
 在 \key{switch} 外使用 \key{(type)} 是非法的。
 
-\subsection{Empty interface}
-Since every type satisfies the empty interface:
-\type{interface\{\}}. We can create a generic function which 
-has an empty interface as its argument:
-\begin{lstlisting}[caption=A function with a empty interface argument,label=src:interface empty]
+\subsection{空接口}
+由于每个类型都能匹配到空接口：
+\type{interface\{\}}。我们可以创建一个接受空接口作为参数的普通函数：
+\begin{lstlisting}[caption=空接口参数的函数t,label=src:interface empty]
 func g(any interface{}) int { 
     return any.(I).Get() 
 }
 \end{lstlisting}
-The \lstinline{return any.(I).Get()} is the tricky bit in this function.
-The value \var{any} has type \type{interface\{\}}, meaning no guarantee
-of any methods at all: it could contain any type. The \lstinline{.(I)}
-is a \first{type assertion}{type assertion} which converts \var{any} to an interface of
-type \type{I}. If we have that type we can invoke the \func{Get()}
-function.
-So if we create a new variable of the type \type{*S}, we can just
-call \func{g()}, because \type{*S} also implements the empty interface.
+在这个函数中的 \lstinline{return any.(I).Get()} 是有一点窍门的。
+值 \var{any} 具有类型 \type{interface\{\}}，这意味着方法没有任何约束：
+它能包含任何类型。\lstinline{.(I)} 是 \first{类型断言}{type assertion}，用于转换 \var{any} 到
+\type{I} 类型的接口。如果有这个类型，则可以调用 \func{Get()} 函数。
+因此，如果创建一个 \type{*S} 类型的新变量，也可以调用 \func{g()}，
+因为 \type{*S} 同样实现了空接口。
 \begin{lstlisting}
 s = new(S)
 fmt.Println(g(s));
 \end{lstlisting}
-The call to \func{g} will work fine and will print 0. If we however
-invoke \func{g()} with a value that does not implement \type{I} we have
-a problem:
-\begin{lstlisting}[caption=Failing to implement an interface,label=src:interface fail]
-i := 5		|\coderemark{Make i a "lousy" \texttt{int}}|
+调用 \func{g} 的运行不会出问题，并且将打印 0。如果调用 \func{g()} 的参数没有实现 \type{I} 
+会带来一个麻烦：
+\begin{lstlisting}[caption=接口实现异常,label=src:interface fail]
+i := 5		|\coderemark{声明 i 是一个"该死的" \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}
-This compiles OK, but when we run this we get slammed with:
+这能通过编译，但是当运行的时候会得到：
 
 \noindent\error{panic: interface conversion: int is not main.I: missing
 method Get}
 
-\noindent{}Which is completely true, the built-in type \type{int} does not
-have a \func{Get()} method.
-l
-\subsection{Checking for interfaces}
-In your code you want to prevent these kind of errors, therefor Go provides you 
-with a way to check if a variable implements a certain interface, again this 
-uses a type assertion, but now in an \key{if} statement.
+\noindent{}这是绝对没问题，内建类型 \type{int} 没有 \func{Get()} 方法。
+
+\subsection{检查接口}
+在代码中，希望避免这类错误，Go 提供了检查一个变量是否实现了某个接口的方法，
+同样使用了类型断言，但是这回是在 \key{if} 语句中。
 
 \begin{lstlisting}
 if ok := any.(I); ok { 
-   /* any implements the interface I */
+   /* 对于实现接口 I 的任意操作 */
 } 
 \end{lstlisting}
 
-\section{Methods}
-Methods are functions that have an receiver (see chapter
-\ref{chap:functions}).
-You can define methods on any type (except on non-local types, this includes
-built-in types: the type \type{int} can not have methods).
-You can however make a new integer type with its own methods. For example:
+\section{方法}
+方法就是有接收者的函数（参阅第 \ref{chap:functions} 章）。
+
+可以在任意类型上定义方法（除了非本地类型，包括内建类型：\type{int} 类型不能有方法）。
+然而可以新建一个拥有方法的整数类型。例如：
 \begin{lstlisting}
 type Foo int
 
@@ -146,80 +139,68 @@ type Emitter interface {
   Emit()
 }
 \end{lstlisting}
-Doing this on non-local (types defined in other packages) types yields:
+对那些非本地（定义在其他包的）类型也一样：
 % Empty line here is critical, otherwise no new paragraph is created
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.7\textwidth,caption=Failure extending built-in types]
+\begin{lstlisting}[linewidth=.7\textwidth,caption=扩展内建类型错误]
 func (i int) Emit() {
   fmt.Printf("%d", i)
 }
 \end{lstlisting}
-\noindent\error{cannot define new methods\\ on non-local type int}
+\noindent\error{不能定义新的方法\\ 在非本地类型 int 上}
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption=Failure extending non-local types]
+\begin{lstlisting}[caption=扩展非本地类型错误]
 func (a *net.AddrError) Emit() {
   fmt.Printf("%v", a)
 }
 \end{lstlisting}
-\noindent\error{cannot define new methods\\ on non-local type net.AddrError}
+\noindent\error{不能定义新的方法\\ 在非本地类型 net.AddrError 上}
 \end{minipage}
 
 \paragraph{}  %% needed otherwise the minipage flows over
 
-\subsection{Methods on interface types}
-An interfaces defines a set of methods. A method contains the actual code.
-In other words, an interface is the definition and the methods are the implementation.
-So a receiver can not be a defined for interface
-types, doing so results in a \error{invalid receiver type ...} compiler
-error. The authoritative word from the language spec \cite{go_spec}:
+\subsection{接口类型的方法}
+接口定义为一个方法的集合。方法包含实际的代码。
+换句话说，一个接口就是定义，而方法就是实现。
+因此，接收者不能定义为接口类型，这样做的话会引起
+\error{invalid receiver type ...} 的编译器错误。来自语言说明书 \cite{go_spec} 的权威内容：
 \begin{quote}
-The receiver type must be of the form \type{T} or \type{*T} where
-\type{T} is a type name. \type{T} is called the receiver base type or just base 
-type. The base type must
-not be a pointer or interface type and must be declared in the same
-package as the method.
+接收者类型必须是 \type{T} 或 \type{*T}，这里的 \type{T} 是类型名。
+\type{T} 叫做接收者基础类型或简称基础类型。基础类型一定不能使指针或接口类型，
+并且定义在与方法相同的包中。
 \end{quote}
 
-\subsection{Pointers to interfaces}
-Creating a pointer to an interface value is a useless action in Go.
-\todo{Interfaces is not a pointer, not reference type}
-\gomarginpar{Go \gorelease{2010-10-13}.} It is in fact illegal to
-create a pointer to an interface value. The release notes for that release that
-made them illegal leave no room for doubt:
+\subsection{接口指针}
+在 Go 中创建指向接口的指针是无意义的。
+\todo{接口不是指针，不是引用类型}
+\gomarginpar{Go \gorelease{2010-10-13}.} 实际上创建指向接口值的指针是非法的。
+发布日志中的描述使得没有任何余地怀疑这个：
 \begin{quote}
-The language change is that uses of pointers to interface values no longer 
-automatically dereference the pointer.  A pointer to an interface value is more 
-often a beginner's bug than correct code.
+语言的改变是使用指针指向接口值不再自动反引用指针。指向接口值的指针通常是低级的错误，而不是正确的代码。
 \end{quote}
-From the \cite{go_faq}.  If not for this restriction, this code:
+这来自 \cite{go_faq}。如果不是这个限制，这个代码：
 \begin{lstlisting}
 var buf bytes.Buffer
 io.Copy(buf, os.Stdin)
 \end{lstlisting}
-Would copy standard input into a copy of \var{buf}, not into \var{buf} itself. 
-This is almost never the desired behavior.
+就会复制标准输入到 \var{buf} 的副本，而不是 \var{buf} 本身。
+这看起来永远不会是一个期望的结果。
 
-\section{Interface names}
-By convention, one-method interfaces are named by the method name plus
-the \emph{-er} suffix: Read\emph{er}, Writ\emph{er}, Formatt\emph{er} etc.
+\section{接口名字}
+根据规则，单方法接口命名为方法名加上 \emph{-er} 后缀：Read\emph{er}，Writ\emph{er}，Formatt\emph{er} 等。
 
-There are a number of such names and it's productive to honor them and
-the function names they capture. \func{Read}, \func{Write},
-\func{Close}, \func{Flush}, \func{String} and
-so on have canonical signatures and meanings. To avoid confusion, don't
-give your method one of those names unless it has the same signature and
-meaning. Conversely, if your type implements a method with the same
-meaning as a method on a well-known type, give it the same name and
-signature; call your string-converter method \func{String} not
-\func{ToString}.
-\gomarginpar{Text copied from \cite{effective_go}.}
+有一堆这样的命名，高效的反映了它们职责和包含的函数名。
+\func{Read}，\func{Write}，\func{Close}，\func{Flush}，\func{String} 等等有着规范的声明和含义。
+为了避免混淆，除非有类似的声明和含义，否则不要让方法与这些重名。
+相反的，如果类型实现了与众所周知的类型相同的方法，那么就用相同的名字和声明；
+将字符串转换方法命名为 \func{String} 而不是 \func{ToString}。
+\gomarginpar{文本复制于 \cite{effective_go}。}
 
-\section{A sorting example}
+\section{简短的例子}
 \label{sec:a sorting example}
-Recall the Bubblesort exercise (Q\ref{ex:bubble}), where we sorted an
-array of integers:
+回顾那个冒泡排序的练习（Q\ref{ex:bubble}），对整型数组排序：
 \begin{lstlisting}
 func bubblesort(n []int) {
     for i := 0; i < len(n)-1; i++ {
@@ -231,80 +212,70 @@ func bubblesort(n []int) {
     }
 }
 \end{lstlisting}
-A version that sorts strings is identical except for the signature of
-the function:
+排序字符串的版本是类似的，除了函数的声明：
 \begin{lstlisting}
 func bubblesortString(n []string) { /* ... */ }
 \end{lstlisting}
-Using this apprach would lead to two functions, one for each type. By using
-interfaces we can make this more \index{generic} generic.
+基于此，可能会需要两个函数，每个类型一个。而通过使用接口可以让这个变得更加通用 \index{generic}。
 
-Lets create a new function that will sort both strings and
-integers, something along the lines of this non-working example:
+来创建一个可以对字符串和整数进行排序的函数，这个例子的某些行是无法运行的：
 \begin{lstlisting}
-func sort(i []interface{}) { |\longremark{Our function will receive a slice of %
-empty interfaces;}|
-    switch i.(type) {        |\longremark{Using a type switch we find out what the %
-actual type is of the input;}|
-	case string:         |\longremark{And then sort accordingly;}|
+func sort(i []interface{}) { |\longremark{函数将接收一个空接口的 slice；}|
+    switch i.(type) {        |\longremark{使用 type switch 找到输入参数实际的类型；}|
+	case string:         |\longremark{然后排序；}|
 	    // ...
 	case int:
 	    // ...
     }
-    |\longremark{Return the sorted slice.}|
+    |\longremark{返回排序的 slice。}|
 }
 \end{lstlisting}
 \showremarks
-But when we call this function with \lstinline|sort([]int{1, 4, 5})|, it
-fails with:
+但是如果用 \lstinline|sort([]int{1, 4, 5})| 调用这个函数，会失败：
 \error{cannot use i (type []int) as type []interface { } in function argument}
 
-This is because Go can not easily convert to a \emph{slice} of interfaces.
-Just converting to an interface is easy, but to a slice is much more costly.
-To keep a 
-\gomarginpar{The full mailing list discussion on this subject
-can be found at \cite{go_nuts_interfaces}.}
-long story short: Go does not (implicitly) convert slices for you.
+这是因为 Go 不能简单的将其转换为接口的 \emph{slice}。
+转换到接口是容易的，但是转换到 slice 的开销就高了。
 
-So what is the Go way of creating such a "generic" function? 
-Instead of doing the type inference our selves with a type switch, we let
-Go do it implicitly:
-The following steps are required:
+简单来说
+\gomarginpar{关于这个话题完整的邮件列表讨论可以在 \cite{go_nuts_interfaces} 这里找到。}
+：Go 不能（隐式）转换为 slice。
+
+那么如何创建 Go 形式的这些“通用”函数呢？
+用 Go 隐式的处理来代替 type switch 方式的类型推断吧。
+下面的步骤是必须的：
 \begin{enumerate}
-\item Define an interface type (called \type{Sorter} here) with a number of 
-methods needed for sorting.
-We will at least need a function to get the length of the slice,
-a function to compare two values and a swap function;
+\item 定义一个有着若干排序相关的方法的接口类型（这里叫做 \type{Sorter}）。
+至少需要获取 slice 长度的函数，比较两个值的函数和交换函数；
 \begin{lstlisting}
 type Sorter interface {
-    Len() int           |\coderemark{\texttt{len()} as a method}|
-    Less(i, j int) bool |\coderemark{\texttt{p[j] $<$ p[i]} as a method}|
-    Swap(i, j int)      |\coderemark{\texttt{p[i], p[j] = p[j], p[i]} as a method}|
+    Len() int           |\coderemark{\texttt{len()} 作为方法}|
+    Less(i, j int) bool |\coderemark{\texttt{p[j] $<$ p[i]} 作为方法}|
+    Swap(i, j int)      |\coderemark{\texttt{p[i], p[j] = p[j], p[i]} 作为方法}|
 }
 \end{lstlisting}
-\item Define new types for the slices we want to sort. Note that we
-declare slice types;
+\item 定义用于排序 slice 的新类型。注意定义的是 slice 类型；
 \begin{lstlisting}
 type Xi []int
 type Xs []string
 \end{lstlisting}
-\item Implementation of the methods of the \type{Sorter} interface.
-For integers:
+\item 实现 \type{Sorter} 接口的方法。
+整数的：
 \begin{lstlisting}
 func (p Xi) Len() int               { return len(p) }
 func (p Xi) Less(i int, j int) bool { return p[j] < p[i] }
 func (p Xi) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 \end{lstlisting}
-And for strings:
+和字符串的：
 \begin{lstlisting}
 func (p Xs) Len() int               { return len(p) }
 func (p Xs) Less(i int, j int) bool { return p[j] < p[i] }
 func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
 \end{lstlisting}
-\item Write a \emph{generic} Sort function that works on the \type{Sorter} interface.
+\item 编写作用于 \type{Sorter} 接口的\emph{通用}排序函数。
 \begin{lstlisting}
-func Sort(x Sorter) { |\longremark{\var{x} is now of the \texttt{Sorter} type;}|
-    for i := 0; i < x.Len() - 1; i++ { |\longremark{Using the defined functions, we implement Bubblesort.}|
+func Sort(x Sorter) { |\longremark{\var{x} 现在是 \texttt{Sorter} 类型；}|
+    for i := 0; i < x.Len() - 1; i++ { |\longremark{使用定义的函数，实现了冒泡排序。}|
 	for j := i + 1; j < x.Len(); j++ {
 	    if x.Less(i, j) {
 		x.Swap(i, j)
@@ -315,7 +286,7 @@ func Sort(x Sorter) { |\longremark{\var{x} is now of the \texttt{Sorter} type;}|
 \end{lstlisting}
 \showremarks
 \end{enumerate}
-We can now use you generic \func{Sort} function as follows:
+现在可以像下面这样使用通用的 \func{Sort} 函数：
 \begin{lstlisting}
 ints := Xi{44, 67, 3, 17, 89, 10, 73, 9, 14, 8}
 strings := Xs{"nut", "ape", "elephant", "zoo", "go"}
@@ -326,23 +297,19 @@ Sort(strings)
 fmt.Printf("%v\n", strings)
 \end{lstlisting}
 
-\section{Introspection}
+\section{自省}
 \label{sec:introspection}
-In a program, you can discover the dynamic type of an interface variable
-by using a \key{switch}.
-Such a type assertion\gomarginindex{Type assertion.}{type assertion} uses
-the syntax of a type assertion with the keyword \key{type} inside the
-parentheses. If the switch declares a variable in the expression, the
-variable will have the corresponding type in each clause.
-\begin{lstlisting}[caption=Dynamically find out the type]
+在程序中，可以用 \key{switch} 了解接口变量的动态类型。
+例如类型断言\gomarginindex{类型断言}{type assertion}使用了在圆括号里的关键字
+\key{type} 实现了类型断言的语法。在 switch 中定义的变量表达式，每个分支都对应变量的相应类型。
+\begin{lstlisting}[caption=动态的找到类型]
 package main
-type PersonAge struct { |\longremark{First we define two structures as a new type, %
-\texttt{PersonAge};}|
+type PersonAge struct { |\longremark{首先定义两个结构作为新类型，\texttt{PersonAge}；}|
 	name string
 	age  int
 }
 
-type PersonShoe struct { |\longremark{And \texttt{PersonShoe};}|
+type PersonShoe struct { |\longremark{和 \texttt{PersonShoe}；}|
 	name     string
 	shoesize int
 }
@@ -354,12 +321,11 @@ func main() {
 	WhichOne(p2)
 }
 
-func WhichOne(x interface{}) { |\longremark{This function must accept \emph{both} %
-types as valid input, so we use the empty Interface, which every type implements;}|
-	switch t := x.(type) { |\longremark{The type switch: \texttt{(type)};}|
-	case *PersonAge:	|\longremark{When allocated with \func{new}, it's a %
-pointer. So we check for \type{*PersonAge}. If \func{WhichOne()} was %
-called with a non pointer value, we should check for \type{PersonAge}.}|
+func WhichOne(x interface{}) { |\longremark{这个函数必须能接收\emph{两种}类型作为输入，%
+因此使用每个类型都实现了的空接口；}|
+	switch t := x.(type) { |\longremark{type switch：\texttt{(type)}；}|
+	case *PersonAge:	|\longremark{当用 \func{new} 分配了内存，这就是个指针。%
+因此检查是否为 \type{*PersonAge}。如果 \func{WhichOne()} 被非指针类型调用，则应当检查 \type{PersonAge}。}|
 		println("Age person")
 	case *PersonShoe:
 		println("Shoe person")
@@ -368,10 +334,9 @@ called with a non pointer value, we should check for \type{PersonAge}.}|
 \end{lstlisting}
 \showremarks
 
-The following is another example of performing a type switch, but this
-time checking for more (built-in) types:
-\begin{lstlisting}[caption=A more generic type switch]
-switch t := interfaceValue.(type) { |\coderemark{The type switch}|
+下面有另外一个例子展示，不过这回检查了更多的（内建）类型：
+\begin{lstlisting}[caption=更普通的 type switch]
+switch t := interfaceValue.(type) { |\coderemark{type switch}|
 case bool:
     fmt.Printf("boolean %t\n", t)
 case int:
@@ -385,60 +350,48 @@ default:
 }
 \end{lstlisting}
 
-\subsection{Introspection and reflection}
+\subsection{自省和反射}
 \label{subsec:introspection and reflection}
-In the following example we want to look at the "tag" (here named
-"namestr") defined in the
-type definition of \type{Person}. To do this we need the
-\package{reflect}\index{package!reflect} package (there is no other way in Go). Keep in mind
-that looking at a tag means going back the \emph{type} definition. So
-we use the \package{reflect} package to figure out the type of the variable
-and \emph{then} access the tag.
-
+在下面的例子中，了解一下定义在 \type{Person} 的定义中的 “标签”（这里命名为“namestr”）。
+为了做到这个，需要 \package{reflect}\index{package!reflect} 包（在 Go 中没有其他方法）。
+要记得，查看标签意味着返回\emph{类型}的定义。因此使用 \package{reflect} 包来指出变量的类型，
+\emph{然后}访问标签。
 \input{fig/reflection.tex}
 \showremarks
 
 %% look at layout
-To make the difference between looking a types and values more clear,
-that a look at the following code:
-\begin{lstlisting}[caption=Reflection and the type and value]
+为了让类型和值之间的区别更加清晰，看下面的代码：
+\begin{lstlisting}[caption=反射类型和值]
 func show(i interface{}) {
     switch t := i.(type) {
       case *Person:
-        r := reflect.NewValue(i) |\coderemark{Enter the world of reflection}|
-	tag := |\longremark{Here we want to get the "tag", which means %
-going for the type. Thus we need\newline\lstinline{Elem().Type().(*reflect.StructType)} to get to it;}|
+        r := reflect.NewValue(i) |\coderemark{进入反射的世界}|
+	tag := |\longremark{这里希望获得“标签”，意味着转向类型。%
+因此需要\newline\lstinline{Elem().Type().(*reflect.StructType)} 来获取它；}|
 	  r.(*reflect.PtrValue).Elem().Type().(*reflect.StructType).Field(0).tag
-	nam := |\longremark{Now we want to get access to the %
-\emph{value} of one of the members and we %
-employ\newline\lstinline{Elem().(*reflect.StructValue)} to get to it. %
-Now we have arrived at the structure. Then we go the the first field %
-\lstinline{Field(0)}, tell \package{reflect} is a %
-\var{*reflect.StringValue} and invoke the \lstinline{Get()} method on %
-it. %
+	nam := |\longremark{现在希望访问其中一个成员的\emph{值}，%
+使用\newline\lstinline{Elem().(*reflect.StructValue)} 获取它。%
+现在了解到了结构。然后访问了第一个字段 \lstinline{Field(0)}，告诉 \package{reflect} 是%
+\var{*reflect.StringValue} 并且调用了其中的 \lstinline{Get()} 方法。 %
 \begin{figure}[H] %
-\hskip3\baselineskip\parbox{0.7\textwidth}{\caption[Peeling away the layers using reflection]{Peeling away the %
-layers using reflection. %
-Going from a \type{*Person} via \mbox{\type{*reflect.PtrValue}} using the %
-methods described in \prog{godoc reflect} to get the %
-actual \type{string} contained deep within.}} %
+\hskip3\baselineskip\parbox{0.7\textwidth}{\caption[使用反射去除层次关系]{用反射去除层次关系。%
+通过 \mbox{\type{*reflect.PtrValue}} 访问 \type{*Person}，使用 \prog{godoc reflect} 中描述的方法%
+获得 \type{string} 内部包含的内容。}} %
 \label{fig:reflection} %
 \begin{center} %
 \includegraphics[scale=0.75]{fig/reflection.pdf} %
 \end{center}\end{figure} %
-Reflection works by peeling off layers once you have got your hands %
-on a \type{Value} in the reflection world.}|
+在反射的世界里，当使用 \type{Value} 时，反射就会将层次关系去除。}|
 	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0).|\newline|(*reflect.StringValue).Get()
     }
 }
 \end{lstlisting}
 \showremarks
 
-Setting a value works similarly as getting a value, but only works on
-\emph{exported} members. Again some code:
+设置值与获得值类似，但是仅仅工作在\emph{可导出}的成员上。这些代码：
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption=Reflect with private member]
+\begin{lstlisting}[caption=私有成员的反射]
 type Person struct {
  name string "namestr"
  age  int
@@ -459,7 +412,7 @@ func Set(i interface{}) {
 \end{minipage}
 \hspace{2em}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption=Reflect with public member]
+\begin{lstlisting}[caption=公有成员的反射]
 type Person struct {
  Name string "namestr" |\coderemark{}|
  age  int
@@ -478,17 +431,15 @@ func Set(i interface{}) {
 }
 \end{lstlisting}
 \end{minipage}
-The code on the left compiles and runs, but when you run it, you are greeted with a
-stack trace and a \emph{runtime} error:
+左边的代码可以编译并运行，但是当运行的时候，将得到打印了栈的\emph{运行时}错误：
 
 \noindent\error{panic: cannot set value obtained via unexported struct
 field}
 
-\noindent{}The code on the right works OK and sets the member \var{Name}
-to "Albert Einstein". Of course this only works when you call \func{Set()}
-with a pointer argument.
+\noindent{}右边的代码没有问题，并且设置了成员变量 \var{Name} 
+为"Albert Einstein"。当然，这仅仅工作于调用 \func{Set()} 时传递一个指针参数。
 
-\section{Exercises}
+\section{练习}
 \input{ex-interfaces/ex-interfaces.tex}
 
 \input{ex-interfaces/ex-pointers-and-reflect.tex}
@@ -496,5 +447,5 @@ with a pointer argument.
 \input{ex-interfaces/ex-minmax.tex}
 
 \cleardoublepage
-\section{Answers}
+\section{答案}
 \shipoutAnswer
