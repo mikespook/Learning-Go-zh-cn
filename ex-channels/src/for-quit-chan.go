@@ -9,7 +9,7 @@ func main() {
 	for i := 0; i < 10; i++ {
 		ch <- i
 	}
-	quit <- false	// or true, does not matter
+	quit <- false	// 或者是 true，这没啥关系
 }
 
 func shower(c chan int, quit chan bool) {

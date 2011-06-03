@@ -8,12 +8,10 @@
 goroutine 是 Go 并发能力的核心要素。但是，goroutine 到底 \emph{是}什么？来自
 \cite{effective_go}：
 \begin{quote}
-They're called goroutines because the existing terms --- threads, coroutines,
-processes, and so on --- convey inaccurate connotations. A goroutine has a simple
-model: \emph{it is a function executing in parallel with other goroutines in the same
-address space}. It is lightweight, costing little more than the allocation of
-stack space. And the stacks start small, so they are cheap, and grow by
-allocating (and freeing) heap storage as required.
+叫做 goroutine 是因为已有的短语——线程、协程、进程等等——传递了不准确的含义。
+goroutine 有简单的模型：\emph{它是与其他 goroutine 并行执行的，有着相同地址空间的函数。}。
+它是轻量的，仅比分配栈空间多一点点消耗。而初始时栈是很小的，所以它们也是廉价的，
+并且随着需要在堆空间上分配（和释放）。
 \end{quote}
 \first{goroutine}{goroutine} 是一个普通的函数，只是需要使用保留字
 \first{\key{go}}{keyword!go} 作为开头。
@@ -21,83 +19,71 @@ allocating (and freeing) heap storage as required.
 ready("Tee", 2)	    |\coderemark{普通函数调用}|
 go ready("Tee", 2)  |\coderemark{\func{ready()} 作为 goroutine 运行}|
 \end{lstlisting}
-The following idea for a program was taken from \cite{go_course_day3}. 
-We run a function as two goroutines, the goroutines wait for an amount of
-time and then print something to the screen. 
-On the lines 14 and 15 we start the goroutines.
-The \func{main} function
-waits long enough, so that both goroutines will have printed their text. Right
-now we wait for 5 seconds (\func{time.Sleep()} counts in ns) on line 17, but in fact we have no idea how
-long we should wait until all goroutines have exited.
-\lstinputlisting[numbers=right,label=src:sleeping,firstnumber=8,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
-Listing \ref{src:sleeping} outputs:
+下面程序的思路来自 \cite{go_course_day3}。
+让一个函数作为两个 goroutine 执行，goroutine 等待一段时间，然后打印一些内容到屏幕。
+在第 14 和 15 行，启动了 goroutine。
+\func{main} 函数等待足够的长的时间，这样每个 goroutine 会打印各自的文本到屏幕。
+现在是在第 17 行等待 5 秒钟（\func{time.Sleep()} 按 ns 计算），、
+但实际上没有任何办法知道，当所有 goroutine 都已经退出应当等待多久。 
+\lstinputlisting[numbers=right,label=src:sleeping,firstnumber=8,caption=Go routine 实践,linerange={8,18}]{src/sleep.go}
+表 \ref{src:sleeping} 输出：
 \begin{display}
-I'm waiting         \coderemark{right away}
-Coffee is ready!    \coderemark{after 1 second}
-Tee is ready!       \coderemark{after 2 seconds}
+I'm waiting         \coderemark{立刻}
+Coffee is ready!    \coderemark{1 秒后}
+Tee is ready!       \coderemark{2 秒后}
 \end{display}
-
-If we did not wait for the goroutines (i.e. remove line 17) the program
-would be terminated immediately and any running goroutines would
-\emph{die with it}. 
-To fix this we need some kind of mechanism which allows us to
-communicate with the goroutines. This mechanism is available
-to us in the form of \first{channels}{channels}. A
-\first{channel}{channel} can be
-compared to a two-way pipe in Unix shells: you can send to and receive
-values from it. Those values can only be of a specific type: the
-type of the channel. If we define a channel, we must also define the
-type of the values we can send on the channel. Note that we must use
-\key{make} to create a channel:
+如果不等待 goroutine 的执行（例如，移除第 17 行），程序立刻终止，而任何正在执行的 
+goroutine 都\emph{会停止}。
+为了修复这个，需要一些能够同 goroutine 通讯的机制。这一机制通过 \first{channels}{channels} 
+的形式使用。\first{channel}{channel} 可以与 Unix sehll 中的双向管道做类比：
+可以通过它发送或者接收值。这些值只能是特定的类型：channel 类型。
+定义一个 channel 时，也需要定义发送到 channel 的值的类型。注意，必须使用
+\key{make} 创建 channel：
 \begin{lstlisting}
 ci := make(chan int)
 cs := make(chan string)
 cf := make(chan interface{})
 \end{lstlisting}
-Makes \var{ci} a channel on which we can send and receive integers,
-makes \var{cs} a channel for strings and \var{cf} a channel for types
-that satisfy the empty interface. 
-Sending on a channel and receiving from it, is done with the same operator:
+创建 channel \var{ci} 用于发送和接收整数，创建 channel \var{cs} 用于字符串，
+以及 channel \var{cf} 使用了空接口来满足各种类型。
+向 channel 发送或接收数据，是通过类似的操作符完成的：
 \lstinline{<-}. \index{operator!channel}
-Depending on the operands it figures out what to do:
+具体作用则依赖于操作符的位置：
 \begin{lstlisting}
-ci <- 1	    |\coderemark{\emph{Send} the integer 1 to the channel \var{ci}}|
-<-ci	    |\coderemark{\emph{Receive} an integer from the channel \var{ci}}|
-i := <-ci   |\coderemark{\emph{Receive} from the channel \var{ci} and storing it in \var{i}}|
+ci <- 1	    |\coderemark{\emph{发送}整数 1 到 channel \var{ci}}|
+<-ci	    |\coderemark{从 channel \var{ci} \emph{接收}整数}|
+i := <-ci   |\coderemark{从 channel \var{ci} \emph{接收}整数，并保存到 \var{i} 中}|
 \end{lstlisting}
-Lets put this to use.
-\begin{lstlisting}[numbers=none,caption=Go routines and a channel,label=src:sleeping with channels]
-var c chan int |\longremark{Declare \var{c} to be a variable that is a %
-channel of ints. That is: this channel can move integers. Note %
-that this variable is global so that the goroutines have access to it;}|
+将这些放到实例中去。
+\begin{lstlisting}[numbers=none,caption=Go routines 和 channel,label=src:sleeping with channels]
+var c chan int |\longremark{定义 \var{c} 作为 int 型的 channel。就是说：这个 channel 传输整数。%
+注意这个变量是全局的，这样 goroutine 可以访问它；}|
 
 func ready(w string, sec int) {
 	time.Sleep(int64(sec) * 1e9)
 	fmt.Println(w, "is ready!")
-	c <- 1	|\longremark{Send the integer 1 on the channel \var{c};}|
+	c <- 1	|\longremark{发送整数 1 到 channel \var{c}；}|
 }
 
 func main() {
-	c = make(chan int) |\longremark{Initialize \var{c};}|
-	go ready("Tee", 2) |\longremark{Start the goroutines with the keyword \key{go};}|
+	c = make(chan int) |\longremark{初始化 \var{c}；}|
+	go ready("Tee", 2) |\longremark{用保留字 \key{go} 开始一个 goroutine；}|
 	go ready("Coffee", 1)
 	fmt.Println("I'm waiting, but not too long")
-	<-c |\longremark{Wait until we receive a value from the channel. Note that the value we receive is discarded;}|
-	<-c |\longremark{Two goroutines, two values to receive.}|
+	<-c |\longremark{等待，直到从 channel 上接收一个值。注意，收到的值被丢弃了；}|
+	<-c |\longremark{两个 goroutines，接收两个值。}|
 }
 \end{lstlisting}
 
 \showremarks
-There is still some remaining ugliness; we have to read twice from
-the channel (lines 14 and 15). This is OK in this case, but what if
-we don't know how many goroutines we started? This is where another
-Go built-in comes in: \first{\key{select}}{keyword!select}. With \key{select} you 
-can (among other things) listen for incoming data on a channel.
+这里仍然有一些丑陋的东西；不得不从 channel 中读取两次（第 14 和 15 行）。
+在这个例子中没问题，但是如果不知道有启动了多少个 goroutine 怎么办呢？
+这里有另一个 Go 内建的保留字：\first{\key{select}}{keyword!select}。
+通过 \key{select}（和其他东西）可以监听 channel 上输入的数据。
 
-Using \key{select} in our program does not really make it shorter,
-because we run too few goroutines. We remove the lines 14 and 15 and
-replace them with the following:
-\begin{lstlisting}[caption=Using select,numbers=right,firstnumber=14]
+在这个程序中使用 \key{select}，并不会让它变得更短，因为运行的 goroutine 太少了。
+移除第 14 和 15 行，并用下面的内容替换它们：
+\begin{lstlisting}[caption=使用 select,numbers=right,firstnumber=14]
 L: for {
 	select {
 	case <-c:
@@ -109,20 +95,16 @@ L: for {
 }   
 \end{lstlisting}
 
-\subsection{Make it run in parallel}
-While our goroutines were running concurrent, they were not running in
-parallel. When you do not tell Go anything there can only be one
-goroutine running at a time. With \func{runtime.GOMAXPROCS(n)} you
-can set the number of goroutines that can run in parallel. From
-the documentation:
+\subsection{使其并行运行}
+虽然 goroutine 是并发执行的，但是它们并不是并行运行的。如果不告诉 Go 额外的东西，
+同一时刻只会有一个 goroutine 执行。利用 \func{runtime.GOMAXPROCS(n)} 可以设置 goroutine 并行执行的数量。
+来自文档：
 \begin{quote}
-GOMAXPROCS sets the maximum number of CPUs that can be executing
-simultaneously and returns the previous setting. If n < 1, it does not
-change the current setting. \emph{This call will go away when the scheduler
-improves.}
+GOMAXPROCS 设置了同时运行的 CPU 的最大数量，并返回之前的设置。如果 n < 1，不会改变当前设置。
+\emph{当调度得到改进后，这将被移除。}
 \end{quote}
-If you do not want to change any source code you can also set an
-environment variable \verb|GOMAXPROCS| to the desired value.
+如果不希望修改任何源代码，同样可以通过设置环境变量
+ \verb|GOMAXPROCS| 为目标值。
 %% test
 %%\marginpar{%
 %%$$\left\{
@@ -137,62 +119,52 @@ environment variable \verb|GOMAXPROCS| to the desired value.
 %%}
 
 %%\section{So many channels and still \ldots}
-\section{More on channels}
+\section{更多关于 channel}
 \label{sec:more on channels}
-When you create a channel in Go with \lstinline{ch := make(chan bool)}, 
-an \first{unbuffered channel}{channel!unbuffered} for
-bools is created. What does this mean for your program? For one, if you
-read (\lstinline{value := <-ch}) it will block until there is data to
-receive. Secondly anything sending (\lstinline{ch<-5}) will block until there
-is somebody to read it. 
-Unbuffered channels make a perfect tool for synchronising multiple
-goroutines.
+当在 Go 中用 \lstinline{ch := make(chan bool)} 创建 chennel 时，bool 型的
+\first{无缓冲 channel}{channel!unbuffered} 会被创建。
+这对于程序来说意味着什么呢？首先，如果读取（\lstinline{value := <-ch}）它将会被阻塞，直到有数据接收。
+其次，任何发送（\lstinline{ch<-5}） 将会被阻塞，直到数据被读出。
+无缓冲 channel 是在多个 goroutine 之间同步很棒的工具。
 \index{channel!blocking read}
 \index{channel!blocking write}
 
-But Go allows you to specify the buffer size of
-a channel, which is quite simple how many elements a channel can hold.
-\lstinline{ch := make(chan bool, 4)}, creates a buffered channels of
-bools that can hold 4 elements. The first 4 elements in this channels
-are written without any blocking.
-When you write the 5$^{th}$ element, your
-code \emph{will} block, until another goroutine reads some elements from the
-channel to make room. 
+不过 Go 也允许指定 channel 的缓冲大小，很简单，就是 channel 可以存储多少元素。
+\lstinline{ch := make(chan bool, 4)}，创建了可以存储 4 个元素的 bool 型 channel。
+在这个 channel 中，前 4 个元素可以无阻塞的写入。当写入第 5$^{个}$ 元素时，代码
+\emph{将会}阻塞，直到其他 goroutine 从 channel 中读取一些元素，腾出空间。
 \index{channel!non-blocking read}
 \index{channel!non-blocking write}
 
-Although reads from channels block, you can perform an
-non-blocking read with the following syntax: \todo{Still need to test this.}
+虽然从 channel 读取是阻塞的，但是仍然可以用下面的方式实现非阻塞的读取：
+\todo{需要对这个做一些测试。}
 \begin{lstlisting}
 x, ok = <-ch
 \end{lstlisting}
-Where \lstinline{ok} is set to \lstinline{true} when there was something
-to read (otherwise it is \lstinline{false}. 
-And if that was the case \lstinline{x} get the value read
-from the channel. 
-In conclusion, the following is true in Go:
+当读取到了内容时 \lstinline{ok} 为 \lstinline{true}，否则为 \lstinline{false}。
+同时，\lstinline{x} 从 channel 获取到值。
+一句话说，在 Go 中下面的为 true：
 $$
 \textrm{\lstinline{ch := make(chan type, value)}}
 \left\{
 \begin{array}{ll}
-value == 0 & \rightarrow \textrm{unbuffered (blocking)} \\
-value >  0 & \rightarrow \textrm{buffered (non-blocking) up to \emph{value} elements)}
+value == 0 & \rightarrow \textrm{无缓冲（阻塞）} \\
+value >  0 & \rightarrow \textrm{缓冲（非阻塞，直到 \emph{value} 个元素）}
 \end{array}
 \right.
 $$
 
-\subsection{Closing channels}
+\subsection{关闭 channel}
 %% section needs to be written
 
-\subsection{Wrapping functions in goroutines}
-See godns/resolver.go and how to wrap the Query() function in a goroutine with 
-error handling and such.
+\subsection{在 goroutines 中包装函数}
+参阅 godns/resolver.go 如何在 goroutine 中用错误处理等包装 Query() 函数。
 
-\section{Exercises}
+\section{练习}
 \input{ex-channels/ex-for-channels.tex}
 
 \input{ex-channels/ex-fib.tex}
 
 \cleardoublepage
-\section{Answers}
+\section{答案}
 \shipoutAnswer
