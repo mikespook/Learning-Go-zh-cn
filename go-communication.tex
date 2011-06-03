@@ -1,122 +1,104 @@
-\epi{Good communication is as stimulating as black coffee, and just as hard
-to sleep after.}{\textsc{ANNE MORROW LINDBERGH}}
-\noindent{}In this chapter we are going to look at the building blocks in Go for 
-communicating with the outside world.
+\epi{好的沟通就像是一杯刺激的浓咖啡，然后就难以入睡。}{\textsc{ANNE MORROW LINDBERGH}}
+\noindent{}在这章中将介绍 Go 中与外部通讯的通讯模块。
 
-\section{Files}
-Reading from (and writing to) files is easy in Go. This program
-only uses the \package{os} package to read data from the file \file{/etc/passwd}.
-\lstinputlisting[numbers=right,caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
-If you want to use \first{buffered}{buffered} IO there is the
-\package{bufio}\index{package!bufio} package:
-\lstinputlisting[numbers=right,caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
-
-On line 9 we create a \type{bufio.Reader} from \var{f} which is of
-type \type{*File}. \func{NewReader} expects an \type{io.Reader}, so you
-might think this will fail. But it doesn't. An \type{io.Reader} is
-defined as:
+\section{文件}
+在 Go 中，从文件读取（或写入）是非常容易的。程序只需要使用
+\package{os} 包就可以从文件 \file{/etc/passwd} 中读取数据。
+\lstinputlisting[numbers=right,caption=从文件读取（无缓冲）,label=src:read]{src/file.go}
+如果想要使用\first{缓冲}{buffered} IO，则有
+\package{bufio}\index{package!bufio} 包：
+\lstinputlisting[numbers=right,caption=从文件读取（缓冲）,label=src:bufread]{src/buffile.go}
+在第 9 行从 \type{*File} 类型的 \var{f} 中创建了 \type{bufio.Reader}。
+\func{NewReader} 期望一个 \type{io.Reader}，所以或许认为这个会出错。
+但是不会。\type{io.Reader} 定义为：
 \begin{lstlisting}
 type Reader interface {
     Read(p []byte) (n int, err os.Error)
 }
 \end{lstlisting}
-So \emph{anything} that has such a \func{Read()} function implements this
-interface. And from listing \ref{src:read} (line 10) we can see
-that \type{*File} indeed does so. 
+因此，\emph{任何}有 \func{Read()} 函数的都实现了这个接口。
+从表 \ref{src:read} （第 10 行）可以看到 \type{*File} 实际是这样做的。
 
-\section{Command line arguments}
+\section{命令行参数}
 \label{sec:option parsing}
-Arguments from the command line are available inside your program via
-the string slice \var{os.Args}, provided you have imported the package
-\package{os}. The \package{flag} package has a more sophisticated
-interface, and also provides a way to parse flags. Take this example
-from a little DNS query tool:
+来自命令行的参数在程序中通过字符串 slice \var{os.Args} 获取，导入包 \package{os} 即可。
+\package{flag} 包有着精巧的接口，同样提供了解析标识的方法。这个例子是一个简单的 DNS 查询工具：
 \begin{lstlisting}
-var dnssec *bool = flag.Bool("dnssec", false, "Request DNSSEC records") |\longremark{Define a \texttt{bool} flag, %%
-\texttt{-dnssec}. The variable must be a pointer otherwise the package can not set its value;}|
-var port *string = flag.String("port", "53", "Set the query port")      |\longremark{Idem, but for a \texttt{port} option;}|
-flag.Usage = func() {   |\longremark{Slightly redefine the \func{Usage} function, to be a little more verbose;}|
+var dnssec *bool = flag.Bool("dnssec", false, "Request DNSSEC records") |\longremark{定义 \texttt{bool} 标识，%%
+\texttt{-dnssec}。变量必须是指针，否则 package 无法设置其值；}|
+var port *string = flag.String("port", "53", "Set the query port")      |\longremark{类似的，\texttt{port} 选项；}|
+flag.Usage = func() {   |\longremark{简单的重定义 \func{Usage} 函数，有点罗嗦；}|
     fmt.Fprintf(os.Stderr, "Usage: %s [@server] [qtype] [qclass] [name ...]\n", os.Args[0])
-    flag.PrintDefaults() |\longremark{For every flag given, \func{PrintDefaults} will output the help string;}|
+    flag.PrintDefaults() |\longremark{指定的每个标识，\func{PrintDefaults} 将输出帮助信息；}|
 }
-flag.Parse()   |\longremark{Parse the flags and fill the variables.}|
+flag.Parse()   |\longremark{解析标识，并填充变量。}|
 \end{lstlisting}
 \showremarks
 
-\section{Executing commands}
-The \package{exec}\index{package!exec} package has function to run external commands, and it the premier way to
-execute commands from within a Go program. We start commands with 
-the \func{Run} function:
+\section{执行命令}
+\package{exec}\index{package!exec} 包有函数可以执行外部命令，这也是在 Go 中主要的执行命令的方法。
+\func{Run} 函数执行命令：
 \begin{lstlisting}
 func Run(argv0 string, argv, envv []string, dir string, stdin, stdout, stderr int) (p *Cmd, err os.Error)
 \end{lstlisting}
 \begin{quote}
-Run starts the binary prog running with
-arguments \var{argv} and environment \var{envv}.
-It returns a pointer to a new \type{Cmd} representing the command or an error.
+Run 开启一个参数为 \var{argv} 并且环境变量为 \var{envv} 的二进制程序。
+返回一个新的描述命令的 \type{Cmd} 类型指针，或是错误。
 \end{quote}
-Lets execute \verb|ls -l|:
+执行 \verb|ls -l|：
 \begin{lstlisting}
 import "exec"
 
 cmd, err := exec.Run("/bin/ls", []string{"ls", "-l"}, nil, "", exec.DevNull, exec.DevNull, exec.DevNull)
 \end{lstlisting}
-In the \package{os}\index{package!os} package we find the \func{StartProcess} function. This
-is another way (but more low level) to start executables.\footnote{There is talk on
-the go-nuts mailing list about separating \func{Fork} and
-\func{Exec}.} 
-The prototype for \func{StartProcess} is:
+在 \package{os}\index{package!os} 包中，可以找到 \func{StartProcess} 函数。这是另外一个方法（但是更底层一些）执行命令。
+\footnote{在 go-nuts 上，有一些关于 \func{Fork} 和 \func{Exec} 区别的讨论。} 
+\func{StartProcess} 的原型是：
 \begin{lstlisting}
 func StartProcess(name string, argv []string, envv []string, dir string, fd []*File) (pid int, err Error)
 \end{lstlisting}
-With the following documentation:
+有下面的文档：
 \begin{quote}
-\func{StartProcess} starts a new process with the program, arguments,
-and environment specified by \var{name}, \var{argv}, and \var{envv}. The \var{fd} array specifies the
-file descriptors to be set up in the new process: \var{fd[0]} will be Unix file
-descriptor 0 (standard input), \var{fd[1]} descriptor 1, and so on.  A \type{nil} entry
-will cause the child to have no open file descriptor with that index.
-If \var{dir} is not empty, the child chdirs into the directory before execing the program.
+\func{StartProcess} 启动一个程序新的进程，通过 \var{name}、\var{argv} 和 \var{envv} 指定程序、参数和环境变量。
+\var{fd} 数组指定了新进程的文件描述符：\var{fd[0]} 是 Unix 文件描述符 0（标准输入），
+\var{fd[1]} 是描述符 1，等等。输入 \type{nil} 将使得子进程在那个索引上没有打开的文件描述符。
+如果 \var{dir} 不为空，子进程在执行前会 chdir 到这个目录。
 \end{quote}
-Suppose we want to execute \verb|ls -l| again:
+假设希望再次执行 \verb|ls -l|：
 \begin{lstlisting}
 import "os"
 
 pid, err := os.StartProcess("/bin/ls", []string{"ls", "-l"}, nil, "", []*os.File{ os.Stdin, os.Stdout, os.Stderr})
-defer os.Wait(pid, os.WNOHANG) |\coderemark{Otherwise you create a zombie}|
+defer os.Wait(pid, os.WNOHANG) |\coderemark{否则会创建僵尸进程}|
 \end{lstlisting}
-Note that \lstinline{os.Wait} (among other things) returns the
-\func{exit code}, with:
+注意 \lstinline{os.Wait} （以及其他）返回 \func{退出码}，这样：
 \begin{lstlisting}
 w := os.Wait(pid, os.WNOHANG)
-e := w.WaitStatus.ExitStatus()  |\coderemark{ExitStatus() returns an integer}|
+e := w.WaitStatus.ExitStatus()  |\coderemark{ExitStatus() 返回整数}|
 \end{lstlisting}
 
-\section{Networking}
-All network related types and functions can be found in the package \package{net}. One of the
-most important functions in there is \func{Dial}\index{networking!Dial}. When you \func{Dial}
-into a remote system the function returns a \var{Conn} interface type, which can be used
-to send and receive information. The function \func{Dial} neatly abstracts away the network
-family and transport. So IPv4 or IPv6, TCP or UDP can all share a common interface. 
+\section{网络}
+所有网络相关的类型和函数可以在 \package{net} 包中找到。这其中最重要的函数是 \func{Dial}\index{networking!Dial}。
+当 \func{Dial} 到远程系统，这个函数返回 \var{Conn} 接口类型，可以用于发送或接收信息。
+函数 \func{Dial} 简洁的抽象了网络层和传输层。因此 IPv4 或者 IPv6，TCP 或者 UDP 可以共用一个接口。
 
-Dialing a remote system (port 80) over TCP, then UDP and lastly TCP over IPv6 looks
-like this:\footnote{In case
-you are wondering, 192.0.32.10 and 2620:0:2d0:200::10 are \url{www.example.org}.}
+通过 TCP 连接到远程系统（端口 80），然后是 UDP，最后是 TCP 通过 IPv6，大致是这样：
+\footnote{在这个例子中，可以认为 192.0.32.10 和 2620:0:2d0:200::10 是 \url{www.example.org}。}
 \begin{lstlisting}
 conn, err := Dial("tcp", "", "192.0.32.10:80")
 conn, err := Dial("udp", "", "192.0.32.10:80")
-conn, err := Dial("tcp", "", "[2620:0:2d0:200::10]:80") |\coderemark{Brackets are mandatory}|
+conn, err := Dial("tcp", "", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强制的}|
 \end{lstlisting}
 
-And with \var{conn} you can do read/write \todo{dkls}.
+而通过 \var{conn} 可以进行读写\todo{dkls}。
 
-\todo{Write echo server}
+\todo{编写一个 echo server}
 
-\section{Netchan: networking and channels}
+\section{Netchan：网络和 channel}
 %%http://blog.golang.org/2010/09/go-concurrency-patterns-timing-out-and.html
 
 
-\section{Exercises}
+\section{练习}
 \input{ex-communication/ex-processes.tex}
 
 \input{ex-communication/ex-wordcount.tex}
@@ -128,5 +110,5 @@ And with \var{conn} you can do read/write \todo{dkls}.
 \input{ex-communication/ex-numbercruncher.tex}
 
 \cleardoublepage
-\section{Answers}
+\section{答案}
 \shipoutAnswer
