@@ -74,7 +74,7 @@ func solve(form, numberop []int, index, magic int) {
 		}
 
 		if v < ADD {
-			// it is a number, save it
+			// 是一个数字，保存起来
 			tmp = numberop[i]
 			numberop[i] = 0
 		}
@@ -83,7 +83,7 @@ func solve(form, numberop []int, index, magic int) {
 
 		if ok && value == magic {
 			if v < ADD {
-				numberop[i] = tmp // reset and go on
+				numberop[i] = tmp // 重置并继续
 			}
 			found++
 			fmt.Printf("%s = %d  #%d\n", rpnstr(form[0:index+1]), value, found)
@@ -92,13 +92,13 @@ func solve(form, numberop []int, index, magic int) {
 
 		if index == MAXPOS-1 {
 			if v < ADD {
-				numberop[i] = tmp // reset and go on
+				numberop[i] = tmp // 重置并继续
 			}
 			goto NEXT
 		}
 		solve(form, numberop, index+1, magic)
 		if v < ADD {
-			numberop[i] = tmp // reset and go on
+			numberop[i] = tmp // 重置并继续
 		}
 	NEXT:
 	}
