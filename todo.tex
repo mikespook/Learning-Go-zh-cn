@@ -1,6 +1,14 @@
 \section{To do}
 
 \begin{itemize}
+Run gotest -test.bench=Bench -test.cpuprofile=cpuprof
+
+This will generate a cpu profile. You can examine it with gopprof:
+
+gopprof 8.out cpuprof
+
+- Evan
+
 \item
 Style! Make it a pleasant read
 \item
