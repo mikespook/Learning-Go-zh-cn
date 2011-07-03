@@ -24,7 +24,7 @@ f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666)
 r := bufio.NewReader(f)
 for {
     s, ok := r.ReadString('\n'); true { |\coderemark{Read a line from the input}|
-    // ... |\coderemark{s holds the string, with the string package you can parse it}|
+    // ... \coderemark{\var{s} holds the string, with the \package{string} package you can parse it}
 }
 \end{lstlisting}
 

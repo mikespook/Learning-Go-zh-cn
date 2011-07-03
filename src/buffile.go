@@ -6,12 +6,12 @@ func main() {
 	f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666) |\longremark{Open the file, \key{os.Open} returns %
 a \type{*os.File} which implements the \type{io.Reader} interface;}|
 	defer f.Close()
-	r := bufio.NewReader(f) |\longremark{Turn \var{f} into a buffered Reader.%
+	r := bufio.NewReader(f) |\longremark{Turn \var{f} into a buffered \func{Reader}. %
 \func{NewReader} expects an \type{io.Reader}, so you %
 might think this will fail. But it does not. %
 \emph{Anything} that has such a \func{Read()} function implements this %
 interface. And from listing \ref{src:read} we can see %
-that \type{*File} indeed does so;}|
+that \type{*os.File} indeed does so;}|
 	w := bufio.NewWriter(os.Stdout)
 	defer w.Flush()
 	for {
