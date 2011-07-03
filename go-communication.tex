@@ -6,23 +6,27 @@ communicating with the outside world.
 \section{Files}
 Reading from (and writing to) files is easy in Go. This program
 only uses the \package{os} package to read data from the file \file{/etc/passwd}.
-\lstinputlisting[numbers=right,caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
+\lstinputlisting[caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
+\showremarks
+
 If you want to use \first{buffered}{buffered} IO there is the
 \package{bufio}\index{package!bufio} package:
-\lstinputlisting[numbers=right,caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
+\lstinputlisting[caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
+\showremarks
 
-On line 9 we create a \type{bufio.Reader} from \var{f} which is of
-type \type{*File}. \func{NewReader} expects an \type{io.Reader}, so you
-might think this will fail. But it doesn't. An \type{io.Reader} is
-defined as:
+\subsection{Line by line}
+The previous program reads a file in its entirely, but a more common scenario is that
+you want to read a file on a line-by-line basis. The following snippet show a way
+to do just that:
+
 \begin{lstlisting}
-type Reader interface {
-    Read(p []byte) (n int, err os.Error)
+f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666)
+r := bufio.NewReader(f)
+for {
+    s, ok := r.ReadString('\n'); true { |\coderemark{Read a line from the input}|
+    // ... |\coderemark{s holds the string, with the string package you can parse it}|
 }
 \end{lstlisting}
-So \emph{anything} that has such a \func{Read()} function implements this
-interface. And from listing \ref{src:read} (line 10) we can see
-that \type{*File} indeed does so. 
 
 \section{Command line arguments}
 \label{sec:option parsing}
