@@ -80,7 +80,7 @@ allocates zeroed storage for a new item of type \type{T} and returns its
 address, a value of type \type{*T}. In Go terminology, it returns a pointer to
 a newly allocated zero value of type \type{T}. This is important to
 remember:
-\begin{lbar}
+\begin{lbar}[]
 \key{new} returns \emph{pointers}.
 \end{lbar}
 
@@ -125,7 +125,7 @@ items are initialized, the slice is \type{nil}. For slices, maps, and channels,
 \key{make} initializes the internal data structure and prepares the value for
 use. 
 
-\begin{lbar}
+\begin{lbar}[]
 \key{make} returns initialized (non zero) \emph{values}.
 \end{lbar}
 
@@ -155,6 +155,12 @@ v := make([]int, 100)
 Remember that \key{make} applies only to maps, slices and channels and does
 not return a pointer. To obtain an explicit pointer allocate with
 \key{new}.
+
+\begin{lbar}[Summery]
+The above two paragraphs can be simply summarized:\\
+\lstinline{new(T)} returns \lstinline{*T}\\
+\lstinline{make(T)} returns \lstinline{T}
+\end{lbar}
 
 \subsection{Constructors and composite literals}
 Sometimes the zero value isn't good enough and an initializing
