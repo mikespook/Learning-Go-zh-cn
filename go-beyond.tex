@@ -159,7 +159,7 @@ not return a pointer. To obtain an explicit pointer allocate with
 \begin{lbar}[Summery]
 The above two paragraphs can be simply summarized:\\
 \lstinline{new(T)} returns \lstinline{*T}\\
-\lstinline{make(T)} returns \lstinline{T}
+\lstinline{make(T)} returns \lstinline{T} (and only for slices, maps and channels)\\
 \end{lbar}
 
 \subsection{Constructors and composite literals}
