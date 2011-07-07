@@ -156,10 +156,11 @@ Remember that \key{make} applies only to maps, slices and channels and does
 not return a pointer. To obtain an explicit pointer allocate with
 \key{new}.
 
-\begin{lbar}[Summery]
+\begin{lbar}[\lstinline{new} allocates; \lstinline{make} initializes]
 The above two paragraphs can be simply summarized:\\
-\lstinline{new(T)} returns \lstinline{*T}\\
-\lstinline{make(T)} returns \lstinline{T} (and only for slices, maps and channels)\\
+\lstinline{new(T)} returns \var{*T} pointing to a zeroed \var{T}\\
+\lstinline{make(T)} returns an initialized \var{T}\\
+And of course \lstinline{make} is only used for slices, maps and channels.
 \end{lbar}
 
 \subsection{Constructors and composite literals}
