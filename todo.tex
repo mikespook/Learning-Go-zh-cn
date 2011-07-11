@@ -3,6 +3,9 @@
 \begin{itemize}
 Run gotest -test.bench=Bench -test.cpuprofile=cpuprof
 
+    \$(GC) y.go
+    \$(LD) -o units y.\$O
+
 This will generate a cpu profile. You can examine it with gopprof:
 
 gopprof 8.out cpuprof
