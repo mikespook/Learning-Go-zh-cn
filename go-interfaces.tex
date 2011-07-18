@@ -345,6 +345,21 @@ Sort(strings)
 fmt.Printf("%v\n", strings)
 \end{lstlisting}
 
+\subsection{Listing interfaces in interfaces}
+Take a look at the following example of an interface defintion, this one is 
+from the package \package{container/heap}:
+\begin{lstlisting}
+type Interface interface {
+    sort.Interface
+    Push(x interface{})
+    Pop() interface{}
+}
+\end{lstlisting}
+Here another interface is listed inside the definition of \type{heap.Interface}, this
+may look odd, but is perfectly valid, remember that on the surface an interface is nothing
+more than a listing of methods. \type{sort.Interface} is also such a listing, so it is
+perfectly legal to include it in the interface.
+
 \section{Introspection}
 \label{sec:introspection}
 In a program, you can discover the dynamic type of an interface variable
