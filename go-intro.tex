@@ -102,29 +102,29 @@ Ubuntu/Debian/Fedora you must install the \prog{mercurial} package;
 \item Set the environment variable \prog{GOROOT} to the root of your
 Go install:
 \begin{display}
-\pr export GOROOT=~/go
+\pr \user{export GOROOT=~/go}
 \end{display}
 
 \item Then retrieve the Go source code:
 \begin{display}
-\pr hg clone -r release https://go.googlecode.com/hg/ $GOROOT 
+\pr \user{hg clone -r release https://go.googlecode.com/hg/ $GOROOT}
 \end{display}
 
 \item Set your PATH to so that the Shell can find the Go binaries:
 \begin{display}
-\pr export PATH=$GOROOT/bin:$PATH
+\pr \user{export PATH=$GOROOT/bin:$PATH}
 \end{display}
 
 \item Compile Go
 \begin{display}
-\pr cd $GOROOT/src
-\pr ./all.bash
+\pr \user{cd $GOROOT/src}
+\pr \user{./all.bash}
 \end{display}
 \end{itemize}
 If all goes well, you should see the following:
 \begin{display}
-Installed Go for linux/amd64 in /home/gobook/go.
-Installed commands in /home/gobook/go/bin.
+Installed Go for linux/amd64 in /home/go.
+Installed commands in /home/go/bin.
 The compiler is 6g.
 \end{display}
 You now have Go installed on your system and you can start playing.
@@ -133,16 +133,16 @@ You now have Go installed on your system and you can start playing.
 New releases are announced on the Go Nuts mailing list \cite{go_nuts}. To update an
 existing tree to the latest release, you can run:
 \begin{display}
-\pr cd $GOROOT
-\pr hg pull
-\pr hg update release
-\pr cd src
-\pr ./all.bash
+\pr \user{cd $GOROOT}
+\pr \user{hg pull}
+\pr \user{hg update release}
+\pr \user{cd src}
+\pr \user{./all.bash}
 \end{display}
 \noindent{}To see what you are running right now:
 \begin{display}
-\pr cd $GOROOT
-\pr hg identify
+\pr \user{cd $GOROOT}
+\pr \user{hg identify}
 79997f0e5823 release/release.2010-10-20
 \end{display}
 \noindent{}That would be \gorelease{2010-10-20}. The release as describe is a "stable" releases,

@@ -15,7 +15,7 @@ see in chapter \ref{chap:channels}.} in Go;
 %% gofix.go:11: non-declaration statement outside function body
 \item[Channels] 
 Communication with these goroutines is done
-via \first{channels}{channels} \cite{csp}\cite{hoare};
+via \first{channels}{channels} \cite{csp, hoare};
 
 \item[Fast]
 Compilation is fast and execution is fast. The aim is
@@ -73,16 +73,16 @@ Intel and 8 for 32 bit Intel. The linker has a similar naming scheme:
 \verb|<number>l|. In this book we will use \prog{6g} and \prog{6l} for
 all the compiles. To compile the code from above, we use:
 \begin{display}
-\pr 6g helloworld.go
+\pr \user{6g helloworld.go}
 \end{display}
 And then we link it with \prog{6l}:
 \begin{display}
-\pr 6l helloworld.6
+\pr \user{6l helloworld.6}
 \end{display}
 
 And then we run it:
 \begin{display}
-\pr ./6.out	    \coderemark{The default name for a (64 bit) Go executable (8.out on 32 bits)}
+\pr \user{./6.out}	    \coderemark{The default name for a (64 bit) Go executable (8.out on 32 bits)}
 \end{display}
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
@@ -662,7 +662,6 @@ switch i {
 	g()	// called when i is not 0 or 1
 }
 \end{lstlisting}
-
 Cases can be presented in comma-separated lists.
 \begin{lstlisting}
 func shouldEscape(c byte) bool {
@@ -673,7 +672,6 @@ func shouldEscape(c byte) bool {
     return false
 }
 \end{lstlisting}
-
 Here's a comparison routine for byte arrays that uses two \key{switch} statements:
 \begin{lstlisting}
 // Compare returns an integer comparing the two byte arrays
