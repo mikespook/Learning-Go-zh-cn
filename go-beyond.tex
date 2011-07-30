@@ -275,10 +275,10 @@ If you omit the name for a field, you create an
 \first{anonymous field}{field!anonymous}, for instance:
 \begin{lstlisting}
 struct {
-        T1        |\coderemark{Field name is T1}
-        *T2       |\coderemark{Field name is T2}
-        P.T3      |\coderemark{Field name is T3}
-        x, y int  |\coderemark{Field names are x and y}
+        T1        |\coderemark{Field name is T1}|
+        *T2       |\coderemark{Field name is T2}|
+        P.T3      |\coderemark{Field name is T3}|
+        x, y int  |\coderemark{Field names are x and y}|
 }
 \end{lstlisting}
 Note the field names that start with a capital letter are exported, i.e. can be
@@ -324,8 +324,7 @@ Here Go will search the method list for \var{n} of type \type{NameAge},
 come up empty and will then \emph{also} search the method list for
 the type \type{*NameAge} and will translate this call to
 \lstinline{(&n).doSomething(2)}.
-
-Wether to use a function or method is entirely up to the programmer, but
+Whether to use a function or method is entirely up to the programmer, but
 if you want to satisfy an interface (see the next chapter) you must use
 methods.
 
@@ -338,6 +337,7 @@ type Mutex struct         { /* Mutex fields */ }
 func (m *Mutex) Lock()    { /* Lock implementation */ }
 func (m *Mutex) Unlock()  { /* Unlock implementation */ }
 \end{lstlisting}
+We now create two type in two different manors:
 \begin{itemize}
 \item \lstinline|type NewMutex Mutex|;
 \item \lstinline|type PrintableMutex struct { Mutex }|.
@@ -345,11 +345,11 @@ func (m *Mutex) Unlock()  { /* Unlock implementation */ }
 Now \var{NewMutux} has the same memory layout as \var{Mutex}, but
 is doesn't have any of the methods of \var{Mutex}. In other words
 its method set is empty.
-
-\var{PrintableMutex} has \emph{inherited} the method set from \var{Mutex}.
+But \var{PrintableMutex} \emph{has} \first{\emph{inherited}}{methods!inherited} the 
+method set from \var{Mutex}.
 In the words of \cite{go_spec}:
 \begin{quote}
-The method set of \var{*PrintableMutex} contains the methods.
+The method set of \var{*PrintableMutex} contains the methods
 \func{Lock} and \func{Unlock} bound to its anonymous field \var{Mutex}.
 \end{quote}
 
