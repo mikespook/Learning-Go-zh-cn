@@ -58,10 +58,9 @@ As said, there is no pointer arithmetic, so if you write:
 \lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
 dereference and then increment the value.\index{operator!increment}
 
-
 \section{Allocation}
-Go has garbage collection, meaning that you don't have to worry about
-memory allocation and deallocation. Of course almost every language
+Go also has garbage collection, meaning that you don't have to worry about
+memory deallocation. Of course almost every language
 since 1980 has this, but it is nice to see garbage collection in a
 C-like language.
 
@@ -164,6 +163,7 @@ And of course \lstinline{make} is only used for slices, maps and channels.
 \end{lbar}
 
 \subsection{Constructors and composite literals}
+\label{sec:constructors and composite literals}
 Sometimes the zero value isn't good enough and an initializing
 constructor is necessary, as in this example taken from the package
 \package{os}.
@@ -181,8 +181,8 @@ func NewFile(fd int, name string) *File {
 }
 \end{lstlisting}
 There's a lot of boiler plate in there. We can simplify it using a
-composite literal, which is an expression that creates a new instance
-each time it is evaluated.
+\first{composite literal}{literal!composite}, which is an expression that 
+creates a new instance each time it is evaluated.
 
 \begin{lstlisting}
 func NewFile(fd int, name string) *File {
@@ -204,7 +204,8 @@ compiler to allocate it on the heap, not the stack.}
 \begin{lstlisting}
 return &File{fd, name, nil, 0}
 \end{lstlisting}
-The fields of a composite literal are laid out in order and must all be
+The items (called \first{fields}{fields} of a composite 
+literal are laid out in order and must all be
 present. However, by labeling the elements explicitly as field:value
 pairs, the initializers can appear in any order, with the missing ones
 left as their respective zero values. Thus we could say
@@ -256,28 +257,28 @@ fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 \end{lstlisting}
 
 \subsection{More on structure fields}
-Each item in a structure is called a field. 
+As said each item in a structure is called a \index{field}{field}.
 A struct with no fields:
 \begin{lstlisting}
 struct {}
 \end{lstlisting}
-One with five fields:
+Or one with five fields:
 \begin{lstlisting}
 struct {
         x, y int
-        _ float64  |\coderemark{padding}|
+        _ float64  |\coderemark{Padding}|
         A *[]int
         F func()
 }
 \end{lstlisting}
-If you omit the name for a field, you create an anonymous field, for
-instance:
+If you omit the name for a field, you create an 
+\first{anonymous field}{field!anonymous}, for instance:
 \begin{lstlisting}
 struct {
-        T1        // field name is T1
-        *T2       // field name is T2
-        P.T3      // field name is T3
-        x, y int  // field names are x and y
+        T1        |\coderemark{Field name is T1}
+        *T2       |\coderemark{Field name is T2}
+        P.T3      |\coderemark{Field name is T3}
+        x, y int  |\coderemark{Field names are x and y}
 }
 \end{lstlisting}
 Note the field names that start with a capital letter are exported, i.e. can be
@@ -323,6 +324,34 @@ Here Go will search the method list for \var{n} of type \type{NameAge},
 come up empty and will then \emph{also} search the method list for
 the type \type{*NameAge} and will translate this call to
 \lstinline{(&n).doSomething(2)}.
+
+Wether to use a function or method is entirely up to the programmer, but
+if you want to satisfy an interface (see the next chapter) you must use
+methods.
+
+There is a subtle but major difference between the following type
+declarations. Also see \cite[section~"Type Declarations"]{go_spec}.
+Suppose we have:
+\begin{lstlisting}
+// A Mutex is a data type with two methods, Lock and Unlock.
+type Mutex struct         { /* Mutex fields */ }
+func (m *Mutex) Lock()    { /* Lock implementation */ }
+func (m *Mutex) Unlock()  { /* Unlock implementation */ }
+\end{lstlisting}
+\begin{itemize}
+\item \lstinline|type NewMutex Mutex|;
+\item \lstinline|type PrintableMutex struct { Mutex }|.
+\end{itemize}
+Now \var{NewMutux} has the same memory layout as \var{Mutex}, but
+is doesn't have any of the methods of \var{Mutex}. In other words
+its method set is empty.
+
+\var{PrintableMutex} has \emph{inherited} the method set from \var{Mutex}.
+In the words of \cite{go_spec}:
+\begin{quote}
+The method set of \var{*PrintableMutex} contains the methods.
+\func{Lock} and \func{Unlock} bound to its anonymous field \var{Mutex}.
+\end{quote}
 
 \section{Conversions}
 \label{sec:conversions}
@@ -386,7 +415,7 @@ yourself?
 We create two types here \type{Foo} and \type{Bar}, where
 \lstinline{Bar} is an alias for \type{Foo}:
 \begin{lstlisting}
-type foo struct { int }  |\coderemark{anonymous struct field}|
+type foo struct { int }  |\coderemark{Anonymous struct field}|
 type bar foo             |\coderemark{bar is an alias for foo}|
 \end{lstlisting}
 
