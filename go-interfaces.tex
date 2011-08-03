@@ -98,8 +98,10 @@ statement. We store the type in the variable \var{t};}|
 }
 \end{lstlisting}
 \showremarks
-Note that a type switch is the only way to figure out what type of an interface variable is. Using
-\key{(type)} outside a \key{switch} is illegal.
+Note that a type switch \emhp{isn't} the only way (see section "\titleref{sec:checking for interfaces}"
+in this chapter)
+to figure out what type of an interface variable is. Using
+\key{(type)} outside a \key{switch} is illegal. 
 
 \subsection{Empty interface}
 Since every type satisfies the empty interface:
@@ -138,14 +140,20 @@ method Get}
 have a \func{Get()} method.
 
 \subsection{Checking for interfaces}
+\label{sec:checking for interfaces}
 In your code you want to prevent these kind of errors, therefor Go provides you 
 with a way to check if a variable implements a certain interface, again this 
 uses a type assertion, but now in an \key{if} statement.
 
 \begin{lstlisting}
-if ok := any.(I); ok { 
-   /* any implements the interface I */
+if t, ok := any.(I); ok { 
+   // any implements the interface I
+   // t is the type it has
 } 
+\end{lstlisting}
+you are sure a variable implements an interface you can use:
+\begin{lstlisting}
+t := any.(I)
 \end{lstlisting}
 
 \section{Methods}
