@@ -10,7 +10,7 @@ Remember that when you call a function in Go, the variables are
 \emph{pass-by-value}. So, for efficiency and the possibility to modify a
 passed value \emph{in} functions we have pointers.
 
-Just like in C you declare a pointer by prefixing the type with an
+You declare a pointer by prefixing the type with an
 '\key{*}':
 \lstinline{var p *int}. Now \var{p} is a pointer to an integer value.
 All newly declared variables are assigned their zero value and pointers
@@ -54,9 +54,11 @@ fmt.Printf("%v\n", *p)  |\coderemark{Prints 8}|
 fmt.Printf("%v\n", i)	|\coderemark{Idem}|
 \end{lstlisting}
 
+\label{main:pointer arithmetic}
 As said, there is no pointer arithmetic, so if you write:
 \lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
 dereference and then increment the value.\index{operator!increment}
+\footnote{See exercise \ref{ex:pointer arithmetic}.}
 
 \section{Allocation}
 Go also has garbage collection, meaning that you don't have to worry about
@@ -438,6 +440,8 @@ is more difficult. Also note that converting \lstinline{b} to a plain
 an integer.
 
 \section{Exercises}
+\input{ex-beyond/ex-pointer-arith.tex}
+
 \input{ex-beyond/ex-map.tex}
 
 \input{ex-beyond/ex-pointers.tex}
