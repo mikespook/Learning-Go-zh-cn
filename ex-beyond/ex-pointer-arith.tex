@@ -1,0 +1,22 @@
+\begin{Exercise}[title={Pointer arithmetic},difficulty=4]
+\label{ex:pointer arithmetic}
+In the main text on page \pageref{main:pointer arithmetic}
+there is the following text:
+
+\begin{quote}
+\ldots there is no pointer arithmetic, so if you write:
+\lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
+dereference and then increment the value.
+\end{quote}
+
+\Question When you increment a value like this, for which types will
+it work?
+\Question Why doesn't it work for all types?
+
+\end{Exercise}
+
+\begin{Answer}
+\Question This will only work for pointers to point to numerical (\type{int, uint}, etc) values.
+\Question The \func{++} is only defined for numerical types and because there
+is no operator overloading in Go it fails (compilation error) otherwise.
+\end{Answer}
