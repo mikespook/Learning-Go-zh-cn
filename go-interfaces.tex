@@ -98,10 +98,8 @@ statement. We store the type in the variable \var{t};}|
 }
 \end{lstlisting}
 \showremarks
-Note that a type switch \emph{isn't} the only way (see section "\titleref{sec:checking for interfaces}"
-in this chapter)
-to figure out what type of an interface variable is. Using
-\key{(type)} outside a \key{switch} is illegal. 
+Using \key{(type)} outside a \key{switch} is illegal. A type switch isn't the only way
+to discover the type at \emph{run-time}. See section "\titleref{sec:introspection}" for more.
 
 \subsection{Empty interface}
 Since every type satisfies the empty interface:
@@ -138,23 +136,6 @@ method Get}
 
 \noindent{}Which is completely true, the built-in type \type{int} does not
 have a \func{Get()} method.
-
-\subsection{Checking for interfaces}
-\label{sec:checking for interfaces}
-In your code you want to prevent these kind of errors, therefor Go provides you 
-with a way to check if a variable implements a certain interface, again this 
-uses a type assertion, but now in an \key{if} statement.
-
-\begin{lstlisting}
-if t, ok := any.(I); ok { 
-   // any implements the interface I
-   // t is the type it has
-} 
-\end{lstlisting}
-you are sure a variable implements an interface you can use:
-\begin{lstlisting}
-t := any.(I)
-\end{lstlisting}
 
 \section{Methods}
 Methods are functions that have an receiver (see chapter
@@ -209,24 +190,25 @@ not be a pointer or interface type and must be declared in the same
 package as the method.
 \end{quote}
 
-\subsection{Pointers to interfaces}
+\begin{lbar}[Pointers to interfaces]
 Creating a pointer to an interface value is a useless action in Go.
-\todo{Interfaces is not a pointer, not reference type}
-\gomarginpar{Go \gorelease{2010-10-13}.} It is in fact illegal to
-create a pointer to an interface value. The release notes for that release that
+It is in fact illegal to
+create a pointer to an interface value. The release notes for that release \gorelease{2010-10-13}
+that
 made them illegal leave no room for doubt:
 \begin{quote}
 The language change is that uses of pointers to interface values no longer 
 automatically dereference the pointer.  A pointer to an interface value is more 
 often a beginner's bug than correct code.
 \end{quote}
-From the \cite{go_faq}.  If not for this restriction, this code:
+From the \cite{go_faq}. If not for this restriction, this code:
 \begin{lstlisting}
 var buf bytes.Buffer
 io.Copy(buf, os.Stdin)
 \end{lstlisting}
 Would copy standard input into a copy of \var{buf}, not into \var{buf} itself. 
 This is almost never the desired behavior.
+\end{lbar}
 
 \section{Interface names}
 By convention, one-method interfaces are named by the method name plus
@@ -371,7 +353,7 @@ perfectly legal to include it in the interface.
 \section{Introspection}
 \label{sec:introspection}
 In a program, you can discover the dynamic type of an interface variable
-by using a \key{switch}.
+by using a \first{\emph{type assertion}}{type assertion}.
 Such a type assertion\gomarginindex{Type assertion.}{type assertion} uses
 the syntax of a type assertion with the keyword \key{type} inside the
 parentheses. If the switch declares a variable in the expression, the
@@ -425,6 +407,24 @@ case *int:
 default:
     fmt.Printf("unexpected type %T", t)  // \%T prints type
 }
+\end{lstlisting}
+
+Lastly you can use a "comma, ok" form to see if an interface type implements
+a specific interface:
+
+In your code you want to prevent these kind of errors, therefor Go provides you 
+with a way to check if a variable implements a certain interface, again this 
+uses a type assertion, but now in an \key{if} statement.
+
+\begin{lstlisting}
+if t, ok := any.(I); ok { 
+   // any implements the interface I
+   // t is the type it has
+} 
+\end{lstlisting}
+you are sure a variable implements an interface you can use:
+\begin{lstlisting}
+t := any.(I)
 \end{lstlisting}
 
 \subsection{Introspection and reflection}
