@@ -326,7 +326,7 @@ The standard Go repository includes a huge number of packages and it is
 even possible to install more along side your current Go installation. 
 It is very enlightening to browse the \file{\$GOROOT/src/pkg} directory and
 look at the packages.
-We cannot comment on each package, but the following a worth a mention:
+We cannot comment on each package, but the following are worth a mention:
 \footnote{The descriptions are copied from the packages' \prog{godoc}. Extra
 remarks are type set in italic.}
 
@@ -370,6 +370,10 @@ string representations of basic data types.
 \item[\package{os}]{\index{package!os}
 The \package{os} package provides a platform-independent interface to operating
 system functionality.  The design is Unix-like.
+}
+\item[\package{sync}]{\index{package!sync}
+The package \package{sync} provides basic synchronization primitives such as mutual
+exclusion locks. 
 }
 \item[\package{flag}]{\index{package!flag}
 The \package{flag} package implements command-line flag parsing. 
