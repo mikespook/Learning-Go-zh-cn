@@ -411,7 +411,7 @@ Setting a value works similarly as getting a value, but only works on
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=Reflect with private member]
 type Person struct {
- name string "namestr"
+ name string "namestr" |\coderemark{Name}|
  age  int
 }
 
@@ -428,7 +428,7 @@ func Set(i interface{}) {
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=Reflect with public member]
 type Person struct {
- Name string "namestr" |\coderemark{}|
+ Name string "namestr" |\coderemark{\emph{N}ame}|
  age  int
 }
 
