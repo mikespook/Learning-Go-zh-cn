@@ -1,5 +1,4 @@
 package main
-
 import "fmt"
 
 type NameAge struct {
@@ -9,8 +8,6 @@ type NameAge struct {
 
 func main() {
 	a := new(NameAge)
-	a.name = "Pete"
-	a.age = 42
-
+	a.name = "Pete"; a.age = 42
 	fmt.Printf("%v\n", a)
 }

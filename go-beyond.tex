@@ -18,7 +18,7 @@ are no difference. A newly declared, or just a pointer that points to
 nothing has a \first{nil}{nil}-value. In other languages this is often called
 a NULL pointer in Go it is just \var{nil}. To make 
 a pointer point to something you can use the \first{address-of operator}{operator!address-of}
-(\func{\&}), which we do on line 5:
+(\func{\&}), which we here:
 \begin{lstlisting}[caption=Use of a pointer,label=src:pointers]
 var p *int
 fmt.Printf("%v", p) |\coderemark{Prints \var{nil}}|
@@ -28,23 +28,6 @@ p = &i		    |\coderemark{Make \var{p} point to \var{i}}|
 
 fmt.Printf("%v", p) |\coderemark{Prints something like \var{0x7ff96b81c000a}}|
 \end{lstlisting}
-
-More general: \var{*X} is a pointer to an \type{X}; \var{[3]X} is an
-array of three \type{X}s. The
-types are therefore really easy to read just read out the names of the
-type modifiers: \type{[]} declares an array slice;
-'\key{*}'
-declares a pointer; \type{[size]} declares an array. So
-\type{[]*[3]*X} is an array slice of pointers to arrays of three
-pointers to \type{X}s (also see figure \ref{fig:pointers}).
-\begin{figure}[h]
-\caption[Pointers and types]{Pointers and types, the values \var{v} all have type \type{X}}
-\label{fig:pointers}
-\begin{center}
-\includegraphics[scale=0.65]{fig/pointers.pdf}
-\end{center}
-\end{figure}
-
 Dereferencing a pointer is done by prefixing the pointer variable with
 '\type{*}':
 \begin{lstlisting}[caption=Dereferencing a pointer,label=src:deref]
@@ -62,9 +45,7 @@ dereference and then increment the value.\index{operator!increment}
 
 \section{Allocation}
 Go also has garbage collection, meaning that you don't have to worry about
-memory deallocation. Of course almost every language
-since 1980 has this, but it is nice to see garbage collection in a
-C-like language.
+memory deallocation. 
 
 To allocate memory Go has two primitives, \key{new} and \key{make}. They do different
 things and apply to different types, which can be confusing, but the
@@ -108,14 +89,14 @@ allocation or just declaration. In this snippet, both \var{p} and
 \var{v} will work
 correctly without further arrangement.
 \begin{lstlisting}
-p := new(SyncedBuffer)  |\coderemark{Type *SyncedBuffer}|
-var v SyncedBuffer      |\coderemark{Type  SyncedBuffer}|
+p := new(SyncedBuffer)  |\coderemark{Type *SyncedBuffer, ready to use}|
+var v SyncedBuffer      |\coderemark{Type  SyncedBuffer, idem}|
 \end{lstlisting}
 
 \subsection{Allocation with make}
 \label{sec:allocation with make}
 Back to allocation. The built-in function \func{make(T, args)} serves a purpose
-different from \func{new(T)}. It creates slices, maps, and channels only, and
+different from \func{new(T)}. It creates slices, maps, and channels \emph{only}, and
 it returns an initialized (not zero) value of type \type{T}, not
 \type{*T}. The reason
 for the distinction is that these three types are, under the covers,
@@ -138,29 +119,28 @@ array. In contrast,
 \lstinline{new([]int)} returns
 a pointer to a newly allocated, zeroed slice structure, that is, a
 pointer to a \type{nil} slice value.
-
 These examples illustrate the difference between \key{new} and
 \key{make}.
 \begin{lstlisting}
-var p *[]int = new([]int)       // allocates slice structure; *p == nil
-				// rarely useful
-var v  []int = make([]int, 100) // v refers to a new array of 100 ints
+var p *[]int = new([]int)       |\coderemark{Allocates slice structure; \var{*p == nil}}|
+				|\coderemark{Rarely useful}|
+var v  []int = make([]int, 100) |\coderemark{\var{v} refers to a new array of 100 ints}|
 
-// Unnecessarily complex:
-var p *[]int = new([]int)
+var p *[]int = new([]int)       |\coderemark{Unnecessarily complex}|
 *p = make([]int, 100, 100)
 
-// Idiomatic:
-v := make([]int, 100)
+v := make([]int, 100)           |\coderemark{Idiomatic}|
 \end{lstlisting}
 Remember that \key{make} applies only to maps, slices and channels and does
 not return a pointer. To obtain an explicit pointer allocate with
 \key{new}.
 
-\begin{lbar}[\lstinline{new} allocates; \lstinline{make} initializes]
-The above two paragraphs can be summarized as:\\
-\lstinline{new(T)} returns \var{*T} pointing to a zeroed \var{T}\\
-\lstinline{make(T)} returns an initialized \var{T}\\
+\begin{lbar}[new allocates; make initializes]
+The above two paragraphs can be summarized as:
+\begin{itemize}
+\item \lstinline{new(T)} returns \var{*T} pointing to a zeroed \var{T}
+\item \lstinline{make(T)} returns an initialized \var{T}
+\end{itemize}
 And of course \lstinline{make} is only used for slices, maps and channels.
 \end{lbar}
 
@@ -206,7 +186,7 @@ compiler to allocate it on the heap, not the stack.}
 \begin{lstlisting}
 return &File{fd, name, nil, 0}
 \end{lstlisting}
-The items (called \first{fields}{fields} of a composite 
+The items (called \first{fields}{fields}) of a composite 
 literal are laid out in order and must all be
 present. However, by labeling the elements explicitly as field:value
 pairs, the initializers can appear in any order, with the missing ones
@@ -226,9 +206,9 @@ examples, the initializations work regardless of the values of
 \var{Enone},
 \var{Eio}, and \var{Einval}, as long as they are distinct.
 \begin{lstlisting}
-ar := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
-sl := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
-ma := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+ar := [...]string    {Enone: "no error", Einval: "invalid argument"}
+sl := []string       {Enone: "no error", Einval: "invalid argument"}
+ma := map[int]string {Enone: "no error", Einval: "invalid argument"}
 \end{lstlisting}
 
 \section{Defining your own types}
@@ -261,15 +241,12 @@ fmt.Printf("%s", a.name) |\coderemark{\%s formats a string}|
 
 \subsection{More on structure fields}
 As said each item in a structure is called a \index{field}{field}.
-A struct with no fields:
-\begin{lstlisting}
-struct {}
-\end{lstlisting}
-Or one with five fields:
+A struct with no fields: \lstinline|struct {}|
+
+Or one with four\footnote{Yes, four (4).} fields:
 \begin{lstlisting}
 struct {
         x, y int
-        _ float64  |\coderemark{Padding}|
         A *[]int
         F func()
 }
@@ -278,16 +255,16 @@ If you omit the name for a field, you create an
 \first{anonymous field}{field!anonymous}, for instance:
 \begin{lstlisting}
 struct {
-        T1        |\coderemark{Field name is T1}|
-        *T2       |\coderemark{Field name is T2}|
-        P.T3      |\coderemark{Field name is T3}|
-        x, y int  |\coderemark{Field names are x and y}|
+        T1        |\coderemark{Field name is \var{T1}}|
+        *T2       |\coderemark{Field name is \var{T2}}|
+        P.T3      |\coderemark{Field name is \var{T3}}|
+        x, y int  |\coderemark{Field names are \var{x} and \var{y}}|
 }
 \end{lstlisting}
 Note the field names that start with a capital letter are exported, i.e. can be
 set or read from other packages. Field names that start with a lowercase are private
 to the current package. The same goes for functions defined in packages, see chapter
-\ref{chap:packages}.
+\ref{chap:packages} for the details.
 
 \subsection{Methods}
 \label{sec:methods}
@@ -311,6 +288,11 @@ var n *NameAge
 n.doSomething(2)
 \end{lstlisting}
 \end{enumerate}
+Whether to use a function or method is entirely up to the programmer, but
+if you want to satisfy an interface (see the next chapter) you must use
+methods. If no such requirement exists it is a matter of taste whether
+to use functions or methods.
+
 But keep the following in mind, this is quoted from \cite{go_spec}:
 \begin{quote}
 If \type{x} is
@@ -327,9 +309,6 @@ Here Go will search the method list for \var{n} of type \type{NameAge},
 come up empty and will then \emph{also} search the method list for
 the type \type{*NameAge} and will translate this call to
 \lstinline{(&n).doSomething(2)}.
-Whether to use a function or method is entirely up to the programmer, but
-if you want to satisfy an interface (see the next chapter) you must use
-methods.
 
 There is a subtle but major difference between the following type
 declarations. Also see \cite[section~"Type Declarations"]{go_spec}.
@@ -343,10 +322,10 @@ func (m *Mutex) Unlock()  { /* Unlock implementation */ }
 We now create two type in two different manors:
 \begin{itemize}
 \item \lstinline|type NewMutex Mutex|;
-\item \lstinline|type PrintableMutex struct { Mutex }|.
+\item \lstinline|type PrintableMutex struct {  Mutex }|.
 \end{itemize}
-Now \var{NewMutux} has the same memory layout as \var{Mutex}, but
-is doesn't have any of the methods of \var{Mutex}. In other words
+Now \var{NewMutux} is equal to \var{Mutex}, but
+is \emph{does not} have \emph{any} of the methods of \var{Mutex}. In other words
 its method set is empty.
 But \var{PrintableMutex} \emph{has} \first{\emph{inherited}}{methods!inherited} the 
 method set from \var{Mutex}.
