@@ -447,10 +447,10 @@ that a look at the following code:
 func show(i interface{}) {
     switch t := i.(type) {
       case *Person:
-        r := reflect.NewValue(i) |\coderemark{Enter the world of reflection}|
+        r := reflect.ValueOf(i) |\coderemark{Enter the world of reflection}|
 	tag := |\longremark{Here we want to get the "tag", which means %
 going for the type. Thus we need\newline\lstinline{Elem().Type().(*reflect.StructType)} to get to it;}|
-	  r.(*reflect.PtrValue).Elem().Type().(*reflect.StructType).Field(0).tag
+	  r.(*reflect.Ptr).Elem().Type().(*reflect.StructType).Field(0).tag
 	nam := |\longremark{Now we want to get access to the %
 \emph{value} of one of the members and we %
 employ\newline\lstinline{Elem().(*reflect.StructValue)} to get to it. %
@@ -461,7 +461,7 @@ it. %
 \begin{figure}[H] %
 \hskip3\baselineskip\parbox{0.7\textwidth}{\caption[Peeling away the layers using reflection]{Peeling away the %
 layers using reflection. %
-Going from a \type{*Person} via \mbox{\type{*reflect.PtrValue}} using the %
+Going from a \type{*Person} via \mbox{\type{*reflect.Ptr}} using the %
 methods described in \prog{godoc reflect} to get the %
 actual \type{string} contained deep within.}} %
 \label{fig:reflection} %
@@ -470,7 +470,7 @@ actual \type{string} contained deep within.}} %
 \end{center}\end{figure} %
 Reflection works by peeling off layers once you have got your hands %
 on a \type{Value} in the reflection world.}|
-	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0).|\newline|(*reflect.StringValue).Get()
+	  r.(*reflect.Ptr).Elem().(*reflect.StructValue).Field(0).|\newline|(*reflect.StringValue).Get()
     }
 }
 \end{lstlisting}
@@ -489,8 +489,8 @@ type Person struct {
 func Set(i interface{}) {
  switch t := i.(type) {
  case *Person:
-  r := reflect.NewValue(i)
-  r.(*reflect.PtrValue).Elem().
+  r := reflect.ValueOf(i)
+  r.(*reflect.Ptr).Elem().
     (*reflect.StructValue).
     FieldByName("name").
     (*reflect.StringValue).
@@ -510,8 +510,8 @@ type Person struct {
 func Set(i interface{}) {
  switch t := i.(type) {
  case *Person:
-  r := reflect.NewValue(i)
-  r.(*reflect.PtrValue).Elem().
+  r := reflect.ValueOf(i)
+  r.(*reflect.Ptr).Elem().
    (*reflect.StructValue).
    FieldByName("Name"). |\coderemark{}|
    (*reflect.StringValue).

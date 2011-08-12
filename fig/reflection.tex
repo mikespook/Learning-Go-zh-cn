@@ -12,7 +12,7 @@ So on \var{t} we use \func{Elem()} to get the value the pointer %
 points to.}
 %%We can use \func{Elem()} to get the type the pointer points to. %
 %%In this case \type{*reflect.StructValue}. We have also %
-%%used \type{reflect.NewValue(i)} for the type assertion, so that %
+%%used \type{reflect.ValueOf(i)} for the type assertion, so that %
 %%we get back types in the \type{*reflect} namespace;}
 %
 \ubrace{4.3,-5.2}{3.6,-5.2}{On \var{Value} we use the function %
@@ -51,7 +51,7 @@ p1 := new(Person)   |\coderemark{\func{new} returns a pointer to Person}|
 ShowTag(p1)	    |\coderemark{\func{ShowTag()} is now called with this pointer}|
 
 func ShowTag(i interface{}) {
- switch t := reflect.NewValue(i).(type) { |\coderemark{Type assert on \type{reflect} value}|
+ switch t := reflect.ValueOf(i).(type) { |\coderemark{Type assert on \type{reflect} value}|
  case *reflect.PtrValue:	  |\coderemark{Hence the case for \var{*reflect.PtrValue}}|
 	tag := t.Elem().Type().(||*reflect.StructType).Field(0).Tag
 ||
