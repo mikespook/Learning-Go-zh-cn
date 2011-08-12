@@ -416,14 +416,10 @@ type Person struct {
 }
 
 func Set(i interface{}) {
- switch t := i.(type) {
+ switch i.(type) {
  case *Person:
   r := reflect.ValueOf(i)
-  r.(*reflect.Ptr).Elem().
-    (*reflect.StructValue).
-    FieldByName("name").
-    (*reflect.StringValue).
-    Set("Albert Einstein")
+  r.Elem(0).Field(0).SetString("Albert Einstein")
   }
 }
 \end{lstlisting}
@@ -437,14 +433,10 @@ type Person struct {
 }
 
 func Set(i interface{}) {
- switch t := i.(type) {
+ switch i.(type) {
  case *Person:
   r := reflect.ValueOf(i)
-  r.(*reflect.Ptr).Elem().
-   (*reflect.StructValue).
-   FieldByName("Name"). |\coderemark{}|
-   (*reflect.StringValue).
-   Set("Albert Einstein")
+  r.Elem().Field(0).SetString("Albert Einstein")
   }
 }
 \end{lstlisting}
@@ -452,8 +444,7 @@ func Set(i interface{}) {
 The code on the left compiles and runs, but when you run it, you are greeted with a
 stack trace and a \emph{runtime} error:
 
-\noindent\error{panic: cannot set value obtained via unexported struct
-field}
+\noindent\error{panic: reflect.Value.SetString using value obtained using unexported field}
 
 \noindent{}The code on the right works OK and sets the member \var{Name}
 to "Albert Einstein". Of course this only works when you call \func{Set()}
