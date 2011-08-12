@@ -379,31 +379,28 @@ that a look at the following code:
 func show(i interface{}) {
     switch t := i.(type) {
       case *Person:
-        r := reflect.ValueOf(i) |\coderemark{Enter the world of reflection}|
-	tag := |\longremark{Here we want to get the "tag", which means %
-going for the type. Thus we need\newline\lstinline{Elem().Type().(*reflect.StructType)} to get to it;}|
-	  r.(*reflect.Ptr).Elem().Type().(*reflect.StructType).Field(0).tag
-	nam := |\longremark{Now we want to get access to the %
+        t := reflect.TypeOf(i)  |\coderemark{Go for type meta data}|
+        v := reflect.ValueOf(i) |\coderemark{Go for the actual values}|
+	tag := t.Elem().Field(0).Tag |\longremark{Here we want to get the "tag". %
+So we need lstinline{Elem()} to redirect the pointer, access the first field and get the tag;}|
+	name := v.Elem().Field(0).String() |\longremark{Now we want to get access to the %
 \emph{value} of one of the members and we %
-employ\newline\lstinline{Elem().(*reflect.StructValue)} to get to it. %
+employ\newline\lstinline{Elem()} on \var{v} to do the redirection. %
 Now we have arrived at the structure. Then we go the the first field %
-\lstinline{Field(0)}, tell \package{reflect} is a %
-\var{*reflect.StringValue} and invoke the \lstinline{Get()} method on %
+\lstinline{Field(0)} and invoke the \lstinline{String()} method on %
 it. %
 \begin{figure}[H] %
 \hskip3\baselineskip\parbox{0.7\textwidth}{\caption[Peeling away the layers using reflection]{Peeling away the %
 layers using reflection. %
-Going from a \type{*Person} via \mbox{\type{*reflect.Ptr}} using the %
+Going from a \type{*Person} via \mbox{\func{Elem()}} using the %
 methods described in \prog{godoc reflect} to get the %
-actual \type{string} contained deep within.}} %
+actual \type{string} contained within.}} %
 \label{fig:reflection} %
 \begin{center} %
 \includegraphics[scale=0.75]{fig/reflection.pdf} %
 \end{center}\end{figure} %
-Reflection works by peeling off layers once you have got your hands %
-on a \type{Value} in the reflection world.}|
-	  r.(*reflect.Ptr).Elem().(*reflect.StructValue).Field(0).|\newline|(*reflect.StringValue).Get()
-    }
+}|
+}
 }
 \end{lstlisting}
 \showremarks

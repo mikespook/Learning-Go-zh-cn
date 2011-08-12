@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.1 r9760"
    sodipodi:docname="reflection.svg"
    sodipodi:version="0.32"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -498,7 +498,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="201.28627"
+     inkscape:cx="202.00056"
      inkscape:cy="978.44709"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -605,10 +605,11 @@
          x="227.14285"
          y="121.6479" /></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.2041595;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow1Mend)"
-       d="m 110,147.36218 c 116,0 145,0 145,0"
+       style="fill:none;stroke:#000000;stroke-width:0.94868332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow1Mend)"
+       d="m 125,137.36218 c 72,0 90,0 90,0"
        id="path2894-3-5"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -619,7 +620,7 @@
          sodipodi:role="line"
          id="tspan5077-9"
          x="15"
-         y="27.362183">*reflect.PtrValue</tspan></text>
+         y="27.362183">reflect.Ptr</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 10,42.36218 180,0"
@@ -654,12 +655,13 @@
          sodipodi:role="line"
          id="tspan5077-9-2"
          x="25"
-         y="62.362183">*reflect.Type</tspan></text>
+         y="62.362183">reflect.Value</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
-       d="m 164,60.36218 c 0,0 29.21429,-5.07857 31,10.8 -1,16.2 -51,16.2 -51,16.2"
+       style="fill:none;stroke:#000000;stroke-width:1.05409265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
+       d="m 164,60.36218 c 0,0 29.21429,-5.642857 31,12.000003 -1,18.000004 -51,18.000004 -51,18.000004"
        id="path3753-4"
-       sodipodi:nodetypes="ccc" />
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -670,7 +672,7 @@
          sodipodi:role="line"
          id="tspan5077-28-5"
          x="200"
-         y="77.362183">.(*reflect.StructValue)</tspan></text>
+         y="77.362183">.Field(0)</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.81649661px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 20,97.36218 120,0"
@@ -685,117 +687,53 @@
          sodipodi:role="line"
          id="tspan5077-28-5-8"
          x="20"
-         y="87.362183">*reflect.StructValue</tspan></text>
+         y="87.362183">reflect.StructField</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
-       d="m 155.49019,95.36218 c 0,0 37.2339,-2.25714 39.50981,4.8 -1.2745,7.2 -65,7.2 -65,7.2"
-       id="path3753-4-7"
-       sodipodi:nodetypes="ccc" />
+       style="fill:none;stroke:#000000;stroke-width:1.52514768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
+       d="m 150.29796,97.362183 c 0,0 36.9531,-5.642861 39.21185,11.999997 -1.26489,18 -64.50981,18 -64.50981,18"
+       id="path3753-4-7-9"
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
        x="200"
        y="107.36218"
-       id="text5075-9-9-2"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5077-28-5-7"
-         x="200"
-         y="107.36218">.FieldByName(&quot;Name&quot;)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:8;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="25"
-       y="112.36218"
-       id="text5075-9-9-4-2"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5077-28-5-8-2"
-         x="25"
-         y="112.36218">*reflect.StructField</tspan></text>
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:0.73124701;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="rect3604-61-6"
-       width="100"
-       height="54.999989"
-       x="25"
-       y="102.36218"
-       ry="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.74535602px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 25,117.36218 100,0"
-       id="path3745-4-0-1" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
-       d="m 155.49019,114.56218 c 0,0 37.2339,-2.40762 39.50981,5.12 -1.2745,7.68 -65,7.68 -65,7.68"
-       id="path3753-4-7-9"
-       sodipodi:nodetypes="ccc" />
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="200"
-       y="127.36218"
        id="text5075-9-9-2-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5077-28-5-7-1"
          x="200"
-         y="127.36218">.(*reflect.StringValue)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Sans Mono;-inkscape-font-specification:Droid Sans Mono"
-       x="35"
-       y="132.36218"
-       id="text5075-9-9-4-2-5"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5077-28-5-8-2-9"
-         x="35"
-         y="132.36218">*reflect.StringValue</tspan></text>
+         y="107.36218">.String()</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:0.51234764;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3604-61-6-7"
        width="90"
        height="30.000002"
        x="30"
-       y="122.36218"
+       y="107.36218"
        ry="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.70710683px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 30,137.36218 90,0"
-       id="path3745-4-0-1-7" />
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="200"
-       y="162.36218"
-       id="text5075-9-9-2-7-6"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5077-28-5-7-1-7"
-         x="200"
-         y="162.36218">.Get()</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
-       x="265"
-       y="152.36218"
+       x="220"
+       y="142.36218"
        id="text5075-9-9-2-7-6-3"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5077-28-5-7-1-7-6"
-         x="265"
-         y="152.36218">&quot;Albert Einstein&quot;</tspan></text>
+         x="220"
+         y="142.36218">&quot;Albert Einstein&quot;</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:9;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
-       x="35"
-       y="147.36218"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
+       x="40"
+       y="127.36218"
        id="text5075-9-9-2-7-6-3-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5077-28-5-7-1-7-6-4"
-         x="35"
-         y="147.36218">&quot;Albert Einstein&quot;</tspan></text>
+         x="40"
+         y="127.36218">&quot;Albert Einstein&quot;</tspan></text>
   </g>
 </svg>
