@@ -21,9 +21,6 @@ type I interface {
   Put(int)
 }
 \end{lstlisting}
-\begin{lbar}
-An interface type is a set of methods.
-\end{lbar}
 
 \noindent\type{S} is a valid \emph{implementation} for interface \type{I}, because it defines the two 
 methods which \type{I} requires. Note that this is true even though there is 
@@ -37,7 +34,7 @@ this fact via yet another meaning of interface, which is an
 func f(p I) {  |\longremark{Declare a function that takes an interface type %
 as the argument;}|
     fmt.Println(p.Get()) |\longremark{As \var{p} implements interface \type{I} %
-is \emph{must} have the \func{Get()} method;}|
+it \emph{must} have the \func{Get()} method;}|
     p.Put(1) |\longremark{Same holds for the \func{Put()} method.}|
 }
 \end{lstlisting}
@@ -99,7 +96,20 @@ statement. We store the type in the variable \var{t};}|
 \end{lstlisting}
 \showremarks
 Using \key{(type)} outside a \key{switch} is illegal. A type switch isn't the only way
-to discover the type at \emph{run-time}. See section "\titleref{sec:introspection}" for more.
+to discover the type at \emph{run-time}. 
+You can also use a "comma, ok" form to see if an interface type implements
+a specific interface:
+
+\begin{lstlisting}
+if t, ok := any.(I); ok { 
+   // any implements the interface I
+   // t is the type it has
+} 
+\end{lstlisting}
+When you are sure a variable implements an interface you can use:
+\begin{lstlisting}
+t := any.(I)
+\end{lstlisting}
 
 \subsection{Empty interface}
 Since every type satisfies the empty interface:
@@ -129,7 +139,7 @@ a problem:
 i := 5		|\coderemark{Make i a "lousy" \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}
-This compiles OK, but when we run this we get slammed with:
+This compiles, but when we run this we get slammed with:
 
 \noindent\error{panic: interface conversion: int is not main.I: missing
 method Get}
@@ -247,7 +257,6 @@ func bubblesortString(n []string) { /* ... */ }
 \end{lstlisting}
 Using this approach would lead to two functions, one for each type. By using
 interfaces we can make this more \index{generic} generic.
-
 Lets create a new function that will sort both strings and
 integers, something along the lines of this non-working example:
 \begin{lstlisting}
@@ -260,7 +269,7 @@ actual type is of the input;}|
 	case int:
 	    // ...
     }
-    |\longremark{Return the sorted slice.}|
+    return /* ... */ |\longremark{Return the sorted slice.}|
 }
 \end{lstlisting}
 \showremarks
@@ -349,83 +358,6 @@ Here another interface is listed inside the definition of \type{heap.Interface},
 may look odd, but is perfectly valid, remember that on the surface an interface is nothing
 more than a listing of methods. \type{sort.Interface} is also such a listing, so it is
 perfectly legal to include it in the interface.
-
-\section{Introspection}
-\label{sec:introspection}
-In a program, you can discover the dynamic type of an interface variable
-by using a \first{\emph{type assertion}}{type assertion}.
-Such a type assertion\gomarginindex{Type assertion.}{type assertion} uses
-the syntax of a type assertion with the keyword \key{type} inside the
-parentheses. If the switch declares a variable in the expression, the
-variable will have the corresponding type in each clause.
-\begin{lstlisting}[caption=Dynamically find out the type]
-package main
-type PersonAge struct { |\longremark{First we define two structures as a new type, %
-\texttt{PersonAge};}|
-	name string
-	age  int
-}
-
-type PersonShoe struct { |\longremark{And \texttt{PersonShoe};}|
-	name     string
-	shoesize int
-}
-
-func main() {
-	p1 := new(PersonAge)
-	p2 := new(PersonShoe)
-	WhichOne(p1)
-	WhichOne(p2)
-}
-
-func WhichOne(x interface{}) { |\longremark{This function must accept \emph{both} %
-types as valid input, so we use the empty Interface, which every type implements;}|
-	switch t := x.(type) { |\longremark{The type switch: \texttt{(type)};}|
-	case *PersonAge:	|\longremark{When allocated with \func{new}, it's a %
-pointer. So we check for \type{*PersonAge}. If \func{WhichOne()} was %
-called with a non pointer value, we should check for \type{PersonAge}.}|
-		println("Age person")
-	case *PersonShoe:
-		println("Shoe person")
-	}
-}
-\end{lstlisting}
-\showremarks
-
-The following is another example of performing a type switch, but this
-time checking for more (built-in) types:
-\begin{lstlisting}[caption=A more generic type switch]
-switch t := interfaceValue.(type) { |\coderemark{The type switch}|
-case bool:
-    fmt.Printf("boolean %t\n", t)
-case int:
-    fmt.Printf("integer %d\n", t)
-case *bool:
-    fmt.Printf("pointer to boolean %t\n", *t)
-case *int:
-    fmt.Printf("pointer to integer %d\n", *t)
-default:
-    fmt.Printf("unexpected type %T", t)  // \%T prints type
-}
-\end{lstlisting}
-
-Lastly you can use a "comma, ok" form to see if an interface type implements
-a specific interface:
-
-In your code you want to prevent these kind of errors, therefor Go provides you 
-with a way to check if a variable implements a certain interface, again this 
-uses a type assertion, but now in an \key{if} statement.
-
-\begin{lstlisting}
-if t, ok := any.(I); ok { 
-   // any implements the interface I
-   // t is the type it has
-} 
-\end{lstlisting}
-you are sure a variable implements an interface you can use:
-\begin{lstlisting}
-t := any.(I)
-\end{lstlisting}
 
 \subsection{Introspection and reflection}
 \label{subsec:introspection and reflection}
