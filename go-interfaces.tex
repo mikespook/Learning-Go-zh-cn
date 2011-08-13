@@ -73,7 +73,7 @@ result in Go is powerful, flexible, efficient, and easy to write.
 
 \subsection{Which is what?}
 Lets define another type that also implements the interface \type{I}:
-\begin{lstlisting}[caption=Another type that implements I]
+\begin{lstlisting}
 type R struct { i int }
 func (p *R) Get() int { return p.i }
 func (p *R) Put(v int) { p.i = v }
@@ -115,7 +115,7 @@ t := any.(I)
 Since every type satisfies the empty interface:
 \type{interface\{\}}. We can create a generic function which 
 has an empty interface as its argument:
-\begin{lstlisting}[caption=A function with a empty interface argument,label=src:interface empty]
+\begin{lstlisting}
 func g(any interface{}) int { 
     return any.(I).Get() 
 }
@@ -135,7 +135,7 @@ fmt.Println(g(s));
 The call to \func{g} will work fine and will print 0. If we however
 invoke \func{g()} with a value that does not implement \type{I} we have
 a problem:
-\begin{lstlisting}[caption=Failing to implement an interface,label=src:interface fail]
+\begin{lstlisting}
 i := 5		|\coderemark{Make i a "lousy" \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}
@@ -274,8 +274,8 @@ actual type is of the input;}|
 \end{lstlisting}
 \showremarks
 But when we call this function with \lstinline|sort([]int{1, 4, 5})|, it
-fails with:
-\error{cannot use i (type []int) as type []interface { } in function argument}
+fails with:\\
+\noindent\error{cannot use i (type []int) as type []interface { } in function argument}
 
 This is because Go can not easily convert to a \emph{slice} of interfaces.
 Just converting to an interface is easy, but to a slice is much more costly.
@@ -373,7 +373,7 @@ and \emph{then} access the tag.
 \showremarks
 
 %% look at layout
-To make the difference between looking a types and values more clear,
+To make the difference between types and values more clear,
 that a look at the following code:
 \begin{lstlisting}[caption=Reflection and the type and value]
 func show(i interface{}) {
@@ -381,8 +381,8 @@ func show(i interface{}) {
       case *Person:
         t := reflect.TypeOf(i)  |\coderemark{Go for type meta data}|
         v := reflect.ValueOf(i) |\coderemark{Go for the actual values}|
-	tag := t.Elem().Field(0).Tag |\longremark{Here we want to get the "tag". %
-So we need lstinline{Elem()} to redirect the pointer, access the first field and get the tag;}|
+	tag := t.Elem().Field(0).Tag |\longremark{Here we want to get to the "tag". %
+So we need \func{Elem()} to redirect the pointer, access the first field and get the tag;}|
 	name := v.Elem().Field(0).String() |\longremark{Now we want to get access to the %
 \emph{value} of one of the members and we %
 employ\newline\lstinline{Elem()} on \var{v} to do the redirection. %
@@ -400,7 +400,7 @@ actual \type{string} contained within.}} %
 \includegraphics[scale=0.75]{fig/reflection.pdf} %
 \end{center}\end{figure} %
 }|
-}
+    }
 }
 \end{lstlisting}
 \showremarks
@@ -411,7 +411,7 @@ Setting a value works similarly as getting a value, but only works on
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=Reflect with private member]
 type Person struct {
- name string "namestr" |\coderemark{Name}|
+ name string "namestr" |\coderemark{name}|
  age  int
 }
 
