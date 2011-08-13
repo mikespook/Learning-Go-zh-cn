@@ -382,7 +382,8 @@ func show(i interface{}) {
         t := reflect.TypeOf(i)  |\coderemark{Go for type meta data}|
         v := reflect.ValueOf(i) |\coderemark{Go for the actual values}|
 	tag := t.Elem().Field(0).Tag |\longremark{Here we want to get to the "tag". %
-So we need \func{Elem()} to redirect the pointer, access the first field and get the tag;}|
+So we need \func{Elem()} to redirect the pointer, access the first field and get the tag. %
+Note we operate on \var{t} a \type{reflect.Type};}|
 	name := v.Elem().Field(0).String() |\longremark{Now we want to get access to the %
 \emph{value} of one of the members and we %
 employ\newline\lstinline{Elem()} on \var{v} to do the redirection. %
