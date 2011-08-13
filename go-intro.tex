@@ -149,10 +149,14 @@ existing tree to the latest release, you can run:
 \end{display}
 \noindent{}That would be \gorelease{2010-10-20}. The release as describe is a "stable" releases,
 as opposed to the "weekly" releases that are more volatile. If you want to track the weekly releases
-instead of the stable ones you can use \texttt{\pr hg update weekly} instead of \texttt{\pr hg update release}.
-
-If there a changes that require changes to old(er) programs you can use
-the included program \prog{gofix} to automatically update the syntax.
+instead of the stable ones you can use:
+\begin{display}
+\pr \user{hg update weekly}
+\end{display}
+In stead of
+\begin{display}
+\pr \user{hg update release}
+\end{display}
 
 \section{Origins}
 Go has it origins in Inferno \cite{inferno} (which in turn was based
