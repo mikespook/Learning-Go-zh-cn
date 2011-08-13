@@ -8,7 +8,6 @@ Reading from (and writing to) files is easy in Go. This program
 only uses the \package{os} package to read data from the file \file{/etc/passwd}.
 \lstinputlisting[caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
 \showremarks
-
 If you want to use \first{buffered}{buffered} IO there is the
 \package{bufio}\index{package!bufio} package:
 \lstinputlisting[caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
@@ -23,7 +22,7 @@ to do just that:
 f, _ := os.Open("/etc/passwd")
 defer f.Close()
 r := bufio.NewReader(f)
-s, ok := r.ReadString('\n')     { |\coderemark{Read a line from the input}|
+s, ok := r.ReadString('\n')     |\coderemark{Read a line from the input}|
 // ... \coderemark{\var{s} holds the string, with the \package{strings} package you can parse it}
 \end{lstlisting}
 
@@ -40,9 +39,9 @@ from a DNS query tool:
 \begin{lstlisting}
 dnssec := flag.Bool("dnssec", false, "Request DNSSEC records") |\longremark{Define a \texttt{bool} flag, %%
 \texttt{-dnssec}. The variable must be a pointer otherwise the package can not set its value;}|
-*string := flag.String("port", "53", "Set the query port")      |\longremark{Idem, but for a \texttt{port} option;}|
+port := flag.String("port", "53", "Set the query port")      |\longremark{Idem, but for a \texttt{port} option;}|
 flag.Usage = func() {   |\longremark{Slightly redefine the \func{Usage} function, to be a little more verbose;}|
-    fmt.Fprintf(os.Stderr, "Usage: %s [@server] [qtype] [qclass] [name ...]\n", os.Args[0])
+    fmt.Fprintf(os.Stderr, "Usage: %s [OPTIONS] [name ...]\n", os.Args[0])
     flag.PrintDefaults() |\longremark{For every flag given, \func{PrintDefaults} will output the help string;}|
 }
 flag.Parse()   |\longremark{Parse the flags and fill the variables.}|
@@ -52,8 +51,7 @@ flag.Parse()   |\longremark{Parse the flags and fill the variables.}|
 \section{Executing commands}
 The \package{exec}\index{package!exec} package has functions to run external commands, and it the premier way to
 execute commands from within a Go program. It works by defining a \var{*exec.Cmd} structure for which it
-defines a bunch of methods.
-
+defines a number of methods.
 Lets execute \verb|ls -l|:
 \begin{lstlisting}
 import "exec"
@@ -61,13 +59,12 @@ import "exec"
 cmd := exec.Command("/bin/ls", "-l")    |\coderemark{Create a \var{*cmd}}|
 err := cmd.Run()                        |\coderemark{\func{Run()} it}|
 \end{lstlisting}
-
 Capturing standard output from a command is also easy to do:
 \begin{lstlisting}
 import "exec"
 
 cmd := exec.Command("/bin/ls", "-l")
-buf, err := cmd.Ouput()                 |\coderemark{Retuns stdout in \var{buf} (a \type{[]byte}}|
+buf, err := cmd.Ouput()                 |\coderemark{Returns output in \var{buf} (a \type{[]byte})}|
 \end{lstlisting}
 
 \section{Networking}

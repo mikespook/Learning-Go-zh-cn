@@ -58,6 +58,7 @@ func main() {
 	flag.Parse()
 	list := []int{1, 6, 7, 8, 8, 75, ADD, SUB, MUL, DIV}
 	//	list := []int{1, 6, 7, ADD, SUB, MUL, DIV}
+        // Arg0 contains the number we should solve for
 	magic, ok := strconv.Atoi(flag.Arg(0))
 	if ok != nil {
 		return
