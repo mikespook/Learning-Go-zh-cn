@@ -1,0 +1,58 @@
+\epi{""}
+{\textit{}\\ \textsc{}}
+
+\section{Audience}
+\noindent{}This is an introduction to the Go language from Google. Its aim
+is to provide a guide to this new and innovative language. 
+
+The intended audience of this book is people who are familiar with programming
+and know multiple programming languages, be it C\cite{c}, C++\cite{c++}, 
+Perl \cite{perl}, Java \cite{java}, Erlang\cite{erlang}, Scala\cite{scala} or
+Haskell\cite{haskell}. This is \emph{not} a book which teaches you how to 
+program, this is a book that just teaches you how to use Go.
+
+As with
+learning new things, probably the best way to do this is to discover it for
+yourself by creating your own programs.
+Each chapter therefor includes a number of exercises (and answers)
+to acquaint you with the language.
+An exercise
+is numbered as \textbf{Q$n$}, where $n$ is a number. After the
+exercise number another number in parentheses displays the difficulty
+of this particular assignment. This difficulty ranges from 0 to
+9, where 0 is easy and 9 is difficult. 
+Then a short name is given, for easier reference.
+For example:
+\begin{verse}
+\textbf{Q1}. (1) A map function \ldots
+\end{verse}
+introduces a question numbered \textbf{Q1} of a level 1 difficulty, concerning a
+\func{map()}-function. The answers are included after the exercises on a
+new page.
+The numbering and setup of the answers is identical to the
+exercises, except that an answer starts with \textbf{A$n$}, where the
+number $n$ corresponds with the number of the exercise.
+
+\section{Book layout}
+Chapter \ref{chap:intro} gives a short introduction and history of Go. It also
+tells how to get the source code of Go itself. It assumes a Unix-like environment.
+
+Chapter \ref{chap:basics} tells about the basic types, variables and control
+structures available in the language.
+
+In the third chapter we look at functions, that basic building blocks of Go programs.
+
+In chapter \ref{chap:packages} we see that function and data can be grouped together
+in packages. Packages provide namespaces.
+
+5: beyond the basics, create new types.
+
+Go doesn't do Object Orientation, instead it has interfaces. In chapter \ref{chap:interfaces}
+we will show how this works.
+
+With the go keyword function can be started in separate routines (called goroutines). 
+Communication with those goroutines is done via channels.
+
+The last chapter show how to interface with the rest of the world from within 
+a Go program. How create files and read and wrote from and to them. We also briefly
+look into networking.
