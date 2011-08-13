@@ -3,7 +3,7 @@ import "os"
 
 func main() {
 	buf := make([]byte, 1024)
-	f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666) |\longremark{Open the file;}|
+	f, _ := os.Open("/etc/passwd") |\longremark{Open the file;}|
 	defer f.Close() |\longremark{Make sure we close it again;}|
 	for {
 		n, _ := f.Read(buf) |\longremark{Read up to 1023 bytes at the time;}|

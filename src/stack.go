@@ -34,8 +34,8 @@ func (s *Stack) Pop() (ret int) {
 func (s *Stack) String() string {
 	var str string
 	for i := 0; i < s.i; i++ {
-		str = str + "[" + strconv.Itoa(i) + ":"
-			+ strconv.Itoa(s.data[i]) + "]"
+		str = str + "[" + strconv.Itoa(i) + ":" +
+			strconv.Itoa(s.data[i]) + "]"
 	}
 	return str
 }
