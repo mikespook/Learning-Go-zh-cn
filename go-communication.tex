@@ -64,7 +64,7 @@ Capturing standard output from a command is also easy to do:
 import "exec"
 
 cmd := exec.Command("/bin/ls", "-l")
-buf, err := cmd.Ouput()                 |\coderemark{Returns output in \var{buf} (a \type{[]byte})}|
+buf, err := cmd.Ouput()                 |\coderemark{\var{buf} is a (\type{[]byte})}|
 \end{lstlisting}
 
 \section{Networking}
