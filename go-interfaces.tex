@@ -115,7 +115,7 @@ t := any.(I)
 Since every type satisfies the empty interface:
 \type{interface\{\}}. We can create a generic function which 
 has an empty interface as its argument:
-\begin{lstlisting}
+\begin{lstlisting}[caption=A function with an empty interface argument,label=src:interface empty]
 func g(any interface{}) int { 
     return any.(I).Get() 
 }
@@ -135,7 +135,7 @@ fmt.Println(g(s));
 The call to \func{g} will work fine and will print 0. If we however
 invoke \func{g()} with a value that does not implement \type{I} we have
 a problem:
-\begin{lstlisting}
+\begin{lstlisting}[caption=Failing to implement an interface,label=src:interface fail]
 i := 5		|\coderemark{Make i a "lousy" \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}

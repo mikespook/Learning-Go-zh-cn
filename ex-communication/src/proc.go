@@ -1,39 +1,24 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-	"exec"
-	"strings"
-	"strconv"
-	"container/vector"
-)
-
-const (
-	PID = iota
-	PPID
-)
+import ( "fmt"; "sort"; "exec"; "strings"; "strconv"; "container/vector")
 
 func main() {
 	ps := exec.Command("ps", "-e", "-opid,ppid,comm")
 	output, _ := ps.Output()
 	child := make(map[int]*vector.IntVector)
 	for i, s := range strings.Split(string(output), "\n") {
-		if i == 0 || len(s) == 0 { // Kill first line and last
+		if i == 0 || len(s) == 0 { // Kill first and last line
 			continue
 		}
 		f := strings.Fields(s)
-		fpp, _ := strconv.Atoi(f[PPID])
-		fp, _ := strconv.Atoi(f[PID])
+		fpp, _ := strconv.Atoi(f[1]) // the parent's pid
+		fp, _ := strconv.Atoi(f[0])  // the child's pid
 		if _, present := child[fpp]; !present {
 			v := new(vector.IntVector)
 			child[fpp] = v
 		}
-		// Save the child PIDs on a vector
-		child[fpp].Push(fp)
+		child[fpp].Push(fp) // Save the child PIDs on a vector
 	}
-
-	// Sort the PPIDs
 	schild := make([]int, len(child))
 	i := 0
 	for k, _ := range child {

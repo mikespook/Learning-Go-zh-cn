@@ -78,12 +78,26 @@ Dialing a remote system (port 80) over TCP, then UDP and lastly TCP over IPv6 lo
 like this:\footnote{In case
 you are wondering, 192.0.32.10 and 2620:0:2d0:200::10 are \url{www.example.org}.}
 \begin{lstlisting}
-conn, err := Dial("tcp", "192.0.32.10:80")
-conn, err := Dial("udp", "192.0.32.10:80")
-conn, err := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{Brackets are mandatory}|
+conn, _ := Dial("tcp", "192.0.32.10:80")
+conn, _ := Dial("udp", "192.0.32.10:80")
+conn, _ := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{Mandatory brackets}|
 \end{lstlisting}
 
-And with \var{conn} you can do read/write \todo{dkls}.
+If there were no errors, you can use \var{conn} to read and write from and to sockets.
+The primitives defined in the package \package{net} are:
+\begin{quote}
+// \func{Read} reads data from the connection.\\
+// \func{Read} can be made to time out and return a \var{net.Error} with \lstinline{Timeout() == true}\\
+// after a fixed time limit; see \func{SetTimeout} and \func{SetReadTimeout}.\\
+\lstinline{Read(b []byte) (n int, err os.Error)}
+\end{quote}
+
+\begin{quote}
+// \func{Write} writes data to the connection.\\
+// \func{Write} can be made to time out and return a \var{net.Error} with \lstinline{Timeout() == true}\\
+// after a fixed time limit; see \func{SetTimeout} and \func{SetWriteTimeout}.\\
+\lstinline{Write(b []byte) (n int, err os.Error)}
+\end{quote}
 
 \todo{Write echo server}
 

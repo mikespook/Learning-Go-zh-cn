@@ -45,11 +45,6 @@ In the solution presented below, we've opted to use
 \package{container/vector} to hold the PIDs. This "list" grows
 automatically.
 
-The function \func{atoi} (lines 19 through 22) is defined to get rid of the multiple return
-values of the original \func{strconv.Atoi}, so that it can be used
-inside function calls that only accept one argument, as we do on lines
-45, 47 and 50.
-
 A possible program is: 
-\lstinputlisting[caption=Processes in Go,numbers=right]{ex-communication/src/proc.go}
+\lstinputlisting[caption=Processes in Go]{ex-communication/src/proc.go}
 \end{Answer}
