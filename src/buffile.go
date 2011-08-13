@@ -3,7 +3,7 @@ import ( "os"; "bufio")
 
 func main() {
 	buf := make([]byte, 1024)
-	f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666) |\longremark{Open the file, \key{os.Open} returns %
+	f, _ := os.Open("/etc/passwd") |\longremark{Open the file, \key{os.Open} returns %
 a \type{*os.File} which implements the \type{io.Reader} interface;}|
 	defer f.Close()
 	r := bufio.NewReader(f) |\longremark{Turn \var{f} into a buffered \func{Reader}. %
