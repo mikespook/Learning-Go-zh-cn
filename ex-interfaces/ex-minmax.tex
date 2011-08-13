@@ -1,9 +1,48 @@
-\begin{Exercise}[title={Interfaces and min-max},difficulty=1]
+\begin{Exercise}[title={Interfaces and max()},difficulty=5]
 \Question
-Make min-max generic so that it works for both integers and strings
-as in the example in section "\titleref{sec:a sorting example}".
+Create a program that shows the maximum number that works for both integers and floats.
+Try to make your program as generic as possible, although the is quite difficult in
+this case.
 \end{Exercise}
 
 \begin{Answer}
 \Question
+The following program calculates a maximum. It is as generic as you can get
+with Go.
+
+\begin{lstlisting}[caption="Generic way of calculating a maximum"]
+package main
+
+func Less(l, r interface{}) bool { |\longremark{We could have choosen to make the %
+return type of this function a \mbox{\type{interface\{\}}}, but that would mean %
+that a caller would always have to a type assertion to extra the actual type %
+from the interface;}|
+	switch l.(type) {
+	case int:
+		if _, ok := r.(int); ok {
+			return l.(int) < r.(int) |\longremark{All parameters are confirmed to be %
+integers. Now perform the comparison;}|
+		}
+	case float32:
+		if _, ok := r.(float32); ok {
+			return l.(float32) < r.(float32) |\longremark{Parameters are \type{float32};}|
+		}
+	}
+	return false
+}
+
+func main() {
+	var a, b, c int = 5, 15, 0
+	var x, y, z float32 = 5.4, 29.3, 0.0
+
+	if c = a; Less(a, b) { |\longremark{Get the maximum of \var{a} and \var{b};}|
+		c = b
+	}
+	if z = x; Less(x, y) { |\longremark{Same for the floats.}|
+		z = y
+	}
+	println(c, z)
+}
+\end{lstlisting}
+\showremarks
 \end{Answer}
