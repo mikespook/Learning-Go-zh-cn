@@ -1,7 +1,7 @@
-\epi{""}
-{\textit{}\\ \textsc{}}
+\epi{"Semi funny quote"}
+{\textit{ref-to-doc}\\ \textsc{Person Name}}
 
-\section{Audience}
+\section*{Audience}
 \noindent{}This is an introduction to the Go language from Google. Its aim
 is to provide a guide to this new and innovative language. 
 
@@ -33,26 +33,39 @@ The numbering and setup of the answers is identical to the
 exercises, except that an answer starts with \textbf{A$n$}, where the
 number $n$ corresponds with the number of the exercise.
 
-\section{Book layout}
-Chapter \ref{chap:intro} gives a short introduction and history of Go. It also
+\section*{Book layout}
+\begin{description}
+\item[Chapter \ref{chap:intro}: \titleref{chap:intro}]
+A short introduction and history of Go. It also
 tells how to get the source code of Go itself. It assumes a Unix-like environment.
 
+\item[Chapter \ref{chap:basics}: \titleref{chap:basics}] 
+tells about the basic types, variables and control
 Chapter \ref{chap:basics} tells about the basic types, variables and control
 structures available in the language.
 
+\item[Chapter \ref{chap:functions}: \titleref{chap:functions}] 
 In the third chapter we look at functions, that basic building blocks of Go programs.
 
-In chapter \ref{chap:packages} we see that function and data can be grouped together
-in packages. Packages provide namespaces.
+\item[Chapter \ref{chap:packages}: \titleref{chap:packages}] 
+In chapter \ref{chap:packages} we see that functions and data can be grouped together
+in packages. You will also see how to document and test your packages.
 
-5: beyond the basics, create new types.
+\item[Chapter \ref{chap:beyond}: \titleref{chap:beyond}] 
+After that we look at creating your own types in chapter \ref{chap:beyond}. It also
+looks at allocation in Go.
 
+\item[Chapter \ref{chap:interfaces}: \titleref{chap:interfaces}] 
 Go doesn't do Object Orientation, instead it has interfaces. In chapter \ref{chap:interfaces}
 we will show how this works.
 
-With the go keyword function can be started in separate routines (called goroutines). 
-Communication with those goroutines is done via channels.
+\item[Chapter \ref{chap:channels}: \titleref{chap:channels}] 
+With the \func{go} keyword functions can be started in separate routines (called goroutines). 
+Communication with those goroutines is done via channels. In chapter \ref{chap:channels} we
+see how this all works.
 
-The last chapter show how to interface with the rest of the world from within 
+\item[Chapter \ref{chap:communication}: \titleref{chap:communication}] 
+And in the last chapter show how to interface with the rest of the world from within 
 a Go program. How create files and read and wrote from and to them. We also briefly
 look into networking.
+\end{description}
