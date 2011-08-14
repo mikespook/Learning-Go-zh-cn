@@ -23,9 +23,9 @@ letter and so should \type{Stack}. The full package becomes:
 \Question To make the unit testing work properly you need to do some
 preparations. I'll come to does in a minute. First the actual unit test.
 Create a file with the "pushpop\_test.go", with the following contents:
-\lstinputlisting{ex-packages/src/pushpop_test.go}
+\lstinputlisting[caption=Push/Pop test]{ex-packages/src/pushpop_test.go}
 As \prog{gotest} calls \prog{gomake} to compile the package we need a makefile:
-\lstinputlisting[language=make]{ex-packages/src/Makefile}
+\lstinputlisting[language=make,caption=Package Makefile]{ex-packages/src/Makefile}
 With this work done, we can call \prog{gotest} to test the pacakge:
 \begin{display}
 \pr \user{gotest}
