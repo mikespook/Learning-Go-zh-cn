@@ -27,12 +27,10 @@ func identity(in int) int {
 }
 \end{lstlisting}
 \end{minipage}
-
 Functions can be declared in any order you wish, the compiler scans the
 entire file before execution. So function prototyping is a thing of the
 past in Go.
-Go disallows nested functions.
-You can however
+Go disallows nested functions.  You can however
 work around this by using anonymous functions, see section
 "\titleref{sec:functions as values}" on page \pageref{sec:functions as values} 
 in this chapter.
@@ -47,7 +45,7 @@ func rec(i int) {
    fmt.Printf("%d ", i)
 }
 \end{lstlisting}
-This prints \texttt{9 8 7 6 5 4 3 2 1 0}.
+This prints: \texttt{9 8 7 6 5 4 3 2 1 0}.
 
 \section{Scope}
 Variables declared outside any functions are \first{global}{scope!local} in Go, those
@@ -92,7 +90,7 @@ valid when we are executing the function in which it is defined.
 \section{Multiple return values}
 \label{sec:multiple return}
 One of Go's unusual features is that functions and methods can return multiple
-values (Python can do this too). This can be used to improve on a couple of 
+values (but Python can do this too). This can be used to improve on a couple of 
 clumsy idioms in C programs:
 in-band error returns (such as -1 for \texttt{EOF}) and modifying an argument.
 In Go, \lstinline{Write} returns a count and an
