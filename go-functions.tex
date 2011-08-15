@@ -27,6 +27,7 @@ func identity(in int) int {
 }
 \end{lstlisting}
 \end{minipage}
+
 Functions can be declared in any order you wish, the compiler scans the
 entire file before execution. So function prototyping is a thing of the
 past in Go.
@@ -397,7 +398,7 @@ function you need to pass all vars to the function.
 Go does not have a exception mechanism, like that in Java for instance: you can not throw exceptions.
 Instead it using a panic-and-recover mechanism. It is worth remembering that you should use this as
 a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
-use it wisely. So, how do you use it.
+use it wisely. So, how do you use it?
 
 The following description was taken from \cite{go_blog_panic}:
 \begin{description}
