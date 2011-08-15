@@ -77,6 +77,10 @@ Also note that this is \emph{not} the \emph{same} \prog{Makefile} setup as we us
 in section "\titleref{sec:building a program}" in chapter
 \ref{chap:basics}. The last line with the \verb|include| statement is
 different.
+\footnote{Within the \file{Makefile} you can access the following
+preset variables: \var{\$(GC)} which is the Go compiler (6g/8g),
+\var{\$(LD)} the current linker and \var{\$O} which is the suffix
+for the pre-linked binary (6/8).}
 
 If we now issue \prog{gomake}, a file named "\file{\_go\_.6}", a directory
 named "\dir{\_obj/}" and a file inside "\dir{\_obj/}" called
@@ -105,10 +109,6 @@ own directory. So the following commands should build (and link) our
 \end{display}
 
 \noindent{}Imported, but otherwise unused packages are an error.
-\footnote{Within the \file{Makefile} you can access the following
-preset variables: \var{\$(GC)} which is the Go compiler (6g/8g),
-\var{\$(LD)} the current linker and \var{\$O} which is the suffix
-for the pre-linked binary (6/8).}
 
 \section{Identifiers}
 Names are as important in Go as in any other language. In some cases
