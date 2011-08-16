@@ -29,9 +29,11 @@ end procedure
 \begin{Answer}
 \Question 
 The Bubble sort isn't terrible efficient, for $n$ elements it scales
-$O(n^2)$. See Quick sort (ref XXX) for a better sorting algorithm.
+$O(n^2)$. See QuickSort \cite{quicksort} for a better sorting algorithm.
 
 But Bubble sort is easy to implement, the following is an example.
-\lstinputlisting[caption=Bubble sort,linerange=5-22]{ex-functions/src/bubblesort.go}
+\lstinputlisting[caption=Bubble sort,linerange=4-19]{ex-functions/src/bubblesort.go}
 
+Because a slice is a reference type the \func{bubblesort} function works and
+does not need to return a sorted slice.
 \end{Answer}

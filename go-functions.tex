@@ -47,7 +47,7 @@ func rec(i int) {
 }
 \end{lstlisting}
 This prints: \texttt{9 8 7 6 5 4 3 2 1 0}.
-\newpage
+%%\newpage %% TODO don't want a newpage here actually
 \section{Scope}
 Variables declared outside any functions are \first{global}{scope!local} in Go, those
 defined in functions are \first{local}{scope!local} to those functions. If names overlap --- a
@@ -153,7 +153,7 @@ func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
 Because named results are initialized and tied to an unadorned
 \key{return},
 they can simplify as well as clarify. Here's a version of
-\lstinline{io.ReadFull} that uses them well:
+\lstinline{ioutil.ReadFull} that uses them well:
 
 \begin{lstlisting}
 func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
@@ -221,15 +221,15 @@ func ReadWrite() bool {
     file.Open("file")
     // Do your thing
     if failureX {
-	file.Close()
+	file.Close() |\coderemark{}|
 	return false
     }
 
     if failureY {
-	file.Close()
+	file.Close() |\coderemark{}|
 	return false
     }
-    file.Close()
+    file.Close() |\coderemark{}|
     return true
 }
 \end{lstlisting}
@@ -244,7 +244,7 @@ to the \func{Open}.
 \begin{lstlisting}[caption=With defer]
 func ReadWrite() bool {
     file.Open("file")
-    defer file.Close()	|\coderemark{\func{file.Close()} \emph{is} the function}|
+    defer file.Close()	|\coderemark{\func{file.Close()} is added to the defer list}|
     // Do your thing
     if failureX {
 	return false    |\coderemark{\func{Close()} is now done automatically}|
@@ -405,7 +405,7 @@ to true;}|
             b = true
         }
     }()
-    f() |\longremark{Start the function we received as the argument.}|
+    f() |\longremark{Execute the function we received as the argument;}|
     return |\longremark{Return the value of \var{b}. Because \var{b} is a named return parameter (page %
 \pageref{sec:named result parameters}), we don't specify \var{b}.}|
 }
