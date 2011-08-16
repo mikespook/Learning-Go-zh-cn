@@ -78,12 +78,12 @@ Dialing a remote system (port 80) over TCP, then UDP and lastly TCP over IPv6 lo
 like this:\footnote{In case
 you are wondering, 192.0.32.10 and 2620:0:2d0:200::10 are \url{www.example.org}.}
 \begin{lstlisting}
-conn, _ := Dial("tcp", "192.0.32.10:80")
-conn, _ := Dial("udp", "192.0.32.10:80")
-conn, _ := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{Mandatory brackets}|
+conn, e := Dial("tcp", "192.0.32.10:80")
+conn, e := Dial("udp", "192.0.32.10:80")
+conn, e := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{Mandatory brackets}|
 \end{lstlisting}
 
-If there were no errors, you can use \var{conn} to read and write from and to sockets.
+If there were no errors (returned in \var{e}), you can use \var{conn} to read and write.
 The primitives defined in the package \package{net} are:
 \begin{quote}
 // \func{Read} reads data from the connection.\\
@@ -104,26 +104,17 @@ these.}, you will almost always use higher level packages.
 Such as the \package{http} package. For instance a simple Get for http:
 \begin{lstlisting}
 package main
-import (
-        "io/ioutil"
-        "http"
-        "fmt"
-)
+import ( "io/ioutil"; "http"; "fmt" ) |\longremark{The imports needed;}|
 
 func main() {
-        r, err := http.Get("http://www.google.com/robots.txt")
-        if err != nil {
-                fmt.Printf("%s\n", err.String())
-                return
-        }   
-        b, err := ioutil.ReadAll(r.Body)
-        r.Body.Close()
-
-        if err == nil {
-                fmt.Printf("%s", string(b))                                                                             
-        }   
+        r, err := http.Get("http://www.google.com/robots.txt") |\longremark{Use http's \func{Get} to retrieve the html;}|
+        if err != nil { fmt.Printf("%s\n", err.String()); return } |\longremark{Error handling;}|
+        b, err := ioutil.ReadAll(r.Body)    |\longremark{Read the entire document into \var{b};}|
+        r.Body.Close()  
+        if err == nil { fmt.Printf("%s", string(b)) } |\longremark{If everything was OK, print the document.}|
 }
 \end{lstlisting}
+\showremarks
 
 \section{Netchan: networking and channels}
 %%http://blog.golang.org/2010/09/go-concurrency-patterns-timing-out-and.html

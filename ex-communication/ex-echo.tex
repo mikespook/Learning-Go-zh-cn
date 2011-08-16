@@ -1,9 +1,8 @@
 \begin{Exercise}[title={Echo server},difficulty=8]
 \label{ex:echo}
 \Question\label{ex:echo q1}
-Write a simple echo server. Make it listen to TCP port number 8053. It should
-be able to read one line (ending in a newline), echo back that line
-and then close the connection.
+Write a simple echo server. Make it listen to TCP port number 8053 on localhost. It should
+be able to read a line (up to the newline), echo back that line and then close the connection. 
 
 \Question\label{ex:echo q2}
 Make the server concurrent so that every request is taken care of in a separate
@@ -13,4 +12,25 @@ goroutine.
 
 \begin{Answer}
 \Question
+A simple echo server might be:
+\lstinputlisting[caption=A simple echo server]{ex-communication/src/echo.go}
+
+When started you should see the following:
+\vskip\baselineskip
+\begin{display}
+\pr \user{nc 127.0.0.1 8053}
+\user{Go is *awesome*}
+Go is *awesome*
+\end{display}
+
+\Question
+To make it connection handling concurrent we \emph{only need to change one line} in our
+echo server, the line:
+\begin{lstlisting}
+if c, err := l.Accept(); err == nil { Echo(c) }
+\end{lstlisting}
+becomes:
+\begin{lstlisting}
+if c, err := l.Accept(); err == nil { go Echo(c) }
+\end{lstlisting}
 \end{Answer}
