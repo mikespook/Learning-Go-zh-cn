@@ -427,7 +427,7 @@ func throwsPanic(f func()) (b bool) { |\longremark{We define a new function \fun
 a fuction as an argument, see "\titleref{sec:functions as values}". It returns true when this function %
 will panic, otherwise false;}|
     defer func() { |\longremark{We define a \func{defer} function that utilizes \func{recover}, \emph{if} the %
-current goroutine panics, this defer function will notice that. If \func{recover()} return non-\var{nil} we set \var{b} %
+current goroutine panics, this defer function will notice that. If \func{recover()} returns non-\var{nil} we set \var{b} %
 to true;}|
         if x := recover(); x != nil {
             b = true
@@ -435,7 +435,7 @@ to true;}|
     }()
     f() |\longremark{Start the function we received as the argument.}|
     return |\longremark{Return the value of \var{b}. Because \var{b} is a named return parameter (page %
-\pageref{sec:named result parameters} we don't have to specify \var{b}.}|
+\pageref{sec:named result parameters}), we don't specify \var{b}.}|
 }
 \end{lstlisting}
 \showremarks
