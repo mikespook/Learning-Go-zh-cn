@@ -33,6 +33,8 @@ The following convention is used throughout this book:
 \item Longer remarks get a number -- \gocircle{1} -- with the explanation following;
 \item Line numbers are printed on the right side;
 \item Shell examples use a \pr{} as prompt;
+\item User entered text in shell examples \texttt{\user{is in bold}}, system responses
+are in a \texttt{typewriter font};
 \item An emphasized paragraph is indented and has a vertical bar on the
 left.
 \end{itemize}
@@ -116,8 +118,10 @@ existing tree to the latest release, you can run:
 \pr \user{hg identify}
 79997f0e5823 release/release.2010-10-20
 \end{display}
-\noindent{}That would be \gorelease{2010-10-20}. The release as describe is a "stable" releases,
-as opposed to the "weekly" releases that are more volatile. If you want to track the weekly releases
+\noindent{}That would be release \gorelease{2010-10-20}. The release as 
+describe is a "stable" releases,
+as opposed to the "weekly" releases that are more volatile. 
+If you want to track the weekly releases
 instead of the stable ones you can use:
 \begin{display}
 \pr \user{hg update weekly}
