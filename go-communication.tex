@@ -99,7 +99,31 @@ The primitives defined in the package \package{net} are:
 \lstinline{Write(b []byte) (n int, err os.Error)}
 \end{quote}
 
-\todo{Write echo server}
+But these are the lowlevel nooks and crannies\footnote{Exercise Q\ref{ex:echo} is about using
+these.}, you will almost always use higher level packages.
+Such as the \package{http} package. For instance a simple Get for http:
+\begin{lstlisting}
+package main
+import (
+        "io/ioutil"
+        "http"
+        "fmt"
+)
+
+func main() {
+        r, err := http.Get("http://www.google.com/robots.txt")
+        if err != nil {
+                fmt.Printf("%s\n", err.String())
+                return
+        }   
+        b, err := ioutil.ReadAll(r.Body)
+        r.Body.Close()
+
+        if err == nil {
+                fmt.Printf("%s", string(b))                                                                             
+        }   
+}
+\end{lstlisting}
 
 \section{Netchan: networking and channels}
 %%http://blog.golang.org/2010/09/go-concurrency-patterns-timing-out-and.html
@@ -112,6 +136,8 @@ The primitives defined in the package \package{net} are:
 \input{ex-communication/ex-uniq.tex}
 
 \input{ex-communication/ex-quine.tex}
+
+\input{ex-communication/ex-echo.tex}
 
 \input{ex-communication/ex-numbercruncher.tex}
 
