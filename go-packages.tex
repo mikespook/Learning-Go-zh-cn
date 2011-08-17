@@ -165,7 +165,7 @@ called \func{Reader}, not \func{BufReader}, because users see it as
 which is a clear, concise name. Moreover, because imported entities are
 always addressed with their package name, \func{bufio.Reader} does not conflict
 with \func{io.Reader}. Similarly, the function to make new instances of
-\func{ring.Ring}---which is the definition of a constructor in Go---would normally
+\func{ring.Ring} (package \package{container/ring}) ---which is the definition of a constructor in Go---would normally
 be called \func{NewRing}, but since \type{Ring} is the only type exported by the
 package, and since the package is called
 \package{ring}\index{package!ring}, it's called
@@ -173,7 +173,7 @@ just \func{New}.
 Clients of the package see that as \func{ring.New}. Use the package structure
 to help you choose good names.
 
-Another short example is \func{once.Do}; \func{once.Do(setup)} reads well and would
+Another short example is \func{once.Do} (see package \package{sync}); \func{once.Do(setup)} reads well and would
 not be improved by writing \lstinline{once.DoOrWaitUntilDone(setup)}. Long names
 don't automatically make things more readable. If the name represents
 something intricate or subtle, it's usually better to write a helpful
