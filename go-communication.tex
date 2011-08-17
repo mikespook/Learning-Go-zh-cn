@@ -3,7 +3,7 @@ to sleep after."}{\textsc{ANNE MORROW LINDBERGH}}
 \noindent{}In this chapter we are going to look at the building blocks in Go for 
 communicating with the outside world.
 
-\section{Files}
+\section{Files and directories}
 Reading from (and writing to) files is easy in Go. This program
 only uses the \package{os} package to read data from the file \file{/etc/passwd}.
 \lstinputlisting[caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
@@ -13,7 +13,6 @@ If you want to use \first{buffered}{buffered} IO there is the
 \lstinputlisting[caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
 \showremarks
 
-\subsection{Line by line}
 The previous program reads a file in its entirely, but a more common scenario is that
 you want to read a file on a line-by-line basis. The following snippet show a way
 to do just that:
@@ -28,6 +27,24 @@ s, ok := r.ReadString('\n')     |\coderemark{Read a line from the input}|
 
 A more robust method (but slightly more complicated) is \func{ReadLine}, see the documentation
 of the \package{bufio} package.
+
+A common scenarion in shell scripting is that you want to check if a directory
+exists and if not, create one. In shell code:
+\begin{lstlisting}[language=sh]
+if [ ! -e dirname ]; then
+    mkdir dirname
+else
+    # error
+fi
+\end{lstlisting}
+In Go this becomes:
+\begin{lstlisting}
+if f, err := os.Stat("dirname"); err != nil {
+    os.Mkdir("dirname", 0755)
+} else {
+    // error
+}
+\end{lstlisting}
 
 \section{Command line arguments}
 \label{sec:option parsing}
