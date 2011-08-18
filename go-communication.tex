@@ -29,22 +29,26 @@ A more robust method (but slightly more complicated) is \func{ReadLine}, see the
 of the \package{bufio} package.
 
 A common scenarion in shell scripting is that you want to check if a directory
-exists and if not, create one. In shell code:
-\begin{lstlisting}[language=sh]
+exists and if not, create one. 
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[language=sh,caption={Create a directory in the shell}]
 if [ ! -e dirname ]; then
     mkdir dirname
 else
     # error
 fi
 \end{lstlisting}
-In Go this becomes:
-\begin{lstlisting}
+\end{minipage}
+\hspace{2em}
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[caption={Create a directory with Go}]
 if f, err := os.Stat("dirname"); err != nil {
     os.Mkdir("dirname", 0755)
 } else {
     // error
 }
 \end{lstlisting}
+\end{minipage}
 
 \section{Command line arguments}
 \label{sec:option parsing}
