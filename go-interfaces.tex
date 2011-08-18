@@ -59,15 +59,15 @@ This is not
 pure duck typing, because when possible the Go compiler will statically
 check whether the type implements the interface. However, Go does have a
 purely dynamic aspect, in that you can convert from one interface type
-to another. In the general case, that conversion is checked at runtime.
+to another. In the general case, that conversion is checked at run time.
 If the conversion is invalid --- if the type of the value stored in the
 existing interface value does not satisfy the interface to which it is
-being converted --- the program will fail with a runtime error.
+being converted --- the program will fail with a run time error.
 
 Interfaces in Go are similar to ideas in several other programming languages:
 pure abstract virtual base classes in C++, typeclasses in Haskell or duck typing
 in Python. However there is no other language which combines
-interface values, static type checking, dynamic runtime conversion, and no
+interface values, static type checking, dynamic run time conversion, and no
 requirement for explicitly declaring that a type satisfies an interface. The
 result in Go is powerful, flexible, efficient, and easy to write.
 
@@ -208,7 +208,7 @@ that
 made them illegal leave no room for doubt:
 \begin{quote}
 The language change is that uses of pointers to interface values no longer 
-automatically dereference the pointer.  A pointer to an interface value is more 
+automatically de-reference the pointer.  A pointer to an interface value is more 
 often a beginner's bug than correct code.
 \end{quote}
 From the \cite{go_faq}. If not for this restriction, this code:
@@ -345,7 +345,7 @@ fmt.Printf("%v\n", strings)
 \end{lstlisting}
 
 \subsection{Listing interfaces in interfaces}
-Take a look at the following example of an interface defintion, this one is 
+Take a look at the following example of an interface definition, this one is 
 from the package \package{container/heap}:
 \begin{lstlisting}
 type Interface interface {
@@ -443,7 +443,7 @@ func Set(i interface{}) {
 \end{lstlisting}
 \end{minipage}
 The code on the left compiles and runs, but when you run it, you are greeted with a
-stack trace and a \emph{runtime} error:
+stack trace and a \emph{run time} error:
 
 \noindent\error{panic: reflect.Value.SetString using value obtained using unexported field}
 

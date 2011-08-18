@@ -28,7 +28,7 @@ s, ok := r.ReadString('\n')     |\coderemark{Read a line from the input}|
 A more robust method (but slightly more complicated) is \func{ReadLine}, see the documentation
 of the \package{bufio} package.
 
-A common scenarion in shell scripting is that you want to check if a directory
+A common scenario in shell scripting is that you want to check if a directory
 exists and if not, create one. 
 
 \begin{minipage}{.5\textwidth}
@@ -121,7 +121,7 @@ The primitives defined in the package \package{net} are:
 \lstinline{Write(b []byte) (n int, err os.Error)}
 \end{quote}
 
-But these are the lowlevel nooks and crannies\footnote{Exercise Q\ref{ex:echo} is about using
+But these are the low level nooks and crannies\footnote{Exercise Q\ref{ex:echo} is about using
 these.}, you will almost always use higher level packages.
 Such as the \package{http} package. For instance a simple Get for http:
 \begin{lstlisting}

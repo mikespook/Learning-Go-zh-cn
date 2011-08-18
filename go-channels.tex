@@ -35,7 +35,7 @@ Listing \ref{src:sleeping} outputs:
 \begin{display}
 I'm waiting         \coderemark{Right away}
 Coffee is ready!    \coderemark{After 1 second}
-Tee is ready!       \coderemark{AFter 2 seconds}
+Tee is ready!       \coderemark{After 2 seconds}
 \end{display}
 
 If we did not wait for the goroutines (i.e. remove line 17) the program
@@ -146,7 +146,7 @@ bools is created. What does this mean for your program? For one, if you
 read (\lstinline{value := <-ch}) it will block until there is data to
 receive. Secondly anything sending (\lstinline{ch<-5}) will block until there
 is somebody to read it. 
-Unbuffered channels make a perfect tool for synchronising multiple
+Unbuffered channels make a perfect tool for synchronizing multiple
 goroutines.
 \index{channel!blocking read}
 \index{channel!blocking write}

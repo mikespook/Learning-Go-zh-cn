@@ -28,7 +28,7 @@ p = &i		    |\coderemark{Make \var{p} point to \var{i}}|
 
 fmt.Printf("%v", p) |\coderemark{Prints something like \var{0x7ff96b81c000a}}|
 \end{lstlisting}
-Dereferencing a pointer is done by prefixing the pointer variable with
+De-referencing a pointer is done by prefixing the pointer variable with
 '\type{*}':
 \begin{lstlisting}[caption=Dereferencing a pointer,label=src:deref]
 p = &i			|\coderemark{Take the address of \var{i}}|
@@ -40,7 +40,7 @@ fmt.Printf("%v\n", i)	|\coderemark{Idem}|
 \label{main:pointer arithmetic}
 As said, there is no pointer arithmetic, so if you write:
 \lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
-dereference and then increment the value.\index{operator!increment}
+reference and then increment the value.\index{operator!increment}
 \footnote{See exercise \ref{ex:pointer arithmetic}.}
 
 \section{Allocation}
@@ -203,8 +203,7 @@ creates a zero value for the type. The expressions
 Composite literals can also be created for arrays, slices, and maps,
 with the field labels being indices or map keys as appropriate. In these
 examples, the initializations work regardless of the values of
-\var{Enone},
-\var{Eio}, and \var{Einval}, as long as they are distinct.
+\var{Enone}, and \var{Einval}, as long as they are distinct.
 \begin{lstlisting}
 ar := [...]string    {Enone: "no error", Einval: "invalid argument"}
 sl := []string       {Enone: "no error", Einval: "invalid argument"}
@@ -223,7 +222,7 @@ a new type \lstinline{foo} which acts like an \lstinline{int}.
 Creating more sophisticated types is done with the
 \first{\key{struct}}{keyword!struct}
 keyword.
-An example would be when we want record somebody's name (\type{string})
+An example would be when we want record somebodies name (\type{string})
 and age (\type{int}) in a single structure and make it a new type:
 \lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
 Apropos, the output of \lstinline{fmt.Printf("%v\n", a)} is 

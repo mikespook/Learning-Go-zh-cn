@@ -294,7 +294,7 @@ fmt.Printf("%s\n", s2) |\longremark{print the string with \func{fmt.Printf}.}|
 
 \begin{lbar}[Multi-line strings]
 Due to the insertion of semicolons (see \cite{effective_go} section
-"Semicolons"), you need to be careful with using multiline strings. If
+"Semicolons"), you need to be careful with using multi line strings. If
 you write:
 \begin{lstlisting}
 s := "Starting part"
@@ -824,7 +824,7 @@ a := [2][2]int{ {1,2}, {3,4} }
 \label{sec:slices}
 A slice is similar to an array, but it can grow when new elements
 are added.
-A slice always refers to an underlaying array. What makes slices different
+A slice always refers to an under laying array. What makes slices different
 from
 arrays is that a slice is a pointer \emph{to} an array;
 slices are \first{reference types}{reference types}, 
@@ -838,7 +838,7 @@ the underlying array. With:
 sl := make([]int, 10)
 \end{lstlisting}
 you create a slice which can hold ten elements. Note that the
-underlaying array isn't specified.
+under laying array isn't specified.
 A slice is always coupled to an array that has
 a fixed size. For slices we define a \first{capacity}{slice!capacity} and a
 \first{length}{slice!length}. \index{array!length}\index{array!capacity}
@@ -885,7 +885,7 @@ s5 := s2[:]  |\longremark{Create a slice from the slice \var{s2}, note that %
 
 In the code listed in \ref{src:arrays} we dare to do the impossible on
 line 8 and try to allocate something
-beyond the capacity (maximum length of the underlaying array) and
+beyond the capacity (maximum length of the under laying array) and
 we are greeted with a \emph{runtime} error.
 \lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
 If you want to extend a slice, there are a couple of built-in functions
