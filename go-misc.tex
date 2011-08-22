@@ -1,47 +1,9 @@
+\section{性能}
+\label{sec:profiling}
+\gomarginpar{这一章节受到了\cite{go_profiling}极大的启发。}
+
+\section{Gofix}
+\label{sec:gofix}
 
 \section{Calling C from Go}
-
-Must use a package
-
-command cgo
-
-Cgo enables the creation of Go packages that call C code.
-
-Usage: cgo \[compiler options\] file.go
-
-The compiler options are passed through uninterpreted when invoking gcc to compile the C parts of the package.
-
-The input file.go is a syntactically valid Go source file that imports
-the pseudo-package "C" and then refers to types such as C.size\_t,
-variables such as C.stdout, or functions such as C.putchar.
-
-If the import of "C" is immediately preceded by a comment, that comment
-is used as a header when compiling the C parts of the package. For
-example:
-
-\begin{display}
-// #include <stdio.h>
-// #include <errno.h>
-\end{display}
-import "C"
-C identifiers or field names that are keywords in Go can be accessed by
-prefixing them with an underscore: if x points at a C struct with a
-field named "type", x.\_type accesses the field.
-
-To access a struct, union, or enum type directly, prefix it with
-struct\_, union\_, or enum\_, as in C.struct\_stat.
-
-Any C function that returns a value may be called in a multiple
-assignment context to retrieve both the return value and the C errno
-variable as an os.Error. For example:
-
-n, err := C.atoi("abc")
-Cgo transforms the input file into four output files: two Go source
-files, a C file for 6c (or 8c or 5c), and a C file for gcc.
-
-%The standard package makefile rules in Make.pkg automate the process of
-%using cgo. See $GOROOT/misc/cgo/stdio and $GOROOT/misc/cgo/gmp for
-%examples.
-
-\section{Profiling}
-6prof
+\label{sec:cgo}

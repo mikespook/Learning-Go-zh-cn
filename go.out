@@ -52,15 +52,19 @@
 \BOOKMARK [1][-]{section*.90}{\347\273\203\344\271\240}{chapter.7}
 \BOOKMARK [1][-]{section*.91}{\347\255\224\346\241\210}{chapter.7}
 \BOOKMARK [0][-]{chapter.8}{\351\200\232\350\256\257}{}
-\BOOKMARK [1][-]{section*.92}{Files}{chapter.8}
-\BOOKMARK [1][-]{section*.93}{Command line arguments}{chapter.8}
-\BOOKMARK [1][-]{section*.94}{Executing commands}{chapter.8}
-\BOOKMARK [1][-]{section*.95}{Networking}{chapter.8}
-\BOOKMARK [1][-]{section*.96}{Netchan: networking and channels}{chapter.8}
-\BOOKMARK [1][-]{section*.97}{Exercises}{chapter.8}
-\BOOKMARK [1][-]{section*.98}{Answers}{chapter.8}
+\BOOKMARK [1][-]{section*.92}{\346\226\207\344\273\266}{chapter.8}
+\BOOKMARK [1][-]{section*.93}{\345\221\275\344\273\244\350\241\214\345\217\202\346\225\260}{chapter.8}
+\BOOKMARK [1][-]{section*.94}{\346\211\247\350\241\214\345\221\275\344\273\244}{chapter.8}
+\BOOKMARK [1][-]{section*.95}{\347\275\221\347\273\234}{chapter.8}
+\BOOKMARK [1][-]{section*.96}{Netchan\357\274\232\347\275\221\347\273\234\345\222\214 channel}{chapter.8}
+\BOOKMARK [1][-]{section*.97}{\347\273\203\344\271\240}{chapter.8}
+\BOOKMARK [1][-]{section*.98}{\347\255\224\346\241\210}{chapter.8}
+\BOOKMARK [0][-]{chapter.9}{\346\235\202\351\241\271}{}
+\BOOKMARK [1][-]{section*.99}{\346\200\247\350\203\275}{chapter.9}
+\BOOKMARK [1][-]{section*.100}{Gofix}{chapter.9}
+\BOOKMARK [1][-]{section*.101}{Calling C from Go}{chapter.9}
 \BOOKMARK [0][-]{appendix.A}{\347\211\210\346\235\203}{}
-\BOOKMARK [1][-]{section*.99}{\350\264\241\347\214\256\350\200\205}{appendix.A}
-\BOOKMARK [1][-]{section*.102}{\350\256\270\345\217\257\350\257\201\345\222\214\347\211\210\346\235\203}{appendix.A}
+\BOOKMARK [1][-]{section*.102}{\350\264\241\347\214\256\350\200\205}{appendix.A}
+\BOOKMARK [1][-]{section*.105}{\350\256\270\345\217\257\350\257\201\345\222\214\347\211\210\346\235\203}{appendix.A}
 \BOOKMARK [0][-]{appendix.B}{\347\264\242\345\274\225}{}
 \BOOKMARK [0][-]{appendix.C}{Bibliography}{}
