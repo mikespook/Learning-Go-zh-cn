@@ -4,20 +4,26 @@
 \section{文件}
 在 Go 中，从文件读取（或写入）是非常容易的。程序只需要使用
 \package{os} 包就可以从文件 \file{/etc/passwd} 中读取数据。
-\lstinputlisting[numbers=right,caption=从文件读取（无缓冲）,label=src:read]{src/file.go}
+\lstinputlisting[caption=从文件读取（无缓冲）,label=src:read]{src/file.go}
+\showremarks
+
 如果想要使用\first{缓冲}{buffered} IO，则有
 \package{bufio}\index{package!bufio} 包：
-\lstinputlisting[numbers=right,caption=从文件读取（缓冲）,label=src:bufread]{src/buffile.go}
-在第 9 行从 \type{*File} 类型的 \var{f} 中创建了 \type{bufio.Reader}。
-\func{NewReader} 期望一个 \type{io.Reader}，所以或许认为这个会出错。
-但是不会。\type{io.Reader} 定义为：
+\lstinputlisting[caption=从文件读取（缓冲）,label=src:bufread]{src/buffile.go}
+\showremarks
+
+\subsection{一行行}
+前面的程序将整个文件读出，但是通常情况下会希望一行一行的读取。下面的片段展示了如何实现：
+
 \begin{lstlisting}
-type Reader interface {
-    Read(p []byte) (n int, err os.Error)
+f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666)
+r := bufio.NewReader(f)
+for {
+    s, ok := r.ReadString('\n'); true { |\coderemark{从输入中读取一行}|
+    // ... |\coderemark{\var{s} 保存了字符串，通过 \package{string} 包就可以解析它}|
+
 }
 \end{lstlisting}
-因此，\emph{任何}有 \func{Read()} 函数的都实现了这个接口。
-从表 \ref{src:read} （第 10 行）可以看到 \type{*File} 实际是这样做的。
 
 \section{命令行参数}
 \label{sec:option parsing}
