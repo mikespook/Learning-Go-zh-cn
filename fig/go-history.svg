@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.0 r9654"
+   inkscape:version="0.48.1 r9760"
    sodipodi:docname="go-history.svg">
   <defs
      id="defs4">
@@ -300,14 +300,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="-25.658487"
+     inkscape:cx="268.59076"
      inkscape:cy="979.13728"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="740"
+     inkscape:window-width="1680"
+     inkscape:window-height="1001"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1">
@@ -385,16 +385,16 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
-       x="170"
+       x="165"
        y="72.362183"
        id="text5075"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="170"
+         x="165"
          y="72.362183"
          id="tspan2897">Newsqueak</tspan><tspan
          sodipodi:role="line"
-         x="170"
+         x="165"
          y="92.362183"
          id="tspan2901" /></text>
     <path
@@ -448,17 +448,17 @@
          id="flowPara2909" /></flowRoot>    <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
-       x="220"
+       x="165"
        y="52.362183"
        id="text5075-59"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="220"
+         x="165"
          y="52.362183"
          id="tspan2897-7"
-         style="font-size:14px">1994</tspan><tspan
+         style="font-size:14px">1989</tspan><tspan
          sodipodi:role="line"
-         x="220"
+         x="165"
          y="69.862183"
          id="tspan2901-7" /></text>
     <text
@@ -479,8 +479,9 @@
          id="tspan2901-7-2" /></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 245,17.362183 c 0,20 0,20 0,20"
-       id="path2982" />
+       d="m 185,17.362183 c 0,20 0,20 0,20"
+       id="path2982"
+       inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 270,17.362183 c 0,20 0,20 0,20"

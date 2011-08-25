@@ -48,7 +48,9 @@ Go 是一个年轻的语言，特性仍然在不断增加或\emph{删除}中。
 \end{itemize}
 
 \section{官方文档}
-Go 已经有大量的文档。例如 Go Tutorial \cite{go_tutorial} 和 Effective Go \cite{effective_go}。
+Go 已经有大量的文档。
+\gomarginpar{在互联网上搜索时，应当使用“golang”这个词来代替原始的“go”。}
+例如 Go Tutorial \cite{go_tutorial} 和 Effective Go \cite{effective_go}。
 网站 \url{http://golang.org/doc/} 是绝佳的起点 
 \footnote{\url{http://golang.org/doc/} 本身是由 Go 程序 \prog{godoc} 提供服务的。}。
 虽然并不一定要阅读这些文档，但是强烈建议这么做。
@@ -59,9 +61,9 @@ Go 用叫做 \prog{godoc} 的 Go 程序格式化其文档。
 \ref{chap:packages} 章中介绍。
 
 \section{获得 Go}
-当前（2011）任何 Linux 发行版都没有提供（官方的） Go 安装包。
-安装 Go 的过程因此也比预期的要稍微长一些。当 Go 稳定之后，这一情况应该会得到改善。
-现在来说，你需要从 mercurial 中获取源代码，然后编译 Go。
+Ubuntu 和 Debian 都有 Go 包在其仓库中，查找“golang”包。但是工作的时候仍然有一些小问题。现在仍然使用源码进行安装。
+
+因此将会从 mercurial 中获取代码并且编译。
 对于其他类 Unix 系统，过程类似。
 \begin{itemize}
 \item 首先安装 Mercurial （获取 \prog{hg} 命令）。
@@ -71,29 +73,29 @@ Go 用叫做 \prog{godoc} 的 Go 程序格式化其文档。
 
 \item 设置环境变量 \prog{GOROOT} 为 Go 安装目录：
 \begin{display}
-\pr export GOROOT=~/go
+\pr \user{export GOROOT=~/go}
 \end{display}
 
 \item 然后获取 Go 源代码：
 \begin{display}
-\pr hg clone -r release https://go.googlecode.com/hg/ $GOROOT 
+\pr \user{hg clone -r release https://go.googlecode.com/hg/ $GOROOT}
 \end{display}
 
 \item 设置 PATH 到 Go 的二进制文件所在目录，这样 Shell 可以找到它们：
 \begin{display}
-\pr export PATH=$GOROOT/bin:$PATH
+\pr \user{export PATH=$GOROOT/bin:$PATH}
 \end{display}
 
 \item 编译 Go
 \begin{display}
-\pr cd $GOROOT/src
-\pr ./all.bash
+\pr \user{cd $GOROOT/src}
+\pr \user{./all.bash}
 \end{display}
 \end{itemize}
 如果全部都没问题，你应当看到下面的内容：
 \begin{display}
-Installed Go for linux/amd64 in /home/gobook/go.
-Installed commands in /home/gobook/go/bin.
+Installed Go for linux/amd64 in /home/go.
+Installed commands in /home/go/bin.
 The compiler is 6g.
 \end{display}
 现在，Go 已经被安装到了系统中，可以开始游戏了。
@@ -101,16 +103,16 @@ The compiler is 6g.
 \subsection{保持更新}
 新的发布会公布在 Go Nuts 邮件列表 \cite{go_nuts} 中。将已经存在的代码树更新到最新，需要执行：
 \begin{display}
-\pr cd $GOROOT
-\pr hg pull
-\pr hg update release
-\pr cd src
-\pr ./all.bash
+\pr \user{cd $GOROOT}
+\pr \user{hg pull}
+\pr \user{hg update release}
+\pr \user{cd src}
+\pr \user{./all.bash}
 \end{display}
 \noindent{}看看你现在用的版本：
 \begin{display}
-\pr cd $GOROOT
-\pr hg identify
+\pr \user{cd $GOROOT}
+\pr \user{hg identify}
 79997f0e5823 release/release.2010-10-20
 \end{display}
 \noindent{}这是 \gorelease{2010-10-20} 版本。
@@ -118,7 +120,7 @@ The compiler is 6g.
 如果希望跟踪 weekly 发布，而不是稳定的版本，可以使用 \texttt{\pr hg update weekly} 代替 \texttt{\pr hg update release}。
 
 如果需要修改旧的程序，可以使用内置的程序 \prog{gofix} 
-自动来完成语法的更新。参看第 \ref{chap:misc} 章，\titleref{sec:gofix} 小节的内容。
+自动来完成语法的更新。参看第 \ref{chap:miscellaneous} 章，\titleref{sec:gofix} 小节的内容。
 
 \section{前身}
 Go 的前身来自于 Inferno \cite{inferno} （基于 Plan 9 \cite{plan9} 的改造）。

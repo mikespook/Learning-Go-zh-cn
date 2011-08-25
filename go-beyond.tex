@@ -53,7 +53,7 @@ fmt.Printf("%v\n", i)	|\coderemark{同上}|
 
 
 \section{内存分配}
-Go 有垃圾收集，意味着无须担心内存分配和回收。当然，自从 1980 以来几乎所有语言都有这个，
+Go 同样也垃圾收集，也就是说无须担心内存分配和回收。当然，自从 1980 以来几乎所有语言都有这个，
 但是在类 C 语言中看到垃圾收集感觉还是很好。
 
 Go 有两个内存分配原语，\key{new} 和 \key{make}。它们应用于不同的类型，做不同的工作，
@@ -138,6 +138,7 @@ v := make([]int, 100)
 \end{lbar}
 
 \subsection{构造函数与复合声明}
+\label{sec:constructors and composite literals}
 有时零值不能满足需求，必须要有一个用于初始化的构造函数，例如这个来自
 \package{os} 包的例子。
 \begin{lstlisting}
@@ -153,7 +154,7 @@ func NewFile(fd int, name string) *File {
     return f
 }
 \end{lstlisting}
-有许多冗长的内容。可以使用复合声明使其更加简洁，每次只用一个表达式创建一个新的实例。
+有许多冗长的内容。可以使用\first{复合声明}{literal!composite}使其更加简洁，每次只用一个表达式创建一个新的实例。
 
 \begin{lstlisting}
 func NewFile(fd int, name string) *File {
@@ -171,7 +172,10 @@ func NewFile(fd int, name string) *File {
 \begin{lstlisting}
 return &File{fd, name, nil, 0}
 \end{lstlisting}
-联合声明中所有的字段都必须按顺序全部写上。然而，通过对元素用字段:值成对的标识，
+The items (called  of a composite 
++literal are laid out in order and must all be
+所有的项目（称作 \first{字段}{fields}）都必须按顺序全部写上。
+然而，通过对元素用字段:值成对的标识，
 初始化内容可以按任意顺序出现，并且可以省略初始化为零值的字段。因此可以这样
 
 \begin{lstlisting}
@@ -211,12 +215,12 @@ fmt.Printf("%s", a.name) |\coderemark{\%s 格式化字符串}|
 \end{lstlisting}
 
 \subsection{结构字段}
-每个在结构中的项目被称为字段。
+之前已经提到结构中的项目被称为\index{字段}{field}。
 没有字段的结构：
 \begin{lstlisting}
 struct {}
 \end{lstlisting}
-有五个字段的：
+或者有五个字段的：
 \begin{lstlisting}
 struct {
         x, y int
@@ -225,13 +229,13 @@ struct {
         F func()
 }
 \end{lstlisting}
-如果省略字段的名字，可以创建匿名字段，例如：
+如果省略字段的名字，可以创建\first{匿名字段}{field!anonymous}，例如：
 \begin{lstlisting}
 struct {
-        T1        // 字段名字是 T1
-        *T2       // 字段名字是 T2
-        P.T3      // 字段名字是 T3
-        x, y int  // 字段名字是 x 和 y
+    T1        |\coderemark{字段名字是 T1}|
+    *T2       |\coderemark{字段名字是 T2}|
+    P.T3      |\coderemark{字段名字是 T3}|
+    x, y int  |\coderemark{字段名字是 x 和 y}|
 }
 \end{lstlisting}
 注意首字母大写的字段可以被导出，也就是说，在其他包中可以进行读写。
@@ -270,6 +274,30 @@ n.doSomething(2)
 这里 Go 会查找 \type{NameAge} 类型的变量 \var{n} 的方法列表，
 没有找到就会\emph{再}查找 \type{*NameAge} 类型的方法列表，并且将其转化为
 \lstinline{(&n).doSomething(2)}。
+
+使用函数还是方法完全是由程序员说了算，但是如果需要满足接口（参看下一章）就必须使用方法。
+
+下面的类型定义中有一些微小但是很重要的不同之处。同时可以参阅 \cite[section~"Type Declarations"]{go_spec}。
+假设有：
+\begin{lstlisting}
+// Mutex 数据类型有两个方法，Lock 和 Unlock。
+type Mutex struct         { /* Mutex 字段 */ }
+func (m *Mutex) Lock()    { /* Lock 实现 */ }
+func (m *Mutex) Unlock()  { /* Unlock 实现 */ }
+\end{lstlisting}
+现在用两种不同的风格创建了两个数据类型。
+\begin{itemize}
+\item \lstinline|type NewMutex Mutex|;
+\item \lstinline|type PrintableMutex struct { Mutex }|.
+\end{itemize}
+现在 \var{NewMutux} 有着与 \var{Mutex} 相同的内存布局，但是它没有任何 \var{Mutex} 的方法。换句话说，它的方法是空的。
+
+但是 \var{PrintableMutex} \emph{已经}从 \var{Mutex} \first{\emph{继承}}{methods!inherited}了方法集合。
+如同 \cite{go_spec} 所说：
+\begin{quote}
+\var{*PrintableMutex} 的方法集合包含了
+\func{Lock} 和 \func{Unlock} 方法，被绑定到其匿名字段 \var{Mutex}。
+\end{quote}
 
 \section{转换}
 \label{sec:conversions}

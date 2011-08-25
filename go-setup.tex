@@ -21,7 +21,7 @@
 \renewcommand{\aftertoctitle}{\thispagestyle{empty}\afterchaptertitle\pagestyle{blocks}}
 
 %%\renewcommand{\printtoctitle}[1]{}
-\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\contentsname}{Contents}
 \renewcommand{\tocmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily \contentsname}}
 %% new print the titles as section not as chapter, that explains
 %% why the page is headerless. the page style is empty
@@ -116,7 +116,9 @@
 \newcommand{\package}[1]{{\textit{#1}}}
 \newcommand{\first}[2]{#1\index{#2}}
 \newcommand{\error}[1]{\texttt{#1}}
-\newcommand{\pr}{\%}
+\newcommand{\pr}{\textbf{\%}}
+\newcommand{\user}[1]{\textbf{#1}}
+\newcommand{\userinput}[1]{\textit{#1}}
 \newcommand{\gorelease}[1]{\texttt{release.#1}}
 
 %% Footnotes

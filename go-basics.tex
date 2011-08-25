@@ -14,7 +14,7 @@ Go 让函数很容易成为\emph{非常}轻量的线程。
 
 \item[Channel]
 这些 goroutines 之间的通讯由
-\first{channel}{channel} \cite{csp}\cite{hoare} 完成；
+\first{channel}{channel} \cite{csp, hoare} 完成；
 
 \item[快速]
 编译很快，执行也很快。目标是跟 C 一样快。编译时间用秒计算；
@@ -61,16 +61,18 @@ Go 编译器叫做 \verb|<数字>g|，数字是 6 表示用于 64 位 Intel 而 
 连接器用相同的命名方式：\verb|<数字>l|。在本书中，我们将使用 \prog{6g} 和 \prog{6l} 完成所有的编译。
 为了编译上面的代码，执行：
 \begin{display}
-\pr 6g helloworld.go
-\end{display}
-并且用 \prog{6l} 链接它：
-\begin{display}
-\pr 6l helloworld.6
+\pr \user{6g helloworld.go}
 \end{display}
 
-然后执行：
+\noindent{}并且用 \prog{6l} 链接它：
+
 \begin{display}
-    \pr ./6.out	    \coderemark{默认的（64位） Go 可执行文件名（32 位上是 8.out）}
+\pr \user{6l helloworld.6}
+\end{display}
+
+\noindent{}然后执行：
+\begin{display}
+\pr \user{./6.out}	    \coderemark{默认的（64位） Go 可执行文件名（32 位上是 8.out）}
 \end{display}
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
@@ -83,7 +85,7 @@ Go 编译器叫做 \verb|<数字>g|，数字是 6 表示用于 64 位 Intel 而 
 \label{sec:building a program}
 另一种可以少折腾的（在建立好后）编译 Go 程序的办法，是使用 \file{Makefile}。
 下面是用于构建 \prog{helloworld}的：
-\lstinputlisting[language=make,caption=Makefile for a program,numbers=right,linerange={5,11}]{src/Makefile.prog}
+\lstinputlisting[language=make,caption=程序的 Makefile,numbers=right,linerange={5,11}]{src/Makefile.prog}
 行 3 指定了编译的程序的名字，而行 5 列举了源代码文件。
 现在执行 \verb|make| 就可以完成你的程序编译。
 留意 Go 使用了不同于 \prog{make} 的，叫做 \prog{gomake} 的命令。它是（当前来说）一个 GNU make 的小封装。
@@ -697,9 +699,11 @@ fmt.Printf("The first element is %d\n", arr[0])
 
 \index{array!multidimensional}
 可以像这样声明一个数组：\lstinline{var a [3]int}，
-如果不使用零来初始化它，则用\first{复合声明}{composite literal}：\lstinline|a := [3]int{1, 2, 3}| 也可以简写为
+如果不使用零来初始化它，则用\first{复合声明}{literal!composite}：\lstinline|a := [3]int{1, 2, 3}| 也可以简写为
 \lstinline|a := [...]int{1, 2, 3}|，Go 会自动统计元素的个数。
-\gomarginpar{复合声明允许你直接将值赋值给 array、slice 或者 map}
+\gomarginpar{复合声明允许你直接将值赋值给 array、slice 或者 map。
+
+参阅第 \pageref{sec:constructors and composite literals} 页的"\titleref{sec:constructors and composite literals}"章节了解更多信息。}
 注意，所有项目必须都指定。因此，如果你使用多维数组，有一些内容你必须录入：
 \begin{lstlisting}
 a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
