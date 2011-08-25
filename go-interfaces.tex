@@ -297,6 +297,18 @@ Sort(strings)
 fmt.Printf("%v\n", strings)
 \end{lstlisting}
 
+\subsection{在接口中列出接口}
+看一下下面的接口定义，这个是来自包 \package{container/heap} 的：
+\begin{lstlisting}
+type Interface interface {
+    sort.Interface
+    Push(x interface{})
+    Pop() interface{}
+}
+\end{lstlisting}
+这里有另外一个接口在 \type{heap.Interface} 的定义中被列出，这看起来有些古怪，但是这的确是正确的，%
+要记得接口只是一些方法的列表。\type{sort.Interface} 同样是这样一个列表，因此将其包含在接口内是毫无错误的。
+
 \section{自省}
 \label{sec:introspection}
 在程序中，可以用 \key{switch} 了解接口变量的动态类型。

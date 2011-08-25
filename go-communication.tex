@@ -1,4 +1,4 @@
-\epi{好的沟通就像是一杯刺激的浓咖啡，然后就难以入睡。}{\textsc{ANNE MORROW LINDBERGH}}
+\epi{“好的沟通就像是一杯刺激的浓咖啡，然后就难以入睡。”}{\textsc{ANNE MORROW LINDBERGH}}
 \noindent{}在这章中将介绍 Go 中与外部通讯的通讯模块。
 
 \section{文件}
@@ -11,6 +11,8 @@
 \package{bufio}\index{package!bufio} 包：
 \lstinputlisting[caption=从文件读取（缓冲）,label=src:bufread]{src/buffile.go}
 \showremarks
+
+更加通用的方法（但是也略微复杂一点）是 \func{ReadLine}，参阅 \package{bufio} 包的文档。
 
 \subsection{一行行}
 前面的程序将整个文件读出，但是通常情况下会希望一行一行的读取。下面的片段展示了如何实现：

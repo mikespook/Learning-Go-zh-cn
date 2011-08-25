@@ -1,4 +1,4 @@
-\epi{我对此感兴趣，并且希望做点什么。}
+\epi{“对此感兴趣，并且希望做点什么。”}
 {\textit{在为 Go 添加复数支持时}\\ \textsc{KEN THOMPSON}}
 
 \noindent{}这是关于来自 Google 的 Go 语言的简介。目标是为这个新的、革命性的语言提供一个指南。
@@ -59,7 +59,7 @@ Go 用叫做 \prog{godoc} 的 Go 程序格式化其文档。
 \ref{chap:packages} 章中介绍。
 
 \section{获得 Go}
-当前（2011）任何 Linux 发行版都没有提供 Go 安装包。
+当前（2011）任何 Linux 发行版都没有提供（官方的） Go 安装包。
 安装 Go 的过程因此也比预期的要稍微长一些。当 Go 稳定之后，这一情况应该会得到改善。
 现在来说，你需要从 mercurial 中获取源代码，然后编译 Go。
 对于其他类 Unix 系统，过程类似。
@@ -114,6 +114,8 @@ The compiler is 6g.
 79997f0e5823 release/release.2010-10-20
 \end{display}
 \noindent{}这是 \gorelease{2010-10-20} 版本。
+\noindent{}这是 \gorelease{2010-10-20} 版本。发布描述为“稳定”发布，相比之下，“weekly”发布就要变化更多一些。
+如果希望跟踪 weekly 发布，而不是稳定的版本，可以使用 \texttt{\pr hg update weekly} 代替 \texttt{\pr hg update release}。
 
 如果需要修改旧的程序，可以使用内置的程序 \prog{gofix} 
 自动来完成语法的更新。参看第 \ref{chap:misc} 章，\titleref{sec:gofix} 小节的内容。
