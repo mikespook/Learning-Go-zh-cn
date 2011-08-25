@@ -79,7 +79,7 @@ func f(p I) {
 }
 \end{lstlisting}
 \showremarks
-注意，得到接口变量的类型的唯一方法是使用类型判断。
+注意，类型判断\emph{不是}得到接口变量的类型的唯一方法（参看本章 “\titleref{sec:checking for interfaces}” 部分内容）。
 在 \key{switch} 外使用 \key{(type)} 是非法的。
 
 \subsection{空接口}
@@ -114,13 +114,19 @@ method Get}
 \noindent{}这是绝对没问题，内建类型 \type{int} 没有 \func{Get()} 方法。
 
 \subsection{检查接口}
+\label{sec:checking for interfaces}
 在代码中，希望避免这类错误，Go 提供了检查一个变量是否实现了某个接口的方法，
 同样使用了类型断言，但是这回是在 \key{if} 语句中。
 
 \begin{lstlisting}
-if ok := any.(I); ok { 
-   /* 对于实现接口 I 的任意操作 */
+if t, ok := any.(I); ok { 
+   // 对于实现接口 I 的任意操作
+   // t 是其所拥有的类型
 } 
+\end{lstlisting}
+确定一个变量实现了某个接口，可以使用：
+\begin{lstlisting}
+t := any.(I)
 \end{lstlisting}
 
 \section{方法}
