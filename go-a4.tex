@@ -1,9 +1,4 @@
-%\documentclass[a4paper,twoside,openleft]{blocksbook}
-\documentclass[twoside,openleft]{blocksbook}
-\setstocksize{11.5cm}{9cm}
-\settrimmedsize{\stockheight}{\stockwidth}{*}
-\sloppy
-
+\documentclass[a4paper,twoside,openleft]{blocksbook}
 \usepackage[cm-default]{fontspec}% provides font selecting commands
 \usepackage{xunicode}% provides unicode character macros
 \usepackage{xltxtra} % provides some fixes/extras
@@ -39,30 +34,24 @@
 \input{go-setup.tex}
 \input{go-cc-license.tex}
 
-\setlrmarginsandblock{5mm}{5mm}{*}
-\setulmarginsandblock{5mm}{5mm}{*}
-\setheadfoot{\baselineskip}{1mm}
-\setlength\headsep{1mm}
-\checkandfixthelayout
-
 \begin{document}
 \thispagestyle{empty}
 \newcommand{\version}{0.5}
 %% Title page
 \begin{center}
-\hspace{0.4cm}{\scalefont{2.00}{\sffamily{\mbox{\vspace{0.4cm}Learning Go}}}}
+\hspace{1.0cm}{\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}Learning Go}}}}
 \end{center}
-\vspace*{0.5cm}
+\vspace*{3cm}
 \begin{figure}[h!]
 \begin{center}
-    \includegraphics[scale=0.3]{fig/bumper-inverse.png}
+    \includegraphics[scale=0.65]{fig/bumper-inverse.png}
 \end{center}
 \end{figure}
 \vspace*{0.02\stockheight}
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
-\hspace*{1.0cm}Authors:\\
-\hspace*{1.0cm}\emph{Miek Gieben}\\
+\hspace*{2,0cm}Authors:\\
+\hspace*{2.0cm}\emph{Miek Gieben}\\
 %%\hspace*{2.0cm}\emph{JC van Winkel}\\
 %%\hspace*{2.0cm}\emph{Jeroen Bulten}\\
 \vfill
