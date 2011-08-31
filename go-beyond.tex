@@ -6,13 +6,13 @@ Go 有指针。然而却没有指针运算，因此它们更象是引用而不�
 在 Go 中调用函数的时候，得记得变量是\emph{值传递}的。
 因此，为了修改一个传递\emph{入}函数的值的效率和可能性，有了指针。
 
-跟 C 中一样，用类型前的 '\key{*}' 定义一个指针：
+通过类型作为前缀来定义一个指针 '\key{*}'：
 \lstinline{var p *int}。现在 \var{p} 是一个指向整数值的指针。
 所有新定义的变量都被赋值为其类型的零值，而指针也一样。
 一个新定义的或者没有任何指向的指针，有值 \first{nil}{nil}。
 在其他语言中，这经常被叫做空（NULL）指针，在 Go 中就是 \var{nil}。
 让指针指向某些内容，可以使用\first{取址操作符}{operator!address-of}
-（\func{\&}），像第 5 行那样：
+（\func{\&}），像这样：
 \begin{lstlisting}[caption=Use of a pointer,label=src:pointers]
 var p *int
 fmt.Printf("%v", p) |\coderemark{打印 \var{nil}}|
@@ -23,22 +23,6 @@ p = &i		    |\coderemark{使得 \var{p} 指向 \var{i}}|
 fmt.Printf("%v", p) |\coderemark{打印出来的内容类似 \var{0x7ff96b81c000a}}|
 \end{lstlisting}
 
-更简单来说：\var{*X} 是指向 \type{X} 的指针；\var{[3]X} 是有三个 \type{X} 的数组。
-因此类型更加容易从类型变化的名称上来理解：
-\type{[]} 定义了 slice；
-'\key{*}'
-定义了指针；
-\type{[size]} 定义了数组。因此 \type{[]*[3]*X} 是一个 slice，
-元素是指向有三个元素的数组的指针，数组元素是指向 \type{X} 的指针。
-（参阅 \ref{fig:pointers}）。
-\begin{figure}[h]
-\caption[Pointers and types]{指针和类型，值 \var{v} 全部为 \type{X} 类型}
-\label{fig:pointers}
-\begin{center}
-\includegraphics[scale=0.65]{fig/pointers.pdf}
-\end{center}
-\end{figure}
-
 从指针获取值是通过在指针变量前置'\type{*}'实现的：
 \begin{lstlisting}[caption=获取指针指向的值,label=src:deref]
 p = &i			|\coderemark{获取 \var{i} 的地址}|
@@ -47,14 +31,15 @@ fmt.Printf("%v\n", *p)  |\coderemark{打印 8}|
 fmt.Printf("%v\n", i)	|\coderemark{同上}|
 \end{lstlisting}
 
+\label{main:pointer arithmetic}
 前面已经说了，没有指针运算，所以如果这样写：
 \lstinline{*p++}，它表示 \lstinline{(*p)++}：首先获取指针指向的值，然后对这个值加一。
 \index{operator!increment}
+\footnote{参看练习 \ref{ex:pointer arithmetic}。}
 
 
 \section{内存分配}
-Go 同样也垃圾收集，也就是说无须担心内存分配和回收。当然，自从 1980 以来几乎所有语言都有这个，
-但是在类 C 语言中看到垃圾收集感觉还是很好。
+Go 同样也垃圾收集，也就是说无须担心内存分配和回收。
 
 Go 有两个内存分配原语，\key{new} 和 \key{make}。它们应用于不同的类型，做不同的工作，
 可能有些迷惑人，但是规则很简单。
@@ -87,14 +72,14 @@ type SyncedBuffer struct {
 \type{SyncedBuffer} 的值在分配内存或定义之后立刻就可以使用。在这个片段中，
 \var{p} 和 \var{v} 都可以在没有任何更进一步处理的情况下工作。
 \begin{lstlisting}
-p := new(SyncedBuffer)  |\coderemark{Type *SyncedBuffer}|
-var v SyncedBuffer      |\coderemark{Type  SyncedBuffer}|
+p := new(SyncedBuffer)  |\coderemark{Type *SyncedBuffer，已经可以使用}|
+var v SyncedBuffer      |\coderemark{Type  SyncedBuffer，同上}|
 \end{lstlisting}
 
 \subsection{用 make 分配内存}
 \label{sec:allocation with make}
 回到内存分配。内建函数 \func{make(T, args)} 与 \func{new(T)} 有着不同的功能。
-它只能创建 slice，map 和 channel，并且返回一个有初始值（非零）的 \type{T} 类型，
+它\emph{只能}创建 slice，map 和 channel，并且返回一个有初始值（非零）的 \type{T} 类型，
 而不是 \type{*T}。本质来讲，
 导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。
 例如，一个 slice，是一个包含指向数据（内部 array）的指针，长度和容量的三项描述符；
@@ -114,26 +99,25 @@ var v SyncedBuffer      |\coderemark{Type  SyncedBuffer}|
 
 这个例子展示了 \key{new} 和 \key{make} 的不同。
 \begin{lstlisting}
-var p *[]int = new([]int)       // 分配 slice 结构内存；*p == nil
-				// 已经可用
-var v  []int = make([]int, 100) // v 指向一个新分配的有 100 个整数的数组。
+    var p *[]int = new([]int)       |\coderemark{分配 slice 结构内存；*p == nil}|
+				    |\coderemark{已经可用}|
+    var v  []int = make([]int, 100) |\coderemark{v 指向一个新分配的有 100 个整数的数组。}|
 
-// 不必要的复杂例子：
-var p *[]int = new([]int)
-*p = make([]int, 100, 100)
+    var p *[]int = new([]int)       |\coderemark{不必要的复杂例子}|
+    *p = make([]int, 100, 100)
 
-// 更常见：
-v := make([]int, 100)
+    v := make([]int, 100)           |\coderemark{更常见}|
 \end{lstlisting}
 务必记得 \key{make} 仅适用于 map，slice 和 channel，并且返回的不是指针。
 应当用 \key{new} 获得特定的指针。
 
-\begin{lbar}[\lstinline{new} 分配；\lstinline{make} 初始化]
-上面的两段可以简单总结为：\\
-
-\lstinline{new(T)} 返回 \var{*T} 指向一个零值 \var{T}\\
-\lstinline{make(T)} 返回初始化后的 \var{T}\\
-当然 \lstinline{make} 仅适用于 slice，map 和 channel。\\
+\begin{lbar}[new 分配；make 初始化]
+上面的两段可以简单总结为：
+\begin{itemize}
+\item \lstinline{new(T)} 返回 \var{*T} 指向一个零值 \var{T}
+\item \lstinline{make(T)} 返回初始化后的 \var{T}
+\end{itemize}
+当然 \lstinline{make} 仅适用于 slice，map 和 channel。
 \end{lbar}
 
 \subsection{构造函数与复合声明}
@@ -186,9 +170,9 @@ return &File{fd: fd, name: name}
 复合声明同样可以用于创建 array，slice 和 map，通过指定适当的索引和 map 键来标识字段。
 在这个例子中，无论是 \var{Enone}，\var{Eio} 还是 \var{Einval} 初始化都能很好的工作，只要确保它们不同就好了。
 \begin{lstlisting}
-ar := [...]string   {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
-sl := []string      {Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
-ma := map[int]string{Enone: "no error", Eio: "Eio", Einval: "invalid argument"}
+ar := [...]string   {Enone: "no error", Einval: "invalid argument"}
+sl := []string      {Enone: "no error", Einval: "invalid argument"}
+ma := map[int]string{Enone: "no error", Einval: "invalid argument"}
 \end{lstlisting}
 
 \section{定义自己的类型}
@@ -215,15 +199,12 @@ fmt.Printf("%s", a.name) |\coderemark{\%s 格式化字符串}|
 
 \subsection{结构字段}
 之前已经提到结构中的项目被称为\index{字段}{field}。
-没有字段的结构：
-\begin{lstlisting}
-struct {}
-\end{lstlisting}
-或者有五个字段的：
+没有字段的结构：\lstinline|struct {}|
+
+或者有四个\footnote{是的，四（4）个。}字段的：
 \begin{lstlisting}
 struct {
         x, y int
-        _ float64  |\coderemark{填充}|
         A *[]int
         F func()
 }
@@ -231,14 +212,14 @@ struct {
 如果省略字段的名字，可以创建\first{匿名字段}{field!anonymous}，例如：
 \begin{lstlisting}
 struct {
-    T1        |\coderemark{字段名字是 T1}|
-    *T2       |\coderemark{字段名字是 T2}|
-    P.T3      |\coderemark{字段名字是 T3}|
-    x, y int  |\coderemark{字段名字是 x 和 y}|
+    T1        |\coderemark{字段名字是 \var{T1}}|
+    *T2       |\coderemark{字段名字是 \var{T2}}|
+    P.T3      |\coderemark{字段名字是 \var{T3}}|
+    x, y int  |\coderemark{字段名字是 \var{x} 和 \var{y}}|
 }
 \end{lstlisting}
 注意首字母大写的字段可以被导出，也就是说，在其他包中可以进行读写。
-字段名以小写字幕开头是当前包的私有的。包的函数定义是类似的，参阅第 \ref{chap:packages} 章。
+字段名以小写字幕开头是当前包的私有的。包的函数定义是类似的，参阅第 \ref{chap:packages} 章了解更多细节。
 
 \subsection{方法}
 \label{sec:methods}
@@ -260,6 +241,10 @@ var n *NameAge
 n.doSomething(2)
 \end{lstlisting}
 \end{enumerate}
+
+使用函数还是方法完全是由程序员说了算，但是若需要满足接口（参看下一章）就必须使用方法。
+如果没有这样的需求，那就完全由习惯来决定是使用函数还是方法了。
+
 但是下面的内容一定要留意，引用自 \cite{go_spec}：
 \begin{quote}
 如果 \type{x} 可获取地址，并且 \lstinline{&x} 的方法中包含了 \func{m}，
@@ -274,8 +259,6 @@ n.doSomething(2)
 没有找到就会\emph{再}查找 \type{*NameAge} 类型的方法列表，并且将其转化为
 \lstinline{(&n).doSomething(2)}。
 
-使用函数还是方法完全是由程序员说了算，但是如果需要满足接口（参看下一章）就必须使用方法。
-
 下面的类型定义中有一些微小但是很重要的不同之处。同时可以参阅 \cite[section~"Type Declarations"]{go_spec}。
 假设有：
 \begin{lstlisting}
@@ -287,9 +270,10 @@ func (m *Mutex) Unlock()  { /* Unlock 实现 */ }
 现在用两种不同的风格创建了两个数据类型。
 \begin{itemize}
 \item \lstinline|type NewMutex Mutex|;
-\item \lstinline|type PrintableMutex struct { Mutex }|.
+\item \lstinline|type PrintableMutex struct {  Mutex }|.
 \end{itemize}
-现在 \var{NewMutux} 有着与 \var{Mutex} 相同的内存布局，但是它没有任何 \var{Mutex} 的方法。换句话说，它的方法是空的。
+现在 \var{NewMutux} 等同于 \var{Mutex}，但是它没有任何 \var{Mutex} 的方法。
+换句话说，它的方法是空的。
 
 但是 \var{PrintableMutex} \emph{已经}从 \var{Mutex} \first{\emph{继承}}{methods!inherited}了方法集合。
 如同 \cite{go_spec} 所说：
@@ -376,6 +360,8 @@ var f foo = foo(b)
 \lstinline{b} 到 \type{int} 同样会出错；整数与有整数字段的结构并不一样。
 
 \section{练习}
+\input{ex-beyond/ex-pointer-arith.tex}
+
 \input{ex-beyond/ex-map.tex}
 
 \input{ex-beyond/ex-pointers.tex}

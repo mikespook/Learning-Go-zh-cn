@@ -17,9 +17,6 @@ type I interface {
   Put(int)
 }
 \end{lstlisting}
-\begin{lbar}
-接口类型就是方法的集合。
-\end{lbar}
 
 \noindent对于接口 \type{I}，\type{S} 是合法的\emph{实现}，因为它定义了 \type{I}
 所需的两个方法。注意，即便是没有明确定义 \type{S} 实现了 \type{I}，这也是正确的。
@@ -79,8 +76,19 @@ func f(p I) {
 }
 \end{lstlisting}
 \showremarks
-注意，类型判断\emph{不是}得到接口变量的类型的唯一方法（参看本章 “\titleref{sec:checking for interfaces}” 部分内容）。
-在 \key{switch} 外使用 \key{(type)} 是非法的。
+在 \key{switch} 之外使用 \key{(type)} 是非法的。类型判断不是唯一的\emph{运行时}得到类型的方法。
+为了在\emph{运行时}得到类型，同样可以使用“comma, ok”来判断一个接口类型是否实现了某个特定接口：
+
+\begin{lstlisting}
+if t, ok := any.(I); ok { 
+    // 对于实现接口 I 的任意操作
+    // t 是其所拥有的类型
+} 
++\end{lstlisting}
+确定一个变量实现了某个接口，可以使用：
+\begin{lstlisting}
+t := any.(I)
+\end{lstlisting}
 
 \subsection{空接口}
 由于每个类型都能匹配到空接口：
@@ -106,28 +114,12 @@ fmt.Println(g(s));
 i := 5		|\coderemark{声明 i 是一个"该死的" \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}
-这能通过编译，但是当运行的时候会得到：
+这能编译，但是当运行的时候会得到：
 
 \noindent\error{panic: interface conversion: int is not main.I: missing
 method Get}
 
 \noindent{}这是绝对没问题，内建类型 \type{int} 没有 \func{Get()} 方法。
-
-\subsection{检查接口}
-\label{sec:checking for interfaces}
-在代码中，希望避免这类错误，Go 提供了检查一个变量是否实现了某个接口的方法，
-同样使用了类型断言，但是这回是在 \key{if} 语句中。
-
-\begin{lstlisting}
-if t, ok := any.(I); ok { 
-   // 对于实现接口 I 的任意操作
-   // t 是其所拥有的类型
-} 
-\end{lstlisting}
-确定一个变量实现了某个接口，可以使用：
-\begin{lstlisting}
-t := any.(I)
-\end{lstlisting}
 
 \section{方法}
 方法就是有接收者的函数（参阅第 \ref{chap:functions} 章）。
@@ -179,10 +171,10 @@ func (a *net.AddrError) Emit() {
 \end{quote}
 
 \subsection{接口指针}
+\begin{lbar}[Pointers to interfaces]
 在 Go 中创建指向接口的指针是无意义的。
-\todo{接口不是指针，不是引用类型}
-\gomarginpar{Go \gorelease{2010-10-13}.} 实际上创建指向接口值的指针是非法的。
-发布日志中的描述使得没有任何余地怀疑这个：
+实际上创建接口值的指针也是非法的。在 \gorelease{2010-10-13} 的
+发布日志中进行的描述，使得没有任何余地怀疑这一事实：
 \begin{quote}
 语言的改变是使用指针指向接口值不再自动反引用指针。指向接口值的指针通常是低级的错误，而不是正确的代码。
 \end{quote}
@@ -193,6 +185,7 @@ io.Copy(buf, os.Stdin)
 \end{lstlisting}
 就会复制标准输入到 \var{buf} 的副本，而不是 \var{buf} 本身。
 这看起来永远不会是一个期望的结果。
+\end{lbar}
 
 \section{接口名字}
 根据规则，单方法接口命名为方法名加上 \emph{-er} 后缀：Read\emph{er}，Writ\emph{er}，Formatt\emph{er} 等。
@@ -233,7 +226,7 @@ func sort(i []interface{}) { |\longremark{函数将接收一个空接口的 slic
 	case int:
 	    // ...
     }
-    |\longremark{返回排序的 slice。}|
+    return /* ... */ |\longremark{返回排序的 slice。}|
 }
 \end{lstlisting}
 \showremarks
@@ -315,61 +308,8 @@ type Interface interface {
 这里有另外一个接口在 \type{heap.Interface} 的定义中被列出，这看起来有些古怪，但是这的确是正确的，%
 要记得接口只是一些方法的列表。\type{sort.Interface} 同样是这样一个列表，因此将其包含在接口内是毫无错误的。
 
-\section{自省}
-\label{sec:introspection}
-在程序中，可以用 \key{switch} 了解接口变量的动态类型。
-例如类型断言\gomarginindex{类型断言}{type assertion}使用了在圆括号里的关键字
-\key{type} 实现了类型断言的语法。在 switch 中定义的变量表达式，每个分支都对应变量的相应类型。
-\begin{lstlisting}[caption=动态的找到类型]
-package main
-type PersonAge struct { |\longremark{首先定义两个结构作为新类型，\texttt{PersonAge}；}|
-	name string
-	age  int
-}
-
-type PersonShoe struct { |\longremark{和 \texttt{PersonShoe}；}|
-	name     string
-	shoesize int
-}
-
-func main() {
-	p1 := new(PersonAge)
-	p2 := new(PersonShoe)
-	WhichOne(p1)
-	WhichOne(p2)
-}
-
-func WhichOne(x interface{}) { |\longremark{这个函数必须能接收\emph{两种}类型作为输入，%
-因此使用每个类型都实现了的空接口；}|
-	switch t := x.(type) { |\longremark{type switch：\texttt{(type)}；}|
-	case *PersonAge:	|\longremark{当用 \func{new} 分配了内存，这就是个指针。%
-因此检查是否为 \type{*PersonAge}。如果 \func{WhichOne()} 被非指针类型调用，则应当检查 \type{PersonAge}。}|
-		println("Age person")
-	case *PersonShoe:
-		println("Shoe person")
-	}
-}
-\end{lstlisting}
-\showremarks
-
-下面有另外一个例子展示，不过这回检查了更多的（内建）类型：
-\begin{lstlisting}[caption=更普通的 type switch]
-switch t := interfaceValue.(type) { |\coderemark{type switch}|
-case bool:
-    fmt.Printf("boolean %t\n", t)
-case int:
-    fmt.Printf("integer %d\n", t)
-case *bool:
-    fmt.Printf("pointer to boolean %t\n", *t)
-case *int:
-    fmt.Printf("pointer to integer %d\n", *t)
-default:
-    fmt.Printf("unexpected type %T", t)  // \%T prints type
-}
-\end{lstlisting}
-
 \subsection{自省和反射}
-\label{subsec:introspection and reflection}
+\label{sec:introspection and reflection}
 在下面的例子中，了解一下定义在 \type{Person} 的定义中的 “标签”（这里命名为“namestr”）。
 为了做到这个，需要 \package{reflect}\index{package!reflect} 包（在 Go 中没有其他方法）。
 要记得，查看标签意味着返回\emph{类型}的定义。因此使用 \package{reflect} 包来指出变量的类型，
@@ -383,25 +323,22 @@ default:
 func show(i interface{}) {
     switch t := i.(type) {
       case *Person:
-        r := reflect.NewValue(i) |\coderemark{进入反射的世界}|
-	tag := |\longremark{这里希望获得“标签”，意味着转向类型。%
-因此需要\newline\lstinline{Elem().Type().(*reflect.StructType)} 来获取它；}|
-	  r.(*reflect.PtrValue).Elem().Type().(*reflect.StructType).Field(0).tag
-	nam := |\longremark{现在希望访问其中一个成员的\emph{值}，%
-使用\newline\lstinline{Elem().(*reflect.StructValue)} 获取它。%
-现在了解到了结构。然后访问了第一个字段 \lstinline{Field(0)}，告诉 \package{reflect} 是%
-\var{*reflect.StringValue} 并且调用了其中的 \lstinline{Get()} 方法。 %
+        t := reflect.TypeOf(i)  |\coderemark{得到类型的元数据}|
+        v := reflect.ValueOf(i) |\coderemark{得到实际的值}|
+	tag := t.Elem().Field(0).Tag    |\longremark{这里希望获得“标签”，意味着转向类型。因此需要\newline\lstinline{Elem().Type().(*reflect.StructType)} 来获取它；}|
+        name := v.Elem().Field(0).String() |\longremark{现在需要访问其中一个成员的\emph{值}，%
+并让\newline\var{v} 上的 \lstinline{Elem()} 进行重定向。%
+这样就访问到了结构。然后访问第一个字段 \lstinline{Field(0)} %
+并且调用其上的 \lstinline{String()} 方法。%
 \begin{figure}[H] %
 \hskip3\baselineskip\parbox{0.7\textwidth}{\caption[使用反射去除层次关系]{用反射去除层次关系。%
-通过 \mbox{\type{*reflect.PtrValue}} 访问 \type{*Person}，使用 \prog{godoc reflect} 中描述的方法%
+通过 \mbox{\func{Elem()}} 访问 \type{*Person}，使用 \prog{godoc reflect} 中描述的方法%
 获得 \type{string} 内部包含的内容。}} %
 \label{fig:reflection} %
 \begin{center} %
 \includegraphics[scale=0.75]{fig/reflection.pdf} %
 \end{center}\end{figure} %
-在反射的世界里，当使用 \type{Value} 时，反射就会将层次关系去除。}|
-	  r.(*reflect.PtrValue).Elem().(*reflect.StructValue).Field(0).|\newline|(*reflect.StringValue).Get()
-    }
+}|
 }
 \end{lstlisting}
 \showremarks
@@ -411,20 +348,16 @@ func show(i interface{}) {
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=私有成员的反射]
 type Person struct {
- name string "namestr"
- age  int
+    name string "namestr" |\coderemark{Name}|
+    age  int
 }
 
 func Set(i interface{}) {
- switch t := i.(type) {
- case *Person:
-  r := reflect.NewValue(i)
-  r.(*reflect.PtrValue).Elem().
-    (*reflect.StructValue).
-    FieldByName("name").
-    (*reflect.StringValue).
-    Set("Albert Einstein")
-  }
+    switch i.(type) {
+        case *Person:
+            r := reflect.ValueOf(i)
+            r.Elem(0).Field(0).SetString("Albert Einstein")
+    }
 }
 \end{lstlisting}
 \end{minipage}
@@ -432,27 +365,22 @@ func Set(i interface{}) {
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=公有成员的反射]
 type Person struct {
- Name string "namestr" |\coderemark{}|
- age  int
+    Name string "namestr" |\coderemark{\emph{N}ame}|
+    age  int
 }
 
 func Set(i interface{}) {
- switch t := i.(type) {
- case *Person:
-  r := reflect.NewValue(i)
-  r.(*reflect.PtrValue).Elem().
-   (*reflect.StructValue).
-   FieldByName("Name"). |\coderemark{}|
-   (*reflect.StringValue).
-   Set("Albert Einstein")
+    switch i.(type) {
+        case *Person:
+            r := reflect.ValueOf(i)
+            r.Elem().Field(0).SetString("Albert Einstein")
   }
 }
 \end{lstlisting}
 \end{minipage}
 左边的代码可以编译并运行，但是当运行的时候，将得到打印了栈的\emph{运行时}错误：
 
-\noindent\error{panic: cannot set value obtained via unexported struct
-field}
+\noindent\error{panic: reflect.Value.SetString using value obtained using unexported field}
 
 \noindent{}右边的代码没有问题，并且设置了成员变量 \var{Name} 
 为"Albert Einstein"。当然，这仅仅工作于调用 \func{Set()} 时传递一个指针参数。

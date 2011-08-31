@@ -1,37 +1,22 @@
 \begin{lstlisting}[caption=使用反射自省,label=src:introspection]
 |\begin{tikzpicture}[overlay]
 \ubrace{3.2,-5.2}{2.2,-5.2}{%
-We are dealing with a \type{PtrValue} and according %
+We are dealing with a \type{Type} and according %
 to the documentation\footnote{\texttt{godoc reflect}}:%
 \begin{quote} %
-Elem 返回 v 指向的值。%
-如果 v 是空指针，Elem 返回空值。%
+// Elem returns a type's element type. \\ %
+// It panics if the type's Kind is not Array, Chan, Map, Ptr, or Slice.\\ %
+\func{Elem() Type} %
 \end{quote} %
 同样的在 \var{t} 使用 \func{Elem()} 得到了指针指向的值。}
-%%We can use \func{Elem()} to get the type the pointer points to. %
-%%In this case \type{*reflect.StructValue}. We have also %
-%%used \type{reflect.NewValue(i)} for the type assertion, so that %
-%%we get back types in the \type{*reflect} namespace;}
+\ubrace{4.7,-5.2}{3.6,-5.2}{We have now dereferened the pointer %
+and are "inside" our structure. %
+We now use \func{Field(0)} to access the zeroth field;}%
 %
-\ubrace{4.3,-5.2}{3.6,-5.2}{在 \var{Value} 使用函数 \func{Type()} %
-返回 \type{reflect.Type}。需要获取类型的原因是因为那是标签定义的地方；}%
-%
-\ubrace{7.7,-5.2}{4.8,-5.2}{%
-这样获得了 \var{reflect.Type}：\\%
-\begin{quote} %
-\ldots 返回接口类型 \type{Type} 的对象。包含了指向 \type{*StructType}、\type{*IntType}等类型结构的指针。%
-描述了底层类型的细节信息。type switch 或者类型断言可以展示的。%
-\end{quote} %
-因此可以访问结构中特殊类型的成员。通过 \type{(*reflect.StructType)} 实现；}
-%
-\ubrace{8.9,-5.2}{7.9,-5.2}{%
-\type{StructType} 有若干方法，其中一个是 \func{Field($n$)}，返回结构的第 $n^{th}$ 个字段。%
-这个返回的类型是 \type{StructField}；}
-%
-\ubrace{9.6,-5.2}{9.1,-5.2}{%
+\ubrace{5.4,-5.2}{4.8,-5.2}{%
 结构 \type{StructField} 有成员 \var{Tag}，返回字符串类型的标签名。%
 因此，在第 $0^{th}$ 个字段上可以用 \func{.Tag} 访问这个名字：\texttt{Field(0).Tag}。%
-这\emph{最终}给出\texttt{namestr}。}
+这样得到了 \texttt{namestr}。}
 \end{tikzpicture}|
 type Person struct {
     name string "namestr" |\coderemark{\texttt{"namestr"} 是标签}|
@@ -42,9 +27,10 @@ p1 := new(Person)   |\coderemark{\func{new} 返回 Person 的指针}|
 ShowTag(p1)	    |\coderemark{调用 \func{ShowTag()} 并传递指针}|
 
 func ShowTag(i interface{}) {
- switch t := reflect.NewValue(i).(type) { |\coderemark{在 \type{reflect} 值上的类型断言}|
- case *reflect.PtrValue:	  |\coderemark{因此是 \var{*reflect.PtrValue}}|
-	tag := t.Elem().Type().(||*reflect.StructType).Field(0).Tag
+
+ switch t := reflect.TypeOf(i); t.Kind() { |\coderemark{Get type, switch on Kind()}|
+ case reflect.Ptr:       |\coderemark{Its a pointer, hence a \var{reflect.Ptr}}|
+       tag := t.Elem().Field(0).Tag
 ||
 \end{lstlisting}
 Elem 返回 v 指向的值。%

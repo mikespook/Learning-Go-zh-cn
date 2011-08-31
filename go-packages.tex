@@ -298,6 +298,9 @@ make: *** [test] Error 1
 \item[\package{os}]{\index{package!os}
 \package{os} 包提供了与平台无关的操作系统功能接口。其设计是 Unix 形式的。
 }
+\item[\package{sync}]{\index{package!sync}
+\package{sync} 包提供了基本的同步原语，例如互斥锁。
+}
 \item[\package{flag}]{\index{package!flag}
 \package{flag} 包实现了命令行解析。
 \emph{参阅 "\titleref{sec:option parsing}" 在第 \pageref{sec:option parsing} 页。}
@@ -324,7 +327,7 @@ make: *** [test] Error 1
 解析出其动态类型信息，通常会返回一个有接口类型 \type{Type} 的对象。
 包含一个指向类型的指针， \type{*StructType}、\type{*IntType} 等等，
 描述了底层类型的详细信息。可以用于类型转换或者类型赋值。
-\emph{参阅 \ref{chap:interfaces}，第 "\titleref{sec:introspection}" 节}。
+\emph{参阅 \ref{chap:interfaces}，第 "\titleref{sec:introspection and reflection}" 节}。
 }
 \item[\package{exec}]{\index{package!exec}
 \package{exec} 包执行外部命令。
