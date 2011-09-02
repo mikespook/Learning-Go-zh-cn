@@ -1,59 +1,33 @@
 package main
 
-import (
-	"os"
-	"fmt"
-	"sort"
-	"bufio"
-	"strings"
-	"strconv"
-	"container/vector"
-)
-
-const (
-	PID = iota
-	PPID
-)
-
-func atoi(s string) (x int) {
-	x, _ = strconv.Atoi(s)
-	return
-}
+import ( "fmt"; "sort"; "exec"; "strings"; "strconv"; "container/vector")
 
 func main() {
-	pr, pw, _ := os.Pipe()
-	defer pr.Close()
-	r := bufio.NewReader(pr)
-	w := bufio.NewWriter(os.Stdout)
-	defer w.Flush()
-	pid, _ := os.StartProcess("/bin/ps", []string{"ps", "-e", "-opid,ppid,comm"}, nil, "", []*os.File{nil, pw, nil})
-	defer os.Wait(pid, os.WNOHANG)
-	pw.Close()
-
+        ps := exec.Command("ps", "-e", "-opid,ppid,comm")
+        output, _ := ps.Output()
 	child := make(map[int]*vector.IntVector)
-	s, ok := r.ReadString('\n') // Discard the header line
-	s, ok = r.ReadString('\n')
-	for ok == nil {
+        for i, s := range strings.Split(string(output), "\n") {
+                if i == 0 || len(s) == 0 { // Kill first and last line
+                        continue
+                }
 		f := strings.Fields(s)
-		if _, present := child[atoi(f[PPID])]; !present {
+                fpp, _ := strconv.Atoi(f[1]) // the parent's pid
+                fp, _ := strconv.Atoi(f[0])  // the child's pid
+                if _, present := child[fpp]; !present {
 			v := new(vector.IntVector)
-			child[atoi(f[PPID])] = v
+			child[fpp] = v
 		}
 		// Save the child PIDs on a vector
-		child[atoi(f[PPID])].Push(atoi(f[PID]))
-		s, ok = r.ReadString('\n')
+                child[fpp].Push(fp) // Save the child PIDs on a vector
 	}
-
-	// Sort the PPIDs
 	schild := make([]int, len(child))
 	i := 0
 	for k, _ := range child {
 		schild[i] = k
 		i++
 	}
-	sort.SortInts(schild)
-	// Walk throught the sorted list
-	for _, ppid := range schild {
+        sort.Ints(schild)
+        for _, ppid := range schild { // Walk through the sorted list
 		fmt.Printf("Pid %d has %d child", ppid, child[ppid].Len())
 		if child[ppid].Len() == 1 {
 			fmt.Printf(": %v\n", []int(*child[ppid]))

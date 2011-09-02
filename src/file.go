@@ -7,7 +7,7 @@ func main() {
 	f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666)
 	defer f.Close()
 
-        f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666) |\longremark{打开文件；}|
+        f, _ := os.Open("/etc/passwd") |\longremark{打开文件；}|
         defer f.Close() |\longremark{确保关闭（close）它；}|
 
 	for {

@@ -55,7 +55,7 @@ C++ 中的纯抽象虚基类，Haskell 中的 typeclasses 或者 Python 中的 d
 
 \subsection{到底是什么？}
 来定义另外一个类型同样实现了接口 \type{I}：
-\begin{lstlisting}[caption=实现了 I 的另一个类型]
+\begin{lstlisting}
 type R struct { i int }
 func (p *R) Get() int { return p.i }
 func (p *R) Put(v int) { p.i = v }
@@ -93,7 +93,7 @@ t := any.(I)
 \subsection{空接口}
 由于每个类型都能匹配到空接口：
 \type{interface\{\}}。我们可以创建一个接受空接口作为参数的普通函数：
-\begin{lstlisting}[caption=空接口参数的函数t,label=src:interface empty]
+\begin{lstlisting}[caption=用空接口作为参数的函数,label=src:interface empty]
 func g(any interface{}) int { 
     return any.(I).Get() 
 }
@@ -110,7 +110,7 @@ fmt.Println(g(s));
 \end{lstlisting}
 调用 \func{g} 的运行不会出问题，并且将打印 0。如果调用 \func{g()} 的参数没有实现 \type{I} 
 会带来一个麻烦：
-\begin{lstlisting}[caption=接口实现异常,label=src:interface fail]
+\begin{lstlisting}[caption=实现接口失败,label=src:interface fail]
 i := 5		|\coderemark{声明 i 是一个"该死的" \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}
@@ -231,7 +231,7 @@ func sort(i []interface{}) { |\longremark{函数将接收一个空接口的 slic
 \end{lstlisting}
 \showremarks
 但是如果用 \lstinline|sort([]int{1, 4, 5})| 调用这个函数，会失败：
-\error{cannot use i (type []int) as type []interface { } in function argument}
+\noindent\error{cannot use i (type []int) as type []interface { } in function argument}
 
 这是因为 Go 不能简单的将其转换为接口的 \emph{slice}。
 转换到接口是容易的，但是转换到 slice 的开销就高了。
@@ -325,7 +325,8 @@ func show(i interface{}) {
       case *Person:
         t := reflect.TypeOf(i)  |\coderemark{得到类型的元数据}|
         v := reflect.ValueOf(i) |\coderemark{得到实际的值}|
-	tag := t.Elem().Field(0).Tag    |\longremark{这里希望获得“标签”，意味着转向类型。因此需要\newline\lstinline{Elem().Type().(*reflect.StructType)} 来获取它；}|
+        tag := t.Elem().Field(0).Tag    |\longremark{这里希望获得“标签”。因此需要 \func{Elem()} 重定向至其上，访问第一个字段来获取标签。%
+注意将 \var{t} 作为一个 \type{reflect.Type} 来操作；}|
         name := v.Elem().Field(0).String() |\longremark{现在需要访问其中一个成员的\emph{值}，%
 并让\newline\var{v} 上的 \lstinline{Elem()} 进行重定向。%
 这样就访问到了结构。然后访问第一个字段 \lstinline{Field(0)} %
@@ -339,7 +340,7 @@ func show(i interface{}) {
 \includegraphics[scale=0.75]{fig/reflection.pdf} %
 \end{center}\end{figure} %
 }|
-}
+    }
 \end{lstlisting}
 \showremarks
 
@@ -348,7 +349,7 @@ func show(i interface{}) {
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=私有成员的反射]
 type Person struct {
-    name string "namestr" |\coderemark{Name}|
+    name string "namestr" |\coderemark{名称}|
     age  int
 }
 

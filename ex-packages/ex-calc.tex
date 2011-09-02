@@ -2,12 +2,12 @@
 \label{ex:calc}
 \Question\label{ex:calc q1} 使用 stack 包创建逆波兰计算器。
 
-\Question\label{ex:calc q2} 扩展一下，用你在问题 \ref{ex:stack-package q2} 练习 Q\ref{ex:calc} 中发现的包重写计算器。
+\Question\label{ex:calc q2} 扩展一下，用你在问题 \ref{ex:stack-package q3} 中发现的包重写计算器。
 \end{Exercise}
 
 \begin{Answer}
-\Question 这是第一个答案
-\lstinputlisting[caption=逆波兰计算器,basicstyle=\tiny\ttfamily]{ex-packages/src/calc.go}
+\Question 这是第一个答案：
+\lstinputlisting[caption=逆波兰计算器]{ex-packages/src/calc.go}
 \Question \package{container/vector} 包应当是不错的选择。它同样\emph{预定义}了
 \func{Push} 和 \func{Pop} 函数。
 对于我们的程序来说修改是非常\emph{小}的，下面的差异文件显示了不同的地方：

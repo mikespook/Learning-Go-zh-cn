@@ -1,33 +1,13 @@
 \epi{“对此感兴趣，并且希望做点什么。”}
 {\textit{在为 Go 添加复数支持时}\\ \textsc{KEN THOMPSON}}
 
-\noindent{}这是关于来自 Google 的 Go 语言的简介。目标是为这个新的、革命性的语言提供一个指南。
-什么是 Go？来自于网站：\cite{go_web}:
+\noindent{}什么是 Go？来自于网站：\cite{go_web}:
 \begin{quote}
 Go 编程语言是一个使得程序员更加有效率的开源项目。Go 是有表达力、简洁、清晰和有效率的。
 它的并行机制使其很容易编写多核和网络应用，而新奇的类型系统允许构建有弹性的模块化程序。
 Go 编译到机器码非常快速，同时具有便利的垃圾回收和强大的运行时反射。
 它是快速的、静态类型编译语言，但是感觉上是动态类型的，解释型语言。
 \end{quote}
-
-这本书的目标读者是那些熟悉编程，并且了解多种编程语言，例如 C\cite{c}，C++\cite{c++}，
-Perl \cite{perl}，Java \cite{java}，Erlang\cite{erlang}，Scala\cite{scala}，
-Haskell\cite{haskell}。这\emph{不是}教你如何编程的书，只是教你如何使用 Go。
-
-学习一样新东西，最佳的方式可能是通过建立自己的程序来探索它。
-因此每章都包含了若干练习（和答案）让你熟悉这个语言。
-练习标有编号 \textbf{Q$n$}，而 $n$ 是一个数字。 在练习编号后面的圆括号中指定了该题的难度。
-难度范围从 0 到 9，0 是最简单，而 9 最难。
-其后为了容易索引，提供了一个简短的名字。
-例如
-\begin{verse}
-\textbf{Q1}. (1) map 函数 \ldots
-\end{verse}
-
-展示了难度等级 1、编号 \textbf{Q1} 的关于 \func{map()} 函数的问题。
-除了那些极端麻烦的、未解决的问题，相关答案在练习的下一页。
-
-答案的顺序和练习一致，而对于以 \textbf{A$n$} 开头的问题，对应编号 $n$ 的练习。
 
 Go 是一个年轻的语言，特性仍然在不断增加或\emph{删除}中。
 所以当你阅读的时候，可能部分内容已经过时。
@@ -117,9 +97,14 @@ The compiler is 6g.
 \end{display}
 \noindent{}这是 \gorelease{2010-10-20} 版本。
 \noindent{}这是 \gorelease{2010-10-20} 版本。发布描述为“稳定”发布，相比之下，“weekly”发布就要变化更多一些。
-如果希望跟踪 weekly 发布，而不是稳定的版本，可以使用 \texttt{\pr hg update weekly} 代替 \texttt{\pr hg update release}。
-
-如果需要修改旧的程序，可以使用内置的程序 \prog{gofix} 自动来完成语法的更新。
+如果希望跟踪 weekly 发布，而不是稳定的版本，可以使用：
+\begin{display}
+\pr \user{hg update weekly}
+\end{display}
+代替
+\begin{display}
+\pr \user{hg update release}
+\end{display}
 
 \section{前身}
 Go 的前身来自于 Inferno \cite{inferno} （基于 Plan 9 \cite{plan9} 的改造）。

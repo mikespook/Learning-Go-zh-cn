@@ -2,17 +2,36 @@
 \label{ex:stack-package}
 \Question\label{ex:stack-package q1} 
 参考 Q\ref{ex:stack} 练习。在这个练习中将从那个代码中建立一个独立的包。
-
 为 stack 的实现创建一个合适的包，\func{Push}、\func{Pop} 和 \type{Stack} 类型需要被导出。
 
-\Question\label{ex:stack-package q2} 先进先出栈可以使用哪个官方包实现。
+\Question\label{ex:stack-package q2} 为这个包编写一个单元测试，
+至少测试 \func{Push} 后 \func{Pop} 的工作情况。
 
+\Question\label{ex:stack-package q3} 还有哪个官方提供的包可以做为（FIFO）stack 使用？
 \end{Exercise}
 
 \begin{Answer}
 \Question 在创建 stack 包时，仅有一些小细节需要修改。
 首先，导出的函数应当大写首字母，因此应该是 \type{Stack}。
-所以完整的包（包含 \func{String}）变成为
+完整的包变为：
 \lstinputlisting[caption=包里的 Stack]{ex-packages/src/stack-as-package.go}
+
+\Question 为了让单元测试正常工作，需要做一些准备。
+下面用一分钟的时间来做这些。首先是单元测试本身。
+创建文件“pushpop\_test.go”，有如下内容：
+\lstinputlisting{ex-packages/src/pushpop_test.go}
+因为 \prog{gotest} 调用 \prog{gomake} 编译包，所以需要一个 makefile:
+\lstinputlisting[language=make]{ex-packages/src/Makefile}
+完成了这些工作，可以调用 \prog{gotest} 来测试包：
+\begin{display}
+\pr \user{gotest}
+rm -f _test/stack.a
+6g  -o _gotest_.6 stack-as-package.go  pushpop_test.go
+rm -f _test/stack.a
+gopack grc _test/stack.a _gotest_.6 
+PASS
+\end{display}
+
+\Question 应当是包 \package{container/vector}。
 
 \end{Answer}

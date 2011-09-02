@@ -4,7 +4,7 @@ import ( "os"; "bufio")
 
 func main() {
 	buf := make([]byte, 1024)
-        f, _ := os.Open("/etc/passwd", os.O_RDONLY, 0666) |\longremark{打开文件，\key{os.Open} 返回 %
+        f, _ := os.Open("/etc/passwd") |\longremark{打开文件，\key{os.Open} 返回 %
 一个实现了 \type{io.Reader} 接口的\type{*os.File}；}|
 	defer f.Close()
         r := bufio.NewReader(f) |\longremark{转换 \var{f} 为有缓冲的 \func{Reader}。%

@@ -1,8 +1,42 @@
-\begin{Exercise}[title={接口和最大最小},difficulty=1]
+\begin{Exercise}[title={接口和 max()},difficulty=5]
 \Question
-构造一个通用的最大最小，使得可以同时工作于整数和字符串，就像第 \titleref{sec:a sorting example} 节中那样。
+建立一个程序，用于展示整数和浮点数的最大值。尝试使其尽可能的通用，虽然在这个应用中会相当困难。
 \end{Exercise}
 
 \begin{Answer}
 \Question
+下面的程序计算了最大值。它是 Go 能做到的最通用的形式了。
+
+\begin{lstlisting}[caption="通用的计算最大值"]
+package main
+
+func Less(l, r interface{}) bool { |\longremark{也可以选择让这个函数的返回值为 %
+\mbox{\type{interface\{\}}}，但是这也就意味着调用者不得不总是使用类型断言来从接口中解析出实际的类型；}|
+       switch l.(type) {
+       case int:
+               if _, ok := r.(int); ok {
+                       return l.(int) < r.(int) |\longremark{所有类型定义为整数。然后进行比较；}|
+               }
+       case float32:
+               if _, ok := r.(float32); ok {
+                       return l.(float32) < r.(float32) |\longremark{参数是 \type{float32}；}|
+               }
+       }
+       return false
+}
+
+func main() {
+       var a, b, c int = 5, 15, 0
+       var x, y, z float32 = 5.4, 29.3, 0.0
+
+       if c = a; Less(a, b) { |\longremark{获得 \var{a} 和 \var{b} 中的最大值；}|
+               c = b
+       }
+       if z = x; Less(x, y) { |\longremark{浮点类型也一样。}|
+               z = y
+       }
+       println(c, z)
+}
+\end{lstlisting}
+\showremarks
 \end{Answer}
