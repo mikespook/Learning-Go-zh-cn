@@ -112,23 +112,21 @@
 \pagenumbering{roman}
 \tableofcontents*
 \listoffigures*
-\listoftables*
+%% \listoftables*
 \listofcode* 
 \listofex* 
 \clearpage
 
-%% \input{todo.tex}
-%% \part{Learning Go} %%
 \chapter*{前言}
 \label{chap:preface}
 \input{go-preface.tex}
 
 \chapter{简介}
+\pagenumbering{arabic}
 \label{chap:intro}
 \input{go-intro.tex}
 
 \chapter{基础}
-\pagenumbering{arabic}
 \label{chap:basics}
 \input{go-basics.tex}
 

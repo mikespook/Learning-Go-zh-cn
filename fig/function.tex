@@ -10,14 +10,11 @@
 \ubrace{3.4,-1.5}{2.4,-1.5}{\emph{funcname} 是你函数的名字；}
 %
 \ubrace{4.5,-1.5}{3.6,-1.5}{\type{int} 类型的变量 \var{q} 是输入参数。%
-参数用 \first{\emph{pass-by-value}}{pass-by-value} 方式传递，意味着它们会被复制。%
-但是留意引用类型（slice、channel、map 和 interface）用 %
-\first{\emph{pass-by-reference}}{pass-by-reference} 传递，%
-虽然你并没有在代码里直接看到指针；}
+参数用 \first{\emph{pass-by-value}}{pass-by-value} 方式传递，意味着它们会被复制；}
 %
 \ubrace{6.0,-1.5}{4.9,-1.5}{%
 变量 \var{r} 和 \var{s} 是这个函数的 \index{named return parameters}{named return parameters}。%
-注意在 Go 的函数中可以返回多个值。参阅 "\titleref{sec:multiple return}" 在 \pageref{sec:multiple return}。%
+在 Go 的函数中可以返回多个值。参阅 "\titleref{sec:multiple return}" 在 \pageref{sec:multiple return}。%
 如果想要返回无命名的参数，只需要提供类型：\lstinline{(int,int)}。%
 如果只有一个返回值，可以省略圆括号。如果函数是一个子过程，并且没有任何返回值，也可以省略这些内容；}
 %

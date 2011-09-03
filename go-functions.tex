@@ -25,9 +25,8 @@ func identity(in int) int {
 \end{minipage}
 
 可以随意安排函数定义的顺序，编译器会在执行前扫描每个文件。所以函数原型在 Go 中都是过期的旧物。
-Go 不允许函数嵌套。
-然而你可以利用匿名函数实现它，参阅本章的 "\titleref{sec:functions as values}" 在
-\pageref{sec:functions as values} 页。
+Go 不允许函数嵌套。然而你可以利用匿名函数实现它，参阅本章第 \pageref{sec:functions as values}
+页的“\titleref{sec:functions as values}”。
 
 
 递归函数跟其他语言是一样的：
@@ -40,7 +39,7 @@ func rec(i int) {
    fmt.Printf("%d ", i)
 }
 \end{lstlisting}
-这会打印 \texttt{9 8 7 6 5 4 3 2 1 0}。
+这会打印：\texttt{9 8 7 6 5 4 3 2 1 0}。
 
 \section{作用域}
 在 Go 中，定义在函数外的变量是\first{全局}{scope!local}的，
@@ -78,7 +77,7 @@ func rec(i int) {
 
 \section{多个返回值}
 \label{sec:multiple return}
-Go 一个非常特别的特性是函数和方法可以返回多个值（Python 也可以）。
+Go 一个非常特别的特性是函数和方法可以返回多个值（Python 同样也可以）。
 这可以用于改进一大堆在 C 程序中糟糕的惯例用法：
 修改参数的方式，返回一个错误（例如遇到 \texttt{EOF} 则返回 -1）。
 在 Go 中，\lstinline{Write} 返回一个计数值和一个错误：
