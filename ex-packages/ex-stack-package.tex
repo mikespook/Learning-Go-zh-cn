@@ -23,6 +23,7 @@
 因为 \prog{gotest} 调用 \prog{gomake} 编译包，所以需要一个 makefile:
 \lstinputlisting[language=make,caption=包的 Makefile]{ex-packages/src/Makefile}
 完成了这些工作，可以调用 \prog{gotest} 来测试包：
+
 \begin{display}
 \pr \user{gotest}
 rm -f _test/stack.a

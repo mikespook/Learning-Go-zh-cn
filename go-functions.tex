@@ -40,7 +40,7 @@ func rec(i int) {
 }
 \end{lstlisting}
 这会打印：\texttt{9 8 7 6 5 4 3 2 1 0}。
-
+%%\newpage %% TODO don't want a newpage here actually
 \section{作用域}
 在 Go 中，定义在函数外的变量是\first{全局}{scope!local}的，
 那些定义在函数内部的变量，对于函数来说是\first{局部}{scope!local}的。
@@ -130,7 +130,7 @@ Go 函数的返回值或者结果参数可以指定一个名字，并且像原�
 func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
 \end{lstlisting}
 由于命名结果会被初始化并关联于无修饰的 \key{return}，
-它们可以非常简单并且清晰。这里有一个 \lstinline{io.ReadFull} 的版本，很好的运用了它：
+它们可以非常简单并且清晰。这里有一个 \lstinline{ioutil.ReadFull} 的版本，很好的运用了它：
 
 \begin{lstlisting}
 func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
@@ -195,15 +195,15 @@ func ReadWrite() bool {
     file.Open("file")
     // 做一些工作
     if failureX {
-	file.Close()
+        file.Close() |\coderemark{}|
 	return false
     }
 
     if failureY {
-	file.Close()
+        file.Close() |\coderemark{}|
 	return false
     }
-    file.Close()
+    file.Close() |\coderemark{}|
     return true
 }
 \end{lstlisting}
@@ -216,8 +216,8 @@ func ReadWrite() bool {
 \begin{lstlisting}[caption=With defer]
 func ReadWrite() bool {
     file.Open("file")
-    defer file.Close()	|\coderemark{\func{file.Close()} \emph{是}函数}|
-    // Do your thing
+    defer file.Close()	|\coderemark{\func{file.Close()} 被添加到了 defer 列表}|
+    // 做一些工作
     if failureX {
 	return false    |\coderemark{\func{Close()} 现在自动调用}|
     }
@@ -304,7 +304,7 @@ var xs = map[int]func() int{
 也可以编写一个接受函数作为参数的函数，例如工作在 \type{int} 的 slice 上的 \func{Map} 函数。
 这是一个留给读者的练习，参考在第 \pageref{ex:map function} 页的练习 Q\ref{ex:map function}。
 
-\section{回调和闭包}
+\section{回调}
 \label{sec:callbacks}
 当函数作为值时，就可以很容易的传递到其他函数里，然后可以作为回调。
 首先定义一个函数，对整数做一些“事情”：
@@ -321,31 +321,6 @@ func callback(y int, f func(int)) { |\coderemark{\func{f} 将会保存函数}|
     f(y)    |\coderemark{调用回调函数 \func{f} 输入变量 \var{y}}|
 }
 \end{lstlisting}
-我们已经在第 "\titleref{sec:deferred code}" 节看到了闭包的部分应用，但是还有一些需要讨论。
-当定义一个闭包时，例如，在用函数符号开始定义时，仍然可以访问当前函数定义的（局部）变量。
-
-\begin{lstlisting}
-// 定义一些局部变量
-// 这个函数有意写得复杂了，但是用来举例还是不错的
-    frameSquare := func(x, y int) {
-            // 闭包可以毫不费力的将局部变量传递到回调
-            if thickFrame {
-                    // 为一个矩形绘制一个 3 x 3 像素的块
-                    for x0 := x - 1; x0 <= x+1; x0++ {
-                            for y0 := y - 1; y0 <= y+1; y0++ {
-                                    rgba.Set(x0, y0, redColor)
-                            }
-                    }
-            } else {
-                    rgba.Set(x, y, blueColor)
-            }
-    }
-\end{lstlisting}
-
-如果\emph{不}希望使用闭包，并且定义一个完整的函数，需要传递所有的变量到这个函数。
-\todo{要点都在这里，但是需要更多的解说和代码}
-
-
 
 \section{恐慌（Panic）和恢复（Recover）}
 \label{sec:panic}
@@ -370,6 +345,26 @@ Recover \emph{仅在}\emph{延迟}函数中有效。
 在正常的执行过程中，调用 \func{recover} 会返回 \type{nil} 并且没有其他任何效果。
 如果当前的 goroutine 陷入恐慌，调用 \func{recover} 可以捕获到 \func{panic} 的输入值，并且恢复正常的执行。}
 \end{description}
+
+这个函数检查作为其参数的函数在执行时是否会产生 panic
+\footnote{复制于 Eleanor McHugh 的演讲稿}：
+\begin{lstlisting}
+func throwsPanic(f func()) (b bool) { |\longremark{定义一个新函数 \func{throwsPanic} %
+接受一个函数作为参数，参看“\titleref{sec:functions as values}”。当这个函数会产生 panic，%
+就返回 true，否则返回 false；}|
+defer func() { |\longremark{定义了一个利用 \func{recover} 的 \func{defer} 函数，%
+\emph{如果}当前的 goroutine 产生了 panic，这个 defer 函数能够发现。%
+如果 \func{recover()} 返回非 \var{nil} 值，设置 \var{b} 为 true；}|
+        if x := recover(); x != nil {
+            b = true
+        }
+    }()
+    f() |\longremark{调用作为参数接收的函数。}|
+    return |\longremark{返回 \var{b} 的值。由于 \var{b} 是命名返回值（第 \pageref{sec:named result parameters} 页），%
+无须指定 \var{b}。}|
+}
+\end{lstlisting}
+\showremarks
 
 \section{练习}
 \input{ex-functions/ex-average.tex}

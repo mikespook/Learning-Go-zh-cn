@@ -60,6 +60,9 @@ myeven.go:7: undefined: even.odd
 注意第 3 行定义了 \package{even} 包，而第 4 和第 5 行录入了构成包的文件。
 同样注意，这\emph{不是}在第 \ref{chap:basics} 章，第 "\titleref{sec:building a program}"
 节中使用的\emph{那个} \prog{Makefile}。最后一行的 \verb|include| 语句是不同的。
+\footnote{在 \file{Makefile} 文件中可以访问下面的预定义变量：
+\var{\$(GC)} 标示 Go 编译器（6g/8g），
+\var{\$(LD)} 当前链接器，以及 \var{\$O} 作为预链接二进制文件的后缀（6/8）。}
 
 如果现在执行 \prog{gomake}，一个叫做 "\file{\_go\_.6}" 的文件、一个叫做
 "\dir{\_obj/}" 的目录，和 "\dir{\_obj/}" 目录中，叫做 "\file{even.a}" 的文件被创建。
@@ -82,9 +85,6 @@ cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
 \end{display}
 
 \noindent{}导入但是没有使用的包会引起一个错误。
-\footnote{在 \file{Makefile} 文件中可以访问下面的预定义变量：
-\var{\$(GC)} 标示 Go 编译器（6g/8g），
-\var{\$(LD)} 当前链接器，以及 \var{\$O} 作为预链接二进制文件的后缀（6/8）。}
 
 \section{标识符}
 像在其他语言中一样，Go 的命名是很重要的。在某些情况下，它们甚至有语义上的作用：
@@ -305,7 +305,7 @@ make: *** [test] Error 1
 \emph{参阅 "\titleref{sec:option parsing}" 在第 \pageref{sec:option parsing} 页。}
 }
 \item[\package{json}]{\index{package!json}
-\package{json} 包实现了编码与解码 RFC 4627 定义的 JSON 对象。
+\package{json} 包实现了编码与解码 RFC 4627 \cite{RFC4627} 定义的 JSON 对象。
 }
 \item[\package{template}]{\index{package!template}
 数据驱动的模板，用于生成文本输出，例如 HTML。

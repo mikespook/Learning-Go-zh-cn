@@ -67,12 +67,12 @@ buf, err := cmd.Output()    |\coderemark{\var{buf} 是一个 \type{[]byte}}|
 通过 TCP 连接到远程系统（端口 80），然后是 UDP，最后是 TCP 通过 IPv6，大致是这样：
 \footnote{在这个例子中，可以认为 192.0.32.10 和 2620:0:2d0:200::10 是 \url{www.example.org}。}
 \begin{lstlisting}
-conn, _ := Dial("tcp", "192.0.32.10:80")
-conn, _ := Dial("udp", "192.0.32.10:80")
-conn, _ := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强制的}|
+conn, e := Dial("tcp", "192.0.32.10:80")
+conn, e := Dial("udp", "192.0.32.10:80")
+conn, e := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强制的}|
 \end{lstlisting}
 
-如果没有错误，就可以使用 \var{conn} 从套接字中读写。
+如果没有错误（由 \var{e} 返回），就可以使用 \var{conn} 从套接字中读写。
 在包 \package{net} 中的原始定义是：
 \begin{quote}
 // \func{Read} reads data from the connection.\\
@@ -88,10 +88,21 @@ conn, _ := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强�
 \lstinline{Write(b []byte) (n int, err os.Error)}
 \end{quote}
 
-% \todo{编写一个 echo server}
+但是这些都是隐含的低层\footnote{练习 Q\ref{ex:echo} 是关于使用这些的。}，通常总是应该使用更高层次的包。
+例如 \package{http} 包。一个简单的 http Get 作为例子：
+\begin{lstlisting}
+package main
+import ( "io/ioutil"; "http"; "fmt" ) |\longremark{需要的导入；}|
 
-\section{Netchan：网络和 channel}
-%%http://blog.golang.org/2010/09/go-concurrency-patterns-timing-out-and.html
+func main() {
+    r, err := http.Get("http://www.google.com/robots.txt") |\longremark{使用 http 的 \func{Get} 获取 html；}|
+    if err != nil { fmt.Printf("%s\n", err.String()); return } |\longremark{错误处理；}|
+    b, err := ioutil.ReadAll(r.Body)    |\longremark{将整个内容读入 \var{b}；}|
+    r.Body.Close()  
+    if err == nil { fmt.Printf("%s", string(b)) } |\longremark{如果一切 OK 的话，打印内容。}|
+}
+\end{lstlisting}
+\showremarks
 
 \section{练习}
 \input{ex-communication/ex-processes.tex}
@@ -102,7 +113,11 @@ conn, _ := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强�
 
 \input{ex-communication/ex-quine.tex}
 
+\input{ex-communication/ex-echo.tex}
+
 \input{ex-communication/ex-numbercruncher.tex}
+
+\input{ex-communication/ex-finger.tex}
 
 \cleardoublepage
 \section{答案}
