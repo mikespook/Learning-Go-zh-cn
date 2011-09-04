@@ -1,7 +1,7 @@
 \epi{“好的沟通就像是一杯刺激的浓咖啡，然后就难以入睡。”}{\textsc{ANNE MORROW LINDBERGH}}
 \noindent{}在这章中将介绍 Go 中与外部通讯的通讯模块。
 
-\section{文件}
+\section{文件和目录}
 在 Go 中，从文件读取（或写入）是非常容易的。程序只需要使用
 \package{os} 包就可以从文件 \file{/etc/passwd} 中读取数据。
 \lstinputlisting[caption=从文件读取（无缓冲）,label=src:read]{src/file.go}
@@ -13,7 +13,24 @@
 
 更加通用的方法（但是也略微复杂一点）是 \func{ReadLine}，参阅 \package{bufio} 包的文档。
 
-\subsection{一行行}
+在 shell 脚本中更常见的情景是检查某个目录是否存在，不存在就创建一个。
+shell 代码：
+\begin{lstlisting}[language=sh]
+if [ ! -e dirname ]; then
+    mkdir dirname
+else
+    # error
+fi
+\end{lstlisting}
+在 Go 中变为：
+\begin{lstlisting}
+if f, err := os.Stat("dirname"); err != nil {
+    os.Mkdir("dirname", 0755)
+} else {
+    // error
+}
+\end{lstlisting}
+
 前面的程序将整个文件读出，但是通常情况下会希望一行一行的读取。下面的片段展示了如何实现：
 
 \begin{lstlisting}

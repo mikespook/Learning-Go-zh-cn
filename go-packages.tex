@@ -121,12 +121,12 @@ import bar "bytes"
 例如，缓冲类型 \package{bufio}\index{package!bufio} 包的读取方法，叫做 \func{Reader}，而不是
 \func{BufReader}，因为用户看到的是 \func{bufio.Reader} 这个清晰、简洁的名字。
 更进一步说，由于导入的实例总是它们包名指向的地址，\func{bufio.Reader} 不会与
-\func{io.Reader} 冲突。相似的，\func{ring.Ring} 创建新实例的函数——在 Go 中定义的构造函数——通常叫做
+\func{io.Reader} 冲突。类似的，\func{ring.Ring}（包 \package{container/ring}）创建新实例的函数——在 Go 中定义的构造函数——通常叫做
 \func{NewRing}，但是由于 \type{Ring} 是这个包唯一的一个导出的类型，同时，这个包也叫做
 \package{ring}\index{package!ring}，所以它可以只称作 \func{New}。
 包的客户看到的是 \func{ring.New}。用包的结构帮助你选择更好的名字。
 
-另外一个简短的例子是 \func{once.Do}；\func{once.Do(setup)} 读起来很不错，并且
+另外一个简短的例子是 \func{once.Do}（参看 \package{sync}）；\func{once.Do(setup)} 读起来很不错，并且
 命名为 \lstinline{once.DoOrWaitUntilDone(setup)} 不会有任何帮助。长的名字不会让其变得容易阅读。
 如果名字表达了一些复杂并且微妙的内容，更好的办法是编写一些有帮助的注释，而不是将所有信息都放入名字里。
 
