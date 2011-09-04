@@ -14,22 +14,25 @@
 更加通用的方法（但是也略微复杂一点）是 \func{ReadLine}，参阅 \package{bufio} 包的文档。
 
 在 shell 脚本中更常见的情景是检查某个目录是否存在，不存在就创建一个。
-shell 代码：
-\begin{lstlisting}[language=sh]
-if [ ! -e dirname ]; then
-    mkdir dirname
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[language=sh,caption={在 shell 中创建目录}]
+if [ ! -e name ]; then
+    mkdir name
 else
     # error
 fi
 \end{lstlisting}
-在 Go 中变为：
-\begin{lstlisting}
-if f, err := os.Stat("dirname"); err != nil {
-    os.Mkdir("dirname", 0755)
+\end{minipage}
+\hspace{1em}
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[caption={在 Go 中创建目录}]
+if f, e := os.Stat("name"); e != nil {
+    os.Mkdir("name", 0755)
 } else {
     // error
 }
 \end{lstlisting}
+\end{minipage}
 
 前面的程序将整个文件读出，但是通常情况下会希望一行一行的读取。下面的片段展示了如何实现：
 
