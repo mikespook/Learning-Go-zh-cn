@@ -1,8 +1,4 @@
-\documentclass[twoside,openleft]{blocksbook}
-\setstocksize{11.5cm}{9cm}
-\settrimmedsize{\stockheight}{\stockwidth}{*}
-\sloppy
-
+\documentclass[a4paper,twoside,openleft]{blocksbook}
 \usepackage[cm-default]{fontspec}% provides font selecting commands
 \usepackage{xunicode}% provides unicode character macros
 \usepackage{xltxtra} % provides some fixes/extras
@@ -38,33 +34,27 @@
 \input{go-setup.tex}
 \input{go-cc-license.tex}
 
-\setlrmarginsandblock{5mm}{5mm}{*}
-\setulmarginsandblock{5mm}{5mm}{*}
-\setheadfoot{\baselineskip}{1mm}
-\setlength\headsep{1mm}
-\checkandfixthelayout
-
 \begin{document}
 \begin{cjk}
 \thispagestyle{empty}
 \newcommand{\version}{0.5}
 %% Title page
 \begin{center}
-\hspace{0.4cm}{\scalefont{2.00}{\sffamily{\mbox{\vspace{0.4cm}学习 Go 语言}}}}
+\hspace{1.0cm}{\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}学习 Go 语言}}}}
 \end{center}
-\vspace*{0.5cm}
+\vspace*{3cm}
 \begin{figure}[h!]
 \begin{center}
-    \includegraphics[scale=0.3]{fig/bumper-inverse.png}
+    \includegraphics[scale=0.65]{fig/bumper-inverse.png}
 \end{center}
 \end{figure}
 \vspace*{0.02\stockheight}
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
-\hspace*{1,0cm}作者：\\
-\hspace*{1.0cm}\emph{Miek Gieben}\\
-\hspace*{1,0cm}译者：\\
-\hspace*{1.0cm}\emph{邢兴}\\
+\hspace*{2,0cm}作者：\\
+\hspace*{2.0cm}\emph{Miek Gieben}\\
+\hspace*{2,0cm}译者：\\
+\hspace*{2.0cm}\emph{邢兴}\\
 %%\hspace*{2.0cm}\emph{JC van Winkel}\\
 %%\hspace*{2.0cm}\emph{Jeroen Bulten}\\
 \vfill
@@ -86,7 +76,7 @@
     \hspace*{1cm}{\tiny\CcNote{\CcLongnameByNcSa}}
 \end{center}
 \begin{center}
-\hspace*{1cm}\emph{Miek Gieben -- \copyright 2010, 2011}\\
+\hspace*{1cm}\emph{Miek Gieben -- \copyright 2010, 2011} \\
 \hspace*{1cm}\emph{邢兴 -- \copyright 2011}
 \end{center}
 \vspace{-3em}
@@ -98,7 +88,7 @@
 \begin{figure}[H]
 \begin{center}
 \emph{
-本作品依照署名-非商业性使用-相同方式共享 3.0 Unported许可证发布。访问 \url{http://creativecommons.org/licenses/by-nc-sa/3.0/} 查看该许可证副本，或写信到 Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA。}
+本作品依照署名-非商业性使用-相同方式共享 3.0 Unported许可证发布。访问 \url{http://creativecommons.org/licenses/by-nc-sa/3.0/} 查看该许可证副本，或写信到 Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA。}    
 \vspace{2em}
 
 \emph{本书所有实例代码依此方式放入公共领域。}
@@ -120,7 +110,7 @@
 \pagenumbering{roman}
 \tableofcontents*
 \listoffigures*
-%% \listoftables*
+%%\listoftables* %% there are so few
 \listofcode* 
 \listofex* 
 \clearpage
@@ -162,7 +152,7 @@
 \label{chap:communication}
 \input{go-communication.tex}
 
-%%\chapter{杂项}
+%%\chapter{Miscellaneous}
 %%\label{chap:miscellaneous}
 %%\input{go-misc.tex}
 
