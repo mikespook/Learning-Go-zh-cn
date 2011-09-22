@@ -2,9 +2,10 @@
 ROOT=`pwd`
 
 intro() {
-    echo "This script will setup your vim for golang."
+    echo "This script will setup your vim environment for golang."
     echo "It could setup and upgrade vim's configuration automatically."
-    echo "First of all, you should follow http://golang.org/doc/install.html for seting all of the enverament variables."
+    echo "First of all, you'd better follow http://golang.org/doc/install.html for seting all of the environment variables."
+    echo "Put this script into $HOME/src/ is good choice."
     echo 
     echo "To report an issue, please feel free to contact me."
     echo 
@@ -46,15 +47,30 @@ goroot() {
         echo "\$GOROOT: $GOROOT [OK]"
     else
         echo "\$GOROOT: NULL [FAILD]"
-        echo "Download go source and set \$GOROOT to $ROOT/go temporary."
+        echo "Input \$GOROOT manully."
         read -p "<y/n>:" YN
         if [ $YN == "y" ];
         then
-            GOROOT=$ROOT/go
-            hg clone https://go.googlecode.com/hg/ $GOROOT
-            echo "\$GOROOT: $GOROOT [OK]"
+            while [[ ! -n $GOROOT ]]
+            do
+                read -p "\$GOROOT:" GOROOT
+                if [ ! -d $GOROOT ];
+                then
+                    echo "Not a valid directory."
+                    unset GOROOT
+                fi
+            done
         else
-            bye
+            echo "Download go source and set \$GOROOT to $ROOT/go temporary."
+            read -p "<y/n>:" YN
+            if [ $YN == "y" ];
+            then
+                GOROOT=$ROOT/go
+                hg clone https://go.googlecode.com/hg/ $GOROOT
+                echo "\$GOROOT: $GOROOT [OK]"
+            else
+                bye
+            fi
         fi
     fi
     echo "Update the go source to the newest version."
@@ -76,24 +92,33 @@ install() {
 
     echo "Copy the scripts into $HOME/.vim, otherwise link them."
     read -p "<y/n>:" YN
+    rm $HOME/.vim/autoload/go/*
+    rm $HOME/.vim/ftplugin/go/*
+    rm $HOME/.vim/ftdetect/gofiletype.vim
+    rm $HOME/.vim/syntax/go.vim
+    rm $HOME/.vim/indent/go.vim
+    rm $HOME/.vim/plugin/godoc.vim
+    rm $HOME/.vim/syntax/godoc.vim
     if [ $YN == "y" ]; 
     then
-        cp -u $GOROOT/misc/vim/autoload/go/complete.vim $HOME/.vim/autoload/go/
-        cp -u $GOROOT/misc/vim/ftplugin/go/*.vim $HOME/.vim/ftplugin/go/
-        cp -u $GOROOT/misc/vim/ftdetect/gofiletype.vim $HOME/.vim/ftdetect/
-        cp -u $GOROOT/misc/vim/syntax/go.vim $HOME/.vim/syntax/
-        cp -u $GOROOT/misc/vim/indent/go.vim $HOME/.vim/indent/
-        cp -u $GOROOT/misc/vim/plugin/godoc.vim $HOME/.vim/plugin/godoc.vim
-        cp -u $GOROOT/misc/vim/syntax/godoc.vim $HOME/.vim/syntax/godoc.vim
+        cp -u -f $GOROOT/misc/vim/autoload/go/complete.vim $HOME/.vim/autoload/go/
+        cp -u -f $GOROOT/misc/vim/ftplugin/go/*.vim $HOME/.vim/ftplugin/go/
+        cp -u -f $GOROOT/misc/vim/ftdetect/gofiletype.vim $HOME/.vim/ftdetect/
+        cp -u -f $GOROOT/misc/vim/syntax/go.vim $HOME/.vim/syntax/
+        cp -u -f $GOROOT/misc/vim/indent/go.vim $HOME/.vim/indent/
+        cp -u -f $GOROOT/misc/vim/plugin/godoc.vim $HOME/.vim/plugin/godoc.vim
+        cp -u -f $GOROOT/misc/vim/syntax/godoc.vim $HOME/.vim/syntax/godoc.vim
+        echo "Copied successful."
     else
-        ln -s $GOROOT/misc/vim/ftdetect/gofiletype.vim $HOME/.vim/ftdetect/
-        ln -s $GOROOT/misc/vim/syntax/go.vim $HOME/.vim/syntax/
-        ln -s $GOROOT/misc/vim/autoload/go/complete.vim $HOME/.vim/autoload/go/
-        ln -s $GOROOT/misc/vim/ftplugin/go/*.vim $HOME/.vim/ftplugin/go/
-        ln -s $GOROOT/misc/vim/indent/go.vim $HOME/.vim/indent/
-        ln -s $GOROOT/misc/vim/plugin/godoc.vim $HOME/.vim/plugin/godoc.vim
-        ln -s $GOROOT/misc/vim/syntax/godoc.vim $HOME/.vim/syntax/godoc.vim
-        ln -s $GOROOT/misc/vim/ftplugin/go/godoc.vim $HOME/.vim/ftplugin/go/godoc.vim 
+        ln -s -f $GOROOT/misc/vim/ftdetect/gofiletype.vim $HOME/.vim/ftdetect/
+        ln -s -f $GOROOT/misc/vim/syntax/go.vim $HOME/.vim/syntax/
+        ln -s -f $GOROOT/misc/vim/autoload/go/complete.vim $HOME/.vim/autoload/go/
+        ln -s -f $GOROOT/misc/vim/ftplugin/go/*.vim $HOME/.vim/ftplugin/go/
+        ln -s -f $GOROOT/misc/vim/indent/go.vim $HOME/.vim/indent/
+        ln -s -f $GOROOT/misc/vim/plugin/godoc.vim $HOME/.vim/plugin/godoc.vim
+        ln -s -f $GOROOT/misc/vim/syntax/godoc.vim $HOME/.vim/syntax/godoc.vim
+        ln -s -f $GOROOT/misc/vim/ftplugin/go/godoc.vim $HOME/.vim/ftplugin/go/godoc.vim 
+        echo "Linked successful."
     fi
 }
 
@@ -105,31 +130,59 @@ gocode() {
         return
     fi
 
-    GIT=`type -P git`
-    if [ $? -eq 1 ];
+    if [[ -n $GOCODE ]];
     then
-        echo "Please install the git package."
-        return
+        echo "gocode: $GOCODE [OK]"
     else
-        echo "$GIT [OK]"
+        echo "Input gocode location."
+        read -p "<y/n>:" YN
+        if [ $YN == "y" ];
+        then
+            while [[ ! -n $GOCODE ]]
+            do
+                read -p "gocode:" GOCODE
+                if [ ! -d $GOCODE ];
+                then
+                    echo "Not a valid directory."
+                    unset GOCODE
+                fi
+            done
+        else
+            echo "Download gocode sources."
+            read -p "<y/n>:" YN
+            if [ $YN == "y" ];
+            then
+                GIT=`type -P git`
+                if [ $? -eq 1 ];
+                then
+                    echo "Please install the git package."
+                    return
+                else
+                    echo "$GIT [OK]"
+                fi
+                GOCODE=$ROOT/gocode
+                git clone https://github.com/nsf/gocode.git $GOCODE
+            fi
+        fi
     fi
 
-    if [ -e $ROOT/gocode ];
+    echo "Update the gocode source to the newest version."
+    read -p "<y/n>:" YN
+    if [ $YN == "y" ];
     then
-        cd $ROOT/gocode
+        cd $GOCODE
         git pull
         cd $ROOT
-    else
-        git clone https://github.com/nsf/gocode.git $ROOT/gocode
     fi
-    cp -u $ROOT/gocode/vim/autoload/gocomplete.vim $HOME/.vim/autoload/
-    cp -u $ROOT/gocode/vim/ftplugin/go.vim $HOME/.vim/go.vim
+
+    cp -u $GOCODE/vim/autoload/gocomplete.vim $HOME/.vim/autoload/
+    cp -u $GOCODE/vim/ftplugin/go.vim $HOME/.vim/go.vim
 
     echo "Make the gocode's executable file."
     read -p "<y/n>:" YN
     if [ $YN == "y" ];
     then
-        cd $ROOT/gocode
+        cd $GOCODE
         make clean&&make install
         cd $ROOT
     fi 
@@ -138,15 +191,13 @@ gocode() {
 finish() {
     if [ ! -e $GOBIN/gocode ];
     then
-        if [ ! -e $ROOT/gocode ];
-        then
-            echo "Please clone the gocode's sources."
-        fi
+        echo "You do not have the gocode executable file."
         if [[ ! -n $GOBIN ]];
         then
-            echo "Please set the \$GOBIN."
+            echo "Please set the \$GOBIN and run \"make install\" in gocode source code directory."
+        else
+            echo "Please run \"make install\" in gocode source code directory."
         fi
-        echo "Please run \"make install\" to make the gocode's executable file."        
     fi
 
     echo "Finished!"
