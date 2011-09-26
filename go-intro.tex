@@ -102,7 +102,49 @@ The compiler is 6g.
 \end{display}
 You now have Go installed on your system and you can start playing.
 
-\subsection{Keeping up to date}
+\section{Getting Go for Windows}
+Getting Go for Windows works slightly different, but is not difficult.
+\begin{itemize}
+\item Download the latest version from \cite{go_windows};
+\item Unpack it to your \verb|C:\| drive;
+\item Make sure that the contents are \verb|C:\MinGW|
+\item Use the mintty shortcut to start a terminal window;
+\item Set the environment variable \prog{GOROOT} to the root of your
+Go install:
+\begin{display}
+\pr \user{export GOROOT=/c/go}
+\end{display}
+\item Download the latest Go stable release by issuing the following command
+\begin{display}
+\pr \user{hg clone -r release https://go.googlecode.com/hg/ $GOROOT}
+\end{display}
+\item Change to the \file{src} directory
+\begin{display}
+\pr \user{cd $GOROOT/src}
+\end{display}
+\item And build Go
+\begin{display}
+\pr \user{./all.bash}
+\end{display}
+\end{itemize}
+You should now have a working Go environment. Next we need to configure
+the GOROOT, GOBIN and PATH variables.
+
+\begin{itemize}
+\item Create a file named \file{setup.sh} and place it inside the \file{MinGW} directory
+with the following content:
+\begin{display}
+export GOROOT=/c/GOROOT
+export GOBIN=$GOROOT/bin
+export PATH=$GOBIN:$PATH
+\end{display}
+\item Now when you start mintty, you can source the file to setup your Go enviroment:
+\begin{display}
+\pr \user{. ./setup.sh}
+\end{display}
+\end{itemize}
+
+\section{Keeping up to date}
 New releases are announced on the Go Nuts mailing list \cite{go_nuts}. To update an
 existing tree to the latest release, you can run:
 \begin{display}
