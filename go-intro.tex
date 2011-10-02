@@ -103,11 +103,14 @@ The compiler is 6g.
 You now have Go installed on your system and you can start playing.
 
 \section{Getting Go for Windows}
-Getting Go for Windows works slightly different, but is not difficult.
+The best way to use Go in Windows is together with the MinGW \cite{go_windows}  environment. 
+It provides an UNIX like environment for Windows. It is similar to Cygwin, but no POSIX
+emulation is attempted, the Microsoft C run time library and Windows APIs are used instead.
 \begin{itemize}
 \item Download the latest version from \cite{go_windows};
 \item Unpack it to your \verb|C:\| drive;
-\item Make sure that the contents are \verb|C:\MinGW|
+\item Make sure that the contents are \verb|C:\MinGW|. Note: this directory should be
+created when you unpacked MinGW;
 \item Use the mintty shortcut to start a terminal window;
 \item Set the environment variable \prog{GOROOT} to the root of your
 Go install:
