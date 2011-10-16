@@ -101,14 +101,14 @@ You can also use a "comma, ok" form to see if an interface type implements
 a specific interface:
 
 \begin{lstlisting}
-if t, ok := any.(I); ok { 
-   // any implements the interface I
+if t, ok := something.(I); ok { 
+   // something implements the interface I
    // t is the type it has
 } 
 \end{lstlisting}
 When you are sure a variable implements an interface you can use:
 \begin{lstlisting}
-t := any.(I)
+t := something.(I)
 \end{lstlisting}
 
 \subsection{Empty interface}
@@ -116,14 +116,14 @@ Since every type satisfies the empty interface:
 \type{interface\{\}}. We can create a generic function which 
 has an empty interface as its argument:
 \begin{lstlisting}[caption=A function with an empty interface argument,label=src:interface empty]
-func g(any interface{}) int { 
-    return any.(I).Get() 
+func g(something interface{}) int { 
+    return something.(I).Get() 
 }
 \end{lstlisting}
-The \lstinline{return any.(I).Get()} is the tricky bit in this function.
-The value \var{any} has type \type{interface\{\}}, meaning no guarantee
+The \lstinline{return something.(I).Get()} is the tricky bit in this function.
+The value \var{something} has type \type{interface\{\}}, meaning no guarantee
 of any methods at all: it could contain any type. The \lstinline{.(I)}
-is a \first{type assertion}{type assertion} which converts \var{any} to an interface of
+is a \first{type assertion}{type assertion} which converts \var{something} to an interface of
 type \type{I}. If we have that type we can invoke the \func{Get()}
 function.
 So if we create a new variable of the type \type{*S}, we can just
