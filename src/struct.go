@@ -3,7 +3,7 @@ import "fmt"
 
 type NameAge struct {
 	name string	|\coderemark{Not exported}|
-	age  int	|\coderemark{Not exported, Age would be exported}|
+	age  int	|\coderemark{Not exported}|
 }
 
 func main() {
