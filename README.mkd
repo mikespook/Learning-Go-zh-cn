@@ -17,13 +17,16 @@ Functions
 :   How to make and use functions.
 
 Packages
+
 :   Functions and data is grouped together in packages. Here you will see how to make your own package. 
     How to unit test your package is also described.
 
 Beyond the basics
+
 :   Learn how to create your own data types and define function on them (called methods in Go).
 
 Interfaces
+
 :   Go does not support Object Orientation in the traditional sense. In Go the central concept is interfaces.
 
 Concurrency
