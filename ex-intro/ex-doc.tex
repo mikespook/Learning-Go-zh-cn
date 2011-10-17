@@ -5,32 +5,35 @@ Go's documentation can be read with the \prog{godoc} program, which is
 included the Go distribution.
 
 \prog{godoc hash} gives information about the \package{hash} package. Reading the
-documentation on \package{container} gives the following result:
+documentation on \package{compress} gives the following result:
 \vskip\baselineskip
 \begin{display}
-\pr \user{godoc container}
+\pr \user{godoc compress}
 SUBDIRECTORIES
 
-heap
-list
-ring
-vector
+        bzip2
+        flate
+        gzip
+        lzw
+        testdata
+        zlib
 \end{display}
 \vskip\baselineskip
-With which \prog{godoc} command can you read the documentation of \package{vector} contained in
-\package{container}?
+With which \prog{godoc} command can you read the documentation of \package{gzip} contained in
+\package{compress}?
 
 \end{Exercise}
 
 \begin{Answer}
 \Question
-The package \package{vector} is in a \emph{subdirectory} of
-\package{container}, so you will only need\quad \texttt{godoc
-container/vector}.
+The package \package{gzip} is in a \emph{subdirectory} of
+\package{compress}, so you will only need\quad \texttt{godoc compress/gzip}.
 
 Specific functions inside the "Go manual" can also be accessed. For
 instance the function \func{Printf} is described in \package{fmt}, but to
 only view the documentation concerning this function use: \prog{godoc fmt Printf}{} .
 
 You can even display the source code with: \prog{godoc -src fmt Printf} .     
+
+All the built-in function are also accesible by using godoc: \prog{godoc builtin}.
 \end{Answer}
