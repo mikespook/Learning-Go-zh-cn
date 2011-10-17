@@ -150,10 +150,10 @@ confusion is rare because the file name in the import determines just
 which package is being used.
 
 Another convention is that the package name is the base name of its
-source directory; the package in \package{src/pkg/container/vector} is imported as
-\var{container/vector} but has name \package{vector}, not
-\package{container\_vector} and not
-\package{containerVector}.\index{package!container/vector}
+source directory; the package in \package{src/pkg/compress/gzip} is imported as
+\var{compress/gzip} but has name \package{gzip}, not
+\package{compress\_gzip} and not
+\package{compressGzip}.\index{package!compress/gzip}
 
 The importer of a package will use the name to refer to its contents, so 
 exported names in the package can use that fact to avoid
