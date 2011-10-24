@@ -230,12 +230,11 @@ keep in mind that has to be build using the standard \file{Makefile}
 %%
 
 The testing itself is carried out with \prog{gotest}.
-The \prog{gotest} program run all the test functions. Without any
-defined tests for our \package{even} package a \prog{gomake test}, yields:
+The \prog{gotest} program runs all the test functions. Without any
+defined tests for our \package{even} package a \prog{gotest}, yields:
 \begin{display}
-\pr gomake test
-no test files found (*_test.go)
-make: *** [test] Error 2
+\pr gotest
+gotest: no test files found in current directory
 \end{display}
 Let us fix this by defining a test in a test file. Test files reside
 in the package directory and are named \file{*\_test.go}. Those test
@@ -288,13 +287,15 @@ function in this file. The displayed Go code should not hold any
 surprises: we check if the \func{Even} function works OK. 
 Now, the moment we've been waiting for, executing the test:
 \begin{display}
-\pr gomake test
+\pr gotest
 6g -o \_gotest\_.6 even.go  even\_test.go
 rm -f \_test/even.a
 gopack grc \_test/even.a \_gotest\_.6 
 PASS
 \end{display}
-\noindent{}Our test ran and reported \texttt{PASS}. Success! To show how a failed
+\noindent{}Our test ran and reported \texttt{PASS}. Success! 
+
+To show how a failed
 test look we redefine our test function:
 \begin{lstlisting}
 // Entering the twilight zone
