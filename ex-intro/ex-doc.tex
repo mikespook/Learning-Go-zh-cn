@@ -4,29 +4,33 @@
 Go 的文档可以通过 \prog{godoc} 程序阅读，它包含在 Go 的发布包中。
 
 \prog{godoc hash} 给出了 \package{hash} 包的信息。
-阅读 \package{container} 包的帮助，给出了下面的结果：
+阅读 \package{compress} 包的帮助，给出了下面的结果：
 \vskip\baselineskip
 \begin{display}
-\pr \user{godoc container}
+\pr \user{godoc compress}
 SUBDIRECTORIES
 
-heap
-list
-ring
-vector
+        bzip2
+        flate
+        gzip
+        lzw
+        testdata
+        zlib
 \end{display}
 \vskip\baselineskip
-哪个 \prog{godoc} 的命令可以显示 \package{container} 包中的 \package{vector} 文档？
+哪个 \prog{godoc} 的命令可以显示 \package{compress} 包中的 \package{gzip} 文档？
 
 \end{Exercise}
 
 \begin{Answer}
 \Question
-\package{vector} 包在 \package{container} 的\emph{子目录}中，所以只需要 \quad \texttt{godoc
-container/vector} 即可。
+\package{gzip} 包在 \package{compress} 的\emph{子目录}中，所以只需要 \quad \texttt{godoc
+compress/gzip} 即可。
 
 也可以指定“Go 手册”中某个函数的的文档。例如，函数
 \func{Printf} 在 \package{fmt} 包中，仅阅读这个函数的文档，使用：\prog{godoc fmt Printf}{}。
 
 甚至可以显示源代码：\prog{godoc -src fmt Printf}。
+
+所有的内建函数同样可以通过 \prog{godoc builtin} 的方式在 godoc 中访问。
 \end{Answer}

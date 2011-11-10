@@ -113,9 +113,9 @@ import bar "bytes"
 因此，它无须在整个代码中唯一，在少有的冲突中，可以给导入的包选择另一个名字在局部使用。
 在任何时候，冲突都是很少见的，因为导入的文件名会用来做判断，到底是哪个包使用了。
 
-另一个规则是包名就是代码的根目录名；在 \package{src/pkg/container/vector} 的包，
-作为 \var{container/vector} 导入，但名字是 \package{vector}，
-不是 \package{container\_vector} 也不是 \package{containerVector}。\index{package!container/vector}
+另一个规则是包名就是代码的根目录名；在 \package{src/pkg/compress/gzip} 的包，
+作为 \var{compress/gzip} 导入，但名字是 \package{gzip}，
+不是 \package{compress\_gzip} 也不是 \package{compressGzip}。\index{package!compress/gzip}
 
 导入包将使用其名字引用到内容上，所以导入的包可以利用这个避免罗嗦。
 例如，缓冲类型 \package{bufio}\index{package!bufio} 包的读取方法，叫做 \func{Reader}，而不是
@@ -178,11 +178,10 @@ func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
 
 测试本身是由 \prog{gotest} 完成的。
 \prog{gotest} 程序调用了所有的测试函数。
-\package{even} 包没有定义任何测试函数，执行 \prog{gomake test}，这样：
+\package{even} 包没有定义任何测试函数，执行 \prog{gotest}，这样：
 \begin{display}
-\pr gomake test
-no test files found (*_test.go)
-make: *** [test] Error 2
+\pr gotest
+gotest: no test files found in current directory
 \end{display}
 在测试文件中定义一个测试来修复这个。测试文件也在包目录中，被命名为 \file{*\_test.go}。
 这些测试文件同 Go 程序中的其他文件一样，但是 \prog{gotest} 只会执行测试函数。
@@ -228,17 +227,19 @@ func (t *T) Fatal(args ...interface{})
 检查了 \func{Even} 函数是否工作正常。
 现在等待了好久的时刻到了，执行测试：
 \begin{display}
-\pr gomake test
+\pr gotest
 6g -o \_gotest\_.6 even.go  even\_test.go
 rm -f \_test/even.a
 gopack grc \_test/even.a \_gotest\_.6 
 PASS
 \end{display}
-\noindent{}测试执行并且报告 \texttt{PASS}。成功了！为了展示失败的测试，修改测试函数：
+\noindent{}测试执行并且报告 \texttt{PASS}。成功了！
+
+为了展示失败的测试，修改测试函数：
 \begin{lstlisting}
 // Entering the twilight zone
 func TestEven(t *testing.T) {
-        if ! Even(2) {
+        if Even(2) {
                 t.Log("2 should be odd!")
                 t.Fail()
         }   
@@ -249,7 +250,7 @@ func TestEven(t *testing.T) {
 --- FAIL: even.TestEven
 \qquad\qquad2 should be odd!
 FAIL
-make: *** [test] Error 1
+gotest: "./6.out" failed: exit status 1
 \end{display}
 \noindent{}然后你可以以此行事（修复测试的实例）
 
