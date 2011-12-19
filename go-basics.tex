@@ -719,10 +719,13 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 These built-in functions are document in the \package{builtin} \index{package!builtin}
 pseudo package that is included in recent Go releases.
 
-\paragraph{\func{close} and \func{closed}} are used in
-channel communication and the closing of those channels, see chapter \ref{chap:channels}
+\paragraph{\func{close} is used in
+channel communication. It closes a channels, see chapter \ref{chap:channels}
 for more on this.
-\index{built-in!close}\index{built-in!closed}
+\index{built-in!close}
+
+\paragraph{\func{delete}} is used for deleting entries in maps.
+\index{built-in!delete}
 
 \paragraph{\func{len} and \func{cap}} are used on a number of different
 types, \func{len} is
@@ -984,14 +987,15 @@ var value int
 var present bool
 
 value, present = monthdays["Jan"] |\coderemark{If exist, \texttt{present} has the value \key{true}}|
-                                 |\coderemark{Or better and more Go like}|
-v, ok := monthdays["Jan"]	 |\coderemark{Hence, the "comma ok" form}|
+                                  |\coderemark{Or better and more Go like}|
+v, ok := monthdays["Jan"]	  |\coderemark{Hence, the "comma ok" form}|
 \end{lstlisting}
 And finally you can remove elements \index{keyword!map!remove elements} from the \type{map}:
 \begin{lstlisting}
-monthdays["Mar"] = 0, false       |\coderemark{Deletes "Mar", always rains anyway}|
+delete monthdays["Mar"]           |\coderemark{Deletes "Mar", always rainy anyway}|
 \end{lstlisting}
-Which looks a bit like the reverse of the "comma ok" form.
+In general the syntax \lstinline{delete(m, x)} will delete the map entry
+retrieved by the expression \lstinline{m[x]}.
 
 \section{Exercises}
 \input{ex-basics/ex-for.tex}
