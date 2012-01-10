@@ -11,8 +11,8 @@ func main() {
         defer f.Close() |\longremark{确保关闭（close）它；}|
 
 	for {
-                n, _ := f.Read(buf) |\longremark{一次读取 1023 字节；}|
+                n, _ := f.Read(buf) |\longremark{一次读取 1024 字节；}|
                 if n == 0 { break } |\longremark{到达文件末尾；}|
-                os.Stdout.Write(buf[0:n]) |\longremark{将内容写入 \var{Stdout}；}|
+                os.Stdout.Write(buf[:n]) |\longremark{将内容写入 \var{Stdout}；}|
 	}
 }

@@ -80,6 +80,48 @@ The compiler is 6g.
 \end{display}
 现在，Go 已经被安装到了系统中，可以开始游戏了。
 
+\section{在 Windows 下获得 Go}
+在 Windows 下使用 Go 的最佳方式是 MinGW \cite{go_windows} 环境。 
+它为 Windows 提供了一个类 UNIX 的环境。这和 Cygwin 比较类似，不过并没有尝试模拟 
+POSIX，而是使用微软 C 运行库和 Windows API 代替。
+\begin{itemize}
+\item 从 \cite{go_windows} 下载最新的版本；
+\item 将其解压缩到 \verb|C:\| 盘；
+\item 确认 \verb|C:\MinGW| 中的内容存在。注意：当你解压缩 MinGW 的时候目录应当已经被创建了；
+\item 确认存在 \verb|C:\MinGW|；
+\item 使用 mintty 的快捷方式开启一个终端窗口；
+\item 将环境变量 \prog{GOROOT} 设为 Go 的安装目录的根目录：
+\begin{display}
+\pr \user{export GOROOT=/c/go}
+\end{display}
+\item 用下面的命令下载最新的 Go 稳定发布版本
+\begin{display}
+\pr \user{hg clone -r release https://go.googlecode.com/hg/ $GOROOT}
+\end{display}
+\item 进入 \file{src} 目录
+\begin{display}
+\pr \user{cd $GOROOT/src}
+\end{display}
+\item 然后编译 Go
+\begin{display}
+\pr \user{./all.bash}
+\end{display}
+\end{itemize}
+现在就获得了一个可以工作的 Go 环境。接下来需要设置 GOROOT、GOBIN 和 PATH 变量。
+
+\begin{itemize}
+\item 创建叫做 \file{setup.sh} 的文件，并放置到 \file{MinGW} 目录，文件内容如下：
+\begin{display}
+export GOROOT=/c/GOROOT
+export GOBIN=$GOROOT/bin
+export PATH=$GOBIN:$PATH
+\end{display}
+\item 现在运行 mintty 的时候，可以执行这个文件来设置 Go 环境：
+\begin{display}
+\pr \user{. ./setup.sh}
+\end{display}
+\end{itemize}
+
 \subsection{保持更新}
 新的发布会公布在 Go Nuts 邮件列表 \cite{go_nuts} 中。将已经存在的代码树更新到最新，需要执行：
 \begin{display}
@@ -114,7 +156,6 @@ Limbo 是用于开发运行在小型计算机上的分布式应用的编程语�
 原子性\emph{垃圾收集}，和简单的抽象数据类型。
 它被设计用于即便是没有硬件内存保护的小型设备上，也能安全的运行。
 \end{quote}
-Limbo 的一个特性已经包含进了 Go 用于支持交叉编译。
 Go 从 Limbo 继承的另一个特性是 channel（参阅第 \ref{chap:channels} 章）。
 从 Limbo 文档来的另一段：
 \begin{quote}

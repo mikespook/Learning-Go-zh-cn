@@ -1,10 +1,10 @@
 package main
 
+// 为了增加而需要重写
 import (
-	"fmt"
-	"strconv"
-	"container/vector"
-	"flag"
+        "fmt"
+        "strconv"
+        "flag"
 )
 
 const (
@@ -16,15 +16,10 @@ const (
 	MAXPOS = 11
 )
 
-var mop = map[int]string{
-	ADD: "+",
-	SUB: "-",
-	MUL: "*",
-	DIV: "/",
-}
+var mop = map[int]string{ADD: "+", SUB: "-", MUL: "*", DIV: "/",}
 
 var (
-	ok bool
+	ok    bool
 	value int
 )
 
@@ -33,23 +28,13 @@ type Stack struct {
 	data [MAXPOS]int
 }
 
-func (s *Stack) Reset() {
-	s.i = 0
-}
+func (s *Stack) Reset()     { s.i = 0 }
 
-func (s *Stack) Len() int {
-	return s.i
-}
+func (s *Stack) Len() int   { return s.i }
 
-func (s *Stack) Push(k int) {
-	s.data[s.i] = k
-	s.i++
-}
+func (s *Stack) Push(k int) { s.data[s.i] = k; s.i++ }
 
-func (s *Stack) Pop() int {
-	s.i--
-	return s.data[s.i]
-}
+func (s *Stack) Pop() int   { s.i--; return s.data[s.i] }
 
 var found int
 var stack = new(Stack)
@@ -57,7 +42,6 @@ var stack = new(Stack)
 func main() {
 	flag.Parse()
 	list := []int{1, 6, 7, 8, 8, 75, ADD, SUB, MUL, DIV}
-	//	list := []int{1, 6, 7, ADD, SUB, MUL, DIV}
         // Arg0 包含了需要处理的数字
 	magic, ok := strconv.Atoi(flag.Arg(0))
 	if ok != nil {
@@ -73,7 +57,6 @@ func solve(form, numberop []int, index, magic int) {
 		if v == 0 {
 			goto NEXT
 		}
-
 		if v < ADD {
 			// 是一个数字，保存起来
 			tmp = numberop[i]
@@ -108,22 +91,22 @@ func solve(form, numberop []int, index, magic int) {
 // convert rpn to nice infix notation and string
 // the r must be valid rpn form
 func rpnstr(r []int) (ret string) {
-	s := new(vector.StringVector)
+        s := make([]string, 0) // Still memory intensive
 	for k, t := range r {
 		switch t {
 		case ADD, SUB, MUL, DIV:
-			a := s.Pop()
-			b := s.Pop()
-			if k == len(r)-1 {
-				s.Push(b + mop[t] + a)
-			} else {
-				s.Push("(" + b + mop[t] + a + ")")
+                        a, s := s[len(s)-1], s[:len(s)-1]
+                        b, s := s[len(s)-1], s[:len(s)-1]
+                        if k == len(r)-1 {
+			        s = append(s, b+mop[t]+a)
+                        } else {
+                                s = append(s, "("+b+mop[t]+a+")")
 			}
 		default:
-			s.Push(strconv.Itoa(t))
+                        s = append(s, strconv.Itoa(t))
 		}
 	}
-	for _, v := range *s {
+	for _, v := range s {
 		ret += v
 	}
 	return

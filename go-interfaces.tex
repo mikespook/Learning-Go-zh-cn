@@ -80,27 +80,27 @@ func f(p I) {
 为了在\emph{运行时}得到类型，同样可以使用“comma, ok”来判断一个接口类型是否实现了某个特定接口：
 
 \begin{lstlisting}
-if t, ok := any.(I); ok { 
-    // 对于实现接口 I 的任意操作
+if t, ok := something.(I); ok {
+    // 对于某些实现了接口 I 的
     // t 是其所拥有的类型
 } 
 +\end{lstlisting}
 确定一个变量实现了某个接口，可以使用：
 \begin{lstlisting}
-t := any.(I)
+t := something.(I)
 \end{lstlisting}
 
 \subsection{空接口}
 由于每个类型都能匹配到空接口：
 \type{interface\{\}}。我们可以创建一个接受空接口作为参数的普通函数：
 \begin{lstlisting}[caption=用空接口作为参数的函数,label=src:interface empty]
-func g(any interface{}) int { 
-    return any.(I).Get() 
+func g(something interface{}) int { 
+    return something.(I).Get() 
 }
 \end{lstlisting}
-在这个函数中的 \lstinline{return any.(I).Get()} 是有一点窍门的。
-值 \var{any} 具有类型 \type{interface\{\}}，这意味着方法没有任何约束：
-它能包含任何类型。\lstinline{.(I)} 是 \first{类型断言}{type assertion}，用于转换 \var{any} 到
+在这个函数中的 \lstinline{return something.(I).Get()} 是有一点窍门的。
+值 \var{something} 具有类型 \type{interface\{\}}，这意味着方法没有任何约束：
+它能包含任何类型。\lstinline{.(I)} 是 \first{类型断言}{type assertion}，用于转换 \var{something} 到
 \type{I} 类型的接口。如果有这个类型，则可以调用 \func{Get()} 函数。
 因此，如果创建一个 \type{*S} 类型的新变量，也可以调用 \func{g()}，
 因为 \type{*S} 同样实现了空接口。

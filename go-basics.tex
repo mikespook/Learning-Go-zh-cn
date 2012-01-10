@@ -20,6 +20,7 @@ Go 让函数很容易成为\emph{非常}轻量的线程。
 编译很快，执行也很快。目标是跟 C 一样快。编译时间用秒计算；
 
 \item[安全]
+当转换一个类型到另一个类型的时候需要显式的转换并遵循严格的规则。
 Go 有垃圾收集，在 Go 中无须 \func{free()}，语言会处理这一切；
 
 \item[标准的格式化]
@@ -734,6 +735,7 @@ a := [2][2]int{ {1,2}, {3,4} }
 
 \subsection{slice}
 \label{sec:slices}
+\todo{Add push/pop to this section as container/vector will be depricated.}
 slice 与 array 接近，但是在新的元素加入的时候可以增加长度。
 slice 总是指向底层的一个 array。slice 是一个\emph{指向} array 的指针，
 这是其与 array 不同的地方；
@@ -820,7 +822,7 @@ n2 := copy(s, s[2:])    |\coderemark{\texttt{n2 == 4, s == []int\{2, 3, 4, 5, 4,
 \subsection{map}
 \label{sec:maps}
 许多语言都内建了类似的类型，例如 Perl 有哈希，Python 有字典，
-而 C++ 同样也有 map（在 \package{lib}\index{package!lib}中）。 
+而 C++ 同样也有 map（作为它们的库）。 
 在 Go 中有 \first{\key{map}}{keyword!map} 类型。\type{map} 
 可以认为是一个用字符串做索引的数组（在其最简单的形式下）。
 下面定义了 \type{map} 类型，用于将 \lstinline{string} （月的缩写）转换为 \lstinline{int}——那个月的天数。 

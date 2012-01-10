@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.0 r9654"
+   inkscape:version="0.48.1 r9760"
    sodipodi:docname="array-vs-slice.svg">
   <defs
      id="defs4">
@@ -167,14 +167,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="323.79373"
+     inkscape:cx="324.50802"
      inkscape:cy="906.17527"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-global="true"
      inkscape:window-width="1680"
-     inkscape:window-height="1022"
+     inkscape:window-height="1001"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1">
@@ -435,57 +435,6 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
-       x="227.62395"
-       y="169.42952"
-       id="text3661-1"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3663-7"
-         x="227.62395"
-         y="169.42952">. . .</tspan></text>
-    <rect
-       style="fill:none"
-       id="rect2826-84-8"
-       width="38.57143"
-       height="31.428574"
-       x="278.33826"
-       y="163.25096"
-       ry="11.428572" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-opacity:1"
-       id="rect3604-8-5"
-       width="40"
-       height="35.714287"
-       x="261.19537"
-       y="151.82239"
-       ry="0" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-opacity:1"
-       id="rect3604-5-1-7"
-       width="40"
-       height="35.714287"
-       x="301.26682"
-       y="151.92445"
-       ry="0" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-opacity:1"
-       id="rect3604-6-0-4"
-       width="40"
-       height="35.714287"
-       x="381.19537"
-       y="151.82236"
-       ry="0" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-opacity:1"
-       id="rect3604-61-3-1"
-       width="40"
-       height="35.714287"
-       x="341.6546"
-       y="151.89383"
-       ry="0" />
-    <text
-       xml:space="preserve"
-       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
        x="450"
        y="172.36218"
        id="text5265-7"
@@ -550,17 +499,6 @@
          id="tspan5391"
          x="385"
          y="52.362183">m-1</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="390"
-       y="172.36218"
-       id="text5393"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5395"
-         x="390"
-         y="172.36218">m-1</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Mend)"
        d="m 415,97.362183 c 0,-20 0,-25 0,-25"
