@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"utf8"
+	"unicode/utf8"
 )
 
 func main() {

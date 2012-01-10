@@ -293,6 +293,9 @@ Go 原生支持复数。它的变量类型是 \lstinline{complex128}
 \lstinline{var c complex64 = 5+5i; fmt.Printf("Value is: %v", c)}\newline
 将会打印：\lstinline{(5+5i)}
 
+\subsection{错误}
+任何足够大的程序或多或少都会需要使用到错误。因此 Go 有为了错误而存在的内建类型。
+
 \section{运算符和内建函数}
 Go 支持普通的数字运算符，表格 \ref{tab:op-precedence} 列出了当前支持的运算符，
 以及其优先级。它们全部是从左到右结合的。
@@ -638,9 +641,12 @@ func Compare(a, b []byte) int {
 \end{center}
 \end{table}
 
-\paragraph{\func{close} 和 \func{closed}} 用于 channel
-通讯和关闭 channel，参阅第 \ref{chap:channels} 章了解更多。
-\index{built-in!close}\index{built-in!closed}
+\paragraph{\func{close}} 用于 channel
+通讯。使用它来关闭 channel，参阅第 \ref{chap:channels} 章了解更多。
+\index{built-in!close}
+
+\paragraph{\func{delete}} 用于在 map 中删除实例。
+\index{built-in!delete}
 
 \paragraph{\func{len} 和 \func{cap}} 可用于不同的类型，
 \func{len} 用于返回字符串、slice 和数组的长度。
@@ -858,9 +864,9 @@ v, ok := monthdays["Jan"]	 |\coderemark{“逗号 ok”形式}|
 \end{lstlisting}
 也可以从 \type{map} 中移除元素 \index{keyword!map!remove elements}：
 \begin{lstlisting}
-monthdays["Mar"] = 0, false       |\coderemark{删除 "Mar" 吧，总是下雨}|
+delete monthdays["Mar"]          |\coderemark{删除 "Mar" 吧，总是下雨的月份}|
 \end{lstlisting}
-看起来有点像把“逗号 ok”形式反过来。
+通常来说语句 \lstinline{delete(m, x)} 会删除 map 中由 \lstinline{m[x]} 建立的实例。
 
 \section{练习}
 \input{ex-basics/ex-for.tex}
