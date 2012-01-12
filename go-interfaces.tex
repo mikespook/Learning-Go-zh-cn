@@ -189,8 +189,8 @@ func (a *net.AddrError) Emit() {
 \subsection{Methods on interface types}
 An interface defines a set of methods. A method contains the actual code.
 In other words, an interface is the definition and the methods are the implementation.
-So a receiver can not be a defined for interface
-types, doing so results in a \error{invalid receiver type ...} compiler
+So a receiver can not be an interface
+type, doing so results in a \error{invalid receiver type ...} compiler
 error. The authoritative word from the language spec \cite{go_spec}:
 \begin{quote}
 The receiver type must be of the form \type{T} or \type{*T} where
