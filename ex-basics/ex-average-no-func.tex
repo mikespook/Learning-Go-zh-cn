@@ -12,12 +12,12 @@ a function.
 sum := 0.0 
 switch len(xs) {
 case 0:                 |\longremark{If the length is zero, we return 0;}|
-        ave = 0
+        avg = 0
 default:                |\longremark{Otherwise we calculate the average;}|
         for _, v := range xs {
                 sum += v
         }
-        ave = sum / float64(len(xs)) |\longremark{We have to convert the value to a %
+        avg = sum / float64(len(xs)) |\longremark{We have to convert the value to a %
 \key{float64} to make the division work.}|
 }
 \end{lstlisting}
