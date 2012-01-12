@@ -318,7 +318,7 @@ type Mutex struct         { /* Mutex fields */ }
 func (m *Mutex) Lock()    { /* Lock implementation */ }
 func (m *Mutex) Unlock()  { /* Unlock implementation */ }
 \end{lstlisting}
-We now create two type in two different manors:
+We now create two types in two different manners:
 \begin{itemize}
 \item \lstinline|type NewMutex Mutex|;
 \item \lstinline|type PrintableMutex struct {  Mutex }|.
