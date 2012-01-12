@@ -11,8 +11,8 @@ something \emph{is} wrong. Why does the code compile cleanly then?
 The code compiles because an integer type implements the empty interface
 and that is the check that happens at compile time.
 
-A proper way to fix this, is to test if such an empty interface can
-be converted and if so, call the appropriate method. The Go code
+A proper way to fix this is to test if such an empty interface can
+be converted and, if so, call the appropriate method. The Go code
 that defines the function \func{g} in listing \ref{src:interface empty}
 -- repeated here:
 \begin{lstlisting}
