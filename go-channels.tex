@@ -152,7 +152,7 @@ goroutines.
 \index{channel!blocking write}
 
 But Go allows you to specify the buffer size of
-a channel, which is quite simple how many elements a channel can hold.
+a channel, which is quite simply how many elements a channel can hold.
 \lstinline{ch := make(chan bool, 4)}, creates a buffered channels of
 bools that can hold 4 elements. The first 4 elements in this channels
 are written without any blocking.
