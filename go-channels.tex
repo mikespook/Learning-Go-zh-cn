@@ -19,8 +19,8 @@ allocating (and freeing) heap storage as required.
 A \first{goroutine}{goroutine} is a normal function, except that you start
 it with the keyword \first{\key{go}}{keyword!go}.
 \begin{lstlisting}
-ready("Tee", 2)	    |\coderemark{Normal function call}|
-go ready("Tee", 2)  |\coderemark{\func{ready()} started as goroutine}|
+ready("Tea", 2)	    |\coderemark{Normal function call}|
+go ready("Tea", 2)  |\coderemark{\func{ready()} started as goroutine}|
 \end{lstlisting}
 The following idea for a program was taken from \cite{go_course_day3}. 
 We run a function as two goroutines, the goroutines wait for an amount of
@@ -35,7 +35,7 @@ Listing \ref{src:sleeping} outputs:
 \begin{display}
 I'm waiting         \coderemark{Right away}
 Coffee is ready!    \coderemark{After 1 second}
-Tee is ready!       \coderemark{After 2 seconds}
+Tea is ready!       \coderemark{After 2 seconds}
 \end{display}
 
 If we did not wait for the goroutines (i.e. remove line 17) the program
@@ -80,7 +80,7 @@ func ready(w string, sec int) {
 
 func main() {
 	c = make(chan int) |\longremark{Initialize \var{c};}|
-	go ready("Tee", 2) |\longremark{Start the goroutines with the keyword \key{go};}|
+	go ready("Tea", 2) |\longremark{Start the goroutines with the keyword \key{go};}|
 	go ready("Coffee", 1)
 	fmt.Println("I'm waiting, but not too long")
 	<-c |\longremark{Wait until we receive a value from the channel. Note that the value we receive is discarded;}|

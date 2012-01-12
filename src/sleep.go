@@ -11,7 +11,7 @@ func ready(w string, sec int64) {
 }
 
 func main() {
-	go ready("Tee", 2)
+	go ready("Tea", 2)
 	go ready("Coffee", 1)
 	fmt.Println("I'm waiting")
 	time.Sleep(5 * 1e9)
