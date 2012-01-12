@@ -72,7 +72,7 @@ requirement for explicitly declaring that a type satisfies an interface. The
 result in Go is powerful, flexible, efficient, and easy to write.
 
 \subsection{Which is what?}
-Lets define another type that also implements the interface \type{I}:
+Let's define another type that also implements the interface \type{I}:
 \begin{lstlisting}
 type R struct { i int }
 func (p *R) Get() int { return p.i }
@@ -257,7 +257,7 @@ func bubblesortString(n []string) { /* ... */ }
 \end{lstlisting}
 Using this approach would lead to two functions, one for each type. By using
 interfaces we can make this more \index{generic} generic.
-Lets create a new function that will sort both strings and
+Let's create a new function that will sort both strings and
 integers, something along the lines of this non-working example:
 \begin{lstlisting}
 func sort(i []interface{}) { |\longremark{Our function will receive a slice of %
