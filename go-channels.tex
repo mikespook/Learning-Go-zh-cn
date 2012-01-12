@@ -111,7 +111,7 @@ L: for {
 \end{lstlisting}
 
 \subsection{Make it run in parallel}
-While our goroutines were running concurrent, they were not running in
+While our goroutines were running concurrently, they were not running in
 parallel. When you do not tell Go anything there can only be one
 goroutine running at a time. With \func{runtime.GOMAXPROCS(n)} you
 can set the number of goroutines that can run in parallel. From
