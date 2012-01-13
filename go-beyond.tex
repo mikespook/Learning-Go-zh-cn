@@ -260,7 +260,7 @@ struct {
         x, y int  |\coderemark{Field names are \var{x} and \var{y}}|
 }
 \end{lstlisting}
-Note the field names that start with a capital letter are exported, i.e. can be
+Note that field names that start with a capital letter are exported, i.e. can be
 set or read from other packages. Field names that start with a lowercase are private
 to the current package. The same goes for functions defined in packages, see chapter
 \ref{chap:packages} for the details.
@@ -413,7 +413,7 @@ Which fails on the last line with:
 \begin{lstlisting}
 var f foo = foo(b)
 \end{lstlisting}
-Note the converting structures that are not identical in their fields
+Note that converting structures that are not identical in their fields
 is more difficult. Also note that converting \lstinline{b} to a plain
 \type{int} also fails; an integer is not the same as a structure containing
 an integer.
