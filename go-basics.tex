@@ -447,9 +447,9 @@ if ! false {
 \end{lstlisting}
 
 In the Go libraries, you will find that when an \key{if} statement doesn't flow
-into the next statement-that is, the body ends in \key{break},
+into the next statement -- that is, the body ends in \key{break},
 \key{continue}, \key{goto},
-or \key{return}, the unnecessary \first{\key{else}}{keyword!else} is omitted.
+or \key{return} -- the unnecessary \first{\key{else}}{keyword!else} is omitted.
 
 \begin{lstlisting}
 f, err := os.Open(name, os.O_RDONLY, 0)
