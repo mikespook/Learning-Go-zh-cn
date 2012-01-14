@@ -406,10 +406,10 @@ The \package{unsafe} package contains operations that step around the type safet
 The \package{reflect} package implements run-time reflection, allowing a program to
 manipulate objects with arbitrary types.  The typical use is to take a
 value with static type \lstinline|interface{}| and extract its dynamic type
-information by calling \func{Typeof}, which returns an object with interface
-type \type{Type}.  That contains a pointer to a struct of type \type{*StructType},
-\type{*IntType}, etc. representing the details of the underlying type.  A type
-switch or type assertion can reveal which. \emph{See chapter \ref{chap:interfaces}, 
+information by calling \func{TypeOf}, which returns an object with interface
+type \type{Type}.
+
+\emph{See chapter \ref{chap:interfaces}, 
 section "\titleref{sec:introspection and reflection}"}.
 }
 \item[\package{exec}]{\index{package!exec}
