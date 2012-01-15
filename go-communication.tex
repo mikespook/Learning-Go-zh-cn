@@ -13,7 +13,7 @@ If you want to use \first{buffered}{buffered} IO there is the
 \lstinputlisting[caption=Reading from a file (bufferd),label=src:bufread]{src/buffile.go}
 \showremarks
 
-The previous program reads a file in its entirely, but a more common scenario is that
+The previous program reads a file in its entirety, but a more common scenario is that
 you want to read a file on a line-by-line basis. The following snippet show a way
 to do just that:
 
@@ -71,10 +71,10 @@ flag.Parse()   |\longremark{Parse the flags and fill the variables.}|
 \showremarks
 
 \section{Executing commands}
-The \package{exec}\index{package!exec} package has functions to run external commands, and it the premier way to
+The \package{exec}\index{package!exec} package has functions to run external commands, and is the premier way to
 execute commands from within a Go program. It works by defining a \var{*exec.Cmd} structure for which it
 defines a number of methods.
-Lets execute \verb|ls -l|:
+Let's execute \verb|ls -l|:
 \begin{lstlisting}
 import "exec"
 

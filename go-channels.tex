@@ -19,8 +19,8 @@ allocating (and freeing) heap storage as required.
 A \first{goroutine}{goroutine} is a normal function, except that you start
 it with the keyword \first{\key{go}}{keyword!go}.
 \begin{lstlisting}
-ready("Tee", 2)	    |\coderemark{Normal function call}|
-go ready("Tee", 2)  |\coderemark{\func{ready()} started as goroutine}|
+ready("Tea", 2)	    |\coderemark{Normal function call}|
+go ready("Tea", 2)  |\coderemark{\func{ready()} started as goroutine}|
 \end{lstlisting}
 The following idea for a program was taken from \cite{go_course_day3}. 
 We run a function as two goroutines, the goroutines wait for an amount of
@@ -35,7 +35,7 @@ Listing \ref{src:sleeping} outputs:
 \begin{display}
 I'm waiting         \coderemark{Right away}
 Coffee is ready!    \coderemark{After 1 second}
-Tee is ready!       \coderemark{After 2 seconds}
+Tea is ready!       \coderemark{After 2 seconds}
 \end{display}
 
 If we did not wait for the goroutines (i.e. remove line 17) the program
@@ -66,7 +66,7 @@ ci <- 1	    |\coderemark{\emph{Send} the integer 1 to the channel \var{ci}}|
 <-ci	    |\coderemark{\emph{Receive} an integer from the channel \var{ci}}|
 i := <-ci   |\coderemark{\emph{Receive} from the channel \var{ci} and storing it in \var{i}}|
 \end{lstlisting}
-Lets put this to use.
+Let's put this to use.
 \begin{lstlisting}[numbers=none,caption=Go routines and a channel,label=src:sleeping with channels]
 var c chan int |\longremark{Declare \var{c} to be a variable that is a %
 channel of ints. That is: this channel can move integers. Note %
@@ -80,7 +80,7 @@ func ready(w string, sec int) {
 
 func main() {
 	c = make(chan int) |\longremark{Initialize \var{c};}|
-	go ready("Tee", 2) |\longremark{Start the goroutines with the keyword \key{go};}|
+	go ready("Tea", 2) |\longremark{Start the goroutines with the keyword \key{go};}|
 	go ready("Coffee", 1)
 	fmt.Println("I'm waiting, but not too long")
 	<-c |\longremark{Wait until we receive a value from the channel. Note that the value we receive is discarded;}|
@@ -96,7 +96,7 @@ Go built-in comes in: \first{\key{select}}{keyword!select}. With \key{select} yo
 can (among other things) listen for incoming data on a channel.
 
 Using \key{select} in our program does not really make it shorter,
-because we run too few goroutines. We remove the lines 14 and 15 and
+because we run too few go\-routines. We remove the lines 14 and 15 and
 replace them with the following:
 \begin{lstlisting}[caption=Using select,numbers=right,firstnumber=14]
 L: for {
@@ -111,7 +111,7 @@ L: for {
 \end{lstlisting}
 
 \subsection{Make it run in parallel}
-While our goroutines were running concurrent, they were not running in
+While our goroutines were running concurrently, they were not running in
 parallel. When you do not tell Go anything there can only be one
 goroutine running at a time. With \func{runtime.GOMAXPROCS(n)} you
 can set the number of goroutines that can run in parallel. From
@@ -152,9 +152,9 @@ goroutines.
 \index{channel!blocking write}
 
 But Go allows you to specify the buffer size of
-a channel, which is quite simple how many elements a channel can hold.
-\lstinline{ch := make(chan bool, 4)}, creates a buffered channels of
-bools that can hold 4 elements. The first 4 elements in this channels
+a channel, which is quite simply how many elements a channel can hold.
+\lstinline{ch := make(chan bool, 4)}, creates a buffered channel of
+bools that can hold 4 elements. The first 4 elements in this channel
 are written without any blocking.
 When you write the 5$^{th}$ element, your
 code \emph{will} block, until another goroutine reads some elements from the
@@ -169,7 +169,7 @@ x, ok = <-ch
 \end{lstlisting}
 Where \lstinline{ok} is set to \lstinline{true} when there was something
 to read (otherwise it is \lstinline{false}. 
-And if that was the case \lstinline{x} get the value read
+And if that was the case \lstinline{x} gets the value read
 from the channel. 
 In conclusion, the following is true in Go:
 $$

@@ -175,12 +175,12 @@ Which makes \var{a} and \var{b} both integer variables and assigns
 
 A special name for a variable is \var{\textbf{\_}} \index{variables!\_}
 (underscore) \index{variables!underscore}. Any value
-assigned to it, is discarded. In this example we only assign the integer
+assigned to it is discarded. In this example we only assign the integer
 value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
 _, b := 34, 35
 \end{lstlisting}
-Declared, but otherwise unused variables are a compiler error in Go, the
+Declared, but otherwise unused variables are a compiler error in Go. The
 following code generates this error:
 \error{i declared and not used}
 
@@ -447,9 +447,9 @@ if ! false {
 \end{lstlisting}
 
 In the Go libraries, you will find that when an \key{if} statement doesn't flow
-into the next statement-that is, the body ends in \key{break},
+into the next statement -- that is, the body ends in \key{break},
 \key{continue}, \key{goto},
-or \key{return}, the unnecessary \first{\key{else}}{keyword!else} is omitted.
+or \key{return} -- the unnecessary \first{\key{else}}{keyword!else} is omitted.
 
 \begin{lstlisting}
 f, err := os.Open(name, os.O_RDONLY, 0)
@@ -542,7 +542,7 @@ for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 { |\coderemark{Parallel assignme
 \end{lstlisting}
 
 \subsection{Break and continue}
-With \first{\key{break}}{keyword!break} you can quit loops early, \key{break} breaks
+With \first{\key{break}}{keyword!break} you can quit loops early.  By itself, \key{break} breaks
 the current loop.
 \begin{lstlisting}
 for i := 0; i < 10; i++ {
@@ -581,7 +581,7 @@ for i := 0; i < 10; i++ {
 The keyword \first{\key{range}}{keyword!range} can be used for loops. It
 can loop over slices, arrays, strings, maps and channels (see chapter
 \ref{chap:channels}). \key{range} is
-an iterator, that when called, returns a key-value pair from the thing it
+an iterator that, when called, returns a key-value pair from the thing it
 loops over. Depending on what that is, \key{range} returns
 different things.
 
@@ -640,7 +640,7 @@ func unhex(c byte) byte {
 }
 \end{lstlisting}
 There is no automatic fall through, you can however use
-\first{\key{fallthrough}}{keyword!fallthrough} to make do just that.
+\first{\key{fallthrough}}{keyword!fallthrough} to do just that.
 Without \key{fallthrough}:
 \begin{lstlisting}
 switch i {
@@ -716,7 +716,7 @@ access to them. Table \ref{tab:predef-functions} lists them all.
 \end{center}
 \end{table}
 
-These built-in functions are document in the \package{builtin} \index{package!builtin}
+These built-in functions are documented in the \package{builtin} \index{package!builtin}
 pseudo package that is included in recent Go releases.
 
 \paragraph{\func{close}} is used in
@@ -961,7 +961,7 @@ monthdays := map[string]int{
 Note to use \lstinline{make} when only declaring a \lstinline{map}:
 \lstinline|monthdays := make(map[string]int)|
 
-For indexing (searching) in the map, we use square brackets, for example
+For indexing (searching) in the map, we use square brackets. For example,
 suppose we want to print the
 number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
 If you are looping over an array, slice, string, or map a

@@ -8,7 +8,7 @@ The convention for package names is to use
 lowercase characters.
 Go packages may consist of multiple files,
 but they share the \lstinline{package <name>} line.
-Lets define a package \package{even}\index{package!even} in the file \prog{even.go}.
+Let's define a package \package{even}\index{package!even} in the file \prog{even.go}.
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
 Names that start with a capital letter are \emph{exported} and may be used
@@ -133,7 +133,7 @@ import "bytes"
 the importing package can talk about \func{bytes.Buffer}. It's helpful if
 everyone using the package can use the same name to refer to its
 contents, which implies that the package name should be good: short,
-concise, evocative. By convention, packages are given lower case,
+concise, and evocative. By convention, packages are given lower case,
 single-word names; there should be no need for underscores or mixedCaps.
 Err on the side of brevity, since everyone using your package will be
 typing that name. And don't worry about collisions a priori. The package
@@ -180,7 +180,7 @@ something intricate or subtle, it's usually better to write a helpful
 doc comment than to attempt to put all the information into the name.
 
 Finally, the convention in Go is to use \first{MixedCaps}{MixedCaps} or mixedCaps rather
-than underscores to write multi word names.
+than underscores to write multi-word names.
 
 %% Advanced Go, leave it
 %%\section{Initialization}
@@ -211,7 +211,7 @@ package regexp
 \end{display}
 
 Each defined (and exported) function should have a small line of text
-documenting the behavior of the function, from the \package{fmt}
+documenting the behavior of the function. An example from the \package{fmt}
 package:
 \begin{display}
 // Printf formats according to a format specifier and writes to standard output.
@@ -223,7 +223,7 @@ In Go it is customary to write (unit) tests for your package. Writing
 tests involves the \package{testing} package and the program
 \first{\prog{gotest}}{gotest}. Both
 have excellent documentation. When you include tests with your package
-keep in mind that has to be build using the standard \file{Makefile}
+keep in mind that they have to build using the standard \file{Makefile}
 (see section "\titleref{sec:building a package}").
 
 %% CLEANFILES+=hello fib chain run.out
@@ -231,7 +231,7 @@ keep in mind that has to be build using the standard \file{Makefile}
 
 The testing itself is carried out with \prog{gotest}.
 The \prog{gotest} program runs all the test functions. Without any
-defined tests for our \package{even} package a \prog{gotest}, yields:
+defined tests for our \package{even} package, \prog{gotest} yields:
 \begin{display}
 \pr gotest
 gotest: no test files found in current directory
@@ -318,7 +318,7 @@ gotest: "./6.out" failed: exit status 1
 \begin{lbar}
 Writing new packages should go hand in hand with writing (some)
 documentation and test functions. It will make your code better and it
-shows that your really put in the effort.
+shows that you really put in the effort.
 \end{lbar}
 
 \section{Useful packages}
@@ -406,10 +406,10 @@ The \package{unsafe} package contains operations that step around the type safet
 The \package{reflect} package implements run-time reflection, allowing a program to
 manipulate objects with arbitrary types.  The typical use is to take a
 value with static type \lstinline|interface{}| and extract its dynamic type
-information by calling \func{Typeof}, which returns an object with interface
-type \type{Type}.  That contains a pointer to a struct of type \type{*StructType},
-\type{*IntType}, etc. representing the details of the underlying type.  A type
-switch or type assertion can reveal which. \emph{See chapter \ref{chap:interfaces}, 
+information by calling \func{TypeOf}, which returns an object with interface
+type \type{Type}.
+
+\emph{See chapter \ref{chap:interfaces}, 
 section "\titleref{sec:introspection and reflection}"}.
 }
 \item[\package{exec}]{\index{package!exec}

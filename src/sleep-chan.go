@@ -15,7 +15,7 @@ func ready(w string, sec int) {
 
 func main() {
 	c = make(chan int)
-	go ready("Tee", 2)
+	go ready("Tea", 2)
 	go ready("Coffee", 1)
 	fmt.Println("I'm waiting, but not too long")
 	<-c

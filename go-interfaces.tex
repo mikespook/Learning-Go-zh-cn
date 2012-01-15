@@ -72,7 +72,7 @@ requirement for explicitly declaring that a type satisfies an interface. The
 result in Go is powerful, flexible, efficient, and easy to write.
 
 \subsection{Which is what?}
-Lets define another type that also implements the interface \type{I}:
+Let's define another type that also implements the interface \type{I}:
 \begin{lstlisting}
 type R struct { i int }
 func (p *R) Get() int { return p.i }
@@ -148,7 +148,7 @@ method Get}
 have a \func{Get()} method.
 
 \section{Methods}
-Methods are functions that have an receiver (see chapter
+Methods are functions that have a receiver (see chapter
 \ref{chap:functions}).
 You can define methods on any type (except on non-local types, this includes
 built-in types: the type \type{int} can not have methods).
@@ -187,10 +187,10 @@ func (a *net.AddrError) Emit() {
 \paragraph{}  %% needed otherwise the minipage flows over
 
 \subsection{Methods on interface types}
-An interfaces defines a set of methods. A method contains the actual code.
+An interface defines a set of methods. A method contains the actual code.
 In other words, an interface is the definition and the methods are the implementation.
-So a receiver can not be a defined for interface
-types, doing so results in a \error{invalid receiver type ...} compiler
+So a receiver can not be an interface
+type, doing so results in a \error{invalid receiver type ...} compiler
 error. The authoritative word from the language spec \cite{go_spec}:
 \begin{quote}
 The receiver type must be of the form \type{T} or \type{*T} where
@@ -257,7 +257,7 @@ func bubblesortString(n []string) { /* ... */ }
 \end{lstlisting}
 Using this approach would lead to two functions, one for each type. By using
 interfaces we can make this more \index{generic} generic.
-Lets create a new function that will sort both strings and
+Let's create a new function that will sort both strings and
 integers, something along the lines of this non-working example:
 \begin{lstlisting}
 func sort(i []interface{}) { |\longremark{Our function will receive a slice of %
@@ -285,7 +285,7 @@ can be found at \cite{go_nuts_interfaces}.}
 long story short: Go does not (implicitly) convert slices for you.
 
 So what is the Go way of creating such a "generic" function? 
-Instead of doing the type inference our selves with a type switch, we let
+Instead of doing the type inference ourselves with a type switch, we let
 Go do it implicitly:
 The following steps are required:
 \begin{enumerate}

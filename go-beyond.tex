@@ -14,8 +14,8 @@ You declare a pointer by prefixing the type with an
 '\key{*}':
 \lstinline{var p *int}. Now \var{p} is a pointer to an integer value.
 All newly declared variables are assigned their zero value and pointers
-are no difference. A newly declared, or just a pointer that points to
-nothing has a \first{nil}{nil}-value. In other languages this is often called
+are no different. A newly declared pointer, or just a pointer that points to
+nothing, has a \first{nil}{nil}-value. In other languages this is often called
 a NULL pointer in Go it is just \var{nil}. To make 
 a pointer point to something you can use the \first{address-of operator}{operator!address-of}
 (\func{\&}), which we here:
@@ -222,7 +222,7 @@ a new type \lstinline{foo} which acts like an \lstinline{int}.
 Creating more sophisticated types is done with the
 \first{\key{struct}}{keyword!struct}
 keyword.
-An example would be when we want record somebodies name (\type{string})
+An example would be when we want record somebody's name (\type{string})
 and age (\type{int}) in a single structure and make it a new type:
 \lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
 Apropos, the output of \lstinline{fmt.Printf("%v\n", a)} is 
@@ -260,7 +260,7 @@ struct {
         x, y int  |\coderemark{Field names are \var{x} and \var{y}}|
 }
 \end{lstlisting}
-Note the field names that start with a capital letter are exported, i.e. can be
+Note that field names that start with a capital letter are exported, i.e. can be
 set or read from other packages. Field names that start with a lowercase are private
 to the current package. The same goes for functions defined in packages, see chapter
 \ref{chap:packages} for the details.
@@ -318,7 +318,7 @@ type Mutex struct         { /* Mutex fields */ }
 func (m *Mutex) Lock()    { /* Lock implementation */ }
 func (m *Mutex) Unlock()  { /* Unlock implementation */ }
 \end{lstlisting}
-We now create two type in two different manors:
+We now create two types in two different manners:
 \begin{itemize}
 \item \lstinline|type NewMutex Mutex|;
 \item \lstinline|type PrintableMutex struct {  Mutex }|.
@@ -368,7 +368,7 @@ or 4 bytes.
 intslice  := []int(mystring)
 \end{lstlisting}
 Converts to an \type{int} slice, each \type{int} contains a Unicode code
-point. Every character from the string is corresponds to one integer.
+point. Every character from the string corresponds to one integer.
 }
 \item{
 From a slice of bytes or ints to a \lstinline{string}.
@@ -380,7 +380,7 @@ r := string(i)
 \end{lstlisting}
 }
 \end{itemize}
-For numeric values the following conversion are defined:
+For numeric values the following conversions are defined:
 \begin{itemize}
 \item{Convert to a integer with a specific (bit) length: 
 \lstinline{uint8(int)};}
@@ -413,7 +413,7 @@ Which fails on the last line with:
 \begin{lstlisting}
 var f foo = foo(b)
 \end{lstlisting}
-Note the converting structures that are not identical in their fields
+Note that converting structures that are not identical in their fields
 is more difficult. Also note that converting \lstinline{b} to a plain
 \type{int} also fails; an integer is not the same as a structure containing
 an integer.
