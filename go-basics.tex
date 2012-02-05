@@ -70,8 +70,8 @@ Lets look at the program line by line.
 \section{Compiling and running code}
 The Go compiler is named \verb|<number>g|, where the number is 6 for 64 bit
 Intel and 8 for 32 bit Intel. The linker has a similar naming scheme:
-\verb|<number>l|. In this book we will use \prog{6g} and \prog{6l} for
-all the compiles. To compile the code from above, we use:
+\verb|<number>l|. In this book we will use \prog{6g} and \prog{6l}.
+To compile the code from above, we use:
 \begin{display}
 \pr \user{6g helloworld.go}
 \end{display}
@@ -92,20 +92,19 @@ all the compiles. To compile the code from above, we use:
 \ \newline
 \ \newline
 
-\subsection{Using a Makefile}
+\subsection{Using go}
 \label{sec:building a program}
 Another, less laborious (once setup), way to build a Go program, is to use a
-\file{Makefile}. The following one can be used to build
-\prog{helloworld}:
-\lstinputlisting[language=make,caption=Makefile for a program,numbers=right,linerange={5,11}]{src/Makefile.prog}
-At line 3 you specify the name for your compiled program and on line 5
-you enumerate the source files. Now an invocation of \verb|make| is
-enough to get your program compiled. Note that Go ships with the variant
-of \prog{make}, called \prog{gomake}, which is (currently) a small
-wrapper around GNU make. As the build system for Go programs may
-change in the future and make \prog{make} go away, we use \prog{gomake}.
-Note that this \file{Makefile} creates an executable named
-\prog{helloworld}, not \prog{6.out} or \prog{8.out}.
+the \prog{go} tool.\index{tooling!go} 
+\begin{display}
+\pr go build
+\end{display}
+This results in an executable called \prog{a.out}. If you want to use a better
+name you can use the output (-o) flag:
+\begin{display}
+\pr go build -o helloworld
+\end{display}
+Resulting in a executable called \prog{helloworld}.
 
 \section{Variables, types and keywords}
 \label{sec:vars}
@@ -320,6 +319,10 @@ Be aware that in this last example \var{s} now also contains the newline.
 Unlike \emph{interpreted} string literals \index{string literal!interpreted} a raw string literal's value
 is composed of the \emph{uninterpreted} characters between the quotes.
 \end{lbar}
+
+\subsection{Runes}
+\lstinline{Rune} is an alias for int. 
+
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
 use them you need a variable of the type \lstinline{complex128} (64
@@ -334,10 +337,9 @@ An example of using complex numbers:
 \lstinline{var c complex64 = 5+5i; fmt.Printf("Value is: %v", c)}\newline
 will print: \lstinline{(5+5i)}
 
-\subsection{Error}
+\subsection{Errors}
 Any non-trivial program will need errors sooner or later. Because of this
-Go has a builtin type specially for errors
-
+Go has a builtin type specially for errors, called \lstinline{error}.
 
 \section{Operators and built-in functions}
 Go supports the normal set of numerical operations,
