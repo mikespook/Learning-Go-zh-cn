@@ -1,7 +1,7 @@
 \epi{"\lstinline{^}"}{\textit{Answer to whether there is a bit wise negation
 operator.}\\\textsc{KEN THOMPSON}}
-\noindent{}Packages are a collection of functions and data, they are like the
-Perl packages\cite{perl-packages}. You declare a package with the
+\noindent{}Packages are a collection of functions and data. 
+You declare a package with the
 \first{\key{package}}{keyword!package} keyword. The file name does not
 have to match the package name.
 The convention for package names is to use
@@ -61,53 +61,20 @@ to US ASCII, it extends into the entire Unicode range. So capital Greek, Coptic,
 \label{sec:building a package}
 To create a package that other people can use (by just using
 \lstinline{import "even"}) we first need to create a directory
-to put the package files in. 
+to put the package files in. TODO: setting GOPATH
 \begin{display}
 \pr mkdir even
 \pr cp even.go even/
 \end{display}
-\noindent{}Next we 
-can use the following 
-\file{Makefile}, which 
-is adapted for our \package{even} package.
-\lstinputlisting[language=make,caption=Makefile for a package,linerange={5,},numbers=right]{src/Makefile}
-Note that on line 3 we define our \package{even} package and on the
-lines 4 and 5 we enter the files which make up the package.
-Also note that this is \emph{not} the \emph{same} \prog{Makefile} setup as we used
-in section "\titleref{sec:building a program}" in chapter
-\ref{chap:basics}. The last line with the \verb|include| statement is
-different.
-\footnote{Within the \file{Makefile} you can access the following
-preset variables: \var{\$(GC)} which is the Go compiler (6g/8g),
-\var{\$(LD)} the current linker and \var{\$O} which is the suffix
-for the pre-linked binary (6/8).}
-
-If we now issue \prog{gomake}, a file named "\file{\_go\_.6}", a directory
-named "\dir{\_obj/}" and a file inside "\dir{\_obj/}" called
-"\file{even.a}"
-is created. The file \file{even.a} is a static library which holds
-the compiled Go code.
-With \prog{gomake install} the package (well, only the \file{even.a}) is installed in the \emph{official}
-package directory:
+Once again (see "\titleref{sec:building a program}" in chapter \ref{chap:basics}) we can use 
+the \prog{go} tool, but this time to build the package.
 \begin{display}
-\pr make install
-cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
+\pr go build
+\pr go install
 \end{display}
-\noindent{}After installing we can change our \key{import} from
+
+\noindent{}After building and installing we can change our \key{import} from
 \lstinline{"./even"} to \lstinline{"even"}.
-
-But what if you do not want to install packages in the official Go
-directory, or maybe you do not have the permission to do so? When using
-\prog{6/8g} you can use the \flag{\-I}-flag to specify an alternate
-package directory. With this flag you can leave your import statement
-as-is (\lstinline{import "even"}) and continue development in your
-own directory. So the following commands should build (and link) our
-\prog{myeven} program with our package.
-\begin{display}
-\pr 6g -I even/\_obj myeven.go	\coderemark{Building}
-\pr 6l -L even/\_obj myeven.6	\coderemark{Linking}
-\end{display}
-
 \noindent{}Imported, but otherwise unused packages are an error.
 
 \section{Identifiers}
