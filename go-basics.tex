@@ -94,8 +94,22 @@ To compile the code from above, we use:
 
 \subsection{Using go}
 \label{sec:building a program}
-Another, less laborious (once setup), way to build a Go program, is to use a
-the \prog{go} tool.\index{tooling!go} 
+Another, less laborious, way to build a Go program, is to use a
+the \prog{go} tool.\index{tooling!go}
+The \prog{go} tools uses one configuration paramater \var{\$GOPATH}, that
+points to a directory structure:
+\begin{display}
+\pr mkdir -p ~/g/src    # create the directories
+\pr GOPATH=~/g          # set GOPATH to ~/g
+\end{display}
+
+Create a holding directory for \prog{helloworld}:
+\begin{display}
+\pr mkdir ~/g/src/hello             # create hello subdirectory in src
+\pr cp helloworld.go ~/g/src/hello  # copy the source code
+\end{display}
+
+Now you can use:
 \begin{display}
 \pr go build
 \end{display}
@@ -708,7 +722,8 @@ func Compare(a, b []byte) int {
 \section{Built-in functions}
 A small number of functions are predefined, meaning 
 you \emph{don't} have to include any package to get
-access to them. Table \ref{tab:predef-functions} lists them all.
+access to them. Table \ref{tab:predef-functions} lists them all.\footnote{You can use the
+command \prog{godoc builtin} to read the online documentation about the built-in types and functions.}
 
 \begin{table}[H]
 \begin{center}
