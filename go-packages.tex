@@ -61,10 +61,11 @@ to US ASCII, it extends into the entire Unicode range. So capital Greek, Coptic,
 \label{sec:building a package}
 To create a package that other people can use (by just using
 \lstinline{import "even"}) we first need to create a directory
-to put the package files in. TODO: setting GOPATH
+to put the package files in. See "\titleref{sec:settings used}" for
+the configuration used.
 \begin{display}
-\pr mkdir even
-\pr cp even.go even/
+\pr mkdir ~/g/src/even
+\pr cp even.go ~/g/src/even/
 \end{display}
 Once again (see "\titleref{sec:building a program}" in chapter \ref{chap:basics}) we can use 
 the \prog{go} tool, but this time to build the package.
