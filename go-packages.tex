@@ -162,7 +162,7 @@ Every package should have a \emph{package comment}, a block comment preceding th
 \key{package} clause. For multi-file packages, the package comment only needs to be
 present in one file, and any one will do. The package comment should introduce
 the package and provide information relevant to the package as a whole. It will
-appear first on the \prog{godoc} page and should set up the detailed documentation
+appear first on the \prog{go doc} page and should set up the detailed documentation
 that follows. An example from the official \package{regexp} package:
 \begin{display}
 /*
@@ -216,7 +216,7 @@ func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
 When writing test you will need to tell \prog{go test} that a test has
 failed or was successful. A successful test function just returns. When
 the test fails you can signal this with the following
-functions \cite{go_doc}. These are the most important ones (see \prog{godoc testing}
+functions \cite{go_doc}. These are the most important ones (see \prog{go doc testing}
 for more):
 
 \begin{lstlisting}[numbers=none]
@@ -291,7 +291,7 @@ even possible to install more along side your current Go installation.
 It is very enlightening to browse the \file{\$GOROOT/src/pkg} directory and
 look at the packages.
 We cannot comment on each package, but the following are worth a mention:
-\footnote{The descriptions are copied from the packages' \prog{godoc}. Extra
+\footnote{The descriptions are copied from the packages' \prog{go doc}. Extra
 remarks are type set in italic.}
 
 \begin{description}

@@ -42,14 +42,13 @@ page \pageref{sec:conversions}".
 \lstinputlisting[label=string1,caption=Strings]{ex-basics/src/string1.go}
 
 \Question To answer this question we need some help of
-the \package{utf8} package. First we check the documentation
-with \prog{godoc utf8 | less}. When we read the documentation
+the \package{unicode/utf8} package. First we check the documentation
+with \prog{go doc unicode/utf8 | less}. When we read the documentation
 we notice \lstinline{func RuneCount(p []byte) int}. Secondly
 we can convert \emph{string} to a \type{byte} slice with
 \begin{lstlisting}
 str := "hello"
-b   := []byte(str) |\coderemark{Conversion, see %
-page \pageref{sec:conversions}}|
+b   := []byte(str) |\coderemark{Conversion, see page \pageref{sec:conversions}}|
 \end{lstlisting}
 
 Putting this together leads to the following program.
