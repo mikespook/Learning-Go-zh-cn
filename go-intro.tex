@@ -183,13 +183,13 @@ Go install:
 \end{display}
 \end{itemize}
 You should now have a working Go environment. Next we need to configure
-the GOROOT, GOBIN and PATH variables.
+the GOBIN and PATH variables. Note that the GOROOT variable is also included here.
 
 \begin{itemize}
 \item Create a file named \file{setup.sh} and place it inside the \file{MinGW} directory
 with the following content:
 \begin{display}
-export GOROOT=/c/GOROOT
+export GOROOT=/c/go
 export GOBIN=$GOROOT/bin
 export PATH=$GOBIN:$PATH
 \end{display}
