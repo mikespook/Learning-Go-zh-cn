@@ -70,16 +70,21 @@ Lets look at the program line by line.
 \section{Compiling and running code}
 The Go compiler is named \verb|<number>g|, where the number is 6 for 64 bit
 Intel and 8 for 32 bit Intel. The linker has a similar naming scheme:
-\verb|<number>l|. In this book we will use \prog{6g} and \prog{6l}.
-To compile the code from above, we use:
-\begin{display}
-\pr \user{6g helloworld.go}
-\end{display}
+\verb|<number>l|. The go tool chain abstract this all away behind a tool
+called \prog{go}\index{tooling!go!tool}. But you can still access the compiler
+and linker directly.
 
-\noindent{}And then we link it with \prog{6l}:
+To compile the code from above, we can use:
 \begin{display}
-\pr \user{6l helloworld.6}
+\pr \user{go tool 6g helloworld.go}
 \end{display}
+\index{tooling!go|6g}
+
+\noindent{}And then we link it with \prog{go tool 6l}:
+\begin{display}
+\pr \user{go tool 6l helloworld.6}
+\end{display}
+\index{tooling!go|6l}
 
 \noindent{}And then we run it:
 \begin{display}
@@ -94,7 +99,7 @@ To compile the code from above, we use:
 
 \subsection{Using go}
 \label{sec:building a program}
-Another, less laborious, way to build a Go program, is to use a
+Another, less laborious and preferred, way to build a Go program, is to use a
 the \prog{go} tool.\index{tooling!go}
 The \prog{go} tools uses one configuration paramater \var{\$GOPATH}, that
 points to a directory structure:
@@ -113,6 +118,7 @@ Now you can use:
 \begin{display}
 \pr go build
 \end{display}
+\index{tooling!go|build}
 This results in an executable called \prog{a.out}. If you want to use a better
 name you can use the output (-o) flag:
 \begin{display}
