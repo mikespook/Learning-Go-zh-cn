@@ -189,7 +189,7 @@ func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
 \section{Testing packages}
 In Go it is customary to write (unit) tests for your package. Writing
 tests involves the \package{testing} package and the program
-\first{\prog{go test}}{toolin!go test}. Both
+\first{\prog{go test}}{tooling!go!test}. Both
 have excellent documentation. When you include tests with your package
 keep in mind that they have to build using the standard \file{Makefile}
 (see section "\titleref{sec:building a package}").
@@ -199,7 +199,7 @@ keep in mind that they have to build using the standard \file{Makefile}
 
 The testing itself is carried out with \prog{go test}.
 The \prog{go test} program runs all the test functions. Without any
-defined tests for our \package{even} package, \prog{gotest} yields:
+defined tests for our \package{even} package, \prog{go test} yields:
 \begin{display}
 \pr go test
 ?       even    [no test files]
@@ -255,7 +255,7 @@ function in this file. The displayed Go code should not hold any
 surprises: we check if the \func{Even} function works OK. 
 Now, the moment we've been waiting for, executing the test:
 \begin{display}
-\pr gotest
+\pr go test
 ok      even    0.001s
 PASS
 \end{display}
