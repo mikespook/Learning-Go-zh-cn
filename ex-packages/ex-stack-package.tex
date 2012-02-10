@@ -15,24 +15,28 @@ You should at least test that a \func{Pop} works after a \func{Push}.
 \begin{Answer}
 \Question There are a few details that should be changed to make a proper package
 for our stack. First, the exported functions should begin with a capital 
-letter and so should \type{Stack}. The full package becomes:
+letter and so should \type{Stack}. The package file is named \file{stack-as-package.go}
+and contains:
 \lstinputlisting[caption=Stack in a package]{ex-packages/src/stack-as-package.go}
 
 \Question To make the unit testing work properly you need to do some
-preparations. I'll come to those in a minute. First the actual unit test.
-Create a file with the "pushpop\_test.go", with the following contents:
+preparations. We'll come to those in a minute. First the actual unit test.
+Create a file with the name \file{pushpop\_test.go}, with the following contents:
 \lstinputlisting[caption=Push/Pop test]{ex-packages/src/pushpop_test.go}
-As \prog{gotest} calls \prog{gomake} to compile the package we need a makefile:
-\lstinputlisting[language=make,caption=Package Makefile]{ex-packages/src/Makefile}
-With this work done, we can call \prog{gotest} to test the pacakge:
+
+For \prog{go test} to work we need to put our package files in a directory
+under \var{\$GOPATH/src} (see page \pageref{"sec:settings used"}).
 
 \begin{display}
-\pr \user{goi test}
-rm -f _test/stack.a
-6g  -o _gotest_.6 stack-as-package.go  pushpop_test.go
-rm -f _test/stack.a
-gopack grc _test/stack.a _gotest_.6 
-PASS
+\pr \user{mkdir $GOPATH/src/stack}
+\pr \user{cp pushpop_test.go $GOPATH/src/stack}
+\pr \user{cp stack-as-package.go $GOPATH/src/stack}
 \end{display}
 
+\begin{display}
+\pr \user{cd $GOPATH/src/stack}
+\pr \user{go test}
+PASS
+ok      stack   0.001s
+\end{display}
 \end{Answer}
