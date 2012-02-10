@@ -101,37 +101,22 @@ To compile the code from above, we can use:
 \label{sec:building a program}
 Another, less laborious and preferred, way to build a Go program, is to use a
 the \prog{go} tool.\index{tooling!go}
-The \prog{go} tools uses one configuration paramater \var{\$GOPATH}, that
-points to a directory structure:
-\begin{display}
-\pr mkdir -p ~/g/src    # create the directories ~/g and ~/g/src
-\pr GOPATH=~/g          # set GOPATH to ~/g
-\end{display}
 
-Create a holding directory for \prog{helloworld}:
-\begin{display}
-\pr mkdir ~/g/src/hello             # create hello subdirectory in src
-\pr cp helloworld.go ~/g/src/hello  # copy the source code
-\end{display}
-
+To build \prog{helloworld} we just give:
 Now you can use:
 \begin{display}
-\pr go build
+\pr \user{go build helloworld.go}
 \end{display}
 \index{tooling!go!build}
-This results in an executable called \prog{a.out}. If you want to use a better
-name you can use the output (-o) flag:
-\begin{display}
-\pr go build -o helloworld
-\end{display}
-Resulting in a executable called \prog{helloworld}.
+This results in a executable called \prog{helloworld}.
 
 \section{Settings used in this book}
 \label{sec:settings used}
 \begin{itemize}                            
 \item Go itself is installed in \file{~/go} ;                     
 \item Go source code we want to compile ourself is placed in \file{~/g/src} and
-\var{\$GOPATH} is set to \var{GOPATH=~/g} .
+\var{\$GOPATH} is set to \var{GOPATH=~/g} . This variable comes into play
+when start using packages (chapter \ref{chap:packages}).
 \end{itemize}
 
 \section{Variables, types and keywords}
