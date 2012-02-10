@@ -59,17 +59,21 @@ Erlang 运行在虚拟机上，而 Go 是编译的。Go 用起来感觉更接近
 
 \section{编译和运行代码}
 Go 编译器叫做 \verb|<数字>g|，数字是 6 表示用于 64 位 Intel 而 8 表示 32 位 Intel。
-连接器用相同的命名方式：\verb|<数字>l|。在本书中，我们将使用 \prog{6g} 和 \prog{6l} 完成所有的编译。
+连接器用相同的命名方式：\verb|<数字>l|。go 的工具链被抽象并隐藏在叫做 \prog{go}\index{tooling!go!tool} 
+的工具后面。不过仍然可以直接访问编译器和链接器。
+
 为了编译上面的代码，执行：
 \begin{display}
-\pr \user{6g helloworld.go}
+\pr \user{go tool 6g helloworld.go}
 \end{display}
+\index{tooling!go!6g}
 
-\noindent{}并且用 \prog{6l} 链接它：
+\noindent{}并且用 \prog{go tool 6l} 链接它：
 
 \begin{display}
-\pr \user{6l helloworld.6}
+\pr \user{go tool 6l helloworld.6}
 \end{display}
+\index{tooling!go!6l}
 
 \noindent{}然后执行：
 \begin{display}
@@ -82,16 +86,40 @@ Go 编译器叫做 \verb|<数字>g|，数字是 6 表示用于 64 位 Intel 而 
 \ \newline
 \ \newline
 
-\subsection{使用 Makefile}
+\subsection{使用 go}
 \label{sec:building a program}
-另一种可以少折腾的（在建立好后）编译 Go 程序的办法，是使用 \file{Makefile}。
-下面是用于构建 \prog{helloworld}的：
-\lstinputlisting[language=make,caption=程序的 Makefile,numbers=right,linerange={5,11}]{src/Makefile.prog}
-行 3 指定了编译的程序的名字，而行 5 列举了源代码文件。
-现在执行 \verb|make| 就可以完成你的程序编译。
-留意 Go 使用了不同于 \prog{make} 的，叫做 \prog{gomake} 的命令。它是（当前来说）一个 GNU make 的小封装。
-Go 程序的构建系统在将来可能会发生变化，从而 \prog{make} 会被移除。所以我们使用 \prog{gomake} 进行构建。
-留意 \file{Makefile} 创建的可执行文件叫做 \prog{helloworld}，而不是 \prog{6.out} 或者 \prog{8.out}。
+另一种可以减少麻烦且是首选的编译 Go 程序的办法，是使用工具
+\prog{go}。\index{tooling!go}
+工具 \prog{go} 使用指向一个目录的配置参数 \var{\$GOPATH}：
+\begin{display}
+\pr mkdir -p ~/g/src    # 建立目录 ~/g 和 ~/g/src
+\pr GOPATH=~/g          # 设置 GOPATH 为 ~/g
+\end{display}
+
+建立一个存放 \prog{helloworld} 的目录：
+\begin{display}
+\pr mkdir ~/g/src/hello             # 在 src 中建立 hello 子目录
+\pr cp helloworld.go ~/g/src/hello  # 复制源码
+\end{display}
+
+现在可以使用：
+\begin{display}
+\pr go build
+\end{display}
+\index{tooling!go!build}
+这个结果是叫做 \prog{a.out} 的可执行文件。如果要用指定的名字，可以使用输出参数（-o）：
+\begin{display}
+\pr go build -o helloworld
+\end{display}
+结果是叫做 \prog{helloworld} 的可执行文件。
+ 
+\section{本书使用的设置}
+\label{sec:settings used}
+\begin{itemize}                            
+\item Go 被安装在 \file{~/go}；
+\item 希望编译的 Go 代码放在 \file{~/g/src} 
+而 \var{\$GOPATH} 设置为 \var{GOPATH=~/g}。
+\end{itemize}
 
 \section{变量、类型和保留字}
 \label{sec:vars}
@@ -158,7 +186,7 @@ a, b := 20, 16
 \begin{lstlisting}
 _, b := 34, 35
 \end{lstlisting}
-Go 的编译器对声明却未使用的变量在报错，下面的代码会产生这个错误：
+Go 的编译器对声明却未使用的变量在报错。下面的代码会产生这个错误：
 \error{声明了 i 却未使用}
 
 \begin{lstlisting}
@@ -284,6 +312,10 @@ s := `Starting part
 不像\emph{转义}字符串标识 \index{string literal!interpreted} ，
 原始字符串标识的值在引号内的字符是\emph{不转义}的。
 \end{lbar}
+
+\subsection{Runes}
+\lstinline{Rune} 是 int 的别名。
+
 \subsection{复数}
 Go 原生支持复数。它的变量类型是 \lstinline{complex128}
 （64 位虚数部分）。如果需要小一些的，还有 \lstinline{complex64}
@@ -295,7 +327,7 @@ Go 原生支持复数。它的变量类型是 \lstinline{complex128}
 将会打印：\lstinline{(5+5i)}
 
 \subsection{错误}
-任何足够大的程序或多或少都会需要使用到错误。因此 Go 有为了错误而存在的内建类型。
+任何足够大的程序或多或少都会需要使用到错误。因此 Go 有为了错误而存在的内建类型，叫做 \lstinline{error}。
 
 \section{运算符和内建函数}
 Go 支持普通的数字运算符，表格 \ref{tab:op-precedence} 列出了当前支持的运算符，
@@ -389,7 +421,7 @@ if ! false {
 
 在 Go 库中，你会发现当一个 \key{if} 语句不会进入下一个语句流程
 ——也就是说，语句体结束于 \key{break}，\key{continue}，\key{goto}
-或者 \key{return}，不必要的 \first{\key{else}}{keyword!else} 会被省略。
+或者 \key{return}——不必要的 \first{\key{else}}{keyword!else} 会被省略。
 
 \begin{lstlisting}
 f, err := os.Open(name, os.O_RDONLY, 0)
@@ -632,7 +664,8 @@ func Compare(a, b []byte) int {
 
 \section{内建函数}
 预定义了少数函数，这意味着\emph{无需}引用任何包就可以使用它们。
-表格 \ref{tab:predef-functions} 列出了所有的内建函数。
+表格 \ref{tab:predef-functions} 列出了所有的内建函数。\footnote{可以使用命令
+\prog{go doc builtin} 获得关于内建类型和函数的在线文档。}
 
 \begin{table}[H]
 \begin{center}
@@ -839,7 +872,7 @@ monthdays := map[string]int{
 留意，当只需要声明一个 \lstinline{map} 的时候，使用 \lstinline{make} 的形式：
 \lstinline|monthdays := make(map[string]int)|
 
-当在 map 中索引（搜索）时，使用方括号，例如打印出 12 月的天数：
+当在 map 中索引（搜索）时，使用方括号。例如打印出 12 月的天数：
 \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
 当对 array、slice、string 或者 map 循环遍历的时候，\first{\key{range}}{keyword!range}
 会帮助你，每次调用，它都会返回一个键和对应的值。\index{keyword!range!on maps}

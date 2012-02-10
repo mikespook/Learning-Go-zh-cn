@@ -32,19 +32,54 @@ Go 已经有大量的文档。
 \gomarginpar{在互联网上搜索时，应当使用“golang”这个词来代替原始的“go”。}
 例如 Go Tutorial \cite{go_tutorial} 和 Effective Go \cite{effective_go}。
 网站 \url{http://golang.org/doc/} 是绝佳的起点 
-\footnote{\url{http://golang.org/doc/} 本身是由 Go 程序 \prog{godoc} 提供服务的。}。
+\footnote{\url{http://golang.org/doc/} 本身是由 Go 程序 \prog{go doc} 提供服务的。}。
 虽然并不一定要阅读这些文档，但是强烈建议这么做。
 
-Go 用叫做 \prog{godoc} 的 Go 程序格式化其文档。
+Go 用叫做 \prog{go doc} 的 Go 程序格式化其文档。
 你可以用它查阅在线文档。例如，假设我们需要了解关于 \package{hash} 包的更多信息。
-可以用命令 \prog{godoc hash} 查阅它。如何创建你自己的包的文档在第
+可以用命令 \prog{go doc hash} 查阅它。如何创建你自己的包的文档在第
 \ref{chap:packages} 章中介绍。
 
-\section{在线尝试 Go}
-在下面的一节中会对如何在本地设备上安装 Go 进行讲解。
-http://play.golang.org/
+\section{前身}
+Go 的前身来自于 Inferno \cite{inferno} （基于 Plan 9 \cite{plan9} 的改造）。
+Inferno 包含了一个叫做 Limbo \cite{limbo} 的语言。来自于 Limbo 论文中的引用：
+\begin{quote}
+Limbo 是用于开发运行在小型计算机上的分布式应用的编程语言。
+它支持模块化编程，编译期和运行时的强类型检查，\emph{进程内基于具有类型的 channel 通讯}，
+原子性\emph{垃圾收集}，和简单的抽象数据类型。
+它被设计用于即便是没有硬件内存保护的小型设备上，也能安全的运行。
+\end{quote}
+Go 从 Limbo 继承的另一个特性是 channel（参阅第 \ref{chap:channels} 章）。
+从 Limbo 文档来的另一段：
+\begin{quote}
+[channel] 是用于向系统中其他代理发送和接收特定类型对象的通讯机制。
+channel 可以用于本地进程间通讯；用于连接到命名的目的地的库方法。
+两种情况都是直接发送和接收操作的。
+\end{quote}
+在 Go 中，channel 比在 Limbo 中更加好用。
+如果我们对 Go 的历史深入探索，会发现一个到 "Newsqueak" \cite{newsqueak} 的引用，
+这是在类 C 语言中使用 channel 通讯的拓荒者。
+channel 对于这些语言并不是独一无二的，另一个非类 C 语言，Erlang \cite{erlang}，也在使用它。
+
+\begin{figure}[H]
+\caption{Go 编年史}
+\label{fig:chrono-of-go}
+\begin{center}
+\includegraphics[scale=0.65]{fig/go-history.pdf}
+\end{center}
+\end{figure}
+
+使用 channel 与其他进程进行通讯的办法，
+叫做通讯序列化过程（Communicating Sequential Processes - CSP），
+由 C. A. R. Hoare \cite{hoare} 设计构想，而他正是那个发明快速排序 \cite{quicksort} 算法的人。
+
+\begin{lbar}[]
+Go 是第一个实现了简单的（或更加简单的）并行开发的、夸平台类 C 语言。
+\end{lbar}
 
 \section{获得 Go}
+在这一节中将介绍如何在本地设备上安装 Go，不过也可以在线上的 \url{http://play.golang.org/} 编译 Go 代码。这是最为便捷的尝试代码的方法。
+
 Ubuntu 和 Debian 都有 Go 包在其仓库中，查找“golang”包。但是工作的时候仍然有一些小问题。现在仍然使用源码进行安装。
 
 因此将会从 mercurial 中获取代码并且编译。
@@ -111,12 +146,12 @@ POSIX，而是使用微软 C 运行库和 Windows API 代替。
 \pr \user{./all.bash}
 \end{display}
 \end{itemize}
-现在就获得了一个可以工作的 Go 环境。接下来需要设置 GOROOT、GOBIN 和 PATH 变量。
+现在就获得了一个可以工作的 Go 环境。接下来需要设置 GOBIN 和 PATH 变量。注意，GOROOT 变量同样包括在这部分中。
 
 \begin{itemize}
 \item 创建叫做 \file{setup.sh} 的文件，并放置到 \file{MinGW} 目录，文件内容如下：
 \begin{display}
-export GOROOT=/c/GOROOT
+export GOROOT=/c/go
 export GOBIN=$GOROOT/bin
 export PATH=$GOBIN:$PATH
 \end{display}
@@ -150,43 +185,6 @@ export PATH=$GOBIN:$PATH
 \begin{display}
 \pr \user{hg update release}
 \end{display}
-
-\section{前身}
-Go 的前身来自于 Inferno \cite{inferno} （基于 Plan 9 \cite{plan9} 的改造）。
-Inferno 包含了一个叫做 Limbo \cite{limbo} 的语言。来自于 Limbo 论文中的引用：
-\begin{quote}
-Limbo 是用于开发运行在小型计算机上的分布式应用的编程语言。
-它支持模块化编程，编译期和运行时的强类型检查，\emph{进程内基于具有类型的 channel 通讯}，
-原子性\emph{垃圾收集}，和简单的抽象数据类型。
-它被设计用于即便是没有硬件内存保护的小型设备上，也能安全的运行。
-\end{quote}
-Go 从 Limbo 继承的另一个特性是 channel（参阅第 \ref{chap:channels} 章）。
-从 Limbo 文档来的另一段：
-\begin{quote}
-[channel] 是用于向系统中其他代理发送和接收特定类型对象的通讯机制。
-channel 可以用于本地进程间通讯；用于连接到命名的目的地的库方法。
-两种情况都是直接发送和接收操作的。
-\end{quote}
-在 Go 中，channel 比在 Limbo 中更加好用。
-如果我们对 Go 的历史深入探索，会发现一个到 "Newsqueak" \cite{newsqueak} 的引用，
-这是在类 C 语言中使用 channel 通讯的拓荒者。
-channel 对于这些语言并不是独一无二的，另一个非类 C 语言，Erlang \cite{erlang}，也在使用它。
-
-\begin{figure}[H]
-\caption{Go 编年史}
-\label{fig:chrono-of-go}
-\begin{center}
-\includegraphics[scale=0.65]{fig/go-history.pdf}
-\end{center}
-\end{figure}
-
-使用 channel 与其他进程进行通讯的办法，
-叫做通讯序列化过程（Communicating Sequential Processes - CSP），
-由 C. A. R. Hoare \cite{hoare} 设计构想，而他正是那个发明快速排序 \cite{quicksort} 算法的人。
-
-\begin{lbar}[]
-Go 是第一个实现了简单的（或更加简单的）并行开发的、夸平台类 C 语言。
-\end{lbar}
 
 \section{练习}
 \input{ex-intro/ex-doc.tex}

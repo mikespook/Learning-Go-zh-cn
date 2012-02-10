@@ -1,6 +1,6 @@
 \epi{“\lstinline{^}}{\textit{对是否有按位非的运算符的回答。”}\\\textsc{KEN THOMPSON}}
 \noindent{}
-包是函数和数据的集合，跟 Perl 的包\cite{perl-packages}差不多。
+包是函数和数据的集合。
 用 \first{\key{package}}{keyword!package} 保留字定义一个包。
 文件名不需要与包名一致。包名的约定是使用小写字符。
 Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <name>} 这一行。
@@ -50,40 +50,19 @@ myeven.go:7: undefined: even.odd
 
 \section{构建一个包}
 \label{sec:building a package}
-为了创建一个别人可以用的包（只需要 \lstinline{import "even"} 即可使用），首先需要创建一个目录放入包文件。
+为了创建一个别人可以用的包（只需要 \lstinline{import "even"} 即可使用），首先需要创建一个目录放入包文件。参考 “\titleref{sec:settings used}”小节了解配置使用。
 \begin{display}
-\pr mkdir even
-\pr cp even.go even/
+\pr mkdir ~/g/src/even
+\pr cp even.go ~/g/src/even/
 \end{display}
-\noindent{}然后可以使用根据 \package{even} 包改写的 \file{Makefile} 文件。
-\lstinputlisting[language=make,caption=用于包的 Makefile,linerange={5,},numbers=right]{src/Makefile}
-注意第 3 行定义了 \package{even} 包，而第 4 和第 5 行录入了构成包的文件。
-同样注意，这\emph{不是}在第 \ref{chap:basics} 章，第 "\titleref{sec:building a program}"
-节中使用的\emph{那个} \prog{Makefile}。最后一行的 \verb|include| 语句是不同的。
-\footnote{在 \file{Makefile} 文件中可以访问下面的预定义变量：
-\var{\$(GC)} 标示 Go 编译器（6g/8g），
-\var{\$(LD)} 当前链接器，以及 \var{\$O} 作为预链接二进制文件的后缀（6/8）。}
-
-如果现在执行 \prog{gomake}，一个叫做 "\file{\_go\_.6}" 的文件、一个叫做
-"\dir{\_obj/}" 的目录，和 "\dir{\_obj/}" 目录中，叫做 "\file{even.a}" 的文件被创建。
-文件 \file{even.a} 是有编译后的 Go 代码的静态库。
-通过 \prog{gomake install} 包（好吧，只有 \file{even.a}）被安装在\emph{官方}包目录中：
+同样的可以使用工具 \prog{go} （参考第\ref{chap:basics}章，“\titleref{sec:building a program}”小节），不过这次是用来编译包。
 \begin{display}
-\pr make install
-cp \_obj/even.a \$GOROOT/pkg/linux\_amd64/even.a
-\end{display}
-\noindent{}安装完后，就可以修改 \key{import} 从
-\lstinline{"./even"} 到 \lstinline{"even"}。
-
-但是，如果不希望将包安装到官方的 Go 目录，或者没有权限这么做的话。
-在使用 \prog{6/8g} 的时候，可以指定 \flag{\-I} 标志替换包目录。
-有了这个标志，你可以让你的导入语句变成（\lstinline{import "even"}）却继续部署在自定义的目录中。
-所以，下面的命令可以联合包构建（并且链接）\prog{myeven}程序。
-\begin{display}
-\pr 6g -I even/\_obj myeven.go	\coderemark{Building}
-\pr 6l -L even/\_obj myeven.6	\coderemark{Linking}
+\pr go build
+\pr go install
 \end{display}
 
+\noindent{}在构建和安装之后，可以将 \key{import} 从
+\lstinline{"./even"} 改为 \lstinline{"even"}。
 \noindent{}导入但是没有使用的包会引起一个错误。
 
 \section{标识符}
@@ -145,7 +124,7 @@ import bar "bytes"
 每个包都应该有\emph{包注释}，在 \key{package} 前的一个注释块。
 对于多文件包，包注释只需要出现在一个文件前，任意一个文件都可以。
 包注释应当对包进行介绍，并提供相关于包的整体信息。
-这会出现在 \prog{godoc} 生成的关于包的页面上，并且相关的细节会跟随气候。
+这会出现在 \prog{go doc} 生成的关于包的页面上，并且相关的细节会跟随气候。
 来自官方 \package{regexp} 包的例子：
 \begin{display}
 /*
@@ -160,8 +139,8 @@ import bar "bytes"
 package regexp
 \end{display}
 
-每个定义（并且导出）的函数应当有一小段文字描述该函数的行为，来自于
- \package{fmt} 包：
+每个定义（并且导出）的函数应当有一小段文字描述该函数的行为。来自于
+ \package{fmt} 包的例子：
 \begin{display}
 // Printf formats according to a format specifier and writes to standard output.
 func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
@@ -169,29 +148,29 @@ func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
 
 \section{测试包}
 在 Go 中为包编写单元测试应当是一种习惯。编写测试需要包含
-\package{testing} 包和程序 \first{\prog{gotest}}{gotest}。
+\package{testing} 包和程序 \first{\prog{go test}}{toolin!go!test}。
 两者都有良好的文档。当对某个包进行测试时，务必要记得必须使用
 \file{Makefile} 进行编译（参阅第 "\titleref{sec:building a package}" 节）。
 
 %% CLEANFILES+=hello fib chain run.out
 %%
 
-测试本身是由 \prog{gotest} 完成的。
-\prog{gotest} 程序调用了所有的测试函数。
-\package{even} 包没有定义任何测试函数，执行 \prog{gotest}，这样：
+测试本身是由 \prog{go test} 完成的。
+\prog{go test} 程序调用了所有的测试函数。
+\package{even} 包没有定义任何测试函数，执行 \prog{go test}，这样：
 \begin{display}
-\pr gotest
-gotest: no test files found in current directory
+\pr go test
+?       even    [no test files]
 \end{display}
 在测试文件中定义一个测试来修复这个。测试文件也在包目录中，被命名为 \file{*\_test.go}。
-这些测试文件同 Go 程序中的其他文件一样，但是 \prog{gotest} 只会执行测试函数。
+这些测试文件同 Go 程序中的其他文件一样，但是 \prog{go test} 只会执行测试函数。
 每个测试函数都有相同的标识，它的名字以 \lstinline{Test} 开头：
 \begin{lstlisting}
 func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheNe}|
 \end{lstlisting}
 
-编写测试时，需要告诉 \prog{gotest} 测试是失败还是成功。测试成功则直接返回。
-当测试失败可以用下面的函数标记 \cite{go_doc}。这是非常重要的（参阅 \prog{godoc testing} 了解更多）：
+编写测试时，需要告诉 \prog{go test} 测试是失败还是成功。测试成功则直接返回。
+当测试失败可以用下面的函数标记 \cite{go_doc}。这是非常重要的（参阅 \prog{go doc testing} 了解更多）：
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Fail()
@@ -227,10 +206,8 @@ func (t *T) Fatal(args ...interface{})
 检查了 \func{Even} 函数是否工作正常。
 现在等待了好久的时刻到了，执行测试：
 \begin{display}
-\pr gotest
-6g -o \_gotest\_.6 even.go  even\_test.go
-rm -f \_test/even.a
-gopack grc \_test/even.a \_gotest\_.6 
+\pr go test
+ok      even    0.001s
 PASS
 \end{display}
 \noindent{}测试执行并且报告 \texttt{PASS}。成功了！
@@ -247,10 +224,10 @@ func TestEven(t *testing.T) {
 \end{lstlisting}
 然后得到：
 \begin{display}
---- FAIL: even.TestEven
+FAIL    even    0.004s
++--- FAIL: TestEven (0.00 seconds)
 \qquad\qquad2 should be odd!
 FAIL
-gotest: "./6.out" failed: exit status 1
 \end{display}
 \noindent{}然后你可以以此行事（修复测试的实例）
 
@@ -263,7 +240,7 @@ gotest: "./6.out" failed: exit status 1
 标准的 Go 代码库中包含了大量的包，并且在安装 Go 的时候多数会伴随一起安装。
 浏览 \file{\$GOROOT/src/pkg} 目录并且查看那些包会非常有启发。
 无法对每个包就加以解说，不过下面的这些值得讨论：
-\footnote{描述来自包的 \prog{godoc}。额外的解释用斜体。}
+\footnote{描述来自包的 \prog{go doc}。额外的解释用斜体。}
 
 \begin{description}
 \item[\package{fmt}]{\index{package!fmt}
@@ -325,8 +302,7 @@ gotest: "./6.out" failed: exit status 1
 \package{reflect} 包实现了运行时反射，允许程序通过抽象类型操作对象。
 通常用于处理静态类型 \lstinline|interface{}| 的值，并且通过 \func{Typeof}
 解析出其动态类型信息，通常会返回一个有接口类型 \type{Type} 的对象。
-包含一个指向类型的指针， \type{*StructType}、\type{*IntType} 等等，
-描述了底层类型的详细信息。可以用于类型转换或者类型赋值。
+
 \emph{参阅 \ref{chap:interfaces}，第 "\titleref{sec:introspection and reflection}" 节}。
 }
 \item[\package{exec}]{\index{package!exec}
