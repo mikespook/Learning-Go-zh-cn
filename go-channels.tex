@@ -28,7 +28,7 @@ time and then print something to the screen.
 On the lines 14 and 15 we start the goroutines.
 The \func{main} function
 waits long enough, so that both goroutines will have printed their text. Right
-now we wait for 5 seconds (\func{time.Sleep()} counts in ns) on line 17, but in fact we have no idea how
+now we wait for 5 seconds on line 17, but in fact we have no idea how
 long we should wait until all goroutines have exited.
 \lstinputlisting[numbers=right,label=src:sleeping,firstnumber=8,caption=Go routines in action,linerange={8,18}]{src/sleep.go}
 Listing \ref{src:sleeping} outputs:
@@ -64,7 +64,7 @@ Depending on the operands it figures out what to do:
 \begin{lstlisting}
 ci <- 1	    |\coderemark{\emph{Send} the integer 1 to the channel \var{ci}}|
 <-ci	    |\coderemark{\emph{Receive} an integer from the channel \var{ci}}|
-i := <-ci   |\coderemark{\emph{Receive} from the channel \var{ci} and storing it in \var{i}}|
+i := <-ci   |\coderemark{\emph{Receive} from the channel \var{ci} and store it in \var{i}}|
 \end{lstlisting}
 Let's put this to use.
 \begin{lstlisting}[numbers=none,caption=Go routines and a channel,label=src:sleeping with channels]
@@ -73,7 +73,7 @@ channel of ints. That is: this channel can move integers. Note %
 that this variable is global so that the goroutines have access to it;}|
 
 func ready(w string, sec int) {
-	time.Sleep(int64(sec) * 1e9)
+	time.Sleep(time.Duration(sec) * time.Second)
 	fmt.Println(w, "is ready!")
 	c <- 1	|\longremark{Send the integer 1 on the channel \var{c};}|
 }
@@ -109,6 +109,8 @@ L: for {
 	}   
 }   
 \end{lstlisting}
+We will now wait as long as it takes. Only when we have received more than
+one reply on the channel \var{c} will we exit the loop \var{L}.
 
 \subsection{Make it run in parallel}
 While our goroutines were running concurrently, they were not running in
@@ -184,10 +186,6 @@ $$
 
 \subsection{Closing channels}
 %% section needs to be written
-
-\subsection{Wrapping functions in goroutines}
-See godns/resolver.go and how to wrap the Query() function in a goroutine with 
-error handling and such.
 
 \section{Exercises}
 \input{ex-channels/ex-for-channels.tex}
