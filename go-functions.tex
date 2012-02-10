@@ -73,7 +73,7 @@ This local \var{a} is only visible in \func{q()}. That is
 why the code will print: \texttt{656}.
 In listing \ref{src:scope2} no new variables are introduced, there
 is only a global \var{a}.
-Assigning a new value to will be globally visible. This code will
+Assigning a new value to \var{a} will be globally visible. This code will
 print: \texttt{655}
 
 In the following example we call \func{g()} from \func{f()}:
@@ -368,7 +368,7 @@ func callback(y int, f func(int)) { |\coderemark{\func{f} will hold the function
 \section{Panic and recovering}
 \label{sec:panic}
 Go does not have a exception mechanism, like that in Java for instance: you can not throw exceptions.
-Instead it using a panic-and-recover mechanism. It is worth remembering that you should use this as
+Instead it uses a panic-and-recover mechanism. It is worth remembering that you should use this as
 a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
 use it wisely. So, how do you use it?
 
