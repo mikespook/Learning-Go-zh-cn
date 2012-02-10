@@ -164,8 +164,10 @@ Each defined (and exported) function should have a small line of text
 documenting the behavior of the function. An example from the \package{fmt}
 package:
 \begin{display}
-// Printf formats according to a format specifier and writes to standard output.
-func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
+// Printf formats according to a format specifier and writes to standard
+// output. It returns the number of bytes written and any write error
+// encountered.
+func Printf(format string, a ...interface{}) (n int, err error)
 \end{display}
 
 \section{Testing packages}
@@ -183,7 +185,7 @@ The testing itself is carried out with \prog{go test}.
 The \prog{go test} program runs all the test functions. Without any
 defined tests for our \package{even} package, \prog{go test} yields:
 \begin{display}
-\pr go test
+\pr \user{go test}
 ?       even    [no test files]
 \end{display}
 Let us fix this by defining a test in a test file. Test files reside
@@ -237,11 +239,10 @@ function in this file. The displayed Go code should not hold any
 surprises: we check if the \func{Even} function works OK. 
 Now, the moment we've been waiting for, executing the test:
 \begin{display}
-\pr go test
+\pr \user{go test}
 ok      even    0.001s
-PASS
 \end{display}
-\noindent{}Our test ran and reported \texttt{PASS}. Success! 
+\noindent{}Our test ran and reported \texttt{ok}. Success! 
 
 To show how a failed test look we redefine our test function:
 \begin{lstlisting}

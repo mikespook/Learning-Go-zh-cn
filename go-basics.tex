@@ -68,27 +68,19 @@ Lets look at the program line by line.
 \showremarks
 
 \section{Compiling and running code}
-The Go compiler is named \verb|<number>g|, where the number is 6 for 64 bit
-Intel and 8 for 32 bit Intel. The linker has a similar naming scheme:
-\verb|<number>l|. The go tool chain abstract this all away behind a tool
-called \prog{go}\index{tooling!go!tool}. But you can still access the compiler
-and linker directly.
+\label{sec:building a program}
+The preferred way to build a Go program, is to use a
+the \prog{go} tool.\index{tooling!go}
 
-To compile the code from above, we can use:
+To build \prog{helloworld} we just give:
 \begin{display}
-\pr \user{go tool 6g helloworld.go}
+\pr \user{go build helloworld.go}
 \end{display}
-\index{tooling!go!6g}
+\index{tooling!go!build}
+This results in a executable called \prog{helloworld}.
 
-\noindent{}And then we link it with \prog{go tool 6l}:
 \begin{display}
-\pr \user{go tool 6l helloworld.6}
-\end{display}
-\index{tooling!go!6l}
-
-\noindent{}And then we run it:
-\begin{display}
-\pr \user{./6.out}	    \coderemark{The default name for a (64 bit) Go executable (8.out on 32 bits)}
+\pr \user{./helloworld}
 \end{display}
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
@@ -96,19 +88,6 @@ To compile the code from above, we can use:
 \'o\begin{math} \sigma\mu\epsilon\end{math}\texttt{; or }\begin{cjk}こんにちは 世界\end{cjk}
 \ \newline
 \ \newline
-
-\subsection{Using go}
-\label{sec:building a program}
-Another, less laborious and preferred, way to build a Go program, is to use a
-the \prog{go} tool.\index{tooling!go}
-
-To build \prog{helloworld} we just give:
-Now you can use:
-\begin{display}
-\pr \user{go build helloworld.go}
-\end{display}
-\index{tooling!go!build}
-This results in a executable called \prog{helloworld}.
 
 \section{Settings used in this book}
 \label{sec:settings used}
