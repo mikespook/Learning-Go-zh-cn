@@ -12,37 +12,40 @@ Let's define a package \package{even}\index{package!even} in the file \prog{even
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
 Names that start with a capital letter are \emph{exported} and may be used
-outside your package, more on that later. We can now use
-the package as follows in our own program \prog{myeven.go}:
+outside your package, more on that later.
+
+Now we just need to build the package. We create a directory under \var{\$GOPATH},
+copy the \file{even.go} to there (see "\titleref{sec:building a program}" in chapter \ref{chap:basics}).
+
+\begin{display}
+\pr \user{mkdir $GOPATH/src/even}	\coderemark{Create top-level directory}
+\pr \user{cp even.go $GOPATH/src/even} 	\coderemark{Copy the package file}
+\pr \user{go build even}                \coderemark{Build it}
+\end{display}
+
+Next we can use the package in our own program \prog{myeven.go}:
 
 \lstinputlisting[label=src:myeven,caption=Use of the even package]{src/myeven.go}
 \showremarks
 
-Now we just need to compile and link, first the package, then \prog{myeven.go} and
-then link it:
 \begin{display}
-\pr 6g even.go			\coderemark{The package}
-\pr 6g myeven.go		\coderemark{Our program}
-\pr 6l -o myeven myeven.6       \coderemark{Linking stage}
-\end{display}
-And test it:
-\begin{display}
-\pr ./myeven
+\pr \user{go build myeven.go}
+\pr \user{./myeven}
 Is 5 even? false
 \end{display}
 
 In Go, a function from a package is exported (visible
 outside the package, i.e. public) when the first letter of the function name is a capital, hence
 the function name \func{\emph{E}ven}. If we change our \prog{myeven.go} on line
-7 to using to unexported function \func{even.odd}:
+10 to using the unexported function \func{even.odd}:
 
 \noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.odd(i))}
 
 We get an error when compiling, because we are trying to use a
 \emph{private} function:
 \begin{display}
-myeven.go:7: cannot refer to unexported name even.odd
-myeven.go:7: undefined: even.odd
+# _/myeven
+myeven.go:10: cannot refer to unexported name even.odd
 \end{display}
 
 \noindent{}To summarize:
@@ -56,27 +59,6 @@ letter;
 This convention also holds true for other names (new types, global
 variables) you define in a package. Note that the term "capital" is not limited
 to US ASCII, it extends into the entire Unicode range. So capital Greek, Coptic, etc. is OK too.
-
-\section{Building a package}
-\label{sec:building a package}
-To create a package that other people can use (by just using
-\lstinline{import "even"}) we first need to create a directory
-to put the package files in. See "\titleref{sec:settings used}" for
-the configuration used.
-\begin{display}
-\pr mkdir ~/g/src/even
-\pr cp even.go ~/g/src/even/
-\end{display}
-Once again (see "\titleref{sec:building a program}" in chapter \ref{chap:basics}) we can use 
-the \prog{go} tool, but this time to build the package.
-\begin{display}
-\pr go build
-\pr go install
-\end{display}
-
-\noindent{}After building and installing we can change our \key{import} from
-\lstinline{"./even"} to \lstinline{"even"}.
-\noindent{}Imported, but otherwise unused packages are an error.
 
 \section{Identifiers}
 Names are as important in Go as in any other language. In some cases
