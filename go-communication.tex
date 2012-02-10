@@ -110,15 +110,15 @@ The primitives defined in the package \package{net} are:
 \begin{quote}
 // \func{Read} reads data from the connection.\\
 // \func{Read} can be made to time out and return a \var{net.Error} with \lstinline{Timeout() == true}\\
-// after a fixed time limit; see \func{SetTimeout} and \func{SetReadTimeout}.\\
-\lstinline{Read(b []byte) (n int, err os.Error)}
+// after a fixed time limit; see \func{SetDeadline} and \func{SetReadDeadline}.\\
+\lstinline{Read(b []byte) (n int, err error)}
 \end{quote}
 
 \begin{quote}
 // \func{Write} writes data to the connection.\\
 // \func{Write} can be made to time out and return a \var{net.Error} with \lstinline{Timeout() == true}\\
-// after a fixed time limit; see \func{SetTimeout} and \func{SetWriteTimeout}.\\
-\lstinline{Write(b []byte) (n int, err os.Error)}
+// after a fixed time limit; see \func{SetDeadline} and \func{SetWriteDeadline}.\\
+\lstinline{Write(b []byte) (n int, err error)}
 \end{quote}
 
 But these are the low level nooks and crannies\footnote{Exercise Q\ref{ex:echo} is about using

@@ -99,10 +99,10 @@ error: "Yes, you wrote some bytes but not all of them because you filled the
 device". The signature of \lstinline{*File.Write} in package
 \package{os} is:
 \begin{lstlisting}
-func (file *File) Write(b []byte) (n int, err Error)
+func (file *File) Write(b []byte) (n int, err error)
 \end{lstlisting}
 and as the documentation says, it returns the number of bytes written and a
-non-\lstinline{nil} \var{Error} when \lstinline{n != len(b)}. This is a common
+non-\lstinline{nil} \var{error} when \lstinline{n != len(b)}. This is a common
 style in Go.
 
 A similar approach obviates the need to pass a pointer to a return value to
@@ -153,10 +153,10 @@ func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
 Because named results are initialized and tied to an unadorned
 \key{return},
 they can simplify as well as clarify. Here's a version of
-\lstinline{ioutil.ReadFull} that uses them well:
+\lstinline{io.ReadFull} that uses them well:
 
 \begin{lstlisting}
-func ReadFull(r Reader, buf []byte) (n int, err os.Error) {
+func ReadFull(r Reader, buf []byte) (n int, err error) {
     for len(buf) > 0 && err == nil {
         var nr int
         nr, err = r.Read(buf)
