@@ -10,8 +10,6 @@ exported.
 \Question\label{ex:stack-package q2} Write a simple unit test for this package.
 You should at least test that a \func{Pop} works after a \func{Push}.
 
-\Question\label{ex:stack-package q3} Which official Go package could
-also be used as a (FIFO) stack?
 \end{Exercise}
 
 \begin{Answer}
@@ -29,7 +27,7 @@ As \prog{gotest} calls \prog{gomake} to compile the package we need a makefile:
 With this work done, we can call \prog{gotest} to test the pacakge:
 
 \begin{display}
-\pr \user{gotest}
+\pr \user{goi test}
 rm -f _test/stack.a
 6g  -o _gotest_.6 stack-as-package.go  pushpop_test.go
 rm -f _test/stack.a
@@ -37,5 +35,4 @@ gopack grc _test/stack.a _gotest_.6
 PASS
 \end{display}
 
-\Question That would be the package \package{container/vector}.
 \end{Answer}
