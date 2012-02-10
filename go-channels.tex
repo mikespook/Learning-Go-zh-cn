@@ -16,8 +16,8 @@ goroutine 有简单的模型：\emph{它是与其他 goroutine 并行执行的�
 \first{goroutine}{goroutine} 是一个普通的函数，只是需要使用保留字
 \first{\key{go}}{keyword!go} 作为开头。
 \begin{lstlisting}
-ready("Tee", 2)	    |\coderemark{普通函数调用}|
-go ready("Tee", 2)  |\coderemark{\func{ready()} 作为 goroutine 运行}|
+ready("Tea", 2)	    |\coderemark{普通函数调用}|
+go ready("Tea", 2)  |\coderemark{\func{ready()} 作为 goroutine 运行}|
 \end{lstlisting}
 下面程序的思路来自 \cite{go_course_day3}。
 让一个函数作为两个 goroutine 执行，goroutine 等待一段时间，然后打印一些内容到屏幕。
@@ -30,7 +30,7 @@ go ready("Tee", 2)  |\coderemark{\func{ready()} 作为 goroutine 运行}|
 \begin{display}
 I'm waiting         \coderemark{立刻}
 Coffee is ready!    \coderemark{1 秒后}
-Tee is ready!       \coderemark{2 秒后}
+Tea is ready!       \coderemark{2 秒后}
 \end{display}
 如果不等待 goroutine 的执行（例如，移除第 17 行），程序立刻终止，而任何正在执行的 
 goroutine 都\emph{会停止}。
@@ -67,7 +67,7 @@ func ready(w string, sec int) {
 
 func main() {
 	c = make(chan int) |\longremark{初始化 \var{c}；}|
-	go ready("Tee", 2) |\longremark{用保留字 \key{go} 开始一个 goroutine；}|
+	go ready("Tea", 2) |\longremark{用保留字 \key{go} 开始一个 goroutine；}|
 	go ready("Coffee", 1)
 	fmt.Println("I'm waiting, but not too long")
 	<-c |\longremark{等待，直到从 channel 上接收一个值。注意，收到的值被丢弃了；}|
@@ -81,7 +81,7 @@ func main() {
 这里有另一个 Go 内建的保留字：\first{\key{select}}{keyword!select}。
 通过 \key{select}（和其他东西）可以监听 channel 上输入的数据。
 
-在这个程序中使用 \key{select}，并不会让它变得更短，因为运行的 goroutine 太少了。
+在这个程序中使用 \key{select}，并不会让它变得更短，因为运行的 go\-routine 太少了。
 移除第 14 和 15 行，并用下面的内容替换它们：
 \begin{lstlisting}[caption=使用 select,numbers=right,firstnumber=14]
 L: for {

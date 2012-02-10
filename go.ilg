@@ -1,0 +1,9 @@
+This is makeindex, version 2.15 [TeX Live 2009] (kpathsea + Thai support).
+Scanning input file go.idx....
+!! Input index error (file = go.idx, line = 113):
+   -- Extra `@' at position 7 of first argument.
+done (140 entries accepted, 1 rejected).
+Sorting entries....done (1052 comparisons).
+Generating output file go.ind....done (191 lines written, 0 warnings).
+Output written in go.ind.
+Transcript written in go.ilg.
