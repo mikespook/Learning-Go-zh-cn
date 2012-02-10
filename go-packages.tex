@@ -190,7 +190,7 @@ defined tests for our \package{even} package, \prog{go test} yields:
 \end{display}
 Let us fix this by defining a test in a test file. Test files reside
 in the package directory and are named \file{*\_test.go}. Those test
-files are just like other Go program, but \prog{go test} will only
+files are just like other Go programs, but \prog{go test} will only
 execute the test functions.
 Each test function has the same signature and its name should start
 with \lstinline{Test}:
@@ -244,7 +244,7 @@ ok      even    0.001s
 \end{display}
 \noindent{}Our test ran and reported \texttt{ok}. Success! 
 
-To show how a failed test look we redefine our test function:
+To show how a failed test looks we redefine our test function:
 \begin{lstlisting}
 // Entering the twilight zone
 func TestEven(t *testing.T) {
