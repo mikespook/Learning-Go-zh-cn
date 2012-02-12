@@ -987,7 +987,7 @@ v, ok := monthdays["Jan"]	  |\coderemark{Hence, the "comma ok" form}|
 \end{lstlisting}
 And finally you can remove elements \index{keyword!map!remove elements} from the \type{map}:
 \begin{lstlisting}
-delete monthdays["Mar"]           |\coderemark{Deletes "Mar", always rainy anyway}|
+delete(monthdays, "Mar")           |\coderemark{Deletes "Mar", always rainy anyway}|
 \end{lstlisting}
 In general the syntax \lstinline{delete(m, x)} will delete the map entry
 retrieved by the expression \lstinline{m[x]}.
