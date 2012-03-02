@@ -7,32 +7,31 @@
 \Question\label{ex:stack-package q2} 为这个包编写一个单元测试，
 至少测试 \func{Push} 后 \func{Pop} 的工作情况。
 
-\Question\label{ex:stack-package q3} 还有哪个官方提供的包可以做为（FIFO）stack 使用？
 \end{Exercise}
 
 \begin{Answer}
 \Question 在创建 stack 包时，仅有一些小细节需要修改。
 首先，导出的函数应当大写首字母，因此应该是 \type{Stack}。
-完整的包变为：
+包所在的文件被命名为 \file{stack-as-package.go}，内容是：
 \lstinputlisting[caption=包里的 Stack]{ex-packages/src/stack-as-package.go}
 
 \Question 为了让单元测试正常工作，需要做一些准备。
 下面用一分钟的时间来做这些。首先是单元测试本身。
-创建文件“pushpop\_test.go”，有如下内容：
+创建文件 \file{pushpop\_test.go}，有如下内容：
 \lstinputlisting[caption=Push/Pop 测试]{ex-packages/src/pushpop_test.go}
-因为 \prog{gotest} 调用 \prog{gomake} 编译包，所以需要一个 makefile:
-\lstinputlisting[language=make,caption=包的 Makefile]{ex-packages/src/Makefile}
-完成了这些工作，可以调用 \prog{gotest} 来测试包：
+为了让 \prog{go test} 能够工作，需要将包所在文件放到 
+\var{\$GOPATH/src} 下面（参阅第 \pageref{"sec:settings used"} 页）。
+
 
 \begin{display}
-\pr \user{gotest}
-rm -f _test/stack.a
-6g  -o _gotest_.6 stack-as-package.go  pushpop_test.go
-rm -f _test/stack.a
-gopack grc _test/stack.a _gotest_.6 
-PASS
+\pr \user{mkdir $GOPATH/src/stack}
+\pr \user{cp pushpop_test.go $GOPATH/src/stack}
+\pr \user{cp stack-as-package.go $GOPATH/src/stack}
 \end{display}
 
-\Question 应当是包 \package{container/vector}。
-
+\begin{display}
+\pr \user{go test stack}
+PASS
+ok      stack   0.001s
+\end{display}
 \end{Answer}

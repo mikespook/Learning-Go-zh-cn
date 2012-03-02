@@ -1,5 +1,7 @@
 package stack
+
 import "testing"
+
 func TestPushPop(t *testing.T) {
         c := new(Stack)
         c.Push(5)

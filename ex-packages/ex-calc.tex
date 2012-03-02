@@ -2,34 +2,9 @@
 \label{ex:calc}
 \Question\label{ex:calc q1} 使用 stack 包创建逆波兰计算器。
 
-\Question\label{ex:calc q2} 扩展一下，用你在问题 \ref{ex:stack-package q3} 中发现的包重写计算器。
 \end{Exercise}
 
 \begin{Answer}
 \Question 这是第一个答案：
 \lstinputlisting[caption=逆波兰计算器]{ex-packages/src/calc.go}
-\Question \package{container/vector} 包应当是不错的选择。它同样\emph{预定义}了
-\func{Push} 和 \func{Pop} 函数。
-对于我们的程序来说修改是非常\emph{小}的，下面的差异文件显示了不同的地方：
-\vskip\baselineskip
-\begin{display}
---- calc.go     2010-05-16 10:19:13.886855818 +0200
-+++ calcvec.go  2010-05-16 10:13:35.000000000 +0200
-@@ -5,11 +5,11 @@
-        "os"
-        "strconv"
-        "fmt"
--       "./stack"
-+       "container/vector"
- )
-
- var reader *bufio.Reader = bufio.NewReader(os.Stdin)
--var st = new(Stack)
-+var st = new(vector.IntVector)
-
- func main() \{
-        for \{
-\end{display}
-\vskip\baselineskip
-\noindent{}只有两行需要修改。\emph{太棒了}。
 \end{Answer}

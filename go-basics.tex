@@ -58,26 +58,18 @@ Erlang 运行在虚拟机上，而 Go 是编译的。Go 用起来感觉更接近
 \showremarks
 
 \section{编译和运行代码}
-Go 编译器叫做 \verb|<数字>g|，数字是 6 表示用于 64 位 Intel 而 8 表示 32 位 Intel。
-连接器用相同的命名方式：\verb|<数字>l|。go 的工具链被抽象并隐藏在叫做 \prog{go}\index{tooling!go!tool} 
-的工具后面。不过仍然可以直接访问编译器和链接器。
+\label{sec:building a program}
+构建 Go 程序的最佳途径是使用 \prog{go} 工具。\index{tooling!go}
 
-为了编译上面的代码，执行：
+构建 \prog{helloworld} 只需要：
 \begin{display}
-\pr \user{go tool 6g helloworld.go}
+\pr \user{go build helloworld.go}
 \end{display}
-\index{tooling!go!6g}
-
-\noindent{}并且用 \prog{go tool 6l} 链接它：
+\index{tooling!go!build}
+结果是叫做 \prog{helloworld} 的可执行文件。
 
 \begin{display}
-\pr \user{go tool 6l helloworld.6}
-\end{display}
-\index{tooling!go!6l}
-
-\noindent{}然后执行：
-\begin{display}
-\pr \user{./6.out}	    \coderemark{默认的（64位） Go 可执行文件名（32 位上是 8.out）}
+\pr \user{./helloworld}
 \end{display}
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
@@ -86,39 +78,13 @@ Go 编译器叫做 \verb|<数字>g|，数字是 6 表示用于 64 位 Intel 而 
 \ \newline
 \ \newline
 
-\subsection{使用 go}
-\label{sec:building a program}
-另一种可以减少麻烦且是首选的编译 Go 程序的办法，是使用工具
-\prog{go}。\index{tooling!go}
-工具 \prog{go} 使用指向一个目录的配置参数 \var{\$GOPATH}：
-\begin{display}
-\pr mkdir -p ~/g/src    # 建立目录 ~/g 和 ~/g/src
-\pr GOPATH=~/g          # 设置 GOPATH 为 ~/g
-\end{display}
-
-建立一个存放 \prog{helloworld} 的目录：
-\begin{display}
-\pr mkdir ~/g/src/hello             # 在 src 中建立 hello 子目录
-\pr cp helloworld.go ~/g/src/hello  # 复制源码
-\end{display}
-
-现在可以使用：
-\begin{display}
-\pr go build
-\end{display}
-\index{tooling!go!build}
-这个结果是叫做 \prog{a.out} 的可执行文件。如果要用指定的名字，可以使用输出参数（-o）：
-\begin{display}
-\pr go build -o helloworld
-\end{display}
-结果是叫做 \prog{helloworld} 的可执行文件。
- 
 \section{本书使用的设置}
 \label{sec:settings used}
 \begin{itemize}                            
 \item Go 被安装在 \file{~/go}；
 \item 希望编译的 Go 代码放在 \file{~/g/src} 
-而 \var{\$GOPATH} 设置为 \var{GOPATH=~/g}。
+而 \var{\$GOPATH} 设置为 \var{GOPATH=~/g}。在使用包的时候需要用到这个变量（参阅第 
+\ref{chap:packages} 章）。
 \end{itemize}
 
 \section{变量、类型和保留字}
@@ -899,7 +865,7 @@ v, ok := monthdays["Jan"]	 |\coderemark{“逗号 ok”形式}|
 \end{lstlisting}
 也可以从 \type{map} 中移除元素 \index{keyword!map!remove elements}：
 \begin{lstlisting}
-delete monthdays["Mar"]          |\coderemark{删除 "Mar" 吧，总是下雨的月份}|
+delete(monthdays, "Mar")          |\coderemark{删除 "Mar" 吧，总是下雨的月份}|
 \end{lstlisting}
 通常来说语句 \lstinline{delete(m, x)} 会删除 map 中由 \lstinline{m[x]} 建立的实例。
 

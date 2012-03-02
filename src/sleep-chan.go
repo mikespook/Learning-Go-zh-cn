@@ -8,7 +8,7 @@ import (
 var c chan int
 
 func ready(w string, sec int) {
-	time.Sleep(int64(sec) * 1e9)
+	time.Sleep(time.Duration(sec) * time.Second)
 	fmt.Println(w, "is ready!")
 	c <- 1
 }

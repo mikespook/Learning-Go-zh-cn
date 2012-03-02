@@ -8,33 +8,37 @@ Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <na
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
 名称以大写字幕起始的是\emph{可导出}的，可以在包的外部调用，稍候会讨论这个。
-现在可以在下面的程序 \prog{myeven.go} 中使用这个包了：
 
-\lstinputlisting[label=src:myeven,caption=Use of the even package]{src/myeven.go}
+现在只需要构建这个包。在 \var{\$GOPATH} 下建立一个目录，复制
+\file{even.go} 到这个目录（参阅第 \ref{chap:basics} 章的“\titleref{sec:building a program}”）。
+
+\begin{display}
+\pr \user{mkdir $GOPATH/src/even}      \coderemark{建立一个顶级目录}
+\pr \user{cp even.go $GOPATH/src/even}         \coderemark{复制包文件}
+\pr \user{go build even}                \coderemark{构建它}
+\end{display}
+
+接下来在程序 \prog{myeven.go} 中使用这个包：
+
+\lstinputlisting[label=src:myeven,caption=even 包的使用]{src/myeven.go}
 \showremarks
 
-现在只需要编译和链接，首先是那个包，然后是 \prog{myeven.go}，并且链接它们：
 \begin{display}
-\pr 6g even.go			\coderemark{包}
-\pr 6g myeven.go		\coderemark{程序}
-\pr 6l -o myeven myeven.6       \coderemark{链接步骤}
-\end{display}
-然后测试一下：
-\begin{display}
-\pr ./myeven
+\pr \user{go build myeven.go}
+\pr \user{./myeven}
 Is 5 even? false
 \end{display}
 
 在 Go 中，当函数的首字母大写的时候，函数会被从包中导出（在包外部可见，或者说公有的），
-因此函数名是 \func{\emph{E}ven}。如果修改 \prog{myeven.go} 的第 7 行，使用未导出的函数
+因此函数名是 \func{\emph{E}ven}。如果修改 \prog{myeven.go} 的第 10 行，使用未导出的函数
 \func{even.odd}：
 
 \noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.odd(i))}
 
 由于使用了\emph{私有}的函数，会得到一个编译错误：
 \begin{display}
-myeven.go:7: cannot refer to unexported name even.odd
-myeven.go:7: undefined: even.odd
+# _/myeven
+myeven.go:10: cannot refer to unexported name even.odd
 \end{display}
 
 \noindent{}概括来说：
@@ -47,23 +51,6 @@ myeven.go:7: undefined: even.odd
 这个规则同样适用于定义在包中的其他名字（新类型、全局变量）。
 注意，“大写”的含义并不仅限于 US ASCII，它被扩展到了整个 Unicode 范围。
 所以大写的希腊语、古埃及语都是可以的。
-
-\section{构建一个包}
-\label{sec:building a package}
-为了创建一个别人可以用的包（只需要 \lstinline{import "even"} 即可使用），首先需要创建一个目录放入包文件。参考 “\titleref{sec:settings used}”小节了解配置使用。
-\begin{display}
-\pr mkdir ~/g/src/even
-\pr cp even.go ~/g/src/even/
-\end{display}
-同样的可以使用工具 \prog{go} （参考第\ref{chap:basics}章，“\titleref{sec:building a program}”小节），不过这次是用来编译包。
-\begin{display}
-\pr go build
-\pr go install
-\end{display}
-
-\noindent{}在构建和安装之后，可以将 \key{import} 从
-\lstinline{"./even"} 改为 \lstinline{"even"}。
-\noindent{}导入但是没有使用的包会引起一个错误。
 
 \section{标识符}
 像在其他语言中一样，Go 的命名是很重要的。在某些情况下，它们甚至有语义上的作用：
@@ -142,8 +129,10 @@ package regexp
 每个定义（并且导出）的函数应当有一小段文字描述该函数的行为。来自于
  \package{fmt} 包的例子：
 \begin{display}
-// Printf formats according to a format specifier and writes to standard output.
-func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
+// Printf formats according to a format specifier and writes to standard
+// output. It returns the number of bytes written and any write error
+// encountered.
+func Printf(format string, a ...interface{}) (n int, err error)
 \end{display}
 
 \section{测试包}
@@ -159,7 +148,7 @@ func Printf(format string, a ...interface{}) (n int, errno os.Error) \{
 \prog{go test} 程序调用了所有的测试函数。
 \package{even} 包没有定义任何测试函数，执行 \prog{go test}，这样：
 \begin{display}
-\pr go test
+\pr \user{go test}
 ?       even    [no test files]
 \end{display}
 在测试文件中定义一个测试来修复这个。测试文件也在包目录中，被命名为 \file{*\_test.go}。
@@ -206,11 +195,10 @@ func (t *T) Fatal(args ...interface{})
 检查了 \func{Even} 函数是否工作正常。
 现在等待了好久的时刻到了，执行测试：
 \begin{display}
-\pr go test
+\pr \user{go test}
 ok      even    0.001s
-PASS
 \end{display}
-\noindent{}测试执行并且报告 \texttt{PASS}。成功了！
+\noindent{}测试执行并且报告 \texttt{ok}。成功了！
 
 为了展示失败的测试，修改测试函数：
 \begin{lstlisting}

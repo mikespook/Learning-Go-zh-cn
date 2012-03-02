@@ -23,7 +23,7 @@ go ready("Tea", 2)  |\coderemark{\func{ready()} 作为 goroutine 运行}|
 让一个函数作为两个 goroutine 执行，goroutine 等待一段时间，然后打印一些内容到屏幕。
 在第 14 和 15 行，启动了 goroutine。
 \func{main} 函数等待足够的长的时间，这样每个 goroutine 会打印各自的文本到屏幕。
-现在是在第 17 行等待 5 秒钟（\func{time.Sleep()} 按 ns 计算），、
+现在是在第 17 行等待 5 秒钟，
 但实际上没有任何办法知道，当所有 goroutine 都已经退出应当等待多久。 
 \lstinputlisting[numbers=right,label=src:sleeping,firstnumber=8,caption=Go routine 实践,linerange={8,18}]{src/sleep.go}
 表 \ref{src:sleeping} 输出：
@@ -60,7 +60,7 @@ var c chan int |\longremark{定义 \var{c} 作为 int 型的 channel。就是说
 注意这个变量是全局的，这样 goroutine 可以访问它；}|
 
 func ready(w string, sec int) {
-	time.Sleep(int64(sec) * 1e9)
+	time.Sleep(time.Duration(sec) * time.Second)
 	fmt.Println(w, "is ready!")
 	c <- 1	|\longremark{发送整数 1 到 channel \var{c}；}|
 }
@@ -94,6 +94,7 @@ L: for {
 	}   
 }   
 \end{lstlisting}
+现在将会一直等待下去。只有当从 channel \var{c} 上收到多个响应时才会退出循环 \var{L}。
 
 \subsection{使其并行运行}
 虽然 goroutine 是并发执行的，但是它们并不是并行运行的。如果不告诉 Go 额外的东西，
@@ -156,9 +157,6 @@ $$
 
 \subsection{关闭 channel}
 %% section needs to be written
-
-\subsection{在 goroutines 中包装函数}
-参阅 godns/resolver.go 如何在 goroutine 中用错误处理等包装 Query() 函数。
 
 \section{练习}
 \input{ex-channels/ex-for-channels.tex}
