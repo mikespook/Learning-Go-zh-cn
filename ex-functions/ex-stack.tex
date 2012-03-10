@@ -81,7 +81,7 @@ to the stack. This means we need to change \func{push} from
 $\rightarrow$
 \lstinline{func (s *stack) push(k int)}
 
-We should now use \func{new()} (see "\titleref{sec:allocation with new}"
+We should now use \func{new()} (see ``\titleref{sec:allocation with new}''
 in chapter \ref{chap:beyond}) to create a \emph{pointer} to a newly
 allocated \type{stack}, so line 1 from the example above needs to be
 \lstinline{s := new(stack)}
