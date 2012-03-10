@@ -6,7 +6,7 @@ communicating with the outside world.
 \section{Files and directories}
 Reading from (and writing to) files is easy in Go. This program
 only uses the \package{os} package to read data from the file \file{/etc/passwd}.
-\lstinputlisting[caption=Reading from a file (unbufferd),label=src:read]{src/file.go}
+\lstinputlisting[caption=Reading from a file (unbuffered),label=src:read]{src/file.go}
 \showremarks
 If you want to use \first{buffered}{buffered} IO there is the
 \package{bufio}\index{package!bufio} package:
@@ -86,7 +86,7 @@ Capturing standard output from a command is also easy to do:
 import "exec"
 
 cmd := exec.Command("/bin/ls", "-l")
-buf, err := cmd.Ouput()                 |\coderemark{\var{buf} is a (\type{[]byte})}|
+buf, err := cmd.Output()                 |\coderemark{\var{buf} is a (\type{[]byte})}|
 \end{lstlisting}
 
 \section{Networking}

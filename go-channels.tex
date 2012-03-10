@@ -164,8 +164,8 @@ channel to make room.
 \index{channel!non-blocking read}
 \index{channel!non-blocking write}
 
-Although reads from channels block, you can perform an
-non-blocking read with the following syntax: \todo{Still need to test this.}
+Although reads from channels block, you can perform a non-blocking read 
+with the following syntax: \todo{Still need to test this.}
 \begin{lstlisting}
 x, ok = <-ch
 \end{lstlisting}
@@ -179,13 +179,13 @@ $$
 \left\{
 \begin{array}{ll}
 value == 0 & \rightarrow \textrm{unbuffered (blocking)} \\
-value >  0 & \rightarrow \textrm{buffered (non-blocking) up to \emph{value} elements)}
+value >  0 & \rightarrow \textrm{buffer \emph{value} elements (non-blocking)}
 \end{array}
 \right.
 $$
 
 \subsection{Closing channels}
-%% section needs to be written
+\todo{section needs to be written}
 
 \section{Exercises}
 \input{ex-channels/ex-for-channels.tex}

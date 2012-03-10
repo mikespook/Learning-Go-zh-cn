@@ -63,7 +63,7 @@ address, a value of type \type{*T}. In Go terminology, it returns a pointer to
 a newly allocated zero value of type \type{T}. This is important to
 remember:
 \begin{lbar}[]
-\key{new} returns \emph{pointers}.
+\key{new} returns a \emph{pointer}.
 \end{lbar}
 
 This
@@ -225,10 +225,12 @@ keyword.
 An example would be when we want record somebody's name (\type{string})
 and age (\type{int}) in a single structure and make it a new type:
 \lstinputlisting[label=src:struct,caption=Structures]{src/struct.go}
+\needspace{5\baselineskip}
 Apropos, the output of \lstinline{fmt.Printf("%v\n", a)} is 
 \begin{display}
 &\{Pete 42\}
 \end{display}
+
 That is nice!
 Go knows how to print your structure. If you
 only want to print one, or a few, fields of the structure you'll
@@ -296,7 +298,7 @@ But keep the following in mind, this is quoted from \cite{go_spec}:
 \begin{quote}
 If \type{x} is
 addressable and \lstinline{&x}'s method set contains \func{m}, 
-\lstinline{x.m()} is shorthand for \lstinline{(&x).m()}.
+\lstinline{x.m()} is shorthand for \mbox{\lstinline{(&x).m()}}.
 \end{quote}
 In the above case this means that the following is \emph{not} an 
 error:

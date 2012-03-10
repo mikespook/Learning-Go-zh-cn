@@ -216,7 +216,7 @@ From the \cite{go_faq}. If not for this restriction, this code:
 var buf bytes.Buffer
 io.Copy(buf, os.Stdin)
 \end{lstlisting}
-Would copy standard input into a copy of \var{buf}, not into \var{buf} itself. 
+would copy standard input into a copy of \var{buf}, not into \var{buf} itself. 
 This is almost never the desired behavior.
 \end{lbar}
 

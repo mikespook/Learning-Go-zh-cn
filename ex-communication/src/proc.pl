@@ -1,6 +1,6 @@
 #!/usr/bin/perl -l
 my (%child, $pid, $parent);
-my @ps=`ps -e -opid,ppid,comm`;	    # Capture the ouput from `ps`
+my @ps=`ps -e -opid,ppid,comm`;	    # Capture the output from `ps`
 foreach (@ps[1..$#ps]) {	    # Discard the header line
     ($pid, $parent, undef) = split; # Split the line, discard 'comm'
     push @{$child{$parent}}, $pid;  # Save the child PIDs on a list

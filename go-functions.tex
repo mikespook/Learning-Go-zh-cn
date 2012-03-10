@@ -169,6 +169,7 @@ func ReadFull(r Reader, buf []byte) (n int, err error) {
 In the following example we declare a simple function which calculates
 \gomarginpar{Some text in this section comes from \cite{go_intro}.}  % layout
 the factorial value of a value \var{x}.
+\needspace{9\baselineskip}
 \begin{lstlisting}
 func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is also OK}|
    if x == 0 {
@@ -353,7 +354,6 @@ does ``something'' with an integer value:
 \begin{lstlisting}
 func printit(x int) {       |\coderemark{Function returns nothing}|
     fmt.Print("%v\n", x)    |\coderemark{Just print it}|
-
 }
 \end{lstlisting}
 The signature of this function is: \lstinline{func printit(int)}, or
@@ -371,6 +371,7 @@ Go does not have a exception mechanism, like that in Java for instance: you can 
 Instead it uses a panic-and-recover mechanism. It is worth remembering that you should use this as
 a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
 use it wisely. So, how do you use it?
+\todo{Create example code.}
 
 The following description was taken from \cite{go_blog_panic}:
 \begin{description}
