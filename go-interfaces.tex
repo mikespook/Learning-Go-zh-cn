@@ -97,7 +97,7 @@ statement. We store the type in the variable \var{t};}|
 \showremarks
 Using \key{(type)} outside a \key{switch} is illegal. A type switch isn't the only way
 to discover the type at \emph{run-time}. 
-You can also use a "comma, ok" form to see if an interface type implements
+You can also use a ``comma, ok'' form to see if an interface type implements
 a specific interface:
 
 \begin{lstlisting}
@@ -136,7 +136,7 @@ The call to \func{g} will work fine and will print 0. If we however
 invoke \func{g()} with a value that does not implement \type{I} we have
 a problem:
 \begin{lstlisting}[caption=Failing to implement an interface,label=src:interface fail]
-i := 5		|\coderemark{Make i a "lousy" \texttt{int}}|
+i := 5		|\coderemark{Make i a ``lousy'' \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}
 This compiles, but when we run this we get slammed with:
@@ -284,7 +284,7 @@ To keep a
 can be found at \cite{go_nuts_interfaces}.}
 long story short: Go does not (implicitly) convert slices for you.
 
-So what is the Go way of creating such a "generic" function? 
+So what is the Go way of creating such a ``generic'' function? 
 Instead of doing the type inference ourselves with a type switch, we let
 Go do it implicitly:
 The following steps are required:
@@ -361,8 +361,7 @@ perfectly legal to include it in the interface.
 
 \subsection{Introspection and reflection}
 \label{sec:introspection and reflection}
-In the following example we want to look at the "tag" (here named
-"namestr") defined in the
+In the following example we want to look at the ``tag'' (here named ``namestr'') defined in the
 type definition of \type{Person}. To do this we need the
 \package{reflect}\index{package!reflect} package (there is no other way in Go). Keep in mind
 that looking at a tag means going back to the \emph{type} definition. So
@@ -381,7 +380,7 @@ func show(i interface{}) {
       case *Person:
         t := reflect.TypeOf(i)  |\coderemark{Go for type meta data}|
         v := reflect.ValueOf(i) |\coderemark{Go for the actual values}|
-	tag := t.Elem().Field(0).Tag |\longremark{Here we want to get to the "tag". %
+	tag := t.Elem().Field(0).Tag |\longremark{Here we want to get to the ``tag''. %
 So we need \func{Elem()} to redirect the pointer, access the first field and get the tag. %
 Note we operate on \var{t} a \type{reflect.Type};}|
 	name := v.Elem().Field(0).String() |\longremark{Now we want to get access to the %
@@ -448,7 +447,7 @@ stack trace and a \emph{run time} error:
 \noindent\error{panic: reflect.Value.SetString using value obtained using unexported field}
 
 \noindent{}The code on the right works OK and sets the member \var{Name}
-to "Albert Einstein". Of course this only works when you call \func{Set()}
+to ``Albert Einstein''. Of course this only works when you call \func{Set()}
 with a pointer argument.
 
 \section{Exercises}

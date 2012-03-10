@@ -1,10 +1,10 @@
-\epi{"I'm always delighted by the light touch and stillness of
+\epi{``I'm always delighted by the light touch and stillness of
 early programming languages.  Not much text; a lot gets
 done. Old programs read like quiet conversations
 between a well-spoken research worker and a well-
 studied mechanical colleague, not as a debate with a
 compiler.  Who'd have guessed sophistication bought
-such noise?"}{\textsc{RICHARD P. GABRIEL}}
+such noise?''}{\textsc{RICHARD P. GABRIEL}}
 
 \noindent{}Functions are the basic building blocks in Go programs; all interesting
 stuff happens in them. A function is declared as follows:
@@ -33,7 +33,7 @@ entire file before execution. So function prototyping is a thing of the
 past in Go.
 Go disallows nested functions.  You can however
 work around this by using anonymous functions, see section
-"\titleref{sec:functions as values}" on page \pageref{sec:functions as values} 
+``\titleref{sec:functions as values}'' on page \pageref{sec:functions as values} 
 in this chapter.
 
 Recursive functions just work as in other languages:
@@ -90,13 +90,13 @@ valid when we are executing the function in which it is defined.
 
 \section{Multiple return values}
 \label{sec:multiple return}
-One of Go's unusual features is that functions and methods can return multiple
-values (but Python can do this too). This can be used to improve on a couple of 
+One of Go's unusual (for compiled languages) features is that functions and methods can return multiple
+values (Python and Perl can do this too). This can be used to improve on a couple of 
 clumsy idioms in C programs:
 in-band error returns (such as -1 for \texttt{EOF}) and modifying an argument.
 In Go, \lstinline{Write} returns a count and an
-error: "Yes, you wrote some bytes but not all of them because you filled the
-device". The signature of \lstinline{*File.Write} in package
+error: ``Yes, you wrote some bytes but not all of them because you filled the
+device''. The signature of \lstinline{*File.Write} in package
 \package{os} is:
 \begin{lstlisting}
 func (file *File) Write(b []byte) (n int, err error)
@@ -140,7 +140,7 @@ initialized to the zero values for their types when the function begins; if the
 function executes a \key{return} statement with no arguments, the current values of
 the result parameters are used as the returned values. Using this
 features enables you (again) to do more with less code \footnote{This is
-a motto of Go; "Do \emph{more} with \emph{less} code".}.
+a motto of Go; ``Do \emph{more} with \emph{less} code''}.
 
 The names are not mandatory but they can make code shorter and clearer:
 \emph{they are documentation}. 
@@ -255,7 +255,7 @@ func ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-You can put multiple functions on the "deferred list"\index{deferred list}, like this
+You can put multiple functions on the ``deferred list''\index{deferred list}, like this
 example from \cite{effective_go}:
 \begin{lstlisting}
 for i := 0; i < 5; i++ { 
@@ -349,7 +349,7 @@ on page \pageref{ex:map function}.
 \label{sec:callbacks}
 With functions as values they are easy to pass to functions, from where
 they can be used as callbacks. First define a function that
-does "something" with an integer value:
+does ``something'' with an integer value:
 \begin{lstlisting}
 func printit(x int) {       |\coderemark{Function returns nothing}|
     fmt.Print("%v\n", x)    |\coderemark{Just print it}|
@@ -396,7 +396,7 @@ This function checks if the function it gets as argument will panic when it is
 executed\footnote{Copied from a presentation of Eleanor McHugh.}:
 \begin{lstlisting}
 func throwsPanic(f func()) (b bool) { |\longremark{We define a new function \func{throwsPanic} that takes %
-a fuction as an argument, see "\titleref{sec:functions as values}". It returns true when this function %
+a fuction as an argument, see ``\titleref{sec:functions as values}''. It returns true when this function %
 will panic, otherwise false;}|
     defer func() { |\longremark{We define a \func{defer} function that utilizes \func{recover}, \emph{if} the %
 current goroutine panics, this defer function will notice that. If \func{recover()} returns non-\var{nil} we set \var{b} %

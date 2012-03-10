@@ -1,4 +1,4 @@
-\epi{"\lstinline{^}"}{\textit{Answer to whether there is a bit wise negation
+\epi{``\lstinline{^}''}{\textit{Answer to whether there is a bit wise negation
 operator.}\\\textsc{KEN THOMPSON}}
 \noindent{}Packages are a collection of functions and data. 
 You declare a package with the
@@ -15,7 +15,7 @@ Names that start with a capital letter are \emph{exported} and may be used
 outside your package, more on that later.
 
 Now we just need to build the package. We create a directory under \var{\$GOPATH},
-copy the \file{even.go} to there (see "\titleref{sec:building a program}" in chapter \ref{chap:basics}).
+copy the \file{even.go} to there (see ``\titleref{sec:building a program}'' in chapter \ref{chap:basics}).
 
 \begin{display}
 \pr \user{mkdir $GOPATH/src/even}	\coderemark{Create top-level directory}
@@ -57,7 +57,7 @@ letter;
 \index{private}
 \end{itemize}
 This convention also holds true for other names (new types, global
-variables) you define in a package. Note that the term "capital" is not limited
+variables) you define in a package. Note that the term ``capital'' is not limited
 to US ASCII, it extends into the entire Unicode range. So capital Greek, Coptic, etc. is OK too.
 
 \section{Identifiers}
@@ -176,7 +176,7 @@ tests involves the \package{testing} package and the program
 \first{\prog{go test}}{tooling!go!test}. Both
 have excellent documentation. When you include tests with your package
 keep in mind that they have to build using the standard \file{Makefile}
-(see section "\titleref{sec:building a package}").
+(see section ``\titleref{sec:building a package}'').
 
 %% CLEANFILES+=hello fib chain run.out
 %%
@@ -325,7 +325,7 @@ exclusion locks.
 }
 \item[\package{flag}]{\index{package!flag}
 The \package{flag} package implements command-line flag parsing. 
-\emph{See "\titleref{sec:option parsing}"
+\emph{See ``\titleref{sec:option parsing}''
 on page \pageref{sec:option parsing}.}
 }
 \item[\package{json}]{\index{package!json}
@@ -338,7 +338,7 @@ Data-driven templates for generating textual output such as HTML.
 Templates are executed by applying them to a data structure.  Annotations in
 the template refer to elements of the data structure (typically a field of a
 struct or a key in a map) to control execution and derive values to be
-displayed.  The template walks the structure as it executes and the "cursor" @
+displayed.  The template walks the structure as it executes and the ``cursor'' @
 represents the value at the current location in the structure.
 }
 \item[\package{http}]{\index{package!http}
@@ -358,7 +358,7 @@ information by calling \func{TypeOf}, which returns an object with interface
 type \type{Type}.
 
 \emph{See chapter \ref{chap:interfaces}, 
-section "\titleref{sec:introspection and reflection}"}.
+section ``\titleref{sec:introspection and reflection}''}.
 }
 \item[\package{exec}]{\index{package!exec}
 The \package{exec} package runs external commands.

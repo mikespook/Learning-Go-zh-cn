@@ -224,8 +224,8 @@ time, and can only be numbers, strings or booleans;
 \lstinline{const x = 42} makes \var{x} a constant. You can use
 \first{\key{iota}}{keyword!iota} \footnote{The word [iota] is used in a common English phrase,
 'not one iota', meaning 'not the slightest difference', in reference to
-a phrase in the New Testament: "\emph{until heaven and earth pass away, not an
-iota, not a dot, will pass from the Law}." \cite{iota}}
+a phrase in the New Testament: ``\emph{until heaven and earth pass away, not an
+iota, not a dot, will pass from the Law}.'' \cite{iota}}
 to enumerate values.
 \begin{lstlisting}
 const (
@@ -285,7 +285,7 @@ fmt.Printf("%s\n", s2) |\longremark{print the string with \func{fmt.Printf}.}|
 
 \begin{lbar}[Multi-line strings]
 Due to the insertion of semicolons (see \cite{effective_go} section
-"Semicolons"), you need to be careful with using multi line strings. If
+``Semicolons''), you need to be careful with using multi line strings. If
 you write:
 \begin{lstlisting}
 s := "Starting part"
@@ -330,7 +330,7 @@ An example of using complex numbers:
 will print: \lstinline{(5+5i)}
 
 \subsection{Errors}
-Any non-trivial program will need errors sooner or later. Because of this
+Any non-trivial program will have the need for error reporting sooner or later. Because of this
 Go has a builtin type specially for errors, called \lstinline{error}.
 
 \section{Operators and built-in functions}
@@ -349,13 +349,13 @@ all associate from left to right.
 \verb|+ - * /| and \verb|%| all do what you would expect,
 \verb!& | ^!
 and \verb!&^! are bit operators for
-\first{\key{bitwise and}}{operator!bitwise!and}, 
-\first{\key{bitwise or}}{operator!bitwise!or}, \first{\key{bitwise xor}}{operator!bit
-wise xor} and \first{\key{bit clear}}{operator!bitwise!clear} respectively.
+\first{bitwise and}{operator!bitwise!and}, 
+\first{bitwise or}{operator!bitwise!or}, \first{bitwise xor}{operator!bit
+wise xor} and \first{bit clear}{operator!bitwise!clear} respectively.
 The \verb|&&| and \verb/||/ operators are 
-logical \first{\key{and}}{operator!and} and
-logical \first{\key{or}}{operator!or}. Not listed in the table
-is the logical \first{\key{not}}{operator!not}: \verb/!/ .
+logical \first{and}{operator!and} and
+logical \first{or}{operator!or}. Not listed in the table
+is the logical \first{not}{operator!not}: \verb/!/
 
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
@@ -375,9 +375,9 @@ Table \ref{tab:keywords} lists all the keywords in Go.
 In the following paragraphs and chapters we will cover them. Some
 of these we have seen already.
 \begin{itemize}
-\item For \key{var} and \key{const} see section "\titleref{sec:vars}" on 
+\item For \key{var} and \key{const} see section ``\titleref{sec:vars}'' on 
 page \pageref{sec:vars};
-\item \key{package} and \key{import} are briefly touched upon in section "\titleref{sec:hello world}". 
+\item \key{package} and \key{import} are briefly touched upon in section ``\titleref{sec:hello world}''. 
 In chapter \ref{chap:packages} they are documented in more detail.
 \end{itemize}
 Others deserve more text and have their own chapter/section:
@@ -404,7 +404,7 @@ multiplexer, \key{select} (see chapter \ref{chap:channels}). The syntax is
 different (from that in C): parentheses
 are not required and the body must \emph{always} be brace-delimited.
 
-\subsection{If}
+\subsection{If-else}
 In Go an \first{\key{if}}{keyword!if} looks like this:
 \begin{lstlisting}
 if x > 0 {	|\coderemark{\{ is mandatory}|
@@ -475,7 +475,7 @@ if err != nil
     return err
 }
 \end{lstlisting}
-See \cite{effective_go} section "Semicolons" for the deeper reasons
+See \cite{effective_go} section ``Semicolons'' for the deeper reasons
 behind this.
 
 \begin{lbar}[Ending with \key{if-then-else}]
@@ -561,11 +561,11 @@ J:  for j := 0; j < 5; j++ {
 
 With \first{\key{continue}}{keyword!continue} you begin the next iteration of the
 loop, skipping any remaining code. In the same way as \key{break},
-\key{continue} also accepts a label. The following prints 0 to 5.
+\key{continue} also accepts a label. The following loop prints 0 to 5.
 \begin{lstlisting}
 for i := 0; i < 10; i++ {
     if i > 5 {
-	continue |\coderemark{Skip any remaining code}|
+	continue |\coderemark{Skip the rest of the remaining code in the loop}|
     }
     println(i)
 }
@@ -725,29 +725,29 @@ for more on this.
 \paragraph{\func{len} and \func{cap}} are used on a number of different
 types, \func{len} is
 used for returning the length of strings and the length of slices and
-arrays. See section "\titleref{sec:arrays}" for the details of slices and
+arrays. See section ``\titleref{sec:arrays}'' for the details of slices and
 arrays and the function
 \func{cap}.\index{built-in!len}\index{built-in!cap}
 
 \paragraph{\func{new}} is used for allocating memory for user defined
-data types. See section "\titleref{sec:allocation with new}" on page
+data types. See section ``\titleref{sec:allocation with new}'' on page
 \pageref{sec:allocation with new}.
 \index{built-in!new}
 
 \paragraph{\func{make}} is used for allocating memory for built-in
 types (maps, slices and channels). See section 
-"\titleref{sec:allocation with make}" on page
+``\titleref{sec:allocation with make}'' on page
 \pageref{sec:allocation with make}.
 \index{built-in!make}
 
 \paragraph{\func{copy}} is used for copying slices. \func{append} is 
-for concatenating slices. See section "\titleref{sec:slices}" in this
+for concatenating slices. See section ``\titleref{sec:slices}'' in this
 chapter.
 \index{built-in!copy}
 \index{built-in!append}
 
 \paragraph{\func{panic} and \func{recover}} are used for an 
-\emph{exception} mechanism. See the section "\titleref{sec:panic}" on 
+\emph{exception} mechanism. See the section ``\titleref{sec:panic}'' on 
 page \pageref{sec:panic} for more.
 \index{built-in!panic}
 \index{built-in!recover}
@@ -775,7 +775,7 @@ available, it is called a \type{map} in Go.
 \subsection{Arrays}
 An array is defined by: \verb|[n]<type>|, where $n$ is the length
 of the array and \verb|<type>| is the stuff you want to store.
-Assigning, or indexing an element in the array is done with square
+Assigning or indexing an element in the array is done with square
 brackets:
 \begin{lstlisting}
 var arr [10]int
@@ -798,7 +798,7 @@ this can be shortened to \lstinline|a := [...]int{1, 2, 3}|, where Go counts
 the elements automatically. \gomarginpar{A composite literal allows you
 to assign a value directly to an array, slice or map.
 
-See the section "\titleref{sec:constructors and composite literals}" on
+See the section ``\titleref{sec:constructors and composite literals}'' on
 page \pageref{sec:constructors and composite literals} for more.}
 Note that all fields must be specified.  So if you are using multidimensional
 arrays you have to do quite some typing:
@@ -828,7 +828,7 @@ a := [2][2]int{ {1,2}, {3,4} }
 
 \subsection{Slices}
 \label{sec:slices}
-\todo{Add push/pop to this section as container/vector will be depricated.}
+\todo{Add push/pop to this section as container/vector will be deprecated.}
 A slice is similar to an array, but it can grow when new elements
 are added.
 A slice always refers to an underlying array. What makes slices different
@@ -869,7 +869,7 @@ And now we have:
 
 Given an array, or another slice, a new slice is created via
 \lstinline{a[I:J]}. This creates a new slice which refers to 
-\lstinline{a}, starts at index \var{I}, and ends
+the variable \lstinline{a}, starts at index \var{I}, and ends
 before index \var{J}. It has length \lstinline{J - I}.
 
 \begin{lstlisting}
@@ -937,7 +937,7 @@ n2 := copy(s, s[2:])    |\coderemark{\texttt{n2 == 4, s == []int\{2, 3, 4, 5, 4,
 \subsection{Maps}
 \label{sec:maps}
 Many other languages have a similar type built-in, Perl has hashes,
-Python has its dictionaries and C++ also has maps (as part of its library) for instance. 
+Python has its dictionaries and C++ also has maps (as part of the libraries) for instance. 
 In Go we have the
 \first{\key{map}}{keyword!map} type. A \type{map} can be thought of as an array indexed by
 strings (in its most simple form).
@@ -961,7 +961,7 @@ suppose we want to print the
 number of days in December: \lstinline{fmt.Printf("%d\n", monthdays["Dec"])}\newline
 If you are looping over an array, slice, string, or map a
 \first{\key{range}}{keyword!range}
-clause help you again, which returns the key and corresponding value
+clause will help you again, which returns the key and corresponding value
 with each invocation.\index{keyword!range!on maps}
 \begin{lstlisting}
 year := 0

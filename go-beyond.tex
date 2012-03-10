@@ -1,5 +1,5 @@
-\epi{"Go has pointers but not pointer arithmetic. You cannot use a pointer
-variable to walk through the bytes of a string."}{\textit{Go For C++
+\epi{``Go has pointers but not pointer arithmetic. You cannot use a pointer
+variable to walk through the bytes of a string.''}{\textit{Go For C++
 Programmers}\\{\textsc{GO AUTHORS}}}
 \noindent{}
 Go has pointers.
@@ -69,13 +69,13 @@ remember:
 This
 means a user of the data structure can create one with \key{new} and get
 right to work. For example, the documentation for \func{bytes.Buffer} states
-that "the zero value for Buffer is an empty buffer ready to use."
+that ``the zero value for Buffer is an empty buffer ready to use.''
 Similarly, \func{sync.Mutex} does not have an explicit constructor or Init
 method. Instead, the zero value for a \func{sync.Mutex} is defined to be an
 unlocked mutex.
 
 The zero-value-is-useful property works transitively. Consider this type
-declaration. See section "\titleref{sec:defining your own}" on page
+declaration. See section ``\titleref{sec:defining your own}'' on page
 \pageref{sec:defining your own}.
 
 \begin{lstlisting}
@@ -310,7 +310,7 @@ the type \type{*NameAge} and will translate this call to
 \lstinline{(&n).doSomething(2)}.
 
 There is a subtle but major difference between the following type
-declarations. Also see \cite[section~"Type Declarations"]{go_spec}.
+declarations. Also see \cite[section~``Type Declarations'']{go_spec}.
 Suppose we have:
 \begin{lstlisting}
 // A Mutex is a data type with two methods, Lock and Unlock.
