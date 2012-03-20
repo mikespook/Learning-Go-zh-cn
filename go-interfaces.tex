@@ -77,7 +77,7 @@ func f(p I) {
 \end{lstlisting}
 \showremarks
 在 \key{switch} 之外使用 \key{(type)} 是非法的。类型判断不是唯一的\emph{运行时}得到类型的方法。
-为了在\emph{运行时}得到类型，同样可以使用“comma, ok”来判断一个接口类型是否实现了某个特定接口：
+为了在\emph{运行时}得到类型，同样可以使用``comma, ok''来判断一个接口类型是否实现了某个特定接口：
 
 \begin{lstlisting}
 if t, ok := something.(I); ok {
@@ -111,7 +111,7 @@ fmt.Println(g(s));
 调用 \func{g} 的运行不会出问题，并且将打印 0。如果调用 \func{g()} 的参数没有实现 \type{I} 
 会带来一个麻烦：
 \begin{lstlisting}[caption=实现接口失败,label=src:interface fail]
-i := 5		|\coderemark{声明 i 是一个"该死的" \texttt{int}}|
+i := 5		|\coderemark{声明 i 是一个``该死的'' \texttt{int}}|
 fmt.Println(g(i))
 \end{lstlisting}
 这能编译，但是当运行的时候会得到：
@@ -240,7 +240,7 @@ func sort(i []interface{}) { |\longremark{函数将接收一个空接口的 slic
 \gomarginpar{关于这个话题完整的邮件列表讨论可以在 \cite{go_nuts_interfaces} 这里找到。}
 ：Go 不能（隐式）转换为 slice。
 
-那么如何创建 Go 形式的这些“通用”函数呢？
+那么如何创建 Go 形式的这些``通用''函数呢？
 用 Go 隐式的处理来代替 type switch 方式的类型推断吧。
 下面的步骤是必须的：
 \begin{enumerate}
@@ -310,7 +310,7 @@ type Interface interface {
 
 \subsection{自省和反射}
 \label{sec:introspection and reflection}
-在下面的例子中，了解一下定义在 \type{Person} 的定义中的 “标签”（这里命名为“namestr”）。
+在下面的例子中，了解一下定义在 \type{Person} 的定义中的 ``标签''（这里命名为``namestr''）。
 为了做到这个，需要 \package{reflect}\index{package!reflect} 包（在 Go 中没有其他方法）。
 要记得，查看标签意味着返回\emph{类型}的定义。因此使用 \package{reflect} 包来指出变量的类型，
 \emph{然后}访问标签。
@@ -325,7 +325,7 @@ func show(i interface{}) {
       case *Person:
         t := reflect.TypeOf(i)  |\coderemark{得到类型的元数据}|
         v := reflect.ValueOf(i) |\coderemark{得到实际的值}|
-        tag := t.Elem().Field(0).Tag    |\longremark{这里希望获得“标签”。因此需要 \func{Elem()} 重定向至其上，访问第一个字段来获取标签。%
+        tag := t.Elem().Field(0).Tag    |\longremark{这里希望获得``标签''。因此需要 \func{Elem()} 重定向至其上，访问第一个字段来获取标签。%
 注意将 \var{t} 作为一个 \type{reflect.Type} 来操作；}|
         name := v.Elem().Field(0).String() |\longremark{现在需要访问其中一个成员的\emph{值}，%
 并让\newline\var{v} 上的 \lstinline{Elem()} 进行重定向。%
@@ -384,7 +384,7 @@ func Set(i interface{}) {
 \noindent\error{panic: reflect.Value.SetString using value obtained using unexported field}
 
 \noindent{}右边的代码没有问题，并且设置了成员变量 \var{Name} 
-为"Albert Einstein"。当然，这仅仅工作于调用 \func{Set()} 时传递一个指针参数。
+为``Albert Einstein''。当然，这仅仅工作于调用 \func{Set()} 时传递一个指针参数。
 
 \section{练习}
 \input{ex-interfaces/ex-interfaces.tex}

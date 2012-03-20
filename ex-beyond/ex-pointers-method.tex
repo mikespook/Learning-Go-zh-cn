@@ -1,6 +1,7 @@
 \begin{Exercise}[title={方法调用},difficulty=8]
 \label{ex:methodcalls}
 \Question \label{ex:methodcalls q1} 假设有下面的程序：
+TODO: aint true anymore in Go1 (vector is gone)
 \begin{lstlisting}
 package main
 
@@ -34,7 +35,7 @@ Push 增加 x 到向量的末尾。
 而最后的 \var{k3} 同样是 \type{*vector.IntVector} 类型，因为 \func{new}
 返回该类型的指针。
 
-\Question 在 \cite{go_spec} 的“调用”章节，有这样的描述：
+\Question 在 \cite{go_spec} 的``调用''章节，有这样的描述：
 \begin{quote}
 当 \var{x} 的方法集合包含 \func{m}，
 并且参数列表可以赋值给 \func{m} 的参数，方法调用 \func{x.m()} 是合法的。
@@ -44,6 +45,6 @@ Push 增加 x 到向量的末尾。
 换句话说，由于 \var{k1} 可以被地址化，而 \type{*vector.IntVector}
 \emph{具有} \func{Push} 方法，调用 \lstinline{k1.Push(2)} 被 Go 转换为 
 \lstinline{(&k1).Push(2)} 来使型系统愉悦（也使你愉悦——现在你已经了解到这一点）。
-\footnote{参阅本章的第 "\titleref{sec:methods}" 节。}
+\footnote{参阅本章的第 ``\titleref{sec:methods}'' 节。}
 
 \end{Answer}

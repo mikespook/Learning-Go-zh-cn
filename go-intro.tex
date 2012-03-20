@@ -1,4 +1,4 @@
-\epi{“对此感兴趣，并且希望做点什么。”}
+\epi{``对此感兴趣，并且希望做点什么。''}
 {\textit{在为 Go 添加复数支持时}\\ \textsc{KEN THOMPSON}}
 
 \noindent{}什么是 Go？来自于网站：\cite{go_web}:
@@ -13,7 +13,7 @@ Go 是一个年轻的语言，特性仍然在不断增加或\emph{删除}中。
 所以当你阅读的时候，可能部分内容已经过时。
 一些练习的答案可能会随着 Go 不断的演化而变成错误的。
 我们将尽可能让这个文档与最新的 Go 发布版本保持一致。
-通过努力已经建立了“特性检验”代码示例。
+通过努力已经建立了``特性检验''代码示例。
 
 本书使用了下面的约定：
 \begin{itemize}
@@ -29,13 +29,13 @@ Go 是一个年轻的语言，特性仍然在不断增加或\emph{删除}中。
 
 \section{官方文档}
 Go 已经有大量的文档。
-\gomarginpar{在互联网上搜索时，应当使用“golang”这个词来代替原始的“go”。}
+\gomarginpar{在互联网上搜索时，应当使用``golang''这个词来代替原始的``go''。}
 例如 Go Tutorial \cite{go_tutorial} 和 Effective Go \cite{effective_go}。
 网站 \url{http://golang.org/doc/} 是绝佳的起点 
 \footnote{\url{http://golang.org/doc/} 本身是由 Go 程序 \prog{go doc} 提供服务的。}。
 虽然并不一定要阅读这些文档，但是强烈建议这么做。
 
-Go 用叫做 \prog{go doc} 的 Go 程序格式化其文档。
+Go 用叫做 \prog{go\ doc} 的程序格式化其文档。
 你可以用它查阅在线文档。例如，假设我们需要了解关于 \package{hash} 包的更多信息。
 可以用命令 \prog{go doc hash} 查阅它。如何创建你自己的包的文档在第
 \ref{chap:packages} 章中介绍。
@@ -57,7 +57,7 @@ channel 可以用于本地进程间通讯；用于连接到命名的目的地的
 两种情况都是直接发送和接收操作的。
 \end{quote}
 在 Go 中，channel 比在 Limbo 中更加好用。
-如果我们对 Go 的历史深入探索，会发现一个到 "Newsqueak" \cite{newsqueak} 的引用，
+如果我们对 Go 的历史深入探索，会发现一个到 ``Newsqueak'' \cite{newsqueak} 的引用，
 这是在类 C 语言中使用 channel 通讯的拓荒者。
 channel 对于这些语言并不是独一无二的，另一个非类 C 语言，Erlang \cite{erlang}，也在使用它。
 
@@ -80,7 +80,7 @@ Go 是第一个实现了简单的（或更加简单的）并行开发的、跨�
 \section{获得 Go}
 在这一节中将介绍如何在本地设备上安装 Go，不过也可以在线上的 \url{http://play.golang.org/} 编译 Go 代码。这是最为便捷的尝试代码的方法。
 
-Ubuntu 和 Debian 都有 Go 包在其仓库中，查找“golang”包。但是工作的时候仍然有一些小问题。现在仍然使用源码进行安装。
+Ubuntu 和 Debian 都有 Go 包在其仓库中，查找``golang''包。但是工作的时候仍然有一些小问题。现在仍然使用源码进行安装。
 
 因此将会从 mercurial 中获取代码并且编译。
 对于其他类 Unix 系统，过程类似。
@@ -92,7 +92,7 @@ Ubuntu 和 Debian 都有 Go 包在其仓库中，查找“golang”包。但是�
 
 \item 设置环境变量 \prog{GOROOT} 为 Go 安装目录：
 \begin{display}
-\pr \user{export GOROOT=~/go}
+\pr \user{export GOROOT=/go}
 \end{display}
 
 \item 然后获取 Go 源代码：
@@ -123,6 +123,7 @@ Ubuntu 和 Debian 都有 Go 包在其仓库中，查找“golang”包。但是�
 +Installed commands in /home/go/bin
 \end{display}
 现在，Go 已经被安装到了系统中，可以开始游戏了。
+注意当前（2012年三月）将安装一个很旧的版本 r60。如果想要 Go1，或者接近它的版本，需要升级到最新的 weekly，参阅第 ``\titleref{sec:weekly}''。
 
 \section{在 Windows 下获得 Go}
 在 Windows 下使用 Go 的最佳方式是 MinGW \cite{go_windows} 环境。 
@@ -167,6 +168,7 @@ export PATH=$GOBIN:$PATH
 \end{itemize}
 
 \subsection{保持更新}
+\label{sec:weekly}
 新的发布会公布在 Go Nuts 邮件列表 \cite{go_nuts} 中。将已经存在的代码树更新到最新，需要执行：
 \begin{display}
 \pr \user{cd $GOROOT}
@@ -181,7 +183,7 @@ export PATH=$GOBIN:$PATH
 \pr \user{hg identify}
 79997f0e5823 release/release.2010-10-20
 \end{display}
-\noindent{}这是发布版本 \gorelease{2010-10-20}。发布描述为“稳定”发布，相比之下，“weekly”发布就要变化更多一些。
+\noindent{}这是发布版本 \gorelease{2010-10-20}。发布描述为``稳定''发布，相比之下，``weekly''发布就要变化更多一些。
 如果希望跟踪 weekly 发布，而不是稳定的版本，可以使用：
 \begin{display}
 \pr \user{hg update weekly}

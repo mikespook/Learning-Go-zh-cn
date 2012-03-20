@@ -81,9 +81,9 @@ Erlang 运行在虚拟机上，而 Go 是编译的。Go 用起来感觉更接近
 \section{本书使用的设置}
 \label{sec:settings used}
 \begin{itemize}                            
-\item Go 被安装在 \file{~/go}；
-\item 希望编译的 Go 代码放在 \file{~/g/src} 
-而 \var{\$GOPATH} 设置为 \var{GOPATH=~/g}。在使用包的时候需要用到这个变量（参阅第 
+\item Go 被安装在 \file{\~{}/go}；
+\item 希望编译的 Go 代码放在 \file{\~{}/g/src} 
+而 \var{\$GOPATH} 设置为 \var{GOPATH=\~{}/g}。在使用包的时候需要用到这个变量（参阅第 
 \ref{chap:packages} 章）。
 \end{itemize}
 
@@ -197,8 +197,8 @@ Go 有众所周知的类型如 \lstinline{int}，这个类型根据你的硬件�
 常量在 Go 中，也就是 constant。它们在编译时被创建，只能是数字、字符串或布尔值；
 \lstinline{const x = 42} 生成 \var{x} 这个常量。可以使用 \first{\key{iota}}{keyword!iota}
 \footnote{单词 [iota] 在日常英语短语 'not one iota'，意思是 '不是最小的差异'，
-是来自新约中的短语："\emph{until heaven and earth pass away, not an
-iota, not a dot, will pass from the Law}." \cite{iota}}
+是来自新约中的短语：``\emph{until heaven and earth pass away, not an
+iota, not a dot, will pass from the Law}.'' \cite{iota}}
 生成枚举值。
 \begin{lstlisting}
 const (
@@ -253,7 +253,7 @@ fmt.Printf("%s\n", s2) |\longremark{用 \func{fmt.Printf} 函数输出字符串�
 \showremarks
 
 \begin{lbar}[多行字符串]
-基于分号的置入（查阅 \cite{effective_go} 章节 "Semicolons"），
+基于分号的置入（查阅 \cite{effective_go} 章节 ``Semicolons''），
 你需要小心使用多行字符串。如果这样写：
 \begin{lstlisting}
 s := "Starting part"
@@ -293,7 +293,7 @@ Go 原生支持复数。它的变量类型是 \lstinline{complex128}
 将会打印：\lstinline{(5+5i)}
 
 \subsection{错误}
-任何足够大的程序或多或少都会需要使用到错误。因此 Go 有为了错误而存在的内建类型，叫做 \lstinline{error}。
+任何足够大的程序或多或少都会需要使用到错误报告。因此 Go 有为了错误而存在的内建类型，叫做 \lstinline{error}。
 
 \section{运算符和内建函数}
 Go 支持普通的数字运算符，表格 \ref{tab:op-precedence} 列出了当前支持的运算符，
@@ -308,11 +308,11 @@ Go 支持普通的数字运算符，表格 \ref{tab:op-precedence} 列出了当�
 \end{table}
 \verb|+ - * /| 和 \verb|%| 会像你期望的那样工作，
 \verb!& | ^!
-和 \verb!&^! 分别表示位运算符\first{\key{按位与}}{operator!bitwise!and}，
-\first{\key{按位或}}{operator!bitwise!or}，\first{\key{按位异或}}{operator!bit
-wise xor}和\first{\key{位清除}}{operator!bitwise!clear}。
-\verb|&&| 和 \verb/||/ 运算符是逻辑\first{\key{与}}{operator!and}和逻辑
-\first{\key{或}}{operator!or}。表格中没有列出的是逻辑\first{\key{非}}{operator!not}：\verb/!/。
+和 \verb!&^! 分别表示位运算符\first{按位与}{operator!bitwise!and}，
+\first{按位或}{operator!bitwise!or}，\first{按位异或}{operator!bit
+wise xor}和\first{位清除}{operator!bitwise!clear}。
+\verb|&&| 和 \verb/||/ 运算符是逻辑\first{与}{operator!and}和逻辑
+\first{或}{operator!or}。表格中没有列出的是逻辑\first{非}{operator!not}：\verb/!/。
 
 虽然 Go 不支持运算符重载（或者方法重载），而一些内建运算符却\emph{支持}重载。
 例如 \texttt{+} 可以用于整数、浮点数、复数和字符串（字符串相加表示串联它们）。
@@ -328,8 +328,8 @@ wise xor}和\first{\key{位清除}}{operator!bitwise!clear}。
 表格 \ref{tab:keywords} 列出了 Go 中所有的保留字。
 在下面的段落和章节中会介绍它们。其中有一些已经遇到过了。
 \begin{itemize}
-\item \key{var} 和 \key{const} 参阅 "\titleref{sec:vars}" 在 \pageref{sec:vars} 页；
-\item \key{package} 和 \key{import} 已经有过短暂的接触，在 "\titleref{sec:hello world}" 部分。 
+\item \key{var} 和 \key{const} 参阅 ``\titleref{sec:vars}'' 在 \pageref{sec:vars} 页；
+\item \key{package} 和 \key{import} 已经有过短暂的接触，在 ``\titleref{sec:hello world}'' 部分。 
 在第 \ref{chap:packages} 章对其有详细的描述。
 \end{itemize}
 其他都有对应的介绍和章节：
@@ -353,7 +353,7 @@ wise xor}和\first{\key{位清除}}{operator!bitwise!clear}。
 还有叫做类型选择和多路通讯转接器的 \key{select} （参阅第 \ref{chap:channels} 章）。
 语法有所不同（同 C 相比）：无需圆括号，而语句体必须\emph{总是}包含在大括号内。
 
-\subsection{if}
+\subsection{if-eles}
 在 Go 中 \first{\key{if}}{keyword!if} 看起来是这样的：
 \begin{lstlisting}
 if x > 0 {	|\coderemark{\{ is mandatory}|
@@ -417,7 +417,7 @@ if err != nil
     return err
 }
 \end{lstlisting}
-参阅 \cite{effective_go} "Semicolons" 章节了解其后更深入的原因。
+参阅 \cite{effective_go} ``Semicolons'' 章节了解其后更深入的原因。
 
 \begin{lbar}[\key{if-then-else} 的结尾]
 注意如果在函数中这样结束：
@@ -497,11 +497,11 @@ J:  for j := 0; j < 5; j++ {
 \end{lstlisting}
 
 利用 \first{\key{continue}}{keyword!continue} 让循环进入下一个迭代，而略过剩下的所有代码。
-下面打印了 0 到 5。
+下面循环打印了 0 到 5。
 \begin{lstlisting}
 for i := 0; i < 10; i++ {
     if i > 5 {
-	continue |\coderemark{跳过下面所有的代码}
+	continue |\coderemark{跳过循环中所有的代码}
     println(i)
 }
 \end{lstlisting}
@@ -516,7 +516,7 @@ for i := 0; i < 10; i++ {
 考虑这个代码：\index{keyword!range!on slices}
 \begin{lstlisting}
 list := []string{"a", "b", "c", "d", "e", "f"}     |\longremark{创建一个字符串的 %
-slice（参阅 "\titleref{sec:arrays}" 在 \pageref{sec:arrays} 页）。}|
+slice（参阅 ``\titleref{sec:arrays}'' 在 \pageref{sec:arrays} 页）。}|
 for k, v := range list {	|\longremark{用 \key{range} 对其进行循环。%
 每一个迭代，\key{range} 将返回 \type{int} 类型的序号，%
 \type{string} 类型的值，以 0 和 "a" 开始。}|
@@ -650,25 +650,25 @@ func Compare(a, b []byte) int {
 
 \paragraph{\func{len} 和 \func{cap}} 可用于不同的类型，
 \func{len} 用于返回字符串、slice 和数组的长度。
-参阅 "\titleref{sec:arrays}" 小节了解更多关于 slice、
+参阅 ``\titleref{sec:arrays}'' 小节了解更多关于 slice、
 数组和函数 \func{cap} 的详细信息。
 \index{built-in!len}\index{built-in!cap}
 
 \paragraph{\func{new}} 用于各种类型的内存分配。
-参阅 "\titleref{sec:allocation with new}" 在 \pageref{sec:allocation with new} 页。
+参阅 ``\titleref{sec:allocation with new}'' 在 \pageref{sec:allocation with new} 页。
 \index{built-in!new}
 
 \paragraph{\func{make}} 用于内建类型（map、slice 和 channel）的内存分配。
-参阅 "\titleref{sec:allocation with make}" 在 \pageref{sec:allocation with make} 页。
+参阅 ``\titleref{sec:allocation with make}'' 在 \pageref{sec:allocation with make} 页。
 \index{built-in!make}
 
 \paragraph{\func{copy}} 用于复制 slice。\func{append} 用于追加 slice。
-参阅本章的 "\titleref{sec:slices}"。
+参阅本章的 ``\titleref{sec:slices}''。
 \index{built-in!copy}
 \index{built-in!append}
 
 \paragraph{\func{panic} 和 \func{recover}} 用于\emph{异常}处理机制。
-参阅 "\titleref{sec:panic}" 在 \pageref{sec:panic} 页了解更多信息。
+参阅 ``\titleref{sec:panic}'' 在 \pageref{sec:panic} 页了解更多信息。
 \index{built-in!panic}
 \index{built-in!recover}
 
@@ -709,7 +709,7 @@ fmt.Printf("The first element is %d\n", arr[0])
 \lstinline|a := [...]int{1, 2, 3}|，Go 会自动统计元素的个数。
 \gomarginpar{复合声明允许你直接将值赋值给 array、slice 或者 map。
 
-参阅第 \pageref{sec:constructors and composite literals} 页的"\titleref{sec:constructors and composite literals}"章节了解更多信息。}
+参阅第 \pageref{sec:constructors and composite literals} 页的``\titleref{sec:constructors and composite literals}''章节了解更多信息。}
 注意，所有项目必须都指定。因此，如果你使用多维数组，有一些内容你必须录入：
 \begin{lstlisting}
 a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
@@ -771,7 +771,7 @@ slice 总是与一个固定长度的 array 成对出现。其影响 slice
 
 给定一个 array 或者其他 slice，一个新 slice 通过 \lstinline{a[I:J]}
 的方式创建。
-这会创建一个新的 slice，指向 \lstinline{a}，从序号 \var{I} 开始，结束在序号 \var{J}之前。
+这会创建一个新的 slice，指向变量 \lstinline{a}，从序号 \var{I} 开始，结束在序号 \var{J}之前。
 长度为 \lstinline{J - I}。
 
 \begin{lstlisting}

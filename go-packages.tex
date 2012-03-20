@@ -1,4 +1,4 @@
-\epi{“\lstinline{^}}{\textit{对是否有按位非的运算符的回答。”}\\\textsc{KEN THOMPSON}}
+\epi{``\lstinline{^}}{\textit{对是否有按位非的运算符的回答。''}\\\textsc{KEN THOMPSON}}
 \noindent{}
 包是函数和数据的集合。
 用 \first{\key{package}}{keyword!package} 保留字定义一个包。
@@ -10,7 +10,7 @@ Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <na
 名称以大写字幕起始的是\emph{可导出}的，可以在包的外部调用，稍候会讨论这个。
 
 现在只需要构建这个包。在 \var{\$GOPATH} 下建立一个目录，复制
-\file{even.go} 到这个目录（参阅第 \ref{chap:basics} 章的“\titleref{sec:building a program}”）。
+\file{even.go} 到这个目录（参阅第 \ref{chap:basics} 章的``\titleref{sec:building a program}''）。
 
 \begin{display}
 \pr \user{mkdir $GOPATH/src/even}      \coderemark{建立一个顶级目录}
@@ -37,7 +37,6 @@ Is 5 even? false
 
 由于使用了\emph{私有}的函数，会得到一个编译错误：
 \begin{display}
-# _/myeven
 myeven.go:10: cannot refer to unexported name even.odd
 \end{display}
 
@@ -49,7 +48,7 @@ myeven.go:10: cannot refer to unexported name even.odd
 \index{private}
 \end{itemize}
 这个规则同样适用于定义在包中的其他名字（新类型、全局变量）。
-注意，“大写”的含义并不仅限于 US ASCII，它被扩展到了整个 Unicode 范围。
+注意，``大写''的含义并不仅限于 US ASCII，它被扩展到了整个 Unicode 范围。
 所以大写的希腊语、古埃及语都是可以的。
 
 \section{标识符}
@@ -139,7 +138,7 @@ func Printf(format string, a ...interface{}) (n int, err error)
 在 Go 中为包编写单元测试应当是一种习惯。编写测试需要包含
 \package{testing} 包和程序 \first{\prog{go test}}{toolin!go!test}。
 两者都有良好的文档。当对某个包进行测试时，务必要记得必须使用
-\file{Makefile} 进行编译（参阅第 "\titleref{sec:building a package}" 节）。
+\file{Makefile} 进行编译（参阅第 ``\titleref{sec:building a package}'' 节）。
 
 %% CLEANFILES+=hello fib chain run.out
 %%
@@ -268,7 +267,7 @@ FAIL
 }
 \item[\package{flag}]{\index{package!flag}
 \package{flag} 包实现了命令行解析。
-\emph{参阅 "\titleref{sec:option parsing}" 在第 \pageref{sec:option parsing} 页。}
+\emph{参阅 ``\titleref{sec:option parsing}'' 在第 \pageref{sec:option parsing} 页。}
 }
 \item[\package{json}]{\index{package!json}
 \package{json} 包实现了编码与解码 RFC 4627 \cite{RFC4627} 定义的 JSON 对象。
@@ -277,7 +276,7 @@ FAIL
 数据驱动的模板，用于生成文本输出，例如 HTML。
 
 将模板关联到某个数据结构上进行解析。模板内容指向数据结构的元素（通常结构的字段或者 map 的键）
-控制解析并且决定某个值会被显示。模板扫描结构以便解析，而“游标” @ 决定了当前位置在结构中的值。
+控制解析并且决定某个值会被显示。模板扫描结构以便解析，而``游标'' @ 决定了当前位置在结构中的值。
 }
 \item[\package{http}]{\index{package!http}
 \package{http} 实现了 HTTP 请求、响应和 URL 的解析，并且提供了可扩展的 HTTP 服务和基本的 HTTP 客户端。
@@ -291,7 +290,7 @@ FAIL
 通常用于处理静态类型 \lstinline|interface{}| 的值，并且通过 \func{Typeof}
 解析出其动态类型信息，通常会返回一个有接口类型 \type{Type} 的对象。
 
-\emph{参阅 \ref{chap:interfaces}，第 "\titleref{sec:introspection and reflection}" 节}。
+\emph{参阅 \ref{chap:interfaces}，第 ``\titleref{sec:introspection and reflection}'' 节}。
 }
 \item[\package{exec}]{\index{package!exec}
 \package{exec} 包执行外部命令。
