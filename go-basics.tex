@@ -758,7 +758,8 @@ slice 总是与一个固定长度的 array 成对出现。其影响 slice
 \lstinline{slice := array[0:n]}\newline
 然后现在有：
 \begin{itemize}
-\item{\lstinline{len(slice) == n == cap(slice) == n}{} ;}
+\item{\lstinline{len(slice) == n}{} ;}
+\item{\lstinline{cap(slice) == m}{} ;}
 \item{\lstinline{len(array) == cap(array) == m}{} .}
 \end{itemize}
 \begin{figure}[H]
