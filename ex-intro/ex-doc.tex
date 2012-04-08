@@ -4,36 +4,40 @@
 Go's documentation can be read with the \prog{go doc} program, which is
 included the Go distribution.
 
-\prog{go doc hash} gives information about the \package{hash} package. Reading the
-documentation on \package{compress} gives the following result:
+\prog{go doc hash} gives information about the \package{hash} package:
 \vskip\baselineskip
 \begin{display}
-\pr \user{go doc compress}
+\pr \user{go doc hash}
+PACKAGE
+
+package hash
+
+...
+...
+...
+
 SUBDIRECTORIES
 
-        bzip2
-        flate
-        gzip
-        lzw
-        testdata
-        zlib
+        adler32
+        crc32
+        crc64
+        fnv
+
 \end{display}
 \vskip\baselineskip
-With which \prog{go doc} command can you read the documentation of \package{gzip} contained in
-\package{compress}?
+With which \prog{go doc} command can you read the documentation of \package{fnv} contained in
+\package{hash}?
 
 \end{Exercise}
 
 \begin{Answer}
 \Question
-The package \package{gzip} is in a \emph{subdirectory} of
-\package{compress}, so you will only need\quad \texttt{go doc compress/gzip}.
+The package \package{fnv} is in a \emph{subdirectory} of
+\package{hash}, so you will only need\quad \texttt{go doc hash/fnv}.
 
 Specific functions inside the ``Go manual'' can also be accessed. For
 instance the function \func{Printf} is described in \package{fmt}, but to
-only view the documentation concerning this function use: \prog{go doc fmt Printf}{} .
+only view the documentation concerning this function use: \prog{godoc fmt Printf}{} .
 
-You can even display the source code with: \prog{go doc -src fmt Printf} .     
-
-All the built-in functions are also accesible by using go doc: \prog{go doc builtin}.
+All the built-in functions are also accesible by using \prog{godoc}: \prog{godoc builtin}.
 \end{Answer}
