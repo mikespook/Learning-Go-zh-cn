@@ -94,7 +94,7 @@ import "os/exec"
 cmd := exec.Command("/bin/ls", "-l")    |\coderemark{Create a \var{*cmd}}|
 err := cmd.Run()                        |\coderemark{\func{Run()} it}|
 \end{lstlisting}
-Capturing standard output from a command is also easy to do:
+Capturing standard output from a command is done as follows:
 \begin{lstlisting}
 import "os/exec"
 
