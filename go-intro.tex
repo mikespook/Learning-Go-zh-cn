@@ -9,11 +9,8 @@ Go 编译到机器码非常快速，同时具有便利的垃圾回收和强大�
 它是快速的、静态类型编译语言，但是感觉上是动态类型的，解释型语言。
 \end{quote}
 
-Go 是一个年轻的语言，特性仍然在不断增加或\emph{删除}中。
-所以当你阅读的时候，可能部分内容已经过时。
-一些练习的答案可能会随着 Go 不断的演化而变成错误的。
-我们将尽可能让这个文档与最新的 Go 发布版本保持一致。
-通过努力已经建立了``特性检验''代码示例。
+Go 1 是 Go 语言的第一个稳定发布版本。
+本文档的所有练习都工作于 Go 1 —— 如果不行，那就是 bug。
 
 本书使用了下面的约定：
 \begin{itemize}
@@ -32,13 +29,24 @@ Go 已经有大量的文档。
 \gomarginpar{在互联网上搜索时，应当使用``golang''这个词来代替原始的``go''。}
 例如 Go Tutorial \cite{go_tutorial} 和 Effective Go \cite{effective_go}。
 网站 \url{http://golang.org/doc/} 是绝佳的起点 
-\footnote{\url{http://golang.org/doc/} 本身是由 Go 程序 \prog{go doc} 提供服务的。}。
+\footnote{\url{http://golang.org/doc/} 本身是由 Go 程序 \prog{godoc} 提供服务的。}。
 虽然并不一定要阅读这些文档，但是强烈建议这么做。
 
-Go 用叫做 \prog{go\ doc} 的程序格式化其文档。
-你可以用它查阅在线文档。例如，假设我们需要了解关于 \package{hash} 包的更多信息。
-可以用命令 \prog{go doc hash} 查阅它。如何创建你自己的包的文档在第
-\ref{chap:packages} 章中介绍。
+Go 1 可以用两个程序提供文档服务：
+\begin{enumerate}
+\item \prog{go doc}，该程序用于（第三方）\emph{包}文档；
+\item \prog{godoc}，用于官方包文档，例如 Go 1 相关的所有内容。
+\end{enumerate}
+
+这两个最明显的区别在于内建文档（参阅下一章的``\titleref{sec:builtins}``）：
+\begin{display}
+\pr \user{go doc builtin}   \coderemark{35 lines}
+\pr \user{godoc builtin}    \coderemark{242 lines}
+\end{display}
+
+通常这两个的区别并无大碍，不过要留意 
+\prog{go doc} 和 \prog{godoc} 并不等同。
+在第 \ref{chap:packages} 章解释了如何构造你自己的包的文档。
 
 \section{前身}
 Go 的前身来自于 Inferno \cite{inferno} （基于 Plan 9 \cite{plan9} 的改造）。
@@ -80,9 +88,12 @@ Go 是第一个实现了简单的（或更加简单的）并行开发的、跨�
 \section{获得 Go}
 在这一节中将介绍如何在本地设备上安装 Go，不过也可以在线上的 \url{http://play.golang.org/} 编译 Go 代码。这是最为便捷的尝试代码的方法。
 
-Ubuntu 和 Debian 都有 Go 包在其仓库中，查找``golang''包。但是工作的时候仍然有一些小问题。现在仍然使用源码进行安装。
+也可以从 \cite{go_install} 获得已经编译好的二进制版本。
 
-因此将会从 mercurial 中获取代码并且编译。
+Ubuntu 和 Debian 都有 Go 包在其仓库中，查找``golang''包。
+但是工作的时候仍然有一些小问题。现在仍然使用源码进行安装。
+
+因此只能手工从 mercurial 中获取 Go 代码并且编译。
 对于其他类 Unix 系统，过程类似。
 \begin{itemize}
 \item 首先安装 Mercurial （获取 \prog{hg} 命令）。
@@ -92,12 +103,12 @@ Ubuntu 和 Debian 都有 Go 包在其仓库中，查找``golang''包。但是工
 
 \item 设置环境变量 \prog{GOROOT} 为 Go 安装目录：
 \begin{display}
-\pr \user{export GOROOT=/go}
+\pr \user{export GOROOT=\~{}/go}
 \end{display}
 
-\item 然后获取 Go 源代码：
+\item 然后获取 Go 最新的发布版（=Go 1）源代码：
 \begin{display}
-\pr \user{hg clone -r release https://go.googlecode.com/hg/ $GOROOT}
+\pr \user{hg clone -r release https://go.googlecode.com/hg/ \$GOROOT}
 \end{display}
 
 \item 设置 PATH 到 Go 的二进制文件所在目录，这样 Shell 可以找到它们：
@@ -107,7 +118,7 @@ Ubuntu 和 Debian 都有 Go 包在其仓库中，查找``golang''包。但是工
 
 \item 编译 Go
 \begin{display}
-\pr \user{cd $GOROOT/src}
+\pr \user{cd \$GOROOT/src}
 \pr \user{./all.bash}
 \end{display}
 \end{itemize}
@@ -122,76 +133,21 @@ Ubuntu 和 Debian 都有 Go 包在其仓库中，查找``golang''包。但是工
 +Installed Go for linux/amd64 in /home/go
 +Installed commands in /home/go/bin
 \end{display}
-现在，Go 已经被安装到了系统中，可以开始游戏了。
-注意当前（2012年三月）将安装一个很旧的版本 r60。如果想要 Go1，或者接近它的版本，需要升级到最新的 weekly，参阅第 ``\titleref{sec:weekly}''。
 
 \section{在 Windows 下获得 Go}
-在 Windows 下使用 Go 的最佳方式是 MinGW \cite{go_windows} 环境。 
-它为 Windows 提供了一个类 UNIX 的环境。这和 Cygwin 比较类似，不过并没有尝试模拟 
-POSIX，而是使用微软 C 运行库和 Windows API 代替。
-\begin{itemize}
-\item 从 \cite{go_windows} 下载最新的版本；
-\item 将其解压缩到 \verb|C:\| 盘；
-\item 确认 \verb|C:\MinGW| 中的内容存在。注意：当你解压缩 MinGW 的时候目录应当已经被创建了；
-\item 确认存在 \verb|C:\MinGW|；
-\item 使用 mintty 的快捷方式开启一个终端窗口；
-\item 将环境变量 \prog{GOROOT} 设为 Go 的安装目录的根目录：
-\begin{display}
-\pr \user{export GOROOT=/c/go}
-\end{display}
-\item 用下面的命令下载最新的 Go 稳定发布版本
-\begin{display}
-\pr \user{hg clone -r release https://go.googlecode.com/hg/ $GOROOT}
-\end{display}
-\item 进入 \file{src} 目录
-\begin{display}
-\pr \user{cd $GOROOT/src}
-\end{display}
-\item 然后编译 Go
-\begin{display}
-\pr \user{./all.bash}
-\end{display}
-\end{itemize}
-现在就获得了一个可以工作的 Go 环境。接下来需要设置 GOBIN 和 PATH 变量。注意，GOROOT 变量同样包括在这部分中。
+
+最好的方式是遵从 \cite{go_install} 的介绍，为了方便重复如下。
 
 \begin{itemize}
-\item 创建叫做 \file{setup.sh} 的文件，并放置到 \file{MinGW} 目录，文件内容如下：
+\item 下载 Go -1：
+\url{http://code.google.com/p/go/downloads/list?q=OpSys-Windows+Type%3DArchive};
+\item 解压缩到 \verb|C:\| 盘；
+\item 确保内容在 \verb|C:\Go|。注意：在解压缩 zip 文件时，这个目录会被创建；
+\item 添加 \verb|C:\Go\bin| 到 \$PATH：
 \begin{display}
-export GOROOT=/c/go
-export GOBIN=$GOROOT/bin
-export PATH=$GOBIN:$PATH
-\end{display}
-\item 现在运行 mintty 的时候，可以执行这个文件来设置 Go 环境：
-\begin{display}
-\pr \user{. ./setup.sh}
+export PATH=\verb|C:\Go\bin|
 \end{display}
 \end{itemize}
-
-\subsection{保持更新}
-\label{sec:weekly}
-新的发布会公布在 Go Nuts 邮件列表 \cite{go_nuts} 中。将已经存在的代码树更新到最新，需要执行：
-\begin{display}
-\pr \user{cd $GOROOT}
-\pr \user{hg pull}
-\pr \user{hg update release}
-\pr \user{cd src}
-\pr \user{./all.bash}
-\end{display}
-\noindent{}看看你现在用的版本：
-\begin{display}
-\pr \user{cd $GOROOT}
-\pr \user{hg identify}
-79997f0e5823 release/release.2010-10-20
-\end{display}
-\noindent{}这是发布版本 \gorelease{2010-10-20}。发布描述为``稳定''发布，相比之下，``weekly''发布就要变化更多一些。
-如果希望跟踪 weekly 发布，而不是稳定的版本，可以使用：
-\begin{display}
-\pr \user{hg update weekly}
-\end{display}
-代替
-\begin{display}
-\pr \user{hg update release}
-\end{display}
 
 \section{练习}
 \input{ex-intro/ex-doc.tex}
