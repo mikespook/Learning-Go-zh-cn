@@ -134,7 +134,9 @@ This makes \var{conn} an \type{io.Reader}.
 // after a fixed time limit; see \func{SetDeadline} and \func{SetWriteDeadline}.\\
 \lstinline{Write(b []byte) (n int, err error)}
 \end{quote}
-This makes \var{conn} also an \type{io.Writer}, in fact \var{conn} is an \type{io.ReadWriter}.
+This makes \var{conn} also an \type{io.Writer}, in fact \var{conn} is an
+\type{io.ReadWriter}.\footnote{In fact \var{conn} also implements a \func{close} method, this really makes
+it an \type{io.ReadWriteCloser}.}
 
 But these are the low level nooks and crannies\footnote{Exercise Q\ref{ex:echo} is about using
 these.}, you will almost always use higher level packages.
