@@ -1,7 +1,6 @@
 \epi{``好的沟通就像是一杯刺激的浓咖啡，然后就难以入睡。''}{\textsc{ANNE MORROW LINDBERGH}}
-\noindent{}在这章中将介绍 Go 中与外部通讯的通讯模块。
+\noindent{}在这章中将介绍 Go 中与外部通讯的通讯模块。将会了解文件、目录、网络通讯和运行其他程序。Go 的 I/O 核心是接口 \type{io.Reader} 和 \type{io.Writer}。
 
-\section{文件和目录}
 在 Go 中，从文件读取（或写入）是非常容易的。程序只需要使用
 \package{os} 包就可以从文件 \file{/etc/passwd} 中读取数据。
 \lstinputlisting[caption=从文件读取（无缓冲）,label=src:read]{src/file.go}
@@ -11,38 +10,27 @@
 \lstinputlisting[caption=从文件读取（缓冲）,label=src:bufread]{src/buffile.go}
 \showremarks
 
-更加通用的方法（但是也略微复杂一点）是 \func{ReadLine}，参阅 \package{bufio} 包的文档。
+\section{io.Reader}
+在前面已经提到 \first{io.Reader}{io.Reader} 接口对于 Go 语言来说非常重要。许多（如果不是全部的话）函数需要通过 
+\type{io.Reader}\index{package!io} 读取一些数据作为输入。
+为了满足这个接口，只需要实现一个方法：
+\func{Read(p []byte) (n int, err error)}。
+写入则是（你可能已经猜到了）实现了 \func{Write} 方法的 \type{io.Writer}。
+如果你让自己的程序或者包中的类型实现了 \type{io.Reader} 或者
+\type{io.Writer} 接口，那么\emph{整个 Go 标准库都可以使用}这个类型！
 
-在 shell 脚本中更常见的情景是检查某个目录是否存在，不存在就创建一个。
-\begin{minipage}{.5\textwidth}
-\begin{lstlisting}[language=sh,caption={在 shell 中创建目录}]
-if [ ! -e name ]; then
-    mkdir name
-else
-    # error
-fi
-\end{lstlisting}
-\end{minipage}
-\hspace{1em}
-\begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption={在 Go 中创建目录}]
-if f, e := os.Stat("name"); e != nil {
-    os.Mkdir("name", 0755)
-} else {
-    // error
-}
-\end{lstlisting}
-\end{minipage}
+\section{一些例子}
 
 前面的程序将整个文件读出，但是通常情况下会希望一行一行的读取。下面的片段展示了如何实现：
 
 \begin{lstlisting}
 f, _ := os.Open("/etc/passwd")
 defer f.Close()
-r := bufio.NewReader(f)
+r := bufio.NewReader(f)     |\coderemark{使其成为一个 bufio，以便访问 ReadString 方法}|
 s, ok := r.ReadString('\n') {|\coderemark{从输入中读取一行}|
 // ... |\coderemark{\var{s} 保存了字符串，通过 \package{string} 包就可以解析它}|
 \end{lstlisting}
+%% tell some more about the above examples
 
 \section{命令行参数}
 \label{sec:option parsing}
@@ -61,17 +49,17 @@ flag.Parse()   |\longremark{解析标识，并填充变量。}|
 \showremarks
 
 \section{执行命令}
-\package{exec}\index{package!exec} 包有函数可以执行外部命令，这也是在 Go 中主要的执行命令的方法。
+\package{os/exec}\index{package!os/exec} 包有函数可以执行外部命令，这也是在 Go 中主要的执行命令的方法。
 通过定义一个有着数个方法的 \var{*exec.Cmd} 结构来使用。
 
 执行 \verb|ls -l|：
 \begin{lstlisting}
-import "exec"
+import "os/exec"
 
 cmd := exec.Command("/bin/ls", "-l")
 err := cmd.Run()
 \end{lstlisting}
-从命令行的标准输出中获得信息同样简单：
+通过如下方法从命令行的标准输出中获得信息：
 \begin{lstlisting}
 import "exec"
 
@@ -100,6 +88,7 @@ conn, e := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强�
 // after a fixed time limit; see \func{SetDeadline} and \func{SetReadDeadline}.\\
 \lstinline{Read(b []byte) (n int, err error)}
 \end{quote}
+这使得 \var{conn} 成为了 \type{io.Reader}。
 
 \begin{quote}
 // \func{Write} writes data to the connection.\\
@@ -107,6 +96,8 @@ conn, e := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强�
 // after a fixed time limit; see \func{SetDeadline} and \func{SetWriteDeadline}.\\
 \lstinline{Write(b []byte) (n int, err error)}
 \end{quote}
+这同样使得 \var{conn} 成为了 \type{io.Writer}，事实上 \var{conn} 是 \type{io.ReadWriter}。\footnote{实际上，
+\var{conn} 同样实现了 \func{close} 方法，这使其成为一个 \type{io.ReadWriteCloser}。}
 
 但是这些都是隐含的低层\footnote{练习 Q\ref{ex:echo} 是关于使用这些的。}，通常总是应该使用更高层次的包。
 例如 \package{http} 包。一个简单的 http Get 作为例子：

@@ -155,6 +155,14 @@
 \end{CJK*}%
 }
 
+\newenvironment{cjkc}{%
+\begin{CJK*}{UTF8}{song}
+\setCJKfamilyfont{Chinese}{AR PL UKai CN}
+\CJKfamily{Chinese}
+}%
+{%
+\end{CJK*}%
+}
 % start, end, text
 \newcommand{\ubrace}[3]{%
 \draw [thick,decorate,decoration={brace,amplitude=4pt},xshift=0pt,yshift=0pt] %

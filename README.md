@@ -53,7 +53,8 @@ following packages on Debian/Ubuntu:
 * `gnumeric`
 * `ttf-droid`
 * `ttf-dejavu `
-* `ttf-sazanami-gothic`
+* `ttf-sazanami-gothic`  (Japanese font)
+* `ttf-arphic-ukai`     (Chines font)
 * `texlive-fonts-recommended`
 * `texlive-extra-utils`
 * `texlive-xetex`
