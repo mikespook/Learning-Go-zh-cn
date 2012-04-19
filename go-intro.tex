@@ -1,7 +1,7 @@
 \epi{``对此感兴趣，并且希望做点什么。''}
 {\textit{在为 Go 添加复数支持时}\\ \textsc{KEN THOMPSON}}
 
-\noindent{}什么是 Go？来自于网站：\cite{go_web}:
+\noindent{}什么是 Go？来自其网站\cite{go_web}的介绍：
 \begin{quote}
 Go 编程语言是一个使得程序员更加有效率的开源项目。Go 是有表达力、简洁、清晰和有效率的。
 它的并行机制使其很容易编写多核和网络应用，而新奇的类型系统允许构建有弹性的模块化程序。
@@ -50,7 +50,7 @@ Go 1 可以用两个程序提供文档服务：
 
 \section{前身}
 Go 的前身来自于 Inferno \cite{inferno} （基于 Plan 9 \cite{plan9} 的改造）。
-Inferno 包含了一个叫做 Limbo \cite{limbo} 的语言。来自于 Limbo 论文中的引用：
+Inferno 包含了一个叫做 Limbo \cite{limbo} 的语言。这里引用了一段来自于 Limbo 论文的描述：
 \begin{quote}
 Limbo 是用于开发运行在小型计算机上的分布式应用的编程语言。
 它支持模块化编程，编译期和运行时的强类型检查，\emph{进程内基于具有类型的 channel 通讯}，
@@ -58,7 +58,7 @@ Limbo 是用于开发运行在小型计算机上的分布式应用的编程语�
 它被设计用于即便是没有硬件内存保护的小型设备上，也能安全的运行。
 \end{quote}
 Go 从 Limbo 继承的另一个特性是 channel（参阅第 \ref{chap:channels} 章）。
-从 Limbo 文档来的另一段：
+从 Limbo 文档来的另一段描述：
 \begin{quote}
 [channel] 是用于向系统中其他代理发送和接收特定类型对象的通讯机制。
 channel 可以用于本地进程间通讯；用于连接到命名的目的地的库方法。
@@ -88,10 +88,10 @@ Go 是第一个实现了简单的（或更加简单的）并行开发的、跨�
 \section{获得 Go}
 在这一节中将介绍如何在本地设备上安装 Go，不过也可以在线上的 \url{http://play.golang.org/} 编译 Go 代码。这是最为便捷的尝试代码的方法。
 
-也可以从 \cite{go_install} 获得已经编译好的二进制版本。
+也可以从网站\cite{go_install}获得已经编译好的二进制版本。
 
-Ubuntu 和 Debian 都有 Go 包在其仓库中，查找``golang''包。
-但是工作的时候仍然有一些小问题。现在仍然使用源码进行安装。
+Ubuntu 和 Debian 在其仓库中都有 Go 包，可以查找``golang''包。
+但是工作的时候会有一些小问题。所以现在仍然使用源码进行安装。
 
 因此只能手工从 mercurial 中获取 Go 代码并且编译。
 对于其他类 Unix 系统，过程类似。
@@ -136,7 +136,7 @@ Ubuntu 和 Debian 都有 Go 包在其仓库中，查找``golang''包。
 
 \section{在 Windows 下获得 Go}
 
-最好的方式是遵从 \cite{go_install} 的介绍，为了方便重复如下。
+最好的方式是遵从网站\cite{go_install}的介绍，为了方便重复如下。
 
 \begin{itemize}
 \item 下载 Go -1：
