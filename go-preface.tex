@@ -9,57 +9,57 @@
 Perl\cite{perl}， Java\cite{java}，Erlang\cite{erlang}，Scala\cite{scala}，Haskell\cite{haskell}。
 这\emph{不是}教你如何编程的书，只是教你如何使用~Go。
 
-学习某样新东西，最佳的方式可能是通过建立自己的程序来探索它。
-因此每章都包含了若干练习（和答案）让你熟悉这个语言。
+学习某样新东西，最佳的方式可能是通过编写程序来探索它。
+因此每章都包含了若干练习（和答案）来让你熟悉这个语言。
 练习标有编号~\textbf{Q$n$}，而~$n$~是一个数字。 
-在练习编号后面的圆括号中指定了该题的难度。
+在练习编号后面的圆括号中的数字指定了该题的难度。
 难度范围从~0~到~9，0 是最简单，而~9~最难。
-其后为了容易索引，提供了一个简短的名字。
+其后为了容易索引，提供了一个简短的标题。
 例如：
 \begin{verse}
 \textbf{Q1}. (1) map 函数 \ldots
 \end{verse}
 展示了难度等级~1、编号~\textbf{Q1} 的关于~\func{map()} 函数的问题。
 相关答案在练习的下一页。
-答案的顺序和练习一致，而对于以~\textbf{A$n$} 开头的问题，对应编号~$n$ 的练习。
+答案的顺序和练习一致，以~\textbf{A$n$} 开头的答案，对应编号~$n$ 的练习。
 一些练习没有答案，它们被用星号标识出来。
 
 \section*{内容布局}
 \begin{description}
 \item[第~\ref{chap:intro} 章：\titleref{chap:intro}]
-提供了关于 Go 的简介和历史。同时讨论了如何获得 Go 本身的代码。
-虽然 Go 完全可能在 Windows 平台上使用，但这里还是假设使用类 Unix 环境。
+提供了关于~Go 的简介和发展历史。同时讨论了如何获得~Go 自身的代码。
+虽然~Go 完全可以在~Windows 平台上使用，但这里还是假设使用类~Unix 环境。
 
 \item[第~\ref{chap:basics} 章：\titleref{chap:basics}]
-讨论了语言中可用的基本类型，变量和控制结构。
+讨论了语言中可用的基本类型、变量和控制结构。
 
 \item[第~\ref{chap:functions} 章：\titleref{chap:functions}]
-会了解函数，这是 Go 程序中的基本部件。
+会了解到函数，这是~Go 程序中的基本部件。
 
 \item[第~\ref{chap:packages} 章：\titleref{chap:packages}]
 会了解在包中整合函数和数据。同时也将了解如何对包编写文档和进行测试。
 
 \item[第~\ref{chap:beyond} 章：\titleref{chap:beyond}]
-会看到如何创建自定义的类型。同时也将了解 Go 中的内存分配。
+会看到如何创建自定义的类型。同时也将了解~Go 中的内存分配。
 
 \item[第~\ref{chap:interfaces} 章：\titleref{chap:interfaces}]
-Go 不支持传统意义上的面向对象。在 Go 中接口是核心概念。
+Go 不支持传统意义上的面向对象。在~Go 中接口是核心概念。
 
 \item[第~\ref{chap:channels} 章：\titleref{chap:channels}]
-通过 \func{go} 关键字，函数可以在不同的例程（叫做 goroutines）中执行。
-通过 channel 来完成这些 goroutines 之间的通讯。
+通过~\func{go} 关键字，函数可以在不同的例程（叫做~goroutines）中执行。
+通过~channel 来完成这些~goroutines 之间的通讯。
 
 \item[第~\ref{chap:communication} 章：\titleref{chap:communication}]
-最后一章展示了如何用接口来完成 Go 程序的其他部分。如何创建、读取和写入文件。
-同时也简要了解一下网络。
+最后一章展示了如何用接口来完成~Go 程序的其他部分。如何创建、读取和写入文件。
+同时也简要了解一下网络的使用。
 \end{description}
 
-希望你喜欢这本书，同时也喜欢~Go 语言。
+希望你喜欢本书，同时也喜欢上~Go 语言。
 
 \section{本书使用的设置}
 \label{sec:settings used}
 \begin{itemize}                            
-\item Go 被安装在 \file{\~{}/go}；
+\item Go 被安装在~\file{\~{}/go}；
 \item 希望编译的~Go 代码放在~\file{\~{}/g/src}， 
 而~\var{\$GOPATH} 设置为~\var{GOPATH=\~{}/g}。
 \end{itemize}
