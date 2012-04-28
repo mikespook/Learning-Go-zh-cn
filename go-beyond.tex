@@ -354,7 +354,7 @@ is done by operators (that look like functions: \func{byte()}) and not all conve
 
 \begin{itemize}
 \item{
-From a \lstinline{string} to a slice of bytes or ints.
+From a \lstinline{string} to a slice of bytes or rune.
 \begin{lstlisting}
 mystring := "hello this is string"
 \end{lstlisting}
@@ -367,17 +367,17 @@ of the corresponding byte in the string. Note that as strings in Go
 are encoded in UTF-8 some characters in the string may end up in 1, 2, 3
 or 4 bytes.
 \begin{lstlisting}
-intslice  := []int(mystring)
+intslice  := []rune(mystring)
 \end{lstlisting}
-Converts to an \type{int} slice, each \type{int} contains a Unicode code
-point. Every character from the string corresponds to one integer.
+Converts to an \type{rune} slice, each \type{rune} contains a Unicode code
+point. Every character from the string corresponds to one rune.
 }
 \item{
-From a slice of bytes or ints to a \lstinline{string}.
+From a slice of bytes or runes to a \lstinline{string}.
 \begin{lstlisting}
 b := []byte{'h','e','l','l','o'} |\coderemark{Composite literal}|
 s := string(b)
-i := []int{257,1024,65} 
+i := []rune{257,1024,65} 
 r := string(i)
 \end{lstlisting}
 }
