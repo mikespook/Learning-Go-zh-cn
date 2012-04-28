@@ -2,6 +2,7 @@ package main
 
 |\longremark{包含所有需要用到的包；}|
 import (
+        "io"
 	"os"
 	"fmt"
 	"bufio"
@@ -16,7 +17,7 @@ func cat(r *bufio.Reader) {
 	i := 1
 	for {
 		buf, e := r.ReadBytes('\n')	|\longremark{每次读一行；}|
-		if e == os.EOF {		|\longremark{如果到达文件结尾；}|
+		if e == io.EOF {		|\longremark{如果到达文件结尾；}|
 			break
 		}
 		if *numberFlag {		|\longremark{如果设定了行号，打印行号然后是内容本身；}|
