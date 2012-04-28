@@ -2,6 +2,7 @@ package main
 
 |\longremark{Include all the packages we need;}|
 import (
+        "io"
 	"os"
 	"fmt"
 	"bufio"
@@ -16,7 +17,7 @@ func cat(r *bufio.Reader) {
 	i := 1
 	for {
 		buf, e := r.ReadBytes('\n')	|\longremark{Read one line at the time;}|
-		if e == os.EOF {		|\longremark{Or stop if we hit the end;}|
+		if e == io.EOF {		|\longremark{Or stop if we hit the end;}|
 			break
 		}
 		if *numberFlag {		|\longremark{If we should number %
