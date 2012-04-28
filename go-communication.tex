@@ -103,7 +103,7 @@ conn, e := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强�
 例如 \package{http} 包。一个简单的 http Get 作为例子：
 \begin{lstlisting}
 package main
-import ( "io/ioutil"; "http"; "fmt" ) |\longremark{需要的导入；}|
+import ( "io/ioutil"; "net/http"; "fmt" ) |\longremark{需要的导入；}|
 
 func main() {
     r, err := http.Get("http://www.google.com/robots.txt") |\longremark{使用 http 的 \func{Get} 获取 html；}|

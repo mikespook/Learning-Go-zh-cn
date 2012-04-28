@@ -301,7 +301,7 @@ func (m *Mutex) Unlock()  { /* Unlock 实现 */ }
 
 \begin{itemize}
 \item{
-从 \lstinline{string} 到字节或者整形的 slice。
+从 \lstinline{string} 到字节或者 ruin 的 slice。
 \begin{lstlisting}
 mystring := "hello this is string"
 \end{lstlisting}
@@ -312,9 +312,9 @@ byteslice := []byte(mystring)
 转换到 \type{byte} slice，每个 \type{byte} 保存字符串对应字节的整数值。
 注意 Go 的字符串是 UTF-8 编码的，一些字符可能是1、2、3 或者 4 个字节结尾。
 \begin{lstlisting}
-intslice  := []int(mystring)
+intslice  := []rune(mystring)
 \end{lstlisting}
-转换到 \type{int} slice，每个 \type{int} 保存 Unicode 编码的指针。
+转换到 \type{rune} slice，每个 \type{rune} 保存 Unicode 编码的指针。
 字符串中的每个字符对应一个整数。
 }
 \item{
@@ -322,7 +322,7 @@ intslice  := []int(mystring)
 \begin{lstlisting}
 b := []byte{'h','e','l','l','o'} |\coderemark{复合声明}|
 s := string(b)
-i := []int{257,1024,65} 
+i := []rune{257,1024,65} 
 r := string(i)
 \end{lstlisting}
 }
