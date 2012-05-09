@@ -8,6 +8,7 @@ and \type{io.Writer}.
 Reading from (and writing to) files is easy in Go. This program
 only uses the \package{os} package to read data from the file \file{/etc/passwd}.
 \lstinputlisting[caption=Reading from a file (unbuffered),label=src:read]{src/file.go}
+The following is happening here:
 \showremarks
 If you want to use \first{buffered}{buffered} IO there is the
 \package{bufio}\index{package!bufio} package:
@@ -26,14 +27,13 @@ or \type{io.Writer} interface, \emph{the whole standard Go library can be used} 
 
 \section{Some examples}
 The previous programs reads a file in its entirety, but a more common scenario is that
-you want to read a file on a line-by-line basis. The following snippet show a way
+you want to read a file on a line-by-line basis. The following snippet shows a way
 to do just that:
 
 \begin{lstlisting}
-f, _ := os.Open("/etc/passwd")
-defer f.Close()
-r := bufio.NewReader(f)         |\coderemark{Make it a bufio to access the ReadString method}|
-s, ok := r.ReadString('\n')     |\coderemark{Read a line from the input}|
+f, _ := os.Open("/etc/passwd"); defer f.Close()
+r := bufio.NewReader(f) |\coderemark{Make it a bufio to access the ReadString method}|
+s, ok := r.ReadString('\n') |\coderemark{Read a line from the input}|
 // ... \coderemark{\var{s} holds the string, with the \package{strings} package you can parse it}
 \end{lstlisting}
 
@@ -62,7 +62,9 @@ if f, e := os.Stat("name"); e != nil {
 }
 \end{lstlisting}
 \end{minipage}
-%% tell some more about the above examples
+The similarity between these two examples have prompted comments that Go has a
+''script''-like feel to it, i.e. programming in Go can be compared to programming in 
+a interpreted language (Python, Ruby, Perl or PHP).
 
 \section{Command line arguments}
 \label{sec:option parsing}
@@ -82,6 +84,12 @@ flag.Usage = func() {   |\longremark{Slightly redefine the \func{Usage} function
 flag.Parse()   |\longremark{Parse the flags and fill the variables.}|
 \end{lstlisting}
 \showremarks
+After the flags have been parsed you can used them:
+\begin{lstlisting}
+if *dnssec {    |\coderemark{Dereference the \var{dnssec} flag variable}|
+    // do something
+}
+\end{lstlisting}
 
 \section{Executing commands}
 The \package{os/exec}\index{package!os/exec} package has functions to run external commands, and is the premier way to
@@ -94,7 +102,8 @@ import "os/exec"
 cmd := exec.Command("/bin/ls", "-l")    |\coderemark{Create a \var{*cmd}}|
 err := cmd.Run()                        |\coderemark{\func{Run()} it}|
 \end{lstlisting}
-Capturing standard output from a command is done as follows:
+The above example just runs ''ls -l'' without doing anything with the returned data,
+capturing the standard output from a command is done as follows:
 \begin{lstlisting}
 import "os/exec"
 
@@ -110,8 +119,8 @@ to send and receive information. The function \func{Dial} neatly abstracts away 
 family and transport. So IPv4 or IPv6, TCP or UDP can all share a common interface. 
 
 Dialing a remote system (port 80) over TCP, then UDP and lastly TCP over IPv6 looks
-like this:\footnote{In case
-you are wondering, 192.0.32.10 and 2620:0:2d0:200::10 are \url{www.example.org}.}
+like this\footnote{In case
+you are wondering, 192.0.32.10 and 2620:0:2d0:200::10 are \url{www.example.org}.}:
 \begin{lstlisting}
 conn, e := Dial("tcp", "192.0.32.10:80")
 conn, e := Dial("udp", "192.0.32.10:80")
@@ -122,20 +131,16 @@ If there were no errors (returned in \var{e}), you can use \var{conn} to read an
 The primitives defined in the package \package{net} are:
 \begin{quote}
 // \func{Read} reads data from the connection.\\
-// \func{Read} can be made to time out and return a \var{net.Error} with \lstinline{Timeout() == true}\\
-// after a fixed time limit; see \func{SetDeadline} and \func{SetReadDeadline}.\\
 \lstinline{Read(b []byte) (n int, err error)}
 \end{quote}
 This makes \var{conn} an \type{io.Reader}.
 
 \begin{quote}
 // \func{Write} writes data to the connection.\\
-// \func{Write} can be made to time out and return a \var{net.Error} with \lstinline{Timeout() == true}\\
-// after a fixed time limit; see \func{SetDeadline} and \func{SetWriteDeadline}.\\
 \lstinline{Write(b []byte) (n int, err error)}
 \end{quote}
 This makes \var{conn} also an \type{io.Writer}, in fact \var{conn} is an
-\type{io.ReadWriter}.\footnote{In fact \var{conn} also implements a \func{close} method, this really makes
+\type{io.ReadWriter}.\footnote{The variable \var{conn} also implements a \func{close} method, this really makes
 it an \type{io.ReadWriteCloser}.}
 
 But these are the low level nooks and crannies\footnote{Exercise Q\ref{ex:echo} is about using

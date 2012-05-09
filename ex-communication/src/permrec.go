@@ -1,11 +1,6 @@
 package main
 
-// Need to rewrite this for append
-import (
-	"fmt"
-	"strconv"
-	"flag"
-)
+import ( "fmt"; "strconv"; "flag")
 
 const (
 	_ = 1000 * iota
@@ -38,11 +33,8 @@ var stack = new(Stack)
 func main() {
 	flag.Parse()
 	list := []int{1, 6, 7, 8, 8, 75, ADD, SUB, MUL, DIV}
-	// Arg0 contains the number we should solve for
-	magic, ok := strconv.Atoi(flag.Arg(0))
-	if ok != nil {
-		return
-	}
+	magic, ok := strconv.Atoi(flag.Arg(0))	// Arg0 is i
+	if ok != nil { return }
 	f := make([]int, MAXPOS)
 	solve(f, list, 0, magic)
 }
@@ -50,11 +42,8 @@ func main() {
 func solve(form, numberop []int, index, magic int) {
 	var tmp int
 	for i, v := range numberop {
-		if v == 0 {
-			goto NEXT
-		}
-		if v < ADD {
-			// it is a number, save it
+		if v == 0 { goto NEXT }
+		if v < ADD { // it's a number, save it
 			tmp = numberop[i]
 			numberop[i] = 0
 		}
@@ -67,7 +56,6 @@ func solve(form, numberop []int, index, magic int) {
 			}
 			found++
 			fmt.Printf("%s = %d  #%d\n", rpnstr(form[0:index+1]), value, found)
-			//goto NEXT
 		}
 
 		if index == MAXPOS-1 {
@@ -84,9 +72,7 @@ func solve(form, numberop []int, index, magic int) {
 	}
 }
 
-// convert rpn to nice infix notation and string
-// the r must be valid rpn form
-func rpnstr(r []int) (ret string) {
+func rpnstr(r []int) (ret string) {	// Convert rpn to infix notation
 	s := make([]string, 0) // Still memory intensive
 	for k, t := range r {
 		switch t {
@@ -102,27 +88,19 @@ func rpnstr(r []int) (ret string) {
 			s = append(s, strconv.Itoa(t))
 		}
 	}
-	for _, v := range s {
-		ret += v
-	}
+	for _, v := range s { ret += v }
 	return
 }
 
-// return result from the rpn form.
-// if the expression is not valid, ok is false
 func rpncalc(r []int) (int, bool) {
 	stack.Reset()
 	for _, t := range r {
 		switch t {
 		case ADD, SUB, MUL, DIV:
-			if stack.Len() < 2 {
-				return 0, false
-			}
+			if stack.Len() < 2 { return 0, false }
 			a := stack.Pop()
 			b := stack.Pop()
-			if t == ADD {
-				stack.Push(b + a)
-			}
+			if t == ADD { stack.Push(b + a) }
 			if t == SUB {
 				// disallow negative subresults
 				if b-a < 0 {
@@ -130,9 +108,7 @@ func rpncalc(r []int) (int, bool) {
 				}
 				stack.Push(b - a)
 			}
-			if t == MUL {
-				stack.Push(b * a)
-			}
+			if t == MUL { stack.Push(b * a) }
 			if t == DIV {
 				if a == 0 {
 					return 0, false
