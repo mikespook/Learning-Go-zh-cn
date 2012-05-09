@@ -164,28 +164,29 @@ channel to make room.
 \index{channel!non-blocking read}
 \index{channel!non-blocking write}
 
-Although reads from channels block, you can perform a non-blocking read 
-with the following syntax: \todo{Still need to test this.}
-\begin{lstlisting}
-x, ok = <-ch
-\end{lstlisting}
-Where \lstinline{ok} is set to \lstinline{true} when there was something
-to read (otherwise it is \lstinline{false}. 
-And if that was the case \lstinline{x} gets the value read
-from the channel. 
 In conclusion, the following is true in Go:
 $$
 \textrm{\lstinline{ch := make(chan type, value)}}
 \left\{
 \begin{array}{ll}
-value == 0 & \rightarrow \textrm{unbuffered (blocking)} \\
-value >  0 & \rightarrow \textrm{buffer \emph{value} elements (non-blocking)}
+value == 0 & \rightarrow \textrm{unbuffered)} \\
+value >  0 & \rightarrow \textrm{buffer \emph{value} elements}
 \end{array}
 \right.
 $$
 
 \subsection{Closing channels}
-\todo{section needs to be written}
+When a channel is closed the reading side needs to know this.
+The following code will check if a channel is closed.
+\begin{lstlisting}
+x, ok = <-ch
+\end{lstlisting}
+Where \lstinline{ok} is set to \lstinline{true} the channel is not closed
+\emph{and} we've read something.
+Otherwise \var{ok} is set to \lstinline{false}. In that case the channel
+was closed.
+
+\todo{more needs to be written}
 
 \section{Exercises}
 \input{ex-channels/ex-for-channels.tex}
