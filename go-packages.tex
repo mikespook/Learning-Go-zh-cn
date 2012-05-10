@@ -327,11 +327,11 @@ The \package{flag} package implements command-line flag parsing.
 \emph{See ``\titleref{sec:option parsing}''
 on page \pageref{sec:option parsing}.}
 }
-\item[\package{json}]{\index{package!json}
-The \package{json} package implements encoding and decoding of JSON objects as
+\item[\package{encoding/json}]{\index{package!json}
+The \package{encoding/json} package implements encoding and decoding of JSON objects as
 defined in RFC 4627 \cite{RFC4627}.
 }
-\item[\package{template}]{\index{package!template}
+\item[\package{text/template}]{\index{package!template}
 Data-driven templates for generating textual output such as HTML.
 
 Templates are executed by applying them to a data structure.  Annotations in
@@ -340,8 +340,8 @@ struct or a key in a map) to control execution and derive values to be
 displayed.  The template walks the structure as it executes and the ``cursor'' @
 represents the value at the current location in the structure.
 }
-\item[\package{http}]{\index{package!http}
-The \package{http} package implements parsing of HTTP requests, replies,
+\item[\package{net/http}]{\index{package!http}
+The \package{net/http} package implements parsing of HTTP requests, replies,
 and URLs and provides an extensible HTTP server and a basic
 HTTP client.
 }
@@ -359,8 +359,8 @@ type \type{Type}.
 \emph{See chapter \ref{chap:interfaces}, 
 section ``\titleref{sec:introspection and reflection}''}.
 }
-\item[\package{exec}]{\index{package!exec}
-The \package{exec} package runs external commands.
+\item[\package{os/exec}]{\index{package!exec}
+The \package{os/exec} package runs external commands.
 }
 \end{description}
 
