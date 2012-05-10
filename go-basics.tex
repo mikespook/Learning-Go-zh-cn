@@ -69,9 +69,7 @@ Lets look at the program line by line.
 
 \section{Compiling and running code}
 \label{sec:building a program}
-The preferred way to build a Go program, is to use a
-the \prog{go} tool.\index{tooling!go}
-
+The preferred way to build a Go program, is to use the \prog{go} tool.\index{tooling!go}
 To build \prog{helloworld} we just give:
 \begin{display}
 \pr \user{go build helloworld.go}
@@ -95,7 +93,7 @@ This results in a executable called \prog{helloworld}.
 \item Go itself is installed in \file{\~{}/go} ;                     
 \item Go source code we want to compile ourself is placed in \file{\~{}/g/src} and
 \var{\$GOPATH} is set to \var{GOPATH=\~{}/g} . This variable comes into play
-when start using packages (chapter \ref{chap:packages}).
+when we start using packages (chapter \ref{chap:packages}).
 \end{itemize}
 
 \section{Variables, types and keywords}
@@ -165,7 +163,7 @@ Which makes \var{a} and \var{b} both integer variables and assigns
 20 to \var{a} and 16 to \var{b}.
 
 A special name for a variable is \var{\textbf{\_}} \index{variables!\_}
-(underscore) \index{variables!underscore}. Any value
+(underscore)\index{variables!underscore}. Any value
 assigned to it is discarded. In this example we only assign the integer
 value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
@@ -313,7 +311,10 @@ is composed of the \emph{uninterpreted} characters between the quotes.
 \end{lbar}
 
 \subsection{Runes}
-\lstinline{Rune} is an alias for int. 
+\lstinline{Rune} is an alias for int32. It is an UTF-8 encoded code point. When is this type useful? For instance
+when iterating over characters in a string. You can loop over each byte (which is only equivalent to a character
+when strings would be encoded in US ASCII, which they are \emph{not} in Go!). So to get the actual charaters you
+should use the \type{rune} type.
 
 \subsection{Complex numbers}
 Go has native support for complex numbers. If you 
@@ -331,7 +332,9 @@ will print: \lstinline{(5+5i)}
 
 \subsection{Errors}
 Any non-trivial program will have the need for error reporting sooner or later. Because of this
-Go has a builtin type specially for errors, called \lstinline{error}.
+Go has a builtin type specially for errors, called \lstinline{error},
+\lstinline{var a error}
+makes \var{a} an error, \var{a}'s value is \lstinline{nil}.
 
 \section{Operators and built-in functions}
 \label{sec:builtins}
@@ -600,7 +603,7 @@ will break out the individual Unicode characters
 \footnote{In the UTF-8 world characters are sometimes called \first{runes}{runes}. 
 Mostly, when people talk about
 characters, they mean 8 bit characters. As UTF-8 characters may be up to 32 bits the word
-rune is used.} and their start position, by parsing the UTF-8.
+rune is used. In this case the type of \var{char} is \type{rune}.} and their start position, by parsing the UTF-8.
 The loop: \index{keyword!range!on maps}
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
