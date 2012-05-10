@@ -25,7 +25,7 @@ Create a file with the name \file{pushpop\_test.go}, with the following contents
 \lstinputlisting[caption=Push/Pop test]{ex-packages/src/pushpop_test.go}
 
 For \prog{go test} to work we need to put our package files in a directory
-under \var{\$GOPATH/src} (see page \pageref{"sec:settings used"}).
+under \var{\$GOPATH/src}:\\
 
 \begin{display}
 \pr \user{mkdir $GOPATH/src/stack}
@@ -33,8 +33,11 @@ under \var{\$GOPATH/src} (see page \pageref{"sec:settings used"}).
 \pr \user{cp stack-as-package.go $GOPATH/src/stack}
 \end{display}
 
+Yields:\\
+
 \begin{display}
 \pr \user{go test stack}
 ok      stack   0.001s
 \end{display}
+
 \end{Answer}
