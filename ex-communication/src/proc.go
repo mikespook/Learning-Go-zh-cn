@@ -6,7 +6,8 @@ func main() {
 	output, _ := ps.Output()
 	child := make(map[int][]int)
 	for i, s := range strings.Split(string(output), "\n") {
-		if i == 0 || len(s) == 0 { continue } // Kill first/last line
+		if i == 0 { continue } // Kill first line
+		if len(s) == 0 { continue } // Kill last line
 		f := strings.Fields(s)
 		fpp, _ := strconv.Atoi(f[1]) // Parent's pid
 		fp, _ := strconv.Atoi(f[0])  // Child's pid
