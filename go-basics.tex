@@ -456,7 +456,7 @@ if err != nil {
 }
 doSomething(f)
 \end{lstlisting}
-This is a example of a common situation where code must analyze a
+This is an example of a common situation where code must analyze a
 sequence of error possibilities. The code reads well if the successful
 flow of control runs down the page, eliminating error cases as they
 arise. Since error cases tend to end in \key{return} statements, the resulting
@@ -690,7 +690,7 @@ func Compare(a, b []byte) int {
             return -1
         }
     }
-    // String are equal except for possible tail
+    // Strings are equal except for possible tail
     switch {
     case len(a) < len(b):
         return -1
