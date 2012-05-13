@@ -137,27 +137,26 @@ GOMAXPROCS 设置了同时运行的 CPU 的最大数量，并返回之前的设�
 \index{channel!non-blocking read}
 \index{channel!non-blocking write}
 
-虽然从 channel 读取是阻塞的，但是仍然可以用下面的方式实现非阻塞的读取：
-\todo{需要对这个做一些测试。}
-\begin{lstlisting}
-x, ok = <-ch
-\end{lstlisting}
-当读取到了内容时 \lstinline{ok} 为 \lstinline{true}，否则为 \lstinline{false}。
-同时，\lstinline{x} 从 channel 获取到值。
 一句话说，在 Go 中下面的为 true：
 $$
 \textrm{\lstinline{ch := make(chan type, value)}}
 \left\{
 \begin{array}{ll}
-value == 0 & \rightarrow \textrm{无缓冲（阻塞）} \\
-value >  0 & \rightarrow \textrm{缓冲（非阻塞）}
+value == 0 & \rightarrow \textrm{无缓冲} \\
+value >  0 & \rightarrow \textrm{缓冲 \emph{value} 的元素}
 \end{array}
 \right.
 $$
 
 \subsection{关闭 channel}
-%% section needs to be written
-\todo{这个章节需要编写}
+当 channel 被关闭后，读取端需要知道这个事情。下面的代码演示了如何检查 channel 是否被关系。
+\begin{lstlisting}
+x, ok = <-ch
+\end{lstlisting}
+当 \lstinline{ok} 被赋值为 \lstinline{true} 意味着 channel 尚未被关闭，\emph{同时} 可以读取数据。
+否则 \var{ok} 被赋值为 \lstinline{false}。在这个情况下表示 channel 被关闭。
+
+\todo{more needs to be written}
 
 \section{练习}
 \input{ex-channels/ex-for-channels.tex}

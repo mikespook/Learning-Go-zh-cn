@@ -4,6 +4,7 @@
 在 Go 中，从文件读取（或写入）是非常容易的。程序只需要使用
 \package{os} 包就可以从文件 \file{/etc/passwd} 中读取数据。
 \lstinputlisting[caption=从文件读取（无缓冲）,label=src:read]{src/file.go}
+接下来展示了如何做到这点：
 \showremarks
 如果想要使用\first{缓冲}{buffered} IO，则有
 \package{bufio}\index{package!bufio} 包：
@@ -24,13 +25,12 @@
 前面的程序将整个文件读出，但是通常情况下会希望一行一行的读取。下面的片段展示了如何实现：
 
 \begin{lstlisting}
-f, _ := os.Open("/etc/passwd")
-defer f.Close()
-r := bufio.NewReader(f)     |\coderemark{使其成为一个 bufio，以便访问 ReadString 方法}|
+f, _ := os.Open("/etc/passwd"); defer f.Close()
+r := bufio.NewReader(f) |\coderemark{使其成为一个 bufio，以便访问 ReadString 方法}|
 s, ok := r.ReadString('\n') {|\coderemark{从输入中读取一行}|
 // ... |\coderemark{\var{s} 保存了字符串，通过 \package{string} 包就可以解析它}|
 \end{lstlisting}
-%% tell some more about the above examples
+这两个例子的相似之处展示了 Go 拥有的``脚本''化特性，例如，用 Go  编写程序感觉上类似使用动态语言（Python、Ruby、Perl 或者 PHP）。
 
 \section{命令行参数}
 \label{sec:option parsing}
@@ -47,6 +47,12 @@ flag.Usage = func() {   |\longremark{简单的重定义 \func{Usage} 函数，�
 flag.Parse()   |\longremark{解析标识，并填充变量。}|
 \end{lstlisting}
 \showremarks
+当参数被解析之后，就可以使用它们：
+\begin{lstlisting}
+if *dnssec {    |\coderemark{定义传入参数 \var{dnssec}}|
+    // 做点啥
+}
+\end{lstlisting}
 
 \section{执行命令}
 \package{os/exec}\index{package!os/exec} 包有函数可以执行外部命令，这也是在 Go 中主要的执行命令的方法。
@@ -59,6 +65,7 @@ import "os/exec"
 cmd := exec.Command("/bin/ls", "-l")
 err := cmd.Run()
 \end{lstlisting}
+上面的例子运行了``ls -l''，但是没有对其返回的数据进行任何处理，
 通过如下方法从命令行的标准输出中获得信息：
 \begin{lstlisting}
 import "exec"
@@ -72,8 +79,8 @@ buf, err := cmd.Output()    |\coderemark{\var{buf} 是一个 \type{[]byte}}|
 当 \func{Dial} 到远程系统，这个函数返回 \var{Conn} 接口类型，可以用于发送或接收信息。
 函数 \func{Dial} 简洁的抽象了网络层和传输层。因此 IPv4 或者 IPv6，TCP 或者 UDP 可以共用一个接口。
 
-通过 TCP 连接到远程系统（端口 80），然后是 UDP，最后是 TCP 通过 IPv6，大致是这样：
-\footnote{在这个例子中，可以认为 192.0.32.10 和 2620:0:2d0:200::10 是 \url{www.example.org}。}
+通过 TCP 连接到远程系统（端口 80），然后是 UDP，最后是 TCP 通过 IPv6，大致是这样
+\footnote{在这个例子中，可以认为 192.0.32.10 和 2620:0:2d0:200::10 是 \url{www.example.org}。}：
 \begin{lstlisting}
 conn, e := Dial("tcp", "192.0.32.10:80")
 conn, e := Dial("udp", "192.0.32.10:80")
@@ -84,20 +91,15 @@ conn, e := Dial("tcp", "[2620:0:2d0:200::10]:80") |\coderemark{方括号是强�
 在包 \package{net} 中的原始定义是：
 \begin{quote}
 // \func{Read} reads data from the connection.\\
-// \func{Read} can be made to time out and return a \var{net.Error} with \lstinline{Timeout() == true}\\
-// after a fixed time limit; see \func{SetDeadline} and \func{SetReadDeadline}.\\
 \lstinline{Read(b []byte) (n int, err error)}
 \end{quote}
 这使得 \var{conn} 成为了 \type{io.Reader}。
 
 \begin{quote}
 // \func{Write} writes data to the connection.\\
-// \func{Write} can be made to time out and return a \var{net.Error} with \lstinline{Timeout() == true}\\
-// after a fixed time limit; see \func{SetDeadline} and \func{SetWriteDeadline}.\\
 \lstinline{Write(b []byte) (n int, err error)}
 \end{quote}
-这同样使得 \var{conn} 成为了 \type{io.Writer}，事实上 \var{conn} 是 \type{io.ReadWriter}。\footnote{实际上，
-\var{conn} 同样实现了 \func{close} 方法，这使其成为一个 \type{io.ReadWriteCloser}。}
+这同样使得 \var{conn} 成为了 \type{io.Writer}，事实上 \var{conn} 是 \type{io.ReadWriter}。\footnote{变量 \var{conn} 同样实现了 \func{close} 方法，这使其成为一个 \type{io.ReadWriteCloser}。}
 
 但是这些都是隐含的低层\footnote{练习 Q\ref{ex:echo} 是关于使用这些的。}，通常总是应该使用更高层次的包。
 例如 \package{http} 包。一个简单的 http Get 作为例子：

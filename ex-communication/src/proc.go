@@ -1,38 +1,28 @@
 package main
 
-import ( "fmt"; "sort"; "exec"; "strings"; "strconv"; "container/vector")
+import ( "fmt"; "os/exec"; "sort"; "strconv"; "string" )
 
 func main() {
         ps := exec.Command("ps", "-e", "-opid,ppid,comm")
         output, _ := ps.Output()
-	child := make(map[int]*vector.IntVector)
+	child := make(map[int][]int)
         for i, s := range strings.Split(string(output), "\n") {
-                if i == 0 || len(s) == 0 { // Kill first and last line
-                        continue
-                }
+                if i == 0 || len(s) == 0 { continue } // 去除第一行和最后一行
 		f := strings.Fields(s)
-                fpp, _ := strconv.Atoi(f[1]) // the parent's pid
-                fp, _ := strconv.Atoi(f[0])  // the child's pid
-                if _, present := child[fpp]; !present {
-			v := new(vector.IntVector)
-			child[fpp] = v
-		}
-		// Save the child PIDs on a vector
-                child[fpp].Push(fp) // Save the child PIDs on a vector
+                fpp, _ := strconv.Atoi(f[1]) // 父 pid
+                fp, _ := strconv.Atoi(f[0])  // 子 pid
+                child[fpp] = append(child[fpp], fp)
 	}
 	schild := make([]int, len(child))
 	i := 0
-	for k, _ := range child {
-		schild[i] = k
-		i++
-	}
+	for k, _ := range child {schild[i] = k; i++ }
         sort.Ints(schild)
-        for _, ppid := range schild { // Walk through the sorted list
-		fmt.Printf("Pid %d has %d child", ppid, child[ppid].Len())
-		if child[ppid].Len() == 1 {
-			fmt.Printf(": %v\n", []int(*child[ppid]))
-		} else {
-			fmt.Printf("ren: %v\n", []int(*child[ppid]))
-		}
+        for _, ppid := range schild {
+                fmt.Printf("Pid %d has %d child", ppid, len(child[ppid]))
+                if len(child[ppid]) == 1 {
+                        fmt.Printf(": %v\n", child[ppid])
+                        continue
+                }
+                fmt.Printf("ren: %v\n", child[ppid])
 	}
 }

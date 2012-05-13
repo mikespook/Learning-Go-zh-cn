@@ -32,10 +32,10 @@ Pid 1824 has 1 child: [7293]
 \begin{enumerate}
 \item{运行 \verb|ps| 获得输出；}
 \item{解析输出并保存每个 PPID 的子 PID；}
-\item{排序 PPID 列表；}
+\item{排序 PPID 列表；}  
 \item{打印排序后的列表到屏幕。}
 \end{enumerate}
-在下面的解法中，选择 \package{container/vector} 保存 PID。``列表''自动增长。
+在下面的解法中，使用了一个 \type{map[int][]int}，就是一个使用整数作为 map 的索引，元素是整数的 slice —— 用于保存 PID。内建的 \func{append} 被用于扩展这个整数的 slice。
 
 程序清单：
 \lstinputlisting[caption=Go 中的进程]{ex-communication/src/proc.go}

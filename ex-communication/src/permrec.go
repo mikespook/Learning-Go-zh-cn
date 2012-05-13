@@ -1,11 +1,7 @@
 package main
 
 // 为了增加而需要重写
-import (
-        "fmt"
-        "strconv"
-        "flag"
-)
+import ( "fmt"; "strconv"; "flag" )
 
 const (
 	_ = 1000 * iota
@@ -42,11 +38,8 @@ var stack = new(Stack)
 func main() {
 	flag.Parse()
 	list := []int{1, 6, 7, 8, 8, 75, ADD, SUB, MUL, DIV}
-        // Arg0 包含了需要处理的数字
-	magic, ok := strconv.Atoi(flag.Arg(0))
-	if ok != nil {
-		return
-	}
+        magic, ok := strconv.Atoi(flag.Arg(0))  // Arg0 是 i
+        if ok != nil { return }
 	f := make([]int, MAXPOS)
 	solve(f, list, 0, magic)
 }
@@ -54,11 +47,8 @@ func main() {
 func solve(form, numberop []int, index, magic int) {
 	var tmp int
 	for i, v := range numberop {
-		if v == 0 {
-			goto NEXT
-		}
-		if v < ADD {
-			// 是一个数字，保存起来
+                if v == 0 { goto NEXT }
+		if v < ADD { // 是一个数字，保存起来
 			tmp = numberop[i]
 			numberop[i] = 0
 		}
@@ -71,7 +61,6 @@ func solve(form, numberop []int, index, magic int) {
 			}
 			found++
 			fmt.Printf("%s = %d  #%d\n", rpnstr(form[0:index+1]), value, found)
-			//goto NEXT
 		}
 
 		if index == MAXPOS-1 {
@@ -88,10 +77,8 @@ func solve(form, numberop []int, index, magic int) {
 	}
 }
 
-// convert rpn to nice infix notation and string
-// the r must be valid rpn form
-func rpnstr(r []int) (ret string) {
-        s := make([]string, 0) // Still memory intensive
+func rpnstr(r []int) (ret string) { // 将 rpn 转换到固定的标记
+        s := make([]string, 0) // 分配内存
 	for k, t := range r {
 		switch t {
 		case ADD, SUB, MUL, DIV:
@@ -106,42 +93,32 @@ func rpnstr(r []int) (ret string) {
                         s = append(s, strconv.Itoa(t))
 		}
 	}
-	for _, v := range s {
-		ret += v
-	}
+	for _, v := range s { ret += v }
 	return
 }
 
-// return result from the rpn form.
-// if the expression is not valid, ok is false
 func rpncalc(r []int) (int, bool) {
 	stack.Reset()
 	for _, t := range r {
 		switch t {
 		case ADD, SUB, MUL, DIV:
-			if stack.Len() < 2 {
-				return 0, false
-			}
+			if stack.Len() < 2 { return 0, false }
 			a := stack.Pop()
 			b := stack.Pop()
-			if t == ADD {
-				stack.Push(b + a)
-			}
+			if t == ADD { stack.Push(b + a)	}
 			if t == SUB {
-				// disallow negative subresults
+				// 不接受负数
 				if b-a < 0 {
 					return 0, false
 				}
 				stack.Push(b - a)
 			}
-			if t == MUL {
-				stack.Push(b * a)
-			}
+			if t == MUL { stack.Push(b * a)	}
 			if t == DIV {
 				if a == 0 {
 					return 0, false
 				}
-				// disallow fractions
+				// 不接受余数
 				if b%a != 0 {
 					return 0, false
 				}
@@ -151,7 +128,7 @@ func rpncalc(r []int) (int, bool) {
 			stack.Push(t)
 		}
 	}
-	if stack.Len() == 1 { // there is only one!
+	if stack.Len() == 1 { // 只有一个！
 		return stack.Pop(), true
 	}
 	return 0, false
