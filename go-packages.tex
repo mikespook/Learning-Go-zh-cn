@@ -269,17 +269,17 @@ FAIL
 \package{flag} 包实现了命令行解析。
 \emph{参阅 ``\titleref{sec:option parsing}'' 在第 \pageref{sec:option parsing} 页。}
 }
-\item[\package{json}]{\index{package!json}
-\package{json} 包实现了编码与解码 RFC 4627 \cite{RFC4627} 定义的 JSON 对象。
+\item[\package{encoding/json}]{\index{package!encoding/json}
+\package{encoding/json} 包实现了编码与解码 RFC 4627 \cite{RFC4627} 定义的 JSON 对象。
 }
-\item[\package{template}]{\index{package!template}
+\item[\package{text/template}]{\index{package!text/template}
 数据驱动的模板，用于生成文本输出，例如 HTML。
 
 将模板关联到某个数据结构上进行解析。模板内容指向数据结构的元素（通常结构的字段或者 map 的键）
 控制解析并且决定某个值会被显示。模板扫描结构以便解析，而``游标'' @ 决定了当前位置在结构中的值。
 }
-\item[\package{http}]{\index{package!http}
-\package{http} 实现了 HTTP 请求、响应和 URL 的解析，并且提供了可扩展的 HTTP 服务和基本的 HTTP 客户端。
+\item[\package{net/http}]{\index{package!net/http}
+\package{net/http} 实现了 HTTP 请求、响应和 URL 的解析，并且提供了可扩展的 HTTP 服务和基本的 HTTP 客户端。
 }
 \item[\package{unsafe}]{\index{package!unsafe}
 \package{unsafe} 包包含了 Go 程序中数据类型上所有不安全的操作。
@@ -292,8 +292,8 @@ FAIL
 
 \emph{参阅 \ref{chap:interfaces}，第 ``\titleref{sec:introspection and reflection}'' 节}。
 }
-\item[\package{exec}]{\index{package!exec}
-\package{exec} 包执行外部命令。
+\item[\package{os/exec}]{\index{package!os/exec}
+\package{os/exec} 包执行外部命令。
 }
 \end{description}
 

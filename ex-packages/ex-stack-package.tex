@@ -20,14 +20,15 @@
 创建文件 \file{pushpop\_test.go}，有如下内容：
 \lstinputlisting[caption=Push/Pop 测试]{ex-packages/src/pushpop_test.go}
 为了让 \prog{go test} 能够工作，需要将包所在文件放到 
-\var{\$GOPATH/src} 下面（参阅第 \pageref{"sec:settings used"} 页）。
-
+\var{\$GOPATH/src}：\\
 
 \begin{display}
 \pr \user{mkdir $GOPATH/src/stack}
 \pr \user{cp pushpop_test.go $GOPATH/src/stack}
 \pr \user{cp stack-as-package.go $GOPATH/src/stack}
 \end{display}
+
+输出：\\
 
 \begin{display}
 \pr \user{go test stack}

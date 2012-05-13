@@ -78,7 +78,7 @@ Erlang 运行在虚拟机上，而~Go 是编译的。Go 用起来感觉更接近
 \ \newline
 
 \section{本书使用的设置}
-\label{sec:settings used}
+\label{sec:settings_used}
 \begin{itemize}                            
 \item Go 被安装在~\file{\~{}/go}；
 \item 希望编译的~Go 代码放在~\file{\~{}/g/src} 
@@ -277,8 +277,8 @@ s := `Starting part
 原始字符串标识的值在引号内的字符是\emph{不转义}的。
 \end{lbar}
 
-\subsection{Runes}
-\lstinline{Rune} 是~int 的别名。
+\subsection{rune}
+\lstinline{Rune} 是~int32 的别名。用 UTF-8 进行编码。这个类型在什么时候使用呢？例如需要遍历字符串中的字符。可以循环每个字节（仅在使用 US ASCII 编码字符串时与字符等价，而它们在 Go 中\emph{不}存在！）。因此为了获得实际的字符，需要使用 \type{rune} 类型。
 
 \subsection{复数}
 Go 原生支持复数。它的变量类型是~\lstinline{complex128}
@@ -292,6 +292,8 @@ Go 原生支持复数。它的变量类型是~\lstinline{complex128}
 
 \subsection{错误}
 任何足够大的程序或多或少都会需要使用到错误报告。因此~Go 有为了错误而存在的内建类型，叫做~\lstinline{error}。
+\lstinline{var a error}
+定义了 \var{a} 为一个 error，\var{a} 的值是 \lstinline{nil}。
 
 \section{运算符和内建函数}
 \label{sec:builtins}
@@ -528,8 +530,7 @@ for k, v := range list {	|\longremark{用~\key{range} 对其进行循环。%
 这样字符串被打散成独立的~Unicode 字符
 \footnote{在~UTF-8 世界的字符有时被称作~\first{runes}{runes}。
 通常，当人们讨论字符时，多数是指~8 位字符。
-UTF-8 字符可能会有~32 位，称作~rune。}
-并且起始位按照~UTF-8 解析。
+UTF-8 字符可能会有~32 位，称作~rune。在这个例子里，\var{char} 的类型是 \type{rune}。}并且起始位按照~UTF-8 解析。
 循环：\index{keyword!range!on maps}
 \begin{lstlisting}
 for pos, char := range "a|$\Phi{}$|x" {
@@ -660,9 +661,12 @@ func Compare(a, b []byte) int {
 参阅``\titleref{sec:allocation with make}''的第~\pageref{sec:allocation with make} 页。
 \index{built-in!make}
 
-\paragraph{\func{copy}} 用于复制~slice。\func{append} 用于追加~slice。
+\paragraph{\func{copy}} 用于复制~slice。
 参阅本章的``\titleref{sec:slices}''。
 \index{built-in!copy}
+
+\paragraph{\func{append}} 用于追加~slice。
+参阅本章的``\titleref{sec:slices}''。
 \index{built-in!append}
 
 \paragraph{\func{panic} 和~\func{recover}} 用于\emph{异常}处理机制。

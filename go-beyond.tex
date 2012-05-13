@@ -312,7 +312,7 @@ byteslice := []byte(mystring)
 转换到 \type{byte} slice，每个 \type{byte} 保存字符串对应字节的整数值。
 注意 Go 的字符串是 UTF-8 编码的，一些字符可能是1、2、3 或者 4 个字节结尾。
 \begin{lstlisting}
-intslice  := []rune(mystring)
+runeslice  := []rune(mystring)
 \end{lstlisting}
 转换到 \type{rune} slice，每个 \type{rune} 保存 Unicode 编码的指针。
 字符串中的每个字符对应一个整数。

@@ -1,7 +1,10 @@
 \begin{Exercise}[title={方法调用},difficulty=8]
 \label{ex:methodcalls}
-\Question \label{ex:methodcalls q1} 假设有下面的程序：
-TODO: aint true anymore in Go1 (vector is gone)
+\Question \label{ex:methodcalls q1} 假设有下面的程序。
+要注意的是包 \package{container/vector} 曾经是 Go 的一部分，但是当内建的
+\func{append} 出现后，就被移除了。
+然而，对于当前的问题这不重要。这个包实现了有 push 和 pop 方法的栈结构。
+
 \begin{lstlisting}
 package main
 
@@ -24,7 +27,8 @@ func main() {
 func (p *IntVector) Push(x int)
 Push 增加 x 到向量的末尾。
 \end{quote}
-那么接受者应当是 \type{*IntVector} 类型，为什么上面的代码可以工作？
+那么接受者应当是 \type{*IntVector} 类型，为什么上面的代码（Push 语句）可以正确工作？
+above (the Push statements) work correct then?
 
 \end{Exercise}
 
