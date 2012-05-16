@@ -40,25 +40,17 @@ The Go Tutorial \cite{go_tutorial}, and the Effective Go
 document \cite{effective_go}. The
 website \url{http://golang.org/doc/} is a very good starting point
 for reading up on Go\footnote{\url{http://golang.org/doc/} itself is served by 
-a Go program called \prog{godoc}.}. Reading these documents is
+\prog{go doc}.}. Reading these documents is
 certainly not required, but it is recommended.
 
-Go 1 comes with its own documentation in the form of two programs:
-\begin{enumerate}
-    \item \prog{go doc}, this one is used for the (third party){}\emph{package} documentation;
-\item \prog{godoc}, used for the official package documentation, i.e. all the stuff
-relating to Go 1.
-\end{enumerate}
-
-The difference between the two is most apparent we you look at the documentation
-for the built-ins (see ``\titleref{sec:builtins}'' in the next chapter):
+Go 1 comes with its own documentation in the form of a program called 
+\prog{go doc}. If you are interested in the documentation for the 
+for the built-ins (see ``\titleref{sec:builtins}'' in the next chapter) you
+can fire it up, like so:
 \begin{display}
-\pr \user{go doc builtin}   \coderemark{35 lines}
-\pr \user{godoc builtin}    \coderemark{242 lines}
+\pr \user{go doc builtin}
 \end{display}
 
-Normally the difference between the two shouldn't matter, but just be aware
-that \prog{go doc} and \prog{godoc} aren't identical.
 How to create your own package documentation is explained in chapter \ref{chap:packages}.
 
 \section{Origins}
@@ -166,7 +158,7 @@ The best way is to follow the instructions from \cite{go_install}, which are rep
 here for your convience.
 
 \begin{itemize}
-\item Download Go -1 from:
+\item Download Go 1 from:
 \url{http://code.google.com/p/go/downloads/list?q=OpSys-Windows+Type%3DArchive};
 \item Unpack it to your \verb|C:\| drive;
 \item Make sure that the contents are \verb|C:\Go|. Note: this directory should be

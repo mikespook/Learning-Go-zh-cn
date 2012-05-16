@@ -1,13 +1,13 @@
 \begin{Exercise}[title={Documentation},difficulty=1]
 \label{ex:doc}
 \Question
-Go's documentation can be read with the \prog{godoc} program, which is
+Go's documentation can be read with the \prog{go doc} program, which is
 included the Go distribution.
 
-\prog{godoc hash} gives information about the \package{hash} package:
+\prog{go doc hash} gives information about the \package{hash} package:
 \vskip\baselineskip
 \begin{display}
-\pr \user{godoc hash}
+\pr \user{go doc hash}
 PACKAGE
 
 package hash
@@ -25,7 +25,7 @@ SUBDIRECTORIES
 
 \end{display}
 \vskip\baselineskip
-With which \prog{godoc} command can you read the documentation of \package{fnv} contained in
+With which \prog{go doc} command can you read the documentation of \package{fnv} contained in
 \package{hash}?
 
 \end{Exercise}
@@ -33,12 +33,11 @@ With which \prog{godoc} command can you read the documentation of \package{fnv} 
 \begin{Answer}
 \Question
 The package \package{fnv} is in a \emph{subdirectory} of
-\package{hash}, so you will only need\quad \texttt{godoc hash/fnv}. Also \package{hash/fnv} is an
-official (included in Go 1) package, so we should use \prog{godoc}, not \prog{go doc}.
+\package{hash}, so you will only need\quad \texttt{go doc hash/fnv}.
 
 Specific functions inside the ``Go manual'' can also be accessed. For
 instance the function \func{Printf} is described in \package{fmt}, but to
-only view the documentation concerning this function use: \prog{godoc fmt Printf}{} .
+only view the documentation concerning this function use: \prog{go doc fmt Printf}{} .
 
-All the built-in functions are also accesible by using \prog{godoc}: \prog{godoc builtin}.
+All the built-in functions are also accesible by using \prog{go doc builtin}.
 \end{Answer}
