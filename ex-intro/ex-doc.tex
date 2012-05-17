@@ -1,9 +1,9 @@
 \begin{Exercise}[title={Documentation},difficulty=1]
 \label{ex:doc}
 \Question
-Go 的文档可以通过~\prog{godoc} 程序阅读，它包含在~Go 的发布包中。
+Go 的文档可以通过~\prog{go doc} 程序阅读，它包含在~Go 的发布包中。
 
-\prog{godoc hash} 给出了~\package{hash} 包的信息：
+\prog{go doc hash} 给出了~\package{hash} 包的信息：
 \vskip\baselineskip
 \begin{display}
 \pr \user{go doc hash}
@@ -22,19 +22,17 @@ SUBDIRECTORIES
         fnv
 \end{display}
 \vskip\baselineskip
-哪个~\prog{godoc} 的命令可以显示~\package{hash} 包中的~\package{fnv} 文档？
+哪个~\prog{go doc} 的命令可以显示~\package{hash} 包中的~\package{fnv} 文档？
 
 \end{Exercise}
 
 \begin{Answer}
 \Question
 \package{fnv} 包在~\package{hash} 的\emph{子目录}中，所以只需要 
-\quad \texttt{godoc hash/fnv} 即可。同样的 \package{hash/fnv} 
-是一个官方包（包含在 Go 1 中），因此应当使用 \prog{godoc}，而不是 \prog{go doc}。
-
+\quad \texttt{go doc hash/fnv} 即可。
 
 也可以指定``Go 手册''中某个函数的的文档。例如，函数~\func{Printf} 
 在~\package{fmt} 包中，仅阅读这个函数的文档，使用：\prog{go doc fmt Printf}{}。
 
-所有的内建函数同样可以通过~\prog{godoc} 程序访问：\prog{godoc builtin}。
+所有的内建函数同样可以通过~\prog{godoc} 程序访问：\prog{go doc builtin}。
 \end{Answer}

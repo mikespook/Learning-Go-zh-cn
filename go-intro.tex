@@ -29,22 +29,16 @@ Go 已经有大量的文档。
 \gomarginpar{在互联网上搜索时，应当使用``golang''这个词来代替原始的``go''。}
 例如~Go Tutorial \cite{go_tutorial} 和~Effective Go \cite{effective_go}。
 网站~\url{http://golang.org/doc/} 也是绝佳的起点 
-\footnote{\url{http://golang.org/doc/} 本身是由~Go 程序~\prog{godoc} 提供服务的。}。
+\footnote{\url{http://golang.org/doc/} 本身是由~\prog{go doc} 提供服务的。}。
 虽然并不一定要阅读这些文档，但是强烈建议这么做。
 
-Go 1 可以用两个程序提供文档服务：
-\begin{enumerate}
-\item \prog{go doc}，该程序用于（第三方）\emph{包}文档；
-\item \prog{godoc}，用于官方包文档，例如~Go 1 相关的所有内容。
-\end{enumerate}
-
-这两个最明显的区别在于内建文档（参阅下一章的``\titleref{sec:builtins}``）：
+Go 1 通过叫做~\prog{go doc}
+的标准程序提供其文档。如果你想了解内建相关（参阅下一章
+``\titleref{sec:builtins}''小节）的文档，可以像这样获取：
 \begin{display}
-\pr \user{go doc builtin}   \coderemark{35 lines}
-\pr \user{godoc builtin}    \coderemark{242 lines}
+\pr \user{go doc builtin}
 \end{display}
 
-通常这两个的区别并无大碍，不过要留意~\prog{go doc} 和~\prog{godoc} 并不等同。
 在第~\ref{chap:packages} 章解释了如何构造你自己的包的文档。
 
 \section{前身}
@@ -136,7 +130,7 @@ Ubuntu 和~Debian 在其仓库中都有~Go 包，可以查找``golang''包进行
 最好的方式仍然是遵循网站\cite{go_install}的介绍，为了方便重复如下。
 
 \begin{itemize}
-\item 下载~Go-1：
+\item 下载~Go 1：
 \url{http://code.google.com/p/go/downloads/list?q=OpSys-Windows+Type%3DArchive};
 \item 解压缩到~\verb|C:\| 盘；
 \item 确保内容在~\verb|C:\Go|。注意：在解压缩~zip 文件时，这个目录会被创建；
