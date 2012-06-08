@@ -16,6 +16,6 @@ func main() { |\longremark{%
 第 8 行调用了来自于 \package{fmt} 包的函数打印字符串到屏幕。%
 字符串由 \lstinline{"} 包裹，并且可以包含非 ASCII 的字符。%
 这里使用了希腊文和日文。}|
- fmt.Printf("Hello, world; or |$\kappa\alpha\lambda\eta\mu\acute{\epsilon}\rho\alpha\hspace{1em}\kappa$\'o$ \sigma\mu\epsilon$|; or|こんにちは 世界|\n")
+        fmt.Printf("Hello, world; or |$\kappa\alpha\lambda\eta\mu\acute{\epsilon}\rho\alpha\hspace{1em}\kappa$\'o$ \sigma\mu\epsilon$|; or|こんにちは 世界|\n")
 }
 

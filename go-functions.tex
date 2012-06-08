@@ -3,7 +3,7 @@
 旧的程序阅读起来就像是同表达良好的研究工作者或受到良好训练的机器同事沟通一样，
 而不是与编译器争论。谁愿意让其成熟到发出这样的声音呢？''}{\textsc{RICHARD P. GABRIEL}}
 
-\noindent{}函数是构建 Go 程序的基础部件；所遇有趣的事情都是在它其中发生的。
+\noindent{}函数是构建~Go 程序的基础部件；所遇有趣的事情都是在它其中发生的。
 函数的定义看起来像这样：
 \input{fig/function.tex}
 \showremarks
@@ -24,8 +24,8 @@ func identity(in int) int {
 \end{lstlisting}
 \end{minipage}
 
-可以随意安排函数定义的顺序，编译器会在执行前扫描每个文件。所以函数原型在 Go 中都是过期的旧物。
-Go 不允许函数嵌套。然而你可以利用匿名函数实现它，参阅本章第 \pageref{sec:functions as values}
+可以随意安排函数定义的顺序，编译器会在执行前扫描每个文件。所以函数原型在~Go 中都是过期的旧物。
+Go 不允许函数嵌套。然而你可以利用匿名函数实现它，参阅本章第~\pageref{sec:functions as values}
 页的``\titleref{sec:functions as values}''。
 
 
@@ -40,9 +40,9 @@ func rec(i int) {
 }
 \end{lstlisting}
 这会打印：\texttt{9 8 7 6 5 4 3 2 1 0}。
-%%\newpage %% TODO don't want a newpage here actually
+
 \section{作用域}
-在 Go 中，定义在函数外的变量是\first{全局}{scope!local}的，
+在~Go 中，定义在函数外的变量是\first{全局}{scope!local}的，
 那些定义在函数内部的变量，对于函数来说是\first{局部}{scope!local}的。
 如果命名覆盖——一个局部变量与一个全局变量有相同的名字——在函数执行的时候，
 局部变量将覆盖全局变量。
@@ -59,12 +59,12 @@ func rec(i int) {
 \vfill
 \end{minipage}
 
-在 \ref{src:scope1} 中定义了函数 \func{q()} 的局部变量 \var{a}。
-局部变量 \var{a} 仅在 \func{q()} 中可见。这也就是为什么代码会打印：\texttt{656}。
-在 \ref{src:scope2} 中没有定义局部变量，只有全局变量 \var{a}。
-这将使得对 \var{a} 的赋值全局可见。这段代码将会打印：\texttt{655}。
+在~\ref{src:scope1} 中定义了函数~\func{q()} 的局部变量~\var{a}。
+局部变量~\var{a} 仅在~\func{q()} 中可见。这也就是为什么代码会打印：\texttt{656}。
+在~\ref{src:scope2} 中没有定义局部变量，只有全局变量~\var{a}。
+这将使得对~\var{a} 的赋值全局可见。这段代码将会打印：\texttt{655}。
 
-在下面的例子中，我们在 \func{f()} 中调用 \func{g()}：
+在下面的例子中，我们在~\func{f()} 中调用~\func{g()}：
 
 \lstinputlisting[caption=当函数调用函数时的作用域]{src/scope3.go}
 
@@ -75,77 +75,77 @@ func rec(i int) {
 %%The following figure should clarify why it prints: \texttt{565757}. 
 %%\input{fig/scope3.tex}
 
-\section{多个返回值}
+\section{多值返回}
 \label{sec:multiple return}
-Go 一个非常特别的特性（对于编译语言而言）是函数和方法可以返回多个值（Python 和 Perl 同样也可以）。
-这可以用于改进一大堆在 C 程序中糟糕的惯例用法：
-修改参数的方式，返回一个错误（例如遇到 \texttt{EOF} 则返回 -1）。
+Go 一个非常特别的特性（对于编译语言而言）是函数和方法可以返回多个值（Python 和~Perl 同样也可以）。
+这可以用于改进一大堆在~C 程序中糟糕的惯例用法：
+修改参数的方式，返回一个错误（例如遇到~\texttt{EOF} 则返回~-1）。
 在 Go 中，\lstinline{Write} 返回一个计数值和一个错误：
 ``是的，你写入了一些字节，但是由于设备异常，并不是全部都写入了。''。
-\package{os} 包中的 \lstinline{*File.Write} 是这样声明的：
+\package{os} 包中的~\lstinline{*File.Write} 是这样声明的：
 \begin{lstlisting}
 func (file *File) Write(b []byte) (n int, err error)
 \end{lstlisting}
-如同文档所述，它返回写入的字节数和一个非 \lstinline{nil} 的 \var{error}
-当 \lstinline{n != len(b)}。
-这是 Go 中常见的样式。
+如同文档所述，它返回写入的字节数，并且当~\lstinline{n != len(b)} 时，返回非~\lstinline{nil} 的~\var{error}。
+这是~Go 中常见的方式。
 
 类似的方法避免了传递指针模拟引用参数来返回值。
 这里有个样例函数，从字节数组的指定位上取得数值，返回这个值和下一个位置。
 \begin{lstlisting}
 func nextInt(b []byte, i int) (int, int) {
-    x := 0
-    // 假设所有的都是数字
-    for ; i < len(b); i++ {
-        x = x*10 + int(b[i])-'0'
-    }
-    return x, i
+        x := 0
+        // 假设所有的都是数字
+        for ; i < len(b); i++ {
+                x = x*10 + int(b[i])-'0'
+        }
+        return x, i
 }
 \end{lstlisting}
 你可以在输入的数组中扫描数字，像这样：
 \begin{lstlisting}
 a := []byte{'1', '2', '3', '4'}
 var x int
-for i := 0; i < len(a); {	|\coderemark{没有 \texttt{i++}}|
-    x, i = nextInt(a, i)
-    println(x)
+for i := 0; i < len(a); {	|\coderemark{没有~\texttt{i++}}|
+        x, i = nextInt(a, i)
+        println(x)
 }
 \end{lstlisting}
 没有元组作为原生类型，多返回值可能是最佳的选择。
 你可以精确的返回希望的值，而无须重载域空间到特定的错误信号上。
 
-\section{命名返回参数}
+\section{命名返回值}
 \label{sec:named result parameters}
 Go 函数的返回值或者结果参数可以指定一个名字，并且像原始的变量那样使用，就像输入参数那样。
-如果对其命名，在函数开始时，它们会用其类型的零值初始化；如果函数在不加参数的情况下执行了
+如果对其命名，在函数开始时，它们会用其类型的零值初始化；如果函数在不加参数的情况下执行了~
 \key{return} 语句，结果参数的当前值会作为返回值返回。
 用这个特性，允许（再一次的）用较少的代码做更多的事
-\footnote{这是 Go 的格言："用\emph{更少}的代码做\emph{更多}的事"。}。
+\footnote{这是~Go 的格言：``用\emph{更少}的代码做\emph{更多}的事''。}。
 
 名字不是强制的，但是它们可以使得代码更加健壮和清晰：
 \emph{这是文档}。
-如果命名 \lstinline{nextInt} 的 \type{int} 返回值哪个代表哪个。
-
+例如命名~\type{int} 类型的~\lstinline{nextPos} 返回值，就能说明哪个代表哪个。
 \begin{lstlisting}
 func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
 \end{lstlisting}
-由于命名结果会被初始化并关联于无修饰的 \key{return}，
-它们可以非常简单并且清晰。这里有一个 \lstinline{io.ReadFull} 的版本，很好的运用了它：
+
+由于命名结果会被初始化并关联于无修饰的~\key{return}，
+它们可以非常简单并且清晰。这里有一段~\lstinline{io.ReadFull} 的代码，很好的运用了它：
 
 \begin{lstlisting}
 func ReadFull(r Reader, buf []byte) (n int, err error) {
-    for len(buf) > 0 && err == nil {
-        var nr int
-        nr, err = r.Read(buf)
-        n += nr
-        buf = buf[nr:len(buf)]
-    }
-    return
+        for len(buf) > 0 && err == nil {
+                var nr int
+                nr, err = r.Read(buf)
+                n += nr
+                buf = buf[nr:len(buf)]
+        }
+        return
 }
 \end{lstlisting}
+
 在下面的例子中，定义了一个简单的函数，用于计算
-\gomarginpar{这一节的部分内容来自 \cite{go_intro}。}  % layout
-值 \var{x} 的阶乘。
+\gomarginpar{这一节的部分内容来自~\cite{go_intro}。}  % layout
+值~\var{x} 的阶乘。
 \needspace{9\baselineskip}
 \begin{lstlisting}
 func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} 同样也行}|
@@ -187,7 +187,7 @@ func fib(n) (val, pos int) { |\coderemark{都是 int}|
 }
 \end{lstlisting}
 
-\section{延迟的代码}
+\section{延迟代码}
 \label{sec:deferred code}
 假设有一个函数，打开文件并且对其进行若干读写。在这样的函数中，经常有提前返回的地方。
 如果你这样做，就需要关闭正在工作的文件描述符。这经常导致产生下面的代码：
@@ -208,16 +208,15 @@ func ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-在这里有许多重复的代码。为了解决这些，Go 有了
-\first{\key{defer}}{keyword!defer} 语句。在 \key{defer}
-后指定的函数会在函数退出\emph{前}调用。
+在这里有许多重复的代码。为了解决这些，Go 有了~\first{\key{defer}}{keyword!defer} 
+语句。在~\key{defer} 后指定的函数会在函数退出\emph{前}调用。
 
-上面的代码可以被改写为下面这样。这使得函数更加可读、健壮，将
-\func{Close} 对应的放置于 \func{Open} 后。
+上面的代码可以被改写为下面这样。将~\func{Close} 对应的放置于~\func{Open} 
+后，能够使函数更加可读、健壮。
 \begin{lstlisting}[caption=With defer]
 func ReadWrite() bool {
     file.Open("file")
-    defer file.Close()	|\coderemark{\func{file.Close()} 被添加到了 defer 列表}|
+    defer file.Close()	|\coderemark{\func{file.Close()} 被添加到了~defer 列表}|
     // 做一些工作
     if failureX {
 	return false    |\coderemark{\func{Close()} 现在自动调用}|
@@ -229,7 +228,7 @@ func ReadWrite() bool {
 }
 \end{lstlisting}
 
-可以将多个函数放入``延迟列表''\index{deferred list}中，这个例子来自 \cite{effective_go}：
+可以将多个函数放入``延迟列表''\index{deferred list}中，这个例子来自~\cite{effective_go}：
 \begin{lstlisting}
 for i := 0; i < 5; i++ { 
     defer fmt.Printf("%d ", i) 
@@ -238,8 +237,8 @@ for i := 0; i < 5; i++ {
 延迟的函数是按照后进先出（LIFO）的顺序执行，所以上面的代码打印：
 \lstinline{4 3 2 1 0}。
 
-利用 \func{defer} 甚至可以修改返回值，假设正在使用命名结果参数和函数符号
-\index{function!literal}\footnote{函数符号也就是被叫做\index{closure}闭包的东西。}，例如：
+利用~\func{defer} 甚至可以修改返回值，假设正在使用命名结果参数和函数符号
+~\index{function!literal}\footnote{函数符号也就是被叫做\index{closure}闭包的东西。}，例如：
 \begin{lstlisting}[caption=函数符号]
 defer func() {
 	/* ... */
@@ -249,7 +248,7 @@ defer func() {
 \begin{lstlisting}[caption=带参数的函数符号]
 defer func(x int) {
 	/* ... */
-}(5)		 |\coderemark{为输入参数 \var{x} 赋值 5}|
+}(5)		 |\coderemark{为输入参数~\var{x} 赋值 5}|
 \end{lstlisting}
 在这个（匿名）函数中，可以访问任何命名返回参数：
 \begin{lstlisting}[caption=在 defer 中访问返回值]
@@ -257,7 +256,7 @@ func f() (ret int) {    |\coderemark{\var{ret} 初始化为零}|
 	defer func() {
 		ret++	|\coderemark{\var{ret} 增加为 1}|
 	}()
-	return 0	|\coderemark{返回的是 1 而\emph{不是} 0！}|
+	return 0	|\coderemark{返回的是~1 而\emph{不是}~0！}|
 }
 \end{lstlisting}
 
@@ -266,20 +265,20 @@ func f() (ret int) {    |\coderemark{\var{ret} 初始化为零}|
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
-\lstinline{arg ... int} 告诉 Go 这个函数接受不定数量的参数。
-注意，这些参数的类型全部是 \type{int}。在函数体中，变量
-\var{arg} 是一个 int 的 slice：
+\lstinline{arg ... int} 告诉~Go 这个函数接受不定数量的参数。
+注意，这些参数的类型全部是~\type{int}。在函数体中，变量
+\var{arg} 是一个~int 类型的~slice：
 \begin{lstlisting}
 for _, n := range arg {
-    fmt.Printf("And the number is: %d\n", n)
+        fmt.Printf("And the number is: %d\n", n)
 }
 \end{lstlisting}
-如果不指定变参的类型，默认是空的接口 \var{interface\{\}} （参阅第 \ref{chap:interfaces} 章）。
-假设有另一个变参函数叫做 \func{myfunc2}，下面的例子演示了如何向其传递变参：
+如果不指定变参的类型，默认是空的接口~\var{interface\{\}}（参阅第~\ref{chap:interfaces} 章）。
+假设有另一个变参函数叫做~\func{myfunc2}，下面的例子演示了如何向其传递变参：
 \begin{lstlisting}
 func myfunc(arg ...int) {
-    myfunc2(arg...)  |\coderemark{按原样传递}|
-    myfunc2(arg[:2]...)  |\coderemark{传递片段}|
+        myfunc2(arg...)  |\coderemark{按原样传递}|
+        myfunc2(arg[:2]...)  |\coderemark{传递部分}|
 }
 \end{lstlisting}
 
@@ -287,23 +286,23 @@ func myfunc(arg ...int) {
 \label{sec:functions as values}
 \index{function!as values}
 \index{function!literals}
-就像其他在 Go 中的几乎所有东西，函数也同样是值\emph{而已}。
+就像其他在~Go 中的其他东西一样，函数也是值\emph{而已}。
 它们可以像下面这样赋值给变量：
-\lstinputlisting[label=src:anonfunc,caption=Anonymous function,linerange={3,}]{src/anon-func.go}
-如果使用 \lstinline{fmt.Printf("%T\n", a)} 打印 \var{a} 的类型，输出结果是 \func{func()}。
+\lstinputlisting[label=src:anonfunc,caption=匿名函数,linerange={3,}]{src/anon-func.go}
+如果使用~\lstinline{fmt.Printf("\%T\n", a)} 打印~\var{a} 的类型，输出结果是~\func{func()}。
 
 函数作为值，也会被用在其他一些地方，例如 map。
 这里将整数转换为函数：
 \begin{lstlisting}[caption=使用 map 的函数作为值]
 var xs = map[int]func() int{
-    1: func() int { return 10 },
-    2: func() int { return 20 },
-    3: func() int { return 30 }, |\coderemark{必须有逗号}|
-    /* ... */
+        1: func() int { return 10 },
+        2: func() int { return 20 },
+        3: func() int { return 30 }, |\coderemark{必须有逗号}|
+        /* ... */
 }
 \end{lstlisting}
-也可以编写一个接受函数作为参数的函数，例如工作在 \type{int} 的 slice 上的 \func{Map} 函数。
-这是一个留给读者的练习，参考在第 \pageref{ex:map function} 页的练习 Q\ref{ex:map function}。
+也可以编写一个接受函数作为参数的函数，例如用于操作~\type{int} 类型的~slice 的~\func{Map} 函数。
+这是一个留给读者的练习，参考在第~\pageref{ex:map function} 页的练习~Q\ref{ex:map function}。
 
 \section{回调}
 \label{sec:callbacks}
@@ -315,54 +314,55 @@ func printit(x int) {       |\coderemark{函数无返回值}|
 
 }
 \end{lstlisting}
-这个函数的标识是 \lstinline{func printit(int)}，或者没有函数名：
-\mbox{\lstinline{func(int)}}。创建新的函数使用这个作为回调，需要用到这个标识：
+这个函数的标识是~\lstinline{func printit(int)}，或者没有函数名的：\mbox{\lstinline{func(int)}}。
+创建新的函数使用这个作为回调，需要用到这个标识：
 \begin{lstlisting}
 func callback(y int, f func(int)) { |\coderemark{\func{f} 将会保存函数}|
-    f(y)    |\coderemark{调用回调函数 \func{f} 输入变量 \var{y}}|
+    f(y)    |\coderemark{调用回调函数~\func{f} 输入变量~\var{y}}|
 }
 \end{lstlisting}
 
 \section{恐慌（Panic）和恢复（Recover）}
 \label{sec:panic}
-\footnote{对应异常机制，Go 的这种错误机制或许可以叫做恐慌机制：当你遇到它时应该感到恐慌，然后应该恢复（recover）它。}
-Go 没有例如像 Java 那样的异常机制：不能抛出一个异常。
-作为代替，它使用了恐慌和恢复（panic-and-recover）机制。一定要记得，这应当作为最后的手段被使用，
+\footnote{对应异常机制，Go 的这种错误机制或许可以叫做恐慌机制：当你遇到它时应该感到恐慌（panic），然后应该恢复（recover）它。}
+Go 没有像~Java 那样的异常机制：不能抛出一个异常。
+作为替代，它使用了恐慌和恢复（panic-and-recover）机制。一定要记得，这应当作为最后的手段被使用，
 你的代码中应当没有，或者很少的令人恐慌的东西。这是个强大的工具，明智的使用它。
-那么，应该如何使用它。
+那么，应该如何使用它呢。
 
-下面的描述来自于 \cite{go_blog_panic}：
+下面的描述来自于~\cite{go_blog_panic}：
 \begin{description}
 \item[Panic]{是一个内建函数，可以中断原有的控制流程，进入一个令人恐慌的流程中。
-当函数 \func{F} 调用 \key{panic}，函数 \func{F} 的执行被中断，并且 \func{F} 中的延迟函数会正常执行，然后
-\func{F} 返回到调用它的地方。在调用的地方，\func{F} 的行为就像调用了 \key{panic}。
-这一过程继续向上，直到程序崩溃时的所有 goroutine 返回。
+当函数~\func{F} 调用~\key{panic}，函数~\func{F} 的执行被中断，并且~\func{F} 
+中的延迟函数会正常执行，然后~\func{F} 返回到调用它的地方。在调用的地方，
+\func{F} 的行为就像调用了~\key{panic}。
+这一过程继续向上，直到程序崩溃时的所有~goroutine 返回。
 
-恐慌可以直接调用 \func{panic} 产生。也可以由\emph{运行时错误}产生，例如访问越界的数组。}
+恐慌可以直接调用~\func{panic} 产生。也可以由\emph{运行时错误}产生，例如访问越界的数组。}
 
-\item[Recover]{是一个内建的函数，可以让进入令人恐慌的流程中的 goroutine 恢复过来。
-Recover \emph{仅在}\emph{延迟}函数中有效。
+\item[Recover]{是一个内建的函数，可以让进入令人恐慌的流程中的~goroutine 恢复过来。
+recover \emph{仅在}\emph{延迟}函数中有效。
 
-在正常的执行过程中，调用 \func{recover} 会返回 \type{nil} 并且没有其他任何效果。
-如果当前的 goroutine 陷入恐慌，调用 \func{recover} 可以捕获到 \func{panic} 的输入值，并且恢复正常的执行。}
+在正常的执行过程中，调用~\func{recover} 会返回~\type{nil} 并且没有其他任何效果。
+如果当前的~goroutine 陷入恐慌，调用~\func{recover} 可以捕获到~\func{panic} 的输入值，并且恢复正常的执行。}
 \end{description}
 
-这个函数检查作为其参数的函数在执行时是否会产生 panic
-\footnote{复制于 Eleanor McHugh 的演讲稿}：
+这个函数检查作为其参数的函数在执行时是否会产生~panic
+\footnote{复制于~Eleanor McHugh 的演讲稿}：
 \begin{lstlisting}
-func throwsPanic(f func()) (b bool) { |\longremark{定义一个新函数 \func{throwsPanic} %
-接受一个函数作为参数，参看``\titleref{sec:functions as values}''。当这个函数会产生 panic，%
-就返回 true，否则返回 false；}|
-defer func() { |\longremark{定义了一个利用 \func{recover} 的 \func{defer} 函数，%
-\emph{如果}当前的 goroutine 产生了 panic，这个 defer 函数能够发现。%
-如果 \func{recover()} 返回非 \var{nil} 值，设置 \var{b} 为 true；}|
+func throwsPanic(f func()) (b bool) { |\longremark{定义一个新函数~\func{throwsPanic} %
+接受一个函数作为参数，参看``\titleref{sec:functions as values}''。当这个函数产生~panic，%
+就返回~true，否则返回~false；}|
+defer func() { |\longremark{定义了一个利用~\func{recover} 的~\func{defer} 函数，%
+\emph{如果}当前的~goroutine 产生了~panic，这个~defer 函数能够发现。%
+当~\func{recover()} 返回非~\var{nil} 值，设置~\var{b} 为 true；}|
         if x := recover(); x != nil {
             b = true
         }
     }()
     f() |\longremark{调用作为参数接收的函数。}|
-    return |\longremark{返回 \var{b} 的值。由于 \var{b} 是命名返回值（第 \pageref{sec:named result parameters} 页），%
-无须指定 \var{b}。}|
+    return |\longremark{返回~\var{b} 的值。由于~\var{b} 是命名返回值
+（第~\pageref{sec:named result parameters} 页），无须指定~\var{b}。}|
 }
 \end{lstlisting}
 \showremarks

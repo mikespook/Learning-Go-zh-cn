@@ -4,25 +4,25 @@ import "fmt"
 
 func main() {
 	const (
-		FIZZ = 3 |\longremark{Define two constants to make the code more %
-readable. See section "\titleref{sec:constants}";}|
+		FIZZ = 3 |\longremark{为了提高代码的可读性，定义两个常量。%
+参阅``\titleref{sec:constants}''；}|
 		BUZZ = 5
 	)
-	var p bool      |\longremark{Holds if we already printed someting;}|
-	for i := 1; i < 100; i++ { |\longremark{for-loop, see section "\titleref{sec:for}"};|
+	var p bool      |\longremark{判断是否需要打印内容；}|
+	for i := 1; i < 100; i++ { |\longremark{for 循环，参阅``\titleref{sec:for}''}；|
 		p = false
-		if i%FIZZ == 0 { |\longremark{If divisible by FIZZ, print "Fizz";}|
+		if i%FIZZ == 0 { |\longremark{如果能被 FIZZ 整除，打印``Fizz''；}|
 			fmt.Printf("Fizz")
 			p = true
 		}
-		if i%BUZZ == 0 { |\longremark{And if divisble by BUZZ, print %
-"Buzz". Note that we have also taken care of the FizzBuzz case;}|
+		if i%BUZZ == 0 { |\longremark{如果能被 BUZZ 整除，打印``Buzz''。%
+注意，FizzBuzz 的情况已经被处理了；}|
 			fmt.Printf("Buzz")
 			p = true
 		}
-		if !p {	|\longremark{If neither FIZZ nor BUZZ printed, print the value;}|
+		if !p {	|\longremark{如果 FIZZ 和 BUZZ 都没有打印，打印原始值；}|
 			fmt.Printf("%v", i)
 		}
-		fmt.Println() |\longremark{Format each output on a new line.}|
-	}
+                fmt.Println() |\longremark{换行。}|
+        }
 }

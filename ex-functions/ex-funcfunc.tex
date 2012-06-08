@@ -1,17 +1,17 @@
 \begin{Exercise}[title={函数返回一个函数},difficulty=6]
 \label{ex:function}
-\Question\label{ex:function q1} 编写一个函数返回另一个函数，返回的函数的作用是对一个整数 $+2$。
-函数的名称叫做 \func{plusTwo}。
+\Question\label{ex:function q1} 编写一个函数返回另一个函数，返回的函数的作用是对一个整数~$+2$。
+函数的名称叫做~\func{plusTwo}。
 然后可以像下面这样使用：
 \begin{lstlisting}
 p := plusTwo()
 fmt.Printf("%v\n", p(2))
 \end{lstlisting}
 应该打印 4。
-参阅第 \pageref{sec:callbacks} 页的第 \titleref{sec:callbacks} 节了解更多关于这个的内容。
+参阅第~\pageref{sec:callbacks} 页的~``\titleref{sec:callbacks}''小节了解更多相关信息。
 
-\Question\label{ex:function q2} 使 \ref{ex:function q1} 中的函数更加通用化，
-创建一个 \func{plusX(x)} 函数，返回一个函数用于对整数加上 \var{x}。
+\Question\label{ex:function q2} 使~\ref{ex:function q1} 中的函数更加通用化，
+创建一个~\func{plusX(x)} 函数，返回一个函数用于对整数加上~\var{x}。
 \end{Exercise}
 
 \begin{Answer}
@@ -25,7 +25,7 @@ func main() {
 func plusTwo() func(int) int { |\longremark{定义新的函数返回一个函数。%
 看看你写的跟要表达的意思是如何的；}|
         return func(x int) int { return x + 2 } |\longremark{函数符号，%
-在返回语句中定义了一个 +2 的函数。}|
+在返回语句中定义了一个~+2 的函数。}|
 }
 \end{lstlisting}
 \showremarks
