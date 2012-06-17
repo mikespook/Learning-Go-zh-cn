@@ -20,7 +20,8 @@ copy the \file{even.go} to there (see ``\titleref{sec:building a program}'' in c
 \begin{display}
 \pr \user{mkdir $GOPATH/src/even}	\coderemark{Create top-level directory}
 \pr \user{cp even.go $GOPATH/src/even} 	\coderemark{Copy the package file}
-\pr \user{go build even}                \coderemark{Build it}
+\pr \user{go build}                     \coderemark{Build it}
+\pr \user{go install}                   \coderemark{Install it to \file{../pkg}}
 \end{display}
 
 Next we can use the package in our own program \prog{myeven.go}:
