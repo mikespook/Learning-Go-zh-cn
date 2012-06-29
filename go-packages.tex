@@ -13,9 +13,10 @@ Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <na
 \file{even.go} 到这个目录（参阅第 \ref{chap:basics} 章的``\titleref{sec:building a program}''）。
 
 \begin{display}
-\pr \user{mkdir $GOPATH/src/even}      \coderemark{建立一个顶级目录}
-\pr \user{cp even.go $GOPATH/src/even}         \coderemark{复制包文件}
-\pr \user{go build even}                \coderemark{构建它}
+\pr \user{mkdir $GOPATH/src/even}       \coderemark{建立一个顶级目录}
+\pr \user{cp even.go $GOPATH/src/even}  \coderemark{复制包文件}
+\pr \user{go build}                     \coderemark{构建它}
+\pr \user{go install}                   \coderemark{将其安装到~\file{../pkg}}
 \end{display}
 
 接下来在程序 \prog{myeven.go} 中使用这个包：
