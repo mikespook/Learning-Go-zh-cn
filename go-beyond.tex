@@ -326,7 +326,7 @@ We now create two types in two different manners:
 \item \lstinline|type PrintableMutex struct {  Mutex }|.
 \end{itemize}
 Now \var{NewMutux} is equal to \var{Mutex}, but
-is \emph{does not} have \emph{any} of the methods of \var{Mutex}. In other words
+it \emph{does not} have \emph{any} of the methods of \var{Mutex}. In other words
 its method set is empty.
 But \var{PrintableMutex} \emph{has} \first{\emph{inherited}}{methods!inherited} the 
 method set from \var{Mutex}.
