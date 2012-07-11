@@ -18,7 +18,7 @@ are no different. A newly declared pointer, or just a pointer that points to
 nothing, has a \first{nil}{nil}-value. In other languages this is often called
 a NULL pointer in Go it is just \var{nil}. To make 
 a pointer point to something you can use the \first{address-of operator}{operator!address-of}
-(\func{\&}), which we here:
+(\func{\&}), which we demonstrate here:
 \begin{lstlisting}[caption=Use of a pointer,label=src:pointers]
 var p *int
 fmt.Printf("%v", p) |\coderemark{Prints \var{nil}}|
