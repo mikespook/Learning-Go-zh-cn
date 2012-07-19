@@ -41,8 +41,10 @@ Communication
 Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
 
 * See http://www.golang.org for the homepage of Go;
-* [Download the pre-built Go book in PDF format] [1] [1]: http://miek.nl/files/go/ "Pre-Built Go Book"
+* [Download the pre-built Go book in PDF format][1] 
 * Project page: http://www.miek.nl/projects/learninggo/index.html .
+
+[1]: http://miek.nl/files/go/ "Pre-Built Go Book"
 
 ## Building the book
 
