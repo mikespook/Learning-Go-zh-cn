@@ -41,10 +41,9 @@ Communication
 Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
 
 * See http://www.golang.org for the homepage of Go;
-* [Download the pre-built Go book in PDF format][1] 
+* [Download the pre-built Go book in PDF format] [1] 
 * Project page: http://www.miek.nl/projects/learninggo/index.html .
 
-[1]: http://miek.nl/files/go/ "Pre-Built Go Book"
 
 ## Building the book
 
@@ -67,3 +66,11 @@ When building this book from LaTeX sources files you will need the following pac
 
 After that, you will hopefully only have to give `make`.
 If not, you can see the pre-built `pdf` file  on http://www.miek.nl/files/go/
+
+
+
+[1]: http://miek.nl/files/go/  "Download the pre-built Go book in PDF format"
+[3]: http://nodejs.org/ "Nodejs"
+[4]: http://npmjs.org/ "NPM"
+[5]: http://github.github.com/github-flavored-markdown/ "GFM(github flavored markdown)"
+[6]: http://wiki.commonjs.org/wiki/Modules/1.1.1 "Modules 1.1.1"
