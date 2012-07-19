@@ -38,29 +38,28 @@ Communication
 
 :   How to create/read/write from and to files. And how to do networking.
 
-Each chapter concludes with a number of exercises (and answers) to may help you to get some hands on experience. Currently it has more
-than 30 exercises.
+Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
 
 * See http://www.golang.org for the homepage of Go;
-* Download the `pdf`s from: http://miek.nl/files/go/ ;
+* [Download the pre-built Go book in PDF format] [1] [1]: http://miek.nl/files/go/ "Pre-Built Go Book"
 * Project page: http://www.miek.nl/projects/learninggo/index.html .
 
-## Building
-When building this from scratch you will need the
-following packages on Debian/Ubuntu:
+## Building the book
+
+When building this book from LaTeX sources files you will need the following packages on Ubuntu (tested on 12.04).
 
 * `inkscape`
 * `gnumeric`
 * `ttf-droid`
 * `ttf-dejavu `
 * `ttf-sazanami-gothic`  (Japanese font)
-* `ttf-arphic-ukai`     (Chines font)
+* `ttf-arphic-ukai`     
 * `texlive-fonts-recommended`
 * `texlive-extra-utils`
 * `texlive-xetex`
 * `texlive-latex-extra`
 * `texlive-latex-recommended`
-* `latex-cjk-xcjk`
+* `latex-cjk-xcjk`       (Chinese font)
 * `git-core`
 * `make`
 
