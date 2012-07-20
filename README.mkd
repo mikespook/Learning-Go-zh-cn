@@ -68,7 +68,7 @@ When building this book from LaTeX sources files you will need the following pac
 
 
 
-### Following a shell script to automate the package prerequisites installation.
+### Following is a shell script to automate the package prerequisites installation.
 ```
 # tested on Ubuntu 12.04
 for i in inkscape \
@@ -90,10 +90,28 @@ sudo apt-get install $i -y
 done
 ```
 
+### Checking out the Go Book LaTeX sources.
 
-After that, you will hopefully only have to give `make`.
-If not, you can see the prebuilt `pdf` file  on http://www.miek.nl/files/go/
+Using git protocol.
+```
+git clone git@github.com:tjyang/gobook.git
+```
 
+Using http protocol
+
+```
+git clone https://github.com/miekg/gobook.git 
+```
+
+### Make the Go Book 
+
+```
+make
+```
+
+### Download the prebuilt Go book
+
+Download the latest version from http://www.miek.nl/files/go/
 
 
 [1]: http://miek.nl/files/go/  "Download the prebuilt Go book in PDF format"
