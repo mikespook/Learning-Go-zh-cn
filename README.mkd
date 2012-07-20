@@ -15,7 +15,7 @@ The book currently consists of the following chapters:
 Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
 
 * See http://www.golang.org for the homepage of Go;
-* Project page: http://www.miek.nl/projects/learninggo/index.html .
+* [`Learning Go` Project page] [2]
 
 
 ## Building the book
@@ -99,7 +99,4 @@ Latest prebuilt pdf book [can be downloaded from http://www.miek.nl/files/go/] [
 
 
 [1]: http://miek.nl/files/go/  "Download the prebuilt Learning Go book in PDF format"
-[3]: http://nodejs.org/ "Nodejs"
-[4]: http://npmjs.org/ "NPM"
-[5]: http://github.github.com/github-flavored-markdown/ "GFM(github flavored markdown)"
-[6]: http://wiki.commonjs.org/wiki/Modules/1.1.1 "Modules 1.1.1"
+[2]: http://www.miek.nl/projects/learninggo/index.html "http://www.miek.nl/projects/learninggo/index.html"
