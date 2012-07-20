@@ -1,4 +1,4 @@
-# Learning Go - a free E-Book for learning the Go language.
+# `Learning Go` - a free E-Book for learning the Go language.
 
 This is an introduction in the language Go from Google.
 
@@ -41,7 +41,7 @@ Communication
 Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
 
 * See http://www.golang.org for the homepage of Go;
-* [Download the prebuilt Go book in PDF format] [1] 
+* [Download the prebuilt `Learning Go` book in PDF format] [1] 
 * Project page: http://www.miek.nl/projects/learninggo/index.html .
 
 
@@ -92,31 +92,40 @@ sudo apt-get install $i -y
 done
 ```
 
-### Checking out the Go Book LaTeX sources.
+### Checking out the `Learning Go` Book LaTeX sources.
 
-Using git protocol.
+Using http protocol.
+
+```
+me@ubuntu1204:~$git clone https://github.com/miekg/gobook.git 
+Cloning into 'gobook'...
+remote: Counting objects: 4515, done.
+remote: Compressing objects: 100% (1385/1385), done.
+remote: Total 4515 (delta 3106), reused 4512 (delta 3104)
+Receiving objects: 100% (4515/4515), 1.53 MiB | 1.17 MiB/s, done.
+Resolving deltas: 100% (3106/3106), done.
+me@ubuntu1204:~$
+```
+
+Using git protocol if you already have github account setup.
+
 ```
 git clone git@github.com:tjyang/gobook.git
 ```
 
-Using http protocol
 
-```
-git clone https://github.com/miekg/gobook.git 
-```
-
-### Make the Go Book 
+### Make the `Learning Go` Book 
 
 ```
 make
 ```
 
-### Download the prebuilt Go book
+### Download the prebuilt `Learning Go` book
 
 Download the latest version from http://www.miek.nl/files/go/
 
 
-[1]: http://miek.nl/files/go/  "Download the prebuilt Go book in PDF format"
+[1]: http://miek.nl/files/go/  "Download the prebuilt Learning Go book in PDF format"
 [3]: http://nodejs.org/ "Nodejs"
 [4]: http://npmjs.org/ "NPM"
 [5]: http://github.github.com/github-flavored-markdown/ "GFM(github flavored markdown)"
