@@ -84,7 +84,7 @@ texlive-latex-extra \
 texlive-latex-recommended \
 latex-cjk-xcjk \       
 git-core \
-make
+make \
 do 
 sudo apt-get install $i -y
 done
