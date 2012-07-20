@@ -15,7 +15,7 @@ The book currently consists of the following chapters:
 Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
 
 * See http://www.golang.org for the homepage of Go;
-* [`Learning Go` Project page] [2]
+* [Learning Go Project page] [2]
 
 
 ## Building the book
