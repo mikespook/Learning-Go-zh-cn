@@ -2,19 +2,17 @@ package main
 
 import (
 	"bufio"
-	"io/ioutil"
 	"errors"
+	"flag"
+	"io/ioutil"
 	"net"
 	"os/user"
-	"flag"
 	"strconv"
 )
 
-var port *int = flag.Int("port", 79, "Port to listen on")
-
 func main() {
 	flag.Parse()
-	ln, err := net.Listen("tcp", ":"+ strconv.Itoa(*port))
+	ln, err := net.Listen("tcp", ":79")
 	if err != nil {
 		panic(err)
 	}
@@ -32,8 +30,7 @@ func handleConnection(conn net.Conn) {
 	reader := bufio.NewReader(conn)
 	usr, _, _ := reader.ReadLine()
 
-	info, err := getUserInfo(string(usr))
-	if err != nil {
+	if info, err := getUserInfo(string(usr)); err != nil {
 		conn.Write([]byte(err.Error()))
 	} else {
 		conn.Write(info)
