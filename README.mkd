@@ -47,6 +47,8 @@ Each chapter concludes with a number of exercises with answers to help you to ge
 
 ## Building the book
 
+### Package Prerequisites 
+
 When building this book from LaTeX sources files you will need the following packages on Ubuntu (tested on 12.04).
 
 * `inkscape`
@@ -64,9 +66,11 @@ When building this book from LaTeX sources files you will need the following pac
 * `git-core`
 * `GNU make`
 
-Following a shell script to automate the installation process of the package prerequisites.
 
+
+### Following a shell script to automate the package prerequisites installation.
 ```
+# tested on Ubuntu 12.04
 for i in inkscape \
 gnumeric \
 ttf-droid \
