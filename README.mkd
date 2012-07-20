@@ -2,7 +2,7 @@
 
 This is an introduction in the language Go from Google.
 
-The book currently consists out +/- 120 (A4 sized) pages and the following chapters:
+The book currently consists of the following chapters:
 
 Introduction
 
@@ -69,20 +69,22 @@ When building this book from LaTeX sources files you will need the following pac
 
 
 ### Following is a shell script to automate the package prerequisites installation.
+
+You can copy and paste the following code to your vt100 session to kickoff the chains of many package installation.
 ```
 # tested on Ubuntu 12.04
 for i in inkscape \
 gnumeric \
 ttf-droid \
 ttf-dejavu \
-ttf-sazanami-gothic \  
-ttf-arphic-ukai \     
+ttf-sazanami-gothic \
+ttf-arphic-ukai \
 texlive-fonts-recommended \
 texlive-extra-utils \
 texlive-xetex \
 texlive-latex-extra \
 texlive-latex-recommended \
-latex-cjk-xcjk \       
+latex-cjk-xcjk \
 git-core \
 make \
 do 
