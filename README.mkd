@@ -122,7 +122,7 @@ make
 
 ### Download the prebuilt `Learning Go` book
 
-Download the latest version from http://www.miek.nl/files/go/
+Latest prebuilt pdf book can be downloaded from http://www.miek.nl/files/go/
 
 
 [1]: http://miek.nl/files/go/  "Download the prebuilt Learning Go book in PDF format"
