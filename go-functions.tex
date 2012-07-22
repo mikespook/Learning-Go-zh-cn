@@ -166,51 +166,6 @@ func ReadFull(r Reader, buf []byte) (n int, err error) {
     return
 }
 \end{lstlisting}
-In the following example we declare a simple function which calculates
-\gomarginpar{Some text in this section comes from \cite{go_intro}.}  % layout
-the factorial value of a value \var{x}.
-\needspace{9\baselineskip}
-\begin{lstlisting}
-func Factorial(x int) int { |\coderemark{\texttt{func Factorial(x int) (int)} is also OK}|
-   if x == 0 {
-      return 1
-   } else {
-      return x * Factorial(x - 1)
-   }
-}
-\end{lstlisting}
-So you could also write factorial as:
-\begin{lstlisting}
-func Factorial(x int) (result int) {
-  if x == 0 {
-    result = 1	
-  } else {
-    result = x * Factorial(x - 1)
-  }
-  return
-}
-\end{lstlisting}
-When we use named result values, the code is shorter and
-easier to read.
-
-You can also write a function with multiple return values:
-\begin{lstlisting}
-func fib(n int) (val, pos int) { |\coderemark{Both ints}|
-   if n == 0 {
-      val = 1
-      pos = 0
-   } else if n == 1 {
-      val = 1
-      pos = 1
-   } else {
-      v1, _ := fib(n-1)
-      v2, _ := fib(n-2)
-      val = v1 + v2
-      pos = n
-   }
-   return
-}
-\end{lstlisting}
 
 \section{Deferred code}
 \label{sec:deferred code}
