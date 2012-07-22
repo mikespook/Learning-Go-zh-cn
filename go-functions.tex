@@ -194,7 +194,7 @@ When we use named result values, the code is shorter and
 easier to read.
 You can also write a function with multiple return values:
 \begin{lstlisting}
-func fib(n) (val, pos int) { |\coderemark{Both ints}|
+func fib(n int) (val, pos int) { |\coderemark{Both ints}|
    if n == 0 {
       val = 1
       pos = 0
