@@ -174,14 +174,8 @@ func Printf(format string, a ...interface{}) (n int, err error)
 In Go it is customary to write (unit) tests for your package. Writing
 tests involves the \package{testing} package and the program
 \first{\prog{go test}}{tooling!go!test}. Both
-have excellent documentation. When you include tests with your package
-keep in mind that they have to build using the standard \file{Makefile}
-(see section ``\titleref{sec:building a package}'').
+have excellent documentation. 
 
-%% CLEANFILES+=hello fib chain run.out
-%%
-
-The testing itself is carried out with \prog{go test}.
 The \prog{go test} program runs all the test functions. Without any
 defined tests for our \package{even} package, \prog{go test} yields:
 \begin{display}
