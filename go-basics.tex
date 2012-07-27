@@ -270,7 +270,7 @@ s[0] = 'c'  |\coderemark{Change first char. to 'c', this is an error}|
 To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
-c := []byte(s)	    |\longremark{Convert \var{s} to an array of bytes, see %
+c := []rune(s)	    |\longremark{Convert \var{s} to an array of runes, see %
 chapter \ref{chap:beyond} section "\titleref{sec:conversions}" on %
 page \pageref{sec:conversions};}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
