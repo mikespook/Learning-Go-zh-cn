@@ -1,68 +1,102 @@
-# Learning Go - a free E-Book for learning the Go language.
+# `Learning Go` - a free E-Book for learning the Go language.
 
-This is an introduction in the language Go from Google.
 
-The book currently consists out +/- 120 (A4 sized) pages and the following chapters:
+The book currently consists of the following chapters:
 
-Introduction
+1. Introduction: Show how to install Go and details the lineage of the language Go.
+2. Basics:  Types, variables and control structures.
+3. Functions: How to make and use functions.
+4. Packages: Functions and data is grouped together in packages. Here you will see how to make your own package. How to unit test your package is also described.
+5. Beyond the basics:  Learn how to create your own data types and define function on them (called methods in Go).
+6. Interfaces: Go does not support Object Orientation in the traditional sense. In Go the central concept is interfaces.
+7. Concurrency: With the go keyword function can be started in separate routines (called goroutines). Communication with those goroutines is done via channels.
+8. Communication : How to create/read/write from and to files. And how to do networking.
 
-:   Show how to install Go and details the lineage of the language Go.
+Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
 
-Basics
+* See http://www.golang.org for the homepage of Go.
+* [Learning Go Project page.] [2]
 
-:   Types, variables and control structures.
 
-Functions
+## Building the book
 
-:   How to make and use functions.
+### Package Prerequisites 
 
-Packages
-
-:   Functions and data is grouped together in packages. Here you will see how to make your own package. 
-    How to unit test your package is also described.
-
-Beyond the basics
-
-:   Learn how to create your own data types and define function on them (called methods in Go).
-
-Interfaces
-
-:   Go does not support Object Orientation in the traditional sense. In Go the central concept is interfaces.
-
-Concurrency
-
-:   With the go keyword function can be started in separate routines 
-    (called goroutines). Communication with those goroutines is done via channels.
-
-Communication
-
-:   How to create/read/write from and to files. And how to do networking.
-
-Each chapter concludes with a number of exercises (and answers) to may help you to get some hands on experience. Currently it has more
-than 30 exercises.
-
-* See http://www.golang.org for the homepage of Go;
-* Download the `pdf`s from: http://miek.nl/files/go/ ;
-* Project page: http://www.miek.nl/projects/learninggo/index.html .
-
-## Building
-When building this from scratch you will need the
-following packages on Debian/Ubuntu:
+When building this book from LaTeX sources files you will need the following packages on Ubuntu (tested on 12.04).
 
 * `inkscape`
 * `gnumeric`
 * `ttf-droid`
-* `ttf-dejavu `
+* `ttf-dejavu`
 * `ttf-sazanami-gothic`  (Japanese font)
-* `ttf-arphic-ukai`     (Chines font)
+* `ttf-arphic-ukai`     
 * `texlive-fonts-recommended`
 * `texlive-extra-utils`
 * `texlive-xetex`
 * `texlive-latex-extra`
 * `texlive-latex-recommended`
-* `latex-cjk-xcjk`
+* `latex-cjk-xcjk`       (Chinese font)
 * `git-core`
-* `make`
+* `GNU make`
 
-After that, you will hopefully only have to give `make`.
-If not, so the pre-build `pdf`s on http://www.miek.nl/files/go/
+
+
+### Following is a shell script to automate the package prerequisites installation.
+
+You can copy and paste the following code to your vt100 session to kickoff the chains of many packages installation.
+```
+# tested on Ubuntu 12.04
+for i in inkscape \
+gnumeric \
+ttf-droid \
+ttf-dejavu \
+ttf-sazanami-gothic \
+ttf-arphic-ukai \
+texlive-fonts-recommended \
+texlive-extra-utils \
+texlive-xetex \
+texlive-latex-extra \
+texlive-latex-recommended \
+latex-cjk-xcjk \
+git-core \
+make \
+do 
+sudo apt-get install $i -y
+done
+```
+
+### Checking out the `Learning Go`  LaTeX sources.
+
+Using http protocol.
+
+```
+me@ubuntu1204:~$git clone https://github.com/miekg/gobook.git 
+Cloning into 'gobook'...
+remote: Counting objects: 4515, done.
+remote: Compressing objects: 100% (1385/1385), done.
+remote: Total 4515 (delta 3106), reused 4512 (delta 3104)
+Receiving objects: 100% (4515/4515), 1.53 MiB | 1.17 MiB/s, done.
+Resolving deltas: 100% (3106/3106), done.
+me@ubuntu1204:~$
+```
+
+Using git protocol if you already have github account setup.
+
+```
+git clone git@github.com:tjyang/gobook.git
+```
+
+
+### Make the `Learning Go` Book 
+
+```
+make
+```
+
+### Download the prebuilt `Learning Go` book
+
+Latest prebuilt pdf book [can be downloaded from http://www.miek.nl/files/go/] [1]
+
+
+[1]: http://miek.nl/files/go/  "Download the prebuilt Learning Go book in PDF format"
+[2]: http://www.miek.nl/projects/learninggo/index.html "http://www.miek.nl/projects/learninggo/index.html"

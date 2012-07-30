@@ -241,7 +241,7 @@ s[0] = 'c'  |\coderemark{修改第一个字符为 'c'，这会报错}|
 在~Go 中实现这个，需要下面的方法：
 \begin{lstlisting}
 s := "hello"
-c := []byte(s)	    |\longremark{转换 \var{s} 为字节数组，%
+c := []rune(s)	    |\longremark{转换 \var{s} 为 rune 数组，%
 查阅在第 \ref{chap:beyond} 章 "\titleref{sec:conversions}"节、%
 \pageref{sec:conversions} 页的内容；}|
 c[0] = 'c'	    |\longremark{修改数组的第一个元素；}|

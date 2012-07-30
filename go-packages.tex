@@ -138,13 +138,8 @@ func Printf(format string, a ...interface{}) (n int, err error)
 \section{测试包}
 在 Go 中为包编写单元测试应当是一种习惯。编写测试需要包含
 \package{testing} 包和程序 \first{\prog{go test}}{toolin!go!test}。
-两者都有良好的文档。当对某个包进行测试时，务必要记得必须使用
-\file{Makefile} 进行编译（参阅第 ``\titleref{sec:building a package}'' 节）。
+两者都有良好的文档。
 
-%% CLEANFILES+=hello fib chain run.out
-%%
-
-测试本身是由 \prog{go test} 完成的。
 \prog{go test} 程序调用了所有的测试函数。
 \package{even} 包没有定义任何测试函数，执行 \prog{go test}，这样：
 \begin{display}

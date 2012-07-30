@@ -1,9 +1,10 @@
 \setmonofont[SmallCapsFont={DejaVu Sans Mono},Scale=0.70]{DejaVu Sans Mono}
 %% Fontfeatures after setting the mono font to keep
 %% lstlisting fonts happy
-\defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
-\setmainfont[SmallCapsFont={Droid Sans Mono}]{Droid Serif}
-\setsansfont{Droid Sans}
+%%\defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont[SmallCapsFont={Droid Sans Mono},Scale=MatchLowercase]{Droid Serif}
+\setsansfont[Scale=MatchLowercase]{Droid Sans}
 \def\inputGnumericTable{}
 
 \setlength{\parindent}{0pt}
@@ -146,24 +147,7 @@
 \end{figure}%
 }
 
-\newenvironment{cjk}{%
-\begin{CJK*}{UTF8}{song}
-\setCJKfamilyfont{Chinese}{WenQuanYi Zen Hei}
-\CJKfamily{Chinese}
-}%
-{%
-\end{CJK*}%
-}
-
-\newenvironment{cjkc}{%
-\begin{CJK*}{UTF8}{song}
-\setCJKfamilyfont{Chinese}{AR PL UKai CN}
-\CJKfamily{Chinese}
-}%
-{%
-\end{CJK*}%
-}
-% start, end, text
+\setCJKmainfont{AR PL UKai CN}
 \newcommand{\ubrace}[3]{%
 \draw [thick,decorate,decoration={brace,amplitude=4pt},xshift=0pt,yshift=0pt] %
 (#1) -- (#2) node [black,midway,below=4pt,xshift=0pt] %

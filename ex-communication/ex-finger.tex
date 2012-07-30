@@ -1,4 +1,4 @@
-\begin{Exercise}[title={*Finger 守护进程},difficulty=8]
+\begin{Exercise}[title={*Finger 守护进程},difficulty=1]
 \label{ex:finger}
 \Question
 编写一个 finger 守护进程，可以工作于 finger(1) 命令。
@@ -19,6 +19,9 @@ Fingerd 是一个基于 RFC 1196 \cite{RFC1196} 的简单的守护进程，它�
 \end{Exercise}
 
 \begin{Answer}
+\begin{lbar}
+这是来自 Fabian Becker 的解决方案。
+\end{lbar}
 \Question
-TODO
+\lstinputlisting[label=src:fingerd,caption=finger 守护进程]{ex-communication/src/finger.go}
 \end{Answer}
