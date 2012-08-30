@@ -33,7 +33,7 @@ left.
 \end{itemize}
 
 \section{Official documentation}
-There already is a substantial amount of documentation written about Go.
+There is already a substantial amount of documentation written about Go.
 \gomarginpar{When searching on the internet use the term ``golang'' instead of plain ``go''.}
 The Go Tutorial \cite{go_tutorial}, and the Effective Go
 document \cite{effective_go}. The
@@ -65,7 +65,7 @@ simple abstract data types. It is designed for safe execution even on
 small machines without hardware memory protection.
 \end{quote}
 A feature Go inherited from Limbo is channels (see chapter
-\ref{chap:channels}). Again from the Limbo documentation.
+\ref{chap:channels}). Again from the Limbo documentation:
 \begin{quote}
 [A channel] is a communication mechanism capable of sending and receiving objects of
 the specified type to another agent in the system. Channels may be used
@@ -74,11 +74,11 @@ may be connected to named destinations. In either case send and receive
 operations may be directed to them.
 \end{quote}
 The channels in Go are easier to use than those in Limbo.
-If we dig even deeper in the history of Go we also find references
+If we dig deeper into the history of Go we also find references
 to ``Newsqueak'' \cite{newsqueak}, which pioneered the use of 
-channel communication in a C--like language. Channel
-communication isn't unique to these languages, a big non--C--like
-language which also uses them is Erlang \cite{erlang}.
+channel communication in a C--like language. Channels
+aren't unique to these languages; a big non--C--like
+language which uses them is Erlang \cite{erlang}.
 
 \begin{figure}[H]
 \caption{Chronology of Go}
@@ -100,14 +100,14 @@ different platforms and makes concurrency easy (or easier).
 \end{lbar}
 
 \section{Getting Go}
-In this section we tell how to install Go locally on your machine, but you can
+In this section we explain how to install Go locally on your machine, but you can
 also compile Go code online at \url{http://play.golang.org/}. To quickly
 play with code this is by far the easiest route.
 
 You can also get pre-compiled binaries from \cite{go_install}.
 
-Ubuntu and Debian both have a Go package in their repositories, look for
-the package ``golang''. But there are still some minor issues being worked
+Ubuntu and Debian both have a Go package in their repositories (look for
+the package ``golang''), but there are still some minor issues being worked
 out. For now we will stick to the installation from source.
 
 So we will have to retrieve the code from the mercurial archive and compile
