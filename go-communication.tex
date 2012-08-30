@@ -63,7 +63,7 @@ if f, e := os.Stat("name"); e != nil {
 \end{lstlisting}
 \end{minipage}
 The similarity between these two examples have prompted comments that Go has a
-''script''-like feel to it, i.e. programming in Go can be compared to programming in 
+``script''-like feel to it, i.e. programming in Go can be compared to programming in 
 a interpreted language (Python, Ruby, Perl or PHP).
 
 \section{Command line arguments}
@@ -102,7 +102,7 @@ import "os/exec"
 cmd := exec.Command("/bin/ls", "-l")    |\coderemark{Create a \var{*cmd}}|
 err := cmd.Run()                        |\coderemark{\func{Run()} it}|
 \end{lstlisting}
-The above example just runs ''ls -l'' without doing anything with the returned data,
+The above example just runs ``ls -l'' without doing anything with the returned data,
 capturing the standard output from a command is done as follows:
 \begin{lstlisting}
 import "os/exec"
