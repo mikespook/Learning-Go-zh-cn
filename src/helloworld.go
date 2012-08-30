@@ -4,7 +4,7 @@ standalone executable;}|
 
 import "fmt"  // Implements formatted I/O. \longremark{This says we need \package{"fmt"} in %
 addition to \package{main}. A package other than \package{main} is commonly called a %
-library, a familiar concept of many programming languages (see chapter \ref{chap:packages}). %
+library, a familiar concept in many programming languages (see chapter \ref{chap:packages}). %
 The line ends with a comment which is started with \lstinline|//|;}
 
 /* Print something */ |\longremark{This is also a comment, but this one is enclosed in %
