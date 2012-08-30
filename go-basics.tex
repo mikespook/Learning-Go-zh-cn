@@ -144,7 +144,7 @@ step (this form may only be used \emph{inside} functions).
 In that case the variable
 type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
 a value of \texttt{false} tells Go that the type should be \type{bool}. 
-Multiple \key{var} declarations may also be grouped, \key{const}
+Multiple \key{var} declarations may also be grouped; \key{const}
 and \key{import} also allow this. Note the use of parentheses:
 \begin{lstlisting}
 var (
@@ -153,7 +153,7 @@ var (
 )
 \end{lstlisting}
 Multiple variables of the same type can also be declared on a
-single line: \lstinline{var x, y int}, makes \var{x} and \var{y} both
+single line: \lstinline{var x, y int} makes \var{x} and \var{y} both
 \type{int} variables. You can also make use of \first{parallel
 assignment}{parallel assignment}:
 \begin{lstlisting}
@@ -169,7 +169,7 @@ value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
 _, b := 34, 35
 \end{lstlisting}
-Declared, but otherwise unused variables are a compiler error in Go. The
+Declared but otherwise unused variables are a compiler error in Go. The
 following code generates this error:
 \error{i declared and not used}
 
