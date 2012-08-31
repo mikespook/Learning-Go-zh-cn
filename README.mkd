@@ -7,7 +7,7 @@ The book currently consists of the following chapters:
 2. Basics:  Types, variables and control structures.
 3. Functions: How to make and use functions.
 4. Packages: Functions and data are grouped together in packages. Here you will see how to make your own package. How to unit test your package is also described.
-5. Beyond the basics:  Learn how to create your own data types and define function on them (called methods in Go).
+5. Beyond the basics:  Learn how to create your own data types and define functions on them (called methods in Go).
 6. Interfaces: Go does not support Object Orientation in the traditional sense. In Go the central concept is interfaces.
 7. Concurrency: With the go keyword functions can be started in separate routines (called goroutines). Communication with these goroutines is done via channels.
 8. Communication : How to create/read/write from and to files. And how to do networking.
