@@ -428,7 +428,7 @@ see one used to set up a (local) variable.
 \begin{lstlisting}
 if err := file.Chmod(0664); err != nil {  |\coderemark{\texttt{nil} is %
 like C's NULL}|
-    log.Stderr(err) |\coderemark{Scope of \var{err} is limited to %
+    fmt.Printf(err) |\coderemark{Scope of \var{err} is limited to %
 \key{if}'s body}|
     return err
 }
@@ -437,10 +437,10 @@ You can use the logical operators (see table \ref{tab:op-precedence}) as
 you would normally do:
 \begin{lstlisting}
 if true && true  {
-    println("true")
+    fmt.Println("true")
 }
 if ! false {
-    println("true")
+    fmt.Println("true")
 }
 \end{lstlisting}
 
