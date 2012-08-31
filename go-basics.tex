@@ -587,12 +587,12 @@ slice as the key and value belonging to that index.
 Consider this code: \index{keyword!range!on slices}
 \begin{lstlisting}
 list := []string{"a", "b", "c", "d", "e", "f"}     |\longremark{Create a %
-slice (see "\titleref{sec:arrays}" on page \pageref{sec:arrays})) of strings.}|
+slice (see ``\titleref{sec:arrays}'' on page \pageref{sec:arrays})) of strings.}|
 for k, v := range list {	|\longremark{Use \key{range} to loop over them.%
 With each iteration \key{range} will return the index as an \type{int} and %
-the key as a \type{string}, starting with 0 and "a".}|
+the key as a \type{string}, starting with 0 and ``a''.}|
     // do what you want with k and v \longremark{\var{k} will have the value 0\ldots5, and %
-\var{v} will loop through "a"\ldots"f".}
+\var{v} will loop through ``a''\ldots``f''.}
 }
 \end{lstlisting}
 \showremarks
