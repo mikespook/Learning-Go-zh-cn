@@ -1,13 +1,13 @@
-\epi{"In Go, the code does exactly what it says on the page."}{\textit{Go
+\epi{``In Go, the code does exactly what it says on the page.''}{\textit{Go
 Nuts mailing list}\\\textsc{ANDREW GERRAND}}
 \noindent{}There are a few things that make Go different from other
 languages.
 \begin{description}
 \item[Clean and Simple]
-Go strives to keep things small and beautiful, you should
+Go strives to keep things small and beautiful. You should
 be able to do a lot in only a few lines of code;
 \item[Concurrent]
-Go makes it easy to ''fire off'' functions to be
+Go makes it easy to ``fire off'' functions to be
 run as \emph{very} lightweight threads. These threads are called
 \first{goroutines}{goroutines} \footnote{Yes, that sounds a lot like
 \emph{co}routines, but goroutines are slightly different as we will
@@ -27,9 +27,9 @@ Go has garbage collection, no more \func{free()} in Go, the language takes care 
 
 \item[Standard format]
 A Go program can be formatted in (almost) any way the programmers want,
-\emph{but} an official format exists. The rule is very simple:
-The output of the filter \prog{gofmt} \emph{is the official} endorsed
-format.
+but an official format exists. The rule is very simple:
+The output of the filter \prog{gofmt} \emph{is the officially endorsed
+format}.
 
 \item[Postfix types]
 Types are given \emph{after} the variable name, thus \prog{var a int},
@@ -53,15 +53,15 @@ of the features of Go. Notable differences between Erlang
 and Go is that Erlang borders on being a functional language,
 where Go is an imperative one. And Erlang runs in a virtual
 machine, while Go is compiled. Go also has a much more Unix-like
-feeling to it.
+feel to it.
 
 \section{Hello World}
 \label{sec:hello world}
 In the Go tutorial, Go is presented to the world in the typical
-manner: letting it print "Hello World" (Ken Thompson and
+manner: letting it print ``Hello World'' (Ken Thompson and
 Dennis Ritchie started this when they presented the C language in 
-the nineteen seventies). We don't think we can do better, so 
-here it is, ''Hello World'' in Go.
+the 1970s). We don't think we can do better, so
+here it is, ``Hello World'' in Go.
 
 \lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
 Lets look at the program line by line.
@@ -69,13 +69,13 @@ Lets look at the program line by line.
 
 \section{Compiling and running code}
 \label{sec:building a program}
-The preferred way to build a Go program, is to use the \prog{go} tool.\index{tooling!go}
-To build \prog{helloworld} we just give:
+The preferred way to build a Go program is to use the \prog{go} tool.\index{tooling!go}
+To build \prog{helloworld} we just enter:
 \begin{display}
 \pr \user{go build helloworld.go}
 \end{display}
 \index{tooling!go!build}
-This results in a executable called \prog{helloworld}.
+This results in an executable called \prog{helloworld}.
 
 \begin{display}
 \pr \user{./helloworld}
@@ -98,7 +98,7 @@ when we start using packages (chapter \ref{chap:packages}).
 
 \section{Variables, types and keywords}
 \label{sec:vars}
-In the next sections we will look at variables, basic types,
+In the next few sections we will look at the variables, basic types,
 keywords and control structures of our new language. 
 Go has a C-like feel when it comes to its syntax. 
 If you want to put two (or more) statements on one line, they must be
@@ -107,7 +107,7 @@ separated with a semicolon (';'). Normally you don't need the semicolon.
 Go is different from other languages in that the type of a variable
 is specified \emph{after} the variable name. So not: 
 \lstinline{int a}, but \lstinline{a int}. When declaring a variable it
-is assigned the "natural" null value for the type. This means that after
+is assigned the ``natural'' null value for the type. This means that after
 \lstinline{var a int}, \lstinline{a} has a value of 0. With
 \lstinline{var s string}, \lstinline{s} is assigned the zero string,
 which is \lstinline{""}. 
@@ -144,7 +144,7 @@ step (this form may only be used \emph{inside} functions).
 In that case the variable
 type is \emph{deduced} from the value. A value of 15 indicates an \type{int},
 a value of \texttt{false} tells Go that the type should be \type{bool}. 
-Multiple \key{var} declarations may also be grouped, \key{const}
+Multiple \key{var} declarations may also be grouped; \key{const}
 and \key{import} also allow this. Note the use of parentheses:
 \begin{lstlisting}
 var (
@@ -153,7 +153,7 @@ var (
 )
 \end{lstlisting}
 Multiple variables of the same type can also be declared on a
-single line: \lstinline{var x, y int}, makes \var{x} and \var{y} both
+single line: \lstinline{var x, y int} makes \var{x} and \var{y} both
 \type{int} variables. You can also make use of \first{parallel
 assignment}{parallel assignment}:
 \begin{lstlisting}
@@ -169,7 +169,7 @@ value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
 _, b := 34, 35
 \end{lstlisting}
-Declared, but otherwise unused variables are a compiler error in Go. The
+Declared but otherwise unused variables are a compiler error in Go. The
 following code generates this error:
 \error{i declared and not used}
 
@@ -185,10 +185,10 @@ A boolean type represents the set of boolean truth values denoted by the
 predeclared constants \emph{true} and \emph{false}. The boolean type is \type{bool}.
 
 \subsection{Numerical types}
-Go has the well known types such as \lstinline{int}, this type
-has the appropriate length for your machine. 
-Meaning that on a 32 bits machine they are 32 bits, and on
-a 64 bits machine they are 64 bits. Note: an \lstinline{int} is
+Go has the well known types such as \lstinline{int}. This type
+has the appropriate length for your machine,
+meaning that on a 32-bit machine it is 32 bits and on
+a 64-bit machine it is 64 bits. Note: an \lstinline{int} is
 either 32 or 64 bits, no other values are defined. Same goes 
 for \lstinline{uint}.
 
@@ -271,7 +271,7 @@ To do this in Go you will need the following:
 \begin{lstlisting}
 s := "hello"
 c := []rune(s)	    |\longremark{Convert \var{s} to an array of runes, see %
-chapter \ref{chap:beyond} section "\titleref{sec:conversions}" on %
+chapter \ref{chap:beyond} section ``\titleref{sec:conversions}'' on %
 page \pageref{sec:conversions};}|
 c[0] = 'c'	    |\longremark{Change the first element of this %
 array;}|
