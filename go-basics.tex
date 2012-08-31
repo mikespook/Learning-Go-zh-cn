@@ -313,7 +313,7 @@ is composed of the \emph{uninterpreted} characters between the quotes.
 \subsection{Runes}
 \lstinline{Rune} is an alias for int32. It is an UTF-8 encoded code point. When is this type useful? For instance
 when iterating over characters in a string. You can loop over each byte (which is only equivalent to a character
-when strings would be encoded in US ASCII, which they are \emph{not} in Go!). So to get the actual charaters you
+when strings are encoded in 8-bit ASCII, which they are \emph{not} in Go!). So to get the actual characters you
 should use the \type{rune} type.
 
 \subsection{Complex numbers}
