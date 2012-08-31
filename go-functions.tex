@@ -238,7 +238,7 @@ defer func(x int) {
 	/* ... */
 }(5)		 |\coderemark{Give the input variable \var{x} the value 5}|
 \end{lstlisting}
-In that (unnamed) function you can access any named return
+In this (unnamed) function you can access any named return
 parameter:
 \begin{lstlisting}[caption=Access return values within defer]
 func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
