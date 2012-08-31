@@ -12,7 +12,7 @@ The book currently consists of the following chapters:
 7. Concurrency: With the go keyword functions can be started in separate routines (called goroutines). Communication with these goroutines is done via channels.
 8. Communication : How to create/read/write from and to files. And how to do networking.
 
-Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
+Each chapter concludes with a number of exercises with answers to help you to get some hands-on experience. Currently it has more than 30 exercises.
 
 * See http://www.golang.org for the homepage of Go.
 * [Learning Go Project page.] [2]
