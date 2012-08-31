@@ -311,7 +311,7 @@ is composed of the \emph{uninterpreted} characters between the quotes.
 \end{lbar}
 
 \subsection{Runes}
-\lstinline{Rune} is an alias for int32. It is an UTF-8 encoded code point. When is this type useful? For instance
+\lstinline{Rune} is an alias for int32. It is an UTF-8 encoded code point. When is this type useful? For instance,
 when iterating over characters in a string. You can loop over each byte (which is only equivalent to a character
 when strings are encoded in 8-bit ASCII, which they are \emph{not} in Go!). So to get the actual characters you
 should use the \type{rune} type.
@@ -362,7 +362,7 @@ is the logical \first{not}{operator!not}: \verb/!/
 
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
-operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
+operators \emph{are} overloaded. For instance, \texttt{+} can be used for integers,
 floats, complex numbers and strings (adding strings is concatenating
 them). 
 
@@ -498,7 +498,7 @@ hopefully a fix.
 \subsection{Goto}
 Go has a \first{\key{goto}}{keyword!goto} statement --- use it wisely. With \key{goto}
 you jump to a \index{label} label which must be defined within the current function.
-For instance a loop in disguise:
+For instance, a loop in disguise:
 \begin{lstlisting}
 func myfunc() {
         i := 0                                                                                      
