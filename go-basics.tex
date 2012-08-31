@@ -798,8 +798,8 @@ copy of the array, not a pointer to it.
 \index{array!multidimensional}
 To declare an array you can use the following: \lstinline{var a [3]int},
 to initialize it to something other than zero use a
-\first{composite literal}{literal!composite}: \lstinline|a := [3]int{1, 2, 3}| and
-this can be shortened to \lstinline|a := [...]int{1, 2, 3}|, where Go counts
+\first{composite literal}{literal!composite}: \lstinline|a := [3]int{1, 2, 3}|.
+This can be shortened to \lstinline|a := [...]int{1, 2, 3}|, where Go counts
 the elements automatically. \gomarginpar{A composite literal allows you
 to assign a value directly to an array, slice or map.
 
