@@ -16,12 +16,12 @@ AAAAAAA
 \vskip\baselineskip
 
 \Question \label{ex:strings q2} Create a program that counts
-the numbers of characters in this string:
+the number of characters in this string:
 \begin{display}
 asSASA ddd dsjkdsjs dk
 \end{display}
-Make it also output the number of bytes in that string.
-\emph{Hint.} Check out the \package{utf8} package.
+In addition, make it output the number of bytes in that string.
+\emph{Hint}: Check out the \package{utf8} package.
 
 \Question \label{ex:string q3} Extend the program from
 the previous question to replace the three runes at
@@ -29,8 +29,8 @@ position 4 with 'abc'.
 
 \Question \label{ex:string q4} Write a Go program
 that reverses a string, so ``foobar'' is printed as ``raboof''.
-\emph{Hint.} Unfortunately you need to know about
-conversion, skip ahead to section ``\titleref{sec:conversions}'' on
+\emph{Hint}: You will need to know about
+conversion; skip ahead to section ``\titleref{sec:conversions}'' on
 page \pageref{sec:conversions}.
 
 \end{Exercise}
@@ -41,7 +41,7 @@ page \pageref{sec:conversions}.
 
 \lstinputlisting[label=string1,caption=Strings]{ex-basics/src/string1.go}
 
-\Question To answer this question we need some help of
+\Question To answer this question we need some help from
 the \package{unicode/utf8} package. First we check the documentation
 with \prog{go doc unicode/utf8 | less}. When we read the documentation
 we notice \lstinline{func RuneCount(p []byte) int}. Secondly
@@ -57,7 +57,7 @@ Putting this together leads to the following program.
 \lstinputlisting[label=src:string2,caption=Runes in strings]{ex-basics/src/string2.go}
 \end{minipage}
 
-\Question Reversing a string can be done as follows. We startfrom the left (\var{i}) and
+\Question Reversing a string can be done as follows. We start from the left (\var{i}) and
 the right (\var{j}) and swap the characters as we see them:
 
 \begin{minipage}{\textwidth}

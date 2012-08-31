@@ -251,7 +251,7 @@ const (
 \end{lstlisting}
 
 \subsection{Strings}
-An important other built in type is \lstinline{string}. Assigning a
+Another important built-in type is \lstinline{string}. Assigning a
 string is as simple as:
 \begin{lstlisting}
 s := "Hello World!"
@@ -260,7 +260,7 @@ Strings in Go are a sequence of UTF-8 characters enclosed in double
 quotes ("). If you use the single quote (') you mean one character
 (encoded in UTF-8) --- which is \emph{not} a \lstinline{string} in Go.
 
-Once assigned to a variable the string can not be changed anymore: strings in Go are
+Once assigned to a variable the string can not be changed: strings in Go are
 immutable. For
 people coming from C, the following is not legal in Go:
 \begin{lstlisting}
@@ -300,28 +300,27 @@ s := "Starting part" +
      "Ending part"
 \end{lstlisting}
 Then Go will not insert the semicolons in the wrong places. Another way
-would be to use \emph{raw} string literals\index{string literal!raw} by using back quotes: \key{`}:
+would be to use \emph{raw} string literals\index{string literal!raw} by using backquotes (\key{`}):
 \begin{lstlisting}
 s := `Starting part
      Ending part`
 \end{lstlisting}
 Be aware that in this last example \var{s} now also contains the newline.
-Unlike \emph{interpreted} string literals \index{string literal!interpreted} a raw string literal's value
+Unlike \emph{interpreted} string literals \index{string literal!interpreted} the value of a raw string literal
 is composed of the \emph{uninterpreted} characters between the quotes.
 \end{lbar}
 
 \subsection{Runes}
-\lstinline{Rune} is an alias for int32. It is an UTF-8 encoded code point. When is this type useful? For instance
+\lstinline{Rune} is an alias for int32. It is an UTF-8 encoded code point. When is this type useful? For instance,
 when iterating over characters in a string. You can loop over each byte (which is only equivalent to a character
-when strings would be encoded in US ASCII, which they are \emph{not} in Go!). So to get the actual charaters you
+when strings are encoded in 8-bit ASCII, which they are \emph{not} in Go!). So to get the actual characters you
 should use the \type{rune} type.
 
 \subsection{Complex numbers}
-Go has native support for complex numbers. If you 
-use them you need a variable of the type \lstinline{complex128} (64
-bit imaginary part). If you
-want something smaller there is \lstinline{complex64} -- for a 32 bits
-imaginary part.
+Go has native support for complex numbers. To
+use them you need a variable of type \lstinline{complex128} (64
+bit real and imaginary parts) or \lstinline{complex64} (32 bit
+real and imaginary parts).
 Complex numbers are written as
 \var{re + im$i$}, where \var{re} is the real part,
 \var{im} is the imaginary part and $i$ is the literal '$i$' ($\sqrt{-1}$).
@@ -332,14 +331,14 @@ will print: \lstinline{(5+5i)}
 
 \subsection{Errors}
 Any non-trivial program will have the need for error reporting sooner or later. Because of this
-Go has a builtin type specially for errors, called \lstinline{error},
-\lstinline{var a error}
-makes \var{a} an error, \var{a}'s value is \lstinline{nil}.
+Go has a builtin type specially for errors, called \lstinline{error}.
+
+\lstinline{var e error} creates a variable \var{e} of type \lstinline{error} with the value \lstinline{nil}.
 
 \section{Operators and built-in functions}
 \label{sec:builtins}
-Go supports the normal set of numerical operations,
-table \ref{tab:op-precedence}
+Go supports the normal set of numerical operators.
+Table \ref{tab:op-precedence}
 lists the current ones and their relative precedence. They
 all associate from left to right.
 
@@ -363,7 +362,7 @@ is the logical \first{not}{operator!not}: \verb/!/
 
 Although Go does not support operator overloading (or method
 overloading for that matter), some of the built-in
-operators \emph{are} overloaded. For instance \texttt{+} can be used for integers,
+operators \emph{are} overloaded. For instance, \texttt{+} can be used for integers,
 floats, complex numbers and strings (adding strings is concatenating
 them). 
 
@@ -376,12 +375,12 @@ them).
 \end{center}
 \end{table}
 Table \ref{tab:keywords} lists all the keywords in Go. 
-In the following paragraphs and chapters we will cover them. Some
-of these we have seen already.
+We will cover them in the following paragraphs and chapters. Some
+of them we have seen already.
 \begin{itemize}
-\item For \key{var} and \key{const} see section ``\titleref{sec:vars}'' on 
+\item For \key{var} and \key{const} see ``\titleref{sec:vars}'' on
 page \pageref{sec:vars};
-\item \key{package} and \key{import} are briefly touched upon in section ``\titleref{sec:hello world}''. 
+\item \key{package} and \key{import} are briefly touched on in section ``\titleref{sec:hello world}''.
 In chapter \ref{chap:packages} they are documented in more detail.
 \end{itemize}
 Others deserve more text and have their own chapter/section:
@@ -389,7 +388,7 @@ Others deserve more text and have their own chapter/section:
 \item \key{func} is used to declare functions and methods;
 \item \key{return} is used to return from functions, for both \key{func}
 and \key{return} see chapter \ref{chap:functions} for the details;
-\item \key{go} is used for concurrency (chapter \ref{chap:channels});
+\item \key{go} is used for concurrency, see chapter \ref{chap:channels};
 \item \key{select} used to choose from different types of communication, see chapter \ref{chap:channels};
 \item \key{interface} see chapter \ref{chap:interfaces};
 \item \key{struct} is used for abstract data types, see chapter \ref{chap:beyond};
@@ -434,7 +433,7 @@ like C's NULL}|
 }
 \end{lstlisting}
 You can use the logical operators (see table \ref{tab:op-precedence}) as
-you would normally do:
+you would normally:
 \begin{lstlisting}
 if true && true  {
     fmt.Println("true")
@@ -472,7 +471,7 @@ if err != nil {
 }
 doSomething(f, d)
 \end{lstlisting}
-Syntax wise the following is illegal in Go:
+Syntax-wise the following is illegal in Go:
 \begin{lstlisting}
 if err != nil
 {		    |\coderemark{Must be on the same line as the if}|
@@ -499,7 +498,7 @@ hopefully a fix.
 \subsection{Goto}
 Go has a \first{\key{goto}}{keyword!goto} statement --- use it wisely. With \key{goto}
 you jump to a \index{label} label which must be defined within the current function.
-For instance a loop in disguise:
+For instance, a loop in disguise:
 \begin{lstlisting}
 func myfunc() {
         i := 0                                                                                      
@@ -579,7 +578,7 @@ for i := 0; i < 10; i++ {
 The keyword \first{\key{range}}{keyword!range} can be used for loops. It
 can loop over slices, arrays, strings, maps and channels (see chapter
 \ref{chap:channels}). \key{range} is
-an iterator that, when called, returns a key-value pair from the thing it
+an iterator that, when called, returns the next key-value pair from the thing it
 loops over. Depending on what that is, \key{range} returns
 different things.
 
@@ -588,12 +587,12 @@ slice as the key and value belonging to that index.
 Consider this code: \index{keyword!range!on slices}
 \begin{lstlisting}
 list := []string{"a", "b", "c", "d", "e", "f"}     |\longremark{Create a %
-slice (see "\titleref{sec:arrays}" on page \pageref{sec:arrays})) of strings.}|
-for k, v := range list {	|\longremark{Use \key{range} to loop over them.%
-With each iteration \key{range} will return the index as \type{int} and %
-the key as a \type{string}, starting with 0 and "a".}|
+slice (see ``\titleref{sec:arrays}'' on page \pageref{sec:arrays}) of strings.}|
+for k, v := range list {	|\longremark{Use \key{range} to loop over them. %
+With each iteration \key{range} will return the index as an \type{int} and %
+the key as a \type{string}, starting with 0 and ``a''.}|
     // do what you want with k and v \longremark{\var{k} will have the value 0\ldots5, and %
-\var{v} will loop through "a"\ldots"f".}
+\var{v} will loop through ``a''\ldots``f''.}
 }
 \end{lstlisting}
 \showremarks
@@ -620,7 +619,7 @@ character 'x' starts at byte position 3 \coderemark{\begin{math}\Phi\end{math} t
 \subsection{Switch}
 Go's \first{\key{switch}}{keyword!switch} is very flexible. The expressions need
 not be
-constants or even integers, the cases are evaluated top to bottom until
+constants or even integers; the cases are evaluated top to bottom until
 a match is found, and if the \key{switch} has no expression it switches on
 \type{true}. It's therefore possible -- and idiomatic -- to write an
 \key{if-else-if-else} chain as a \key{switch}.
@@ -765,7 +764,7 @@ package. These are mainly used for debugging.
 \index{built-in!print}\index{built-in!println}
 
 \paragraph{\func{complex}, \func{real} and \func{imag}} all deal with
-\first{complex numbers}{complex numbers}. Other than the simple example
+\first{complex numbers}{complex numbers}. Apart from the simple example
 we gave, we will not further explain complex numbers.
 \index{built-in!complex}
 \index{built-in!real}
@@ -793,14 +792,14 @@ Array types like \lstinline{var arr = [10]int} have a fixed size. The
 size is \emph{part} of the type.
 They can't grow, because then they would have a different type. Also arrays
 are values: Assigning one array to another \emph{copies} all the elements.
-In particular, if you pass an array to a function, it will receive a
+In particular, if you pass an array to a function it will receive a
 copy of the array, not a pointer to it. 
 
 \index{array!multidimensional}
 To declare an array you can use the following: \lstinline{var a [3]int},
-to initialize it to something else than zero, use a 
-\first{composite literal}{literal!composite}: \lstinline|a := [3]int{1, 2, 3}| and
-this can be shortened to \lstinline|a := [...]int{1, 2, 3}|, where Go counts
+to initialize it to something other than zero use a
+\first{composite literal}{literal!composite}: \lstinline|a := [3]int{1, 2, 3}|.
+This can be shortened to \lstinline|a := [...]int{1, 2, 3}|, where Go counts
 the elements automatically. \gomarginpar{A composite literal allows you
 to assign a value directly to an array, slice or map.
 
@@ -943,8 +942,8 @@ n2 := copy(s, s[2:])    |\coderemark{\texttt{n2 == 4, s == []int\{2, 3, 4, 5, 4,
 
 \subsection{Maps}
 \label{sec:maps}
-Many other languages have a similar type built-in, Perl has hashes,
-Python has its dictionaries and C++ also has maps (as part of the libraries) for instance. 
+Many other languages have a similar type built-in. For instance, Perl has hashes,
+Python has its dictionaries and C++ also has maps (as part of the libraries).
 In Go we have the
 \first{\key{map}}{keyword!map} type. A \type{map} can be thought of as an array indexed by
 strings (in its most simple form).
