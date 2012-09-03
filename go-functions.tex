@@ -6,12 +6,12 @@ studied mechanical colleague, not as a debate with a
 compiler.  Who'd have guessed sophistication bought
 such noise?''}{\textsc{RICHARD P. GABRIEL}}
 
-\noindent{}Functions are the basic building blocks in Go programs; all interesting
+\noindent{}Functions are the basic building blocks of Go programs; all interesting
 stuff happens in them. A function is declared as follows:
 \input{fig/function.tex}
 \showremarks
-Here are two examples, the left is a function without a return value,
-the one on the right is a simple function that returns its input.
+Here are two examples. On the left is a function without a return value,
+while on the right is a simple function that returns its input.
 
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}
@@ -28,15 +28,15 @@ func identity(in int) int {
 \end{lstlisting}
 \end{minipage}
 
-Functions can be declared in any order you wish, the compiler scans the
-entire file before execution. So function prototyping is a thing of the
+Functions can be declared in any order you wish. The compiler scans the
+entire file before execution, so function prototyping is a thing of the
 past in Go.
 Go disallows nested functions.  You can however
 work around this by using anonymous functions, see section
 ``\titleref{sec:functions as values}'' on page \pageref{sec:functions as values} 
 in this chapter.
 
-Recursive functions just work as in other languages:
+Recursive functions work just as in other languages:
 \begin{lstlisting}[caption=Recursive function]
 func rec(i int) {
    if i == 10 {
@@ -69,7 +69,7 @@ executed.
 
 In listing \ref{src:scope1} we introduce a local variable \var{a}
 in the function \func{q()}.
-This local \var{a} is only visible in \func{q()}. That is
+The local \var{a} is only visible in \func{q()}. This is
 why the code will print: \texttt{656}.
 In listing \ref{src:scope2} no new variables are introduced, there
 is only a global \var{a}.
@@ -80,7 +80,7 @@ In the following example we call \func{g()} from \func{f()}:
 
 \lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
 
-The printout will be: \texttt{565}. A \emph{local} variable is \emph{only}
+The output will be: \texttt{565}. A \emph{local} variable is \emph{only}
 valid when we are executing the function in which it is defined. 
 %%Finally, one can create a \first{"function literal"}{function literal} in which you essentially 
 %%define a function inside another
@@ -119,7 +119,7 @@ func nextInt(b []byte, i int) (int, int) {
     return x, i
 }
 \end{lstlisting}
-You could use it to scan the numbers in an input array a like this:
+You could use it to scan the numbers in an input array \var{a} like this:
 \begin{lstlisting}
 a := []byte{'1', '2', '3', '4'}
 var x int
@@ -128,8 +128,8 @@ for i := 0; i < len(a); {	|\coderemark{No \texttt{i++}}|
     println(x)
 }
 \end{lstlisting}
-Without having tuples as a native type, multiple return values is the next
-best thing to have. You can return precisely what you want without
+In the absence of tuples as a native type, multiple return values are the next
+best thing. You can return precisely what you want without
 overloading the domain space with special values to signal errors.
 
 \section{Named result parameters}
@@ -190,10 +190,10 @@ func ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-Here a lot of code is repeated. To overcome this Go has the
+A lot of code is repeated here. To overcome this Go has the
 \first{\key{defer}}{keyword!defer} statement. After
-\key{defer} you specify a function which is called just \emph{before} a
-return from the function is executed.
+\key{defer} you specify a function which is called just \emph{before}
+the current function exits.
 
 The code above could be rewritten as follows. This makes the 
 function more readable, shorter and puts the \func{Close} right next 
@@ -238,7 +238,7 @@ defer func(x int) {
 	/* ... */
 }(5)		 |\coderemark{Give the input variable \var{x} the value 5}|
 \end{lstlisting}
-In that (unnamed) function you can access any named return
+In this (unnamed) function you can access any named return
 parameter:
 \begin{lstlisting}[caption=Access return values within defer]
 func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
@@ -256,7 +256,7 @@ need to declare your function to take variadic arguments:
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
-The \lstinline{arg ... int} instructs Go to see this as a function that
+The \lstinline{arg ...int} instructs Go to see this as a function that
 takes a variable number of arguments. Note that these arguments all
 have the type \type{int}. Inside your function's body the variable
 \var{arg} is a slice of ints:
@@ -269,7 +269,7 @@ If you don't specify the type of the variadic argument it defaults to the
 empty interface \var{interface\{\}} (see chapter
 \ref{chap:interfaces}).
 Suppose we have another variadic function called \func{myfunc2}, the 
-following example shows how to pass the variadic arguments to it:
+following example shows how to pass variadic arguments to it:
 \begin{lstlisting}
 func myfunc(arg ...int) {
     myfunc2(arg...)  |\coderemark{Pass it as-is}|
@@ -299,8 +299,8 @@ var xs = map[int]func() int{
 \end{lstlisting}
 Or you can write a function that takes a function as its parameter, for
 example a \func{Map} function that works on \type{int} slices. This is
-left as an exercise for the reader, see exercise Q\ref{ex:map function}
-on page \pageref{ex:map function}.
+left as an exercise for the reader (see exercise Q\ref{ex:map function}
+on page \pageref{ex:map function}).
 
 \section{Callbacks}
 \label{sec:callbacks}
@@ -309,7 +309,7 @@ they can be used as callbacks. First define a function that
 does ``something'' with an integer value:
 \begin{lstlisting}
 func printit(x int) {       |\coderemark{Function returns nothing}|
-    fmt.Print("%v\n", x)    |\coderemark{Just print it}|
+    fmt.Printf("%v\n", x)    |\coderemark{Just print it}|
 }
 \end{lstlisting}
 The signature of this function is: \lstinline{func printit(int)}, or
