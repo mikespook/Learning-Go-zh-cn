@@ -322,11 +322,11 @@ use them you need a variable of type \lstinline{complex128} (64
 bit real and imaginary parts) or \lstinline{complex64} (32 bit
 real and imaginary parts).
 Complex numbers are written as
-\gomarginpar{The Printf() verb %v, which isn't available to C's printf() function, means ``print the value in its default format''.}
 \var{re + im$i$}, where \var{re} is the real part,
 \var{im} is the imaginary part and $i$ is the literal '$i$' ($\sqrt{-1}$).
 An example of using complex numbers:
 
+\gomarginpar{The Printf() verb \%v, means ``print the value in its default format''.}
 \lstinline{var c complex64 = 5+5i; fmt.Printf("Value is: %v", c)}\newline
 will print: \lstinline{(5+5i)}
 
