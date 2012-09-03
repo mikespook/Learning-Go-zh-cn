@@ -256,7 +256,7 @@ need to declare your function to take variadic arguments:
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
-The \lstinline{arg ... int} instructs Go to see this as a function that
+The \lstinline{arg ...int} instructs Go to see this as a function that
 takes a variable number of arguments. Note that these arguments all
 have the type \type{int}. Inside your function's body the variable
 \var{arg} is a slice of ints:
