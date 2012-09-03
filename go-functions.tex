@@ -309,7 +309,7 @@ they can be used as callbacks. First define a function that
 does ``something'' with an integer value:
 \begin{lstlisting}
 func printit(x int) {       |\coderemark{Function returns nothing}|
-    fmt.Print("%v\n", x)    |\coderemark{Just print it}|
+    fmt.Printf("%v\n", x)    |\coderemark{Just print it}|
 }
 \end{lstlisting}
 The signature of this function is: \lstinline{func printit(int)}, or
