@@ -1,4 +1,4 @@
-\epi{“在~Go 中，代码说到做到。”}{\textit{Go
+\epi{``在~Go 中，代码说到做到。''}{\textit{Go
 Nuts 邮件列表}\\\textsc{ANDREW GERRAND}}
 \noindent{}有一些东西使得~Go 区别于其他语言。
 \begin{description}
@@ -24,8 +24,8 @@ Go 有垃圾收集，在~Go 中无须~\func{free()}，语言会处理这一切�
 
 \item[标准格式化]
 Go 程序可以被格式化为程序员希望的（几乎）任何形式，
-\emph{但是}官方格式是存在的。标准也非常简单：
-\prog{gofmt} 的输出就是\emph{官方}认可的格式；
+但是官方格式是存在的。标准也非常简单：
+\prog{gofmt} 的输出就是\emph{官方认可的格式}；
 
 \item[类型后置]
 类型在变量名的\emph{后面}，像这样~\prog{var a int}，
@@ -128,7 +128,7 @@ b := false
 （这一形式只可用在函数\emph{内}）。
 在这种情况下，变量的类型是由值\emph{推演}出来的。
 值~15 表示是~\type{int} 类型，值~\texttt{false} 告诉~Go 它的类型应当是~\type{bool}。
-多个~\key{var} 声明可以成组，\key{const} 和~\key{import} 同样允许这么做。
+多个~\key{var} 声明可以成组；\key{const} 和~\key{import} 同样允许这么做。
 留意圆括号的使用：
 \begin{lstlisting}
 var (
@@ -242,7 +242,7 @@ s[0] = 'c'  |\coderemark{修改第一个字符为 'c'，这会报错}|
 \begin{lstlisting}
 s := "hello"
 c := []rune(s)	    |\longremark{转换 \var{s} 为 rune 数组，%
-查阅在第 \ref{chap:beyond} 章 "\titleref{sec:conversions}"节、%
+查阅在第 \ref{chap:beyond} 章``\titleref{sec:conversions}''节、%
 \pageref{sec:conversions} 页的内容；}|
 c[0] = 'c'	    |\longremark{修改数组的第一个元素；}|
 s2 := string(c)     |\longremark{创建\emph{新的}字符串 \var{s2} 保存修改；}|
@@ -287,6 +287,7 @@ Go 原生支持复数。它的变量类型是~\lstinline{complex128}
 \var{im} 是虚数部分，而~$i$ 是标记~'$i$' ($\sqrt{-1}$)。
 使用复数的一个例子：
 
+\gomarginpar{Printf() 的 \%v 参数含义是``用默认格式打印这个值''。}
 \lstinline{var c complex64 = 5+5i; fmt.Printf("Value is: %v", c)}\newline
 将会打印：\lstinline{(5+5i)}
 
@@ -337,7 +338,7 @@ wise xor}和\first{位清除}{operator!bitwise!clear}。
 \item \key{func} 用于定义函数和方法；
 \item \key{return} 用于从函数返回，\key{func} 和~\key{return}
 参阅第~\ref{chap:functions} 章了解详细信息；
-\item \key{go} 用于并行（第~\ref{chap:channels} 章）；
+\item \key{go} 用于并行，参阅第~\ref{chap:channels} 章；
 \item \key{select} 用于选择不同类型的通讯，参阅第~\ref{chap:channels} 章；
 \item \key{interface} 参阅第~\ref{chap:interfaces} 章；
 \item \key{struct} 用于抽象数据类型，参阅第~\ref{chap:beyond} 章；

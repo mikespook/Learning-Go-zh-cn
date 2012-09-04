@@ -154,7 +154,8 @@ func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheNe}|
 \end{lstlisting}
 
 编写测试时，需要告诉 \prog{go test} 测试是失败还是成功。测试成功则直接返回。
-当测试失败可以用下面的函数标记 \cite{go_doc}。这是非常重要的（参阅 \prog{go doc testing} 了解更多）：
+当测试失败可以用下面的函数标记 \cite{go_doc}。这是非常重要的（参阅 \prog{go doc testing} 或
+\prog{go help testfunc} 了解更多）：
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Fail()

@@ -101,7 +101,7 @@ func nextInt(b []byte, i int) (int, int) {
         return x, i
 }
 \end{lstlisting}
-你可以在输入的数组中扫描数字，像这样：
+你可以在输入的数组 \var{a} 中搜索数字，像这样：
 \begin{lstlisting}
 a := []byte{'1', '2', '3', '4'}
 var x int
@@ -221,7 +221,7 @@ func f() (ret int) {    |\coderemark{\var{ret} 初始化为零}|
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
-\lstinline{arg ... int} 告诉~Go 这个函数接受不定数量的参数。
+\lstinline{arg ...int} 告诉~Go 这个函数接受不定数量的参数。
 注意，这些参数的类型全部是~\type{int}。在函数体中，变量
 \var{arg} 是一个~int 类型的~slice：
 \begin{lstlisting}
@@ -266,7 +266,7 @@ var xs = map[int]func() int{
 首先定义一个函数，对整数做一些``事情''：
 \begin{lstlisting}
 func printit(x int) {       |\coderemark{函数无返回值}|
-    fmt.Print("%v\n", x)    |\coderemark{仅仅打印}|
+    fmt.Printf("%v\n", x)    |\coderemark{仅仅打印}|
 
 }
 \end{lstlisting}
