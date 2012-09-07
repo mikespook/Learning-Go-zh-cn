@@ -284,7 +284,7 @@ They can be assigned to variables as follows:
 If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
 \var{a}, it prints \func{func()}.
 
-Functions--as--values may also be used in other places, like in maps.
+Functions--as--values may be used in other places, for example maps.
 Here we convert from integers to functions:
 \begin{lstlisting}[caption=Functions as values in maps]
 var xs = map[int]func() int{
@@ -301,7 +301,7 @@ on page \pageref{ex:map function}).
 
 \section{Callbacks}
 \label{sec:callbacks}
-With functions as values they are easy to pass to functions, from where
+Because functions are values they are easy to pass to functions, from where
 they can be used as callbacks. First define a function that
 does ``something'' with an integer value:
 \begin{lstlisting}
@@ -320,7 +320,7 @@ func callback(y int, f func(int)) { |\coderemark{\func{f} will hold the function
 
 \section{Panic and recovering}
 \label{sec:panic}
-Go does not have an exception mechanism, like that in Java for instance: you can not throw exceptions.
+Go does not have an exception mechanism, like that in Java for instance: you cannot throw exceptions.
 Instead it uses a panic-and-recover mechanism. It is worth remembering that you should use this as
 a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
 use it wisely. So, how do you use it?
