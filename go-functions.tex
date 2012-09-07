@@ -349,7 +349,7 @@ This function checks if the function it gets as argument will panic when it is
 executed\footnote{Copied from a presentation of Eleanor McHugh.}:
 \begin{lstlisting}
 func throwsPanic(f func()) (b bool) { |\longremark{We define a new function \func{throwsPanic} that takes %
-a fuction as an argument, see ``\titleref{sec:functions as values}''. It returns true when this function %
+a function as an argument, see ``\titleref{sec:functions as values}''. It returns true when this function %
 will panic, otherwise false;}|
     defer func() { |\longremark{We define a \func{defer} function that utilizes \func{recover}, \emph{if} the %
 current goroutine panics, this defer function will notice that. If \func{recover()} returns non-\var{nil} we set \var{b} %
