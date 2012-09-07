@@ -123,7 +123,7 @@ a := []byte{'1', '2', '3', '4'}
 var x int
 for i := 0; i < len(a); {	|\coderemark{No \texttt{i++}}|
     x, i = nextInt(a, i)
-    println(x)
+    fmt.Println(x)
 }
 \end{lstlisting}
 In the absence of tuples as a native type, multiple return values are the next
