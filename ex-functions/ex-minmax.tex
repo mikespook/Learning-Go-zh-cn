@@ -1,15 +1,15 @@
 \begin{Exercise}[title={Minimum and maximum},difficulty=0]
 \label{ex:minmax}
-\Question\label{ex:minmax q1} Write a function that calculates the
+\Question\label{ex:minmax q1} Write a function that finds the
 maximum value in an \type{int} slice (\type{[]int}).
 
-\Question\label{ex:minmax q2} Write a function that calculates the
+\Question\label{ex:minmax q2} Write a function that finds the
 minimum value in an \type{int} slice (\type{[]int}).
 
 \end{Exercise}
 
 \begin{Answer}
-\Question This a function for calculating a maximum:
+\Question This function returns the largest int in the slice \var{l}:
 \begin{lstlisting}
 func max(l []int) (max int) {   |\longremark{We use a named return parameter;}|
         max = l[0]      
@@ -24,7 +24,7 @@ not important;}|
 \end{lstlisting}
 \showremarks
 
-\Question This a function for calculating a minimum, that is almost identical to \func{max}:
+\Question This function returns the smallest int in the slice \var{l}. It is almost identical to \func{max}:
 \begin{lstlisting}
 func min(l []int) (min int) {
         min = l[0]
