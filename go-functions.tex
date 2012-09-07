@@ -112,7 +112,7 @@ func nextInt(b []byte, i int) (int, int) {
     x := 0
     // Naively assume everything is a number
     for ; i < len(b); i++ {
-        x = x*10 + int(b[i])-'0'
+        x = x*10 + int(b[i]) - '0'
     }
     return x, i
 }
