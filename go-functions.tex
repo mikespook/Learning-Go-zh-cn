@@ -248,9 +248,8 @@ func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
 \end{lstlisting}
 
 \section{Variadic parameters}
-Functions that take variadic parameters are functions that have a
-variable number of parameters. To do this, you first
-need to declare your function to take variadic arguments:
+Functions that take a variable number of parameters are known as variadic functions.
+To declare a function as variadic:
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
