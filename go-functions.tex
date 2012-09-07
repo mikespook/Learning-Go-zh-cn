@@ -351,7 +351,7 @@ executed\footnote{Copied from a presentation of Eleanor McHugh.}:
 func throwsPanic(f func()) (b bool) { |\longremark{We define a new function \func{throwsPanic} that takes %
 a function as an argument (see ``\titleref{sec:functions as values}''). It returns true if \func{f} panics %
 when run, else false;}|
-    defer func() { |\longremark{We define a \func{defer} function that utilizes \func{recover}, \emph{if} the %
+    defer func() { |\longremark{We define a \func{defer} function that utilizes \func{recover}. If the %
 current goroutine panics, this defer function will notice that. If \func{recover()} returns non-\var{nil} we set \var{b} %
 to true;}|
         if x := recover(); x != nil {
