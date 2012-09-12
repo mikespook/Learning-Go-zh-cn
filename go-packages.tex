@@ -15,7 +15,7 @@ Names that start with a capital letter are \emph{exported} and may be used
 outside your package (more on that later).
 
 Now we just need to build the package. We create a directory under \var{\$GOPATH},
-copy the \file{even.go} to there (see ``\titleref{sec:building a program}'' in chapter \ref{chap:basics}).
+and copy \file{even.go} there (see ``\titleref{sec:building a program}'' in chapter \ref{chap:basics}).
 
 \begin{display}
 \pr \user{mkdir $GOPATH/src/even}	\coderemark{Create top-level directory}
@@ -24,7 +24,7 @@ copy the \file{even.go} to there (see ``\titleref{sec:building a program}'' in c
 \pr \user{go install}                   \coderemark{Install it to \file{../pkg}}
 \end{display}
 
-Next we can use the package in our own program \prog{myeven.go}:
+Now we can use the package in our own program \prog{myeven.go}:
 
 \lstinputlisting[label=src:myeven,caption=Use of the even package]{src/myeven.go}
 \showremarks
