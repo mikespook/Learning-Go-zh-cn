@@ -30,11 +30,9 @@ func identity(in int) int {
 
 Functions can be declared in any order you wish. The compiler scans the
 entire file before execution, so function prototyping is a thing of the
-past in Go.
-Go disallows nested functions.  You can however
-work around this by using anonymous functions, see section
-``\titleref{sec:functions as values}'' on page \pageref{sec:functions as values} 
-in this chapter.
+past in Go. Go disallows nested functions, but you can work around this with
+anonymous functions. See section ``\titleref{sec:functions as values}'' on page
+\pageref{sec:functions as values} in this chapter.
 
 Recursive functions work just as in other languages:
 \begin{lstlisting}[caption=Recursive function]
@@ -114,7 +112,7 @@ func nextInt(b []byte, i int) (int, int) {
     x := 0
     // Naively assume everything is a number
     for ; i < len(b); i++ {
-        x = x*10 + int(b[i])-'0'
+        x = x*10 + int(b[i]) - '0'
     }
     return x, i
 }
@@ -125,7 +123,7 @@ a := []byte{'1', '2', '3', '4'}
 var x int
 for i := 0; i < len(a); {	|\coderemark{No \texttt{i++}}|
     x, i = nextInt(a, i)
-    println(x)
+    fmt.Println(x)
 }
 \end{lstlisting}
 In the absence of tuples as a native type, multiple return values are the next
@@ -136,9 +134,9 @@ overloading the domain space with special values to signal errors.
 \label{sec:named result parameters}
 The return or result parameters of a Go function can be given names and used
 as regular variables, just like the incoming parameters. When named, they are
-initialized to the zero values for their types when the function begins; if the
+initialized to the zero values for their types when the function begins. If the
 function executes a \key{return} statement with no arguments, the current values of
-the result parameters are used as the returned values. Using these
+the result parameters are returned. Using these
 features enables you (again) to do more with less code \footnote{This is
 a motto of Go; ``Do \emph{more} with \emph{less} code''}.
 
@@ -250,9 +248,8 @@ func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
 \end{lstlisting}
 
 \section{Variadic parameters}
-Functions that take variadic parameters are functions that have a
-variable number of parameters. To do this, you first
-need to declare your function to take variadic arguments:
+Functions that take a variable number of parameters are known as variadic functions.
+To declare a function as variadic:
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
@@ -287,7 +284,7 @@ They can be assigned to variables as follows:
 If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
 \var{a}, it prints \func{func()}.
 
-Functions--as--values may also be used in other places, like in maps.
+Functions--as--values may be used in other places, for example maps.
 Here we convert from integers to functions:
 \begin{lstlisting}[caption=Functions as values in maps]
 var xs = map[int]func() int{
@@ -304,7 +301,7 @@ on page \pageref{ex:map function}).
 
 \section{Callbacks}
 \label{sec:callbacks}
-With functions as values they are easy to pass to functions, from where
+Because functions are values they are easy to pass to functions, from where
 they can be used as callbacks. First define a function that
 does ``something'' with an integer value:
 \begin{lstlisting}
@@ -323,7 +320,7 @@ func callback(y int, f func(int)) { |\coderemark{\func{f} will hold the function
 
 \section{Panic and recovering}
 \label{sec:panic}
-Go does not have an exception mechanism, like that in Java for instance: you can not throw exceptions.
+Go does not have an exception mechanism, like that in Java for instance: you cannot throw exceptions.
 Instead it uses a panic-and-recover mechanism. It is worth remembering that you should use this as
 a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
 use it wisely. So, how do you use it?
@@ -352,9 +349,9 @@ This function checks if the function it gets as argument will panic when it is
 executed\footnote{Copied from a presentation of Eleanor McHugh.}:
 \begin{lstlisting}
 func throwsPanic(f func()) (b bool) { |\longremark{We define a new function \func{throwsPanic} that takes %
-a fuction as an argument, see ``\titleref{sec:functions as values}''. It returns true when this function %
-will panic, otherwise false;}|
-    defer func() { |\longremark{We define a \func{defer} function that utilizes \func{recover}, \emph{if} the %
+a function as an argument (see ``\titleref{sec:functions as values}''). It returns true if \func{f} panics %
+when run, else false;}|
+    defer func() { |\longremark{We define a \func{defer} function that utilizes \func{recover}. If the %
 current goroutine panics, this defer function will notice that. If \func{recover()} returns non-\var{nil} we set \var{b} %
 to true;}|
         if x := recover(); x != nil {

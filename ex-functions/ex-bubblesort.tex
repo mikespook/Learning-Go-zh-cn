@@ -1,7 +1,7 @@
 \begin{Exercise}[title={Bubble sort},difficulty=1]
 \label{ex:bubble}
 \Question\label{ex:bubble q1} Write a function that performs 
-Bubble sort on slice of ints. From \cite{bubblesort}:
+a bubble sort on a slice of ints. From \cite{bubblesort}:
 \begin{quote}
 It works by repeatedly stepping through the list to be sorted, comparing each
 pair of adjacent items and swapping them if they are in the wrong order. The
@@ -28,10 +28,10 @@ end procedure
 
 \begin{Answer}
 \Question 
-The Bubble sort isn't terribly efficient, for $n$ elements it scales
+Bubble sort isn't terribly efficient, for $n$ elements it scales
 $O(n^2)$. See QuickSort \cite{quicksort} for a better sorting algorithm.
 
-But Bubble sort is easy to implement, the following is an example.
+But bubble sort is easy to implement:
 \lstinputlisting[caption=Bubble sort,linerange=4-19]{ex-functions/src/bubblesort.go}
 
 Because a slice is a reference type the \func{bubblesort} function works and
