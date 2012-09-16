@@ -38,7 +38,7 @@ Is 5 even? false
 In Go, a function from a package is exported (visible
 outside the package, i.e. public) when the first letter of the function name is a capital, hence
 the function name \func{\emph{E}ven}. If we change our \prog{myeven.go} on line
-10 to using the unexported function \func{even.odd}:
+10 to use the unexported function \func{even.odd}:
 
 \noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.odd(i))}
 
