@@ -1,6 +1,7 @@
 %\documentclass[a4paper,twoside,openleft]{blocksbook}
-\documentclass[twoside,openleft]{blocksbook}
-\setstocksize{11.5cm}{9cm}
+\documentclass[twoside,openleft,landscape]{blocksbook}
+%%\setstocksize{11.5cm}{9cm}
+\setstocksize{9cm}{11.5cm}
 \settrimmedsize{\stockheight}{\stockwidth}{*}
 \sloppy
 
@@ -15,7 +16,7 @@
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{relsize}
-\usepackage{xCJK}
+\usepackage[boldfont,slantfont]{xeCJK}
 \usepackage{scalefnt}
 \usepackage{wrapfig}
 \usepackage{everypage}
@@ -47,7 +48,7 @@
 
 \begin{document}
 \thispagestyle{empty}
-\newcommand{\version}{0.5}
+\newcommand{\version}{1.0}
 %% Title page
 \begin{center}
 \hspace{0.4cm}{\scalefont{2.00}{\sffamily{\mbox{\vspace{0.4cm}Learning Go}}}}
@@ -63,28 +64,32 @@
 \begin{flushleft} \large
 \hspace*{1.0cm}Authors:\\
 \hspace*{1.0cm}\emph{Miek Gieben}\\
-%%\hspace*{2.0cm}\emph{JC van Winkel}\\
-%%\hspace*{2.0cm}\emph{Jeroen Bulten}\\
 \vfill
 \end{flushleft}
 \end{minipage}
-\hspace{5mm}
+\hspace{2mm}
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
 Thanks to:\\
-\emph{Go Authors}\\
-\emph{Google}\\
-\emph{Go Nuts mailing list}\\
+\emph{Go Authors}, \emph{Google}\\
 \vfill
 \end{flushright}
 \end{minipage}
+\vspace*{0.1cm}
+\begin{center}
+With the help and contributions from:
+
+({\small in alphabetical order})
+
+\input{go-contributors.tex}                                                                             
+\end{center}
 \vfill
 \begin{center}
     \hspace*{1cm}\CcGroupByNcSa{0.83}{0.95ex}\\[2.5ex]
     \hspace*{1cm}{\tiny\CcNote{\CcLongnameByNcSa}}
 \end{center}
 \begin{center}
-\hspace*{1cm}\emph{Miek Gieben -- \copyright 2010, 2011}
+\hspace*{1cm}\emph{Miek Gieben -- \copyright 2010 - 2012}
 \end{center}
 \vspace{-3em}
 %% End title page %%
@@ -101,17 +106,23 @@ or send a letter
 to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.}
 \vspace{2em}
 
-\emph{All example code used in this book, are hereby put in the public domain.}
-%%PDFcrop fails on Ubuntu
-%%\includegraphics[scale=0.50]{fig/google_logo_black.pdf}
+\emph{All example code used in this book is hereby put in the public domain.}  
 \end{center}
 \end{figure}
+
+\begin{center}                                                                                          
+``Learning Go'' has been translated into:                                                               
+\begin{itemize}                                                                                         
+\item Chinese, by Xing Xing, 这里是中文译本: {\url{http://www.mikespook.com/learning-go/}}              
+\end{itemize}                                                                                           
+\end{center} 
+
 \begin{center}
 \vfill
 \emph{Learning as we Go}
 (\emph{\version})
 
-\tiny{Updated to Go release \gorelease{weekly/weekly.2011-08-10}}
+\tiny{Supports the Go 1 release}                                                                        
 \vspace{.2\stockheight}
 \end{center}
 
