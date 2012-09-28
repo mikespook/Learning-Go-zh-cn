@@ -811,7 +811,7 @@ s3 := append(s2, s0...)   |\longremark{追加一个 slice，\texttt{s3 == []int\
 还有
 \begin{quote}
 函数~\lstinline{copy} 从源~slice \lstinline{src} 复制元素到目标~\lstinline{dst}，
-并且返回复制的元素的个数。源和目标可能重叠。复制的数量是~\lstinline{len(src)} 
+并且返回复制的元素的个数。源和目标可能重叠。元素复制的数量是~\lstinline{len(src)} 
 和~\mbox{\lstinline{len(dst)}} 中的最小值。
 \end{quote}
 \index{built-in!copy}

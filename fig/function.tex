@@ -2,10 +2,9 @@
 |\begin{tikzpicture}[overlay]
 \ubrace{0.6,-1.5}{0.0,-1.5}{保留字~\key{func} 用于定义一个函数；}
 %
-\ubrace{2.2,-1.5}{0.8,-1.5}{函数可以定义用于特定的类型，%
-这类函数更加通俗的称呼是~\index{method}{method}。这部分称作%
-~\first{\emph{receiver}}{receiver} 而它是可选的。它将在第%
-~\ref{chap:interfaces} 章使用；}
+\ubrace{2.2,-1.5}{0.8,-1.5}{函数可以绑定到特定的类型上。%
+这叫做~\first{\emph{接收者}}{receiver}。有接收者的函数被称作%
+~\index{方法}{method}。第~\ref{chap:interfaces} 章将对其进行说明；}
 %
 \ubrace{3.4,-1.5}{2.4,-1.5}{\emph{funcname} 是你函数的名字；}
 %
@@ -18,7 +17,7 @@
 如果不想对返回的参数命名，只需要提供类型：\lstinline{(int,int)}。%
 如果只有一个返回值，可以省略圆括号。如果函数是一个子过程，并且没有任何返回值，也可以省略这些内容；}
 %
-\ubrace{8.2,-1.5}{6.3,-1.5}{这是函数体，注意~\func{return} 是一个语句，所以包裹参数的括号是可选的。}
+\ubrace{8.2,-1.5}{6.3,-1.5}{这是函数体。注意~\func{return} 是一个语句，所以包裹参数的括号是可选的。}
 \end{tikzpicture}|
 type mytype int	|\coderemark{新的类型，参阅第~\ref{chap:beyond} 章}|
 

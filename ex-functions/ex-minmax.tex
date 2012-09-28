@@ -1,13 +1,13 @@
 \begin{Exercise}[title={最小值和最大值},difficulty=0]
 \label{ex:minmax}
-\Question\label{ex:minmax q1} 编写一个函数，计算~\type{int} slice (\type{[]int}) 中的最大值。
+\Question\label{ex:minmax q1} 编写一个函数，找到~\type{int} slice (\type{[]int}) 中的最大值。
 
-\Question\label{ex:minmax q2} 编写一个函数，计算~\type{int} slice (\type{[]int}) 中的最小值。
+\Question\label{ex:minmax q2} 编写一个函数，找到~\type{int} slice (\type{[]int}) 中的最小值。
 
 \end{Exercise}
 
 \begin{Answer}
-\Question 这个函数用于计算最大值：
+\Question 这个函数返回~slice~\var{l}中的最大整数：
 \begin{lstlisting}
 func max(l []int) (max int) {   |\longremark{使用了命名返回参数；}|
         max = l[0]      
@@ -21,7 +21,7 @@ func max(l []int) (max int) {   |\longremark{使用了命名返回参数；}|
 \end{lstlisting}
 \showremarks
 
-\Question 这个函数用于计算最小值，这几乎与~\func{max} 完全一致。
+\Question 这个函数返回~slice~\var{l} 中的最小整数，这几乎与~\func{max} 完全一致。
 \begin{lstlisting}
 func min(l []int) (min int) {
         min = l[0]

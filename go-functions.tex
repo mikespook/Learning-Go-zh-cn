@@ -25,7 +25,7 @@ func identity(in int) int {
 \end{minipage}
 
 可以随意安排函数定义的顺序，编译器会在执行前扫描每个文件。所以函数原型在~Go 中都是过期的旧物。
-Go 不允许函数嵌套。然而你可以利用匿名函数实现它，参阅本章第~\pageref{sec:functions as values}
+Go 不允许函数嵌套，然而你可以利用匿名函数实现它，参阅本章第~\pageref{sec:functions as values}
 页的``\titleref{sec:functions as values}''。
 
 
@@ -96,7 +96,7 @@ func nextInt(b []byte, i int) (int, int) {
         x := 0
         // 假设所有的都是数字
         for ; i < len(b); i++ {
-                x = x*10 + int(b[i])-'0'
+                x = x*10 + int(b[i]) - '0'
         }
         return x, i
 }
@@ -107,7 +107,7 @@ a := []byte{'1', '2', '3', '4'}
 var x int
 for i := 0; i < len(a); {	|\coderemark{没有~\texttt{i++}}|
         x, i = nextInt(a, i)
-        println(x)
+        fmt.Println(x)
 }
 \end{lstlisting}
 没有元组作为原生类型，多返回值可能是最佳的选择。
@@ -116,8 +116,8 @@ for i := 0; i < len(a); {	|\coderemark{没有~\texttt{i++}}|
 \section{命名返回值}
 \label{sec:named result parameters}
 Go 函数的返回值或者结果参数可以指定一个名字，并且像原始的变量那样使用，就像输入参数那样。
-如果对其命名，在函数开始时，它们会用其类型的零值初始化；如果函数在不加参数的情况下执行了~
-\key{return} 语句，结果参数的当前值会作为返回值返回。
+如果对其命名，在函数开始时，它们会用其类型的零值初始化。如果函数在不加参数的情况下执行了~
+\key{return} 语句，结果参数会返回。
 用这个特性，允许（再一次的）用较少的代码做更多的事
 \footnote{这是~Go 的格言：``用\emph{更少}的代码做\emph{更多}的事''。}。
 
@@ -217,7 +217,7 @@ func f() (ret int) {    |\coderemark{\var{ret} 初始化为零}|
 \end{lstlisting}
 
 \section{变参}
-接受变参的函数是有着不定数量的参数的。为了做到这点，首先需要定义函数使其接受变参：
+接受不定数量的参数的函数叫做变参函数。定义函数使其接受变参：
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
@@ -247,7 +247,7 @@ func myfunc(arg ...int) {
 \lstinputlisting[label=src:anonfunc,caption=匿名函数,linerange={3,}]{src/anon-func.go}
 如果使用~\lstinline{fmt.Printf("\%T\n", a)} 打印~\var{a} 的类型，输出结果是~\func{func()}。
 
-函数作为值，也会被用在其他一些地方，例如 map。
+函数作为值，也会被用在其他地方，例如 map。
 这里将整数转换为函数：
 \begin{lstlisting}[caption=使用 map 的函数作为值]
 var xs = map[int]func() int{
@@ -262,7 +262,7 @@ var xs = map[int]func() int{
 
 \section{回调}
 \label{sec:callbacks}
-当函数作为值时，就可以很容易的传递到其他函数里，然后可以作为回调。
+由于函数也是值，所以可以很容易的传递到其他函数里，然后可以作为回调。
 首先定义一个函数，对整数做一些``事情''：
 \begin{lstlisting}
 func printit(x int) {       |\coderemark{函数无返回值}|
@@ -280,8 +280,7 @@ func callback(y int, f func(int)) { |\coderemark{\func{f} 将会保存函数}|
 
 \section{恐慌（Panic）和恢复（Recover）}
 \label{sec:panic}
-\footnote{对应异常机制，Go 的这种错误机制或许可以叫做恐慌机制：当你遇到它时应该感到恐慌（panic），然后应该恢复（recover）它。}
-Go 没有像~Java 那样的异常机制：不能抛出一个异常。
+Go 没有像~Java 那样的异常机制，例如你无法像在~Java 中那样抛出一个异常。
 作为替代，它使用了恐慌和恢复（panic-and-recover）机制。一定要记得，这应当作为最后的手段被使用，
 你的代码中应当没有，或者很少的令人恐慌的东西。这是个强大的工具，明智的使用它。
 那么，应该如何使用它呢。
@@ -307,9 +306,9 @@ recover \emph{仅在}\emph{延迟}函数中有效。
 \footnote{复制于~Eleanor McHugh 的演讲稿}：
 \begin{lstlisting}
 func throwsPanic(f func()) (b bool) { |\longremark{定义一个新函数~\func{throwsPanic} %
-接受一个函数作为参数，参看``\titleref{sec:functions as values}''。当这个函数产生~panic，%
+接受一个函数作为参数（参看``\titleref{sec:functions as values}''）。函数~\func{f} 产生~panic，%
 就返回~true，否则返回~false；}|
-defer func() { |\longremark{定义了一个利用~\func{recover} 的~\func{defer} 函数，%
+defer func() { |\longremark{定义了一个利用~\func{recover} 的~\func{defer} 函数。%
 \emph{如果}当前的~goroutine 产生了~panic，这个~defer 函数能够发现。%
 当~\func{recover()} 返回非~\var{nil} 值，设置~\var{b} 为 true；}|
         if x := recover(); x != nil {

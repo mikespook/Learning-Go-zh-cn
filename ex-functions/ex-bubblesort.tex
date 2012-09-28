@@ -28,7 +28,7 @@ end procedure
 冒泡排序并不是最有效率的，对于~$n$ 个元素它的算法复杂度是~$O(n^2)$。
 快速排序~\cite{quicksort} 是更好的排序算法。
 
-但是冒泡排序容易实现，下面是一个例子。
+但是冒泡排序容易实现。
 \lstinputlisting[caption=冒泡排序,linerange=4-19]{ex-functions/src/bubblesort.go}
 
 由于~slice 是一个引用类型，\func{bubblesort} 函数可以工作，并且无须返回排序后的~slice。
