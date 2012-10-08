@@ -1,8 +1,8 @@
 \epi{``\lstinline{^}''}{\textit{Answer to whether there is a bit wise negation
 operator.}\\\textsc{KEN THOMPSON}}
-\noindent{}Packages are a collection of functions and data. 
+\noindent{}A package is a collection of functions and data.
 You declare a package with the
-\first{\key{package}}{keyword!package} keyword. The file name does not
+\first{\key{package}}{keyword!package} keyword. The filename does not
 have to match the package name.
 The convention for package names is to use
 lowercase characters.
@@ -12,10 +12,10 @@ Let's define a package \package{even}\index{package!even} in the file \prog{even
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
 Names that start with a capital letter are \emph{exported} and may be used
-outside your package, more on that later.
+outside your package (more on that later).
 
 Now we just need to build the package. We create a directory under \var{\$GOPATH},
-copy the \file{even.go} to there (see ``\titleref{sec:building a program}'' in chapter \ref{chap:basics}).
+and copy \file{even.go} there (see ``\titleref{sec:building a program}'' in chapter \ref{chap:basics}).
 
 \begin{display}
 \pr \user{mkdir $GOPATH/src/even}	\coderemark{Create top-level directory}
@@ -24,7 +24,7 @@ copy the \file{even.go} to there (see ``\titleref{sec:building a program}'' in c
 \pr \user{go install}                   \coderemark{Install it to \file{../pkg}}
 \end{display}
 
-Next we can use the package in our own program \prog{myeven.go}:
+Now we can use the package in our own program \prog{myeven.go}:
 
 \lstinputlisting[label=src:myeven,caption=Use of the even package]{src/myeven.go}
 \showremarks
@@ -38,7 +38,7 @@ Is 5 even? false
 In Go, a function from a package is exported (visible
 outside the package, i.e. public) when the first letter of the function name is a capital, hence
 the function name \func{\emph{E}ven}. If we change our \prog{myeven.go} on line
-10 to using the unexported function \func{even.odd}:
+10 to use the unexported function \func{even.odd}:
 
 \noindent\lstinline{fmt.Printf("Is %d even? %v\n", i, even.odd(i))}
 
@@ -50,52 +50,52 @@ myeven.go:10: cannot refer to unexported name even.odd
 
 \noindent{}To summarize:
 \begin{itemize}
-\item Public functions have a name starting with a \emph{capital}
-letter;
+\item Public functions begin with a \emph{capital} letter;
 \index{public}
-\item Private function have a name starting with a \emph{lowercase} letter.
+\item Private functions begin with a \emph{lowercase} letter.
 \index{private}
 \end{itemize}
-This convention also holds true for other names (new types, global
-variables) you define in a package. Note that the term ``capital'' is not limited
-to US ASCII, it extends into the entire Unicode range. So capital Greek, Coptic, etc. is OK too.
+This convention holds true for other labels (new types, global
+variables) defined in the package. Note that the term ``capital'' is not limited
+to US-ASCII - it extends to all bicameral alphabets (Latin, Greek, Cyrillic, Armenian and Coptic).
 
 \section{Identifiers}
 Names are as important in Go as in any other language. In some cases
 they even have semantic effect: for instance, the visibility of a name
-outside a package is determined by whether its first character is upper
-case. It's therefore worth spending a little time talking about naming
+outside its package is determined by the case of its first character.
+It's therefore worth spending a little time talking about naming
 conventions in Go programs.
 
-The convention that is used was to leave well-known legacy
+The convention is to leave well-known legacy
 not-quite-words alone rather than try to figure out where
-the capital letters go.  \lstinline{Atoi}, \lstinline{Getwd},
+the capital letters go:  \lstinline{Atoi}, \lstinline{Getwd},
 \lstinline{Chmod}.
-Camelcasing works best when you have whole words
-to work with: \lstinline{ReadFile, NewWriter, MakeSlice}.
+CamelCasing works best when you have whole words
+to work with: \lstinline{ReadFile}, \lstinline{NewWriter}, \lstinline{MakeSlice}.
 
 \subsection{Package names}
 When a package is imported (with \first{\key{import}}{keyword!import}), the package name becomes 
-an accessor for the contents. After\index{package!bytes}
+the accessor for the contents. After\index{package!bytes}
 \begin{lstlisting}
 import "bytes"
 \end{lstlisting}
 the importing package can talk about \func{bytes.Buffer}. It's helpful if
 everyone using the package can use the same name to refer to its
-contents, which implies that the package name should be good: short,
-concise, and evocative. By convention, packages are given lower case,
+contents, so the package name should be good: short,
+concise and evocative. By convention packages are given lower-case
 single-word names; there should be no need for underscores or mixedCaps.
-Err on the side of brevity, since everyone using your package will be
-typing that name. And don't worry about collisions a priori. The package
-name is only the default name for imports. With the above import 
-you can use \lstinline{bytes.Buffer}. With 
+Err on the side of brevity (since everyone using your package will be
+typing its name), and don't worry about collisions a priori.
+
+The package name is only the default name for imports. You can override the default
+accessor by providing your own name to the import statement:
 \begin{lstlisting}
 import bar "bytes"
 \end{lstlisting}
-it becomes \lstinline{bar.Buffer}.
-So it does need not be unique across
-all source code, and in the rare case of a collision the importing
-package can choose a different name to use locally. In any case,
+The function \func{Buffer} is now accessed as \lstinline{bar.Buffer}. This
+means that the package name does not need to be globally unique;
+in the rare case of a collision the importing
+code can choose a different name to use locally. In any case
 confusion is rare because the file name in the import determines just
 which package is being used.
 
@@ -113,7 +113,7 @@ package is
 called \func{Reader}, not \func{BufReader}, because users see it as
 \func{bufio.Reader},
 which is a clear, concise name. Moreover, because imported entities are
-always addressed with their package name, \func{bufio.Reader} does not conflict
+always addressed by their package name, \func{bufio.Reader} does not conflict
 with \func{io.Reader}. Similarly, the function to make new instances of
 \func{ring.Ring} (package \package{container/ring}) ---which is the definition of a constructor in Go---would normally
 be called \func{NewRing}, but since \type{Ring} is the only type exported by the
@@ -192,8 +192,8 @@ with \lstinline{Test}:
 func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
 \end{lstlisting}
 
-When writing test you will need to tell \prog{go test} that a test has
-failed or was successful. A successful test function just returns. When
+When writing test you will need to tell \prog{go test} whether a test was
+successful or not. A successful test function just returns. When
 the test fails you can signal this with the following
 functions \cite{go_doc}. These are the most important ones (see \prog{go doc
 testing} or \prog{go help testfunc} for more):
@@ -207,8 +207,7 @@ func (t *T) Fail()
 func (t *T) FailNow()
 \end{lstlisting}
 \func{FailNow} marks the test function as having failed and stops its execution.
-Execution will continue at the next test. So any other test in
-\emph{this} file are skipped too.
+Any remaining tests in this file are skipped, and execution continues with the next test.
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Log(args ...interface{})
@@ -225,10 +224,10 @@ Putting all this together we can write our test. First
 we pick a name: \file{even\_test.go}. Then we add the following contents:
 \lstinputlisting[label=src:eventest,caption=Test file for even
 package,numbers=right]{src/even_test.go}
-Note that we use \lstinline{package even} on line 1, the tests fall in the same
-namespace as the package we are testing. This not only convenient, but
-also allows tests of unexported function and structures. We then import
-the \package{testing} package and on line 5 we define the only test
+Note that we use \lstinline{package even} on line 1 - the tests fall in the same
+namespace as the package we are testing. This is not only convenient, but
+also allows tests of unexported functions and structures. We then import
+the \package{testing} package, and on line 5 we define the only test
 function in this file. The displayed Go code should not hold any
 surprises: we check if the \func{Even} function works OK. 
 Now, the moment we've been waiting for, executing the test:
@@ -238,7 +237,7 @@ ok      even    0.001s
 \end{display}
 \noindent{}Our test ran and reported \texttt{ok}. Success! 
 
-To show how a failed test looks we redefine our test function:
+If we redefine our test function, we can see the result of a failed test:
 \begin{lstlisting}
 // Entering the twilight zone
 func TestEven(t *testing.T) {
@@ -265,7 +264,7 @@ shows that you really put in the effort.
 
 \section{Useful packages}
 The standard Go repository includes a huge number of packages and it is
-even possible to install more along side your current Go installation. 
+even possible to install more alongside your current Go installation.
 It is very enlightening to browse the \file{\$GOROOT/src/pkg} directory and
 look at the packages.
 We cannot comment on each package, but the following are worth a mention:
