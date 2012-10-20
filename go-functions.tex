@@ -103,29 +103,6 @@ and as the documentation says, it returns the number of bytes written and a
 non-\lstinline{nil} \var{error} when \lstinline{n != len(b)}. This is a common
 style in Go.
 
-A similar approach obviates the need to pass a pointer to a return value to
-simulate a reference parameter. Here's a simple-minded function to grab a
-number from a position in a byte array, returning the number and the next
-position.
-\begin{lstlisting}
-func nextInt(b []byte, i int) (int, int) {
-    x := 0
-    // Naively assume everything is a number
-    for ; i < len(b); i++ {
-        x = x*10 + int(b[i]) - '0'
-    }
-    return x, i
-}
-\end{lstlisting}
-You could use it to scan the numbers in an input array \var{a} like this:
-\begin{lstlisting}
-a := []byte{'1', '2', '3', '4'}
-var x int
-for i := 0; i < len(a); {	|\coderemark{No \texttt{i++}}|
-    x, i = nextInt(a, i)
-    fmt.Println(x)
-}
-\end{lstlisting}
 In the absence of tuples as a native type, multiple return values are the next
 best thing. You can return precisely what you want without
 overloading the domain space with special values to signal errors.
