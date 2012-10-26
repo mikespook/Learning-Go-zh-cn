@@ -7,7 +7,7 @@ Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <na
 让我们在文件 \prog{even.go} 中定义一个叫做 \package{even}\index{package!even} 的包。
 
 \lstinputlisting[label=src:even,caption=A small package]{src/even.go}
-名称以大写字母起始的是\emph{可导出}的，可以在包的外部调用，稍候会讨论这个。
+名称以大写字母起始的是\emph{可导出}的，可以在包的外部调用（稍候会对此进行讨论）。
 
 现在只需要构建这个包。在 \var{\$GOPATH} 下建立一个目录，复制
 \file{even.go} 到这个目录（参阅第 \ref{chap:basics} 章的``\titleref{sec:building a program}''）。
@@ -19,7 +19,7 @@ Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <na
 \pr \user{go install}                   \coderemark{将其安装到~\file{../pkg}}
 \end{display}
 
-接下来在程序 \prog{myeven.go} 中使用这个包：
+现在就可以在程序 \prog{myeven.go} 中使用这个包：
 
 \lstinputlisting[label=src:myeven,caption=even 包的使用]{src/myeven.go}
 \showremarks
@@ -49,8 +49,8 @@ myeven.go:10: cannot refer to unexported name even.odd
 \index{private}
 \end{itemize}
 这个规则同样适用于定义在包中的其他名字（新类型、全局变量）。
-注意，``大写''的含义并不仅限于 US ASCII，它被扩展到了整个 Unicode 范围。
-所以大写的希腊语、古埃及语都是可以的。
+注意，``大写''的含义并不仅限于 US ASCII，它被扩展到了所有大小写字母表
+（拉丁文、希腊文、斯拉夫文、亚美尼亚文和埃及古文）。
 
 \section{标识符}
 像在其他语言中一样，Go 的命名是很重要的。在某些情况下，它们甚至有语义上的作用：
@@ -59,7 +59,7 @@ myeven.go:10: cannot refer to unexported name even.odd
 使用的规则是让众所周知的缩写保持原样，而不是去尝试到底哪里应该大写。
 \lstinline{Atoi}，\lstinline{Getwd}，\lstinline{Chmod}。
 
-驼峰式对那些有完整单词的会很好：\lstinline{ReadFile，NewWriter，MakeSlice}。
+驼峰式对那些有完整单词的会很好：\lstinline{ReadFile}，\lstinline{NewWriter}，\lstinline{MakeSlice}。
 
 \subsection{包名}
 当包导入（通过 \first{\key{import}}{keyword!import}）时，包名成为了内容的入口。
@@ -70,13 +70,14 @@ import "bytes"
 之后，导入包的可以调用函数\func{bytes.Buffer}。任何使用这个包的人，
 可以使用同样的名字访问到它的内容，因此这样的包名是好的：短的、简洁的、好记的。
 根据规则，包名是小写的一个单词；不应当有下划线或混合大小写。
-由于每个人都可能需要录入这个名字，所以尽可能的简短。不要提前考虑冲突。
-包名是导入的默认名称。就上面的 \lstinline{bytes.Buffer} 来说。通过 
+保持简洁（由于每个人都可能需要录入这个名字），不要过早考虑命名冲突。
+
+包名是导入的默认名称。可以通过在导入语句指定其他名称来覆盖默认名称：
 \begin{lstlisting}
 import bar "bytes"
 \end{lstlisting}
-它变成了 \lstinline{bar.Buffer}。
-因此，它无须在整个代码中唯一，在少有的冲突中，可以给导入的包选择另一个名字在局部使用。
+函数 \func{Buffer} 现在可以通过 \lstinline{bar.Buffer} 来访问。
+这意味着，包名无需全局唯一；在少有的冲突中，可以给导入的包选择另一个名字在局部使用。
 在任何时候，冲突都是很少见的，因为导入的文件名会用来做判断，到底是哪个包使用了。
 
 另一个规则是包名就是代码的根目录名；在 \package{src/pkg/compress/gzip} 的包，
@@ -166,7 +167,7 @@ func (t *T) Fail()
 func (t *T) FailNow()
 \end{lstlisting}
 \func{FailNow} 标记测试函数失败，并且中断其执行。
-这将会执行下一个测试。因此，\emph{当前}文件的其他所有测试都被跳过。
+当前文件中的其余的测试将被跳过，然后执行下一个文件中的测试。
 
 \begin{lstlisting}[numbers=none]
 func (t *T) Log(args ...interface{})
@@ -196,7 +197,7 @@ ok      even    0.001s
 \end{display}
 \noindent{}测试执行并且报告 \texttt{ok}。成功了！
 
-为了展示失败的测试，修改测试函数：
+如果重新定义测试函数，就可以看到一个失败的测试：
 \begin{lstlisting}
 // Entering the twilight zone
 func TestEven(t *testing.T) {
@@ -269,7 +270,7 @@ FAIL
 \item[\package{encoding/json}]{\index{package!encoding/json}
 \package{encoding/json} 包实现了编码与解码 RFC 4627 \cite{RFC4627} 定义的 JSON 对象。
 }
-\item[\package{text/template}]{\index{package!text/template}
+\item[\package{html/template}]{\index{package!html/template}
 数据驱动的模板，用于生成文本输出，例如 HTML。
 
 将模板关联到某个数据结构上进行解析。模板内容指向数据结构的元素（通常结构的字段或者 map 的键）

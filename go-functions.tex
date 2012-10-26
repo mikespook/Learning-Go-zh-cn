@@ -89,28 +89,7 @@ func (file *File) Write(b []byte) (n int, err error)
 如同文档所述，它返回写入的字节数，并且当~\lstinline{n != len(b)} 时，返回非~\lstinline{nil} 的~\var{error}。
 这是~Go 中常见的方式。
 
-类似的方法避免了传递指针模拟引用参数来返回值。
-这里有个样例函数，从字节数组的指定位上取得数值，返回这个值和下一个位置。
-\begin{lstlisting}
-func nextInt(b []byte, i int) (int, int) {
-        x := 0
-        // 假设所有的都是数字
-        for ; i < len(b); i++ {
-                x = x*10 + int(b[i]) - '0'
-        }
-        return x, i
-}
-\end{lstlisting}
-你可以在输入的数组 \var{a} 中搜索数字，像这样：
-\begin{lstlisting}
-a := []byte{'1', '2', '3', '4'}
-var x int
-for i := 0; i < len(a); {	|\coderemark{没有~\texttt{i++}}|
-        x, i = nextInt(a, i)
-        fmt.Println(x)
-}
-\end{lstlisting}
-没有元组作为原生类型，多返回值可能是最佳的选择。
+元组没有作为原生类型出现，所以多返回值可能是最佳的选择。
 你可以精确的返回希望的值，而无须重载域空间到特定的错误信号上。
 
 \section{命名返回值}
