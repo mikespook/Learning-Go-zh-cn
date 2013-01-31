@@ -789,7 +789,7 @@ arr[0] = 42
 arr[1] = 13
 fmt.Printf("The first element is %d\n", arr[0])
 \end{lstlisting}
-Array types like \lstinline{var arr = [10]int} have a fixed size. The
+Array types like \lstinline{var arr [10]int} have a fixed size. The
 size is \emph{part} of the type.
 They can't grow, because then they would have a different type. Also arrays
 are values: Assigning one array to another \emph{copies} all the elements.
