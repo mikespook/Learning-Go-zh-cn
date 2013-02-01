@@ -315,10 +315,11 @@ There is a subtle but major difference between the following type
 declarations. Also see \cite[section~``Type Declarations'']{go_spec}.
 Suppose we have:
 \begin{lstlisting}
-// A Mutex is a data type with two methods, Lock and Unlock.
+// A Mutex is a data type with two methods,
+// Lock and Unlock.
 type Mutex struct         { /* Mutex fields */ }
-func (m *Mutex) Lock()    { /* Lock implementation */ }
-func (m *Mutex) Unlock()  { /* Unlock implementation */ }
+func (m *Mutex) Lock()    { /* Lock impl. */ }
+func (m *Mutex) Unlock()  { /* Unlock impl. */ }
 \end{lstlisting}
 We now create two types in two different manners:
 \begin{itemize}
@@ -345,8 +346,9 @@ is done by operators (that look like functions: \func{byte()}) and not all conve
 
 \begin{table}[H]
 \begin{center}
-\caption[Valid conversions]{Valid conversions, 
-\lstinline{float64} works the same as \lstinline{float32}}
+\caption[Valid conversions]{Valid conversions,
+\lstinline{float64} works the same as \lstinline{float32}. Note that
+float32 has been abbreviated to flt32 in this table to make it fit on the page.}
 \label{tab:convesion}
 \input{tab/conversion.tex}
 \end{center}
