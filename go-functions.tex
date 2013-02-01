@@ -10,23 +10,16 @@ such noise?''}{\textsc{RICHARD P. GABRIEL}}
 stuff happens in them. A function is declared as follows:
 \input{fig/function.tex}
 \showremarks
-Here are two examples. On the left is a function without a return value,
-while on the right is a simple function that returns its input.
+Here are two examples. The first is a function without a return value,
+while the bottom one is a simple function that returns its input.
 
-\begin{minipage}{.5\textwidth}
 \begin{lstlisting}
-func subroutine(in int) {
-    return
-}
+func subroutine(in int) { return }
 \end{lstlisting}
-\end{minipage}
-\begin{minipage}{.5\textwidth}
+
 \begin{lstlisting}
-func identity(in int) int {
-    return in
-}
+func identity(in int) int { return in }
 \end{lstlisting}
-\end{minipage}
 
 Functions can be declared in any order you wish. The compiler scans the
 entire file before execution, so function prototyping is a thing of the
