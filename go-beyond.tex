@@ -165,7 +165,7 @@ func NewFile(fd int, name string) *File {
         return nil
     }
     f := File{fd, name, nil, 0}	|\coderemark{Create a new \type{File}}|
-    return &f			|\coderemark{Return the address of \var{f}}|
+    return &f	|\coderemark{Return the address of \var{f}}|
 }
 \end{lstlisting}
 It is OK to return the address of a local variable;
@@ -198,8 +198,8 @@ with the field labels being indices or map keys as appropriate. In these
 examples, the initializations work regardless of the values of
 \var{Enone}, and \var{Einval}, as long as they are distinct.
 \begin{lstlisting}
-ar := [...]string    {Enone: "no error", Einval: "invalid argument"}
-sl := []string       {Enone: "no error", Einval: "invalid argument"}
+ar := [...]string{Enone: "no error", Einval: "invalid argument"}
+sl := []string{Enone: "no error", Einval: "invalid argument"}
 ma := map[int]string {Enone: "no error", Einval: "invalid argument"}
 \end{lstlisting}
 
@@ -267,13 +267,13 @@ take two routes:
 \begin{enumerate}
 \item Create a function that takes the type as an argument.
 \begin{lstlisting}
-func doSomething(in1 *NameAge, in2 int) { /* ... */ }
+func doSomething(n1 *NameAge, n2 int) { /* */ }
 \end{lstlisting}
 This is (you might have guessed) a \first{\emph{function call}}{function!call}.
 \item Create a function that works on the type (see \emph{receiver} in
 listing \ref{src:function definition}):
 \begin{lstlisting}
-func (in1 *NameAge) doSomething(in2 int) { /* ... */ }
+func (n1 *NameAge) doSomething(n2 int) { /* */ }
 \end{lstlisting}
 This is a \first{\emph{method call}}{method call}, which can be
 used as: 
@@ -370,7 +370,8 @@ point. Every character from the string corresponds to one rune.
 \item{
 From a slice of bytes or runes to a \lstinline{string}.
 \begin{lstlisting}
-b := []byte{'h','e','l','l','o'} |\coderemark{Composite literal}|
+b := []byte{'h','e','l','l','o'} // Composite 
+                                 // literal
 s := string(b)
 i := []rune{257,1024,65} 
 r := string(i)
