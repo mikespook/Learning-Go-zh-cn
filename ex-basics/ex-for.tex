@@ -33,12 +33,12 @@ Let's compile this and look at the output.
 like this (only showing the \func{main}-function):
 \begin{lstlisting}
 func main() {
-        i := 0		|\coderemark{Define our loop variable}|
-I:			|\coderemark{Define a label}|
+        i := 0	|\coderemark{Define our loop variable}|
+I:		|\coderemark{Define a label}|
         fmt.Printf("%d\n", i)
         i++ 
         if i < 10 {
-                goto I	|\coderemark{Jump back to the label}|
+                goto I	|\coderemark{Jump to the label}|
         }   
 }
 \end{lstlisting}
@@ -48,7 +48,7 @@ The following is one possible solution:
 \lstinputlisting[label=src:for-arr,caption={For loop with an array},linerange={5,11}]{ex-basics/src/for-arr.go}
 You could even do this in one fell swoop by using a composite literal:
 \begin{lstlisting}
-a := [...]int{0,1,2,3,4,5,6,7,8,9} |\coderemark{With [...] you let Go count}|
+a := [...]int{0,1,2,3,4,5,6,7,8,9} |\coderemark{Let Go count}|
 fmt.Printf("%v\n", a)
 \end{lstlisting}
 \end{Answer}
