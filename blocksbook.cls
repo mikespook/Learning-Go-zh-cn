@@ -88,6 +88,7 @@
 \makerunningwidth{blocks}{\headwidth}
 \makeevenhead{blocks}{
         \addtolength{\fboxsep}{0.5ex}
+        \hspace{-0.25cm}
         \framebox{\myfamily\thepage}
         % hack to get spacing correct
         \vspace{-0.1mm}
