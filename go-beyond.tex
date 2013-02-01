@@ -61,10 +61,7 @@ essentially the same as its namesakes in other languages: \func{new(T)}
 allocates zeroed storage for a new item of type \type{T} and returns its
 address, a value of type \type{*T}. In Go terminology, it returns a pointer to
 a newly allocated zero value of type \type{T}. This is important to
-remember:
-\begin{lbar}[]
-\key{new} returns a \emph{pointer}.
-\end{lbar}
+remember.
 
 This
 means a user of the data structure can create one with \key{new} and get
@@ -105,11 +102,7 @@ slice, for example, is a three-item descriptor containing a pointer to
 the data (inside an array), the length, and the capacity; until those
 items are initialized, the slice is \type{nil}. For slices, maps, and channels,
 \key{make} initializes the internal data structure and prepares the value for
-use. 
-
-\begin{lbar}[]
-\key{make} returns initialized (non zero) \emph{values}.
-\end{lbar}
+use.
 
 For instance,
 \lstinline{make([]int, 10, 100)}
