@@ -189,7 +189,7 @@ execute the test functions.
 Each test function has the same signature and its name should start
 with \lstinline{Test}:
 \begin{lstlisting}
-func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
+func TestXxx(t *testing.T)
 \end{lstlisting}
 
 When writing test you will need to tell \prog{go test} whether a test was
@@ -261,6 +261,22 @@ Writing new packages should go hand in hand with writing (some)
 documentation and test functions. It will make your code better and it
 shows that you really put in the effort.
 \end{lbar}
+
+The Go test suite also allows you to incorperate example functions which
+serve as documentation \emph{and} as tests. These functions need to
+start with \texttt{Example}.
+\begin{lstlisting}
+func ExampleEven() {
+    if Even(2) {
+        fmt.Printf("Is even\n")
+    }
+    // Output:
+    // Is even
+}
+\end{lstlisting}
+Those last two comments lines are part of the example, \prog{go test} uses those
+to check the \emph{generated} output with the text in the comments. If there is
+a mismatch the test fails.
 
 \section{Useful packages}
 The standard Go repository includes a huge number of packages and it is
