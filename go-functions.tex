@@ -204,16 +204,16 @@ you need the braces:
 \begin{lstlisting}[caption=Function literal with parameters]
 defer func(x int) {
 	/* ... */
-}(5)		 |\coderemark{Give the input variable \var{x} the value 5}|
+}(5)  |\coderemark{Give the input variable \var{x} the value 5}|
 \end{lstlisting}
 In this (unnamed) function you can access any named return
 parameter:
 \begin{lstlisting}[caption=Access return values within defer]
-func f() (ret int) {    |\coderemark{\var{ret} is initialized with zero}|
+func f() (ret int) {|\coderemark{\var{ret} is initialized with zero}|
 	defer func() {
-		ret++	|\coderemark{Increment \var{ret} with 1}|
+		ret++|\coderemark{Increment \var{ret} with 1}|
 	}()
-	return 0	|\coderemark{1 \emph{not} 0 will be returned!}|
+	return 0|\coderemark{1 \emph{not} 0 will be returned!}|
 }
 \end{lstlisting}
 
@@ -275,15 +275,15 @@ Because functions are values they are easy to pass to functions, from where
 they can be used as callbacks. First define a function that
 does ``something'' with an integer value:
 \begin{lstlisting}
-func printit(x int) {       |\coderemark{Function returns nothing}|
-    fmt.Printf("%v\n", x)    |\coderemark{Just print it}|
+func printit(x int) {|\coderemark{Function returns nothing}|
+    fmt.Printf("%v\n", x)|\coderemark{Just print it}|
 }
 \end{lstlisting}
 The signature of this function is: \lstinline{func printit(int)}, or
 without the function name: \mbox{\lstinline{func(int)}}. To create a new function
 that uses this one as a callback we need to use this signature:
 \begin{lstlisting}
-func callback(y int, f func(int)) { |\coderemark{\func{f} will hold the function}|
+func callback(y int, f func(int)) {|\coderemark{\func{f} has the function}|
     f(y)    |\coderemark{Call the callback \func{f} with \var{y}}|
 }
 \end{lstlisting}
