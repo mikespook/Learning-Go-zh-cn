@@ -378,8 +378,8 @@ take a look at the following code:
 func show(i interface{}) {
     switch t := i.(type) {
       case *Person:
-        t := reflect.TypeOf(i)  |\coderemark{Go for type meta data}|
-        v := reflect.ValueOf(i) |\coderemark{Go for the actual values}|
+        t := reflect.TypeOf(i)  |\coderemark{Type meta data}|
+        v := reflect.ValueOf(i) |\coderemark{Actual values}|
 	tag := t.Elem().Field(0).Tag |\longremark{Here we want to get to the ``tag''. %
 So we need \func{Elem()} to redirect the pointer, access the first field and get the tag. %
 Note we operate on \var{t} a \type{reflect.Type};}|
@@ -411,7 +411,7 @@ Setting a value works similarly as getting a value, but only works on
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=Reflect with private member]
 type Person struct {
- name string "namestr" |\coderemark{name}|
+ name string |\coderemark{name}|
  age  int
 }
 
@@ -428,7 +428,7 @@ func Set(i interface{}) {
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=Reflect with public member]
 type Person struct {
- Name string "namestr" |\coderemark{\emph{N}ame}|
+ Name string |\coderemark{\emph{N}ame}|
  age  int
 }
 
