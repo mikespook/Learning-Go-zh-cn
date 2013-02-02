@@ -169,7 +169,7 @@ to the \func{Open}.
 \begin{lstlisting}[caption=With defer]
 func ReadWrite() bool {
     file.Open("file")
-    defer file.Close()	|\coderemark{\func{file.Close()} is added to the defer list}|
+    defer file.Close()	|\coderemark{\func{file.Close()} is added to defer list}|
     // Do your thing
     if failureX {
 	return false    |\coderemark{\func{Close()} is now done automatically}|
