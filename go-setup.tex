@@ -6,6 +6,7 @@
 \setmainfont[Path=fonts/,ItalicFont={PTS56F},BoldFont={PTS75F}]{PTS55F}
 \def\inputGnumericTable{}
 
+\setlength{\textwidth}{1.1\textwidth}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.7ex plus 0.5ex minus 0.2ex}
 
@@ -63,14 +64,9 @@
 \noindexintoc
 \makeindex
 
-%% make quote print italics and other fancy stuff
+%% make quote print italics
 \newcommand{\qquote}{{\scalefont{4.00}{``}}}
 \expandafter\def\expandafter\quote\expandafter{\quote\em}
-
-%%\DeclareCaptionFont{white}{\color{white}}
-%%\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35,
-%%0.35,0.01}{\parbox{0.5\textwidth}{\hspace{0.5em}#1#2#3}}} % 0.98 same as listings
-%%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white,singlelinecheck=false,margin=0em,font={bf,footnotesize}}
 
 %% Listings
 \newfontfamily\listingsfont[Path=fonts/,Scale=0.95,BoldFont={SourceCodePro-Bold}]{SourceCodePro-Regular}
@@ -130,7 +126,6 @@
 \newcommand{\gorelease}[1]{\texttt{#1}}
 
 %% Footnotes
-%%\renewcommand*{\thefootnote}{\textbf{\emph\MakeUppercase{\alph{footnote}}}}
 \renewcommand*{\thefootnote}{\textbf{\emph\alph{footnote}}}
 
 %% Epigraph

@@ -18,10 +18,10 @@ Now we just need to build the package. We create a directory under \var{\$GOPATH
 and copy \file{even.go} there (see ``\titleref{sec:building a program}'' in chapter \ref{chap:basics}).
 
 \begin{display}
-\pr \user{mkdir $GOPATH/src/even}	\coderemark{Create top-level directory}
-\pr \user{cp even.go $GOPATH/src/even} 	\coderemark{Copy the package file}
-\pr \user{go build}                     \coderemark{Build it}
-\pr \user{go install}                   \coderemark{Install it to \file{../pkg}}
+\pr \user{mkdir $GOPATH/src/even}
+\pr \user{cp even.go $GOPATH/src/even}
+\pr \user{go build}
+\pr \user{go install}
 \end{display}
 
 Now we can use the package in our own program \prog{myeven.go}:
