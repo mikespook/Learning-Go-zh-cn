@@ -4,7 +4,6 @@
 \RequirePackage{ifthen}
 \RequirePackage{scalefnt}
 
-
 \newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
 \MakeFramed{\advance\hsize-\width\FrameRestore}%%
 \vspace*{-2ex}\small\begin{alltt}}%
