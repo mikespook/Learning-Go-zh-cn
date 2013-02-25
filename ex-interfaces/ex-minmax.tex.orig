@@ -1,0 +1,93 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={接口和 max()},difficulty=2]
+\Question
+在练习 Q\ref{ex:minmax} 中创建了工作于一个整形 slice 上的最大函数。
+现在的问题是创建一个显示最大数字的程序，同时工作于整数和浮点数。
+虽然在这里会相当困难，不过还是让程序尽可能的通用吧。
+=======
+\begin{Exercise}[title={Interfaces and max()},difficulty=2]
+\Question
+In exercise Q\ref{ex:minmax} we created a max function that works on
+a slice of integers.
+The question now is to create
+a program that shows the maximum number and that works for both integers and floats.
+Try to make your program as generic as possible, although that is quite difficult in
+this case.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Exercise}
+
+\begin{Answer}
+\Question
+<<<<<<< HEAD
+下面的程序计算了最大值。它是 Go 能做到的最通用的形式了。
+
+\begin{lstlisting}[caption=通用的计算最大值]
+package main
+
+func Less(l, r interface{}) bool { |\longremark{也可以选择让这个函数的返回值为 %
+\mbox{\type{interface\{\}}}，但是这也就意味着调用者不得不总是使用类型断言来从接口中解析出实际的类型；}|
+       switch l.(type) {
+       case int:
+               if _, ok := r.(int); ok {
+                       return l.(int) < r.(int) |\longremark{所有类型定义为整数。然后进行比较；}|
+               }
+       case float32:
+               if _, ok := r.(float32); ok {
+                       return l.(float32) < r.(float32) |\longremark{参数是 \type{float32}；}|
+               }
+       }
+       return false
+}
+
+func main() {
+       var a, b, c int = 5, 15, 0
+       var x, y, z float32 = 5.4, 29.3, 0.0
+
+       if c = a; Less(a, b) { |\longremark{获得 \var{a} 和 \var{b} 中的最大值；}|
+               c = b
+       }
+       if z = x; Less(x, y) { |\longremark{浮点类型也一样。}|
+               z = y
+       }
+       println(c, z)
+=======
+The following program calculates a maximum. It is as generic as you can get
+with Go.
+
+\begin{lstlisting}[caption=Generic way of calculating a maximum]
+package main
+
+func Less(l, r interface{}) bool { |\longremark{We could have choosen to make the %
+return type of this function a \mbox{\type{interface\{\}}}, but that would mean %
+that a caller would always have to a type assertion to extra the actual type %
+from the interface;}|
+	switch l.(type) {
+	case int:
+		if _, ok := r.(int); ok {
+			return l.(int) < r.(int) |\longremark{All parameters are confirmed to be %
+integers. Now perform the comparison;}|
+		}
+	case float32:
+		if _, ok := r.(float32); ok {
+			return l.(float32) < r.(float32) |\longremark{Parameters are \type{float32};}|
+		}
+	}
+	return false
+}
+
+func main() {
+	var a, b, c int = 5, 15, 0
+	var x, y, z float32 = 5.4, 29.3, 0.0
+
+	if c = a; Less(a, b) { |\longremark{Get the maximum of \var{a} and \var{b};}|
+		c = b
+	}
+	if z = x; Less(x, y) { |\longremark{Same for the floats.}|
+		z = y
+	}
+	println(c, z)
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+}
+\end{lstlisting}
+\showremarks
+\end{Answer}

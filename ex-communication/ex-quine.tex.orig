@@ -1,0 +1,41 @@
+\begin{Exercise}[title={Quine},difficulty=2]
+<<<<<<< HEAD
+\emph{Quine} 是一个打印自己的程序。
+\label{ex:quine}
+\Question\label{ex:quine q1} 用 Go 编写一个 Quine 程序。
+=======
+A \emph{Quine} is a program that prints itself.
+\label{ex:quine}
+\Question\label{ex:quine q1} Write a Quine in Go.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Exercise}
+
+\begin{Answer}
+\begin{lbar}
+<<<<<<< HEAD
+下面是来自 Russ Cox 提交在 Go Nuts 邮件列表上的解决方案。
+\end{lbar}
+\Question
+\begin{lstlisting}[caption=一个 Go quine]
+=======
+This solution is from Russ Cox. It was posted to 
+the Go Nuts mailing list.
+\end{lbar}
+\Question 
+\begin{lstlisting}[caption=A Go quine]
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+/* Go quine */
+package main
+import "fmt"
+func main() {
+ fmt.Printf("%s%c%s%c\n", q, 0x60, q, 0x60)
+}
+var q = `/* Go quine */
+package main
+import "fmt"
+func main() {
+ fmt.Printf("%s%c%s%c\n", q, 0x60, q, 0x60)
+}
+var q = `
+\end{lstlisting}
+\end{Answer}

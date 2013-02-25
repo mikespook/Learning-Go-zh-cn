@@ -1,0 +1,62 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={冒泡排序},difficulty=1]
+\label{ex:bubble}
+\Question\label{ex:bubble q1} 编写一个针对~int 类型的~slice 冒泡排序的函数。这里 \cite{bubblesort}：
+\begin{quote}
+它在一个列表上重复步骤来排序，比较每个相邻的元素，并且顺序错误的时候，交换它们。
+一遍一遍扫描列表，直到没有交换为止，这意味着列表排序完成。
+算法得名于更小的元素就像``泡泡''一样冒到列表的顶端。
+\end{quote}
+
+\cite{bubblesort} 这里有一个过程代码作为示例：
+=======
+\begin{Exercise}[title={Bubble sort},difficulty=1]
+\label{ex:bubble}
+\Question\label{ex:bubble q1} Write a function that performs 
+a bubble sort on a slice of ints. From \cite{bubblesort}:
+\begin{quote}
+It works by repeatedly stepping through the list to be sorted, comparing each
+pair of adjacent items and swapping them if they are in the wrong order. The
+pass through the list is repeated until no swaps are needed, which indicates
+that the list is sorted. The algorithm gets its name from the way smaller
+elements ``bubble'' to the top of the list. 
+\end{quote}
+
+\cite{bubblesort} also gives an example in pseudo code:
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\begin{lstlisting}[language=pascal]
+procedure bubbleSort( A : list of sortable items )
+  do
+    swapped = false
+    for each i in 1 to length(A) - 1 inclusive do:
+      if A[i-1] > A[i] then
+        swap( A[i-1], A[i] )
+        swapped = true
+      end if
+    end for
+  while swapped
+end procedure
+\end{lstlisting}
+\end{Exercise}
+
+\begin{Answer}
+\Question 
+<<<<<<< HEAD
+冒泡排序并不是最有效率的，对于~$n$ 个元素它的算法复杂度是~$O(n^2)$。
+快速排序~\cite{quicksort} 是更好的排序算法。
+
+但是冒泡排序容易实现。
+\lstinputlisting[caption=冒泡排序,linerange=4-19]{ex-functions/src/bubblesort.go}
+
+由于~slice 是一个引用类型，\func{bubblesort} 函数可以工作，并且无须返回排序后的~slice。
+=======
+Bubble sort isn't terribly efficient, for $n$ elements it scales
+$O(n^2)$. See QuickSort \cite{quicksort} for a better sorting algorithm.
+
+But bubble sort is easy to implement:
+\lstinputlisting[caption=Bubble sort,linerange=4-19]{ex-functions/src/bubblesort.go}
+
+Because a slice is a reference type the \func{bubblesort} function works and
+does not need to return a sorted slice.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Answer}

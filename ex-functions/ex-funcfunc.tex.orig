@@ -1,0 +1,75 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={函数返回一个函数},difficulty=1]
+\label{ex:function}
+\Question\label{ex:function q1} 编写一个函数返回另一个函数，返回的函数的作用是对一个整数~$+2$。
+函数的名称叫做~\func{plusTwo}。
+然后可以像下面这样使用：
+=======
+\begin{Exercise}[title={Functions that return functions},difficulty=1]
+\label{ex:function}
+\Question\label{ex:function q1} Write a function that returns a function
+that performs a $+2$ on integers. Name the function \func{plusTwo}.
+You should then be able do the following:
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\begin{lstlisting}
+p := plusTwo()
+fmt.Printf("%v\n", p(2))
+\end{lstlisting}
+<<<<<<< HEAD
+应该打印 4。
+参阅第~\pageref{sec:callbacks} 页的~``\titleref{sec:callbacks}''小节了解更多相关信息。
+
+\Question\label{ex:function q2} 使~\ref{ex:function q1} 中的函数更加通用化，
+创建一个~\func{plusX(x)} 函数，返回一个函数用于对整数加上~\var{x}。
+=======
+Which should print 4.
+See section \titleref{sec:callbacks} on page \pageref{sec:callbacks} for information
+about this topic.
+
+\Question\label{ex:function q2} Generalize the function from \ref{ex:function q1},
+and create a \func{plusX(x)} which returns functions that add \var{x} to an
+integer.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Exercise}
+
+\begin{Answer}
+\Question
+\begin{lstlisting}
+func main() {
+        p2 := plusTwo()
+        fmt.Printf("%v\n",p2(2))
+}
+
+<<<<<<< HEAD
+func plusTwo() func(int) int { |\longremark{定义新的函数返回一个函数。%
+看看你写的跟要表达的意思是如何的；}|
+        return func(x int) int { return x + 2 } |\longremark{函数符号，%
+在返回语句中定义了一个~+2 的函数。}|
+=======
+func plusTwo() func(int) int { |\longremark{Define a new function that returns a function. %
+See how you you can just write down what you mean;}|
+        return func(x int) int { return x + 2 } |\longremark{Function literals at work, %
+we define the +2--function right there in the return statement.}|
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+}
+\end{lstlisting}
+\showremarks
+
+\Question
+<<<<<<< HEAD
+这里我们使用闭包：
+\begin{lstlisting}
+func plusX(x int) func(int) int { |\longremark{再次定义一个函数返回一个函数；}|
+        return func(y int) int { return x + y } |\longremark{在函数符号中使用\emph{局部}变量 \var{x}。}|
+=======
+Here we use a closure:
+\begin{lstlisting}
+func plusX(x int) func(int) int { |\longremark{Again define a function that returns %
+a function;}|
+        return func(y int) int { return x + y } |\longremark{Use the \emph{local} variable %
+\var{x} in the function literal.}|
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+}
+\end{lstlisting}
+\showremarks
+\end{Answer}

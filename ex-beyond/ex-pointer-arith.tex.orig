@@ -1,0 +1,41 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={指针运算},difficulty=1]
+\label{ex:pointer arithmetic}
+\Question
+在正文的第 \pageref{main:pointer arithmetic} 页有这样的文字：
+
+\begin{quote}
+\ldots 这里没有指针运算，因此如果这样写：
+\lstinline{*p++}，它被解释为 \lstinline{(*p)++}：首先解析引用然后增加值。
+\end{quote}
+
+当像这样增加一个值的时候，什么类型可以工作？
+\Question 为什么它不能工作在所有类型上？
+=======
+\begin{Exercise}[title={Pointer arithmetic},difficulty=1]
+\label{ex:pointer arithmetic}
+\Question
+In the main text on page \pageref{main:pointer arithmetic}
+there is the following text:
+
+\begin{quote}
+\ldots there is no pointer arithmetic, so if you write:
+\lstinline{*p++}, it is interpreted as \lstinline{(*p)++}: first
+dereference and then increment the value.
+\end{quote}
+When you increment a value like this, for which types will it work?
+\Question Why doesn't it work for all types?
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+
+\end{Exercise}
+
+\begin{Answer}
+<<<<<<< HEAD
+\Question 这仅能工作于指向数字（\type{int, uint} 等等）的指针值。 
+\Question \func{++} 仅仅定义在数字类型上，同时由于在 Go 中没有运算符重载，所以会在其他类型上失败（编译错误）。
+=======
+\Question This will only work for pointers to point to numerical (\type{int, uint}, etc) values.
+\Question The \func{++} is only defined for numerical types and because there
+is no operator overloading in Go it fails (compilation error) otherwise.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Answer}

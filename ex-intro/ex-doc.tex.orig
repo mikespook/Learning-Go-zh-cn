@@ -1,0 +1,71 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={文档},difficulty=1]
+\label{ex:doc}
+\Question
+Go 的文档可以通过~\prog{go doc} 程序阅读，它包含在~Go 的发布包中。
+
+\prog{go doc hash} 给出了~\package{hash} 包的信息：
+=======
+\begin{Exercise}[title={Documentation},difficulty=1]
+\label{ex:doc}
+\Question
+Go's documentation can be read with the \prog{go doc} program, which is
+included the Go distribution.
+
+\prog{go doc hash} gives information about the \package{hash} package:
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\vskip\baselineskip
+\begin{display}
+\pr \user{go doc hash}
+PACKAGE
+
+package hash
+
+...
+...
+...
+
+SUBDIRECTORIES
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+        adler32
+        crc32
+        crc64
+        fnv
+<<<<<<< HEAD
+\end{display}
+\vskip\baselineskip
+哪个~\prog{go doc} 的命令可以显示~\package{hash} 包中的~\package{fnv} 文档？
+=======
+
+\end{display}
+\vskip\baselineskip
+With which \prog{go doc} command can you read the documentation of \package{fnv} contained in
+\package{hash}?
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+
+\end{Exercise}
+
+\begin{Answer}
+\Question
+<<<<<<< HEAD
+\package{fnv} 包在~\package{hash} 的\emph{子目录}中，所以只需要 
+\quad \texttt{go doc hash/fnv} 即可。
+
+也可以指定``Go 手册''中某个函数的的文档。例如，函数~\func{Printf} 
+在~\package{fmt} 包中，仅阅读这个函数的文档，使用：\prog{go doc fmt Printf}{}。
+
+所有的内建函数同样可以通过~\prog{godoc} 程序访问：\prog{go doc builtin}。
+=======
+The package \package{fnv} is in a \emph{subdirectory} of
+\package{hash}, so you will only need\quad \texttt{go doc hash/fnv}.
+
+Specific functions inside the ``Go manual'' can also be accessed. For
+instance the function \func{Printf} is described in \package{fmt}. To
+view the documentation for this function alone use: \prog{go doc fmt Printf}{} .
+
+All the built-in functions are also accesible by using \prog{go doc builtin}.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Answer}

@@ -1,0 +1,26 @@
+package main
+<<<<<<< HEAD
+
+import "fmt"
+
+type NameAge struct {
+	name string	|\coderemark{不导出}|
+	age  int	|\coderemark{不导出}|
+=======
+import "fmt"
+
+type NameAge struct {
+	name string	|\coderemark{Not exported}|
+	age  int	|\coderemark{Not exported}|
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+}
+
+func main() {
+	a := new(NameAge)
+	a.name = "Pete"; a.age = 42
+<<<<<<< HEAD
+
+=======
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+	fmt.Printf("%v\n", a)
+}

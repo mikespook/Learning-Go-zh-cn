@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={八皇后问题},difficulty=2]
+=======
+\begin{Exercise}[title={Eight Queens Puzzle},difficulty=2]
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\label{ex:queen8}
+\Question\label{ex:queen8 q1}
+%%http://en.wikipedia.org/wiki/Eight_queens_puzzle
+\end{Exercise}
+
+\begin{Answer}
+<<<<<<< HEAD
+\Question 
+\lstinputlisting[caption=八皇后问题,linerange={3,14}]{ex-functions/src/queen8.go}
+=======
+\Question The following function calculates the average:
+\lstinputlisting[caption=Average function in Go,linerange={3,14}]{ex-functions/src/ave.go}
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\showremarks
+\end{Answer}

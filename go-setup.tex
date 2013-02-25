@@ -10,6 +10,8 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.7ex plus 0.5ex minus 0.2ex}
 
+%%\setlength{\parskip}{0.3\baselineskip}
+%%\setlength{\parindent}{0pt}
 %% list of answers
 \newlistof{listofex}{ex}{List of Exercises}
 \newlistentry{exercise}{ex}{0}
@@ -120,9 +122,9 @@
 \newcommand{\package}[1]{{\textit{#1}}}
 \newcommand{\first}[2]{#1\index{#2}}
 \newcommand{\error}[1]{\texttt{#1}}
-\newcommand{\pr}{\textbf{\%}}
-\newcommand{\user}[1]{\textbf{#1}}
-\newcommand{\userinput}[1]{\textit{#1}}
+\newcommand{\pr}{\textbf{\%}}           %% a prompt (also bold)
+\newcommand{\user}[1]{\textbf{#1}}      %% text a user should type
+\newcommand{\userinput}[1]{\textit{#1}} %% text a user should choose
 \newcommand{\gorelease}[1]{\texttt{#1}}
 
 %% Footnotes

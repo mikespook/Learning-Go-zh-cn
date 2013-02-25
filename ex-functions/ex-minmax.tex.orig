@@ -1,0 +1,71 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={最小值和最大值},difficulty=0]
+\label{ex:minmax}
+\Question\label{ex:minmax q1} 编写一个函数，找到~\type{int} slice (\type{[]int}) 中的最大值。
+
+\Question\label{ex:minmax q2} 编写一个函数，找到~\type{int} slice (\type{[]int}) 中的最小值。
+=======
+\begin{Exercise}[title={Minimum and maximum},difficulty=0]
+\label{ex:minmax}
+\Question\label{ex:minmax q1} Write a function that finds the
+maximum value in an \type{int} slice (\type{[]int}).
+
+\Question\label{ex:minmax q2} Write a function that finds the
+minimum value in an \type{int} slice (\type{[]int}).
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+
+\end{Exercise}
+
+\begin{Answer}
+<<<<<<< HEAD
+\Question 这个函数返回~slice~\var{l}中的最大整数：
+\begin{lstlisting}
+func max(l []int) (max int) {   |\longremark{使用了命名返回参数；}|
+        max = l[0]      
+        for _, v := range l {   |\longremark{对~\var{l} 循环。元素的序号不重要；}|
+                if v > max {    |\longremark{如果找到了新的最大值，记住它；}|
+                        max = v 
+                }   
+        }   
+        return  |\longremark{一个``遥远的''返回，当前的~\var{max} 值被返回。}|
+=======
+\Question This function returns the largest int in the slice \var{l}:
+\begin{lstlisting}
+func max(l []int) (max int) {   |\longremark{We use a named return parameter;}|
+        max = l[0]      
+        for _, v := range l {   |\longremark{Loop over \var{l}. The index of the element is %
+not important;}|
+                if v > max {    |\longremark{If we find a new maximum, remember it;}|
+                        max = v 
+                }   
+        }   
+        return  |\longremark{A ``lone'' return, the current value of \var{max} is now returned.}|
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+}
+\end{lstlisting}
+\showremarks
+
+<<<<<<< HEAD
+\Question 这个函数返回~slice~\var{l} 中的最小整数，这几乎与~\func{max} 完全一致。
+=======
+\Question This function returns the smallest int in the slice \var{l}. It is almost identical to \func{max}:
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\begin{lstlisting}
+func min(l []int) (min int) {
+        min = l[0]
+        for _, v := range l { 
+                if v < min {
+                        min = v 
+                }   
+        }   
+        return
+}
+\end{lstlisting}
+<<<<<<< HEAD
+有心的读者可能已经将~\func{max} 和~\func{min} 合成一个函数，用一个选择来判断是取最小值还是最大值，
+或者两个值都返回。
+=======
+The interested reader may combine \func{max} and \func{min} into one function with a selector
+that lets you choose between the minimum or the maximum, or one that returns both values.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Answer}

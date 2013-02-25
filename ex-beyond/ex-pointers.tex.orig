@@ -1,0 +1,93 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={指针},difficulty=1]
+\label{ex:pointers}
+
+\Question
+假设定义了下面的结构：
+=======
+\begin{Exercise}[title={Pointers},difficulty=1]
+\label{ex:pointers}
+
+\Question
+Suppose we have defined the following structure:
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\begin{lstlisting}
+type Person struct {
+    name string
+    age	 int
+}
+\end{lstlisting}
+
+<<<<<<< HEAD
+下面两行之间的区别是什么？
+=======
+What is the difference between the following two lines?
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\begin{lstlisting}
+var p1 Person
+p2 := new(Person)
+\end{lstlisting}
+
+\Question
+<<<<<<< HEAD
+下面两个内存分配的区别是什么？
+=======
+What is the difference between the following two allocations?
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\begin{lstlisting}[numbers=none]
+func Set(t *T) {
+    x = t
+}
+\end{lstlisting}
+<<<<<<< HEAD
+和
+=======
+and
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\begin{lstlisting}[numbers=none]
+func Set(t T) {
+    x= &t
+}
+\end{lstlisting}
+\end{Exercise}
+
+\begin{Answer}
+\Question
+<<<<<<< HEAD
+第一行：\lstinline{var p1 Person} 分配了
+\texttt{Person}-\emph{值} 给 \var{p1}。\var{p1} 的类型是
+\type{Person}。
+
+第二行：\lstinline{p2 := new(Person)} 分配了内存并且将\emph{指针}赋值给
+\var{p2}。\var{p2} 的类型是 \type{*Person}。
+
+\Question
+在第二个函数中，\var{x} 指向一个新的（堆上分配的）变量
+\var{t}，其包含了实际参数值的副本。
+
+在第一个函数中，\var{x} 指向了 \var{t} 指向的内容，
+也就是实际上的参数指向的内容。
+
+因此在第二个函数，我们有了``额外''的变量存储了相关值的副本。
+=======
+In first line: \lstinline{var p1 Person} allocates a
+\texttt{Person}-\emph{value} to \var{p1}. The type of \var{p1} is
+\type{Person}.
+
+The second line: \lstinline{p2 := new(Person)} allocates memory
+and assigns a \emph{pointer} to \var{p2}. The type of \var{p2} is
+\type{*Person}.
+
+\Question
+In the second function, \var{x} points to a new
+(heap-allocated) variable \var{t} which contains
+a copy of whatever the actual argument value is.
+
+In the first function, \var{x} points to the same thing
+that \var{t} does, which is the same thing that the actual
+argument points to.
+
+So in the second function, we have an ``extra'' variable
+containing a copy of the interesting value.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Answer}

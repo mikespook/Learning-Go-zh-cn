@@ -1,0 +1,23 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={计算器},difficulty=2]
+\label{ex:calc}
+\Question\label{ex:calc q1} 使用 stack 包创建逆波兰计算器。
+=======
+\begin{Exercise}[title={Calculator},difficulty=2]
+\label{ex:calc}
+\Question\label{ex:calc q1} Create a reverse polish calculator. Use your
+stack package.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+
+\end{Exercise}
+
+\begin{Answer}
+<<<<<<< HEAD
+\Question 这是第一个答案：
+\lstinputlisting[caption=逆波兰计算器]{ex-packages/src/calc.go}
+=======
+\Question This is one answer:
+\lstinputlisting[caption=A (rpn) calculator]{ex-packages/src/calc.go}
+
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Answer}

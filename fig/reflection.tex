@@ -28,10 +28,7 @@ ShowTag(p1)	    |\coderemark{调用 \func{ShowTag()} 并传递指针}|
 
 func ShowTag(i interface{}) {
 
- switch t := reflect.TypeOf(i); t.Kind() { |\coderemark{Get type, switch on Kind()}|
- case reflect.Ptr:       |\coderemark{Its a pointer, hence a \var{reflect.Ptr}}|
+ switch t := reflect.TypeOf(i); t.Kind() { |\coderemark{获取类型，在 Kind() 上选择}|
+ case reflect.Ptr:	  |\coderemark{这是个指针，因此是 \var{reflect.Ptr}}|
        tag := t.Elem().Field(0).Tag
-||
 \end{lstlisting}
-Elem 返回 v 指向的值。%
-如果 v 是空指针，Elem 返回空值。%

@@ -1,0 +1,32 @@
+package stack
+
+<<<<<<< HEAD
+// 保存元素的 Stack
+=======
+// Stack holds the items.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+type Stack struct {
+	i    int
+	data [10]int
+}
+
+<<<<<<< HEAD
+// Push 将元素压入栈中
+=======
+// Push pushes an item on the stack.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+func (s *Stack) Push(k int) {
+	s.data[s.i] = k
+	s.i++
+}
+
+<<<<<<< HEAD
+// Pop 从栈中弹出一个元素
+=======
+// Pop pops an item from the stack.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+func (s *Stack) Pop() (ret int) {
+	s.i--
+	ret = s.data[s.i]
+        return
+}

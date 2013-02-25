@@ -1,51 +1,50 @@
-# `Learning Go` - a free E-Book for learning the Go language.
+# `学习 Go 语言` - 一本学习 Go 语言的免费电子书。
 
+本书当前包含：
 
-The book currently consists of the following chapters:
+1. 简介：演示了如何安装 Go，并通过一个源代码逐行展示了 Go 语言。
+2. 基础：类型，变量和控制流程。
+3. 函数：如何编写和使用函数。
+4. 包：函数和数据通过包组织在一起。这里将会看到如何编写包。对如何在包中使用单元测试也进行了介绍。
+5. 进阶：学习如何创建自定义数据类型，并在其上定义函数（在 Go 中叫做方法）。
+6. 接口：Go 并不支持传统意义上的面向对象。在 Go 中核心概念是接口。
+7. 并发：通过关键字 go，可以在独立的调度中运行函数（叫做 goroutine）。在这些 goroutine 之间进行通讯是通过 channel 完成的。
+8. 通讯：如何建立/读取/写如文件。以及网络相关内容。
 
-1. Introduction: Show how to install Go and details the lineage of the language Go.
-2. Basics:  Types, variables and control structures.
-3. Functions: How to make and use functions.
-4. Packages: Functions and data is grouped together in packages. Here you will see how to make your own package. How to unit test your package is also described.
-5. Beyond the basics:  Learn how to create your own data types and define function on them (called methods in Go).
-6. Interfaces: Go does not support Object Orientation in the traditional sense. In Go the central concept is interfaces.
-7. Concurrency: With the go keyword function can be started in separate routines (called goroutines). Communication with those goroutines is done via channels.
-8. Communication : How to create/read/write from and to files. And how to do networking.
+每章包含若干个提供了答案的练习来帮助你提升。
 
-Each chapter concludes with a number of exercises with answers to help you to get some handson experience. Currently it has more than 30 exercises.
+* [Go 项目][1]
+* [学习 Go 语言][2]
 
-* See http://www.golang.org for the homepage of Go.
-* [Learning Go Project page.] [2]
+## 构建
 
+### 依赖的包 
 
-## Building the book
-
-### Package Prerequisites 
-
-When building this book from LaTeX sources files you will need the following packages on Ubuntu (tested on 12.04).
+在 Ubuntu 上需要用到下面的包来从 LaTeX 源文件中构建本书（12.04 已测试）。
 
 * `inkscape`
 * `gnumeric`
 * `ttf-droid`
 * `ttf-dejavu`
-* `ttf-sazanami-gothic`  (Japanese font)
+* `ttf-sazanami-gothic`  (日文)
 * `ttf-arphic-ukai`     
 * `texlive-fonts-recommended`
 * `texlive-extra-utils`
 * `texlive-xetex`
 * `texlive-latex-extra`
 * `texlive-latex-recommended`
-* `latex-cjk-xcjk`       (Chinese font)
+* `latex-cjk-xcjk`       (中文)
 * `git-core`
 * `GNU make`
 
 
 
-### Following is a shell script to automate the package prerequisites installation.
+### 使用下面的 shell 脚本自动构建和安装。
 
-You can copy and paste the following code to your vt100 session to kickoff the chains of many packages installation.
+你可以复制和粘贴下面的代码到 vt100 完成若干包的安装。
+
 ```
-# tested on Ubuntu 12.04
+# 在 Ubuntu 12.04 通过测试
 for i in inkscape \
 gnumeric \
 ttf-droid \
@@ -65,13 +64,13 @@ sudo apt-get install $i -y
 done
 ```
 
-### Checking out the `Learning Go`  LaTeX sources.
+### 检出 `学习 Go 语言` LaTeX 源文件。
 
-Using http protocol.
+使用 http 协议。
 
 ```
-me@ubuntu1204:~$git clone https://github.com/miekg/gobook.git 
-Cloning into 'gobook'...
+me@ubuntu1204:~$git clone https://github.com/mikespook/Learning-Go-zh-cn.git 
+Cloning into 'Learning-Go-zh-cn'...
 remote: Counting objects: 4515, done.
 remote: Compressing objects: 100% (1385/1385), done.
 remote: Total 4515 (delta 3106), reused 4512 (delta 3104)
@@ -80,23 +79,24 @@ Resolving deltas: 100% (3106/3106), done.
 me@ubuntu1204:~$
 ```
 
-Using git protocol if you already have github account setup.
+如果已经有了 github 账户，可以使用 git 协议。
 
 ```
-git clone git@github.com:tjyang/gobook.git
+git clone git@github.com:mikespook/Learning-Go-zh-cn.git
 ```
 
 
-### Make the `Learning Go` Book 
+### 生成 `学习 Go 语言` 
 
 ```
 make
 ```
 
-### Download the prebuilt `Learning Go` book
+### 下载已经编译好的版本
 
-Latest prebuilt pdf book [can be downloaded from http://www.miek.nl/files/go/] [1]
+最新编译的 pdf 发布在[微盘][3]
 
 
-[1]: http://miek.nl/files/go/  "Download the prebuilt Learning Go book in PDF format"
-[2]: http://www.miek.nl/projects/learninggo/index.html "http://www.miek.nl/projects/learninggo/index.html"
+[1]: http://golang.org  "Go 项目"
+[2]: http://www.mikespook.com/learning-go/ "学习 Go 语言"
+[3]: http://vdisk.weibo.com/s/bUhFF/1346855208 "微盘"

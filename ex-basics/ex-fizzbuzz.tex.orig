@@ -1,0 +1,29 @@
+\begin{Exercise}[title={FizzBuzz},difficulty=0]
+\label{ex:fizzbuzz}
+<<<<<<< HEAD
+\Question \label{ex:fizzbuzz q1} 解决这个叫做~Fizz-Buzz\cite{fizzbuzz} 的问题：
+\begin{quote}
+编写一个程序，打印从~1 到~100 的数字。当是三个倍数就打印``Fizz''代替数字，
+当是五的倍数就打印``Buzz''。当数字同时是三和五的倍数时，打印``FizzBuzz''。
+=======
+\Question \label{ex:fizzbuzz q1} Solve this problem, called
+the Fizz-Buzz \cite{fizzbuzz} problem:
+\begin{quote}
+Write a program that prints the numbers from 1 to 100. But for multiples
+of three print ``Fizz'' instead of the number and for the multiples of
+five print ``Buzz''. For numbers which are multiples of both three and
+five print ``FizzBuzz''.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{quote}
+\end{Exercise}
+
+\begin{Answer}
+<<<<<<< HEAD
+\Question 下面简单的程序，是一种解决办法。
+=======
+\Question A possible
+solution to this simple problem is the following program.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\lstinputlisting[label=src:fizzbuzz,caption=Fizz-Buzz]{ex-basics/src/fizzbuzz.go}
+\showremarks
+\end{Answer}

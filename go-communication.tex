@@ -30,6 +30,32 @@ r := bufio.NewReader(f) |\coderemark{使其成为一个 bufio，以便访问 Rea
 s, ok := r.ReadString('\n') {|\coderemark{从输入中读取一行}|
 // ... |\coderemark{\var{s} 保存了字符串，通过 \package{string} 包就可以解析它}|
 \end{lstlisting}
+
+A more robust method (but slightly more complicated) is \func{ReadLine}, see the documentation
+of the \package{bufio} package.
+
+A common scenario in shell scripting is that you want to check if a directory
+exists and if not, create one. 
+
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[language=sh,caption={Create a directory with the shell}]
+if [ ! -e name ]; then
+    mkdir name
+else
+    # error
+fi
+\end{lstlisting}
+\end{minipage}
+\hspace{1em}
+\begin{minipage}{.5\textwidth}
+\begin{lstlisting}[caption={Create a directory with Go}]
+if f, e := os.Stat("name"); e != nil {
+    os.Mkdir("name", 0755)
+} else {
+    // error
+}
+\end{lstlisting}
+\end{minipage}
 这两个例子的相似之处展示了 Go 拥有的``脚本''化特性，例如，用 Go  编写程序感觉上类似使用动态语言（Python、Ruby、Perl 或者 PHP）。
 
 \section{命令行参数}

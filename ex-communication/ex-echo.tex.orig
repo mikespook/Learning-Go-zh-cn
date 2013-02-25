@@ -1,0 +1,62 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={Echo 服务},difficulty=1]
+\label{ex:echo}
+\Question\label{ex:echo q1}
+编写一个简单的 echo 服务。使其监听于本地的 TCP 端口 8053 上。
+它应当可以读取一行（以换行符结尾），将这行原样返回然后关闭连接。
+
+\Question\label{ex:echo q2}
+让这个服务可以并发，这样每个请求都可以在独立的 goroutine 中进行处理。
+=======
+\begin{Exercise}[title={Echo server},difficulty=1]
+\label{ex:echo}
+\Question\label{ex:echo q1}
+Write a simple echo server. Make it listen to TCP port number 8053 on localhost. It should
+be able to read a line (up to the newline), echo back that line and then close the connection. 
+
+\Question\label{ex:echo q2}
+Make the server concurrent so that every request is taken care of in a separate
+goroutine.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+
+\end{Exercise}
+
+\begin{Answer}
+\Question
+<<<<<<< HEAD
+一个简单的 echo 服务器是这样：
+\lstinputlisting[caption=简易 echo 服务器]{ex-communication/src/echo.go}
+
+当运行起来的时候可以看到如下内容：
+=======
+A simple echo server might be:
+\lstinputlisting[caption=A simple echo server]{ex-communication/src/echo.go}
+
+When started you should see the following:
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\vskip\baselineskip
+\begin{display}
+\pr \user{nc 127.0.0.1 8053}
+\user{Go is *awesome*}
+Go is *awesome*
+\end{display}
+
+\Question
+<<<<<<< HEAD
+为了使其能够并发处理链接，\emph{只需要修改一行代码}，就是：
+\begin{lstlisting}
+if c, err := l.Accept(); err == nil { Echo(c) }
+\end{lstlisting}
+改为：
+=======
+To make the connection handling concurrent we \emph{only need to change one line} in our
+echo server, the line:
+\begin{lstlisting}
+if c, err := l.Accept(); err == nil { Echo(c) }
+\end{lstlisting}
+becomes:
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\begin{lstlisting}
+if c, err := l.Accept(); err == nil { go Echo(c) }
+\end{lstlisting}
+\end{Answer}

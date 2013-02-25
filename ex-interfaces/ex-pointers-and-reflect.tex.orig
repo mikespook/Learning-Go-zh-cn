@@ -1,0 +1,38 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={指针和反射},difficulty=1]
+\label{ex:pointers and reflection}
+\Question
+在第 ``\titleref{sec:introspection and reflection}'' 节，第 \pageref{sec:introspection and reflection} 
+页的最后一段中，有这样的描述：
+\begin{quote}
+右边的代码没有问题，并且设置了成员变量 \var{Name} 
+为``Albert Einstein''。当然，这仅仅工作于调用 \func{Set()} 时传递一个指针参数。
+\end{quote}
+为什么是这样的情况？
+=======
+\begin{Exercise}[title={Pointers and reflection},difficulty=1]
+\label{ex:pointers and reflection}
+\Question
+One of the last paragraphs in section ``\titleref{sec:introspection and reflection}''
+on page \pageref{sec:introspection and reflection}, has
+the following words:
+\begin{quote}
+The code on the right works OK and sets the member \var{Name}
+to ``Albert Einstein''. Of course this only works when you call \func{Set()}
+with a pointer argument.
+\end{quote}
+Why is this the case?
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Exercise}
+
+\begin{Answer}
+\Question
+<<<<<<< HEAD
+当调用一个非指针参数，变量是复制（call-by-value）的。因此，进行魔法般的反射是在副本上。
+这样就\emph{不能}改变原来的值，仅仅改变副本。
+=======
+When called with a non-pointer argument the variable is a copy (call-by-value). So you
+are doing the reflection voodoo on a copy. And thus you are \emph{not}
+changing the original value, but only this copy.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Answer}

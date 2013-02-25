@@ -1,0 +1,55 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={*Finger 守护进程},difficulty=1]
+\label{ex:finger}
+\Question
+编写一个 finger 守护进程，可以工作于 finger(1) 命令。
+
+来自 Debian 的包描述：
+\begin{quote}
+Fingerd 是一个基于 RFC 1196 \cite{RFC1196} 的简单的守护进程，它为许多站点提供了``finger''程序的接口。
+这个程序支持返回一个友好的、面向用户的系统或用户当前状况的详细报告。
+\end{quote}
+
+最基本的只需要支持用户名参数。如果用户有 \file{.plan} 
+文件，则显示该文件内容。
+因此程序需要能够提供：
+\begin{itemize}
+\item 用户存在吗？
+\item 如果用户存在，显示 \file{.plan} 文件的内容。
+=======
+\begin{Exercise}[title={Finger daemon},difficulty=1]
+\label{ex:finger}
+\Question
+Write a finger daemon that works with the finger(1) command. 
+
+From the Debian package description:
+\begin{quote}
+Fingerd is a simple daemon based on RFC 1196 \cite{RFC1196} that provides an interface to the
+``finger'' program at most network sites.  The program is supposed to return a
+friendly, human-oriented status report on either the system at the moment or a
+particular person in depth.
+\end{quote}
+
+Stick to the basics and only support a username argument. If the user has a \file{.plan} file
+show the contents of that file. So your program needs to be able to figure out:
+\begin{itemize}
+\item Does the user exist?
+\item If the user exists, show the contents of the \file{.plan} file.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{itemize}
+\end{Exercise}
+
+\begin{Answer}
+\begin{lbar}
+<<<<<<< HEAD
+这是来自 Fabian Becker 的解决方案。
+\end{lbar}
+\Question
+\lstinputlisting[label=src:fingerd,caption=finger 守护进程]{ex-communication/src/finger.go}
+=======
+This solution is from Fabian Becker.
+\end{lbar}
+\Question
+\lstinputlisting[label=src:fingerd,caption=A finger daemon]{ex-communication/src/finger.go}
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+\end{Answer}

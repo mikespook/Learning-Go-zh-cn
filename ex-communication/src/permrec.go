@@ -1,7 +1,6 @@
 package main
 
-// 为了增加而需要重写
-import ( "fmt"; "strconv"; "flag" )
+import ( "fmt"; "strconv"; "flag")
 
 const (
 	_ = 1000 * iota
@@ -12,7 +11,7 @@ const (
 	MAXPOS = 11
 )
 
-var mop = map[int]string{ADD: "+", SUB: "-", MUL: "*", DIV: "/",}
+var mop = map[int]string{ADD: "+", SUB: "-", MUL: "*", DIV: "/"}
 
 var (
 	ok    bool
@@ -105,7 +104,7 @@ func rpncalc(r []int) (int, bool) {
 			if stack.Len() < 2 { return 0, false }
 			a := stack.Pop()
 			b := stack.Pop()
-			if t == ADD { stack.Push(b + a)	}
+			if t == ADD { stack.Push(b + a) }
 			if t == SUB {
 				// 不接受负数
 				if b-a < 0 {
@@ -113,7 +112,7 @@ func rpncalc(r []int) (int, bool) {
 				}
 				stack.Push(b - a)
 			}
-			if t == MUL { stack.Push(b * a)	}
+			if t == MUL { stack.Push(b * a) }
 			if t == DIV {
 				if a == 0 {
 					return 0, false

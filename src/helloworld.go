@@ -18,4 +18,3 @@ func main() { |\longremark{%
 这里使用了希腊文和日文。}|
         fmt.Printf("Hello, world; or |$\kappa\alpha\lambda\eta\mu\acute{\epsilon}\rho\alpha\hspace{1em}\kappa$\'o$ \sigma\mu\epsilon$|; or|こんにちは 世界|")
 }
-

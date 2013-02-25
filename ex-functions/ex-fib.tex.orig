@@ -1,0 +1,35 @@
+<<<<<<< HEAD
+\begin{Exercise}[title={斐波那契},difficulty=1]
+\label{ex:fibonaci}
+\Question\label{ex:fibonaci q1}
+斐波那契数列以：$1, 1, 2, 3, 5, 8, 13, \ldots$ 开始。
+或者用数学形式表达：$ x_1 = 1; x_2 = 1; x_n = x_{n-1} +
+x_{n-2}\quad\forall n > 2 $。
+
+编写一个接受~\type{int} 值的函数，并给出这个值得到的斐波那契数列。
+=======
+\begin{Exercise}[title={Fibonacci},difficulty=1]
+\label{ex:fibonaci}
+\Question\label{ex:fibonaci q1}
+The Fibonacci sequence starts as follows: $1, 1, 2, 3, 5, 8, 13, \ldots$
+Or in mathematical terms: $ x_1 = 1; x_2 = 1; x_n = x_{n-1} +
+x_{n-2}\quad\forall n > 2 $.
+
+Write a function that takes an \type{int} value and gives 
+that many terms of the Fibonacci sequence.
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+
+\end{Exercise}
+
+\begin{Answer}
+\Question
+<<<<<<< HEAD
+下面的程序会计算出斐波那契数列。
+\lstinputlisting[label=src:fib,caption=Go 编写的斐波那契函数]{ex-functions/src/fib.go}
+=======
+The following program calculates Fibonacci numbers:
+\lstinputlisting[label=src:fib,caption=Fibonacci function in Go]{ex-functions/src/fib.go}
+>>>>>>> 9d3c4dbbba2dd6ce9e8c33dbfcbd0d7ca7842eb7
+
+\showremarks
+\end{Answer}
