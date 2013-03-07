@@ -1,4 +1,4 @@
-\begin{Exercise}[title={Strings},difficulty=1]
+\begin{Exercise}[title={字符串},difficulty=1]
 \label{ex:strings}
 \Question \label{ex:strings q1} 建立一个~Go 程序打印下面的内容（到~100 个字符）：
 \vskip\baselineskip
@@ -34,7 +34,7 @@ asSASA ddd dsjkdsjs dk
 
 \Question 这是一个解法：
 
-\lstinputlisting[label=string1,caption=Strings]{ex-basics/src/string1.go}
+\lstinputlisting[label=string1,caption=字符串]{ex-basics/src/string1.go}
 
 \Question 为了解决这个问题，需要~\package{unicode/utf8} 包的帮助。
 首先，阅读一下文档~\prog{go doc unicode/utf8 | less}。在阅读文档的时候，会注意到
@@ -48,13 +48,13 @@ b   := []byte(str) |\coderemark{转换，参阅第~\pageref{sec:conversions} 页
 将这些整合到一起，得到下面的程序。
 
 \begin{minipage}{\textwidth}
-\lstinputlisting[label=src:string2,caption=Runes in strings]{ex-basics/src/string2.go}
+\lstinputlisting[label=src:string2,caption=字符串中的 rune]{ex-basics/src/string2.go}
 \end{minipage}
 
 \Question 可以用下面的方法逆转字符串。我们从左边（\var{i}）至右（\var{j}）的交换字符，就像这样：
 
 \begin{minipage}{\textwidth}
-\lstinputlisting[label=src:stringrev,caption=Reverse a string,linerange={3,}]{ex-basics/src/stringrev.go}
+\lstinputlisting[label=src:stringrev,caption=逆转字符串,linerange={3,}]{ex-basics/src/stringrev.go}
 \end{minipage}
 
 \end{Answer}
