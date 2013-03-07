@@ -13,7 +13,7 @@ Go 有指针。然而却没有指针运算，因此它们更象是引用而不�
 在其他语言中，这经常被叫做空（NULL）指针，在 Go 中就是 \var{nil}。
 让指针指向某些内容，可以使用\first{取址操作符}{operator!address-of}
 （\func{\&}），像这样：
-\begin{lstlisting}[caption=Use of a pointer,label=src:pointers]
+\begin{lstlisting}[caption=指针的使用,label=src:pointers]
 var p *int
 fmt.Printf("%v", p) |\coderemark{打印 \var{nil}}|
 

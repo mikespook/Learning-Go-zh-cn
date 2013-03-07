@@ -104,7 +104,7 @@ Go 同其他语言不同的地方在于变量的类型在变量名的\emph{后�
 \index{variables!assigning}
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption={Declaration with =}]
+\begin{lstlisting}[linewidth=.5\textwidth,caption={用 = 声明}]
 var a int
 var b bool
 a = 15
@@ -113,7 +113,7 @@ b = false
 \hfill
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[linewidth=.5\textwidth,caption={Declaration with :=}]
+\begin{lstlisting}[linewidth=.5\textwidth,caption={用 := 声明}]
 a := 15
 b := false
 \end{lstlisting}
@@ -180,7 +180,7 @@ Go 有众所周知的类型如~\lstinline{int}，这个类型根据你的硬件�
 
 需要留意的是这些类型全部都是独立的，并且混合用这些类型向变量赋值会引起编译器错误，
 例如下面的代码：
-\lstinputlisting[numbers=right,label=src:types,caption=Familiar types are still distinct]{src/types.go}
+\lstinputlisting[numbers=right,label=src:types,caption=相似的类型都是独立的]{src/types.go}
 在行~7 触发一个赋值错误：
 
 \noindent\error{types.go:7: cannot use a + a (type int)  as type int32 in assignment}
