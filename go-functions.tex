@@ -148,7 +148,7 @@ func ReadWrite() bool {
 
 上面的代码可以被改写为下面这样。将~\func{Close} 对应的放置于~\func{Open} 
 后，能够使函数更加可读、健壮。
-\begin{lstlisting}[caption=With defer]
+\begin{lstlisting}[caption=有 defer]
 func ReadWrite() bool {
     file.Open("file")
     defer file.Close()	|\coderemark{\func{file.Close()} 被添加到了~defer 列表}|

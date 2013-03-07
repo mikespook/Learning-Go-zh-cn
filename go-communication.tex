@@ -31,14 +31,14 @@ s, ok := r.ReadString('\n') {|\coderemark{从输入中读取一行}|
 // ... |\coderemark{\var{s} 保存了字符串，通过 \package{string} 包就可以解析它}|
 \end{lstlisting}
 
-A more robust method (but slightly more complicated) is \func{ReadLine}, see the documentation
-of the \package{bufio} package.
+更加通用（但是也更加复杂）的方法是~\func{ReadLine}，参阅包
+~\package{bufio} 的文档了解更多内容。
 
-A common scenario in shell scripting is that you want to check if a directory
-exists and if not, create one. 
+在~shell 脚本中通常遇到的场景是需要检查某个目录是否存在，
+如果不存在，就创建一个。
 
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[language=sh,caption={Create a directory with the shell}]
+\begin{lstlisting}[language=sh,caption={用~shell 创建一个目录}]
 if [ ! -e name ]; then
     mkdir name
 else
@@ -48,7 +48,7 @@ fi
 \end{minipage}
 \hspace{1em}
 \begin{minipage}{.5\textwidth}
-\begin{lstlisting}[caption={Create a directory with Go}]
+\begin{lstlisting}[caption={用~Go 创建一个目录}]
 if f, e := os.Stat("name"); e != nil {
     os.Mkdir("name", 0755)
 } else {

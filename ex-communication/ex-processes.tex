@@ -24,7 +24,7 @@ Pid 1824 has 1 child: [7293]
 \item{进程列表要按照数字排序，这样就以 pid 0 开始，依次展示。}
 \end{itemize}
 这里有一个 Perl 版本的程序来帮助上手（或者造成绝对的混乱）。
-\lstinputlisting[caption={Processes in Perl}]{ex-communication/src/proc.pl}
+\lstinputlisting[caption={Perl 显示进程}]{ex-communication/src/proc.pl}
 \end{Exercise}
 
 \begin{Answer}
@@ -38,5 +38,5 @@ Pid 1824 has 1 child: [7293]
 在下面的解法中，使用了一个 \type{map[int][]int}，就是一个使用整数作为 map 的索引，元素是整数的 slice —— 用于保存 PID。内建的 \func{append} 被用于扩展这个整数的 slice。
 
 程序清单：
-\lstinputlisting[caption=Go 中的进程]{ex-communication/src/proc.go}
+\lstinputlisting[caption=Go 显示进程]{ex-communication/src/proc.go}
 \end{Answer}
