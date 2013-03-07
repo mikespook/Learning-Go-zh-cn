@@ -356,7 +356,7 @@ wise xor}和\first{位清除}{operator!bitwise!clear}。
 \subsection{if-eles}
 在~Go 中~\first{\key{if}}{keyword!if} 看起来是这样的：
 \begin{lstlisting}
-if x > 0 {	|\coderemark{\{ is mandatory}|
+if x > 0 {	|\coderemark{\{ 是强制的}|
     return y
 } else {
     return x
@@ -368,10 +368,8 @@ if x > 0 {	|\coderemark{\{ is mandatory}|
 
 \key{if} 和~\key{switch} 接受初始化语句，通常用于设置一个（局部）变量。
 \begin{lstlisting}
-if err := file.Chmod(0664); err != nil {  |\coderemark{\texttt{nil} is %
-like C's NULL}|
-    log.Stderr(err) |\coderemark{Scope of \var{err} is limited to %
-\key{if}'s body}|
+if err := file.Chmod(0664); err != nil {  |\coderemark{\texttt{nil} 与 C 的 NULL 类似}|
+    log.Stderr(err) |\coderemark{\var{err} 的作用域被限定在 \key{if} 内}|
     return err
 }
 \end{lstlisting}
