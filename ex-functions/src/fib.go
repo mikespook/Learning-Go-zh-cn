@@ -12,7 +12,7 @@ func fibonacci(value int) []int {
 }
 
 func main() {
-	for _, term := range fibonacci(10) { |\longremark{使用保留字~\key{range} 可以``遍历''数字得到斐波那契函数返回的序列。这里有~10 个，且打印了出来。}|
+	for _, term := range fibonacci(10) { |\longremark{使用关键字~\key{range} 可以``遍历''数字得到斐波那契函数返回的序列。这里有~10 个，且打印了出来。}|
 		fmt.Printf("%v ", term)
 	}
 }

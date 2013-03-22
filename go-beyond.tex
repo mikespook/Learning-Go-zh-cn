@@ -177,13 +177,13 @@ ma := map[int]string{Enone: "no error", Einval: "invalid argument"}
 
 \section{定义自己的类型}
 \label{sec:defining your own}
-自然，Go 允许定义新的类型，通过保留字
+自然，Go 允许定义新的类型，通过关键字
 \first{\key{type}}{keyword!type} 实现： 
 \begin{lstlisting}
 type foo int
 \end{lstlisting}
 创建了一个新的类型 \lstinline{foo} 作用跟 \lstinline{int} 一样。
-创建更加复杂的类型需要用到 \first{\key{struct}}{keyword!struct} 保留字。
+创建更加复杂的类型需要用到 \first{\key{struct}}{keyword!struct} 关键字。
 这有个在一个数据结构中记录某人的姓名（\type{string}）和年龄（\type{int}），
 并且使其成为一个新的类型的例子：
 \lstinputlisting[label=src:struct,caption=结构体]{src/struct.go}
