@@ -1,8 +1,8 @@
 package main
 
-import (		|\longremark{Import the following packages;}|
-	"even"	        |\longremark{The \emph{local} package \package{even} is imported here;}|
-	"fmt"		|\longremark{The official \package{fmt} package gets imported;}|
+import (|\longremark{Import the following packages;}|
+	"even"	|\longremark{The \emph{local} package \package{even} is imported here;}|
+	"fmt"	|\longremark{The official \package{fmt} package gets imported;}|
 )
 
 func main() {

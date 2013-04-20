@@ -1,12 +1,14 @@
-\setmonofont[SmallCapsFont={DejaVu Sans Mono},Scale=0.70]{DejaVu Sans Mono}
+\setmonofont[Path=fonts/,Scale=0.95,BoldFont={SourceCodePro-Bold}]{SourceCodePro-Regular}
 %% Fontfeatures after setting the mono font to keep
 %% lstlisting fonts happy
 %%\defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
 \defaultfontfeatures{Mapping=tex-text}
-\setmainfont[SmallCapsFont={Droid Sans Mono},Scale=MatchLowercase]{Droid Serif}
-\setsansfont[Scale=MatchLowercase]{Droid Sans}
+\setmainfont[Path=fonts/,ItalicFont={PTS56F},BoldFont={PTS75F}]{PTS55F}
 \def\inputGnumericTable{}
 
+\setulmarginsandblock{2.5cm}{2.5cm}{*}
+\checkandfixthelayout
+\setlength{\textwidth}{1.1\textwidth}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.7ex plus 0.5ex minus 0.2ex}
 
@@ -64,16 +66,13 @@
 \noindexintoc
 \makeindex
 
-%% make quote print italics and other fancy stuff
+%% make quote print italics
 \newcommand{\qquote}{{\scalefont{4.00}{``}}}
 \expandafter\def\expandafter\quote\expandafter{\quote\em}
 
-%%\DeclareCaptionFont{white}{\color{white}}
-%%\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35,
-%%0.35,0.01}{\parbox{0.5\textwidth}{\hspace{0.5em}#1#2#3}}} % 0.98 same as listings
-%%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white,singlelinecheck=false,margin=0em,font={bf,footnotesize}}
-
 %% Listings
+\newfontfamily\listingsfont[Path=fonts/,Scale=0.95,BoldFont={SourceCodePro-Bold}]{SourceCodePro-Regular}
+
 \lstdefinelanguage{Go}
   {morekeywords={append,break,cap,case,chan,const,continue,copy,default,defer,else,fallthrough,%
   for,func,go,goto,if,import,interface,len,make,map,new,package,range,return,select,%
@@ -92,10 +91,10 @@
     morestring=[b]',%
     morestring=[b]`,%
   }[]%
-\lstset{language=Go,inputencoding=utf8,extendedchars=false,texcl,escapechar=\|,basicstyle=\ttfamily,keywordstyle=\bfseries,numbers=none,numberblanklines=false,showstringspaces=false,breaklines=true,numberstyle=\small\ttfamily,xleftmargin=\parindent,xrightmargin=1em,linewidth=0.98\linewidth}
+\lstset{language=Go,inputencoding=utf8,extendedchars=false,texcl,escapechar=\|,basicstyle=\ttfamily,keywordstyle=\normalfont,numbers=none,numberblanklines=false,showstringspaces=false,breaklines=true,numberstyle=\small\ttfamily,xleftmargin=\parindent,xrightmargin=1em,linewidth=0.98\linewidth}
 %,literate={"}{\textasciiquote}{1}}
 
-\newcommand{\coderemark}[1]{\qquad$\leftarrow \textit{\small #1}$}
+\newcommand{\coderemark}[1]{\sffamily\qquad$\leftarrow \textit{\small #1}$}
 
 %% Cite style
 %%\bibpunct{[}{]}{;}{s}{,}{,}
@@ -112,8 +111,8 @@
 
 %% Style commands
 \newcommand{\func}[1]{\texttt{#1}}
-\newcommand{\key}[1]{\texttt{\textbf{#1}}}
-\newcommand{\type}[1]{\texttt{\textbf{#1}}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
 \newcommand{\prog}[1]{\texttt{#1}}
 \newcommand{\flag}[1]{\textit{#1}}
 \newcommand{\dir}[1]{\texttt{#1}}
@@ -123,13 +122,12 @@
 \newcommand{\package}[1]{{\textit{#1}}}
 \newcommand{\first}[2]{#1\index{#2}}
 \newcommand{\error}[1]{\texttt{#1}}
-\newcommand{\pr}{\textbf{\%}}           %% a prompt (also bold)
+\newcommand{\pr}{\%}           %% a prompt (also bold)
 \newcommand{\user}[1]{\textbf{#1}}      %% text a user should type
 \newcommand{\userinput}[1]{\textit{#1}} %% text a user should choose
 \newcommand{\gorelease}[1]{\texttt{#1}}
 
 %% Footnotes
-%%\renewcommand*{\thefootnote}{\textbf{\emph\MakeUppercase{\alph{footnote}}}}
 \renewcommand*{\thefootnote}{\textbf{\emph\alph{footnote}}}
 
 %% Epigraph
@@ -139,9 +137,7 @@
 %% Margin notes
 \setmarginnotes{0.04\stockwidth}{0.12\stockwidth}{\onelineskip}
 \newcommand{\gomarginpar}[1]{%
-\marginpar{\rmfamily\itshape\small#1}}
-\newcommand{\todo}[1]{%
-\gomarginpar{{\textsc{TODO}}\\#1}}
+\marginpar{\itshape\small#1}}
 %% typeset text in margin and index arg 2
 \newcommand{\gomarginindex}[2]{\gomarginpar{#1}\index{#2}}
 \newcommand{\gopher}{%

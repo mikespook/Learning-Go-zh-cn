@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="stack.svg"
    sodipodi:version="0.32"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -318,8 +318,8 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1052"
+     inkscape:window-width="1680"
+     inkscape:window-height="1007"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1">
@@ -438,7 +438,8 @@
          sodipodi:role="line"
          id="tspan5077"
          x="130"
-         y="27.362183">push(k)</tspan></text>
+         y="27.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">push(k)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -449,7 +450,8 @@
          sodipodi:role="line"
          id="tspan5077-6"
          x="95"
-         y="57.362183">pop()</tspan></text>
+         y="57.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">pop()</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -460,7 +462,8 @@
          sodipodi:role="line"
          id="tspan5077-2"
          x="175"
-         y="57.362183">k</tspan></text>
+         y="57.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">k</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -471,7 +474,8 @@
          sodipodi:role="line"
          id="tspan5077-2-6"
          x="65"
-         y="47.362183">k</tspan></text>
+         y="47.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">k</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -482,7 +486,8 @@
          sodipodi:role="line"
          id="tspan5077-2-6-4"
          x="30"
-         y="57.362183">i</tspan></text>
+         y="57.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">i</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -493,7 +498,8 @@
          sodipodi:role="line"
          id="tspan5077-2-6-6"
          x="65"
-         y="87.362183">l</tspan></text>
+         y="87.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">l</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -504,7 +510,8 @@
          sodipodi:role="line"
          id="tspan5077-2-6-9"
          x="65"
-         y="122.36218">m</tspan></text>
+         y="122.36218"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">m</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -516,7 +523,7 @@
          id="tspan5077-2-6-4-8"
          x="100"
          y="22.362183"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono">i++</tspan></text>
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Source Code Pro;-inkscape-font-specification:Source Code Pro Light">i++</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -528,7 +535,7 @@
          id="tspan5077-2-6-4-8-3"
          x="150"
          y="47.362183"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono">i--</tspan></text>
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Source Code Pro;-inkscape-font-specification:Source Code Pro Light">i--</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -539,6 +546,7 @@
          sodipodi:role="line"
          id="tspan5077-2-6-4-1"
          x="30"
-         y="127.36218">0</tspan></text>
+         y="127.36218"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">0</tspan></text>
   </g>
 </svg>

@@ -334,7 +334,9 @@ will print: \lstinline{(5+5i)}
 Any non-trivial program will have the need for error reporting sooner or later. Because of this
 Go has a builtin type specially for errors, called \lstinline{error}.
 
-\lstinline{var e error} creates a variable \var{e} of type \lstinline{error} with the value \lstinline{nil}.
+\lstinline{var e error} creates a variable \var{e} of type \lstinline{error} with the
+value \lstinline{nil}. This error type is an interface --  in chapter
+``\titleref{chap:interfaces}'' we will explain what this means.
 
 \section{Operators and built-in functions}
 \label{sec:builtins}
@@ -426,7 +428,7 @@ contains a control statement such as a
 Since \key{if} and \key{switch} accept an initialization statement, it's common to
 see one used to set up a (local) variable.
 \begin{lstlisting}
-if err := file.Chmod(0664); err != nil {  |\coderemark{\texttt{nil} is %
+if err := Chmod(0664); err != nil { |\coderemark{\texttt{nil} is %
 like C's NULL}|
     fmt.Printf(err) |\coderemark{Scope of \var{err} is limited to %
 \key{if}'s body}|
@@ -520,7 +522,7 @@ for init; condition; post { } |\coderemark{Like a C \key{for}}|
 
 for condition { }             |\coderemark{Like a while}|
 
-for { }                       |\coderemark{ Like a C \key{for(;;)} (endless loop)}|
+for { }                       |\coderemark{Endless loop}|
 \end{lstlisting}
 Short declarations make it easy to declare the index variable right in the loop.
 \begin{lstlisting}
@@ -534,8 +536,8 @@ expressions, if you want to run multiple variables in a \key{for} you should
 use \first{parallel assignment}{parallel assignment}.
 \begin{lstlisting}
 // Reverse a
-for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 { |\coderemark{Parallel assignment}|
-    a[i], a[j] = a[j], a[i] |\coderemark{Here too}|
+for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+    a[i], a[j] = a[j], a[i] |\coderemark{Parallel assignment}|
 }
 \end{lstlisting}
 
@@ -678,9 +680,9 @@ func shouldEscape(c byte) bool {
 \end{lstlisting}
 Here's a comparison routine for byte arrays that uses two \key{switch} statements:
 \begin{lstlisting}
-// Compare returns an integer comparing the two byte arrays
-// lexicographically.
-// The result will be 0 if a == b, -1 if a < b, and +1 if a > b
+|\longremark{Compare returns an integer comparing the two byte arrays %
+lexicographically. %
+The result will be 0 if a == b, -1 if a < b, and +1 if a > b ;}|
 func Compare(a, b []byte) int {
     for i := 0; i < len(a) && i < len(b); i++ {
         switch {
@@ -690,16 +692,16 @@ func Compare(a, b []byte) int {
             return -1
         }
     }
-    // Strings are equal except for possible tail
-    switch {
+    switch { |\longremark{Strings are equal except for possible tail;}|
     case len(a) < len(b):
         return -1
     case len(a) > len(b):
         return 1
     }
-    return 0	// Strings are equal
+    return 0 |\longremark{Strings are equal.}|
 }
 \end{lstlisting}
+\showremarks
 
 \section{Built-in functions}
 A small number of functions are predefined, meaning 
@@ -834,7 +836,6 @@ a := [2][2]int{ {1,2}, {3,4} }
 
 \subsection{Slices}
 \label{sec:slices}
-\todo{Add push/pop to this section as container/vector will be deprecated.}
 A slice is similar to an array, but it can grow when new elements
 are added.
 A slice always refers to an underlying array. What makes slices different
@@ -901,7 +902,7 @@ In the code listed in \ref{src:arrays} we dare to do the impossible on
 line 8 and try to allocate something
 beyond the capacity (maximum length of the underlying array) and
 we are greeted with a \emph{runtime} error.
-\lstinputlisting[numbers=right,label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
+\lstinputlisting[label=src:arrays,caption=Arrays and slices]{src/array-and-slices.go}
 If you want to extend a slice, there are a couple of built-in functions
 that make life easier:
 \lstinline{append} and \lstinline{copy}. From \cite{go_spec}:
@@ -917,10 +918,10 @@ slice may refer to a different underlying array.
 \index{built-in!append}
 \begin{lstlisting}
 s0 := []int{0, 0}
-s1 := append(s0, 2)       |\longremark{append a single element, \texttt{s1 == []int\{0, 0, 2\}};}|
-s2 := append(s1, 3, 5, 7) |\longremark{append multiple elements, %% 
+s1 := append(s0, 2)|\longremark{append a single element, \texttt{s1 == []int\{0, 0, 2\}};}|
+s2 := append(s1, 3, 5, 7)|\longremark{append multiple elements, %% 
 \texttt{s2 == []int\{0, 0, 2, 3, 5, 7\}};}|
-s3 := append(s2, s0...)   |\longremark{append a slice, \texttt{s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}}. %%
+s3 := append(s2, s0...)|\longremark{append a slice, \texttt{s3 == []int\{0, 0, 2, 3, 5, 7, 0, 0\}}. %%
 Note the three dots!}|
 \end{lstlisting}
 \showremarks
@@ -937,8 +938,8 @@ copied is the minimum of \lstinline{len(src)} and
 \begin{lstlisting}
 var a = [...]int{0, 1, 2, 3, 4, 5, 6, 7}
 var s = make([]int, 6)
-n1 := copy(s, a[0:])    |\coderemark{\texttt{n1 == 6, s == []int\{0, 1, 2, 3, 4, 5\}}}|
-n2 := copy(s, s[2:])    |\coderemark{\texttt{n2 == 4, s == []int\{2, 3, 4, 5, 4, 5\}}}|
+n1 := copy(s, a[0:])|\coderemark{n1 == 6,\\ s == []int\{0, 1, 2, 3, 4, 5\}}|
+n2 := copy(s, s[2:])|\coderemark{n2 == 4, s == []int\{2, 3, 4, 5, 4, 5\}}|
 \end{lstlisting}
 
 \subsection{Maps}
@@ -957,8 +958,8 @@ monthdays := map[string]int{
 	"Jan": 31, "Feb": 28, "Mar": 31, 
 	"Apr": 30, "May": 31, "Jun": 30, 
 	"Jul": 31, "Aug": 31, "Sep": 30, 
-	"Oct": 31, "Nov": 30, "Dec": 31, |\coderemark{The comma here is required}|
-}		    
+	"Oct": 31, "Nov": 30, "Dec": 31,|\coderemark{Comma required}|
+}
 \end{lstlisting}
 Note to use \lstinline{make} when only declaring a \lstinline{map}:
 \lstinline|monthdays := make(map[string]int)|
@@ -972,15 +973,15 @@ clause will help you again, which returns the key and corresponding value
 with each invocation.\index{keyword!range!on maps}
 \begin{lstlisting}
 year := 0
-for _, days := range monthdays {    |\coderemark{Key is not used, hence \texttt{\_, days}}|
+for _, days := range monthdays {|\coderemark{key unused, hence \texttt{\_, days}}|
     year += days
 }
 fmt.Printf("Numbers of days in a year: %d\n", year)
 \end{lstlisting}
 Adding elements to the \type{map} \index{keyword!map!add elements} would be done as:
 \begin{lstlisting}
-monthdays["Undecim"] = 30	|\coderemark{Add a month}|
-monthdays["Feb"]     = 29	|\coderemark{Overwrite entry - for leap years}|
+monthdays["Undecim"] = 30|\coderemark{Add a month}|
+monthdays["Feb"]     = 29|\coderemark{Overwrite entry - for leap years}|
 \end{lstlisting}
 To test for existence \index{keyword!map!existence}, you would use the
 following\cite{go_course_day2}:
@@ -988,13 +989,13 @@ following\cite{go_course_day2}:
 var value int
 var present bool
 
-value, present = monthdays["Jan"] |\coderemark{If exist, \texttt{present} has the value \key{true}}|
-                                  |\coderemark{Or better and more Go like}|
-v, ok := monthdays["Jan"]	  |\coderemark{Hence, the "comma ok" form}|
+value, present = monthdays["Jan"]|\coderemark{If exists present has value \key{true}}|
+                           |\coderemark{Or better and more Go like}|
+v, ok := monthdays["Jan"]  |\coderemark{Hence, the "comma ok" form}|
 \end{lstlisting}
 And finally you can remove elements \index{keyword!map!remove elements} from the \type{map}:
 \begin{lstlisting}
-delete(monthdays, "Mar")           |\coderemark{Deletes "Mar", always rainy anyway}|
+delete(monthdays, "Mar")   |\coderemark{Delete "Mar", always rainy anyway}|
 \end{lstlisting}
 In general the syntax \lstinline{delete(m, x)} will delete the map entry
 retrieved by the expression \lstinline{m[x]}.

@@ -18,10 +18,10 @@ Now we just need to build the package. We create a directory under \var{\$GOPATH
 and copy \file{even.go} there (see ``\titleref{sec:building a program}'' in chapter \ref{chap:basics}).
 
 \begin{display}
-\pr \user{mkdir $GOPATH/src/even}	\coderemark{Create top-level directory}
-\pr \user{cp even.go $GOPATH/src/even} 	\coderemark{Copy the package file}
-\pr \user{go build}                     \coderemark{Build it}
-\pr \user{go install}                   \coderemark{Install it to \file{../pkg}}
+\pr \user{mkdir $GOPATH/src/even}
+\pr \user{cp even.go $GOPATH/src/even}
+\pr \user{go build}
+\pr \user{go install}
 \end{display}
 
 Now we can use the package in our own program \prog{myeven.go}:
@@ -189,7 +189,7 @@ execute the test functions.
 Each test function has the same signature and its name should start
 with \lstinline{Test}:
 \begin{lstlisting}
-func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheName}|
+func TestXxx(t *testing.T)
 \end{lstlisting}
 
 When writing test you will need to tell \prog{go test} whether a test was
@@ -256,11 +256,27 @@ FAIL
 \end{display}
 \noindent{}And you can act accordingly (by fixing the test for instance).
 
-\begin{lbar}
+\begin{lbar}{}
 Writing new packages should go hand in hand with writing (some)
 documentation and test functions. It will make your code better and it
 shows that you really put in the effort.
 \end{lbar}
+
+The Go test suite also allows you to incorperate example functions which
+serve as documentation \emph{and} as tests. These functions need to
+start with \texttt{Example}.
+\begin{lstlisting}
+func ExampleEven() {
+    if Even(2) {
+        fmt.Printf("Is even\n")
+    }
+    // Output:
+    // Is even
+}
+\end{lstlisting}
+Those last two comments lines are part of the example, \prog{go test} uses those
+to check the \emph{generated} output with the text in the comments. If there is
+a mismatch the test fails.
 
 \section{Useful packages}
 The standard Go repository includes a huge number of packages and it is
@@ -280,8 +296,8 @@ from C's but are simpler. Some verbs (\%-sequences) that can be used:
 \begin{description}
 \item[\%v]{The value in a default format.
 when printing structs, the plus flag (\%+v) adds field names;}
-\item[\%\#v]{a Go-syntax representation of the value.}
-\item[\%T]{a Go-syntax representation of the type of the value;}
+\item[\%\#v]{a Go-syntax representation of the value;}
+\item[\%T]{a Go-syntax representation of the type of the value.}
 \end{description}
 
 }
