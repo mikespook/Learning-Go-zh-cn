@@ -16,9 +16,9 @@ with Go.
 \begin{lstlisting}[caption=Generic way of calculating a maximum]
 package main
 
-func Less(l, r interface{}) bool { |\longremark{We could have choosen to make the %
-return type of this function a \mbox{\type{interface\{\}}}, but that would mean %
-that a caller would always have to a type assertion to extra the actual type %
+func Less(l, r interface{}) bool { |\longremark{We could have chosen to make the %
+return type of this function an \mbox{\type{interface\{\}}}, but that would mean %
+that a caller would always have to do a type assertion to extract the actual type %
 from the interface;}|
 	switch l.(type) {
 	case int:
