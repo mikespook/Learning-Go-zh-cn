@@ -22,7 +22,7 @@ Each chapter concludes with a number of exercises with answers to help you get s
 
 ### Package Prerequisites
 
-When building this book from LaTeX sources files you will need the following packages on Ubuntu (tested on 12.04).
+When building this book from LaTeX sources files you will need the following packages on Ubuntu (tested on 13.04).
 
 * `inkscape`
 * `gnumeric`
@@ -45,7 +45,7 @@ When building this book from LaTeX sources files you will need the following pac
 
 You can copy and paste the following code to your vt100 session to kickoff the chains of many packages installation.
 ```
-# tested on Ubuntu 12.04
+# tested on Ubuntu 13.04
 for i in inkscape \
 gnumeric \
 ttf-droid \
