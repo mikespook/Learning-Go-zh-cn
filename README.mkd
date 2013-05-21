@@ -20,7 +20,7 @@ Each chapter concludes with a number of exercises with answers to help you get s
 
 ## Building the book
 
-### Package Prerequisites 
+### Package Prerequisites
 
 When building this book from LaTeX sources files you will need the following packages on Ubuntu (tested on 12.04).
 
@@ -29,7 +29,7 @@ When building this book from LaTeX sources files you will need the following pac
 * `ttf-droid`
 * `ttf-dejavu`
 * `ttf-sazanami-gothic`  (Japanese font)
-* `ttf-arphic-ukai`     
+* `ttf-arphic-ukai`
 * `texlive-fonts-recommended`
 * `texlive-extra-utils`
 * `texlive-xetex`
@@ -60,7 +60,7 @@ texlive-latex-recommended \
 latex-cjk-xcjk \
 git-core \
 make
-do 
+do
 sudo apt-get install $i -y
 done
 ```
@@ -70,7 +70,7 @@ done
 Using http protocol.
 
 ```
-me@ubuntu1204:~$git clone https://github.com/miekg/gobook.git 
+me@ubuntu1204:~$git clone https://github.com/miekg/gobook.git
 Cloning into 'gobook'...
 remote: Counting objects: 4515, done.
 remote: Compressing objects: 100% (1385/1385), done.
@@ -87,7 +87,7 @@ git clone git@github.com:tjyang/gobook.git
 ```
 
 
-### Make the `Learning Go` Book 
+### Make the `Learning Go` Book
 
 ```
 make
