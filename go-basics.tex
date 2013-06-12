@@ -706,59 +706,60 @@ command \prog{go doc builtin} to read the online documentation about the built-i
 These built-in functions are documented in the \package{builtin} \index{package!builtin}
 pseudo package that is included in recent Go releases.
 
-\paragraph{\func{close}} is used in
+\begin{description}
+\item[\func{close}] is used in
 channel communication. It closes a channel, see chapter \ref{chap:channels}
 for more on this.
 \index{built-in!close}
 
-\paragraph{\func{delete}} is used for deleting entries in maps.
+\item[\func{delete}] is used for deleting entries in maps.
 \index{built-in!delete}
 
-\paragraph{\func{len} and \func{cap}} are used on a number of different
+\item[\func{len} and \func{cap}] are used on a number of different
 types, \func{len} is
 used for returning the length of strings and the length of slices and
 arrays. See section ``\titleref{sec:arrays}'' for the details of slices and
 arrays and the function
 \func{cap}.\index{built-in!len}\index{built-in!cap}
 
-\paragraph{\func{new}} is used for allocating memory for user defined
+\item[\func{new}] is used for allocating memory for user defined
 data types. See section ``\titleref{sec:allocation with new}'' on page
 \pageref{sec:allocation with new}.
 \index{built-in!new}
 
-\paragraph{\func{make}} is used for allocating memory for built-in
+\item[\func{make}] is used for allocating memory for built-in
 types (maps, slices and channels). See section 
 ``\titleref{sec:allocation with make}'' on page
 \pageref{sec:allocation with make}.
 \index{built-in!make}
 
-\paragraph{\func{copy}} is used for copying slices. 
+\item[\func{copy}] is used for copying slices. 
 See section ``\titleref{sec:slices}'' in this chapter.
 \index{built-in!copy}
 
-\paragraph{\func{append}} is for concatenating slices. 
+\item[\func{append}] is for concatenating slices. 
 See section ``\titleref{sec:slices}'' in this chapter.
 \index{built-in!append}
 
-\paragraph{\func{panic} and \func{recover}} are used for an 
+\item[\func{panic} and \func{recover}] are used for an 
 \emph{exception} mechanism. See the section ``\titleref{sec:panic}'' on 
 page \pageref{sec:panic} for more.
 \index{built-in!panic}
 \index{built-in!recover}
 
-\paragraph{\func{print} and \func{println}} are low level printing
+\item[\func{print} and \func{println}] are low level printing
 functions that can be used without reverting to the
 \package{fmt}\index{package!fmt}
 package. These are mainly used for debugging.
 \index{built-in!print}\index{built-in!println}
 
-\paragraph{\func{complex}, \func{real} and \func{imag}} all deal with
+\item[\func{complex}, \func{real} and \func{imag}] all deal with
 \first{complex numbers}{complex numbers}. Apart from the simple example
 we gave, we will not further explain complex numbers.
 \index{built-in!complex}
 \index{built-in!real}
 \index{built-in!imag}
-
+\end{description}
 
 \section{Arrays, slices and maps}
 \label{sec:arrays}
@@ -789,7 +790,9 @@ To declare an array you can use the following: \lstinline{var a [3]int},
 to initialize it to something other than zero use a
 \first{composite literal}{literal!composite}: \lstinline|a := [3]int{1, 2, 3}|.
 This can be shortened to \lstinline|a := [...]int{1, 2, 3}|, where Go counts
-the elements automatically. \gomarginpar{A composite literal allows you
+the elements automatically.
+
+\gomarginpar{A composite literal allows you
 to assign a value directly to an array, slice or map.
 
 See the section ``\titleref{sec:constructors and composite literals}'' on
@@ -805,10 +808,8 @@ a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
 \end{lstlisting}
 When declaring arrays you \emph{always} have to type something in
 between the square brackets, either a number or three dots (\verb|...|)
-when using a composite literal. 
-\gomarginpar{Go release \gorelease{2010-10-27} \cite{go_release_hist}.} 
-Since release \gorelease{2010-10-27} this syntax was further simplified.
-From the release notes:
+when using a composite literal. A long time ago 
+this syntax was further simplified, release notes from back then state:
 \begin{quote}
 The syntax for arrays, slices, and maps of composite literals has been
 simplified. Within a composite literal of array, slice, or map type, elements
