@@ -484,20 +484,6 @@ if err != nil
 See \cite{effective_go} section ``Semicolons'' for the deeper reasons
 behind this.
 
-\begin{lbar}[Ending with \key{if-then-else}]
-Note that if you end a function like this:
-\begin{lstlisting}
-if err != nil {
-    return err
-} else {
-    return nil
-}
-\end{lstlisting}
-It will not compile. This is a bug in the Go compiler. See
-\cite{go_issue_65} for an extended problem description and
-hopefully a fix.
-\end{lbar}
-
 \subsection{Goto}
 Go has a \first{\key{goto}}{keyword!goto} statement --- use it wisely. With \key{goto}
 you jump to a \index{label} label which must be defined within the current function.
