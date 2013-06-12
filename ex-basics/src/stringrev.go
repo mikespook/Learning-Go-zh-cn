@@ -4,8 +4,7 @@ import "fmt"
 
 func main() {
   s := "foobar"
-  a := []byte(s) |\coderemark{Again a conversion}|
-  // Reverse a
+  a := []rune(s) |\coderemark{Again a conversion}|
   for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
      a[i], a[j] = a[j], a[i] |\coderemark{Parallel assignment}|
   }
