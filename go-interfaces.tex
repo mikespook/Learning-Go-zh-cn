@@ -313,6 +313,7 @@ type Interface interface {
 为了做到这个，需要 \package{reflect}\index{package!reflect} 包（在 Go 中没有其他方法）。
 要记得，查看标签意味着返回\emph{类型}的定义。因此使用 \package{reflect} 包来指出变量的类型，
 \emph{然后}访问标签。
+
 \input{fig/reflection.tex}
 \showremarks
 
@@ -324,7 +325,7 @@ func show(i interface{}) {
       case *Person:
         t := reflect.TypeOf(i)  |\coderemark{得到类型的元数据}|
         v := reflect.ValueOf(i) |\coderemark{得到实际的值}|
-        tag := t.Elem().Field(0).Tag    |\longremark{这里希望获得``标签''。因此需要 \func{Elem()} 重定向至其上，访问第一个字段来获取标签。%
+	tag := t.Elem().Field(0).Tag    |\longremark{这里希望获得``标签''。因此需要 \func{Elem()} 重定向至其上，访问第一个字段来获取标签。%
 注意将 \var{t} 作为一个 \type{reflect.Type} 来操作；}|
         name := v.Elem().Field(0).String() |\longremark{现在需要访问其中一个成员的\emph{值}，%
 并让\newline\var{v} 上的 \lstinline{Elem()} 进行重定向。%
@@ -340,6 +341,7 @@ func show(i interface{}) {
 \end{center}\end{figure} %
 }|
     }
+}
 \end{lstlisting}
 \showremarks
 
@@ -348,16 +350,16 @@ func show(i interface{}) {
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=私有成员的反射]
 type Person struct {
-    name string "namestr" |\coderemark{名称}|
-    age  int
+ name string |\coderemark{名称}|
+ age  int
 }
 
 func Set(i interface{}) {
-    switch i.(type) {
-        case *Person:
-            r := reflect.ValueOf(i)
-            r.Elem(0).Field(0).SetString("Albert Einstein")
-    }
+ switch i.(type) {
+ case *Person:
+  r := reflect.ValueOf(i)
+  r.Elem(0).Field(0).SetString("Albert Einstein")
+  }
 }
 \end{lstlisting}
 \end{minipage}
@@ -365,15 +367,15 @@ func Set(i interface{}) {
 \begin{minipage}{.5\textwidth}
 \begin{lstlisting}[caption=公有成员的反射]
 type Person struct {
-    Name string "namestr" |\coderemark{\emph{N}ame}|
-    age  int
+ Name string |\coderemark{\emph{N}ame}|
+ age  int
 }
 
 func Set(i interface{}) {
-    switch i.(type) {
-        case *Person:
-            r := reflect.ValueOf(i)
-            r.Elem().Field(0).SetString("Albert Einstein")
+ switch i.(type) {
+ case *Person:
+  r := reflect.ValueOf(i)
+  r.Elem().Field(0).SetString("Albert Einstein")
   }
 }
 \end{lstlisting}

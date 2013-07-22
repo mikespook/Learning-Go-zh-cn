@@ -1,6 +1,11 @@
 package main
 
-import ( "bufio"; "os"; "strconv"; "fmt")
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+)
 
 var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 var st = new(Stack)
@@ -11,14 +16,19 @@ type Stack struct {
 }
 
 func (s *Stack) push(k int) {
-	if s.i+1 > 9 { return }
+	if s.i+1 > 9 {
+		return
+	}
 	s.data[s.i] = k
 	s.i++
 }
 
 func (s *Stack) pop() (ret int) {
 	s.i--
-	if s.i < 0 { s.i = 0; return }
+	if s.i < 0 {
+		s.i = 0
+		return
+	}
 	ret = s.data[s.i]
 	return
 }
@@ -27,7 +37,9 @@ func main() {
 	for {
 		s, err := reader.ReadString('\n')
 		var token string
-		if err != nil { return }
+		if err != nil {
+			return
+		}
 		for _, c := range s {
 			switch {
 			case c >= '0' && c <= '9':

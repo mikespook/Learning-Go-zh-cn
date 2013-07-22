@@ -22,7 +22,6 @@ p = &i		    |\coderemark{使得 \var{p} 指向 \var{i}}|
 
 fmt.Printf("%v", p) |\coderemark{打印出来的内容类似 \var{0x7ff96b81c000a}}|
 \end{lstlisting}
-
 从指针获取值是通过在指针变量前置'\type{*}'实现的：
 \begin{lstlisting}[caption=获取指针指向的值,label=src:deref]
 p = &i			|\coderemark{获取 \var{i} 的地址}|
@@ -37,7 +36,6 @@ fmt.Printf("%v\n", i)	|\coderemark{同上}|
 \index{operator!increment}
 \footnote{参看练习 \ref{ex:pointer arithmetic}。}
 
-
 \section{内存分配}
 Go 同样也垃圾收集，也就是说无须担心内存分配和回收。
 
@@ -51,10 +49,7 @@ Go 有两个内存分配原语，\key{new} 和 \key{make}。它们应用于不�
 内建函数 \key{new} 本质上说跟其他语言中的同名函数功能一样：
 \func{new(T)} 分配了零值填充的 \type{T} 类型的内存空间，并且返回其地址，
 一个 \type{*T} 类型的值。用 Go 的术语说，它返回了一个指针，指向新分配的类型 \type{T}
-的零值。有一点非常重要：
-\begin{lbar}[]
-\key{new} 返回\emph{指针}。
-\end{lbar}
+的零值。记住这点非常重要。
 
 这意味着使用者可以用 \key{new} 创建一个数据结构的实例并且可以直接工作。
 如 \func{bytes.Buffer} 的文档所述``Buffer 的零值是一个准备好了的空缓冲。''
@@ -63,6 +58,7 @@ Go 有两个内存分配原语，\key{new} 和 \key{make}。它们应用于不�
 
 零值是非常有用的。例如这样的类型定义，\pageref{sec:defining your own}
 页的 "\titleref{sec:defining your own}" 内容。
+
 \begin{lstlisting}
 type SyncedBuffer struct {
     lock    sync.Mutex
@@ -86,10 +82,6 @@ var v SyncedBuffer      |\coderemark{Type  SyncedBuffer，同上}|
 在这些项目被初始化之前，slice 为 \type{nil}。对于 slice，map 和 channel，
 \key{make} 初始化了内部的数据结构，填充适当的值。
 
-\begin{lbar}[]
-\key{make} 返回初始化后的（非零）\emph{值}。
-\end{lbar}
-
 例如，
 \lstinline{make([]int, 10, 100)}
 分配了 100 个整数的数组，然后用长度 10 和容量 100 创建了 slice 
@@ -104,7 +96,7 @@ var v SyncedBuffer      |\coderemark{Type  SyncedBuffer，同上}|
     var v  []int = make([]int, 100) |\coderemark{v 指向一个新分配的有 100 个整数的数组。}|
 
     var p *[]int = new([]int)       |\coderemark{不必要的复杂例子}|
-    *p = make([]int, 100, 100)
+*p = make([]int, 100, 100)
 
     v := make([]int, 100)           |\coderemark{更常见}|
 \end{lstlisting}
@@ -145,7 +137,7 @@ func NewFile(fd int, name string) *File {
         return nil
     }
     f := File{fd, name, nil, 0}	|\coderemark{Create a new \type{File}}|
-    return &f			|\coderemark{Return the address of \var{f}}|
+    return &f|\coderemark{返回~\var{f} 的地址}|
 }
 \end{lstlisting}
 返回本地变量的地址没有问题；在函数返回后，相关的存储区域仍然存在。
@@ -170,9 +162,9 @@ return &File{fd: fd, name: name}
 复合声明同样可以用于创建 array，slice 和 map，通过指定适当的索引和 map 键来标识字段。
 在这个例子中，无论是 \var{Enone}，\var{Eio} 还是 \var{Einval} 初始化都能很好的工作，只要确保它们不同就好了。
 \begin{lstlisting}
-ar := [...]string   {Enone: "no error", Einval: "invalid argument"}
-sl := []string      {Enone: "no error", Einval: "invalid argument"}
-ma := map[int]string{Enone: "no error", Einval: "invalid argument"}
+ar := [...]string{Enone: "no error", Einval: "invalid argument"}
+sl := []string{Enone: "no error", Einval: "invalid argument"}
+ma := map[int]string {Enone: "no error", Einval: "invalid argument"}
 \end{lstlisting}
 
 \section{定义自己的类型}
@@ -198,6 +190,7 @@ type foo int
 \begin{lstlisting}
 fmt.Printf("%s", a.name) |\coderemark{\%s 格式化字符串}|
 \end{lstlisting}
+%% add text if a is a pointer
 
 \subsection{结构字段}
 之前已经提到结构中的项目被称为\index{字段}{field}。
@@ -214,10 +207,10 @@ struct {
 如果省略字段的名字，可以创建\first{匿名字段}{field!anonymous}，例如：
 \begin{lstlisting}
 struct {
-    T1        |\coderemark{字段名字是 \var{T1}}|
-    *T2       |\coderemark{字段名字是 \var{T2}}|
-    P.T3      |\coderemark{字段名字是 \var{T3}}|
-    x, y int  |\coderemark{字段名字是 \var{x} 和 \var{y}}|
+        T1        |\coderemark{字段名字是 \var{T1}}|
+        *T2       |\coderemark{字段名字是 \var{T2}}|
+        P.T3      |\coderemark{字段名字是 \var{T3}}|
+        x, y int  |\coderemark{字段名字是 \var{x} 和 \var{y}}|
 }
 \end{lstlisting}
 注意首字母大写的字段可以被导出，也就是说，在其他包中可以进行读写。
@@ -229,13 +222,13 @@ struct {
 \begin{enumerate}
 \item 创建一个函数接受这个类型的参数。
 \begin{lstlisting}
-func doSomething(in1 *NameAge, in2 int) { /* ... */ }
+func doSomething(n1 *NameAge, n2 int) { /* */ }
 \end{lstlisting}
 （你可能已经猜到了）这是 \first{\emph{函数调用}}{function!call}。
 \item 创建一个工作在这个类型上的函数（参阅在 \ref{src:function definition}
 中定义的\emph{接收方}）：
 \begin{lstlisting}
-func (in1 *NameAge) doSomething(in2 int) { /* ... */ }
+func (n1 *NameAge) doSomething(n2 int) { /* */ }
 \end{lstlisting}
 这是\first{\emph{方法调用}}{method call}，可以类似这样使用：
 \begin{lstlisting}
@@ -243,6 +236,8 @@ var n *NameAge
 n.doSomething(2)
 \end{lstlisting}
 \end{enumerate}
+使用函数还是方法是由程序员决定的，但是如果想要满足接口（参阅下一章）就只能使用方法。
+如果没有这方面的需求，那就由个人品味决定了。
 
 使用函数还是方法完全是由程序员说了算，但是若需要满足接口（参看下一章）就必须使用方法。
 如果没有这样的需求，那就完全由习惯来决定是使用函数还是方法了。
@@ -293,7 +288,8 @@ func (m *Mutex) Unlock()  { /* Unlock 实现 */ }
 \begin{table}[H]
 \begin{center}
 \caption[Valid conversions]{合法的转换， 
-\lstinline{float64} 同 \lstinline{float32} 类似}
+\lstinline{float64} 同 \lstinline{float32} 类似。注意，
+为了适配表格的显示，float32 被简写为~flt32。}
 \label{tab:convesion}
 \input{tab/conversion.tex}
 \end{center}
@@ -320,7 +316,7 @@ runeslice  := []rune(mystring)
 \item{
 从字节或者整形的 slice 到 \lstinline{string}。
 \begin{lstlisting}
-b := []byte{'h','e','l','l','o'} |\coderemark{复合声明}|
+b := []byte{'h','e','l','l','o'} // 复合声明
 s := string(b)
 i := []rune{257,1024,65} 
 r := string(i)
@@ -368,7 +364,7 @@ var f foo = foo(b)
 
 \input{ex-beyond/ex-pointers.tex}
 
-\input{ex-beyond/ex-double-linked-list.tex}
+\input{ex-beyond/ex-doubly-linked-list.tex}
 
 \input{ex-beyond/ex-cat.tex}
 

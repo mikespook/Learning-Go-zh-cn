@@ -9,25 +9,16 @@
 \showremarks
 这里有两个例子，左边的函数没有返回值，右边的只是简单的将输入返回。
 
-\begin{minipage}{.5\textwidth}
 \begin{lstlisting}
-func subroutine(in int) {
-    return
-}
+func subroutine(in int) { return }
 \end{lstlisting}
-\end{minipage}
-\begin{minipage}{.5\textwidth}
 \begin{lstlisting}
-func identity(in int) int {
-    return in
-}
+func identity(in int) int { return in }
 \end{lstlisting}
-\end{minipage}
 
 可以随意安排函数定义的顺序，编译器会在执行前扫描每个文件。所以函数原型在~Go 中都是过期的旧物。
 Go 不允许函数嵌套，然而你可以利用匿名函数实现它，参阅本章第~\pageref{sec:functions as values}
 页的``\titleref{sec:functions as values}''。
-
 
 递归函数跟其他语言是一样的：
 \begin{lstlisting}[caption=递归函数]
@@ -103,22 +94,22 @@ Go 函数的返回值或者结果参数可以指定一个名字，并且像原�
 名字不是强制的，但是它们可以使得代码更加健壮和清晰：
 \emph{这是文档}。
 例如命名~\type{int} 类型的~\lstinline{nextPos} 返回值，就能说明哪个代表哪个。
+
 \begin{lstlisting}
 func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
 \end{lstlisting}
-
 由于命名结果会被初始化并关联于无修饰的~\key{return}，
 它们可以非常简单并且清晰。这里有一段~\lstinline{io.ReadFull} 的代码，很好的运用了它：
 
 \begin{lstlisting}
 func ReadFull(r Reader, buf []byte) (n int, err error) {
-        for len(buf) > 0 && err == nil {
-                var nr int
-                nr, err = r.Read(buf)
-                n += nr
-                buf = buf[nr:len(buf)]
-        }
-        return
+    for len(buf) > 0 && err == nil {
+        var nr int
+        nr, err = r.Read(buf)
+        n += nr
+        buf = buf[nr:len(buf)]
+    }
+    return
 }
 \end{lstlisting}
 
@@ -131,12 +122,12 @@ func ReadWrite() bool {
     file.Open("file")
     // 做一些工作
     if failureX {
-        file.Close() |\coderemark{}|
+	file.Close() |\coderemark{}|
 	return false
     }
 
     if failureY {
-        file.Close() |\coderemark{}|
+	file.Close() |\coderemark{}|
 	return false
     }
     file.Close() |\coderemark{}|
@@ -162,7 +153,6 @@ func ReadWrite() bool {
     return true
 }
 \end{lstlisting}
-
 可以将多个函数放入``延迟列表''\index{deferred list}中，这个例子来自~\cite{effective_go}：
 \begin{lstlisting}
 for i := 0; i < 5; i++ { 
@@ -183,15 +173,15 @@ defer func() {
 \begin{lstlisting}[caption=带参数的函数符号]
 defer func(x int) {
 	/* ... */
-}(5)		 |\coderemark{为输入参数~\var{x} 赋值 5}|
+}(5)  |\coderemark{为输入参数~\var{x} 赋值 5}|
 \end{lstlisting}
 在这个（匿名）函数中，可以访问任何命名返回参数：
 \begin{lstlisting}[caption=在 defer 中访问返回值]
-func f() (ret int) {    |\coderemark{\var{ret} 初始化为零}|
+func f() (ret int) {|\coderemark{\var{ret} 初始化为零}|
 	defer func() {
-		ret++	|\coderemark{\var{ret} 增加为 1}|
+		ret++|\coderemark{\var{ret} 增加为 1}|
 	}()
-	return 0	|\coderemark{返回的是~1 而\emph{不是}~0！}|
+	return 0|\coderemark{返回的是~1 而\emph{不是}~0！}|
 }
 \end{lstlisting}
 
@@ -205,7 +195,7 @@ func myfunc(arg ...int) {}
 \var{arg} 是一个~int 类型的~slice：
 \begin{lstlisting}
 for _, n := range arg {
-        fmt.Printf("And the number is: %d\n", n)
+    fmt.Printf("And the number is: %d\n", n)
 }
 \end{lstlisting}
 如果不指定变参的类型，默认是空的接口~\var{interface\{\}}（参阅第~\ref{chap:interfaces} 章）。
@@ -230,10 +220,10 @@ func myfunc(arg ...int) {
 这里将整数转换为函数：
 \begin{lstlisting}[caption=使用 map 的函数作为值]
 var xs = map[int]func() int{
-        1: func() int { return 10 },
-        2: func() int { return 20 },
+    1: func() int { return 10 },
+    2: func() int { return 20 },
         3: func() int { return 30 }, |\coderemark{必须有逗号}|
-        /* ... */
+    /* ... */
 }
 \end{lstlisting}
 也可以编写一个接受函数作为参数的函数，例如用于操作~\type{int} 类型的~slice 的~\func{Map} 函数。
@@ -244,15 +234,14 @@ var xs = map[int]func() int{
 由于函数也是值，所以可以很容易的传递到其他函数里，然后可以作为回调。
 首先定义一个函数，对整数做一些``事情''：
 \begin{lstlisting}
-func printit(x int) {       |\coderemark{函数无返回值}|
-    fmt.Printf("%v\n", x)    |\coderemark{仅仅打印}|
-
+func printit(x int) {|\coderemark{函数无返回值}|
+    fmt.Printf("%v\n", x)|\coderemark{仅仅打印}|
 }
 \end{lstlisting}
 这个函数的标识是~\lstinline{func printit(int)}，或者没有函数名的：\mbox{\lstinline{func(int)}}。
 创建新的函数使用这个作为回调，需要用到这个标识：
 \begin{lstlisting}
-func callback(y int, f func(int)) { |\coderemark{\func{f} 将会保存函数}|
+func callback(y int, f func(int)) {|\coderemark{\func{f} 将会保存函数}|
     f(y)    |\coderemark{调用回调函数~\func{f} 输入变量~\var{y}}|
 }
 \end{lstlisting}
@@ -300,6 +289,7 @@ defer func() { |\longremark{定义了一个利用~\func{recover} 的~\func{defer
 }
 \end{lstlisting}
 \showremarks
+
 
 \section{练习}
 \input{ex-functions/ex-average.tex}

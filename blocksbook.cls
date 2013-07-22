@@ -10,7 +10,7 @@
 {\end{alltt}\vspace*{-2ex}\endMakeFramed}
 
 \newenvironment{lbar}[1][]{%
-\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 2pt \hspace{10pt}}%
 \MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
 {%
 \ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
@@ -88,6 +88,7 @@
 \makerunningwidth{blocks}{\headwidth}
 \makeevenhead{blocks}{
         \addtolength{\fboxsep}{0.5ex}
+        \hspace{-0.35cm}
         \framebox{\myfamily\thepage}
         % hack to get spacing correct
         \vspace{-0.1mm}

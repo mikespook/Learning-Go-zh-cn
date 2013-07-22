@@ -1,4 +1,4 @@
-package main |\longremark{首行这个是必须的。所有的~Go 文件以~\lstinline{package <something>}
+package main |\longremark{首行这个是必须的。所有的~Go 文件以~\mbox{\lstinline{package <something>}}
 开头，对于独立运行的执行文件必须是~\lstinline{package main}；}|
 
 import "fmt"  // 实现格式化的~I/O。\longremark{这是说需要将~\package{fmt} 包加入~\package{main}。%
@@ -18,3 +18,4 @@ func main() { |\longremark{%
 这里使用了希腊文和日文。}|
         fmt.Printf("Hello, world; or |$\kappa\alpha\lambda\eta\mu\acute{\epsilon}\rho\alpha\hspace{1em}\kappa$\'o$ \sigma\mu\epsilon$|; or|こんにちは 世界|")
 }
+

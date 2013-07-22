@@ -16,10 +16,12 @@ package hash
 ...
 
 SUBDIRECTORIES
+
         adler32
         crc32
         crc64
         fnv
+
 \end{display}
 \vskip\baselineskip
 哪个~\prog{go doc} 的命令可以显示~\package{hash} 包中的~\package{fnv} 文档？
@@ -31,8 +33,6 @@ SUBDIRECTORIES
 \package{fnv} 包在~\package{hash} 的\emph{子目录}中，所以只需要 
 \quad \texttt{go doc hash/fnv} 即可。
 
-也可以指定``Go 手册''中某个函数的的文档。例如，函数~\func{Printf} 
-在~\package{fmt} 包中，仅阅读这个函数的文档，使用：\prog{go doc fmt Printf}{}。
 
 所有的内建函数同样可以通过~\prog{godoc} 程序访问：\prog{go doc builtin}。
 \end{Answer}

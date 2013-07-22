@@ -14,14 +14,13 @@ Go 1 是~Go 语言的第一个稳定发布版本。
 
 本书使用了下面的约定：
 \begin{itemize}
-\item 代码用~\prog{DejaVu Mono} 显示；
-\item 关键词用~\key{DejaVu Mono Bold} 显示；
-\item 注释用~\rem{DejaVu Mono Italic} 显示；
-\item 代码中额外的标记，\coderemark{用这种形式展现}；
-\item 使用数字~\gocircle{1} 标记长内容 -- 解释会跟随其后；
-\item 行号在右边展示；
-\item Shell 示例用~\pr{} 作为标记；
-\item 强调的段落会缩进，在左边有竖线。
+\item 代码、关键字和注释使用~\prog{Source Code Pro} 显示；
+\item 代码中的额外标识~\coderemark{像这样显示}；
+\item 较长的标识提供数字 -- \gocircle{1} -- 详细解释在其后显示；
+\item （如果需要）行号在右边显示；
+\item shell 的例子使用~\pr{} 作为输入符；
+\item 用户在~shell 输入内容的例子~\texttt{\user{用黑体显示}}，系统反馈~\texttt{用普通的黑体显示}；
+\item 强调的段落会缩进，并在左边有竖线。
 \end{itemize}
 
 \section{官方文档}
@@ -42,36 +41,20 @@ Go 1 通过叫做~\prog{go doc}
 在第~\ref{chap:packages} 章解释了如何构造你自己的包的文档。
 
 \section{前身}
-Go 的前身来自于~Inferno\cite{inferno}（基于~Plan 9\cite{plan9} 的改造）。
-Inferno 包含了一个叫做~Limbo\cite{limbo} 的语言。这里引用了一段来自于~Limbo 论文的描述：
-\begin{quote}
-Limbo 是用于开发运行在小型计算机上的分布式应用的编程语言。
-它支持模块化编程，编译期和运行时的强类型检查，\emph{进程内基于具有类型的~channel 通讯}，
-原子性\emph{垃圾收集}，和简单的抽象数据类型。
-它被设计用于即便是没有硬件内存保护的小型设备上，也能安全的运行。
-\end{quote}
-Go 从~Limbo 继承的另一个特性是~channel（参阅第~\ref{chap:channels} 章）。
-从~Limbo 文档来的另一段描述：
-\begin{quote}
-[channel] 是用于向系统中其他代理发送和接收特定类型对象的通讯机制。
-channel 可以用于本地进程间通讯；用于连接到命名的目的地的库方法。
-两种情况都是直接发送和接收操作的。
-\end{quote}
-channel 在~Go 中比在~Limbo 中更加好用。
-如果我们对~Go 的历史深入探索，会发现一个指向~``Newsqueak\cite{newsqueak}''的线索，
-这是在类~C 语言中使用~channel 进行通讯的先驱。
-channel 并不是这些语言独有的，另一个非类~C 语言：Erlang\cite{erlang}，也在使用它。
+Go 的语法来自~Modula-2 系列语言。尤其是~Oberon 和~Modula-2（都是~N. Wirth 发明）的成功者~Oberon-2。
+大致包括：借鉴了函数的符号；导入和导出的工作方式几乎完全一致（除了符号）。 
+还有~Oberon 舍弃了独立的定义（“头”）文件，Go 也是一样。
 
-\begin{figure}[H]
-\caption{Go 编年史}
-\label{fig:chrono-of-go}
-\begin{center}
-\includegraphics[scale=0.65]{fig/go-history.pdf}
-\end{center}
-\end{figure}
+结构体和接口的设计（参阅第~\ref{chap:interfaces} 章）
+是从~Smalltalk 和类似语言，还有~Go 作者的个人试验语言的面向对象的工作方式鉴而来。
+同时还基于~OO 界越来越广泛的共识：继承是有害的（但是通常会给予实现）。
 
-使用~channel 与其他进程进行通讯叫做``通讯序列化过程（Communicating Sequential Processes - CSP）''，
-由~C. A. R. Hoare\cite{hoare} 设计构想，而他正是那个发明快速排序\cite{quicksort}算法的人。
+使用~channel（参阅第~\ref{chap:channels} 章）与其他进程进行通讯，是由~A. R. Hoare \cite{hoare}提出的
+叫做通讯序列化过程（CSP）的思路。他也是发明快排算法~\cite{quicksort} 的人。
+
+如果对~Go 的历史进行更进一步的挖掘会发现其与``Newsqueak'' \cite{newsqueak} 的关联。
+它是在~C 中能够像语言一样使用~channel 进行通讯的先驱。另一个重要的非类~C 语言
+~Erlang \cite{erlang} 也会使用它们。
 
 \begin{lbar}[]
 Go 是第一个实现了简单的（或更加简单的）并行开发，且跨平台的类~C 语言。
@@ -106,27 +89,25 @@ Ubuntu 和~Debian 在其仓库中都有~Go 包，可以查找``golang''包进行
 \begin{display}
 \pr \user{export PATH=$GOROOT/bin:$PATH}
 \end{display}
-
 \item 编译~Go
 \begin{display}
-\pr \user{cd \$GOROOT/src}
+\pr \user{cd $GOROOT/src}
 \pr \user{./all.bash}
 \end{display}
 \end{itemize}
 如果全部都没问题，你最终会看到下面的内容：
 \begin{display}
-+--- cd ../test
-+0 known bugs; 0 unexpected bugs
-+
-+ALL TESTS PASSED
-+
-+---
-+Installed Go for linux/amd64 in /home/go
-+Installed commands in /home/go/bin
+--- cd ../test
+0 known bugs; 0 unexpected bugs
+
+ALL TESTS PASSED
+
+---
+Installed Go for linux/amd64 in /home/go
+Installed commands in /home/go/bin
 \end{display}
 
 \section{在~Windows 下获得~Go}
-
 最好的方式仍然是遵循网站\cite{go_install}的介绍，为了方便重复如下。
 
 \begin{itemize}

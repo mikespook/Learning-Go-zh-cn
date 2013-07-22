@@ -99,4 +99,4 @@ make
 
 [1]: http://golang.org  "Go 项目"
 [2]: http://www.mikespook.com/learning-go/ "学习 Go 语言"
-[3]: http://vdisk.weibo.com/s/bUhFF/1346855208 "微盘"
+[3]: http://vdisk.weibo.com/s/bUhFF "微盘"

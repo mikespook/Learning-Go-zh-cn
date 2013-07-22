@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="array-vs-slice.svg">
   <defs
      id="defs4">
@@ -187,10 +187,10 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="719"
+     inkscape:window-width="1680"
+     inkscape:window-height="1007"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -378,7 +378,8 @@
          sodipodi:role="line"
          id="tspan5077"
          x="380"
-         y="112.36218">len == cap == m</tspan></text>
+         y="112.36218"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">len == cap == m</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
@@ -389,7 +390,8 @@
          sodipodi:role="line"
          id="tspan5267"
          x="445"
-         y="52.362183">array</tspan></text>
+         y="52.362183"
+         style="-inkscape-font-specification:PT Sans;font-family:PT Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">array</tspan></text>
     <rect
        style="fill:none"
        id="rect2826-3"
@@ -456,7 +458,8 @@
          sodipodi:role="line"
          id="tspan5267-5"
          x="450"
-         y="172.36218">slice</tspan></text>
+         y="172.36218"
+         style="-inkscape-font-specification:PT Sans;font-family:PT Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">slice</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -467,7 +470,8 @@
          sodipodi:role="line"
          id="tspan5375"
          x="72.571426"
-         y="55.0765">0</tspan></text>
+         y="55.0765"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Sans Mono;-inkscape-font-specification:Droid Sans Mono"
@@ -479,7 +483,7 @@
          id="tspan5379"
          x="72"
          y="174.36218"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono">0</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Source Code Pro;-inkscape-font-specification:Source Code Pro Light">0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -490,7 +494,8 @@
          sodipodi:role="line"
          id="tspan5383"
          x="182"
-         y="54.362183">n-1</tspan></text>
+         y="54.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">n-1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -501,7 +506,8 @@
          sodipodi:role="line"
          id="tspan5387"
          x="182"
-         y="174.36218">n-1</tspan></text>
+         y="174.36218"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">n-1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -512,7 +518,8 @@
          sodipodi:role="line"
          id="tspan5391"
          x="383"
-         y="56.362183">m-1</tspan></text>
+         y="56.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">m-1</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Mend)"
        d="m 415,97.362183 c 0,-20 0,-25 0,-25"
@@ -533,7 +540,8 @@
          sodipodi:role="line"
          id="tspan5077-0"
          x="185"
-         y="232.36218">len == n</tspan></text>
+         y="232.36218"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">len == n</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-opacity:1"
        id="rect3604-8-3"
@@ -587,7 +595,8 @@
          sodipodi:role="line"
          id="tspan5391-8"
          x="383"
-         y="174.36218">m-1</tspan></text>
+         y="174.36218"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">m-1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
@@ -598,7 +607,8 @@
          sodipodi:role="line"
          id="tspan5077-0-0"
          x="380"
-         y="232.36218">cap == m</tspan></text>
+         y="232.36218"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">cap == m</tspan></text>
     <path
        inkscape:connector-curvature="0"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Mend)"

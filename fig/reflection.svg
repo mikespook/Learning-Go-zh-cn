@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="reflection.svg"
    sodipodi:version="0.32"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -498,7 +498,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="202.00056"
+     inkscape:cx="139.67913"
      inkscape:cy="978.44709"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -506,8 +506,8 @@
      inkscape:snap-global="true"
      inkscape:window-width="1414"
      inkscape:window-height="991"
-     inkscape:window-x="170"
-     inkscape:window-y="59"
+     inkscape:window-x="161"
+     inkscape:window-y="25"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -605,7 +605,7 @@
          x="227.14285"
          y="121.6479" /></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.94868332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow1Mend)"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow1Mend)"
        d="m 125,137.36218 c 72,0 90,0 90,0"
        id="path2894-3-5"
        sodipodi:nodetypes="cc"
@@ -620,7 +620,8 @@
          sodipodi:role="line"
          id="tspan5077-9"
          x="15"
-         y="27.362183">reflect.Ptr</tspan></text>
+         y="27.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">reflect.Ptr</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 10,42.36218 180,0"
@@ -640,14 +641,15 @@
          sodipodi:role="line"
          id="tspan5077-28"
          x="225"
-         y="42.362183">.Elem()</tspan></text>
+         y="42.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">.Elem()</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.91287094px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 15,72.36218 150,0"
        id="path3745-4" />
     <text
        xml:space="preserve"
-       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Source Code Pro;-inkscape-font-specification:Source Code Pro Light;text-indent:0;text-decoration:none;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;baseline-shift:baseline;color:#000000;fill-rule:nonzero;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        x="25"
        y="62.362183"
        id="text5075-68-9"
@@ -657,7 +659,7 @@
          x="25"
          y="62.362183">reflect.Value</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.05409265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
        d="m 164,60.36218 c 0,0 29.21429,-5.642857 31,12.000003 -1,18.000004 -51,18.000004 -51,18.000004"
        id="path3753-4"
        sodipodi:nodetypes="ccc"
@@ -672,24 +674,26 @@
          sodipodi:role="line"
          id="tspan5077-28-5"
          x="200"
-         y="77.362183">.Field(0)</tspan></text>
+         y="77.362183"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">.Field(0)</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.81649661px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 20,97.36218 120,0"
        id="path3745-4-0" />
     <text
        xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono"
-       x="20"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Source Code Pro;-inkscape-font-specification:Source Code Pro Light"
+       x="25"
        y="87.362183"
        id="text5075-9-9-4"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5077-28-5-8"
-         x="20"
-         y="87.362183">reflect.StructField</tspan></text>
+         x="25"
+         y="87.362183"
+         style="font-size:10px">reflect.StructField</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.52514768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend-28)"
        d="m 150.29796,97.362183 c 0,0 36.9531,-5.642861 39.21185,11.999997 -1.26489,18 -64.50981,18 -64.50981,18"
        id="path3753-4-7-9"
        sodipodi:nodetypes="ccc"
@@ -704,7 +708,8 @@
          sodipodi:role="line"
          id="tspan5077-28-5-7-1"
          x="200"
-         y="107.36218">.String()</tspan></text>
+         y="107.36218"
+         style="-inkscape-font-specification:Source Code Pro Light;font-family:Source Code Pro;font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal">.String()</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:0.51234764;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3604-61-6-7"
@@ -723,17 +728,19 @@
          sodipodi:role="line"
          id="tspan5077-28-5-7-1-7-6"
          x="220"
-         y="142.36218">&quot;Albert Einstein&quot;</tspan></text>
+         y="142.36218"
+         style="-inkscape-font-specification:PT Sans;font-family:PT Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">&quot;Albert Einstein&quot;</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Droid Serif;-inkscape-font-specification:Droid Serif"
-       x="40"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Source Code Pro;-inkscape-font-specification:Source Code Pro Light"
+       x="30"
        y="127.36218"
        id="text5075-9-9-2-7-6-3-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5077-28-5-7-1-7-6-4"
-         x="40"
-         y="127.36218">&quot;Albert Einstein&quot;</tspan></text>
+         x="30"
+         y="127.36218"
+         style="font-size:9px">&quot;Albert Einstein&quot;</tspan></text>
   </g>
 </svg>

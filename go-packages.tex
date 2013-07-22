@@ -13,10 +13,10 @@ Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <na
 \file{even.go} 到这个目录（参阅第 \ref{chap:basics} 章的``\titleref{sec:building a program}''）。
 
 \begin{display}
-\pr \user{mkdir $GOPATH/src/even}       \coderemark{建立一个顶级目录}
-\pr \user{cp even.go $GOPATH/src/even}  \coderemark{复制包文件}
-\pr \user{go build}                     \coderemark{构建它}
-\pr \user{go install}                   \coderemark{将其安装到~\file{../pkg}}
+\pr \user{mkdir $GOPATH/src/even}
+\pr \user{cp even.go $GOPATH/src/even}
+\pr \user{go build}
+\pr \user{go install}
 \end{display}
 
 现在就可以在程序 \prog{myeven.go} 中使用这个包：
@@ -151,7 +151,7 @@ func Printf(format string, a ...interface{}) (n int, err error)
 这些测试文件同 Go 程序中的其他文件一样，但是 \prog{go test} 只会执行测试函数。
 每个测试函数都有相同的标识，它的名字以 \lstinline{Test} 开头：
 \begin{lstlisting}
-func TestXxx(t *testing.T) |\coderemark{Test<Capital>restOftheNe}|
+func TestXxx(t *testing.T)
 \end{lstlisting}
 
 编写测试时，需要告诉 \prog{go test} 测试是失败还是成功。测试成功则直接返回。
@@ -210,16 +210,31 @@ func TestEven(t *testing.T) {
 然后得到：
 \begin{display}
 FAIL    even    0.004s
-+--- FAIL: TestEven (0.00 seconds)
+--- FAIL: TestEven (0.00 seconds)
 \qquad\qquad2 should be odd!
 FAIL
 \end{display}
 \noindent{}然后你可以以此行事（修复测试的实例）
 
-\begin{lbar}
+\begin{lbar}{}
 在编写包的时候应当一边写代码，一边写（一些）文档和测试函数。
 这可以让你的程序更好，并且它展示了你的努力。
 \end{lbar}
+The Go test suite also allows you to incorperate example functions which
+serve as documentation \emph{and} as tests. These functions need to
+start with \texttt{Example}.
+\begin{lstlisting}
+func ExampleEven() {
+    if Even(2) {
+        fmt.Printf("Is even\n")
+    }
+    // Output:
+    // Is even
+}
+\end{lstlisting}
+Those last two comments lines are part of the example, \prog{go test} uses those
+to check the \emph{generated} output with the text in the comments. If there is
+a mismatch the test fails.
 
 \section{常用的包}
 标准的 Go 代码库中包含了大量的包，并且在安装 Go 的时候多数会伴随一起安装。
@@ -296,7 +311,6 @@ FAIL
 \end{description}
 
 \section{练习}
-
 \input{ex-packages/ex-stack-package.tex}
 
 \input{ex-packages/ex-calc.tex}

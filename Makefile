@@ -7,12 +7,6 @@ go.pdf: go-*.tex ex-*/*.tex src/*.go tab/*.tex fig/*.tex blocksbook.cls go.bib .
 	xelatex go.tex && bibtex go && makeindex go \
 	&& xelatex go.tex && xelatex go.tex
 
-go-kindle.pdf: go-*.tex ex-*/*.tex src/*.go tab/*.tex fig/*.tex blocksbook.cls go.bib .fig .tab about-*.tex
-	rm -f go.tex && ln -s go_kindle.tex go.tex
-	xelatex go.tex && bibtex go && makeindex go \
-	&& xelatex go.tex && xelatex go.tex
-	mv go.pdf go-kindle.pdf
-
 .fig:	fig/*.svg
 	( cd fig; make all )
 	touch .fig

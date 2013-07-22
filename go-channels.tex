@@ -32,6 +32,7 @@ I'm waiting         \coderemark{立刻}
 Coffee is ready!    \coderemark{1 秒后}
 Tea is ready!       \coderemark{2 秒后}
 \end{display}
+
 如果不等待 goroutine 的执行（例如，移除第 17 行），程序立刻终止，而任何正在执行的 
 goroutine 都\emph{会停止}。
 为了修复这个，需要一些能够同 goroutine 通讯的机制。这一机制通过 \first{channels}{channels} 
@@ -159,7 +160,6 @@ x, ok = <-ch
 \subsection{只读或只写 channel}
 
 
-\todo{more needs to be written}
 
 \section{练习}
 \input{ex-channels/ex-for-channels.tex}

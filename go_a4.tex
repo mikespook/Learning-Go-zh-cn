@@ -37,14 +37,13 @@
 \begin{document}
 \thispagestyle{empty}
 \newcommand{\version}{1.0}
+\strictpagecheck
 
 %% Title page.
 \begin{center}
 \hspace{1.0cm}{\scalefont{6.00}{\sffamily{\mbox{\vspace{1.0cm}学习~Go 语言}}}}\\
-\vspace{0.5cm}
-{\scalefont{3.0}\sffamily{Go 1}}
 \end{center}
-\vspace*{0.5cm}
+\vspace*{2cm}
 \begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.65]{fig/bumper-inverse.png}
@@ -75,6 +74,9 @@
 （{\small 按字母顺序}）
 
 \input{go-contributors.tex}
+还有来自以下朋友的小帮助:
+
+\input{go-nits-contributors.tex}
 \end{center}
 \vfill
 \begin{center}
@@ -82,7 +84,7 @@
     \hspace*{1cm}{\tiny\CcNote{\CcLongnameByNcSa}}
 \end{center}
 \begin{center}
-\hspace*{1cm}\emph{Miek Gieben -- \copyright 2010 - 2012} \\
+\hspace*{1cm}\emph{Miek Gieben -- \copyright 2010 - 2012}
 \hspace*{1cm}\emph{邢星~-- \copyright 2011 - 2013}
 \end{center}
 \vspace{-3em}
@@ -92,7 +94,6 @@
 
 \thispagestyle{empty}
 \begin{figure}[H]
-\begin{center}
 \emph{
 本作品依照署名-非商业性使用-相同方式共享~3.0 Unported 许可证发布。
 访问~\url{http://creativecommons.org/licenses/by-nc-sa/3.0/} 
@@ -101,23 +102,20 @@ Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105
 \vspace{2em}
 
 \emph{本书所有实例代码依此方式放入公共领域。}
-\end{center}
 
 \end{figure}
 
-\begin{center}
 ``学习~Go 语言'' 已经被翻译为：
 \begin{itemize}
 \item 中文，邢星；
 \end{itemize}
-\end{center}
 
 \begin{center}
 \vfill
-\emph{让我们开始学习~Go 吧。}
-（\emph{\version}）
+\emph{Learning as we Go}
+(\emph{\version})
 
-\tiny{支持~Go 1 版本}
+\tiny{支持~Go 1.1 版本}
 \vspace{.2\stockheight}
 \end{center}
 

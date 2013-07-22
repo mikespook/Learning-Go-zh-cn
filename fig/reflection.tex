@@ -9,11 +9,10 @@ to the documentation\footnote{\texttt{go doc reflect}}:%
 \func{Elem() Type} %
 \end{quote} %
 同样的在 \var{t} 使用 \func{Elem()} 得到了指针指向的值。}
-\ubrace{4.7,-5.2}{3.6,-5.2}{We have now dereferened the pointer %
-and are "inside" our structure. %
-We now use \func{Field(0)} to access the zeroth field;}%
+\ubrace{4.9,-5.2}{3.8,-5.2}{现在已经定义了可以“深入”结构体的指针。
+就可以使用 \func{Field(0)} 访问零值字段；}%
 %
-\ubrace{5.4,-5.2}{4.8,-5.2}{%
+\ubrace{6.4,-5.2}{5.8,-5.2}{%
 结构 \type{StructField} 有成员 \var{Tag}，返回字符串类型的标签名。%
 因此，在第 $0^{th}$ 个字段上可以用 \func{.Tag} 访问这个名字：\texttt{Field(0).Tag}。%
 这样得到了 \texttt{namestr}。}
@@ -23,12 +22,11 @@ type Person struct {
     age  int
 }
 
-p1 := new(Person)   |\coderemark{\func{new} 返回 Person 的指针}|
-ShowTag(p1)	    |\coderemark{调用 \func{ShowTag()} 并传递指针}|
+p1 := new(Person)|\coderemark{\func{new} 返回 Person 的指针}|
+ShowTag(p1)|\coderemark{调用 \func{ShowTag()} 并传递指针}|
 
 func ShowTag(i interface{}) {
-
  switch t := reflect.TypeOf(i); t.Kind() { |\coderemark{获取类型，在 Kind() 上选择}|
- case reflect.Ptr:	  |\coderemark{这是个指针，因此是 \var{reflect.Ptr}}|
-       tag := t.Elem().Field(0).Tag
+ case reflect.Ptr: |\coderemark{这是个指针，因此是 \var{reflect.Ptr}}|
+	tag := t.Elem().Field(0).Tag
 \end{lstlisting}

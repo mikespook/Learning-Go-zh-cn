@@ -1,8 +1,8 @@
 package main
 
-import (		|\longremark{导入下面的包；}|
+import (|\longremark{导入下面的包；}|
 	"even"	|\longremark{\emph{本地}包 \package{even} 在这里导入；}|
-	"fmt"		|\longremark{官方 \package{fmt} 包导入；}|
+	"fmt"	|\longremark{官方 \package{fmt} 包导入；}|
 )
 
 func main() {
