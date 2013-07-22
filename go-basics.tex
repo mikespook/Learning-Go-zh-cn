@@ -631,41 +631,41 @@ func Compare(a, b []byte) int {
 通讯。使用它来关闭~channel，参阅第~\ref{chap:channels} 章了解更多。
 \index{built-in!close}
 
-\item{\func{delete}} 用于在~map 中删除实例。
+\item[\func{delete}] 用于在~map 中删除实例。
 \index{built-in!delete}
 
-\item{\func{len} 和~\func{cap}} 可用于不同的类型，
+\item[\func{len} 和~\func{cap}] 可用于不同的类型，
 \func{len} 用于返回字符串、slice 和数组的长度。
 参阅``\titleref{sec:arrays}''小节了解更多关于~slice、
 数组和函数~\func{cap} 的详细信息。
 \index{built-in!len}\index{built-in!cap}
 
-\item{\func{new}} 用于各种类型的内存分配。
+\item[\func{new}] 用于各种类型的内存分配。
 参阅``\titleref{sec:allocation with new}''的第~\pageref{sec:allocation with new} 页。
 \index{built-in!new}
 
-\item{\func{make}} 用于内建类型（map、slice 和~channel）的内存分配。
+\item[\func{make}] 用于内建类型（map、slice 和~channel）的内存分配。
 参阅``\titleref{sec:allocation with make}''的第~\pageref{sec:allocation with make} 页。
 \index{built-in!make}
 
-\item{\func{copy}} 用于复制~slice。
+\item[\func{copy}] 用于复制~slice。
 参阅本章的``\titleref{sec:slices}''。
 \index{built-in!copy}
 
-\item{\func{append}} 用于追加~slice。
+\item[\func{append}] 用于追加~slice。
 参阅本章的``\titleref{sec:slices}''。
 \index{built-in!append}
 
-\item{\func{panic} 和~\func{recover}} 用于\emph{异常}处理机制。
+\item[\func{panic} 和~\func{recover}] 用于\emph{异常}处理机制。
 参阅``\titleref{sec:panic}''的第~\pageref{sec:panic} 页了解更多信息。
 \index{built-in!panic}
 \index{built-in!recover}
 
-\item{\func{print} 和~\func{println}} 是底层打印函数，可以在不引入~
+\item[\func{print} 和~\func{println}] 是底层打印函数，可以在不引入~
 \package{fmt}\index{package!fmt} 包的情况下使用。它们主要用于调试。
 \index{built-in!print}\index{built-in!println}
 
-\item{\func{complex}、\func{real} 和~\func{imag}} 全部用于处理
+\item[\func{complex}、\func{real} 和~\func{imag}] 全部用于处理
 \first{复数}{complex numbers}。有了之前给的简单的例子，不用再进一步讨论复数了。
 \index{built-in!complex}
 \index{built-in!real}
@@ -744,9 +744,9 @@ slice 总是与一个固定长度的~array 成对出现。其影响~slice
 \lstinline{slice := array[0:n]}\newline
 然后现在有：
 \begin{itemize}
-\item{\lstinline{len(slice) == n}{} ;}
-\item{\lstinline{cap(slice) == m}{} ;}
-\item{\lstinline{len(array) == cap(array) == m}{} .}
+    \item[\lstinline{len(slice) == n}{} ;]
+    \item[\lstinline{cap(slice) == m}{} ;]
+    \item[\lstinline{len(array) == cap(array) == m}{} .]
 \end{itemize}
 \begin{figure}[H]
 \caption{array 与 slice 对比}
