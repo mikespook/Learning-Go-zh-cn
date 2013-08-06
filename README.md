@@ -15,6 +15,7 @@
 
 * [Go 项目][1]
 * [学习 Go 语言][2]
+* [Learning Go][4]
 
 ## 构建
 
@@ -94,9 +95,10 @@ make
 
 ### 下载已经编译好的版本
 
-最新编译的 pdf 发布在[微盘][3]
+最新编译的 pdf 发布在[七牛存储][3]
 
 
 [1]: http://golang.org  "Go 项目"
 [2]: http://www.mikespook.com/learning-go/ "学习 Go 语言"
-[3]: http://vdisk.weibo.com/s/bUhFF "微盘"
+[3]: http://xxiyy.qiniudn.com/%E5%AD%A6%E4%B9%A0%20Go%20%E8%AF%AD%E8%A8%80(Golang).pdf?download "七牛存储"
+[4]: http://www.miek.nl/projects/learninggo/index.html
