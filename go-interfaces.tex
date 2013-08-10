@@ -60,7 +60,7 @@ type R struct { i int }
 func (p *R) Get() int { return p.i }
 func (p *R) Put(v int) { p.i = v }
 \end{lstlisting}
-函数 \func{f} 现在可以接受 \type{R} 个 \type{S} 类型的变量。
+函数 \func{f} 现在可以接受类型为 \type{R} 或 \type{S} 的变量。
 假设需要在函数 \func{f} 中知道实际的类型。在 Go 中可以使用
  \first{type switch}{type switch} 得到。
 
