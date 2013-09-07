@@ -35,7 +35,6 @@ When building this book from LaTeX sources files you will need the following pac
 * `texlive-xetex`
 * `texlive-latex-extra`
 * `texlive-latex-recommended`
-* `latex-cjk-xcjk`       (Chinese font)
 * `git-core`
 * `GNU make`
 
