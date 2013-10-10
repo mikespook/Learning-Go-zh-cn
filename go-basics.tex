@@ -702,11 +702,11 @@ fmt.Printf("The first element is %d\n", arr[0])
 参阅第~\pageref{sec:constructors and composite literals} 页的``\titleref{sec:constructors and composite literals}''了解更多信息。}
 注意，所有项目必须都指定。因此，如果你使用多维数组，有一些内容你必须录入：
 \begin{lstlisting}
-a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
+a := [3][2]int{ [2]int{1,2}, [2]int{3,4}, [2]int{5,6} }
 \end{lstlisting}
 类似于：
 \begin{lstlisting}
-a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
+a := [3][2]int{ [...]int{1,2}, [...]int{3,4}, [...]int{5,6} }
 \end{lstlisting}
 声明一个~array 时，你\emph{必须}在方括号内输入些内容，数字或者三个点
 (\verb|...|)。在很久之前，这个语法被进一步简化，这里是来自之前的发布日志：
@@ -716,7 +716,7 @@ array、slice 和~map，元素复合声明的类型与外部一致，则可以�
 \end{quote}
 这表示上面的例子可以修改为：
 \begin{lstlisting}
-a := [2][2]int{ {1,2}, {3,4} }
+a := [3][2]int{ {1,2}, {3,4}, {5,6} }
 \end{lstlisting}
 
 \subsection{slice}
