@@ -1,7 +1,87 @@
-\epi{``In Go, the code does exactly what it says on the page.''}{\textit{Go
-Nuts mailing list}\\\textsc{ANDREW GERRAND}}
-\noindent{}There are a few things that make Go different from other
-languages.
+\epi{``I am interested in this and hope to do something.''}
+{\textit{On adding complex numbers to Go}\\ \textsc{KEN THOMPSON}}
+
+\noindent{}What is Go? From the website \cite{go_web}:
+\begin{quote}
+The Go programming language is an open source project to make
+programmers more productive. Go is expressive, concise, clean, and
+efficient. Its concurrency mechanisms make it easy to write programs
+that get the most out of multi core and networked machines, while its
+novel type system enables flexible and modular program construction. Go
+compiles quickly to machine code yet has the convenience of garbage
+collection and the power of run-time reflection. It's a fast, statically
+typed, compiled language that feels like a dynamically typed,
+interpreted language.
+\end{quote}
+
+Go 1 is the first stable release of the language Go. 
+This document and all exercises work with Go 1 -- if not, it's a bug.
+
+The following convention is used throughout this book:
+\begin{itemize}
+\item Code, keywords and comments are displayed in \prog{Source Code Pro};
+\item Extra remarks in the code \coderemark{Are displayed like this};
+\item Longer remarks get a number -- \gocircle{1} -- with the explanation following;
+\item Line numbers (if needed) are printed on the right side;
+\item Shell examples use a \pr{} as prompt;
+\item User entered text in shell examples \texttt{\user{is in bold}}, system responses
+are in a \texttt{plain bold font};
+\item An emphasized paragraph is indented and has a vertical bar on the
+left.
+\end{itemize}
+
+\section{Official documentation}
+There is already a substantial amount of documentation written about Go.
+\gomarginpar{When searching on the internet use the term ``golang'' instead of plain ``go''.}
+The Go Tutorial \cite{go_tutorial}, and the Effective Go
+document \cite{effective_go}. The
+website \url{http://golang.org/doc/} is a very good starting point
+for reading up on Go\footnote{\url{http://golang.org/doc/} itself is served by 
+\prog{go doc}.}. Reading these documents is
+certainly not required, but it is recommended.
+
+Go 1 comes with its own documentation in the form of a program called 
+\prog{go doc}. If you are interested in the documentation
+for the built-ins (see ``\titleref{sec:builtins}'' in the next chapter) you
+can fire it up, like so:
+\begin{display}
+\pr \user{go doc builtin}
+\end{display}
+
+How to create your own package documentation is explained in chapter \ref{chap:packages}.
+
+\section{Origins}
+Go's syntax was pioneered by Modula-2 family of languages.
+Specifically, the language Oberon-2, a successor of Oberon and Modula-2 (both by
+N. Wirth), shows through: The notation for methods is borrowed from there, and
+imports and exports work almost exactly the same (but for the notation). Also,
+Oberon abandoned the notion of a separate definition ("header") file, and Go
+does the same.
+
+The structure and design of interfaces (see chapter \ref{chap:interfaces}) was
+inspired by how object-orientation works in Smalltalk and similar languages,
+and personal language experiments done by the Go Authors. It was also based
+on the growing consensus in the OO world that inheritance (as it was commonly
+implemented) was to be considered harmful.
+
+The whole of idea of using channels (see chapter \ref{chap:channels}) to
+communicate with other processes is called Communicating Sequential Processes
+(CSP) and was conceived by C. A. R. Hoare \cite{hoare}, who incidentally is the
+same man that invented QuickSort \cite{quicksort}.
+
+If we dig deeper into the history of Go we also find references
+to ``Newsqueak'' \cite{newsqueak}, which pioneered the use of 
+channel communication in a C--like language. Channels
+aren't unique to these languages; a big non--C--like
+language which uses them is Erlang \cite{erlang}.
+
+\begin{lbar}[]
+Go is the first C--like language that is widely available,
+runs on many
+different platforms and makes concurrency easy (or easier).
+\end{lbar}
+
+There are a few things that make Go different from other languages.
 \begin{description}
 \item[Clean and Simple]
 Go strives to keep things small and beautiful. You should
@@ -988,6 +1068,8 @@ In general the syntax \lstinline{delete(m, x)} will delete the map entry
 retrieved by the expression \lstinline{m[x]}.
 
 \section{Exercises}
+\input{ex-basics/ex-doc.tex}
+
 \input{ex-basics/ex-for.tex}
 
 \input{ex-basics/ex-fizzbuzz.tex}
