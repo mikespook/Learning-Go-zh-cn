@@ -1,10 +1,8 @@
-# `Learning Go` - a free E-Book for learning the Go language.
-
+# `Learning Go` - a free PDF for learning the Go language.
 
 The book currently consists of the following chapters:
 
-1. Introduction: Show how to install Go and details the lineage of the language Go.
-2. Basics:  Types, variables and control structures.
+1. Introduction: Details the lineage of the language Go and shows the types, variables and control structures.
 3. Functions: How to make and use functions.
 4. Packages: Functions and data are grouped together in packages. Here you will see how to make your own package. How to unit test your package is also described.
 5. Beyond the basics:  Learn how to create your own data types and define functions on them (called methods in Go).
