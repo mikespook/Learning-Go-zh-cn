@@ -19,12 +19,11 @@
 \newlistof{listofex}{ex}{List of Exercises}
 \newlistentry{exercise}{ex}{0}
 
-\newlistof{listofcode}{code}{List of Code Examples}
-\newlistentry{code}{code}{0}
+\makeatletter
+\newcommand*{\lolnoheading}{\@starttoc{lol}}
+\newcommand{\codeheadstart}{}
+\makeatother
 
-%% need to do this for code examples too
-%%\renewcommand{\lstlistlistingname}{List of Code Examples}
-%% toc
 \renewcommand{\tocheadstart}{}
 \renewcommand{\aftertoctitle}{\pagestyle{blocks}}
 \renewcommand{\aftertoctitle}{\thispagestyle{empty}\afterchaptertitle\pagestyle{blocks}}

@@ -22,4 +22,3 @@ string to the screen. The string is enclosed with \lstinline{"} and may %
 contain non-ASCII characters. Here we use Greek and Japanese.}|
  fmt.Printf("Hello, world; or |$\kappa\alpha\lambda\eta\mu\acute{\epsilon}\rho\alpha\hspace{1em}\kappa$\'o$ \sigma\mu\epsilon$|; or |こんにちは 世界|")
 }
-
