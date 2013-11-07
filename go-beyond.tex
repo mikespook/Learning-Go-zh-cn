@@ -115,8 +115,7 @@ pointer to a \type{nil} slice value.
 These examples illustrate the difference between \key{new} and
 \key{make}.
 \begin{lstlisting}
-var p *[]int = new([]int)       |\coderemark{Allocates slice structure; \var{*p == nil}}|
-				|\coderemark{Rarely useful}|
+var p *[]int = new([]int)       |\coderemark{Allocates slice structure;rarely useful}|
 var v  []int = make([]int, 100) |\coderemark{\var{v} refers to a new array of 100 ints}|
 
 var p *[]int = new([]int)       |\coderemark{Unnecessarily complex}|

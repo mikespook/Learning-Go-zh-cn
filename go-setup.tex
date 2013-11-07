@@ -12,17 +12,9 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.7ex plus 0.5ex minus 0.2ex}
 
-%%\setlength{\parskip}{0.3\baselineskip}
-%%\setlength{\parindent}{0pt}
-    
 %% list of answers
 \newlistof{listofex}{ex}{List of Exercises}
 \newlistentry{exercise}{ex}{0}
-
-\makeatletter
-\newcommand*{\lolnoheading}{\@starttoc{lol}}
-\newcommand{\codeheadstart}{}
-\makeatother
 
 \renewcommand{\tocheadstart}{}
 \renewcommand{\aftertoctitle}{\pagestyle{blocks}}
@@ -50,11 +42,6 @@
 \renewcommand{\afterextitle}{\thispagestyle{blocks}}
 \renewcommand{\printextitle}[1]{\section*{#1}}
 \renewcommand{\exmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Exercises}}
-%% code
-\renewcommand{\codeheadstart}{}
-\renewcommand{\aftercodetitle}{\thispagestyle{blocks}}
-\renewcommand{\printcodetitle}[1]{\section*{#1}}
-\renewcommand{\codemark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Code Examples}}
 
 \nobibintoc
 \renewcommand*{\indexmark}{%
