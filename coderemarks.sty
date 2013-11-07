@@ -4,13 +4,14 @@
 %% define 2 commands
 %% \longremark[1] where you can say something about the code
 %% \showremarks - displays all remarks in a list after the code
+
 \newcounter{coderemarks}
 \setcounter{coderemarks}{0}
 \newcounter{codevar}
 \setcounter{codevar}{0}
 %
 \newcommand{\gocircle}[1]{%
-\tikz\node[text=white,font=\sffamily\bfseries,inner sep=0.2mm,draw,circle,fill=black]{#1};}
+\tikz\node[text=white,font=\sffamily\bfseries,minimum size=4mm,inner sep=0mm,draw,circle,fill=black]{#1};}
 %
 \newcommand{\longremark}[1]{%
 \gocircle{\arabic{coderemarks}}%
