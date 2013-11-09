@@ -1,6 +1,6 @@
 \begin{lstlisting}[caption=Introspection using reflection,label=src:introspection]
 |\begin{tikzpicture}[overlay]
-\ubrace{3.2,-5.2}{2.2,-5.2}{%
+\ubrace{3.2,-4.2}{2.2,-4.2}{%
 We are dealing with a \type{Type} and according %
 to the documentation\footnote{\texttt{go doc reflect}}:%
 \begin{quote} %
@@ -10,11 +10,11 @@ to the documentation\footnote{\texttt{go doc reflect}}:%
 \end{quote} %
 So on \var{t} we use \func{Elem()} to get the value the pointer %
 points to;}%
-\ubrace{4.9,-5.2}{3.8,-5.2}{We have now dereferenced the pointer %
+\ubrace{4.9,-4.2}{3.8,-4.2}{We have now dereferenced the pointer %
 and are "inside" our structure. %
 We now use \func{Field(0)} to access the zeroth field;}%
 %
-\ubrace{6.4,-5.2}{5.8,-5.2}{%
+\ubrace{6.0,-4.2}{5.1,-4.2}{%
 The struct \type{StructField} has a \var{Tag} member which %
 returns the tag-name as a string. So on the $0^{th}$ field we can %
 unleash \func{.Tag} to access this name: \texttt{Field(0).Tag}. This %
@@ -26,10 +26,7 @@ type Person struct {
     age  int
 }
 
-p1 := new(Person)|\coderemark{\func{new} returns a pointer to Person}|
-ShowTag(p1)|\coderemark{\func{ShowTag()} is called with this pointer}|
-
-func ShowTag(i interface{}) {
+func ShowTag(i interface{}) {   |\coderemark{Called with *Person}|
  switch t := reflect.TypeOf(i); t.Kind() {
  case reflect.Ptr: |\coderemark{A pointer, thus \var{reflect.Ptr}}|
    tag := t.Elem().Field(0).Tag
