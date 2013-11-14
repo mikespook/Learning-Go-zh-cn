@@ -34,11 +34,11 @@ like this (only showing the \func{main}-function):
 \begin{lstlisting}
 func main() {
         i := 0	|\coderemark{Define our loop variable}|
-I:		|\coderemark{Define a label}|
+Loop:		|\coderemark{Define a label}|
         fmt.Printf("%d\n", i)
-        i++ 
         if i < 10 {
-                goto I	|\coderemark{Jump to the label}|
+            i++ 
+            goto Loop |\coderemark{Jump to the label}|
         }   
 }
 \end{lstlisting}

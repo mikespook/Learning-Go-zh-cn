@@ -2,10 +2,10 @@ package main |\longremark{This first line is just required. All Go files start w
 \mbox{\lstinline{package <something>}}, \lstinline{package main} is required for a %
 standalone executable;}|
 
-import "fmt"  // Implements formatted I/O. \longremark{This says we need \package{fmt} in %
+import "fmt" |\longremark{This says we need \package{fmt} in %
 addition to \package{main}. A package other than \package{main} is commonly called a %
 library, a familiar concept in many programming languages (see chapter \ref{chap:packages}). %
-The line ends with a comment which is started with \lstinline|//|;}
+The line ends with a comment which is started with \lstinline|//|;}|// Implements formatted I/O.
 
 /* Print something */ |\longremark{This is also a comment, but this one is enclosed in %
 \lstinline|/*| and \lstinline|*/|;}|
@@ -22,4 +22,3 @@ string to the screen. The string is enclosed with \lstinline{"} and may %
 contain non-ASCII characters. Here we use Greek and Japanese.}|
  fmt.Printf("Hello, world; or |$\kappa\alpha\lambda\eta\mu\acute{\epsilon}\rho\alpha\hspace{1em}\kappa$\'o$ \sigma\mu\epsilon$|; or |こんにちは 世界|")
 }
-

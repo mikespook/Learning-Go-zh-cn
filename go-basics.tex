@@ -50,37 +50,6 @@ can fire it up, like so:
 
 How to create your own package documentation is explained in chapter \ref{chap:packages}.
 
-\section{Origins}
-Go's syntax was pioneered by Modula-2 family of languages.
-Specifically, the language Oberon-2, a successor of Oberon and Modula-2 (both by
-N. Wirth), shows through: The notation for methods is borrowed from there, and
-imports and exports work almost exactly the same (but for the notation). Also,
-Oberon abandoned the notion of a separate definition ("header") file, and Go
-does the same.
-
-The structure and design of interfaces (see chapter \ref{chap:interfaces}) was
-inspired by how object-orientation works in Smalltalk and similar languages,
-and personal language experiments done by the Go Authors. It was also based
-on the growing consensus in the OO world that inheritance (as it was commonly
-implemented) was to be considered harmful.
-
-The whole of idea of using channels (see chapter \ref{chap:channels}) to
-communicate with other processes is called Communicating Sequential Processes
-(CSP) and was conceived by C. A. R. Hoare \cite{hoare}, who incidentally is the
-same man that invented QuickSort \cite{quicksort}.
-
-If we dig deeper into the history of Go we also find references
-to ``Newsqueak'' \cite{newsqueak}, which pioneered the use of 
-channel communication in a C--like language. Channels
-aren't unique to these languages; a big non--C--like
-language which uses them is Erlang \cite{erlang}.
-
-\begin{lbar}[]
-Go is the first C--like language that is widely available,
-runs on many
-different platforms and makes concurrency easy (or easier).
-\end{lbar}
-
 There are a few things that make Go different from other languages.
 \begin{description}
 \item[Clean and Simple]
@@ -127,7 +96,6 @@ source code distribution;
 
 \item[Fun]
 Programming with Go should be fun!
-
 \end{description}
 Erlang \cite{erlang} also shares some
 of the features of Go. Notable differences between Erlang
@@ -135,6 +103,11 @@ and Go is that Erlang borders on being a functional language,
 where Go is an imperative one. And Erlang runs in a virtual
 machine, while Go is compiled. Go also has a much more Unix-like
 feel to it.
+
+\begin{lbar}[]
+Go is the first C--like language that is widely available,
+runs on many different platforms and makes concurrency easy (or easier).
+\end{lbar}
 
 \section{Hello World}
 \label{sec:hello world}
@@ -144,7 +117,7 @@ Dennis Ritchie started this when they presented the C language in
 the 1970s). We don't think we can do better, so
 here it is, ``Hello World'' in Go.
 
-\lstinputlisting[numbers=right,label=src:hello,caption=Hello world]{src/helloworld.go}
+\lstinputlisting[label=src:hello,caption=Hello world]{src/helloworld.go}
 Lets look at the program line by line.
 \showremarks
 

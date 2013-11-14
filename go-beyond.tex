@@ -115,8 +115,7 @@ pointer to a \type{nil} slice value.
 These examples illustrate the difference between \key{new} and
 \key{make}.
 \begin{lstlisting}
-var p *[]int = new([]int)       |\coderemark{Allocates slice structure; \var{*p == nil}}|
-				|\coderemark{Rarely useful}|
+var p *[]int = new([]int)       |\coderemark{Allocates slice structure;rarely useful}|
 var v  []int = make([]int, 100) |\coderemark{\var{v} refers to a new array of 100 ints}|
 
 var p *[]int = new([]int)       |\coderemark{Unnecessarily complex}|
@@ -415,6 +414,12 @@ Note that converting structures that are not identical in their fields
 is more difficult. Also note that converting \lstinline{b} to a plain
 \type{int} also fails; an integer is not the same as a structure containing
 an integer.
+
+\section{Composition}
+TODO(miek):work in progress
+Go isn't an object oriented language and as such does not have inheritance, but sometimes you
+do want to "inherit" some methods that are implemented for a type and change a few. In Go is
+this possible by embedding a type.
 
 \section{Exercises}
 \input{ex-beyond/ex-pointer-arith.tex}
