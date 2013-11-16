@@ -303,13 +303,11 @@ execution of \func{F} stops, any deferred functions in \func{F} are executed nor
 then \func{F} returns to its caller. To the caller, \func{F} then
 behaves like a call to \key{panic}. The process continues up the stack until all functions in the current 
 goroutine have returned, at which point the program crashes. 
-
 Panics can be initiated by invoking \func{panic} directly. They can also be caused by \emph{runtime errors}, such
 as out-of-bounds array accesses.}
 
 \item[Recover]{is a built-in function that regains control of a panicking goroutine. Recover is \emph{only} useful inside 
 \emph{deferred} functions.
-
 During normal execution, a call to \func{recover} will return \type{nil} and have no other effect. 
 If the current goroutine is panicking, a call
 to \func{recover} will capture the value given to \func{panic} and resume normal execution.}
