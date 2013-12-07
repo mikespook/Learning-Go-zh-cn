@@ -10,11 +10,16 @@ invocation displays the contents of the file \dir{blah}:
 \Question Make it support the \-n flag, where each line is
 numbered.
 
+\Question The solution to the above question given in \ref{q:cat} contains a
+bug. Can you spot and fix it?
 \end{Exercise}
 
 \begin{Answer}
 \Question The following is implemention of \prog{cat} which also 
+\label{q:cat}
 supports a \-n flag to number each line.
 \lstinputlisting[label=src:cat,caption=A cat program]{ex-beyond/src/cat.go}
 \showremarks
+
+\Question The bug show itself when the input is
 \end{Answer}

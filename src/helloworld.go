@@ -1,5 +1,5 @@
 package main |\longremark{This first line is just required. All Go files start with %
-\mbox{\lstinline{package <something>}}, \lstinline{package main} is required for a %
+\lstinline{package <something>}, \lstinline{package main} is required for a %
 standalone executable;}|
 
 import "fmt" |\longremark{This says we need \package{fmt} in %
