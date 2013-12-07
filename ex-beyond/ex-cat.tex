@@ -21,5 +21,9 @@ supports a \-n flag to number each line.
 \lstinputlisting[label=src:cat,caption=A cat program]{ex-beyond/src/cat.go}
 \showremarks
 
-\Question The bug show itself when the input is
+\Question The bug show itself when the last line of the input does not
+contain a newline. Or worse, when the input contains one line without a
+closing newline nothing is shown at all. A better solution is the following 
+program.
+\lstinputlisting[label=src:cat2,caption=A better cat program]{ex-beyond/src/cat2.go}
 \end{Answer}
