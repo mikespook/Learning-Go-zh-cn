@@ -21,7 +21,7 @@ asSASA ddd dsjkdsjs dk
 同时输出这个字符串的字节数。
 \emph{提示：} 看看~\package{unicode/utf8} 包。
 
-\Question \label{ex:string q3} 扩展上一个问题的程序，替换位置~4 开始的三个字符为~``abc''。
+\Question \label{ex:string q3} 扩展/修改上一个问题的程序，替换位置~4 开始的三个字符为~``abc''。
 
 \Question \label{ex:string q4} 编写一个~Go 程序可以逆转字符串，例如``foobar''
 被打印成``raboof''。
@@ -50,13 +50,16 @@ b   := []byte(str) |\coderemark{转换，参阅第~\pageref{sec:conversions} 页
 \begin{minipage}{\textwidth}
 \lstinputlisting[label=src:string2,caption=字符串中的 rune]{ex-basics/src/string2.go}
 \end{minipage}
-\Question 将此作为练习留给读者。如果你完成了它，请同我联系！
-我将会把你的答案放在这里。
+
+\Question 如下几行代码：
+\begin{minipage}{\textwidth}
+\lstinputlisting[label=src:string3]{ex-basics/src/string3.go}
+\end{minipage}
 
 \Question 可以用下面的方法逆转字符串。我们从左边（\var{i}）至右（\var{j}）的交换字符，就像这样：
 
 \begin{minipage}{\textwidth}
-\lstinputlisting[label=src:stringrev,caption=逆转字符串,linerange={3,}]{ex-basics/src/stringrev.go}
+\lstinputlisting[label=src:stringrev,caption=Reverse a string,linerange={3,}]{ex-basics/src/stringrev.go}
 \end{minipage}
 
 \end{Answer}

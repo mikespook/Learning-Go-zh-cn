@@ -1,6 +1,46 @@
-\epi{``在~Go 中，代码说到做到。''}{\textit{Go
-Nuts 邮件列表}\\\textsc{ANDREW GERRAND}}
-\noindent{}有一些东西使得~Go 区别于其他语言。
+\epi{``对此感兴趣，并且希望做点什么。''}
+{\textit{在为~Go 添加复数支持时}\\ \textsc{KEN THOMPSON}}
+
+\noindent{}什么是~Go？来自其网站\cite{go_web}的介绍：
+\begin{quote}
+Go 编程语言是一个使得程序员更加有效率的开源项目。Go 是有表达力、简洁、清晰和有效率的。
+它的并行机制使其很容易编写多核和网络应用，而新奇的类型系统允许构建有弹性的模块化程序。
+Go 编译到机器码非常快速，同时具有便利的垃圾回收和强大的运行时反射。
+它是快速的、静态类型编译语言，但是感觉上是动态类型的，解释型语言。
+\end{quote}
+
+Go 1 是~Go 语言的第一个稳定发布版本。
+本文档的所有练习都工作于~Go 1 -- 如果不能工作，那就一定是~bug。
+
+本书使用了下面的约定：
+\begin{itemize}
+\item 代码、关键字和注释使用~\prog{Source Code Pro} 显示；
+\item 代码中的额外标识~\coderemark{像这样显示}；
+\item 较长的标识提供数字 -- \gocircle{1} -- 详细解释在其后显示；
+\item （如果需要）行号在右边显示；
+\item shell 的例子使用~\pr{} 作为输入符；
+\item 用户在~shell 输入内容的例子~\texttt{\user{用黑体显示}}，系统反馈~\texttt{用普通的黑体显示}；
+\item 强调的段落会缩进，并在左边有竖线。
+\end{itemize}
+
+\section{官方文档}
+Go 已经有大量的文档。
+\gomarginpar{在互联网上搜索时，应当使用``golang''这个词来代替原始的``go''。}
+例如~Go Tutorial \cite{go_tutorial} 和~Effective Go \cite{effective_go}。
+网站~\url{http://golang.org/doc/} 也是绝佳的起点 
+\footnote{\url{http://golang.org/doc/} 本身是由~\prog{go doc} 提供服务的。}。
+虽然并不一定要阅读这些文档，但是强烈建议这么做。
+
+Go 1 通过叫做~\prog{go doc}
+的标准程序提供其文档。如果你想了解内建相关（参阅下一章
+``\titleref{sec:builtins}''小节）的文档，可以像这样获取：
+\begin{display}
+\pr \user{go doc builtin}
+\end{display}
+
+在第~\ref{chap:packages} 章解释了如何构造你自己的包的文档。
+
+有一些特性让~Go 与众不同。
 \begin{description}
 \item[清晰并且简洁]
 Go 努力保持小并且优美，你可以在短短几行代码里做许多事情；
@@ -10,7 +50,7 @@ Go 让函数很容易成为\emph{非常}轻量的线程。
 这些线程在~Go 中被叫做~\first{goroutines}{goroutines} 
 \footnote{是的，它的发音很接近~\emph{co}routines，
 但是~goroutines 确实有一些不同，我们将在第~\ref{chap:channels} 章讨论。}；
-%% gofix.go:11: non-declaration statement outside function body
+
 \item[Channel]
 这些~goroutines 之间的通讯由~\first{channel}{channel}\cite{hoare, csp} 完成；
 
@@ -69,6 +109,7 @@ Erlang 运行在虚拟机上，而~Go 是编译的。Go 用起来感觉更接近
 \begin{display}
 \pr \user{./helloworld}
 \end{display}
+
 \vspace{-3.0ex}
 \texttt{Hello, world; or }%
 \begin{math}\kappa\alpha\lambda\eta\mu\acute{\epsilon}\rho\alpha\hspace{1em}\kappa\end{math}%

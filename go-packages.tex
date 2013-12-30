@@ -10,7 +10,7 @@ Go 包可以由多个文件组成，但是使用相同的 \lstinline{package <na
 名称以大写字母起始的是\emph{可导出}的，可以在包的外部调用（稍候会对此进行讨论）。
 
 现在只需要构建这个包。在 \var{\$GOPATH} 下建立一个目录，复制
-\file{even.go} 到这个目录（参阅第 \ref{chap:basics} 章的``\titleref{sec:building a program}''）。
+\file{even.go} 到这个目录（参阅第 \ref{chap:intro} 章的``\titleref{sec:building a program}''）。
 
 \begin{display}
 \pr \user{mkdir $GOPATH/src/even}
@@ -220,6 +220,7 @@ FAIL
 在编写包的时候应当一边写代码，一边写（一些）文档和测试函数。
 这可以让你的程序更好，并且它展示了你的努力。
 \end{lbar}
+
 The Go test suite also allows you to incorperate example functions which
 serve as documentation \emph{and} as tests. These functions need to
 start with \texttt{Example}.

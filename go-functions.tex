@@ -12,6 +12,7 @@
 \begin{lstlisting}
 func subroutine(in int) { return }
 \end{lstlisting}
+
 \begin{lstlisting}
 func identity(in int) int { return in }
 \end{lstlisting}
@@ -150,7 +151,7 @@ func ReadWrite() bool {
     if failureY {
 	return false    |\coderemark{这里也是}|
     }
-    return true
+    return true         |\coderemark{And here}|
 }
 \end{lstlisting}
 可以将多个函数放入``延迟列表''\index{deferred list}中，这个例子来自~\cite{effective_go}：

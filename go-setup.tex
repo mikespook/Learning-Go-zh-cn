@@ -1,4 +1,4 @@
-\setmonofont[Path=fonts/,Scale=0.95,BoldFont={SourceCodePro-Bold}]{SourceCodePro-Regular}
+\setmonofont[Path=fonts/,Scale=0.90,BoldFont={SourceCodePro-Bold}]{SourceCodePro-Regular}
 %% Fontfeatures after setting the mono font to keep
 %% lstlisting fonts happy
 %%\defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
@@ -12,18 +12,10 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.7ex plus 0.5ex minus 0.2ex}
 
-%%\setlength{\parskip}{0.3\baselineskip}
-%%\setlength{\parindent}{0pt}
 %% list of answers
 \newlistof{listofex}{ex}{List of Exercises}
 \newlistentry{exercise}{ex}{0}
 
-\newlistof{listofcode}{code}{List of Code Examples}
-\newlistentry{code}{code}{0}
-
-%% need to do this for code examples too
-%%\renewcommand{\lstlistlistingname}{List of Code Examples}
-%% toc
 \renewcommand{\tocheadstart}{}
 \renewcommand{\aftertoctitle}{\pagestyle{blocks}}
 \renewcommand{\aftertoctitle}{\thispagestyle{empty}\afterchaptertitle\pagestyle{blocks}}
@@ -50,11 +42,6 @@
 \renewcommand{\afterextitle}{\thispagestyle{blocks}}
 \renewcommand{\printextitle}[1]{\section*{#1}}
 \renewcommand{\exmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Exercises}}
-%% code
-\renewcommand{\codeheadstart}{}
-\renewcommand{\aftercodetitle}{\thispagestyle{blocks}}
-\renewcommand{\printcodetitle}[1]{\section*{#1}}
-\renewcommand{\codemark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Code Examples}}
 
 \nobibintoc
 \renewcommand*{\indexmark}{%
@@ -70,7 +57,7 @@
 \expandafter\def\expandafter\quote\expandafter{\quote\em}
 
 %% Listings
-\newfontfamily\listingsfont[Path=fonts/,Scale=0.95,BoldFont={SourceCodePro-Bold}]{SourceCodePro-Regular}
+\newfontfamily\listingsfont[Path=fonts/,Scale=0.90,BoldFont={SourceCodePro-Bold}]{SourceCodePro-Regular}
 
 \lstdefinelanguage{Go}
   {morekeywords={append,break,cap,case,chan,const,continue,copy,default,defer,else,fallthrough,%
@@ -93,7 +80,7 @@
 \lstset{language=Go,inputencoding=utf8,extendedchars=false,texcl,escapechar=\|,basicstyle=\ttfamily,keywordstyle=\normalfont,numbers=none,numberblanklines=false,showstringspaces=false,breaklines=true,numberstyle=\small\ttfamily,xleftmargin=\parindent,xrightmargin=1em,linewidth=0.98\linewidth}
 %,literate={"}{\textasciiquote}{1}}
 
-\newcommand{\coderemark}[1]{\sffamily\qquad$\leftarrow \textit{\small #1}$}
+\newcommand{\coderemark}[1]{\sffamily\qquad$\leftarrow \textit{\footnotesize #1}$}
 
 %% Cite style
 %%\bibpunct{[}{]}{;}{s}{,}{,}
@@ -146,6 +133,7 @@
 }
 
 \setCJKmainfont{AR PL UKai CN}
+
 \newcommand{\ubrace}[3]{%
 \draw [thick,decorate,decoration={brace,amplitude=4pt},xshift=0pt,yshift=0pt] %
 (#1) -- (#2) node [black,midway,below=4pt,xshift=0pt] %

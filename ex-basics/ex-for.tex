@@ -31,11 +31,11 @@
 \begin{lstlisting}
 func main() {
         i := 0	|\coderemark{定义循环变量}|
-I:		|\coderemark{定义标签}|
+Loop:		|\coderemark{定义标签}|
         fmt.Printf("%d\n", i)
-        i++ 
         if i < 10 {
-                goto I	|\coderemark{跳转回标签}|
+            i++ 
+            goto Loop |\coderemark{跳转回标签}|
         }   
 }
 \end{lstlisting}
@@ -45,7 +45,7 @@ I:		|\coderemark{定义标签}|
 \lstinputlisting[label=src:for-arr,caption={用于数组的~for 循环 },linerange={5,11}]{ex-basics/src/for-arr.go}
 也可以用复合声明的硬编码来实现这个：
 \begin{lstlisting}
-a := [...]int{0,1,2,3,4,5,6,7,8,9} |\coderemark{通过~[...] 让~Go 来计数}|
+a := [...]int{0,1,2,3,4,5,6,7,8,9} |\coderemark{让~Go 来计数}|
 fmt.Printf("%v\n", a)
 \end{lstlisting}
 \end{Answer}

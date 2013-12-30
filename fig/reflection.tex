@@ -1,6 +1,6 @@
 \begin{lstlisting}[caption=使用反射自省,label=src:introspection]
 |\begin{tikzpicture}[overlay]
-\ubrace{3.2,-5.2}{2.2,-5.2}{%
+\ubrace{3.2,-4.2}{2.2,-4.2}{%
 We are dealing with a \type{Type} and according %
 to the documentation\footnote{\texttt{go doc reflect}}:%
 \begin{quote} %
@@ -9,10 +9,10 @@ to the documentation\footnote{\texttt{go doc reflect}}:%
 \func{Elem() Type} %
 \end{quote} %
 同样的在 \var{t} 使用 \func{Elem()} 得到了指针指向的值。}
-\ubrace{4.9,-5.2}{3.8,-5.2}{现在已经定义了可以“深入”结构体的指针。
+\ubrace{4.9,-4.2}{3.8,-4.2}{现在已经定义了可以“深入”结构体的指针。
 就可以使用 \func{Field(0)} 访问零值字段；}%
 %
-\ubrace{6.4,-5.2}{5.8,-5.2}{%
+\ubrace{6.0,-4.2}{5.1,-4.2}{%
 结构 \type{StructField} 有成员 \var{Tag}，返回字符串类型的标签名。%
 因此，在第 $0^{th}$ 个字段上可以用 \func{.Tag} 访问这个名字：\texttt{Field(0).Tag}。%
 这样得到了 \texttt{namestr}。}
@@ -22,11 +22,8 @@ type Person struct {
     age  int
 }
 
-p1 := new(Person)|\coderemark{\func{new} 返回 Person 的指针}|
-ShowTag(p1)|\coderemark{调用 \func{ShowTag()} 并传递指针}|
-
-func ShowTag(i interface{}) {
- switch t := reflect.TypeOf(i); t.Kind() { |\coderemark{获取类型，在 Kind() 上选择}|
- case reflect.Ptr: |\coderemark{这是个指针，因此是 \var{reflect.Ptr}}|
-	tag := t.Elem().Field(0).Tag
+func ShowTag(i interface{}) {   |\coderemark{*Person 作为参数调用}|
+ switch t := reflect.TypeOf(i); t.Kind() {
+ case reflect.Ptr: |\coderemark{一个指针，也就是~\var{reflect.Ptr}}|
+   tag := t.Elem().Field(0).Tag
 \end{lstlisting}
