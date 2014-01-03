@@ -27,14 +27,15 @@
 * `gnumeric`
 * `ttf-droid`
 * `ttf-dejavu`
-* `ttf-sazanami-gothic`  (日文)
+* `ttf-sazanami-gothic`	（日文）
 * `ttf-arphic-ukai`     
 * `texlive-fonts-recommended`
 * `texlive-extra-utils`
 * `texlive-xetex`
 * `texlive-latex-extra`
 * `texlive-latex-recommended`
-* `latex-cjk-xcjk`       (中文)
+* `latex-cjk-xcjk`     	（中文）
+* `ttf-wqy-microhei`	（中文）
 * `git-core`
 * `GNU make`
 
@@ -58,6 +59,7 @@ texlive-xetex \
 texlive-latex-extra \
 texlive-latex-recommended \
 latex-cjk-xcjk \
+ttf-wqy-microhei \
 git-core \
 make \
 do 
