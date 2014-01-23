@@ -92,8 +92,8 @@ make
 
 ### Download the prebuilt `Learning Go` book
 
-Latest prebuilt pdf book [can be downloaded from http://www.miek.nl/files/go/] [1]
+Latest prebuilt pdf book [can be downloaded from http://www.miek.nl/downloads/Go/] [1]
 
 
-[1]: http://miek.nl/files/go/  "Download the prebuilt Learning Go book in PDF format"
+[1]: http://miek.nl/downloads/Go/  "Download the prebuilt Learning Go book in PDF format"
 [2]: http://www.miek.nl/projects/learninggo/index.html "http://www.miek.nl/projects/learninggo/index.html"
