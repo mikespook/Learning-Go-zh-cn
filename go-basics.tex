@@ -159,7 +159,7 @@ Go has a C-like feel when it comes to its syntax.
 If you want to put two (or more) statements on one line, they must be
 separated with a semicolon (';'). Normally you don't need the semicolon.
 
-Go is different from other languages in that the type of a variable
+Go is different from (most) other languages in that the type of a variable
 is specified \emph{after} the variable name. So not: 
 \lstinline{int a}, but \lstinline{a int}. When declaring a variable it
 is assigned the ``natural'' null value for the type. This means that after
@@ -224,7 +224,7 @@ value of 35 to \var{b} and discard the value 34.
 \begin{lstlisting}
 _, b := 34, 35
 \end{lstlisting}
-Declared but otherwise unused variables are a compiler error in Go. The
+Declared but otherwise \emph{unused} variables are a compiler error in Go. The
 following code generates this error:
 \error{i declared and not used}
 
@@ -248,13 +248,13 @@ either 32 or 64 bits, no other values are defined. Same goes
 for \lstinline{uint}.
 
 If you want to be explicit about the length you can have
-that too with \lstinline{int32}, or \lstinline{uint32}. The full
+that too with \type{int32}, or \type{uint32}. The full
 list for (signed and unsigned) integers is
 \type{int8}, \type{int16}, \type{int32}, \type{int64} and
 \type{byte}, \type{uint8}, \type{uint16}, \type{uint32}, \type{uint64}.
 With \lstinline{byte} being an
 alias for \lstinline{uint8}. For floating point values there is
-\lstinline{float32} and \lstinline{float64} (there is no \lstinline{float} type). 
+\type{float32} and \type{float64} (there is no \lstinline{float} type). 
 A 64 bit integer or floating point value is \emph{always} 64 bit, also on 32 bit
 architectures.
 
@@ -317,7 +317,7 @@ quotes ("). If you use the single quote (') you mean one character
 
 Once assigned to a variable the string can not be changed: strings in Go are
 immutable. For
-people coming from C, the following is not legal in Go:
+people coming from C; the following is not legal in Go:
 \begin{lstlisting}
 var s string = "hello"
 s[0] = 'c'  |\coderemark{Change first char. to 'c', this is an error}|
@@ -366,7 +366,7 @@ is composed of the \emph{uninterpreted} characters between the quotes.
 \end{lbar}
 
 \subsection{Runes}
-\lstinline{Rune} is an alias for int32. It is an UTF-8 encoded code point. When is this type useful? For instance,
+\lstinline{Rune} is an alias for \type{int32}. It is an UTF-8 encoded code point. When is this type useful? For instance,
 when iterating over characters in a string. You can loop over each byte (which is only equivalent to a character
 when strings are encoded in 8-bit ASCII, which they are \emph{not} in Go!). So to get the actual characters you
 should use the \type{rune} type.
@@ -796,19 +796,19 @@ See section ``\titleref{sec:slices}'' in this chapter.
 See section ``\titleref{sec:slices}'' in this chapter.
 \index{built-in!append}
 
-\item[\func{panic} and \func{recover}] are used for an 
+\item[\func{panic}, \func{recover}] are used for an 
 \emph{exception} mechanism. See the section ``\titleref{sec:panic}'' on 
 page \pageref{sec:panic} for more.
 \index{built-in!panic}
 \index{built-in!recover}
 
-\item[\func{print} and \func{println}] are low level printing
+\item[\func{print}, \func{println}] are low level printing
 functions that can be used without reverting to the
 \package{fmt}\index{package!fmt}
 package. These are mainly used for debugging.
 \index{built-in!print}\index{built-in!println}
 
-\item[\func{complex}, \func{real} and \func{imag}] all deal with
+\item[\func{complex}, \func{real}, \func{imag}] all deal with
 \first{complex numbers}{complex numbers}. Apart from the simple example
 we gave, we will not further explain complex numbers.
 \index{built-in!complex}
@@ -852,26 +852,11 @@ to assign a value directly to an array, slice or map.
 
 See the section ``\titleref{sec:constructors and composite literals}'' on
 page \pageref{sec:constructors and composite literals} for more.}
-Note that all fields must be specified.  So if you are using multidimensional
-arrays you have to do quite some typing:
-\begin{lstlisting}
-a := [2][2]int{ [2]int{1,2}, [2]int{3,4} }
-\end{lstlisting}
-Which is the same as:
-\begin{lstlisting}
-a := [2][2]int{ [...]int{1,2}, [...]int{3,4} }
-\end{lstlisting}
 When declaring arrays you \emph{always} have to type something in
 between the square brackets, either a number or three dots (\verb|...|)
-when using a composite literal. A long time ago 
-this syntax was further simplified, release notes from back then state:
-\begin{quote}
-The syntax for arrays, slices, and maps of composite literals has been
-simplified. Within a composite literal of array, slice, or map type, elements
-that are themselves composite literals may elide the type if it is identical to
-the outer literal's element type. 
-\end{quote}
-This means our example can become:
+when using a composite literal. 
+
+When using using multidimensional arrays you can use the following syntax:
 \begin{lstlisting}
 a := [2][2]int{ {1,2}, {3,4} }
 \end{lstlisting}
@@ -902,7 +887,7 @@ Figure \ref{fig:array-vs-slice} depicts the following Go code.
 First we create an array of $m$ elements of the type \lstinline{int}:
 \lstinline{var array[m]int}\newline
 Next, we create a slice from this array:
-\lstinline{slice := array[0:n]}\newline
+\lstinline{slice := array[:n]}\newline
 And now we have:
 \begin{itemize}
 \item{\lstinline{len(slice) == n}{} ;}
@@ -936,6 +921,8 @@ s4 := a[:4]  |\longremark{Create a slice with the elements from index %
 0 to 3, this is thus short for: \texttt{a[0:4]}, and yields: \texttt{1, 2, %
 3, 4};}|
 s5 := s2[:]  |\longremark{Create a slice from the slice \var{s2}, note that %
+s6 := a[2:4:5]  |\longremark{Create a slice with the elements from index 3 %
+to 3 \emph{and} also set the cap to 4.}|
 \texttt{s5} still refers to the array \texttt{a}.}|
 \end{lstlisting}
 \showremarks
