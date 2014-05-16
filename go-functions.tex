@@ -228,10 +228,12 @@ takes a variable number of arguments. Note that these arguments all
 have the type \type{int}. Inside your function's body the variable
 \var{arg} is a slice of ints:
 \begin{lstlisting}
-for _, n := range arg {
+for _, n := range arg { |\longremark{We are not interested in the index %
+as returned by range, hence the use of the underscore here}|
     fmt.Printf("And the number is: %d\n", n)
 }
 \end{lstlisting}
+\listremarks
 If you don't specify the type of the variadic argument it defaults to the
 empty interface \var{interface\{\}} (see chapter
 \ref{chap:interfaces}).
