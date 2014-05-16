@@ -37,15 +37,15 @@ The Go Tutorial \cite{go_tutorial}, and the Effective Go
 document \cite{effective_go}. The
 website \url{http://golang.org/doc/} is a very good starting point
 for reading up on Go\footnote{\url{http://golang.org/doc/} itself is served by 
-\prog{go doc}.}. Reading these documents is
+\prog{godoc}.}. Reading these documents is
 certainly not required, but it is recommended.
 
 Go 1 comes with its own documentation in the form of a program called 
-\prog{go doc}. If you are interested in the documentation
+\prog{godoc}. If you are interested in the documentation
 for the built-ins (see ``\titleref{sec:builtins}'' in the next chapter) you
 can fire it up, like so:
 \begin{display}
-\pr \user{go doc builtin}
+\pr \user{godoc builtin}
 \end{display}
 
 How to create your own package documentation is explained in chapter \ref{chap:packages}.
@@ -748,7 +748,7 @@ func Compare(a, b []byte) int {
 A small number of functions are predefined, meaning 
 you \emph{don't} have to include any package to get
 access to them. Table \ref{tab:predef-functions} lists them all.\footnote{You can use the
-command \prog{go doc builtin} to read the online documentation about the built-in types and functions.}
+command \prog{godoc builtin} to read the online documentation about the built-in types and functions.}
 
 \begin{table}[H]
 \begin{center}
