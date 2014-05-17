@@ -146,15 +146,15 @@ func ReadWrite() bool {
     file.Open("file")
     // Do your thing
     if failureX {
-	file.Close() |\coderemark{}|
+        file.Close() |\coderemark{Close() here}|
 	return false
     }
 
     if failureY {
-	file.Close() |\coderemark{}|
+	file.Close() |\coderemark{And here...}|
 	return false
     }
-    file.Close() |\coderemark{}|
+    file.Close() |\coderemark{...And here}|
     return true
 }
 \end{lstlisting}
@@ -229,11 +229,11 @@ have the type \type{int}. Inside your function's body the variable
 \var{arg} is a slice of ints:
 \begin{lstlisting}
 for _, n := range arg { |\longremark{We are not interested in the index %
-as returned by range, hence the use of the underscore here}|
+as returned by range, hence the use of the underscore here.}|
     fmt.Printf("And the number is: %d\n", n)
 }
 \end{lstlisting}
-\listremarks
+\showremarks
 If you don't specify the type of the variadic argument it defaults to the
 empty interface \var{interface\{\}} (see chapter
 \ref{chap:interfaces}).
@@ -242,7 +242,7 @@ following example shows how to pass variadic arguments to it:
 \begin{lstlisting}
 func myfunc(arg ...int) {
     myfunc2(arg...)  |\coderemark{Pass it as-is}|
-    myfunc2(arg[:2]...)  |\coderemark{Slice it}|
+    myfunc2(arg[:2]...)|\coderemark{Slice it}|
 }
 \end{lstlisting}
 

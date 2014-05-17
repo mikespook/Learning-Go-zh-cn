@@ -635,8 +635,8 @@ slice (see ``\titleref{sec:arrays}'' on page \pageref{sec:arrays}) of strings.}|
 for k, v := range list {	|\longremark{Use \key{range} to loop over them. %
 With each iteration \key{range} will return the index as an \type{int} and %
 the key as a \type{string}, starting with 0 and ``a''.}|
-    // do what you want with k and v \longremark{\var{k} will have the value 0\ldots5, and %
-\var{v} will loop through ``a''\ldots``f''.}
+|\longremark{\var{k} will have the value 0\ldots5, and %
+\var{v} will loop through ``a''\ldots``f''.}| // do what you want with k and v 
 }
 \end{lstlisting}
 \showremarks
@@ -685,9 +685,9 @@ There is no automatic fall through, you can however use
 Without \key{fallthrough}:
 \begin{lstlisting}
 switch i {
-    case 0:  // empty case body
+    case 0:  |\coderemark{empty case body}|
     case 1:
-	f()  // f is not called when i == 0!
+        f()  |\coderemark{f is not called when i == 0!}|
 }
 \end{lstlisting}
 And with:
@@ -695,7 +695,7 @@ And with:
 switch i {
     case 0:  fallthrough
     case 1:
-	f()  // f is called when i == 0!
+        f()  |\coderemark{f is called when i == 0!}|
 }
 \end{lstlisting}
 With \first{\key{default}}{keyword!default} you can specify an action
@@ -706,7 +706,7 @@ switch i {
     case 1:
 	f()
     default:	
-	g()	// called when i is not 0 or 1
+        g()	|\coderemark{called when i is not 0 or 1}
 }
 \end{lstlisting}
 Cases can be presented in comma-separated lists.
@@ -921,9 +921,9 @@ s4 := a[:4]  |\longremark{Create a slice with the elements from index %
 0 to 3, this is thus short for: \texttt{a[0:4]}, and yields: \texttt{1, 2, %
 3, 4};}|
 s5 := s2[:]  |\longremark{Create a slice from the slice \var{s2}, note that %
+\texttt{s5} still refers to the array \texttt{a}.}|
 s6 := a[2:4:5]  |\longremark{Create a slice with the elements from index 3 %
 to 3 \emph{and} also set the cap to 4.}|
-\texttt{s5} still refers to the array \texttt{a}.}|
 \end{lstlisting}
 \showremarks
 
