@@ -22,10 +22,10 @@ func g(any interface{}) int { return any.(I).Get() }
 \noindent{}Should be changed to become:
 \begin{lstlisting}
 func g(any interface{}) int {
-    if v, ok := any.(I); ok {	// Check if any can be converted
-	return v.Get()		// If so invoke Get()
+    if v, ok := any.(I); ok {	|\coderemark{Check if any can be converted}|
+        return v.Get()		|\coderemark{If so invoke Get()}|
     }
-    return -1			// Just so we return anything
+    return -1			|\coderemark{Just so we return anything}|
 }
 \end{lstlisting}
 If \func{g()} is called now there are no run-time errors anymore. The

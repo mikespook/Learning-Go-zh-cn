@@ -3,8 +3,7 @@ know what I mean?}{\textit{eXistenZ}\\\textsc{TED PIKUL}}
 
 
 \noindent{}
-\gomarginpar{The following text is from \cite{go_interfaces}. Written by Ian 
-Lance Taylor --- one of the authors of Go.}
+\gomarginpar{The following text is partly from \cite{go_interfaces}.}
 In Go, the word \first{\emph{interface}}{interface} is overloaded to mean several different
 things. Every type has an interface, which is the \emph{set of methods
 defined} for \index{interface!set of methods}
@@ -311,15 +310,15 @@ type Xs []string
 \item Implementation of the methods of the \type{Sorter} interface.
 For integers:
 \begin{lstlisting}
-func (p Xi) Len() int               { return len(p) }
-func (p Xi) Less(i int, j int) bool { return p[j] < p[i] }
-func (p Xi) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+func (p Xi) Len() int               {return len(p)}
+func (p Xi) Less(i int, j int) bool {return p[j] < p[i]}
+func (p Xi) Swap(i int, j int)      {p[i], p[j] = p[j], p[i]}
 \end{lstlisting}
 And for strings:
 \begin{lstlisting}
-func (p Xs) Len() int               { return len(p) }
-func (p Xs) Less(i int, j int) bool { return p[j] < p[i] }
-func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+func (p Xs) Len() int               {return len(p)}
+func (p Xs) Less(i int, j int) bool {return p[j] < p[i]}
+func (p Xs) Swap(i int, j int)      {p[i], p[j] = p[j], p[i]}
 \end{lstlisting}
 \item Write a \emph{generic} Sort function that works on the \type{Sorter} interface.
 \begin{lstlisting}
