@@ -265,14 +265,15 @@ func (m *Mutex) Unlock()  { /* Unlock 实现 */ }
 \end{lstlisting}
 现在用两种不同的风格创建了两个数据类型。
 \begin{itemize}
-\item \lstinline|type NewMutex Mutex|;
-\item \lstinline|type PrintableMutex struct {  Mutex }|.
+    \item{\lstinline|type NewMutex Mutex|};
+    \item{\lstinline|type PrintableMutex struct{Mutex}|}.
 \end{itemize}
-现在 \var{NewMutux} 等同于 \var{Mutex}，但是它没有任何 \var{Mutex} 的方法。
-换句话说，它的方法是空的。
-
-但是 \var{PrintableMutex} \emph{已经}从 \var{Mutex} \first{\emph{继承}}{methods!inherited}了方法集合。
-如同 \cite{go_spec} 所说：
+Now \var{NewMutex} is equal to \var{Mutex}, but
+it \emph{does not} have \emph{any} of the methods of \var{Mutex}. In other words
+its method set is empty.
+But \var{PrintableMutex} \emph{has} \first{\emph{inherited}}{methods!inherited} the 
+method set from \var{Mutex}. The Go term for this is \first{\emph{embedding}}{structures!embed}.
+In the words of \cite{go_spec}:
 \begin{quote}
 \var{*PrintableMutex} 的方法集合包含了
 \func{Lock} 和 \func{Unlock} 方法，被绑定到其匿名字段 \var{Mutex}。
@@ -315,7 +316,8 @@ runeslice  := []rune(mystring)
 \item{
 从字节或者整形的 slice 到 \lstinline{string}。
 \begin{lstlisting}
-b := []byte{'h','e','l','l','o'} // 复合声明
+b := []byte{'h','e','l','l','o'} // Composite 
+                                 // literal
 s := string(b)
 i := []rune{257,1024,65} 
 r := string(i)
@@ -355,11 +357,6 @@ var f foo = foo(b)
 \end{lstlisting}
 注意转换那些字段不一致的结构是相当困难的。同时注意，转换
 \lstinline{b} 到 \type{int} 同样会出错；整数与有整数字段的结构并不一样。
-
-\section{组合}
-TODO(miek):work in progress
-Go 不是面向对象语言，因此并没有继承。但是有时又会需要从已经实现的类型中“继承”并修改一些方法。
-在~Go 中可以用嵌入一个类型的方式来实现。
 
 \section{练习}
 \input{ex-beyond/ex-pointer-arith.tex}

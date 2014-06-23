@@ -1,5 +1,4 @@
 package main
-
 import ( "fmt"; "os/exec"; "sort"; "strconv"; "strings")
 
 func main() {
@@ -10,8 +9,8 @@ func main() {
 		if i == 0 { continue } // Kill first line
 		if len(s) == 0 { continue } // Kill last line
 		f := strings.Fields(s)
-                fpp, _ := strconv.Atoi(f[1]) // 父 pid
-                fp, _ := strconv.Atoi(f[0])  // 子 pid
+                fpp, _ := strconv.Atoi(f[1]) |\coderemark{父 pid}|
+                fp, _ := strconv.Atoi(f[0])  |\coderemark{子 pid}|
                 child[fpp] = append(child[fpp], fp)
 	}
 	schild := make([]int, len(child))

@@ -1,12 +1,12 @@
 #!/usr/bin/perl -l
 my (%child, $pid, $parent);
-my @ps=`ps -e -opid,ppid,comm`;	    # Capture the output from `ps`
-foreach (@ps[1..$#ps]) {	    # Discard the header line
-    ($pid, $parent, undef) = split; # Split the line, discard 'comm'
-    push @{$child{$parent}}, $pid;  # Save the child PIDs on a list
+my @ps=`ps -e -opid,ppid,comm`;	  |\coderemark{capture the output from `ps`}|
+foreach (@ps[1..$#ps]) {	  |\coderemark{discard the header line}|
+  ($pid, $parent, undef) = split; |\coderemark{split the line, discard 'comm'}|
+  push @{$child{$parent}}, $pid;  |\coderemark{save the child PIDs on a list}|
 }
 # Walk through the sorted PPIDs
 foreach (sort { $a <=> $b } keys %child) {  
-    print "Pid ", $_, " has ", @{$child{$_}}+0, " child",
-	@{$child{$_}} == 1 ? ": " : "ren: ", "[@{$child{$_}}]";
+  print "Pid ", $_, " has ", @{$child{$_}}+0, " child",
+    @{$child{$_}} == 1 ? ": " : "ren: ", "[@{$child{$_}}]";
 }

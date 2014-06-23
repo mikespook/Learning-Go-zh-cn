@@ -18,10 +18,10 @@ func g(any interface{}) int { return any.(I).Get() }
 \noindent{}应当修改为：
 \begin{lstlisting}
 func g(any interface{}) int {
-    if v, ok := any.(I); ok {	// 检查是否可以转换
-	return v.Get()		// 如果可以，调用 Get()
+    if v, ok := any.(I); ok {	|\coderemark{检查是否可以转换}|
+	return v.Get()		|\coderemark{如果可以，调用 Get()}|
     }
-    return -1			// 随便返回个什么
+    return -1			|\coderemark{随便返回个什么}|
 }
 \end{lstlisting}
 如果现在调用 \func{g()}，就不会有运行时错误了。在 Go 中这种用法被称作``comma ok''。

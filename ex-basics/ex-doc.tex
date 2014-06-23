@@ -1,12 +1,12 @@
 \begin{Exercise}[title={文档},difficulty=1]
 \label{ex:doc}
 \Question
-Go 的文档可以通过~\prog{go doc} 程序阅读，它包含在~Go 的发布包中。
+Go 的文档可以通过~\prog{godoc} 程序阅读，它包含在~Go 的发布包中。
 
-\prog{go doc hash} 给出了~\package{hash} 包的信息：
+\prog{godoc hash} 给出了~\package{hash} 包的信息：
 \vskip\baselineskip
 \begin{display}
-\pr \user{go doc hash}
+\pr \user{godoc hash}
 PACKAGE
 
 package hash
@@ -24,15 +24,15 @@ SUBDIRECTORIES
 
 \end{display}
 \vskip\baselineskip
-哪个~\prog{go doc} 的命令可以显示~\package{hash} 包中的~\package{fnv} 文档？
+哪个~\prog{godoc} 的命令可以显示~\package{hash} 包中的~\package{fnv} 文档？
 
 \end{Exercise}
 
 \begin{Answer}
 \Question
 \package{fnv} 包在~\package{hash} 的\emph{子目录}中，所以只需要 
-\quad \texttt{go doc hash/fnv} 即可。
+\quad \texttt{godoc hash/fnv} 即可。
 
 
-所有的内建函数同样可以通过~\prog{godoc} 程序访问：\prog{go doc builtin}。
+所有的内建函数同样可以通过~\prog{godoc} 程序访问：\prog{godoc builtin}。
 \end{Answer}

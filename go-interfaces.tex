@@ -2,11 +2,13 @@
 
 
 \noindent{}
-\gomarginpar{下面的内容来自 \cite{go_interfaces}。是 Ian Lance Taylor 编写的，他是 Go 的作者之一。}
-在 Go 中，关键字 \first{\emph{interface}}{interface} 被赋予了多种不同的含义。
-每个类型都有接口，意味着对那个类型\emph{定义了方法集合}
-\index{interface!set of methods}。这段代码定义了具有一个字段和两个方法的结构类型 \type{S}。
-\begin{lstlisting}[caption=定义结构和结构的方法,label=src:interface object]
+\gomarginpar{The following text is from \cite{go_interfaces}.}
+In Go, the word \first{\emph{interface}}{interface} is overloaded to mean several different
+things. Every type has an interface, which is the \emph{set of methods
+defined} for \index{interface!set of methods}
+that type. This bit of code defines a struct type \type{S} with one field, and
+defines two methods for \type{S}.
+\begin{lstlisting}[caption=Defining a struct and methods on it,label=src:interface object]
 type S struct { i int }
 func (p *S) Get() int { return p.i }
 func (p *S) Put(v int) { p.i = v }
@@ -262,15 +264,15 @@ type Xs []string
 \item 实现 \type{Sorter} 接口的方法。
 整数的：
 \begin{lstlisting}
-func (p Xi) Len() int               { return len(p) }
-func (p Xi) Less(i int, j int) bool { return p[j] < p[i] }
-func (p Xi) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+func (p Xi) Len() int               {return len(p)}
+func (p Xi) Less(i int, j int) bool {return p[j] < p[i]}
+func (p Xi) Swap(i int, j int)      {p[i], p[j] = p[j], p[i]}
 \end{lstlisting}
 和字符串的：
 \begin{lstlisting}
-func (p Xs) Len() int               { return len(p) }
-func (p Xs) Less(i int, j int) bool { return p[j] < p[i] }
-func (p Xs) Swap(i int, j int)      { p[i], p[j] = p[j], p[i] }
+func (p Xs) Len() int               {return len(p)}
+func (p Xs) Less(i int, j int) bool {return p[j] < p[i]}
+func (p Xs) Swap(i int, j int)      {p[i], p[j] = p[j], p[i]}
 \end{lstlisting}
 \item 编写作用于 \type{Sorter} 接口的\emph{通用}排序函数。
 \begin{lstlisting}
