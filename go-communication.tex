@@ -135,7 +135,7 @@ import ( "io/ioutil"; "net/http"; "fmt" ) |\longremark{需要的导入；}|
 
 func main() {
     r, err := http.Get("http://www.google.com/robots.txt") |\longremark{使用 http 的 \func{Get} 获取 html；}|
-    if err != nil { fmt.Printf("%s\n", err.String()); return } |\longremark{错误处理；}|
+    if err != nil { fmt.Printf("%s\n", err.Error()); return } |\longremark{错误处理；}|
     b, err := ioutil.ReadAll(r.Body)    |\longremark{将整个内容读入 \var{b}；}|
     r.Body.Close()  
     if err == nil { fmt.Printf("%s", string(b)) } |\longremark{如果一切 OK 的话，打印内容。}|
