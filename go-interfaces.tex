@@ -170,8 +170,8 @@ func (a *net.AddrError) Emit() {
 \error{invalid receiver type ...} 的编译器错误。来自语言说明书 \cite{go_spec} 的权威内容：
 \begin{quote}
 接收者类型必须是 \type{T} 或 \type{*T}，这里的 \type{T} 是类型名。
-\type{T} 叫做接收者基础类型或简称基础类型。基础类型一定不能使指针或接口类型，
-并且定义在与方法相同的包中。
+\type{T} 叫做接收者基础类型或简称基础类型。基础类型一定不能是指针或接口类型，
+并且必须定义在与方法相同的包中。
 \end{quote}
 
 \begin{lbar}[Pointers to interfaces]
