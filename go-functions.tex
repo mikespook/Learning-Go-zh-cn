@@ -1,17 +1,9 @@
-\epi{``I'm always delighted by the light touch and stillness of
-early programming languages.  Not much text; a lot gets
-done. Old programs read like quiet conversations
-between a well-spoken research worker and a well-
-studied mechanical colleague, not as a debate with a
-compiler.  Who'd have guessed sophistication bought
-such noise?''}{\textsc{RICHARD P. GABRIEL}}
+\epi{``阳光的轻抚或沉溺在新兴的编程语言中总是会让我兴奋。无需太多文字；许多事情就已经完成了。旧的程序阅读起来就像是同表达良好的研究工作者或受到良好训练的机器同事沟通一样，而不是与编译器争论。谁愿意让其成熟到发出这样的声音呢？''}{\textsc{RICHARD P. GABRIEL}}
 
-\noindent{}Functions are the basic building blocks of Go programs; all interesting
-stuff happens in them. A function is declared as follows:
+\noindent{}函数是构建Go程序的基础部件；所遇有趣的事情都是在它其中发生的。函数的定义看起来像这样：
 \input{fig/function.tex}
 \showremarks
-Here are two examples. The first is a function without a return value,
-while the bottom one is a simple function that returns its input.
+这里有两个例子，左边的函数没有返回值，右边的只是简单的将输入返回。
 
 \begin{lstlisting}
 func subroutine(in int) { return }
@@ -21,14 +13,12 @@ func subroutine(in int) { return }
 func identity(in int) int { return in }
 \end{lstlisting}
 
-Functions can be declared in any order you wish. The compiler scans the
-entire file before execution, so function prototyping is a thing of the
-past in Go. Go disallows nested functions, but you can work around this with
-anonymous functions. See section ``\titleref{sec:functions as values}'' on page
-\pageref{sec:functions as values} in this chapter.
+你可以用任意顺序定义函数。编译器在运行之前会扫描所有的文件，因此函数原型是 Go 密不可分的部分。
+Go 不允许嵌套函数，不过仍然可以利用匿名函数来实现。参阅本章第 \pageref{sec:functions as values} 
+页 ``\titleref{sec:functions as values}'' 的内容。
 
-Recursive functions work just as in other languages:
-\begin{lstlisting}[caption=Recursive function]
+递归函数的行为跟在其他语言中是一样的：
+\begin{lstlisting}[caption=递归函数]
 func rec(i int) {
    if i == 10 {
         return
@@ -37,14 +27,11 @@ func rec(i int) {
    fmt.Printf("%d ", i)
 }
 \end{lstlisting}
-This prints: \texttt{9 8 7 6 5 4 3 2 1 0}.
+这会打印：\texttt{9 8 7 6 5 4 3 2 1 0}.
 %%\newpage %% TODO don't want a newpage here actually
-\section{Scope}
-Variables declared outside any functions are \first{global}{scope!local} in Go, those
-defined in functions are \first{local}{scope!local} to those functions. If names overlap --- a
-local variable is declared with the same name as a global one --- the
-local variable hides the global one when the current function is
-executed.
+\section{作用域}
+在Go中，定义在函数外的变量是\first{全局}{scope!local}的，而对于函数来说，那些定义在函数内部的变量是\first{局部}{scope!local}的。
+如果发生重名：一个局部变量与一个全局变量有相同的名字，那么在函数执行的时候，局部变量将覆盖全局变量。
 
 \begin{minipage}{.5\textwidth}
 \input{fig/scope1.tex}
@@ -58,70 +45,55 @@ executed.
 \vfill
 \end{minipage}
 
-In listing \ref{src:scope1} we introduce a local variable \var{a}
-in the function \func{q()}.
-The local \var{a} is only visible in \func{q()}. This is
-why the code will print: \texttt{656}.
-In listing \ref{src:scope2} no new variables are introduced, there
-is only a global \var{a}.
-Assigning a new value to \var{a} will be globally visible. This code will
-print: \texttt{655}
+在列表 \ref{src:scope1} 中我们定义了函数 \func{q()} 的局部变量 \var{a}。
+这个局部变量 \var{a} 仅可以在 \func{q()} 中访问。
+这也就是为什么代码会输出：\texttt{656}。
+在列表 \ref{src:scope2} 中，没有定义新的变量，只有一个全局变量 \var{a}。
+向 \var{a} 进行赋值，在全局都可以访问。这段代码将会输出：\texttt{655}。
 
-In the following example we call \func{g()} from \func{f()}:
+在接下来的例子中，我们将在函数 \func{f()} 中调用 \func{g()}：
 
-\lstinputlisting[caption=Scope when calling functions from functions]{src/scope3.go}
+\lstinputlisting[caption=当函数调用函数时的作用域]{src/scope3.go}
 
-The output will be: \texttt{565}. A \emph{local} variable is \emph{only}
-valid when we are executing the function in which it is defined. 
+输出内容将是：\texttt{565}。\emph{局部}变量\emph{仅在}执行定义它的函数内有效。
 %%Finally, one can create a \first{"function literal"}{function literal} in which you essentially 
 %%define a function inside another
 %%function, i.e. a \first{nested function}{nested function}. 
 %%The following figure should clarify why it prints: \texttt{565757}. 
 %%\input{fig/scope3.tex}
 
-\section{Multiple return values}
+\section{多值返回}
 \label{sec:multiple return}
-One of Go's unusual (for compiled languages) features is that functions and methods can return multiple
-values (Python and Perl can do this too). This can be used to improve on a couple of 
-clumsy idioms in C programs:
-in-band error returns (such as -1 for \texttt{EOF}) and modifying an argument.
-In Go, \lstinline{Write} returns a count and an
-error: ``Yes, you wrote some bytes but not all of them because you filled the
-device''. The signature of \lstinline{*File.Write} in package
-\package{os} is:
+Go 一个非常特别的特性（对于编译语言而言）是函数和方法可以返回多个值(Python
+和 Perl 同样也可以)。这可以用于改进一大堆在 C 程序中糟糕的惯例用法:
+结果内返回错误（例如遇到 EOF 则返回 -1）或修改输入参数。
+在~Go 中，\lstinline{Write} 返回一个总数和一个错误：
+“是的，你写入了一些字节，但是由于设备异常，并不是全部都写入了。”。
+\package{os} 包中的 \lstinline{*File.Write} 是这样声明的:
 \begin{lstlisting}
 func (file *File) Write(b []byte) (n int, err error)
 \end{lstlisting}
-and as the documentation says, it returns the number of bytes written and a
-non-\lstinline{nil} \var{error} when \lstinline{n != len(b)}. This is a common
-style in Go.
+如同文档所述，它返回写入的字节数，并且当 \lstinline{n ! = len (b)} 时，返回非 
+\lstinline{nil} 的 \var{error}。这是 Go 中常见的方式。
 
-In the absence of tuples as a native type, multiple return values are the next
-best thing. You can return precisely what you want without
-overloading the domain space with special values to signal errors.
+由于缺乏作为原生类型的元组，所以多返回值可能是最佳的选择。
+你可以精确的返回希望的值，而无须在某个域内用特定的值标识错误。
 
-\section{Named result parameters}
+\section{命名返回值}
 \label{sec:named result parameters}
-The return or result parameters of a Go function can be given names and used
-as regular variables, just like the incoming parameters. When named, they are
-initialized to the zero values for their types when the function begins. If the
-function executes a \key{return} statement with no arguments, the current values of
-the result parameters are returned. Using these
-features enables you (again) to do more with less code \footnote{This is
-a motto of Go; ``Do \emph{more} with \emph{less} code''}.
+Go 函数的返回值或者结果参数可以指定一个名字，并且可以像普通的变量那样使用，
+这有点类似输入参数。如果它们命名，函数开始时就会用其类型的零值对其进行初始化。
+如果函数在不加参数的情况下执行了~\key{return} 语句，结果参数会返回。
+用这个特性，允许（再一次的）用较少的代码做更多的事\footnote{这是 Go 的一个格言：``用更\emph{少}的代码做更\emph{多}的事''}。
 
-The names are not mandatory but they can make code shorter and clearer:
-\emph{they are documentation}. 
-If we name the results of \lstinline{nextInt} it becomes obvious which
-returned \type{int} is which.
+名字不是强制的，但是它们可以使得代码更加健壮和清晰: 
+\emph{这就是文档}。例如命名 \type{int} 类型的返回值为 \lstinline{nextPos}，就能说明哪值个代表什么。
 
 \begin{lstlisting}
 func nextInt(b []byte, pos int) (value, nextPos int) { /* ... */ }
 \end{lstlisting}
-Because named results are initialized and tied to an unadorned
-\key{return},
-they can simplify as well as clarify. Here's a version of
-\lstinline{io.ReadFull} that uses them well:
+由于命名结果会被初始化并关联于无参数的 \key{return}，
+因此它们可以非常清晰明了。这段 \lstinline{io.ReadFull} 的代码对此运用得很好：
 
 \begin{lstlisting}
 func ReadFull(r Reader, buf []byte) (n int, err error) {
@@ -135,208 +107,198 @@ func ReadFull(r Reader, buf []byte) (n int, err error) {
 }
 \end{lstlisting}
 
-\section{Deferred code}
+\section{延迟代码}
 \label{sec:deferred code}
-Suppose you have a function in which you open a file and perform various
-writes and reads on it. In such a function there are often spots where
-you want to return early. If you do that, you will need to close the file
-descriptor you are working on. This often leads to the following code:
-\begin{lstlisting}[caption=Without defer]
+假设有一个函数，打开文件并且对其进行若干读写。在这样的函数中，经常有提前返
+回的地方。如果你这样做，就需要关闭正在工作的文件描述符。这经常导致产生下面
+的代码:
+\begin{lstlisting}[caption=没有 defer]
 func ReadWrite() bool {
     file.Open("file")
-    // Do your thing
+    // 作一些事情
     if failureX {
-        file.Close() |\coderemark{Close() here}|
+        file.Close() |\coderemark{这里 Close()}|
 	return false
     }
 
     if failureY {
-	file.Close() |\coderemark{And here...}|
+	file.Close() |\coderemark{还有这里……}|
 	return false
     }
-    file.Close() |\coderemark{...And here}|
+    file.Close() |\coderemark{……和这里}|
     return true
 }
 \end{lstlisting}
-A lot of code is repeated here. To overcome this Go has the
-\first{\key{defer}}{keyword!defer} statement. After
-\key{defer} you specify a function which is called just \emph{before}
-the current function exits.
+在这里有许多重复的代码。为了解决这个问题，Go 有了 
+\first{\key{defer}}{keyword!defer} 语句。在 \key{defer} 
+后指定的函数会在函数退出\emph{前}调用。
 
-The code above could be rewritten as follows. This makes the 
-function more readable, shorter and puts the \func{Close} right next 
-to the \func{Open}.
-\begin{lstlisting}[caption=With defer]
+上面的代码可以被改写为下面这样。将 \func{Close} 对应的放置于 
+\func{Open} 后，能够使函数更加可读、健壮。
+\begin{lstlisting}[caption=使用 defer]
 func ReadWrite() bool {
     file.Open("file")
-    defer file.Close()	|\coderemark{\func{file.Close()} is added to defer list}|
+    defer file.Close()	|\coderemark{\func{file.Close()} 被添加到了延迟列表}|
     // Do your thing
     if failureX {
-	return false    |\coderemark{\func{Close()} is now done automatically}|
+	return false    |\coderemark{\func{Close()} 现在自动调用}|
     }
     if failureY {
-	return false    |\coderemark{And here too}|
+	return false    |\coderemark{这里也是}|
     }
-    return true         |\coderemark{And here}|
+    return true         |\coderemark{还有这里}|
 }
 \end{lstlisting}
-You can put multiple functions on the ``deferred list''\index{deferred list}, like this
-example from \cite{effective_go}:
+可以将多个函数放入 “延迟列表”\index{deferred list}中，这个例子来自\cite{effective_go}：
 \begin{lstlisting}
 for i := 0; i < 5; i++ { 
     defer fmt.Printf("%d ", i) 
 } 
 \end{lstlisting}
-Deferred functions are executed in LIFO order, so the above code
-prints: \lstinline{4 3 2 1 0}. 
+延迟的函数是按照后进先出(LIFO)的顺序执行，因此上面的代码打印：\lstinline{4 3 2 1 0}。
 
-With \func{defer} you can even change return values, provided that
-you are using named result parameters and a function
-literal\index{function!literal}\footnote{A function literal
-is sometimes called a \index{closure} closure.}, i.e:
-\begin{lstlisting}[caption=Function literal]
+利用 \func{defer} 甚至可以修改返回值，
+假设正在使用命名结果参数和函数文法\index{function!literal}
+\footnote{函数文法也叫做闭包\index{closure}。}，例如：
+\begin{lstlisting}[caption=函数文法]
 defer func() {
 	/* ... */
-}()		 |\coderemark{() is needed here}|
+}()		 |\coderemark{这里的 () 是必须的}|
 \end{lstlisting}
-Or this example which makes it easier to understand why and where
-you need the braces:
-\begin{lstlisting}[caption=Function literal with parameters]
+或者这个例子，更加容易了解为什么，以及在哪里需要括号:
+\begin{lstlisting}[caption=带参数的函数文法]
 defer func(x int) {
 	/* ... */
-}(5)  |\coderemark{Give the input variable \var{x} the value 5}|
+}(5)  |\coderemark{为输入参数 \var{x} 赋值 5}|
 \end{lstlisting}
-In this (unnamed) function you can access any named return
-parameter:
-\begin{lstlisting}[caption=Access return values within defer]
-func f() (ret int) {|\coderemark{\var{ret} is initialized with zero}|
+
+在这个(匿名)函数中，可以访问任何命名返回参数:
+\begin{lstlisting}[caption=在 defer 中访问返回值]
+func f() (ret int) {|\coderemark{\var{ret} 被初始化为零}|
 	defer func() {
-		ret++|\coderemark{Increment \var{ret} with 1}|
+		ret++|\coderemark{将 \var{ret} 加一}|
 	}()
-	return 0|\coderemark{1 \emph{not} 0 will be returned!}|
+	return 0|\coderemark{返回的是 1 而\emph{不是} 0！}|
 }
 \end{lstlisting}
 
-\section{Variadic parameters}
-Functions that take a variable number of parameters are known as variadic functions.
-To declare a function as variadic:
+\section{变参}
+接受不定数量的参数的函数叫做变参函数。为了使其接受变参需要进行如下定义：
 \begin{lstlisting}
 func myfunc(arg ...int) {}
 \end{lstlisting}
-The \lstinline{arg ...int} instructs Go to see this as a function that
-takes a variable number of arguments. Note that these arguments all
-have the type \type{int}. Inside your function's body the variable
-\var{arg} is a slice of ints:
+
+\lstinline{arg ... int} 告诉 Go 这个函数接受不定数量的参数。注意，这些参数的类型全部是 \type{int}。
+在函数体中，变量 \var{arg} 是一个 int 类型的 slice:
 \begin{lstlisting}
-for _, n := range arg { |\longremark{We are not interested in the index %
-as returned by range, hence the use of the underscore here.}|
+for _, n := range arg { |\longremark{我们不关心 range 返回的序号，因此在这里使用下划线。}|
     fmt.Printf("And the number is: %d\n", n)
 }
 \end{lstlisting}
 \showremarks
-If you don't specify the type of the variadic argument it defaults to the
-empty interface \var{interface\{\}} (see chapter
-\ref{chap:interfaces}).
-Suppose we have another variadic function called \func{myfunc2}, the 
-following example shows how to pass variadic arguments to it:
+
+% TODO 似乎并没有这个规则，存疑。
+% If you don't specify the type of the variadic argument it defaults to the
+% empty interface \var{interface\{\}} (see chapter
+% \ref{chap:interfaces}).
+假设有另一个变参函数叫做 \func{myfunc2}，下面的例子演示了如何向其传递变参:
 \begin{lstlisting}
 func myfunc(arg ...int) {
-    myfunc2(arg...)  |\coderemark{Pass it as-is}|
-    myfunc2(arg[:2]...)|\coderemark{Slice it}|
+    myfunc2(arg...)  |\coderemark{按照原样传递}|
+    myfunc2(arg[:2]...)|\coderemark{对其进行切片}|
 }
 \end{lstlisting}
 
-\section{Functions as values}
+\section{函数作为值}
 \label{sec:functions as values}
 \index{function!as values}
 \index{function!literals}
-As with almost everything in Go, functions are also \emph{just} values.
-They can be assigned to variables as follows:
-\lstinputlisting[label=src:anonfunc,caption=Anonymous function,linerange={3,}]{src/anon-func.go}
-If we use \lstinline{fmt.Printf("%T\n", a)} to print the type of
-\var{a}, it prints \func{func()}.
 
-Functions--as--values may be used in other places, for example maps.
-Here we convert from integers to functions:
-\begin{lstlisting}[caption=Functions as values in maps]
+就像其他在 Go 中的其他东西一样，函数也\emph{是}值。它们可以像下面这样赋值给变
+量:
+
+\lstinputlisting[label=src:anonfunc,caption=匿名函数,linerange={3,}]{src/anon-func.go}
+如果使用 \lstinline{fmt.Printf("%T\n", a)} 打印 \var{a} 的类型，\func{func()}。
+
+函数作为值也会被用在其他地方，例如 map。这里将整数转换为函数:
+\begin{lstlisting}[caption=使用 map 的函数作为值]
 var xs = map[int]func() int{
     1: func() int { return 10 },
     2: func() int { return 20 },
-    3: func() int { return 30 }, |\coderemark{Mandatory ,}|
+    3: func() int { return 30 }, |\coderemark{必须有逗号}|
     /* ... */
 }
 \end{lstlisting}
-Or you can write a function that takes a function as its parameter, for
-example a \func{Map} function that works on \type{int} slices. This is
-left as an exercise for the reader (see exercise Q\ref{ex:map function}
-on page \pageref{ex:map function}).
+也可以编写一个接受函数作为参数的函数，例如用于操作 int 类型的 slice 的 
+\func{Map} 函数。这是一个留给读者的练习，在第 \pageref{ex:map function} 
+页，练习 Q\ref{ex:map function}。
 
-\section{Callbacks}
+\section{回调}
 \label{sec:callbacks}
-Because functions are values they are easy to pass to functions, from where
-they can be used as callbacks. First define a function that
-does ``something'' with an integer value:
+由于函数也是值，所以可以很容易的传递到其他函数里，然后可以作为回调。首先定
+义一个函数，对整数做一些 “事情”:
 \begin{lstlisting}
-func printit(x int) {|\coderemark{Function returns nothing}|
-    fmt.Printf("%v\n", x)|\coderemark{Just print it}|
+func printit(x int) {|\coderemark{什么都不返回的函数}|
+    fmt.Printf("%v\n", x)|\coderemark{仅打印出来}|
 }
 \end{lstlisting}
-The signature of this function is: \lstinline{func printit(int)}, or
-without the function name: \mbox{\lstinline{func(int)}}. To create a new function
-that uses this one as a callback we need to use this signature:
+这个函数的标识是 \lstinline{func printit(int)}，或者没有函数名的：
+\mbox{\lstinline{func(int)}}。创建新的函数使用这个作为回调，
+需要用到这个标识:
 \begin{lstlisting}
-func callback(y int, f func(int)) {|\coderemark{\func{f} has the function}|
-    f(y)    |\coderemark{Call the callback \func{f} with \var{y}}|
+func callback(y int, f func(int)) {|\coderemark{\func{f} 保存函数}|
+    f(y)    |\coderemark{调用回调 \func{f} 传递参数 \var{y}}|
 }
 \end{lstlisting}
 
-\section{Panic and recovering}
+\section{恐慌（Panic）和恢复（Recover）}
 \label{sec:panic}
-Go does not have an exception mechanism, like that in Java for instance: you cannot throw exceptions.
-Instead it uses a panic-and-recover mechanism. It is worth remembering that you should use this as
-a last resort, your code will not look, or be, better if it is littered with panics. It's a powerful tool:
-use it wisely. So, how do you use it?
+Go 没有像 Java 那样的异常机制，例如你无法像在 Java 中那样抛出一个异常。作为替
+代，它使用了恐慌和恢复(panic-and-recover)机制。一定要记得，这应当作为最后的
+手段被使用，你的代码中应当没有，或者很少的能令人恐慌的东西。这是个强大的工具，
+务必明智的使用它。那么，应该如何使用它呢？
 
-The following description was taken from \cite{go_blog_panic}:
+下面的描述来自于 \cite{go_blog_panic}：
 \begin{description}
-\item[Panic]{is a built-in function that stops the ordinary flow of control and begins panicking. When the function 
-\func{F} calls \key{panic},
-execution of \func{F} stops, any deferred functions in \func{F} are executed normally, and 
-then \func{F} returns to its caller. To the caller, \func{F} then
-behaves like a call to \key{panic}. The process continues up the stack until all functions in the current 
-goroutine have returned, at which point the program crashes. 
-Panics can be initiated by invoking \func{panic} directly. They can also be caused by \emph{runtime errors}, such
-as out-of-bounds array accesses.}
+\item[Panic]{
+		是一个内建函数，可以中断原有的控制流程，进入一个令人恐慌的流程中。
+		当函数 \func{F} 调用 \key{panic}，函数 \func{F} 的执行被中断，
+		并且 \func{F} 中的延迟函数会正常执行，然后 \func{F} 返回到调用它的地方。
+		在调用的地方，\func{F} 的行为就像调用了 \key{panic}。这一过程继续向上，
+		直到当前的 goroutine 返回，这时程序崩溃。
 
-\item[Recover]{is a built-in function that regains control of a panicking goroutine. Recover is \emph{only} useful inside 
-\emph{deferred} functions.
-During normal execution, a call to \func{recover} will return \type{nil} and have no other effect. 
-If the current goroutine is panicking, a call
-to \func{recover} will capture the value given to \func{panic} and resume normal execution.}
+		恐慌可以直接调用 \key{panic} 产生。也可以由 运行时错误 产生，
+		例如访问越界的数组。}
+
+\item[Recover]{
+		是一个内建的函数，可以让进入令人恐慌的流程中的 goroutine 恢复过来。
+		recover \emph{仅}在延迟函数中有效。在正常的执行过程中，调用 
+		\func{recover} 会返回 \type{nil} 并且没有其他任何效果。如果当前的 
+		goroutine 陷入恐慌，调用 \func{recover} 可以捕获到 \func{panic} 
+	的输入值，并且恢复正常的执行。}
 \end{description}
 
-This function checks if the function it gets as argument will panic when it is
-executed\footnote{Copied from a presentation of Eleanor McHugh.}:
+这个函数检查作为其参数的函数在执行时是否会产生 panic\footnote{复制于
+Eleanor McHugh 的演讲稿。}：
 \begin{lstlisting}
-func throwsPanic(f func()) (b bool) { |\longremark{We define a new function \func{throwsPanic} that takes %
-a function as an argument (see ``\titleref{sec:functions as values}''). It returns true if \func{f} panics %
-when run, else false;}|
-    defer func() { |\longremark{We define a \func{defer} function that utilizes \func{recover}. If the %
-current goroutine panics, this defer function will notice that. If \func{recover()} returns non-\var{nil} we set \var{b} %
-to true;}|
+func throwsPanic(f func()) (b bool) { |\longremark{定义一个新函数 \func{throwsPanic} 
+		接受一个函数作为参数(参看 “\titleref{sec:functions as values}”)。
+		函数 \func{f} 产生 panic，就返回 true，否则返回 false；}|
+		defer func() { |\longremark{定义了一个利用 \func{recover} 的 \func{defer} 函数。
+				如果当前的 goroutine 产生了 panic，这个 defer 函数能够发现。
+				当 \func{recover()} 返回非 \var{nil} 值，设置 \var{b} 为 true；}|
         if x := recover(); x != nil {
             b = true
         }
     }()
-    f() |\longremark{Execute the function we received as the argument;}|
-    return |\longremark{Return the value of \var{b}. Because \var{b} is a named return parameter (page %
-\pageref{sec:named result parameters}), we don't specify \var{b}.}|
+    f() |\longremark{调用作为参数接收的函数；}|
+	return |\longremark{返回 \var{b} 的值。由于 \var{b} 是命名返回值（第 \pageref{sec:named result parameters} 页），因此无须指定 \var{b}。}|
 }
 \end{lstlisting}
 \showremarks
 
 
-\section{Exercises}
+\section{练习}
 \input{ex-functions/ex-average.tex}
 
 \input{ex-functions/ex-order.tex}
@@ -358,5 +320,5 @@ to true;}|
 \input{ex-functions/ex-funcfunc.tex}
 
 \cleardoublepage
-\section{Answers}
+\section{答案}
 \shipoutAnswer

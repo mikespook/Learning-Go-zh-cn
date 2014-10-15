@@ -15,7 +15,7 @@
 \setlength{\parskip}{0.7ex plus 0.5ex minus 0.2ex}
 
 %% list of answers
-\newlistof{listofex}{ex}{List of Exercises}
+\newlistof{listofex}{ex}{练习清单}
 \newlistentry{exercise}{ex}{0}
 
 \renewcommand{\tocheadstart}{}
@@ -23,7 +23,7 @@
 \renewcommand{\aftertoctitle}{\thispagestyle{empty}\afterchaptertitle\pagestyle{blocks}}
 
 %%\renewcommand{\printtoctitle}[1]{}
-\renewcommand{\contentsname}{Contents}
+\renewcommand{\contentsname}{目录}
 \renewcommand{\tocmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily \contentsname}}
 %% new print the titles as section not as chapter, that explains
 %% why the page is headerless. the page style is empty
@@ -43,7 +43,8 @@
 \renewcommand{\exheadstart}{}
 \renewcommand{\afterextitle}{\thispagestyle{blocks}}
 \renewcommand{\printextitle}[1]{\section*{#1}}
-\renewcommand{\exmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily List of Exercises}}
+\renewcommand{\exmark}{\markboth{\myfamily \typename: \contentsname}{\myfamily 练习清单}}
+\renewcommand{\bibname}{参考文献}
 
 \nobibintoc
 \renewcommand*{\indexmark}{%
