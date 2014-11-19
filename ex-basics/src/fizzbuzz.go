@@ -9,7 +9,7 @@ func main() {
 		BUZZ = 5
 	)
 	var p bool      |\longremark{判断是否需要打印内容；}|
-	for i := 1; i < 100; i++ { |\longremark{for 循环，参阅``\titleref{sec:for}''}；|
+	for i := 1; i <= 100; i++ { |\longremark{for 循环，参阅``\titleref{sec:for}''}；|
 		p = false
 		if i%FIZZ == 0 { |\longremark{如果能被 FIZZ 整除，打印``Fizz''；}|
 			fmt.Printf("Fizz")
