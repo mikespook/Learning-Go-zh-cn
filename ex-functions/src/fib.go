@@ -4,9 +4,10 @@ import "fmt"
 
 func fibonacci(value int) []int {
 	x := make([]int, value) |\longremark{创建一个用于保存函数执行结果的~\key{array}；}|
-	x[0], x[1] = 1, 1 |\longremark{开始计算斐波那契数列；}|
-	for n := 2; n < value; n++ {
-		x[n] = x[n-1] + x[n-2] |\longremark{$x_n = x_{n-1} + x_{n-2}$;}|
+	a, b := 0, 1 |\longremark{开始计算斐波那契数列；}|
+	for n := 0; n < value; n++ {
+		a, b = b, a + b |\longremark{$x_n = x_{n+1}$；}| |\longremark{$x_{n+1} = x_n + x_{n+1}$；}|
+		x[n] = a
 	}
 	return x |\longremark{返回\emph{整个}~array；}|
 }
