@@ -589,7 +589,7 @@ func unhex(c byte) byte {
     return 0
 }
 \end{lstlisting}
-它匹配失败后不会自动向下尝试，但是可以使用
+它匹配成功后不会自动向下尝试，但是可以使用
 \first{\key{fallthrough}}{keyword!fallthrough}
 使其这样做。
 没有~\key{fallthrough}：
