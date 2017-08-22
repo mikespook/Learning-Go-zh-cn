@@ -221,9 +221,8 @@ FAIL
 这可以让你的程序更好，并且它展示了你的努力。
 \end{lbar}
 
-The Go test suite also allows you to incorperate example functions which
-serve as documentation \emph{and} as tests. These functions need to
-start with \texttt{Example}.
+Go 测试工具也允许你定义示例函数，它们会用于生成示例文档并且也被视为测试函数，
+这些函数的名称需要以 \textit{Example} 开头。
 \begin{lstlisting}
 func ExampleEven() {
     if Even(2) {
@@ -233,9 +232,8 @@ func ExampleEven() {
     // Is even
 }
 \end{lstlisting}
-Those last two comments lines are part of the example, \prog{go test} uses those
-to check the \emph{generated} output with the text in the comments. If there is
-a mismatch the test fails.
+最后两行注释也是示例的一部分，\prog{go test} 会检查程序输出和注释里的内容，
+如果不匹配的话会导致测试失败。
 
 \section{常用的包}
 标准的 Go 代码库中包含了大量的包，并且在安装 Go 的时候多数会伴随一起安装。
