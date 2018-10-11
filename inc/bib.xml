@@ -1,0 +1,353 @@
+<reference anchor="go_web">
+  <front>
+    <title>Go website</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://golang.org/" />
+</reference>
+
+<reference anchor="go_tutorial">
+  <front>
+    <title>Go tutorial</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://golang.org/doc/go_tutorial.html" />
+</reference>
+
+<reference anchor="effective_go">
+  <front>
+    <title>Effective Go</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://golang.org/doc/effective_go.html" />
+</reference>
+
+<reference anchor="csp">
+  <front>
+    <title>Communicating sequential processes</title>
+    <author fullname="Wikipedia" initials="" surname="Wikipedia" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://en.wikipedia.org/wiki/Communicating_sequential_processes" />
+</reference>
+
+<reference anchor="duck_typing">
+  <front>
+    <title>Duck typing</title>
+    <author fullname="Wikipedia" initials="" surname="Wikipedia" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://en.wikipedia.org/wiki/Duck_typing" />
+</reference>
+
+<reference anchor="bubblesort">
+  <front>
+    <title>Bubble sort</title>
+    <author fullname="Wikipedia" initials="" surname="Wikipedia" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://en.wikipedia.org/wiki/Bubble_sort" />
+</reference>
+
+<reference anchor="go_nuts">
+  <front>
+    <title>Go Nuts mailing list</title>
+    <author fullname="Go Community" initials="G." surname="Community" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://groups.google.com/group/golang-nuts" />
+</reference>
+
+<reference anchor="go_spec">
+  <front>
+    <title>Go language specification</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target=" http://golang.org/doc/go_spec.html" />
+</reference>
+
+<reference anchor="go_interfaces">
+  <front>
+    <title>Go interfaces</title>
+    <author fullname="Ian Lance Taylor" initials="I. L." surname="Taylor" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://www.airs.com/blog/archives/277" />
+</reference>
+
+<reference anchor="go_install">
+  <front>
+    <title>Getting Started</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2012" />
+  </front>
+  <format type="HTML" target="http://golang.org/doc/install/" />
+</reference>
+
+<reference anchor="go_intro">
+  <front>
+    <title>Google's new language: Go</title>
+    <author fullname="Mark C. Chu-Carroll" initials="M. C." surname="Chu-Carroll" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://scienceblogs.com/goodmath/2009/11/googles_new_language_go.php" />
+</reference>
+
+<reference anchor="go_doc">
+  <front>
+    <title>Go package documentation</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://golang.org/doc/pkg/" />
+</reference>
+
+<reference anchor="go_cpp">
+  <front>
+    <title>Go for C++ programmers</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://golang.org/doc/go_for_cpp_programmers.html" />
+</reference>
+
+<reference anchor="go_blog">
+  <front>
+    <title>The Go programming language blog</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://blog.golang.org/" />
+</reference>
+
+<reference anchor="erlang">
+  <front>
+    <title>Erlang</title>
+    <author fullname="Ericsson Cooperation" initials="E." surname="Cooperation" />
+    <date year="1986" />
+  </front>
+  <format type="HTML" target="http://www.erlang.se/" />
+</reference>
+
+<reference anchor="scala">
+  <front>
+    <title>Scala</title>
+    <author fullname="LAMP Group at EPFL" initials="L. G. a." surname="EPFL" />
+    <date year="2003" />
+  </front>
+</reference>
+
+<reference anchor="c">
+  <front>
+    <title>The C programming language</title>
+    <author fullname="Brian Kernighan Dennis Ritchie" initials="B. K." surname="Dennis Ritchie" />
+    <date year="1975" />
+  </front>
+</reference>
+
+<reference anchor="C++">
+  <front>
+    <title>The C++ programming language</title>
+    <author fullname="Bjarne Stroustrup" initials="B." surname="Stroustrup" />
+    <date year="1983" />
+  </front>
+</reference>
+
+<reference anchor="java">
+  <front>
+    <title>Java</title>
+    <author fullname="James Gosling et al" initials="J. G. e." surname="al" />
+    <date year="1995" />
+  </front>
+  <format type="HTML" target="http://oracle.com/java/" />
+</reference>
+
+<reference anchor="perl">
+  <front>
+    <title>Perl</title>
+    <author fullname="Larry Wall et al" initials="L. W. e." surname="al" />
+    <date year="1987" />
+  </front>
+  <format type="HTML" target="http://perl.org/" />
+</reference>
+
+<reference anchor="haskell">
+  <front>
+    <title>Haskell</title>
+    <author fullname="Haskell Authors" initials="H." surname="Authors" />
+    <date year="1990" />
+  </front>
+  <format type="HTML" target="http://www.haskell.org/" />
+</reference>
+
+<reference anchor="go_youtube">
+  <front>
+    <title>Go youtube channel</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://youtube.com/gocoding/" />
+</reference>
+
+<reference anchor="perl-packages">
+  <front>
+    <title>Comprehensive perl archive network</title>
+    <author fullname="Perl Package Authors" initials="P. P." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://cpan.org/" />
+</reference>
+
+<reference anchor="plan9">
+  <front>
+    <title>Plan 9</title>
+    <author fullname="Plan 9 Authors" initials="P. 9." surname="Authors" />
+    <date year="1992" />
+  </front>
+  <format type="HTML" target="http://plan9.bell-labs.com/plan9/index.html" />
+</reference>
+
+<reference anchor="inferno">
+  <front>
+    <title>Inferno</title>
+    <author fullname="Inferno Authors" initials="I." surname="Authors" />
+    <date year="1995" />
+  </front>
+  <format type="HTML" target="http://www.vitanuova.com/inferno/" />
+</reference>
+
+<reference anchor="limbo">
+  <front>
+    <title>Limbo</title>
+    <author fullname="Plan 9 Authors" initials="P. 9." surname="Authors" />
+    <date year="1995" />
+  </front>
+  <format type="HTML" target="http://www.vitanuova.com/inferno/papers/limbo.html" />
+</reference>
+
+<reference anchor="csp">
+  <front>
+    <title>Communicating sequential processes (csp)</title>
+    <author fullname="C. A. R. Hoare" initials="C. A. R." surname="Hoare" />
+    <date year="1985" />
+  </front>
+  <format type="PDF" target="http://www.usingcsp.com/cspbook.pdf" />
+</reference>
+
+<reference anchor="Newsqueak">
+  <front>
+    <title>Newsqueak: a language for communicating with mice</title>
+    <author fullname="Rob Pike" initials="R." surname="Pike" />
+    <date year="1989" />
+  </front>
+  <format type="HTML" target="http://swtch.com/~rsc/thread/newsqueak.pdf" />
+</reference>
+
+<reference anchor="quicksort">
+  <front>
+    <title>Quicksort</title>
+    <author fullname="C. A. R. Hoare" initials="C. A. R." surname="Hoare" />
+    <date year="1960" />
+  </front>
+  <format type="HTML" target="http://en.wikipedia.org/wiki/Quicksort" />
+</reference>
+
+<reference anchor="iota">
+  <front>
+    <title>Iota</title>
+    <author fullname="Wikipedia" initials="" surname="Wikipedia" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://en.wikipedia.org/wiki/Iota" />
+</reference>
+
+<reference anchor="fizzbuzz">
+  <front>
+    <title>Using fizzbuzz to find developers...</title>
+    <author fullname="Imran On Tech" initials="I. O." surname="Tech" />
+    <date year="2010" />
+  </front>
+</reference>
+
+<reference anchor="go_course_day2">
+  <front>
+    <title>The Go programming language, day 2</title>
+    <author fullname="Rob Pike" initials="R." surname="Pike" />
+    <date year="2010" />
+  </front>
+  <format type="PDF" target="http://golang.org/doc/GoCourseDay2.pdf" />
+</reference>
+
+<reference anchor="go_course_day3">
+  <front>
+    <title>The Go programming language, day 3</title>
+    <author fullname="Rob Pike" initials="R." surname="Pike" />
+    <date year="2010" />
+  </front>
+  <format type="PDF" target="http://golang.org/doc/GoCourseDay3.pdf" />
+</reference>
+
+<reference anchor="go_nuts_interfaces">
+  <front>
+    <title>Function accepting a slice of interface types</title>
+    <author fullname="Go Community" initials="G." surname="Community" />
+    <date year="2010" />
+  </front>
+</reference>
+
+<reference anchor="go_issue_65">
+  <front>
+    <title>Go issue 65: compiler can't spot guaranteed return in if statement</title>
+    <author fullname="Go Community" initials="G." surname="Community" />
+    <date year="2010" />
+  </front>
+</reference>
+
+<reference anchor="go_blog_panic">
+  <front>
+    <title>Defer, panic, and recover</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="https://blog.golang.org/defer-panic-and-recover" />
+</reference>
+
+<reference anchor="go_faq">
+  <front>
+    <title>Go faq</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://golang.org/doc/go_faq.html" />
+</reference>
+
+<reference anchor="go_release_hist">
+  <front>
+    <title>Go release history</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="http://golang.org/doc/devel/release.html" />
+</reference>
+
+<reference anchor="go_profiling">
+  <front>
+    <title>Profiling Go programs</title>
+    <author fullname="Russ Cox" initials="R." surname="Cox" />
+    <date year="2011" />
+  </front>
+  <format type="HTML" target="http://blog.golang.org/2011/06/profiling-go-programs.html" />
+</reference>
+
+<reference anchor="go_1_5_release_notes">
+  <front>
+    <title>Go 1.5 Release Notes</title>
+    <author fullname="Go Authors" initials="G." surname="Authors" />
+    <date year="2010" />
+  </front>
+  <format type="HTML" target="https://golang.org/doc/go1.5" />
+</reference>

@@ -5,7 +5,7 @@ all: learninggo.html
 
 .PHONY: learninggo.html
 learninggo.html:
-	$(MMARK) -html -head inc/head.html -css inc/learninggo.css learninggo.md > learninggo.html
+	$(MMARK) -html -head inc/head.html -css inc/book.css learninggo.md > learninggo.html
 
 .PHONY: learninggo.xml
 learninggo.xml:
