@@ -1,9 +1,9 @@
-# Table of contents
+# 目录
 
-* [前言](README.md)
+* [前言](preface.md)
 
 ## 简介
 
-* [简介](jian-jie/jian-jie.md)
-* [官方文档](jian-jie/guan-fang-wen-dang.md)
+* [简介](introduction/introduction.md)
+* [官方文档](introduction/official-docs.md)
 
