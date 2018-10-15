@@ -1,6 +1,6 @@
 package main //<<1>>
 
-import "fmt" //<<2>> // 引用格式化输出
+import "fmt" // 引用格式化输出 //<<2>>
 
 /* Print something */ //<<3>>
 
