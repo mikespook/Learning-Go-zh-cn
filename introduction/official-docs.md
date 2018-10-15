@@ -6,4 +6,4 @@ Go 已经有大量的文档。例如 A Tour of Go[@go_tour] 和 Effective Go[@ef
 $ godoc buildin
 ```
 
-关于如何安装 `godoc` 命令可以参考[附录](#附录)中的内容。
+关于如何安装和使用 `godoc` 命令可以参考[附录](#附录)中的内容。
