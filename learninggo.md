@@ -19,10 +19,10 @@
 {{introduction/feature.md}}
 
 # 基础
-{{basic/epigraph.md}}
-{{basic/index.md}}
+{{basics/epigraph.md}}
+{{basics/index.md}}
 ## Hello world
-{{basic/helloworld.md}}
+{{basics/helloworld.md}}
 
 {{inc/bib.xml}}
 {backmatter}
