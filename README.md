@@ -13,5 +13,6 @@
 
 ## 编译
 
-* 下载二进制版本的 mmark 或使用 `go get github.com/mmarkdown/mmark` 命令直接安装
-* 运行 `make` 生成 html 文件
+- 下载二进制版本的 mmark 或使用 `go get github.com/mmarkdown/mmark` 命令直接安装, go 1.16 请使用 `go install github.com/mmarkdown/mmark@latest` 命令进行安装
+
+- 运行 `make` 生成 html 文件
